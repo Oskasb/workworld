@@ -1,0 +1,62 @@
+<html>
+
+<head>
+
+    <title>world</title>
+
+    <link rel="stylesheet" type="text/css" href="./client/css/base.css" />
+
+    <script src="./client/js/ENUMS.js"></script>
+    <script src="./client/js/lib/three/inflate.min.js"></script>
+    <script src="./client/js/lib/three/three.js"></script>
+    <script src="./client/js/lib/three/OBJLoader.js"></script>
+    <script src="./client/js/lib/three/FBXLoader.js"></script>
+    <script src="./client/js/lib/three/ColladaLoader2.js"></script>
+    <script src="./client/js/lib/three/OrbitControls.js"></script>
+    <script src="./client/js/3d/three/THREE.Terrain.js"></script>
+    <script src="./client/js/lib/three/SkyShader.js"></script>
+
+    <script data-main="./client/js/Main" src="./client/js/lib/require.js"></script>
+
+</head>
+
+<body id="canvas_window"></body>
+
+<script>
+
+
+    window.SYSTEM_SETUP = {
+        DEBUG:{
+            on:false
+        }
+    };
+
+    window.pollingOn = false;
+
+    require.config({
+        paths: {
+            WorkerAPI:'./worker/WorkerAPI',
+            ThreeAPI:'./3d/three/ThreeAPI',
+            EffectsAPI:'./3d/effects/EffectsAPI',
+            PipelineAPI:'./io/PipelineAPI',
+            data_pipeline:'./lib/data_pipeline/src/'
+        }
+    });
+
+    require([
+        'Events',
+        'application/FullScreenConfigurator'
+    ], function(
+        evt,
+        FullScreenConfigurator
+    ) {
+
+        new FullScreenConfigurator();
+
+    });
+
+
+
+</script>
+
+</html>
