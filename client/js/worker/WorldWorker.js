@@ -5,6 +5,7 @@ var window = self;
 var postMessage = self.postMessage;
 
 importScripts(baseUrl+'client/js/ENUMS.js');
+importScripts(baseUrl+'client/js/MATH.js');
 importScripts(baseUrl+'client/js/lib/three/three.js');
 importScripts(baseUrl+'client/js/lib/three/OBJLoader.js');
 importScripts(baseUrl+'client/js/lib/ammo/ammo.wasm.js');

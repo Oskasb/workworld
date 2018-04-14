@@ -21,23 +21,21 @@ define([
     var divId = 'canvas_window';
     
     var ThreeController = function() {
-        new ThreeCamera();
+
     };
 
     ThreeController.setupThreeRenderer = function(ready) {
-
-
+        new ThreeCamera();
         console.log("Setup Three Renderer");
 
         pxRatio = window.devicePixelRatio;
-        var antialias = PipelineAPI.readCachedConfigKey('SETUP', 'ANTIALIAS');;
+
+        var antialias = PipelineAPI.readCachedConfigKey('SETUP', 'ANTIALIAS');
         pxRatio =  PipelineAPI.readCachedConfigKey('SETUP', 'PX_SCALE');
 
         ThreeAPI.initThreeScene(GameScreen.getElement(), pxRatio, antialias);
 
         PipelineAPI.setCategoryKeyValue('GAME_DATA', 'CAMERA', ThreeAPI.getCamera());
-
-
 
         setTimeout(function() {
 
@@ -132,8 +130,6 @@ define([
         }, 100);
 
     };
-
-
 
     return ThreeController;
 

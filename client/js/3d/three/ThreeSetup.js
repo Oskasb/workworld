@@ -32,7 +32,7 @@ define(['../../ui/GameScreen',
 
     }
 
-    var avgTfp = 0;
+    var avgTfp = 0.1;
 
     ThreeSetup.callPrerender = function(time) {
         requestAnimationFrame( ThreeSetup.callPrerender );
@@ -42,12 +42,9 @@ define(['../../ui/GameScreen',
 
     //    if (tpf < 0.03) return;
 
-
         idle = (performance.now() / 1000) - renderEnd;
 
         PipelineAPI.setCategoryKeyValue('STATUS', 'TIME_ANIM_IDLE', idle);
-
-
 
         lastTime = time;
 
@@ -85,10 +82,6 @@ define(['../../ui/GameScreen',
     ThreeSetup.initThreeRenderer = function(pxRatio, antialias, containerElement, store) {
         initTime = performance.now();
 
-        lastTime = 0;
-        init();
-        ThreeSetup.callPrerender(0.1);
-
         function init() {
 
             scene = new THREE.Scene();
@@ -96,22 +89,25 @@ define(['../../ui/GameScreen',
             camera = new THREE.PerspectiveCamera( 45, containerElement.innerWidth / containerElement.innerHeight, 0.3, 5000 );
             camera.position.z = 10;
 
-         //   console.log("Three Camera:", camera);
-            
-
-            // renderer = new THREE.WebGLRenderer( { antialias:antialias, devicePixelRatio: pxRatio });
+            console.log("Three Camera:", camera);
 
             renderer = new THREE.WebGLRenderer( { antialias:antialias, devicePixelRatio: pxRatio });
-
             renderer.setPixelRatio( pxRatio );
-                        
+
             containerElement.appendChild(renderer.domElement);
         }
+
+        lastTime = 0;
+        init();
+        ThreeSetup.callPrerender(0.1);
+
 
         store.scene = scene;
         store.camera = camera;
         store.renderer = renderer;
-        
+
+        console.log("initThreeRenderer",pxRatio, antialias, containerElement, store);
+
         return store;
     };
 

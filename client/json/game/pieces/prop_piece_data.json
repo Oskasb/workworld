@@ -1,0 +1,114 @@
+[{
+  "PIECE_DATA":{
+    "PIECES":[
+      {
+        "id":"piece_box_crate",
+        "data":{
+          "root_slot":"piece_root",
+          "combat_stats":{
+            "health":15,
+            "armor":4
+          },
+          "slots":[
+            {"slot":"piece_root",         "module":"module_root_box_crate"},
+            {"slot":"combat",             "module":"combat_module"         }
+          ],
+          "attachments":[
+            {"slot":"piece_root",         "ap":"ap_combat",     "child":"combat" }
+          ]
+        }
+      },
+      {
+        "id":"piece_wooden_crate_2m",
+        "data":{
+          "root_slot":"piece_root",
+          "combat_stats":{
+            "health":4,
+            "armor":1
+          },
+          "slots":[
+            {"slot":"piece_root",         "module":"module_root_wooden_crate_2m"},
+            {"slot":"combat",             "module":"combat_module"         }
+          ],
+          "attachments":[
+            {"slot":"piece_root",         "ap":"ap_combat",     "child":"combat" }
+          ]
+        }
+      },      {
+        "id":"piece_creative_crate",
+        "data":{
+          "root_slot":"piece_root",
+          "combat_stats":{
+            "health":5,
+            "armor":3
+          },
+          "slots":[
+            {"slot":"piece_root",         "module":"module_root_creative_crate_medium"},
+            {"slot":"combat",             "module":"combat_module"         }
+          ],
+          "attachments":[
+            {"slot":"piece_root",         "ap":"ap_combat",     "child":"combat" }
+          ]
+        }
+      },
+      {
+        "id":"piece_oil_drum",
+        "data":{
+          "root_slot":"piece_root",
+          "combat_stats":{
+            "health":7,
+            "armor":2
+          },
+          "slots":[
+            {"slot":"piece_root",         "module":"module_root_oil_drum"},
+            {"slot":"combat",             "module":"combat_module"       }
+          ],
+          "attachments":[
+            {"slot":"piece_root",         "ap":"ap_combat",     "child":"combat" }
+          ]
+        }
+      },
+      {
+        "id":"piece_wall_50_rock",
+        "data":{
+          "root_slot":"piece_root",
+          "slots":[
+            {"slot":"piece_root",         "module":"module_wall_rock_50"}
+          ],
+          "attachments":[]
+        }
+      },
+
+      {
+        "id":"piece_giant_skateramp",
+        "data":{
+          "root_slot":"piece_root",
+          "slots":[
+            {"slot":"piece_root",         "module":"module_giant_skateramp"}
+          ],
+          "attachments":[]
+        }
+      },
+      {
+        "id":"piece_platform_10x6",
+        "data":{
+          "root_slot":"piece_root",
+          "slots":[
+            {"slot":"piece_root",         "module":"module_platform_10x6"}
+          ],
+          "attachments":[]
+        }
+      },
+      {
+        "id":"piece_platform_35x25",
+        "data":{
+          "root_slot":"piece_root",
+          "slots":[
+            {"slot":"piece_root",         "module":"module_platform_35x25"}
+          ],
+          "attachments":[]
+        }
+      }
+    ]
+  }
+}]

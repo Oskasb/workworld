@@ -1,0 +1,16 @@
+[{
+  "PIECE_DATA":{
+    "ACTORS":[
+      {
+        "id":"default_terrain_actor",
+        "data":{
+          "piece":"default_terrain_piece",
+          "controls":"passive_control_piece",
+          "physics":"physical_terrain",
+          "alignment":null,
+          "state_map":[]
+        }
+      }
+    ]
+  }
+}]

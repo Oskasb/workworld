@@ -44,7 +44,7 @@ define([
         var pipelineOn = pollingOn;
         window.jsonConfigUrls = 'client/json/';
         if (window.location.href == 'http://127.0.0.1:5000/' || window.location.href ==  'http://localhost:5000/' || window.location.href ==  'http://192.168.0.100:5000/') {
-        //    pipelineOn = true;
+            //    pipelineOn = true;
         }
 
         var dataPipelineSetup = {
@@ -91,20 +91,20 @@ define([
         var loadState = loadStates.SHARED_FILES;
 
         DataLoader.prototype.preloadImages = function() {
-            
+
             var imageOk = function(src, data) {
-        //        console.log("imageok:", src, data);
+                //        console.log("imageok:", src, data);
             };
 
             var imageFail = function(src, err) {
-        //        console.log("image cache fail", erc, err)
+                //        console.log("image cache fail", erc, err)
             }
 
             ThreeAPI.initThreeLoaders(ThreeAPI);
 
             var styles = PipelineAPI.getCachedConfigs()['styles'];
 
-    //        console.log("STYLES ", styles);
+            //        console.log("STYLES ", styles);
 
             var imageStore = [];
 
@@ -118,7 +118,7 @@ define([
                 }
             }
 
-        //    console.log("Image count: ", imageStore.length, imageStore)
+            //    console.log("Image count: ", imageStore.length, imageStore)
 
 
         };
@@ -126,11 +126,11 @@ define([
         DataLoader.prototype.getStates = function() {
             return loadStates;
         };
-        
+
         DataLoader.prototype.setupPipelineCallback = function(loadStateChange) {
 
         };
-        
+
         DataLoader.prototype.loadData = function(ClientViewer, PointerCursor, sceneController, onReady) {
 
             var _this = this;
@@ -144,15 +144,15 @@ define([
                 client = new ClientViewer(new PointerCursor(), sceneController);
 
                 client.setupSimulation(clientReady);
-            //    if (onReady) {
+                //    if (onReady) {
 
-            //    }
+                //    }
 
             };
 
 
             var loadStateChange = function(state) {
-            //    console.log('loadStateChange', state)
+                //    console.log('loadStateChange', state)
                 if (state == _this.getStates().IMAGES) {
                     _this.preloadImages();
                 }
@@ -164,9 +164,9 @@ define([
             };
 
             evt.fire(evt.list().MESSAGE_UI, {channel:'pipeline_message', message:window.location.href});
-            
+
             function pipelineCallback(started, remaining, loaded, files) {
-            //   console.log("SRL", loadState, started, remaining, loaded, files);
+                //   console.log("SRL", loadState, started, remaining, loaded, files);
 
                 PipelineAPI.setCategoryKeyValue("STATUS", "FILE_CACHE", loaded);
 
@@ -197,21 +197,21 @@ define([
 
 
             var sharedFilesLoaded = function() {
-         //       console.log('sharedFilesLoaded')
+                //       console.log('sharedFilesLoaded')
                 evt.fire(evt.list().SHARED_LOADED, {});
                 function pipelineError(src, e) {
                     console.log("Pipeline error Ready", src, e);
                     evt.fire(evt.list().MESSAGE_UI, {channel:'pipeline_error', message:'Pipeline Error '+src+' '+e});
                 }
                 evt.fire(evt.list().MESSAGE_UI, {channel:'pipeline_message', message:"Request Worker Fetch"});
-            //    PipelineAPI.setCategoryData(jsonRegUrl, dataPipelineSetup, pipelineError);
+                //    PipelineAPI.setCategoryData(jsonRegUrl, dataPipelineSetup, pipelineError);
                 PipelineAPI.dataPipelineSetup(jsonRegUrl, dataPipelineSetup, pipelineError);
 
             };
 
 
             var sharedLoaded = function() {
-        //        console.log("Shared Loaded:", count, loadUrls.length, PipelineAPI.checkReadyState());
+                //        console.log("Shared Loaded:", count, loadUrls.length, PipelineAPI.checkReadyState());
 
                 evt.fire(evt.list().MESSAGE_UI, {channel:'pipeline_message', message:"Shared Loaded"});
                 setTimeout(function() {
@@ -219,19 +219,17 @@ define([
                     _this.setupPipelineCallback(loadStateChange);
                     sharedFilesLoaded();
                 }, 0);
-8
+                8
             };
 
 
             var filesLoaded = function() {
 
-                    setTimeout(function() {
-                        sharedLoaded();
-                    }, 0)
-                
+                setTimeout(function() {
+                    sharedLoaded();
+                }, 0)
+
             };
-
-
 
 
             var loadJS = function(url, location){
@@ -243,7 +241,7 @@ define([
                     if (loadUrls.length != 0) {
                         loadJS(loadUrls.shift(), document.body);
                     } else {
-                //        console.log('scripts loaded',e);
+                        //        console.log('scripts loaded',e);
                         filesLoaded();
                     }
                 };
@@ -261,26 +259,18 @@ define([
 
             var particles = false;
 
-
-
-
-        //    evt.once(evt.list().PARTICLES_READY, particlesReady);
+            //    evt.once(evt.list().PARTICLES_READY, particlesReady);
 
             PipelineAPI.addReadyCallback(pipelineReady);
 
-
-
         };
-
 
         DataLoader.prototype.notifyCompleted = function() {
 
             evt.fire(evt.list().PLAYER_READY, {});
             loadProgress.removeProgress();
-        };        
+        };
 
         return DataLoader;
 
     });
-
-

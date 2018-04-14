@@ -1,0 +1,84 @@
+[{
+  "WEAPON_DATA":{
+    "WEAPONS":[
+
+      {
+        "id":"turret_sherman_tank",
+        "data":{
+          "turret":{
+            "name":"Main Turret",
+            "options":{
+              "range":235,
+              "targetting":"activated_selection",
+              "turn_speed":0.003,
+              "axis_factors":[0, 1, 0, 1],
+              "default_quat":[0, 1, 0, 0]
+            }
+          },
+          "control_map":[
+          ],
+          "feedback_map":[
+            {"param":"dynamic",     "key":"aimYaw",          "property":"state", "stateid":"aim_turret_yaw",          "factor":1},
+            {"param":"dynamic",     "key":"quatY",           "property":"state", "stateid":"quat_turret_y",           "factor":1},
+            {"param":"dynamic",     "key":"quatW",           "property":"state", "stateid":"quat_turret_w",           "factor":1}
+
+          ],
+          "state_map":[
+
+          ]
+        }
+      },
+      {
+        "id":"turret_sherman_cannon",
+        "data":{
+          "turret":{
+            "name":"Main Cannon",
+            "options":{
+              "range":235,
+              "targetting":"activated_selection",
+              "turn_speed":0.002,
+              "axis_factors":[1, 0, 0, 1],
+              "default_quat":[0, 1, 0, 0]
+            }
+          },
+          "control_map":[],
+          "feedback_map":[
+            {"param":"dynamic",     "key":"aimPitch",        "property":"state", "stateid":"aim_cannon_pitch",          "factor":1},
+            {"param":"dynamic",     "key":"quatX",           "property":"state", "stateid":"quat_cannon_x",             "factor":1},
+            {"param":"dynamic",     "key":"quatW",           "property":"state", "stateid":"quat_cannon_w",             "factor":1}
+          ],
+          "state_map":[
+
+          ]
+        }
+      },
+      {
+        "id":"turret_swivel_gun",
+        "data":{
+          "turret":{
+            "name":"Swivel Turret",
+            "options":{
+              "range":40,
+              "targetting":"nearest_hostile",
+              "turn_speed":0.015,
+              "axis_factors":[1, 1, 0, 1],
+              "default_quat":[0, 1, 0, 0]
+            }
+          },
+          "control_map":[],
+          "feedback_map":[
+            {"param":"dynamic",     "key":"aimPitch",        "property":"state", "stateid":"aim_swivel_pitch",          "factor":1},
+            {"param":"dynamic",     "key":"aimYaw",          "property":"state", "stateid":"aim_swivel_yaw",            "factor":1},
+            {"param":"dynamic",     "key":"quatX",           "property":"state", "stateid":"quat_swivel_x",             "factor":1},
+            {"param":"dynamic",     "key":"quatY",           "property":"state", "stateid":"quat_swivel_y",             "factor":1},
+            {"param":"dynamic",     "key":"quatW",           "property":"state", "stateid":"quat_swivel_w",             "factor":1}
+          ],
+          "state_map":[
+
+          ]
+        }
+      }
+
+    ]
+  }
+}]

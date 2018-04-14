@@ -1,0 +1,144 @@
+[{
+  "PIECE_DATA":{
+    "PIECES":[
+      {
+        "id":"passive_control_piece",
+        "data":{
+          "root_slot":"root",
+          "slots":[
+            {"slot":"root",         "module":"control_root_module"   }
+          ],
+          "attachments":[]
+        }
+      },
+
+      {
+        "id":"activated_control_piece_hidden",
+        "data":{
+          "root_slot":"root",
+          "slots":[
+            {"slot":"root",         "module":"control_root_module"   },
+            {"slot":"pointer_state",    "module":"control_pointer_module"},
+            {"slot":"control_selector", "module":"control_activator_module"}
+          ],
+          "attachments":[
+            {"slot":"root",         "ap":"ap_pointer_state","child":"pointer_state" },
+            {"slot":"pointer_state",   "ap":"ap_element",      "child":"control_selector"}
+          ]
+        }
+      },
+
+      {
+        "id":"activated_control_piece",
+        "data":{
+          "root_slot":"root",
+          "slots":[
+            {"slot":"root",         "module":"control_root_module"   },
+              {"slot":"pointer_state",    "module":"control_pointer_module"},
+                {"slot":"control_selector", "module":"control_activator_module"},
+                  {"slot":"slot_0_cursor",    "module":"activator_inner_module_1"},
+                  {"slot":"slot_0_highlight", "module":"activator_outer_module_1"},
+                  {"slot":"slot_2_cursor",    "module":"activator_inner_module_2"},
+                  {"slot":"slot_2_highlight", "module":"activator_outer_module_2"}
+          ],
+          "attachments":[
+            {"slot":"root",         "ap":"ap_pointer_state","child":"pointer_state" },
+              {"slot":"pointer_state",   "ap":"ap_element",      "child":"control_selector"},
+                {"slot":"control_selector","ap":"ap_element_0",    "child":"slot_0_cursor"},
+                  {"slot":"slot_0_cursor",    "ap":"ap_element",    "child":"slot_0_highlight"},
+                {"slot":"control_selector","ap":"ap_element_2",    "child":"slot_2_cursor"},
+                  {"slot":"slot_2_cursor",    "ap":"ap_element",    "child":"slot_2_highlight"}
+          ]
+        }
+      },
+      {
+        "id":"selector_control_piece_hidden",
+        "data":{
+          "root_slot":"root",
+          "slots":[
+            {"slot":"root",         "module":"control_root_module"   },
+            {"slot":"pointer_state",    "module":"control_pointer_module"},
+            {"slot":"control_selector", "module":"control_selector_module"}
+
+          ],
+          "attachments":[
+            {"slot":"root",         "ap":"ap_pointer_state","child":"pointer_state" },
+            {"slot":"pointer_state",   "ap":"ap_element",      "child":"control_selector"}
+          ]
+        }
+      },
+      {
+        "id":"selector_control_piece",
+        "data":{
+          "root_slot":"root",
+          "slots":[
+            {"slot":"root",         "module":"control_root_module"   },
+            {"slot":"pointer_state",    "module":"control_pointer_module"},
+            {"slot":"control_selector", "module":"control_selector_module"},
+            {"slot":"control_highlight","module":"control_selected_highlight_module"}
+
+          ],
+          "attachments":[
+            {"slot":"root",         "ap":"ap_pointer_state","child":"pointer_state" },
+
+              {"slot":"pointer_state",   "ap":"ap_element",      "child":"control_selector"},
+                {"slot":"control_selector",   "ap":"ap_element_0",      "child":"control_highlight"}
+
+          ]
+        }
+      },
+      {
+        "id":"cursor_control_piece",
+        "data":{
+          "root_slot":"root",
+          "slots":[
+            {"slot":"root",         "module":"control_root_module"   },
+            {"slot":"pointer_state","module":"control_pointer_module"},
+            {"slot":"slot_cursor",  "module":"cursor_inner_module"},
+            {"slot":"slot_highlight", "module":"cursor_outer_module"}
+        ],
+          "attachments":[
+            {"slot":"root",         "ap":"ap_pointer_state","child":"pointer_state" },
+            {"slot":"pointer_state","ap":"ap_element",      "child":"slot_cursor"},
+            {"slot":"pointer_state","ap":"ap_element",      "child":"slot_highlight"}
+          ]
+        }
+      },
+      {
+        "id":"piece_control_vehicle",
+        "data":{
+          "root_slot":"root",
+          "slots":[
+            {"slot":"root",         "module":"control_root_module"   },
+              {"slot":"pointer_state","module":"control_pointer_module"},
+
+              {"slot":"state_heading","module":"control_heading_module"},
+              {"slot":"state_reverse_root", "module":"control_backwards_module"},
+                {"slot":"state_yaw",           "module":"control_yaw_module"},
+                {"slot":"state_yaw_reverse",   "module":"control_yaw_reverse_module"},
+
+                  {"slot":"state_forward",      "module":"control_forward_module"},
+                  {"slot":"state_reverse",      "module":"control_reverse_module"},
+                    {"slot":"slot_forward_highlight","module":"highlight_forward_module"},
+                    {"slot":"slot_reverse_highlight","module":"highlight_reverse_module"}
+
+          ],
+          "attachments":[
+            {"slot":"root",         "ap":"ap_pointer_state","child":"pointer_state" },
+              {"slot":"pointer_state","ap":"ap_element",      "child":"state_heading"},
+              {"slot":"pointer_state","ap":"ap_element",      "child":"state_reverse_root"},
+
+                {"slot":"state_heading",      "ap":"ap_yaw",          "child":"state_yaw"},
+                {"slot":"state_reverse_root", "ap":"ap_yaw_reverse",  "child":"state_yaw_reverse"},
+                  {"slot":"state_yaw",            "ap":"ap_forward",      "child":"state_forward"},
+                  {"slot":"state_yaw_reverse",    "ap":"ap_reverse",      "child":"state_reverse"},
+
+                    {"slot":"state_forward",         "ap":"ap_highlight",      "child":"slot_forward_highlight"},
+                    {"slot":"state_reverse",         "ap":"ap_highlight",      "child":"slot_reverse_highlight"}
+
+          ]
+        }
+      }
+    ]
+  }
+}]

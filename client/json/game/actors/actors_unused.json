@@ -1,0 +1,33 @@
+[{
+  "PIECE_DATA":{
+    "ACTORS":[
+      {
+        "id":"actor_prop_giant_skateramp",
+        "data":{
+          "piece":"piece_giant_skateramp",
+          "alignment":"neutral",
+          "physics":"physical_giant_skateramp",
+          "state_map":[]
+        }
+      },
+      {
+        "id":"actor_prop_platform_35x25",
+        "data":{
+          "piece":"piece_platform_35x25",
+          "alignment":"neutral",
+          "physics":"physical_platform_35x25",
+          "state_map":[]
+        }
+      },
+      {
+        "id":"actor_prop_platform_10x6",
+        "data":{
+          "piece":"piece_platform_10x6",
+          "alignment":"neutral",
+          "physics":"physical_platform_10x6",
+          "state_map":[]
+        }
+      }
+    ]
+  }
+}]

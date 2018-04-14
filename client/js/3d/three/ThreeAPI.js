@@ -10,7 +10,6 @@ define([
         '3d/three/ThreeEnvironment',
         '3d/three/ThreeRenderFilter',
         '3d/three/ThreeSpatialFunctions'
-
 ],
     function(
         ThreeSetup,
@@ -22,7 +21,6 @@ define([
         ThreeEnvironment,
         ThreeRenderFilter,
         ThreeSpatialFunctions
-        
     ) {
 
         var shaderBuilder;
@@ -30,38 +28,47 @@ define([
         var renderer;
         var camera;
         var scene;
-
         var spatialFunctions;
-
         var effectCallbacks;
-
         var renderFilter;
 
         var ThreeAPI = function() {
 
         };
 
-        ThreeAPI.initThreeLoaders = function(TAPI) {
+        ThreeAPI.initThreeLoaders = function() {
             shaderBuilder = new ThreeShaderBuilder();
             spatialFunctions = new ThreeSpatialFunctions();
             renderFilter = new ThreeRenderFilter();
-            ThreeModelLoader.loadData();
-            ThreeModelLoader.loadTerrainData(TAPI);
-            ThreeTextureMaker.loadTextures();
-            ThreeMaterialMaker.loadMaterialist();
             ThreeEnvironment.loadEnvironmentData();
         };
 
-        ThreeAPI.initThreeScene = function(containerElement, pxRatio, antialias) {
-            var store = {}; 
-            store = ThreeSetup.initThreeRenderer(pxRatio, antialias, containerElement, store);
+        ThreeAPI.initEnvironment = function(store) {
+            ThreeEnvironment.loadEnvironmentData();
             ThreeEnvironment.initEnvironment(store);
+            ThreeEnvironment.enableEnvironment();
+        };
+
+        ThreeAPI.initThreeScene = function(containerElement, pxRatio, antialias) {
+            var store = {};
+            store = ThreeSetup.initThreeRenderer(pxRatio, antialias, containerElement, store);
+            ThreeAPI.initEnvironment(store);
             glContext = store.renderer.context;
             scene = store.scene;
             camera = store.camera;
             renderer = store.renderer;
-            shaderBuilder.loadShaderData(glContext);
             ThreeSetup.addPrerenderCallback(ThreeModelLoader.updateActiveMixers);
+        };
+
+        ThreeAPI.loadThreeData = function(TAPI) {
+            ThreeModelLoader.loadData();
+            ThreeModelLoader.loadTerrainData(TAPI);
+            ThreeTextureMaker.loadTextures();
+            ThreeMaterialMaker.loadMaterialist();
+        };
+
+        ThreeAPI.loadShaders = function() {
+            shaderBuilder.loadShaderData(glContext);
         };
 
         ThreeAPI.getTimeElapsed = function() {
@@ -111,8 +118,6 @@ define([
         ThreeAPI.getRenderer = function() {
             return renderer;
         };
-
-        
 
         ThreeAPI.plantVegetationAt = function(pos, normalStore) {
             return ThreeModelLoader.terrainVegetationAt(pos, normalStore);

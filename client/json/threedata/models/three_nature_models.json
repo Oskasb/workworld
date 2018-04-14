@@ -1,0 +1,87 @@
+[
+  {
+    "MODELS": {
+      "THREE": [
+        {
+          "id": "rock_10m",
+          "material": "main_atlas",
+          "url": "./client/assets/models/rock_10m",
+          "pool": 5,
+          "transform": {
+            "pos": [3, -6, 8],
+            "rot": [0, 0, 0],
+            "scale": [1, 1, 1]
+          }
+        },
+        {
+          "id": "model_tree_1",
+          "material": "main_atlas",
+          "url": "./client/assets/models/trees/tree_1_combined",
+          "pool": 1,
+          "transform": {
+            "pos": [0, -8, 0],
+            "rot": [0, 0, 0],
+            "scale": [0.6, 0.6, 0.6]
+          }
+        },
+        {
+          "id": "model_tree_2_rooted",
+          "material": "main_atlas",
+          "url": "./client/assets/models/trees/tree_2_rooted",
+          "pool": 1,
+          "transform": {
+            "pos": [0, 0, 0],
+            "rot": [0, 0, 0],
+            "scale": [1, 1, 1]
+          }
+        },
+
+        {
+          "id": "model_tree_2_trunk",
+          "material": "main_atlas",
+          "url": "./client/assets/models/trees/tree_2_trunk",
+          "pool": 1,
+          "transform": {
+            "pos": [0,-5, 0],
+            "rot": [0, 0, 0],
+            "scale": [0.5, 0.5, 0.5]
+          }
+        },
+        {
+          "id": "model_tree_2_stump",
+          "material": "main_atlas",
+          "url": "./client/assets/models/trees/tree_2_stump",
+          "pool": 1,
+          "transform": {
+            "pos": [0, 0.5, 0],
+            "rot": [0, 0, 0],
+            "scale":[0.5, 0.5, 0.5]
+          }
+        },
+        {
+          "id": "model_tree_3_combined",
+          "material": "main_atlas",
+          "url": "./client/assets/models/trees/tree_3_combined",
+          "pool": 1,
+          "transform": {
+            "pos": [0, 0, 0],
+            "rot": [0, 0, 0],
+            "scale": [1, 1, 1]
+          }
+        },
+
+        {
+          "id": "tree_model_4",
+          "material": "main_atlas",
+          "url": "./client/assets/models/trees/tree_4_combined",
+          "pool": 1,
+          "transform": {
+            "pos": [0, -5, 0],
+            "rot": [0, 0, 0],
+            "scale": [0.5, 0.5, 0.5]
+          }
+        }
+      ]
+    }
+  }
+]

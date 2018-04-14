@@ -1,0 +1,473 @@
+[{
+  "MODULE_DATA":{
+    "MODULES":[
+
+      {
+        "id":"module_enemy_oomba",
+        "data":{
+          "transform":{
+            "rot":  [0,      0,    0],
+            "pos":  [0,      0,    0],
+            "size": [5.0,    3,    5]
+          },
+          "channels":[
+            {"channelid":"channel_actor_active",   "stateid": "state_active"},
+            {"channelid":"channel_pos_x",  "stateid": "state_pos_x"},
+            {"channelid":"channel_pos_y",  "stateid": "state_pos_y"},
+            {"channelid":"channel_pos_z",  "stateid": "state_pos_z"},
+            {"channelid":"channel_quat_x", "stateid": "quat_state_x"},
+            {"channelid":"channel_quat_y", "stateid": "quat_state_y"},
+            {"channelid":"channel_quat_z", "stateid": "quat_state_z"},
+            {"channelid":"channel_quat_w", "stateid": "quat_state_w"},
+            {"channelid":"fire_channel",   "stateid": "fire_state"},
+            {"channelid":"channel_visual_module_enemy_oomba",   "stateid": "state_active"}
+          ],
+          "attachment_points":[
+            {"id":"ap_combat",
+              "transform":{
+                "rot":[  0,    0,    0],
+                "pos":[  0,    0,    0]
+              }
+            },
+
+            {"id":"ap_turret",
+              "transform":{
+                "rot":[  0,    0,    0],
+                "pos":[  0,  1.55,    -0.34]
+              }
+            },
+
+            {"id":"ap_steering",
+              "transform":{
+                "rot":[  0,    0,    0],
+                "pos":[  0,  1.65,    0.74]
+              }
+            },
+
+            {"id":"ap_engine",
+              "transform":{
+                "rot":[-3.05,   0,    0],
+                "pos":[0.0,  1.05, -2.1]
+              }
+            },
+
+            {"id":"ap_thrust_0",
+              "transform":{
+                "rot":[1.9,     0,   0.2],
+                "pos":[1.3,  -0.55, -1.3]
+              }
+            },
+
+            {"id":"ap_thrust_1",
+              "transform":{
+                "rot":[ 1.9,      0, -0.2],
+                "pos":[-1.3,  -0.55, -1.3]
+              }
+            },
+
+            {"id":"ap_thrust_2",
+              "transform":{
+                "rot":[1.8,   3.14,  0.2],
+                "pos":[1.3,  -0.55,  1.3]
+              }
+            },
+
+
+            {"id":"ap_thrust_3",
+              "transform":{
+                "rot":[ 1.8,   3.14,  -0.2],
+                "pos":[-1.3,  -0.55,  1.3]
+              }
+            }
+          ]
+        }
+      },
+      {
+        "id":"hovercraft_steering_module",
+        "data":{
+          "transform":{
+            "rot":  [0,     0,    0],
+            "pos":  [0,     0,    0],
+            "size": [0.4, 0.3,   0.4]
+          },
+          "channels":[
+            {"channelid":"engine_power_channel",  "stateid":"state_control_thrust"},
+            {"channelid":"channel_roll",          "stateid":"state_control_roll"},
+            {"channelid":"channel_yaw",           "stateid":"state_control_yaw"},
+            {"channelid":"channel_pitch",         "stateid":"state_control_pitch"}
+          ]
+        }
+      },
+      {
+        "id":"module_swivel_cannon_20mm",
+        "data":{
+          "transform":{
+            "rot":  [0,      0,    0],
+            "pos":  [0,      0,    0],
+            "size": [1.0,    1,    3]
+          },
+          "turrets":["turret_swivel_gun"],
+          "weapons":["weapon_20mm_swivel_gun"],
+          "channels":[
+            {"channelid":"channel_trigger",             "stateid": "command_swivel_trigger"},
+            {"channelid":"channel_aim_yaw",             "stateid": "aim_swivel_yaw"},
+            {"channelid":"channel_aim_pitch",           "stateid": "aim_swivel_pitch"},
+            {"channelid":"channel_quat_x",              "stateid": "quat_swivel_x"},
+            {"channelid":"channel_quat_y",              "stateid": "quat_swivel_y"},
+            {"channelid":"channel_quat_w",              "stateid": "quat_swivel_w"},
+            {"channelid":"channel_bullet_activate",     "stateid": "command_bullet_activate" },
+            {"channelid":"channel_visual_module_swivel_cannon_20mm",     "stateid": "state_active"}
+
+          ],
+          "attachment_points":[
+            {"id":"ap_muzzle",
+              "transform":{
+                "rot":[0,    0,    0],
+                "pos":[0,  0.32, 2.8]
+              }
+            }
+          ]
+        }
+      },
+
+      {
+        "id":"oomba_power_module",
+        "data":{
+          "transform":{
+            "rot":  [0.2,   0,    0],
+            "pos":  [0,   0.2,    0],
+            "size": [1.4, 0.7, 1.4]
+          },
+          "channels":[
+            {"channelid":"engine_power_channel", "stateid":"state_engine_power"}
+          ]
+        }
+      },
+
+      {
+        "id":"oomba_thrust_module_0",
+        "data":{
+          "transform":{
+            "rot":  [0.2,   0,    0],
+            "pos":  [0,   0.2,    0],
+            "size": [1.4, 0.7, 1.4]
+          },
+          "channels":[
+            {"channelid":"channel_roll",          "stateid":"state_vector_yaw"},
+            {"channelid":"engine_thrust_channel", "stateid":"state_thruster_0"}
+          ]
+        }
+      },
+
+      {
+        "id":"oomba_thrust_module_1",
+        "data":{
+          "transform":{
+            "rot":  [0.2,   0,    0],
+            "pos":  [0,   0.2,    0],
+            "size": [1.4, 0.7, 1.4]
+          },
+          "channels":[
+            {"channelid":"channel_roll",          "stateid":"state_vector_yaw"},
+            {"channelid":"engine_thrust_channel", "stateid":"state_thruster_1"}
+          ]
+        }
+      },
+      {
+        "id":"oomba_thrust_module_2",
+        "data":{
+          "transform":{
+            "rot":  [0.2,   0,    0],
+            "pos":  [0,   0.2,    0],
+            "size": [1.4, 0.7, 1.4]
+          },
+          "channels":[
+            {"channelid":"channel_roll",          "stateid":"state_vector_yaw"},
+            {"channelid":"engine_thrust_channel", "stateid":"state_thruster_2"}
+          ]
+        }
+      },
+      {
+        "id":"oomba_thrust_module_3",
+        "data":{
+          "transform":{
+            "rot":  [0.2,   0,    0],
+            "pos":  [0,   0.2,    0],
+            "size": [1.4, 0.7, 1.4]
+          },
+          "channels":[
+            {"channelid":"channel_roll",          "stateid":"state_vector_yaw"},
+            {"channelid":"engine_thrust_channel", "stateid":"state_thruster_3"}
+          ]
+        }
+      },
+
+      {
+        "id":"sherman_hull_module",
+        "data":{
+          "transform":{
+            "rot":  [0,   0,    0],
+            "pos":  [0,   0.0,    0],
+            "size": [3,   1.5,  5.5]
+          },
+          "model":"sherman_hull",
+          "channels":[
+            {"channelid":"channel_actor_active",   "stateid": "state_active"},
+            {"channelid":"channel_pos_x",     "stateid": "state_pos_x"},
+            {"channelid":"channel_pos_y",     "stateid": "state_pos_y"},
+            {"channelid":"channel_pos_z",     "stateid": "state_pos_z"},
+            {"channelid":"channel_quat_x",    "stateid": "quat_state_x"},
+            {"channelid":"channel_quat_y",    "stateid": "quat_state_y"},
+            {"channelid":"channel_quat_z",    "stateid": "quat_state_z"},
+            {"channelid":"channel_quat_w",    "stateid": "quat_state_w"},
+            {"channelid":"fire_channel",      "stateid": "fire_state"},
+            {"channelid":"dust_channel",      "stateid": "command_shell_activate"}
+          ],
+
+          "attachment_points":[
+
+            {"id":"ap_combat",
+              "transform":{
+                "rot":[  0,    0,    0],
+                "pos":[  0,    0,    0]
+              }
+            },
+
+            {"id":"ap_turret",
+              "transform":{
+                "rot":[0,   0,    0],
+                "pos":[0,   1.32, 0]
+              }
+            },
+
+            {"id":"ap_track_l",
+              "transform":{
+                "rot":[   0,    0,     0],
+                "pos":[-1.3, -0.5, -0.11]
+              }
+            },
+
+            {"id":"ap_track_r",
+              "transform":{
+                "rot":[  0,    0,     0],
+                "pos":[1.3, -0.5, -0.11]
+              }
+            },
+
+            {"id":"ap_engine",
+              "transform":{
+                "rot":[-1.7,    0,    0],
+                "pos":[0.0,  1.15, 2.0]
+              }
+            }
+          ]
+        }
+      },
+
+      {
+        "id":"sherman_steering_module",
+        "data":{
+          "transform":{
+            "rot":  [0.2,   0,    0],
+            "pos":  [0,     0,    0],
+            "size": [0.4, 0.3,   0.4]
+          },
+          "model":"character_barbarian",
+          "channels":[
+            {"channelid":"channel_brake_cmd",   "stateid":"command_brake"},
+            {"channelid":"dust_channel",        "stateid":"wheel_turn_forward"},
+            {"channelid":"dust_channel",        "stateid":"wheel_turn_reverse"},
+            {"channelid":"channel_quat_y",      "stateid": "quat_swivel_y"},
+            {"channelid":"channel_quat_w",      "stateid": "quat_swivel_w"}
+          ]
+        }
+      },
+
+      {
+        "id":"sherman_engine_module",
+        "data":{
+          "transform":{
+            "rot":  [0.2,   0,    0],
+            "pos":  [0,   0.2,    0],
+            "size": [1.4, 0.7, 1.4]
+          },
+          "channels":[
+            {"channelid":"rpm_channel",    "stateid":"engine_rpm"},
+            {"channelid":"gear_channel",   "stateid":"engine_gear"},
+            {"channelid":"clutch_channel", "stateid":"engine_clutch"},
+            {"channelid":"engine_channel", "stateid":"engine_forward"},
+            {"channelid":"engine_channel", "stateid":"engine_reverse"}
+          ]
+        }
+      },
+
+      {
+        "id":"sherman_track_r_module",
+        "data":{
+          "transform":{
+            "rot":  [0,   0,    0],
+            "pos":  [0,   0,    0],
+            "size": [0.8, 0.3,   5.3]
+          },
+          "model":"sherman_track_r",
+          "channels":[
+            {"channelid":"dust_channel",   "stateid":"command_shell_activate"},
+            {"channelid":"track_speed",    "stateid":"track_speed_r"},
+            {"channelid":"track_brake",    "stateid":"track_brake"},
+            {"channelid":"track_rotation", "stateid":"track_rotation_r"}
+          ]
+        }
+      },
+
+      {
+        "id":"sherman_track_l_module",
+        "data":{
+          "transform":{
+            "rot":  [0,   0,    0],
+            "pos":  [0,   0,    0],
+            "size": [0.8, 0.3,   5.3]
+          },
+          "model":"sherman_track_l",
+          "channels":[
+            {"channelid":"dust_channel",   "stateid":"command_shell_activate"},
+            {"channelid":"track_speed",    "stateid":"track_speed_l"},
+            {"channelid":"track_brake",    "stateid":"track_brake"},
+            {"channelid":"track_rotation", "stateid":"track_rotation_l"}
+          ]
+        }
+      },
+
+      {
+        "id":"swivel_gun_module",
+        "data":{
+          "transform":{
+            "rot":  [0,     0,    0],
+            "pos":  [0,   0.42, 0.0],
+            "size": [0.3, 0.3,  2.0]
+          },
+          "model":"swivel_gun",
+          "turrets":["turret_swivel_gun"],
+          "weapons":["weapon_swivel_gun"],
+          "channels":[
+            {"channelid":"channel_trigger",             "stateid": "command_swivel_trigger"},
+            {"channelid":"channel_aim_yaw",             "stateid": "aim_swivel_yaw"},
+            {"channelid":"channel_aim_pitch",           "stateid": "aim_swivel_pitch"},
+            {"channelid":"channel_quat_x",              "stateid": "quat_swivel_x"},
+            {"channelid":"channel_quat_y",              "stateid": "quat_swivel_y"},
+            {"channelid":"channel_quat_w",              "stateid": "quat_swivel_w"},
+            {"channelid":"channel_bullet_activate",     "stateid": "command_bullet_activate" }
+          ],
+          "attachment_points":[
+            {"id":"ap_muzzle",
+              "transform":{
+              "rot":[  0,    0,    0],
+              "pos":[0.0,  0.40, 1.4]
+            }
+          }
+          ]
+        }
+      },
+      {
+        "id":"module_muzzle",
+        "data":{
+          "transform":{
+            "rot":  [0,   0,    0],
+            "pos":  [0,   0,    0],
+            "size": [0,   0,    0]
+          },
+
+          "channels":[
+
+          ]
+        }
+      },
+
+      {
+        "id":"sherman_main_gun_module",
+        "data":{
+          "transform":{
+            "rot":  [0,   0,    0],
+            "pos":  [0,   0,  2.6],
+            "size": [0.4, 0.4,5.0]
+          },
+          "model":"sherman_cannon",
+          "turrets":["turret_sherman_cannon"],
+          "weapons":["weapon_turret_main_gun"],
+          "channels":[
+
+            {"channelid":"channel_aim_pitch",           "stateid": "aim_cannon_pitch"},
+            {"channelid":"dust_channel",                "stateid": "command_shell_activate"},
+            {"channelid":"channel_quat_x",              "stateid": "quat_cannon_x"},
+            {"channelid":"channel_quat_w",              "stateid": "quat_cannon_w"},
+            {"channelid":"channel_trigger",             "stateid": "command_cannon_trigger"  },
+            {"channelid":"channel_bullet_activate",     "stateid": "command_shell_activate" }
+
+          ],
+          "attachment_points":[
+            {"id":"ap_muzzle",
+              "transform":{
+                "rot":[  0,    0,    0],
+                "pos":[0.0,  0.0,  5.0]
+              }
+            }
+          ]
+        }
+      },
+
+      {
+        "id":"cannon_muzzle",
+        "data":{
+          "transform":{
+            "rot":  [0,   0,    0],
+            "pos":  [0,   0,    0],
+            "size": [0,   0,    0]
+          },
+
+          "channels":[
+            {"channelid":"channel_cannon_muzzle_fire_effect",  "stateid": "command_shell_activate" }
+          ]
+        }
+      },
+
+      {
+        "id":"sherman_turret_module",
+        "data":{
+          "transform":{
+            "rot":  [0,   0,    0],
+            "pos":  [0,   0.35,-0.5],
+            "size": [2.5, 0.9,  3.5]
+          },
+          "model":"sherman_turret",
+          "turrets":["turret_sherman_tank"],
+          "channels":[
+            {"channelid":"dust_channel",    "stateid": "command_shell_activate"},
+            {"channelid":"channel_aim_yaw", "stateid": "aim_turret_yaw"},
+            {"channelid":"channel_quat_y",  "stateid": "quat_turret_y"},
+            {"channelid":"channel_quat_w",  "stateid": "quat_turret_w"}
+          ],
+
+          "attachment_points":[
+            {"id":"ap_cannon",
+              "transform":{
+                "rot":[0,     0,     0],
+                "pos":[0.0,0.45, 0.85]
+              }
+            },
+            {"id":"ap_gun_swivel",
+              "transform":{
+                "rot":[  0,     0,  0],
+                "pos":[-0.4, 0.85, -0.1]
+              }
+            },
+            {"id":"ap_hatch",
+              "transform":{
+                "rot":[  0,    0,  0],
+                "pos":[-0.4,  -0.46, -0.1]
+              }
+            }
+          ]
+        }
+      }
+    ]
+  }
+}]

@@ -1,0 +1,21 @@
+[{
+  "PIECE_DATA":{
+    "ACTORS":[
+      {
+        "id":"actor_sherman_tank",
+        "data":{
+          "piece":"piece_tank_sherman",
+          "controls":"gui_control_vehicle",
+          "physics":"physical_sherman_tank",
+          "alignment":"GOOD",
+          "state_map":[
+            {"control":"state_forward",       "target":"engine_forward"},
+            {"control":"state_reverse",       "target":"engine_reverse"},
+            {"control":"state_steer_yaw",     "target":"wheel_turn_forward"},
+            {"control":"state_steer_reverse", "target":"wheel_turn_reverse"}
+          ]
+        }
+      }
+    ]
+  }
+}]

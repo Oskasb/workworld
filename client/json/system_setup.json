@@ -1,0 +1,23 @@
+[{
+
+    "setup": {
+        "DEBUG":{
+            "on":false,
+            "autoName":true,
+            "trackTpf":false,
+            "trackTpfAverage":false,
+            "renderInput":false,
+            "renderDistanceSegments":false,
+            "renderSegments":false,
+            "renderCursor":false,
+            "trackPing":false,
+            "trackTraffic":false,
+            "monitorServer":false,
+            "monitorSpatial":false,
+            "monitorModules":false,
+            "monitorBounds":false,
+            "monitorVegetation":false,
+            "graphPoints":50
+        }
+    }
+}]

@@ -5,15 +5,21 @@ if(typeof(ENUMS) === "undefined"){
 
 (function(ENUMS){
 
+
+
     ENUMS.Protocol = {
         WORKER_READY:       0,
         SET_LOOP:           1,
-        NOTIFY_FRAME:       2
+        NOTIFY_FRAME:       2,
+        SET_INPUT_BUFFER:   3,
+        SET_WORLD_BUFFER:   4
     };
 
-    ENUMS.CallName = {
-        WORLD:              0,
-        DATA:               1
+    ENUMS.BufferTypes = {
+        ENVIRONMENT:        0,
+        CAMERA:             1,
+        SPATIAL:            2,
+        TERRAIN:            3
     };
 
     ENUMS.Worker = {
@@ -46,6 +52,22 @@ if(typeof(ENUMS) === "undefined"){
         ACTIVE_HOVER:   8,
         ACTIVE_PRESS:   9,
         DEACTIVATE:     10
+    };
+
+    ENUMS.InputState = {
+        MOUSE_X:        0,
+        MOUSE_Y:        1,
+        WHEEL_DELTA:    2,
+        START_DRAG_X:   3,
+        START_DRAG_Y:   4,
+        DRAG_DISTANCE_X:5,
+        DRAG_DISTANCE_Y:6,
+        ACTION_0:       7,
+        ACTION_1:       8,
+        LAST_ACTION_0:  9,
+        LAST_ACTION_1:  10,
+        PRESS_FRAMES:   11,
+        BUFFER_SIZE:    12
     };
 
     ENUMS.PieceAlignments = {
@@ -133,5 +155,20 @@ if(typeof(ENUMS) === "undefined"){
         channels:'channels'
     };
 
+    var map = {};
+
+    for (var key in ENUMS) {
+        map[key] = {};
+
+        for (var i in ENUMS[key]) {
+            map[key][ENUMS[key][i]] = i;
+        }
+    }
+
+    console.log(map);
+
+    ENUMS.Map = map;
+
+    console.log(ENUMS);
 
 })(ENUMS);

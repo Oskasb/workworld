@@ -1,0 +1,101 @@
+[{
+  "POPULATION_DATA":{
+    "POPULATIONSS":[
+      {
+        "id":"rock_edge_row_population",
+        "data":{
+          "amount":{"min":2, "max":2},
+          "offsets":[
+            {"pos_xz":[0.0, -0.25], "rotation_y":0.0},
+            {"pos_xz":[0.0, 0.25],  "rotation_y":0.0}
+          ],
+
+          "actors":[
+            {"id":"actor_prop_wall_rock_50",    "spread_xz":[0.3, 0],    "probability":1,  "slope":{"min":-1,    "max":1.0} , "elevation":{"min":-0.1,    "max":510}}
+          ]
+        }
+      },
+      {
+        "id":"rock_edge_column_population",
+        "data":{
+          "amount":{"min":2, "max":2},
+          "offsets":[
+            {"pos_xz":[0.25,  0.0],  "rotation_y":0},
+            {"pos_xz":[-0.25, 0.0],  "rotation_y":0}
+          ],
+          "actors":[
+            {"id":"actor_prop_wall_rock_50",    "spread_xz":[0, 0.3],    "probability":1,  "slope":{"min":-1,    "max":1.0} , "elevation":{"min":-0.1,    "max":510}}
+          ]
+        }
+      },
+      {
+        "id":"rock_edge_corner_population",
+        "data":{
+          "amount":{"min":4, "max":4},
+          "offsets":[
+            {"pos_xz":[0.0, -0.25],  "rotation_y":0.0},
+            {"pos_xz":[0.0,  0.25],  "rotation_y":0.0},
+            {"pos_xz":[0.25,  0.0],  "rotation_y":0},
+            {"pos_xz":[-0.25, 0.0],  "rotation_y":0}
+          ],
+          "actors":[
+            {"id":"actor_prop_wall_rock_50",    "spread_xz":[0, 0],    "probability":1,  "slope":{"min":-1,    "max":1.0} , "elevation":{"min":-0.1,    "max":510}}
+          ]
+        }
+      },
+      {
+        "id":"default_level_edge_population",
+        "data":{
+          "amount":{"min":2, "max":2},
+          "actors":[
+            {"id":"actor_prop_wall_rock_50",    "spread_xz":[0, 0],    "probability":1,  "slope":{"min":-1,    "max":1.0} , "elevation":{"min":-0.1,    "max":510}}
+          ]
+        }
+      },
+      {
+        "id":"dense_trees_population",
+        "data":{
+          "amount":{"min":19, "max":37},
+          "actors":[
+            {"id":"actor_tree_2_instanced",    "spread_xz":[0.8, 0.8],      "probability":0.9,  "slope":{"min":-0.002, "max":0.06} , "elevation":{"min": 2.6,    "max":38}},
+            {"id":"actor_tree_3_instanced",    "spread_xz":[0.8, 0.8],      "probability":0.9,  "slope":{"min":-0.002, "max":0.06} , "elevation":{"min":3.1,     "max":45}},
+            {"id":"actor_tree_3_small_instanced",    "spread_xz":[0.7, 0.7],   "probability":0.9 , "slope":{"min":-0.001,"max":0.10} , "elevation":{"min": 6,    "max":38}}
+          ]
+        }
+      },
+      {
+        "id":"sparse_trees_population",
+        "data":{
+          "amount":{"min":1, "max":3},
+          "actors":[
+            {"id":"actor_tree_2_instanced",    "spread_xz":[0.5, 0.5],      "probability":0.7,  "slope":{"min":0.002, "max":0.06} , "elevation":{"min": 2.6,    "max":38}},
+            {"id":"actor_tree_3_instanced",    "spread_xz":[0.5, 0.5],      "probability":0.5,  "slope":{"min":0.002, "max":0.06} , "elevation":{"min":3.1,     "max":45}},
+            {"id":"actor_tree_3_small_instanced",     "spread_xz":[0.7, 0.7],    "probability":0.9  , "slope":{"min":-0.001,"max":0.10} , "elevation":{"min": 6,    "max":38}}
+          ]
+        }
+      },
+      {
+        "id":"slope_dense_trees_population",
+        "data":{
+          "amount":{"min":26, "max":39},
+          "actors":[
+            {"id":"actor_tree_2_instanced",    "spread_xz":[1, 1],      "probability":0.99,  "slope":{"min":0.04, "max":0.26} , "elevation":{"min": 2.6,    "max":38}},
+            {"id":"actor_tree_3_instanced",    "spread_xz":[1, 1],      "probability":0.99,  "slope":{"min":0.04, "max":0.26} , "elevation":{"min":3.1,     "max":45}},
+            {"id":"actor_tree_3_small_instanced",   "spread_xz":[0.9, 0.9],   "probability":0.99  , "slope":{"min":-0.04,"max":0.16} , "elevation":{"min": 6,    "max":38}}
+          ]
+        }
+      },
+      {
+        "id":"default_level_population",
+        "data":{
+          "amount":{"min":9, "max":23},
+          "actors":[
+            {"id":"actor_tree_2_instanced",    "spread_xz":[0.7, 0.7],      "probability":0.7,  "slope":{"min":0.002, "max":0.26} , "elevation":{"min": 2.6,    "max":38}},
+            {"id":"actor_tree_3_instanced",    "spread_xz":[0.7, 0.7],      "probability":0.5,  "slope":{"min":0.002, "max":0.26} , "elevation":{"min":3.1,     "max":45}},
+            {"id":"actor_tree_3_small_instanced",  "spread_xz":[0.7, 0.7],   "probability":0.9 , "slope":{"min":-0.001,"max":0.10} , "elevation":{"min": 6,    "max":38}}
+          ]
+        }
+      }
+    ]
+  }
+}]

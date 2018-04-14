@@ -1,18 +1,21 @@
 "use strict";
 
 define([
+        'WorkerAPI',
 		'io/VisualCursor',
 		'io/InputState',
 		'Events'
 	],
 	function(
+        WorkerAPI,
 		VisualCursor,
 		InputState,
 		evt
 	) {
 
-		var PointerCursor = function() {
+        var mouseState;
 
+		var PointerCursor = function() {
 
 			this.guiStateTransitionCallbacks = {
 				passive:[],
@@ -33,81 +36,68 @@ define([
 
 			this.inputState = new InputState();
 
-		//	this.visualCursor = new VisualCursor();
-			this.interactiveLayers = {};
 			this.x = 0;
 			this.y = 0;
 
 			var _this = this;
-			var tickCursor = function() {
-				_this.tick();
-			};
 
 			this.enabled = false;
 
 			function configureListener(e) {
 				if (evt.args(e).inputModel) {
-				//	evt.on(evt.list().CLIENT_TICK, tickCursor);
 					_this.enabled = true;
 					evt.removeListener(evt.list().SCREEN_CONFIG, configureListener);
 				}
 			}
 
 			evt.on(evt.list().SCREEN_CONFIG, configureListener);
+            mouseState = this.inputState.getPointerState().mouseState;
+            this.setupInputBuffer();
+
 		};
 
+        PointerCursor.prototype.getPointerState = function() {
+            return this.inputState.getPointerState();
+        };
 
         PointerCursor.prototype.lineDistance = function(fromX, fromY, toX, toY) {
             return Math.sqrt((fromX - toX)*(fromX - toX) + (fromY - toY)*(fromY - toY));
         };
 
 		PointerCursor.prototype.inputVector = function(fromX, fromY, toX, toY) {
-
             this.inputState.setLine(fromY, fromX, toY, toX, this.lineDistance(fromX, fromY, toX, toY), Math.atan2(fromX - toX, fromY - toY));
-
-		//	this.visualCursor.visualizeVector(fromX, fromY, toX, toY);
 		};
 
-		PointerCursor.prototype.inputMouseState = function(mouseState) {
-		//	this.visualCursor.visualizeMouseState(mouseState);
-		};
+        PointerCursor.prototype.setupInputBuffer = function() {
+            var buffer = new SharedArrayBuffer(Float32Array.BYTES_PER_ELEMENT * ENUMS.InputState.BUFFER_SIZE);
+            this.buffer = new Float32Array(buffer);
+            this.inputState.getPointerState().buffer = this.buffer;
 
-		PointerCursor.prototype.registerInteractiveLayer = function(canvasGuiLayer) {
-			this.interactiveLayers[canvasGuiLayer.id] = canvasGuiLayer;
-		};
+        };
 
-		PointerCursor.prototype.getPointerState = function() {
-			return this.inputState.mouseState;
-		};
+        PointerCursor.prototype.updateInputBuffer = function() {
 
-		PointerCursor.prototype.addGuiStateTransitionCallback = function(transitionId, callback) {
+            this.buffer[ENUMS.InputState.MOUSE_X]           = mouseState.x;
+            this.buffer[ENUMS.InputState.MOUSE_Y]           = mouseState.y;
+            this.buffer[ENUMS.InputState.WHEEL_DELTA]       = mouseState.wheelDelta;
+            this.buffer[ENUMS.InputState.START_DRAG_X]      = mouseState.startDrag[0];
+            this.buffer[ENUMS.InputState.START_DRAG_Y]      = mouseState.startDrag[1];
+            this.buffer[ENUMS.InputState.DRAG_DISTANCE_X]   = mouseState.dragDistance[0];
+            this.buffer[ENUMS.InputState.DRAG_DISTANCE_Y]   = mouseState.dragDistance[1];
+            this.buffer[ENUMS.InputState.ACTION_0]          = mouseState.action[0];
+            this.buffer[ENUMS.InputState.ACTION_1]          = mouseState.action[1];
+            this.buffer[ENUMS.InputState.LAST_ACTION_0]     = mouseState.lastAction[0];
+            this.buffer[ENUMS.InputState.LAST_ACTION_1]     = mouseState.lastAction[1];
+            this.buffer[ENUMS.InputState.PRESS_FRAMES]      = mouseState.pressFrames
 
-			if (!this.guiStateTransitionCallbacks[transitionId]) {
-				this.guiStateTransitionCallbacks[transitionId] = [];
-			}
-
-			if (this.guiStateTransitionCallbacks[transitionId].indexOf(callback) != -1) {
-				console.error("Function for Gui transition state callback already registered");
-			} else {
-				this.guiStateTransitionCallbacks[transitionId].push(callback);
-			}
-		};
-
-
-
-		PointerCursor.prototype.notifyInputStateTransition = function(transitionId) {
-
-			if (this.guiStateTransitionCallbacks[transitionId]) {
-				for (var i = 0 ; i < this.guiStateTransitionCallbacks[transitionId].length; i++) {
-					this.guiStateTransitionCallbacks[transitionId][i]();
-				}
-			}
-		};
+        };
 
 		PointerCursor.prototype.tick = function() {
 			if (this.enabled) {
-                this.inputState.updateInputState(this);
+                this.inputState.updateInputState();
 			}
+
+			this.updateInputBuffer();
 		};
 
 		return PointerCursor;

@@ -1,0 +1,410 @@
+[
+  {
+    "GUI_PARTICLES": {
+      "THREE":[
+        {
+          "id":"gui_combat_status_icon_particle",
+          "sprite_key":"GUI",
+          "sprite_id":"alert",
+          "config":{
+            "lifeTime":{"min":2,"max":2},
+            "positionSpread":{"x":0.0001, "y":0.0001, "z":0.0001},
+            "gravity":0.0001,
+            "colorCurve":"rainbow",
+            "alphaCurve":"sublteSin",
+            "diffusionCurve":"dampen",
+            "scaleCurve":"fullWhite",
+            "size":{"value":0.007, "min": 0.0, "max": 0.0001},
+            "spin":{"value":0.000001, "min": 0.0001, "max": 0.0001},
+            "velocityDiffusion":0.01,
+            "accelerationDiffusion":0.01,
+            "colorDiffusion":0.05,
+            "velocityFactor":0.03
+          }
+        },
+        {
+          "id":"gui_menu_text_particle",
+          "sprite_key":"FONT",
+          "sprite_id":"test",
+          "config":{
+            "lifeTime":{"min":4,"max":4},
+            "positionSpread":{"x":0.0001, "y":0.0001, "z":0.0001},
+            "gravity":0.0001,
+            "colorCurve":"brightYellow",
+            "alphaCurve":"sublteSin",
+            "diffusionCurve":"dampen",
+            "scaleCurve":"fullWhite",
+            "size":{"value":0.011, "min": 0.0, "max": 0.0001},
+            "spin":{"value":0.000001, "min": 0.0001, "max": 0.0001},
+            "velocityDiffusion":0.01,
+            "accelerationDiffusion":0.01,
+            "colorDiffusion":0.05,
+            "velocityFactor":0.03
+          }
+        },
+        {
+          "id":"gui_status_text_particle",
+          "sprite_key":"FONT",
+          "sprite_id":"test",
+          "config":{
+            "lifeTime":{"min":4,"max":4},
+            "positionSpread":{"x":0.0001, "y":0.0001, "z":0.0001},
+            "gravity":0.0001,
+            "colorCurve":"brightYellow",
+            "alphaCurve":"sublteSin",
+            "diffusionCurve":"dampen",
+            "scaleCurve":"fullWhite",
+            "size":{"value":0.0035, "min": 0.0, "max": 0.0001},
+            "spin":{"value":0.000001, "min": 0.0001, "max": 0.0001},
+            "velocityDiffusion":0.01,
+            "accelerationDiffusion":0.01,
+            "colorDiffusion":0.05,
+            "velocityFactor":0.03
+          }
+        },
+        {
+          "id":"gui_combat_bar_text_particle",
+          "sprite_key":"FONT",
+          "sprite_id":"test",
+          "config":{
+            "lifeTime":{"min":4,"max":4},
+            "positionSpread":{"x":0.0001, "y":0.0001, "z":0.0001},
+            "gravity":0.0001,
+            "colorCurve":"steadyBlue",
+            "alphaCurve":"sublteSin",
+            "diffusionCurve":"dampen",
+            "scaleCurve":"fullWhite",
+            "size":{"value":0.004, "min": 0.0, "max": 0.0001},
+            "spin":{"value":0.000001, "min": 0.0001, "max": 0.0001},
+            "velocityDiffusion":0.01,
+            "accelerationDiffusion":0.01,
+            "colorDiffusion":0.05,
+            "velocityFactor":0.03
+          }
+        },
+        {
+          "id":"gui_text_background_particle",
+          "sprite_key":"GUI",
+          "sprite_id":"text_background",
+          "config":{
+            "lifeTime":{"min":1,"max":1},
+            "positionSpread":{"x":0.0001, "y":0.0001, "z":0.0001},
+            "gravity":0.0001,
+            "colorCurve":"fullWhite",
+            "alphaCurve":"fullWhite",
+            "diffusionCurve":"dampen",
+            "scaleCurve":"fullWhite",
+            "size":{"value":0.006, "min": 0.0, "max": 0.0001},
+            "spin":{"value":0.000001, "min": 0.0001, "max": 0.0001},
+            "velocityDiffusion":0.01,
+            "accelerationDiffusion":0.01,
+            "colorDiffusion":0.05,
+            "velocityFactor":0.03
+          }
+        },
+        {
+          "id":"gui_combat_bar_particle",
+          "sprite_key":"GUI",
+          "sprite_id":"combat_bar",
+          "config":{
+            "lifeTime":{"min":6,"max":6},
+            "positionSpread":{"x":0.0001, "y":0.0001, "z":0.0001},
+            "gravity":0.0001,
+            "colorCurve":"steadyBlue",
+            "alphaCurve":"sublteSin",
+            "diffusionCurve":"dampen",
+            "scaleCurve":"fullWhite",
+            "size":{"value":0.025, "min": 0.0, "max": 0.0001},
+            "spin":{"value":0.000001, "min": 0.0001, "max": 0.0001},
+            "velocityDiffusion":0.01,
+            "accelerationDiffusion":0.01,
+            "colorDiffusion":0.05,
+            "velocityFactor":0.03
+          }
+        },
+        {
+          "id":"gui_combat_bar_backdrop_particle",
+          "sprite_key":"GUI",
+          "sprite_id":"combat_bar",
+          "config":{
+            "lifeTime":{"min":6,"max":6},
+            "positionSpread":{"x":0.0001, "y":0.0001, "z":0.0001},
+            "gravity":0.0001,
+            "colorCurve":"steadyBlue",
+            "alphaCurve":"fullWhite",
+            "diffusionCurve":"dampen",
+            "scaleCurve":"fullWhite",
+            "size":{"value":0.025, "min": 0.0, "max": 0.0001},
+            "spin":{"value":0.000001, "min": 0.0001, "max": 0.0001},
+            "velocityDiffusion":0.01,
+            "accelerationDiffusion":0.01,
+            "colorDiffusion":0.05,
+            "velocityFactor":0.03
+          }
+        },
+        {
+          "id":"gui_hp_plate_particle",
+          "sprite_key":"GUI",
+          "sprite_id":"hp_plate",
+          "config":{
+            "lifeTime":{"min":3,"max":3},
+            "positionSpread":{"x":0.0001, "y":0.0001, "z":0.0001},
+            "gravity":0.0001,
+            "colorCurve":"fullWhite",
+            "alphaCurve":"fullWhite",
+            "diffusionCurve":"dampen",
+            "scaleCurve":"fullWhite",
+            "size":{"value":0.003, "min": 0.0, "max": 0.00001},
+            "spin":{"value":0.000001, "min": 0.0001, "max": 0.0001},
+            "velocityDiffusion":0.01,
+            "accelerationDiffusion":0.01,
+            "colorDiffusion":0.05,
+            "velocityFactor":0.03
+          }
+        },
+        {
+          "id":"gui_hp_light_particle",
+          "sprite_key":"GUI",
+          "sprite_id":"hp_light",
+          "config":{
+            "lifeTime":{"min":3,"max":3},
+            "age":     {"min":0.01, "max":1.9},
+            "positionSpread":{"x":0.0001, "y":0.0001, "z":0.0001},
+            "gravity":0.0001,
+            "colorCurve":"steadyOrange",
+            "alphaCurve":"sublteSin",
+            "diffusionCurve":"dampen",
+            "scaleCurve":"fullWhite",
+            "size":{"value":0.003, "min": 0.0, "max": 0.00001},
+            "spin":{"value":0.000001, "min": 0.0001, "max": 0.0001},
+            "velocityDiffusion":0.01,
+            "accelerationDiffusion":0.01,
+            "colorDiffusion":0.05,
+            "velocityFactor":0.03
+          }
+        },
+        {
+          "id":"gui_armor_plate_particle",
+          "sprite_key":"GUI",
+          "sprite_id":"armor_plate",
+          "config":{
+            "lifeTime":{"min":3,"max":3},
+            "positionSpread":{"x":0.0001, "y":0.0001, "z":0.0001},
+            "gravity":0.0001,
+            "colorCurve":"fullWhite",
+            "alphaCurve":"fullWhite",
+            "diffusionCurve":"dampen",
+            "scaleCurve":"fullWhite",
+            "size":{"value":0.003, "min": 0.0, "max": 0.00001},
+            "spin":{"value":0.000001, "min": 0.0001, "max": 0.0001},
+            "velocityDiffusion":0.01,
+            "accelerationDiffusion":0.01,
+            "colorDiffusion":0.05,
+            "velocityFactor":0.03
+          }
+        },
+        {
+          "id":"gui_armor_light_particle",
+          "sprite_key":"GUI",
+          "sprite_id":"armor_light",
+          "config":{
+            "lifeTime":{"min":3,"max":3},
+            "age":     {"min":0.01, "max":1.9},
+            "positionSpread":{"x":0.0001, "y":0.0001, "z":0.0001},
+            "gravity":0.0001,
+            "colorCurve":"fullWhite",
+            "alphaCurve":"sublteSin",
+            "diffusionCurve":"dampen",
+            "scaleCurve":"fullWhite",
+            "size":{"value":0.003, "min": 0.0, "max": 0.00001},
+            "spin":{"value":0.000001, "min": 0.0001, "max": 0.0001},
+            "velocityDiffusion":0.01,
+            "accelerationDiffusion":0.01,
+            "colorDiffusion":0.05,
+            "velocityFactor":0.03
+          }
+        },
+        {
+          "id":"gui_pointer_follow_particle",
+          "sprite_key":"GUI",
+          "sprite_id":"cursor",
+          "config":{
+            "lifeTime":{"min":1,"max":3},
+            "positionSpread":{"x":0.0001, "y":0.0001, "z":0.0001},
+            "gravity":0.0001,
+            "colorCurve":"rainbow",
+            "alphaCurve":"sublteSin",
+            "diffusionCurve":"dampen",
+            "scaleCurve":"fullWhite",
+            "size":{"value":0.04, "min": 0.0, "max": 0.001},
+            "spin":{"value":3.142,"min": -2, "max": 0},
+            "velocityDiffusion":0.01,
+            "accelerationDiffusion":0.01,
+            "colorDiffusion":0.05,
+            "velocityFactor":0.03
+          }
+        },
+        {
+          "id":"gui_selection_active_particle",
+          "sprite_key":"GUI",
+          "sprite_id":"cross",
+          "config":{
+            "lifeTime":{"min":2,"max":2},
+            "positionSpread":{"x":0.0001, "y":0.0001, "z":0.0001},
+            "gravity":0.0001,
+            "colorCurve":"rainbow",
+            "alphaCurve":"sublteSin",
+            "diffusionCurve":"dampen",
+            "scaleCurve":"fullWhite",
+            "size":{"value":0.028, "min": 0.0, "max": 0.001},
+            "spin":{"value":0.000001, "min": 0.0001, "max": 0.0001},
+            "velocityDiffusion":0.01,
+            "accelerationDiffusion":0.01,
+            "colorDiffusion":0.05,
+            "velocityFactor":0.03
+          }
+        },
+        {
+          "id":"gui_selection_corner_particle",
+          "sprite_key":"GUI",
+          "sprite_id":"corner",
+          "config":{
+            "lifeTime":{"min":2,"max":2},
+            "positionSpread":{"x":0.0001, "y":0.0001, "z":0.0001},
+            "gravity":0.0001,
+            "colorCurve":"rainbow",
+            "alphaCurve":"sublteSin",
+            "diffusionCurve":"dampen",
+            "scaleCurve":"fullWhite",
+            "size":{"value":0.008, "min": 0.0, "max": 0.001},
+            "spin":{"value":0.000001, "min": 0.0001, "max": 0.0001},
+            "velocityDiffusion":0.01,
+            "accelerationDiffusion":0.01,
+            "colorDiffusion":0.05,
+            "velocityFactor":0.03
+          }
+        },
+        {
+          "id":"gui_box_vertical_particle",
+          "sprite_key":"GUI",
+          "sprite_id":"vertical",
+          "config":{
+            "lifeTime":{"min":2,"max":2},
+            "positionSpread":{"x":0.0001, "y":0.0001, "z":0.0001},
+            "gravity":0.0001,
+            "colorCurve":"rainbow",
+            "alphaCurve":"sublteSin",
+            "diffusionCurve":"dampen",
+            "scaleCurve":"fullWhite",
+            "size":{"value":0.025, "min": 0.0, "max": 0.001},
+            "spin":{"value":0.000001, "min": 0.0001, "max": 0.0001},
+            "velocityDiffusion":0.01,
+            "accelerationDiffusion":0.01,
+            "colorDiffusion":0.05,
+            "velocityFactor":0.03
+          }
+        },
+        {
+          "id":"gui_box_horizontal_particle",
+          "sprite_key":"GUI",
+          "sprite_id":"horizontal",
+          "config":{
+            "lifeTime":{"min":2,"max":2},
+            "positionSpread":{"x":0.0001, "y":0.0001, "z":0.0001},
+            "gravity":0.0001,
+            "colorCurve":"rainbow",
+            "alphaCurve":"sublteSin",
+            "diffusionCurve":"dampen",
+            "scaleCurve":"fullWhite",
+            "size":{"value":0.025, "min": 0.0, "max": 0.001},
+            "spin":{"value":0.000001, "min": 0.0001, "max": 0.0001},
+            "velocityDiffusion":0.01,
+            "accelerationDiffusion":0.01,
+            "colorDiffusion":0.05,
+            "velocityFactor":0.03
+          }
+        },
+        {
+          "id":"gui_aim_yaw_indicator_left_particle",
+          "sprite_key":"GUI",
+          "sprite_id":"indicate_yaw_left",
+          "config":{
+            "lifeTime":{"min":1,"max":1},
+            "positionSpread":{"x":0.0001, "y":0.0001, "z":0.0001},
+            "gravity":0.0001,
+            "colorCurve":"rainbow",
+            "alphaCurve":"sublteSin",
+            "diffusionCurve":"dampen",
+            "scaleCurve":"fullWhite",
+            "size":{"value":0.02, "min": 0.0, "max": 0.001},
+            "spin":{"value":0.000001, "min": 0.0001, "max": 0.0001},
+            "velocityDiffusion":0.01,
+            "accelerationDiffusion":0.01,
+            "colorDiffusion":0.05,
+            "velocityFactor":0.03
+          }
+        },
+        {
+          "id":"gui_aim_yaw_indicator_right_particle",
+          "sprite_key":"GUI",
+          "sprite_id":"indicate_yaw_right",
+          "config":{
+            "lifeTime":{"min":1,"max":1},
+            "positionSpread":{"x":0.0001, "y":0.0001, "z":0.0001},
+            "gravity":0.0001,
+            "colorCurve":"rainbow",
+            "alphaCurve":"sublteSin",
+            "diffusionCurve":"dampen",
+            "scaleCurve":"fullWhite",
+            "size":{"value":0.02, "min": 0.0, "max": 0.001},
+            "spin":{"value":0.000001, "min": 0.0001, "max": 0.0001},
+            "velocityDiffusion":0.01,
+            "accelerationDiffusion":0.01,
+            "colorDiffusion":0.05,
+            "velocityFactor":0.03
+          }
+        },
+        {
+          "id":"gui_aim_pitch_indicator_upper_particle",
+          "sprite_key":"GUI",
+          "sprite_id":"indicate_pitch_upper",
+          "config":{
+            "lifeTime":{"min":2,"max":2},
+            "positionSpread":{"x":0.001, "y":0.001, "z":0.001},
+            "gravity":0.0001,
+            "colorCurve":"rainbow",
+            "alphaCurve":"sublteSin",
+            "diffusionCurve":"dampen",
+            "scaleCurve":"fullWhite",
+            "size":{"value":0.02, "min": 0.0, "max": 0.001},
+            "spin":{"value":0.000001, "min": 0.0001, "max": 0.0001},
+            "velocityDiffusion":0.01,
+            "accelerationDiffusion":0.01,
+            "colorDiffusion":0.05,
+            "velocityFactor":0.03
+          }
+        },
+        {
+          "id":"gui_aim_pitch_indicator_low_particle",
+          "sprite_key":"GUI",
+          "sprite_id":"indicate_pitch_low",
+          "config":{
+            "lifeTime":{"min":2,"max":2},
+            "positionSpread":{"x":0.001, "y":0.001, "z":0.001},
+            "gravity":0.0001,
+            "colorCurve":"rainbow",
+            "alphaCurve":"sublteSin",
+            "diffusionCurve":"dampen",
+            "scaleCurve":"fullWhite",
+            "size":{"value":0.02, "min": 0.0, "max": 0.001},
+            "spin":{"value":0.000001, "min": 0.0001, "max": 0.0001},
+            "velocityDiffusion":0.01,
+            "accelerationDiffusion":0.01,
+            "colorDiffusion":0.05,
+            "velocityFactor":0.03
+          }
+        }
+      ]
+    }
+  }
+]

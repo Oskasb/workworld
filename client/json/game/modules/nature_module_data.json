@@ -1,0 +1,179 @@
+[{
+  "MODULE_DATA":{
+    "MODULES":[
+      {
+        "id":"module_shrub_medium",
+        "data":{
+          "transform":{
+            "rot":  [0,      0,    0],
+            "pos":  [0,     -2,    0],
+            "size": [2.0,    4,    2]
+          },
+          "channels":[
+            {"channelid":"channel_actor_active",   "stateid": "state_active"},
+            {"channelid":"channel_pos_x",  "stateid": "state_pos_x"},
+            {"channelid":"channel_pos_y",  "stateid": "state_pos_y"},
+            {"channelid":"channel_pos_z",  "stateid": "state_pos_z"},
+            {"channelid":"channel_quat_x", "stateid": "quat_state_x"},
+            {"channelid":"channel_quat_y", "stateid": "quat_state_y"},
+            {"channelid":"channel_quat_z", "stateid": "quat_state_z"},
+            {"channelid":"channel_quat_w", "stateid": "quat_state_w"},
+            {"channelid":"fire_channel",   "stateid": "fire_state"},
+            {"channelid":"channel_visual_shrub_medium",   "stateid": "state_active"}
+          ],
+          "attachment_points":[
+            {"id":"ap_combat",
+              "transform":{
+                "rot":[  0,    0,    0],
+                "pos":[  0,    0,    0]
+              }
+            }
+          ]
+        }
+      },
+      {
+        "id":"module_tree_3_small_instanced",
+        "data":{
+          "transform":{
+            "rot":  [0,      0,    0],
+            "pos":  [0,      0,    0],
+            "size": [5.0,    6,    5]
+          },
+          "channels":[
+            {"channelid":"channel_actor_active",   "stateid": "state_active"},
+            {"channelid":"channel_pos_x",  "stateid": "state_pos_x"},
+            {"channelid":"channel_pos_y",  "stateid": "state_pos_y"},
+            {"channelid":"channel_pos_z",  "stateid": "state_pos_z"},
+            {"channelid":"channel_quat_x", "stateid": "quat_state_x"},
+            {"channelid":"channel_quat_y", "stateid": "quat_state_y"},
+            {"channelid":"channel_quat_z", "stateid": "quat_state_z"},
+            {"channelid":"channel_quat_w", "stateid": "quat_state_w"},
+            {"channelid":"fire_channel",   "stateid": "fire_state"},
+            {"channelid":"channel_visual_module_tree_3_small",     "stateid": "state_active"}
+          ],
+          "attachment_points":[
+            {"id":"ap_combat",
+              "transform":{
+                "rot":[  0,    0,    0],
+                "pos":[  0,    0,    0]
+              }
+            }
+          ]
+        }
+      },
+      {
+        "id":"module_tree_3_combined_instanced",
+        "data":{
+          "transform":{
+            "rot":  [0,      0,    0],
+            "pos":  [0,      0,    0],
+            "size": [25.0,  60,   5]
+          },
+          "channels":[
+            {"channelid":"channel_actor_active",   "stateid": "state_active"},
+            {"channelid":"channel_pos_x",  "stateid": "state_pos_x"},
+            {"channelid":"channel_pos_y",  "stateid": "state_pos_y"},
+            {"channelid":"channel_pos_z",  "stateid": "state_pos_z"},
+            {"channelid":"channel_quat_x", "stateid": "quat_state_x"},
+            {"channelid":"channel_quat_y", "stateid": "quat_state_y"},
+            {"channelid":"channel_quat_z", "stateid": "quat_state_z"},
+            {"channelid":"channel_quat_w", "stateid": "quat_state_w"},
+            {"channelid":"fire_channel",   "stateid": "fire_state"},
+            {"channelid":"channel_visual_module_tree_3_combined",     "stateid": "state_active"}
+          ],
+          "attachment_points":[
+            {"id":"ap_combat",
+              "transform":{
+                "rot":[  0,    0,    0],
+                "pos":[  0,    0,    0]
+              }
+            }
+          ]
+        }
+      },
+
+      {
+        "id":"module_tree_2_trunk_instanced",
+        "data":{
+          "transform":{
+            "rot":  [0,      0,    0],
+            "pos":  [0,      0,    0],
+            "size": [15.0,   50,  15]
+          },
+          "channels":[
+            {"channelid":"channel_actor_active",   "stateid": "state_active"},
+            {"channelid":"channel_pos_x",  "stateid": "state_pos_x"},
+            {"channelid":"channel_pos_y",  "stateid": "state_pos_y"},
+            {"channelid":"channel_pos_z",  "stateid": "state_pos_z"},
+            {"channelid":"channel_quat_x", "stateid": "quat_state_x"},
+            {"channelid":"channel_quat_y", "stateid": "quat_state_y"},
+            {"channelid":"channel_quat_z", "stateid": "quat_state_z"},
+            {"channelid":"channel_quat_w", "stateid": "quat_state_w"},
+            {"channelid":"fire_channel",   "stateid": "fire_state"},
+            {"channelid":"channel_visual_module_tree_2_trunk",     "stateid": "state_active"}
+          ],
+          "attachment_points":[
+            {"id":"ap_combat",
+              "transform":{
+                "rot":[  0,    0,    0],
+                "pos":[  0,    0,    0]
+              }
+            }
+          ]
+        }
+      },
+      {
+        "id":"module_tree_2_trunk",
+        "data":{
+          "transform":{
+            "rot":  [0,      0,    0],
+            "pos":  [0,      0,    0],
+            "size": [5.0,   20,  5.0]
+          },
+          "model":"model_tree_2_trunk",
+          "channels":[
+            {"channelid":"channel_actor_active",   "stateid": "state_active"},
+            {"channelid":"channel_pos_x",  "stateid": "state_pos_x"},
+            {"channelid":"channel_pos_y",  "stateid": "state_pos_y"},
+            {"channelid":"channel_pos_z",  "stateid": "state_pos_z"},
+            {"channelid":"channel_quat_x", "stateid": "quat_state_x"},
+            {"channelid":"channel_quat_y", "stateid": "quat_state_y"},
+            {"channelid":"channel_quat_z", "stateid": "quat_state_z"},
+            {"channelid":"channel_quat_w", "stateid": "quat_state_w"},
+            {"channelid":"fire_channel",   "stateid": "fire_state"}
+          ],
+          "attachment_points":[
+            {"id":"ap_combat",
+              "transform":{
+                "rot":[  0,    0,    0],
+                "pos":[  0,    0,    0]
+              }
+            }
+          ]
+        }
+      },
+      {
+        "id":"module_tree_2_stump",
+        "data":{
+          "transform":{
+            "rot":  [0,     0,    0],
+            "pos":  [0,   0.0,    0],
+            "size": [0.8, 1.5,  0.8]
+          },
+          "model":"model_tree_2_stump",
+          "channels":[
+            {"channelid":"channel_actor_active",   "stateid": "state_active"},
+            {"channelid":"channel_pos_x",  "stateid": "state_pos_x"},
+            {"channelid":"channel_pos_y",  "stateid": "state_pos_y"},
+            {"channelid":"channel_pos_z",  "stateid": "state_pos_z"},
+            {"channelid":"channel_quat_x", "stateid": "quat_state_x"},
+            {"channelid":"channel_quat_y", "stateid": "quat_state_y"},
+            {"channelid":"channel_quat_z", "stateid": "quat_state_z"},
+            {"channelid":"channel_quat_w", "stateid": "quat_state_w"},
+            {"channelid":"fire_channel",   "stateid": "fire_state"}
+          ]
+        }
+      }
+    ]
+  }
+}]

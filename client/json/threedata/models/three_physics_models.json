@@ -1,0 +1,56 @@
+
+[
+  {
+    "MODELS": {
+      "THREE_PHYSICS": [
+        {
+          "id": "model_wall_section_rock_50_hull",
+          "material": "main_atlas",
+          "format":"obj",
+          "url": "./client/assets/models/shapes/wall_section_rock_50x40x50_hull",
+          "pool": 1,
+          "transform": {
+            "pos":   [0, 0, 0],
+            "rot":   [0, 0, 0],
+            "scale": [1, 1, 1]
+          }
+        },
+        {
+          "id": "platform_base_10x6",
+          "material": "main_atlas",
+          "format":"obj",
+          "url": "./client/assets/models/props/platform_base_10x6",
+          "pool": 1,
+          "transform": {
+            "pos":   [0, 0, 0],
+            "rot":   [0, 0, 0],
+            "scale": [1, 1, 1]
+          }
+        },
+        {
+          "id": "model_tree_2_rooted_hull",
+          "material": "main_atlas",
+          "url": "./client/assets/models/trees/tree_2_rooted_hull",
+          "pool": 1,
+          "transform": {
+            "pos": [0, 0, 0],
+            "rot": [0, 0, 0],
+            "scale": [1, 1, 1]
+          }
+        },
+        {
+          "id": "model_tree_3_combined_hull",
+          "material": "main_atlas",
+          "url": "./client/assets/models/trees/tree_3_combined_hull",
+          "pool": 1,
+          "transform": {
+            "pos": [0, -10, 0],
+            "rot": [0, 0, 0],
+            "scale": [0.5, 0.5, 0.5]
+          }
+        }
+
+      ]
+    }
+  }
+]

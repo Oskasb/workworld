@@ -1,0 +1,116 @@
+[
+  {
+    "MODELS": {
+      "THREE": [
+        {
+          "id": "plank_12x4m",
+          "material": "main_atlas",
+          "format":"obj",
+          "url": "./client/assets/models/shapes/plank_6x2m",
+          "pool": 1,
+          "transform": {
+            "pos": [0, 0, 0],
+            "rot": [0, -1, 0],
+            "scale": [2, 1, 2]
+          }
+        },
+        {
+          "id": "plank_6x2m",
+          "material": "main_atlas",
+          "format":"obj",
+          "url": "./client/assets/models/shapes/plank_6x2m",
+          "pool": 1,
+          "transform": {
+            "pos": [0, 0, 0],
+            "rot": [0, -1, 0],
+            "scale": [1, 1, 1]
+          }
+        },
+        {
+          "id": "square_4x4m",
+          "material": "main_atlas",
+          "format":"obj",
+          "url": "./client/assets/models/shapes/square_1x1m",
+          "pool": 1,
+          "transform": {
+            "pos": [0, 0, 0],
+            "rot": [0, -1, 0],
+            "scale": [4, 1, 4]
+          }
+        },
+        {
+          "id": "box_crate",
+          "material": "main_atlas",
+          "format":"obj",
+          "url": "./client/assets/models/shapes/crate",
+          "pool": 1,
+          "transform": {
+            "pos": [0, 0, 0],
+            "rot": [0, -1, 0],
+            "scale": [6, 6, 6]
+          }
+        },
+        {
+          "id": "oil_drum",
+          "material": "main_atlas",
+          "format":"obj",
+          "url": "./client/assets/models/props/oil_drum",
+          "pool": 3,
+          "transform": {
+            "pos":   [0, 0, 0],
+            "rot":   [0, 0, 0],
+            "scale": [1, 1, 1]
+          }
+        },
+        {
+          "id": "model_giant_skateramp",
+          "material": "main_atlas",
+          "format":"obj",
+          "url": "./client/assets/models/props/giant_skateramp",
+          "pool": 1,
+          "transform": {
+            "pos":   [0, 0, 0],
+            "rot":   [0, 0, 0],
+            "scale": [1, 1, 1]
+          }
+        },
+        {
+          "id": "model_wall_section_rock_50",
+          "material": "main_atlas",
+          "format":"obj",
+          "url": "./client/assets/models/shapes/wall_section_rock_50x40x50",
+          "pool": 1,
+          "transform": {
+            "pos":   [0, 0, 0],
+            "rot":   [0, 0, 0],
+            "scale": [1, 1, 1]
+          }
+        },
+        {
+          "id": "platform_base_10x6",
+          "material": "main_atlas",
+          "format":"obj",
+          "url": "./client/assets/models/props/platform_base_10x6",
+          "pool": 1,
+          "transform": {
+            "pos":   [0, 0, 0],
+            "rot":   [0, 0, 0],
+            "scale": [1, 1, 1]
+          }
+        },
+        {
+          "id": "platform_base_35x25",
+          "material": "main_atlas",
+          "format":"obj",
+          "url": "./client/assets/models/props/platform_base_35x25",
+          "pool": 1,
+          "transform": {
+            "pos":   [0, 0, 0],
+            "rot":   [0, 0, 0],
+            "scale": [1, 1, 1]
+          }
+        }
+      ]
+    }
+  }
+]

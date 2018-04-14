@@ -1,0 +1,266 @@
+[{
+  "GUI_PARTICLE_ELEMENTS":{
+    "ELEMENTS":[
+
+      {
+        "id":"gui_browser_status_monitor_element",
+        "data":{
+          "effect_ids":[
+            "gui_combat_bar_effect"
+          ],
+          "options":{
+            "monitor_key":"BROWSER_MONITOR",
+            "screen_pos":[0.39,-0.46, -1],
+            "offset_children":[-0.05, -0.004, 0.03, -0.002],
+            "label_elemet_id":"gui_status_label_container_element",
+            "value_elemet_id":"gui_status_value_container_element"
+          },
+          "render_calls":{
+            "gui_render_enable":"enable_fx_element",
+            "gui_render_disable":"disable_fx_element",
+            "gui_renderer_callback":"show_application_status",
+            "gui_update_callback":"set_element_position"
+          }
+        }
+      },
+
+
+
+      {
+        "id":"gui_system_status_monitor_element",
+        "data":{
+          "effect_ids":[
+            "gui_combat_bar_effect"
+          ],
+          "options":{
+            "monitor_key":"SYSTEM_MONITOR",
+            "screen_pos":[0.16, -0.30, -1],
+            "offset_children":[-0.05, -0.004, 0.03, -0.002],
+            "label_elemet_id":"gui_status_label_container_element",
+            "value_elemet_id":"gui_status_value_container_element"
+          },
+          "render_calls":{
+            "gui_render_enable":"enable_fx_element",
+            "gui_render_disable":"disable_fx_element",
+            "gui_renderer_callback":"show_application_status",
+            "gui_update_callback":"set_element_position"
+          }
+        }
+      },
+
+      {
+        "id":"gui_game_status_monitor_element",
+        "data":{
+          "effect_ids":[
+            "gui_combat_bar_effect"
+          ],
+          "options":{
+            "monitor_key":"GAME_MONITOR",
+            "screen_pos":[0.28, -0.30, -1],
+            "offset_children":[-0.05, -0.004, 0.03, -0.002],
+            "label_elemet_id":"gui_status_label_container_element",
+            "value_elemet_id":"gui_status_value_container_element"
+          },
+          "render_calls":{
+            "gui_render_enable":"enable_fx_element",
+            "gui_render_disable":"disable_fx_element",
+            "gui_renderer_callback":"show_application_status",
+            "gui_update_callback":"set_element_position"
+          }
+        }
+      },
+
+      {
+        "id":"gui_worker_status_monitor_element",
+        "data":{
+          "effect_ids":[
+            "gui_combat_bar_effect"
+          ],
+          "options":{
+            "monitor_key":"WORKER_MONITOR",
+            "screen_pos":[0.40, -0.20, -1],
+            "offset_children":[-0.05, -0.004, 0.03, -0.002],
+            "label_elemet_id":"gui_status_label_container_element",
+            "value_elemet_id":"gui_status_value_container_element"
+          },
+          "render_calls":{
+            "gui_render_enable":"enable_fx_element",
+            "gui_render_disable":"disable_fx_element",
+            "gui_renderer_callback":"show_application_status",
+            "gui_update_callback":"set_element_position"
+          }
+        }
+      },
+
+      {
+        "id":"gui_time_status_monitor_element",
+        "data":{
+          "effect_ids":[
+            "gui_combat_bar_effect"
+          ],
+          "options":{
+            "monitor_key":"TIME_MONITOR",
+            "screen_pos":[0.44, 0.48, -1],
+            "offset_children":[-0.05, -0.004, 0.03, -0.002],
+            "label_elemet_id":"gui_status_label_container_element",
+            "value_elemet_id":"gui_status_value_container_element"
+          },
+          "render_calls":{
+            "gui_render_enable":"enable_fx_element",
+            "gui_render_disable":"disable_fx_element",
+            "gui_renderer_callback":"show_application_status",
+            "gui_update_callback":"set_element_position"
+          }
+        }
+      },
+
+      {
+        "id":"gui_effect_status_monitor_element",
+        "data":{
+          "effect_ids":[
+            "gui_combat_bar_effect"
+          ],
+          "options":{
+            "monitor_key":"EFFECT_MONITOR",
+            "screen_pos":[0.44, 0.34, -1],
+            "offset_children":[-0.05, -0.004, 0.03, -0.002],
+            "label_elemet_id":"gui_status_label_container_element",
+            "value_elemet_id":"gui_status_value_container_element"
+          },
+          "render_calls":{
+            "gui_render_enable":"enable_fx_element",
+            "gui_render_disable":"disable_fx_element",
+            "gui_renderer_callback":"show_application_status",
+            "gui_update_callback":"set_element_position"
+          }
+        }
+      },
+
+
+      {
+        "id":"gui_render_status_monitor_element",
+        "data":{
+          "effect_ids":[
+            "gui_combat_bar_effect"
+          ],
+          "options":{
+            "monitor_key":"RENDER_MONITOR",
+            "screen_pos":[0.44, 0.18, -1],
+            "offset_children":[-0.05, -0.004, 0.03, -0.002],
+            "label_elemet_id":"gui_status_label_container_element",
+            "value_elemet_id":"gui_status_value_container_element"
+          },
+          "render_calls":{
+            "gui_render_enable":"enable_fx_element",
+            "gui_render_disable":"disable_fx_element",
+            "gui_renderer_callback":"show_application_status",
+            "gui_update_callback":"set_element_position"
+          }
+        }
+      },
+
+      {
+        "id":"gui_status_monitor_element",
+        "data":{
+          "effect_ids":[
+            "gui_combat_bar_effect"
+          ],
+          "options":{
+            "monitor_key":"STATUS_MONITOR",
+            "screen_pos":[0.44, 0.02, -1],
+            "offset_children":[-0.05, -0.004, 0.03, -0.002],
+            "label_elemet_id":"gui_status_label_container_element",
+            "value_elemet_id":"gui_status_value_container_element"
+          },
+          "render_calls":{
+            "gui_render_enable":"enable_fx_element",
+            "gui_render_disable":"disable_fx_element",
+            "gui_renderer_callback":"show_application_status",
+            "gui_update_callback":"set_element_position"
+          }
+        }
+      },
+
+      {
+        "id":"gui_status_label_container_element",
+        "data":{
+          "effect_ids":[
+            "gui_text_background_effect"
+          ],
+          "options":{
+            "text_element_id":"gui_status_text_element",
+            "offset_x": 0.004 ,
+            "offset_y": 0.001,
+            "row_y":0.012,
+            "pad_x":-0.0038,
+            "pad_y":0.0
+          },
+          "render_calls":{
+            "gui_render_enable":"enable_fx_element",
+            "gui_render_disable":"disable_fx_element",
+            "gui_renderer_callback":null,
+            "gui_update_callback":"set_element_position"
+          }
+        }
+      },
+      {
+        "id":"gui_status_value_container_element",
+        "data":{
+          "effect_ids":[
+            "gui_text_background_effect"
+          ],
+          "options":{
+            "text_element_id":"gui_status_value_element",
+            "offset_x": 0.004 ,
+            "offset_y": 0.001,
+            "row_y":0.012,
+            "pad_x":-0.0038,
+            "pad_y":0.0
+          },
+          "render_calls":{
+            "gui_render_enable":"enable_fx_element",
+            "gui_render_disable":"disable_fx_element",
+            "gui_renderer_callback":null,
+            "gui_update_callback":"set_element_position"
+          }
+        }
+      },
+      {
+        "id": "gui_status_text_element",
+        "data": {
+          "effect_ids": [
+            "gui_status_text_effect"
+          ],
+          "options": {
+            "step_x": 0.007,
+            "step_y": 0.002
+          },
+          "render_calls": {
+            "gui_render_enable": "enable_fx_element",
+            "gui_render_disable": "disable_fx_element",
+            "gui_renderer_callback": null,
+            "gui_update_callback": "set_element_position"
+          }
+        }
+      },
+      {
+        "id":"gui_status_value_element",
+        "data":{
+          "effect_ids":[
+            "gui_status_text_effect"
+          ],
+          "options":{
+            "step_x":0.008,
+            "step_y":0.002
+          },
+          "render_calls":{
+            "gui_render_enable":"enable_fx_element",
+            "gui_render_disable":"disable_fx_element",
+            "gui_renderer_callback":null,
+            "gui_update_callback":"set_element_position"
+          }
+        }
+      }
+    ]
+  }
+}]

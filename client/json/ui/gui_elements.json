@@ -1,0 +1,161 @@
+[{
+  "gui_elements": {
+    "monitors":[
+      {
+        "id": "monitorText",
+        "data": {
+          "parentId": "slot_0",
+          "container": "main_container",
+          "style": ["data_log_container"],
+          "dataLog":{
+            "style":"message_log_field",
+            "channels":["server_message", "system_status", "client_state", "pipeline_error", "ping_tracker", "receive_error", "connection_error", "button_update", "connection_status"],
+            "argument":"message",
+            "entry_count":11,
+            "eventId":"MESSAGE_UI"
+          }
+        }
+      },{
+        "id":"canvasSteeringMonitor",
+        "data":{
+          "canvas3d": {
+            "configId": "canvas_input_monitor_3d",
+            "enableOnEvent":{"category":"HUD_STATUS", "key":"CANVAS_INPUT_DEBUG", "type":"toggle"}
+          }
+        }
+      },{
+        "id":"inputSelectMonitor",
+        "data":{
+          "canvas3d": {
+            "configId": "canvas_input_select"
+          }
+        }
+      },{
+        "id":"targetSelectMonitor",
+        "data":{
+          "canvas3d": {
+            "configId": "canvas_target_select"
+          }
+        }
+      },{
+        "id":"currentTargetMonitor",
+        "data":{
+          "canvas3d": {
+            "configId": "canvas_current_target"
+          }
+        }
+      },{
+        "id":"radar",
+        "data":{
+          "parentId":"rightRoot",
+          "canvas3d":{
+            "configId": "canvas_controls",
+            "enableOnEvent":{"category":"HUD_STATUS", "key":"CANVAS_INPUT_DEBUG_", "type":"toggle"}
+          }
+        }
+      },{
+        "id": "slot_0_monitor",
+        "data": {
+          "parentId": "slot_0",
+          "style": ["ui_name_container", "coloring_ui_name_field"],
+          "dataLog":{
+            "style":"player_id_field",
+            "channels":["own_player_name"],
+            "argument":"message",
+            "entry_count":0,
+            "eventId":"MESSAGE_UI"
+          }
+        }
+      }
+    ],
+
+    "containers":[
+      {
+        "id": "main_container",
+        "data": {
+          "style": ["main_button_container", "coloring_container_main_panel"]
+        }
+      },{
+        "id": "editor_button_container",
+        "data": {
+          "style": ["editor_button_container_style", "coloring_container_main_panel"]
+        }
+      },{
+        "id":"main_splitter",
+        "data":{
+          "style":["full_size_container"]
+        }
+      },{
+        "id":"split_container",
+        "data":{
+          "style":["main_button_container_multi", "coloring_container_main_panel"]
+        }
+      },{
+        "id":"panel_select_container",
+        "data":{
+          "parentId":"panelRoot",
+          "style":["dev_button_container", "coloring_container_dev_panel"]
+        }
+      },{
+        "id": "dev_monitor_container",
+        "data": {
+          "style": ["dev_monitor_container", "coloring_container_main_panel"]
+        }
+      }
+    ],
+
+    "buttons":[
+      {
+        "id":"button1_1",
+        "data":{
+          "parentId":"slot_1",
+          "style":["panel_button_multi", "coloring_button_main_panel"],
+          "button":{
+            "id":"panel_button",
+            "event":{"category":"CONTROL_STATE", "key":"TOGGLE_SHIELD", "type":"toggle"}
+          },
+          "text":"1"
+        }
+      },{
+        "id":"button1_2",
+        "data":{
+          "parentId":"slot_2",
+          "style":["panel_button_multi", "coloring_button_main_panel"],
+          "button":{
+            "id":"panel_button",
+            "event":{"category":"CONTROL_STATE", "key":"TOGGLE_HYPER", "type":"toggle"}
+          },
+          "text":"2"
+        }
+      },{
+        "id":"hyperButton",
+        "data":{
+          "parentId":"slot_3",
+          "style":["panel_button", "coloring_button_main_panel"],
+          "button":{
+            "id":"panel_button",
+            "event":{"category":"CONTROL_STATE", "key":"TOGGLE_TELEPORT", "type":"toggle"}
+          },
+          "text":"3"
+        }
+      },{
+        "id":"slot_4",
+        "data":{
+          "parentId":"rightRoot",
+          "style":["main_button_container", "coloring_container_main_panel"]
+        }
+      },{
+        "id":"hyperButton",
+        "data":{
+          "parentId":"slot_4",
+          "style":["panel_button", "coloring_button_main_panel"],
+          "button":{
+            "id":"panel_button",
+            "event":{"category":"CONTROL_STATE", "key":"TOGGLE_ATTACK_ENABLED", "type":"toggle"}
+          },
+          "text":"4"
+        }
+      }
+    ]
+  }
+}]

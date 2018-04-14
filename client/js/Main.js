@@ -1,9 +1,8 @@
 "use strict";
 
-
-
 require([
     'WorkerAPI',
+    'application/Setup',
     'application/SystemDetector',
     'application/ButtonEventDispatcher',
     'application/ControlStateDispatcher',
@@ -11,6 +10,7 @@ require([
     'ui/GameScreen'
 ], function(
     WorkerAPI,
+    Setup,
     SystemDetector,
     ButtonEventDispatcher,
     ControlStateDispatcher,
@@ -18,19 +18,29 @@ require([
     GameScreen
 ) {
 
+    var client;
 
-    var init = function() {
-        new SystemDetector();
+    var setupReady = function() {
+        console.log("Setup Ready")
+    };
+
+    GameScreen.registerAppContainer(document.body);
+    new SystemDetector();
+
+    var init = function(clientViewer) {
+        client = clientViewer;
+                
         new ButtonEventDispatcher();
         new ControlStateDispatcher();
-        GameScreen.registerAppContainer(document.body);
+
         WorkerAPI.initWorkers();
         WorkerAPI.registerHandlers();
         WorkerAPI.runWorkers();
+        client.clientReady(setupReady);
     };
 
     setTimeout(function() {
-        init();
+        Setup.init(init)
     }, 0)
 
 });

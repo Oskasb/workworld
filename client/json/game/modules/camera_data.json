@@ -1,0 +1,117 @@
+[{
+  "CAMERA_DATA":{
+    "CONTROLS":[
+      {
+        "id":"vehicle_control_camera",
+        "data":{
+          "cameraFunction":"above_target_obj",
+          "aimCameraFunction":"aim_at_target_obj",
+          "master_state":{"state_id":"state_control_active"},
+          "look_ahead":15,
+          "min_elevation":27,
+          "offsets":[
+            {"property":"target", "axis":"y","value":3}
+          ],
+          "lerp":0.15,
+          "radial_lerp":0.04,
+          "params":[
+            {"param":"maxDistance",   "value":59},
+            {"param":"minDistance",   "value":51},
+            {"param":"enableDamping", "value":true},
+            {"param":"dampingFactor", "value":2.82},
+            {"param":"autoRotate",    "value":false},
+            {"param":"enableKeys",    "value":false},
+            {"param":"enablePan",     "value":false},
+            {"param":"enableRotate",  "value":false},
+            {"param":"enableZoom",    "value":false},
+            {"param":"minAzimuthAngle", "value":0.548},
+            {"param":"maxAzimuthAngle", "value":0.548},
+            {"param":"minPolarAngle",   "value":0.628},
+            {"param":"maxPolarAngle",   "value":0.628}
+          ],
+
+          "aim_config":{
+            "master_state":{"state_id":"state_control_active"},
+            "min_elevation":6,
+            "look_ahead":4,
+            "offsets":[
+              {"property":"target", "axis":"y","value":5}
+            ],
+            "params":[
+              {"param":"maxDistance",   "value":22},
+              {"param":"minDistance",   "value":18},
+              {"param":"enableDamping", "value":true},
+              {"param":"dampingFactor", "value":2.82},
+              {"param":"autoRotate",    "value":false},
+              {"param":"enableKeys",    "value":false},
+              {"param":"enablePan",     "value":false},
+              {"param":"enableRotate",  "value":false},
+              {"param":"enableZoom",    "value":false},
+              {"param":"minAzimuthAngle", "value":0.548},
+              {"param":"maxAzimuthAngle", "value":0.548},
+              {"param":"minPolarAngle",   "value":1.288},
+              {"param":"maxPolarAngle",   "value":1.828}
+            ],
+            "lerp":0.3,
+            "radial_lerp":0.08
+          }
+        }
+      },
+      {
+        "id":"vehicle_look_camera",
+        "data":{
+          "cameraFunction":"orbit_target_obj",
+          "view_heading":{"slot_id":"state_forward"},
+          "master_state":{"state_id":"state_control_active"},
+          "min_elevation":8,
+          "offsets":[
+            {"property":"target", "axis":"y","value":3}
+          ],
+          "params":[
+            {"param":"maxDistance",   "value":29},
+            {"param":"minDistance",   "value":9},
+            {"param":"enableDamping", "value":true},
+            {"param":"dampingFactor", "value":0.82},
+            {"param":"autoRotate",    "value":false},
+            {"param":"enableKeys",    "value":false},
+            {"param":"enablePan",     "value":false},
+            {"param":"enableRotate",  "value":false},
+            {"param":"enableZoom",    "value":false},
+            {"param":"minAzimuthAngle", "value":-3.148},
+            {"param":"maxAzimuthAngle", "value":3.148},
+            {"param":"minPolarAngle",   "value":0.448},
+            {"param":"maxPolarAngle",   "value":2.348}
+          ],
+          "lerp":0.15,
+          "radial_lerp":0.32
+        }
+      },
+      {
+        "id":"camera_default",
+        "data":{
+          "cameraFunction":"orbit_target_obj",
+          "master_state":{"state_id":"fire_state"},
+          "min_elevation":-1000,
+          "offsets":[],
+          "params":[
+            {"param":"maxDistance",   "value":4000},
+            {"param":"minDistance",   "value":1},
+            {"param":"enableDamping", "value":true},
+            {"param":"dampingFactor", "value":0.82},
+            {"param":"autoRotate",    "value":false},
+            {"param":"enableKeys",    "value":false},
+            {"param":"enablePan",     "value":true},
+            {"param":"enableRotate",  "value":true},
+            {"param":"enableZoom",    "value":true},
+            {"param":"minAzimuthAngle", "value":-3.148},
+            {"param":"maxAzimuthAngle", "value":3.148},
+            {"param":"minPolarAngle",   "value":-3.0},
+            {"param":"maxPolarAngle",   "value":3.1}
+          ],
+          "lerp":0.2,
+          "radial_lerp":0.08
+        }
+      }
+    ]
+  }
+}]

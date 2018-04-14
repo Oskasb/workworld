@@ -4,20 +4,16 @@
 define([
     '3d/ThreeController',
     'EffectsAPI',
-    '3d/effects/EffectListeners',
-    'game/modules/ModuleEffectCreator'
+    '3d/effects/EffectListeners'
 
 ], function(
     ThreeController,
-    EffectsAPI,
-    EffectListeners,
-    ModuleEffectCreator
+    EffectsAPI
 ) {
     
     var SceneController = function() {
 
     };
-    
 
     SceneController.prototype.setup3dScene = function(ready) {
         ThreeController.setupThreeRenderer(ready);
@@ -25,15 +21,8 @@ define([
 
     SceneController.prototype.setupEffectPlayers = function(onReady) {
         EffectsAPI.initEffects(onReady);
-        EffectListeners.setupListeners();
-        EffectListeners.setEffectCallbacks(ModuleEffectCreator)
     };
 
-    SceneController.prototype.tickEffectPlayers = function(tpf) {
-        EffectListeners.tickEffects(tpf)
-    };
-
-    
     return SceneController;
 
 });

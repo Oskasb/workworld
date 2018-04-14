@@ -1,0 +1,15 @@
+[{
+  "PIECE_DATA":{
+    "ACTORS":[
+      {
+        "id":"actor_prop_wall_rock_50",
+        "data":{
+          "piece":"piece_wall_50_rock",
+          "alignment":"neutral",
+          "physics":"physical_wall_50_40_50",
+          "state_map":[]
+        }
+      }
+    ]
+  }
+}]

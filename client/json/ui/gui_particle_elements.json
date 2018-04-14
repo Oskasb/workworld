@@ -1,0 +1,201 @@
+[{
+  "GUI_PARTICLE_ELEMENTS":{
+    "ELEMENTS":[
+      {
+        "id":"gui_combat_plate_element",
+        "data":{
+          "effect_ids":["gui_combat_bar_effect", "gui_combat_bar_backdrop_effect"],
+          "options":{
+            "offset_y":0.047,
+            "offset_children":[-0.052, -0.002, -0.054, 0.013],
+            "status_element_id":"gui_combat_status_icon_element",
+            "health_element_id":"gui_combat_health_point_element",
+            "armor_element_id":"gui_combat_armor_point_element",
+            "text_element_id":"gui_combat_bar_text_element"
+          },
+          "render_calls":{
+            "gui_render_enable":"enable_fx_element",
+            "gui_render_disable":"disable_fx_element",
+            "gui_renderer_callback":"show_combat_status",
+            "gui_update_callback":"set_element_position"
+          }
+        }
+      },
+
+      {
+        "id":"gui_combat_status_icon_element",
+        "data":{
+          "effect_ids":["gui_combat_status_icon_effect"],
+          "options":{
+            "offset_x":-0.07,
+            "offset_y":0.004,
+            "state_map":[
+              {"sprite_id":"alert",       "color_curve":"rainbow"},
+              {"sprite_id":"sleep",       "color_curve":"threatZero"},
+              {"sprite_id":"sleep",       "color_curve":"threatOne"},
+              {"sprite_id":"sleep",       "color_curve":"threatTwo"},
+              {"sprite_id":"sleep",       "color_curve":"threatThree"},
+              {"sprite_id":"shield",      "color_curve":"threatFour"},
+              {"sprite_id":"crosshair",   "color_curve":"threatFive"},
+              {"sprite_id":"droplet",     "color_curve":"randomRed"},
+              {"sprite_id":"broken",      "color_curve":"sin"},
+              {"sprite_id":"dead",        "color_curve":"flashGrey"},
+              {"sprite_id":"alert",       "color_curve":"rainbow"}
+            ]
+          },
+          "render_calls":{
+            "gui_render_enable":"enable_fx_element",
+            "gui_render_disable":"disable_fx_element",
+            "gui_renderer_callback":null,
+            "gui_update_callback":"set_element_position"
+          }
+        }
+      },
+
+      {
+        "id":"gui_combat_bar_text_element",
+        "data":{
+          "effect_ids":[
+            "gui_combat_bar_text_effect"
+          ],
+          "options":{
+            "step_x":0.009,
+            "step_y":-0.007
+          },
+          "render_calls":{
+            "gui_render_enable":"enable_fx_element",
+            "gui_render_disable":"disable_fx_element",
+            "gui_renderer_callback":null,
+            "gui_update_callback":"set_element_position"
+          }
+        }
+      },
+      {
+        "id":"gui_combat_health_point_element",
+        "data":{
+          "effect_ids":[
+            "gui_combat_hp_plate_effect",
+            "gui_combat_hp_light_effect"
+          ],
+          "options":{
+            "step_x":0.005,
+            "step_y":-0.008
+          },
+          "render_calls":{
+            "gui_render_enable":"enable_fx_element",
+            "gui_render_disable":"disable_fx_element",
+            "gui_renderer_callback":null,
+            "gui_update_callback":"set_element_position"
+          }
+        }
+      },
+      {
+        "id":"gui_combat_armor_point_element",
+        "data":{
+          "effect_ids":[
+            "gui_combat_armor_plate_effect",
+            "gui_combat_armor_light_effect"
+          ],
+          "options":{
+            "step_x":0.007,
+            "step_y":-0.008
+          },
+          "render_calls":{
+            "gui_render_enable":"enable_fx_element",
+            "gui_render_disable":"disable_fx_element",
+            "gui_renderer_callback":null,
+            "gui_update_callback":"set_element_position"
+          }
+        }
+      },
+      {
+        "id":"gui_cursor_element",
+        "data":{
+          "effect_ids":["gui_pointer_follow_effect", "gui_pointer_follow_backdrop"],
+          "options":{},
+          "render_calls":{
+            "gui_render_enable":"enable_fx_element",
+            "gui_render_disable":"disable_fx_element",
+            "gui_renderer_callback":"show_cursor_point",
+            "gui_update_callback":"set_element_position"
+          }
+
+        }
+      },
+      {
+        "id":"gui_active_selection_element",
+        "data":{
+          "effect_ids":["gui_active_selection_effect"],
+          "options":{},
+          "render_calls": {
+            "gui_render_enable": "enable_fx_element",
+            "gui_render_disable": "disable_fx_element",
+            "gui_renderer_callback": "show_active_selection",
+            "gui_update_callback": "set_element_position"
+          }
+        }
+      },
+      {
+        "id":"gui_frame_selection_element",
+        "data":{
+          "effect_ids":[
+            "gui_corner_selection_effect",
+            "gui_corner_selection_effect",
+            "gui_corner_selection_effect",
+            "gui_corner_selection_effect",
+            "gui_vertical_edge_effect",
+            "gui_vertical_edge_effect",
+            "gui_horizontal_edge_effect",
+            "gui_horizontal_edge_effect"
+
+          ],
+          "options":{},
+          "render_calls": {
+            "gui_render_enable": "enable_fx_element",
+            "gui_render_disable": "disable_fx_element",
+            "gui_renderer_callback": "show_selection_corners",
+            "gui_update_callback": "set_element_position"
+          }
+        }
+      },
+      {
+        "id":"gui_turret_aim_yaw_element",
+        "data":{
+          "effect_ids":[
+            "gui_aim_yaw_right_indicator_effect",
+            "gui_aim_yaw_left_indicator_effect"
+          ],
+          "options":{
+            "sample_state":"aim_turret_yaw",
+            "axis_factors":[1, 0]
+          },
+          "render_calls": {
+            "gui_render_enable": "enable_fx_element",
+            "gui_render_disable": "disable_fx_element",
+            "gui_renderer_callback": "show_aim_state_status",
+            "gui_update_callback": "set_element_position"
+          }
+        }
+      },
+      {
+        "id":"gui_turret_aim_pitch_element",
+        "data":{
+          "effect_ids":[
+            "gui_aim_pitch_low_indicator_effect",
+            "gui_aim_pitch_upper_indicator_effect"
+          ],
+          "options":{
+            "sample_state":"aim_cannon_pitch",
+            "axis_factors":[0, 1]
+          },
+          "render_calls": {
+            "gui_render_enable": "enable_fx_element",
+            "gui_render_disable": "disable_fx_element",
+            "gui_renderer_callback": "show_aim_state_status",
+            "gui_update_callback": "set_element_position"
+          }
+        }
+      }
+    ]
+  }
+}]

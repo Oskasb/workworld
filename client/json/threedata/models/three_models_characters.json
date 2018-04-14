@@ -1,0 +1,51 @@
+
+[
+  {
+    "MODELS": {
+      "THREE": [
+        {
+          "id": "character_barbarian",
+          "material": "atlas_2k",
+          "format":"fbx",
+          "url": "./client/assets/models/characters/barbarian/barb_animated",
+          "pool": 1,
+          "transform": {
+            "pos": [0.0,  0.0, 0.0],
+            "rot": [0,   0, 0],
+            "scale": [1, 1, 1]
+          }
+        }
+      ]
+    }
+  },
+  {
+    "MODELS_": {
+      "THREE": [
+        {
+          "id": "character_barbarian",
+          "material": "atlas_2k",
+          "format":"fbx",
+          "url": "./client/assets/models/characters/barbarian/barb_animated",
+          "pool": 1,
+          "transform": {
+            "pos": [0.0,  0.0, 0.0],
+            "rot": [0,   0, 0],
+            "scale": [1, 1, 1]
+          }
+        },
+        {
+          "id": "character_zard",
+          "material": "atlas_2k",
+          "format":"fbx",
+          "url": "./client/assets/models/characters/monsters/zard_animated",
+          "pool": 1,
+          "transform": {
+            "pos": [0.0,  0.0, 0.0],
+            "rot": [0,   0, 0],
+            "scale": [1, 1, 1]
+          }
+        }
+      ]
+    }
+  }
+]

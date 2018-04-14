@@ -1,0 +1,365 @@
+[
+  {
+    "MATERIALS": {
+
+      "THREE":[
+        {
+          "id":"atlas_2k",
+          "shader":"MeshPhongMaterial",
+          "color":{"r":1, "g":1, "b":1},
+          "settings":{
+            "blending":"NoBlending",
+            "skinning":true
+          },
+          "textures":[{
+            "map":"./client/assets/images/textures/atlas_2k_diff.png"
+          }]
+        },
+        {
+          "id":"tank_atlas",
+          "shader":"MeshStandardMaterial",
+          "color":{"r":1, "g":1, "b":1},
+          "settings":{
+            "blending":"NoBlending",
+            "roughness":1,
+            "metalness":0.8,
+            "envMapIntensity":0.6,
+            "aoMapIntensity":1.1
+          },
+          "textures":[{
+            "map":"./client/assets/images/textures/main_diff.png",
+            "metalnessMap":"./client/assets/images/textures/main_cm.png",
+            "roughnessMap":"./client/assets/images/textures/main_roughness.png",
+            "normalMap":"./client/assets/images/textures/main_nm.png",
+            "envMap":"./client/assets/images/textures/ref_sphere.png",
+            "aoMap":"./client/assets/images/textures/tank_lm.png"
+          }]
+        },
+        {
+          "id":"modern_transport_atlas",
+          "shader":"MeshStandardMaterial",
+          "settings":{
+            "blending":"NoBlending",
+            "color":{"r":1, "g":1, "b":1},
+            "alphaTest": 0.8,
+            "roughness":1.0,
+            "metalness":1.0,
+            "envMapIntensity":1.8,
+            "emissiveIntensity":1,
+            "lightMapIntensity":1,
+            "refractionRatio":0.1,
+            "aoMapIntensity":1.0
+          },
+          "textures":[{
+            "map":"./client/assets/images/textures/main_diff.png",
+            "metalnessMap":"./client/assets/images/textures/main_cm.png",
+            "roughnessMap":"./client/assets/images/textures/main_roughness.png",
+            "normalMap":"./client/assets/images/textures/main_nm.png",
+            "envMap":"./client/assets/images/textures/ref_sphere.png",
+            "aoMap":"./client/assets/images/textures/big_transport_ao.png"
+          }]
+        },{
+
+          "id":"main_atlas",
+          "shader":"MeshStandardMaterial",
+          "color":{"r":1, "g":1, "b":1},
+          "settings":{
+            "blending":"NoBlending",
+            "side":"DoubleSide",
+            "alphaTest": 0.8,
+            "roughness":1.0,
+            "metalness":0.8,
+            "envMapIntensity":0.9,
+            "emissiveIntensity":0,
+            "lightMapIntensity":1,
+            "refractionRatio":0.1,
+            "aoMapIntensity":1.0
+          },
+          "textures":[{
+            "map":"./client/assets/images/textures/main_diff.png",
+            "metalnessMap":"./client/assets/images/textures/main_cm.png",
+            "roughnessMap":"./client/assets/images/textures/main_roughness.png",
+            "envMap":"./client/assets/images/textures/ref_sphere.png",
+            "normalMap":"./client/assets/images/textures/main_nm.png",
+            "lightMap":"./client/assets/images/textures/main_emit.png"
+          }]
+        },{
+          "id":"tank_track",
+          "shader":"MeshPhongMaterial",
+          "color":{"r":0.9, "g":0.9, "b":0.9},
+          "settings":{
+            "blending":"NoBlending"
+          },
+          "textures":[{
+            "map":"./client/assets/images/textures/track.png"
+          }]
+
+        },{
+          "id":"wave_control_additive",
+          "shader":"MeshBasicMaterial",
+          "blending":"AdditiveBlending",
+          "color":{"r":0.02, "g":0.55, "b":1},
+          "settings":{
+            "transparent":true,
+            "depthTest":false,
+            "depthWrite":false,
+            "fog":false,
+            "opacity":1
+          },
+          "textures":[{
+            "map":"./client/assets/images/textures/pointer_surface.png"
+          }]
+
+        },{
+          "id":"wave_control_opaque",
+          "shader":"MeshBasicMaterial",
+          "color":{"r":0.2, "g":0.99, "b":1},
+          "settings":{
+            "fog":false
+          },
+          "textures":[{
+            "map":"./client/assets/images/textures/pointer_surface.png"
+          }]
+
+        },{
+          "id":"natrue_alphakill",
+          "shader":"MeshPhongMaterial",
+          "settings":{
+            "side":"DoubleSide",
+            "blending":"NoBlending",
+            "alphaTest": 0.8,
+            "shininess":0.1,
+            "reflectivity":0.4,
+            "aoMapIntensity":1.0,
+            "lightMapIntensity":2,
+            "emissiveIntensity":2,
+            "color":{"r":1, "g":1, "b":1}
+          },
+          "textures":[{
+            "map":"./client/assets/images/textures/main_diff.png",
+            "normalMap":"./client/assets/images/textures/main_nm.png",
+            "lightMap":"./client/assets/images/textures/main_emit.png",
+            "aoMap":"./client/assets/images/textures/main_emit.png"
+          }]
+        },{
+          "id":"nature_opaque",
+          "shader":"MeshPhongMaterial",
+          "settings":{
+            "blending":"NoBlending",
+            "alphaTest": 0.5,
+            "shininess":0.1,
+            "reflectivity":0.4,
+            "aoMapIntensity":0.5,
+            "lightMapIntensity":1,
+            "emissiveIntensity":1,
+            "color":{"r":1, "g":1, "b":1}
+          },
+          "textures":[{
+            "map":"./client/assets/images/textures/main_diff.png",
+            "normalMap":"./client/assets/images/textures/main_nm.png",
+            "lightMap":"./client/assets/images/textures/main_emit.png"
+          }]
+        },{
+          "id":"load_texture_data",
+          "shader":"",
+          "settings":{},
+          "textures":[{
+            "particle_texture":        "./client/assets/images/effects/particle_atlas_6x6.png",
+            "data_texture":            "./client/assets/images/effects/data_texture.png",
+            "terrain_darkrock":        "./client/assets/images/textures/tiles/darkrock.png",
+            "terrain_striperock":      "./client/assets/images/textures/tiles/striperock.png",
+            "terrain_mud":             "./client/assets/images/textures/tiles/mud.png",
+            "terrain_detail":          "./client/assets/images/textures/tiles/detail.png",
+            "terrain_sand":            "./client/assets/images/textures/tiles/sand.png",
+            "terrain_fract":           "./client/assets/images/textures/tiles/fract.png",
+            "terrain_crackstile":      "./client/assets/images/textures/tiles/crackstile.png",
+            "terrain_dark_grass":      "./client/assets/images/textures/tiles/dark_grass.png",
+            "ocean_watertile2":        "./client/assets/images/textures/tiles/watertile2.png",
+            "ocean_watertile":         "./client/assets/images/textures/tiles/watertile.png",
+            "terrain_grass":           "./client/assets/images/textures/tiles/grass.png"
+          }]
+        }
+      ],
+      "THREE_POW":[
+        {
+
+          "id":"tank_atlas",
+          "shader":"MeshPhysicalMaterial",
+          "settings":{
+            "blending":"NoBlending",
+            "color":{"r":0.9, "g":0.9, "b":0.9},
+            "clearCoat":0.68,
+            "clearCoatRoughness":0.35,
+            "roughness":1,
+            "reflectivity":1.0,
+            "metalness":1.0,
+            "envMapIntensity":1.0,
+            "aoMapIntensity":1.4
+          },
+          "textures":[{
+            "map":"./client/assets/images/textures/main_diff.png",
+            "metalnessMap":"./client/assets/images/textures/main_cm.png",
+            "roughnessMap":"./client/assets/images/textures/main_roughness.png",
+            "normalMap":"./client/assets/images/textures/main_nm.png",
+            "envMap":"./client/assets/images/textures/ref_sphere.png",
+            "aoMap":"./client/assets/images/textures/tank_lm.png"
+          }]
+        },{
+          "id":"modern_transport_atlas",
+          "shader":"MeshPhysicalMaterial",
+          "settings":{
+            "blending":"NoBlending",
+            "color":{"r":0.9, "g":0.9, "b":0.9},
+            "clearCoat":0.05,
+            "clearCoatRoughness":0.95,
+            "roughness":1,
+            "reflectivity":1.0,
+            "metalness":1.0,
+            "envMapIntensity":1.0,
+            "aoMapIntensity":1.4
+          },
+          "textures":[{
+            "map":"./client/assets/images/textures/main_diff.png",
+            "metalnessMap":"./client/assets/images/textures/main_cm.png",
+            "roughnessMap":"./client/assets/images/textures/main_roughness.png",
+            "normalMap":"./client/assets/images/textures/main_nm.png",
+            "envMap":"./client/assets/images/textures/ref_sphere.png",
+            "aoMap":"./client/assets/images/textures/big_transport_ao.png"
+          }]
+        },{
+
+          "id":"main_atlas",
+          "shader":"MeshPhysicalMaterial",
+          "settings":{
+            "blending":"NoBlending",
+            "side":"DoubleSide",
+            "emissive":{"r":0, "g":1.0, "b":1.0},
+            "color":{"r":0, "g":1.0, "b":1.0},
+            "clearCoat":0.0,
+            "alphaTest": 0.8,
+            "clearCoatRoughness":1.0,
+            "roughness":1.0,
+            "reflectivity":1.0,
+            "metalness":1.0,
+            "envMapIntensity":1.5,
+            "emissiveIntensity":1,
+            "lightMapIntensity":2,
+            "refractionRatio":0.1,
+            "aoMapIntensity":1.0
+          },
+          "textures":[{
+            "map":"./client/assets/images/textures/main_diff.png",
+            "metalnessMap":"./client/assets/images/textures/main_cm.png",
+            "roughnessMap":"./client/assets/images/textures/main_roughness.png",
+            "envMap":"./client/assets/images/textures/ref_sphere.png",
+            "normalMap":"./client/assets/images/textures/main_nm.png",
+            "lightMap":"./client/assets/images/textures/main_emit.png"
+          }]
+        },{
+          "id":"tank_track",
+          "shader":"MeshPhysicalMaterial",
+          "settings":{
+            "blending":"NoBlending",
+            "clearCoat":0,
+            "roughness":0.2,
+            "reflectivity":1.4,
+            "envMapIntensity":1.5,
+            "metalness":1.4,
+            "aoMapIntensity":1.0
+          },
+          "textures":[{
+            "map":"./client/assets/images/textures/track.png",
+            "envMap":"./client/assets/images/textures/ref_sphere.png",
+            "metalnessMap":"./client/assets/images/textures/track_surface.png",
+            "normalMap":"./client/assets/images/textures/track_nm.png",
+            "aoMap":"./client/assets/images/textures/tank_lm.png"
+          }]
+
+        },{
+          "id":"wave_control_additive",
+          "shader":"MeshBasicMaterial",
+          "blending":"AdditiveBlending",
+          "color":{"r":0.02, "g":0.55, "b":0.89},
+          "settings":{
+            "transparent":true,
+            "depthTest":false,
+            "depthWrite":false,
+            "opacity":1
+          },
+          "textures":[{
+            "map":"./client/assets/images/textures/pointer_surface.png"
+          }]
+
+        },{
+          "id":"wave_control_opaque",
+          "shader":"MeshBasicMaterial",
+          "color":{"r":0.2, "g":0.99, "b":0.98},
+          "settings":{
+
+          },
+          "textures":[{
+            "map":"./client/assets/images/textures/pointer_surface.png"
+          }]
+
+        },{
+          "id":"natrue_alphakill",
+          "shader":"MeshPhongMaterial",
+          "settings":{
+            "side":"DoubleSide",
+            "blending":"NoBlending",
+            "alphaTest": 0.8,
+            "shininess":0.1,
+            "reflectivity":0.4,
+            "aoMapIntensity":1.0,
+            "lightMapIntensity":2,
+            "emissiveIntensity":2,
+            "color":{"r":1, "g":1, "b":1}
+          },
+          "textures":[{
+            "map":"./client/assets/images/textures/main_diff.png",
+            "normalMap":"./client/assets/images/textures/main_nm.png",
+            "lightMap":"./client/assets/images/textures/main_emit.png",
+            "aoMap":"./client/assets/images/textures/main_emit.png"
+          }]
+        },{
+          "id":"nature_opaque",
+          "shader":"MeshPhongMaterial",
+          "settings":{
+            "blending":"NoBlending",
+            "alphaTest": 0.5,
+            "shininess":0.1,
+            "reflectivity":0.4,
+            "aoMapIntensity":0.5,
+            "lightMapIntensity":1,
+            "emissiveIntensity":1,
+            "color":{"r":1, "g":1, "b":1}
+          },
+          "textures":[{
+            "map":"./client/assets/images/textures/main_diff.png",
+            "normalMap":"./client/assets/images/textures/main_nm.png",
+            "lightMap":"./client/assets/images/textures/main_emit.png"
+          }]
+        },{
+          "id":"load_texture_data",
+          "shader":"",
+          "settings":{},
+          "textures":[{
+            "particle_texture":        "./client/assets/images/effects/particle_atlas_6x6.png",
+            "data_texture":            "./client/assets/images/effects/data_texture.png",
+            "terrain_darkrock":        "./client/assets/images/textures/tiles/darkrock.png",
+            "terrain_striperock":      "./client/assets/images/textures/tiles/striperock.png",
+            "terrain_mud":             "./client/assets/images/textures/tiles/mud.png",
+            "terrain_detail":          "./client/assets/images/textures/tiles/detail.png",
+            "terrain_sand":            "./client/assets/images/textures/tiles/sand.png",
+            "terrain_fract":           "./client/assets/images/textures/tiles/fract.png",
+            "terrain_crackstile":      "./client/assets/images/textures/tiles/crackstile.png",
+            "terrain_dark_grass":      "./client/assets/images/textures/tiles/dark_grass.png",
+            "ocean_watertile2":        "./client/assets/images/textures/tiles/watertile2.png",
+            "ocean_watertile":         "./client/assets/images/textures/tiles/watertile.png",
+            "terrain_grass":           "./client/assets/images/textures/tiles/grass.png"
+          }]
+        }
+      ]
+    }
+  }
+]

@@ -1,0 +1,85 @@
+[{
+  "GUI_PARTICLE_ELEMENTS":{
+    "ELEMENTS":[
+
+      {
+        "id":"gui_main_menu_element",
+        "data":{
+          "effect_ids":[],
+          "options":{
+            "gui_key":"MAIN_MENU",
+            "screen_pos":[-0.43, 0.46, -1],
+            "offset_children":[0.004, -0.004, 0.03, -0.002],
+            "label_elemet_id":"gui_menu_label_container_element"
+          },
+          "render_calls":{
+            "gui_render_enable":"enable_fx_element",
+            "gui_render_disable":"disable_fx_element",
+            "gui_renderer_callback":"show_menu_status",
+            "gui_update_callback":"set_element_position"
+          }
+        }
+      },
+
+      {
+        "id":"gui_menu_label_container_element",
+        "data":{
+          "effect_ids":[
+            "gui_combat_bar_effect"
+          ],
+          "options":{
+            "text_element_id":"gui_menu_text_element",
+            "offset_x": -0.030 ,
+            "offset_y": -0.010,
+            "row_y":0.048,
+            "height":0.042,
+            "width":0.15,
+            "pad_x":-0.012,
+            "pad_y":0.0,
+            "state_map":[
+              {"color_curve":"flatGrey"},
+
+              {"color_curve":"darkBlue"},
+              {"color_curve":"randomGreen"},
+              {"color_curve":"oneToZero"},
+              {"color_curve":"steadyBlue"},
+              {"color_curve":"oneToZero"},
+
+              {"color_curve":"oneToZero"},
+              {"color_curve":"flatCyan"},
+              {"color_curve":"brightCyan"},
+              {"color_curve":"randomRed"},
+              {"color_curve":"zeroToOne"},
+
+              {"color_curve":"rainbow"}
+            ]
+          },
+          "render_calls":{
+            "gui_render_enable":"enable_fx_element",
+            "gui_render_disable":"disable_fx_element",
+            "gui_renderer_callback":null,
+            "gui_update_callback":"set_element_position"
+          }
+        }
+      },
+      {
+        "id": "gui_menu_text_element",
+        "data": {
+          "effect_ids": [
+            "gui_menu_text_effect"
+          ],
+          "options": {
+            "step_x": 0.021,
+            "step_y": 0.006
+          },
+          "render_calls": {
+            "gui_render_enable": "enable_fx_element",
+            "gui_render_disable": "disable_fx_element",
+            "gui_renderer_callback": null,
+            "gui_update_callback": "set_element_position"
+          }
+        }
+      }
+    ]
+  }
+}]

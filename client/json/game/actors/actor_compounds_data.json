@@ -1,0 +1,24 @@
+[{
+  "PIECE_DATA":{
+    "ACTORS":[
+      {
+        "id":"actor_compound_barrel_pile",
+        "data":{
+          "piece":"piece_platform_10x6",
+          "alignment":"neutral",
+          "physics":"physical_platform_10x6",
+          "companion_actors":[
+            {"dataKey":"actor_prop_oil_drum", "offset":[2,    2,  2.6]},
+            {"dataKey":"actor_prop_oil_drum", "offset":[2,    2,    0]},
+            {"dataKey":"actor_prop_oil_drum", "offset":[2,    2, -2.6]},
+            {"dataKey":"actor_prop_oil_drum", "offset":[-0.5, 2,  1.3]},
+            {"dataKey":"actor_prop_oil_drum", "offset":[-0.5, 2, -1.3]},
+            {"dataKey":"actor_prop_box_crate","offset":[ 0.8, 7,  0.0]},
+            {"dataKey":"actor_prop_oil_drum", "offset":[ 0.8, 10, 0.0]}
+          ],
+          "state_map":[]
+        }
+      }
+    ]
+  }
+}]

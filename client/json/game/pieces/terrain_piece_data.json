@@ -1,0 +1,19 @@
+[{
+  "PIECE_DATA":{
+    "PIECES":[
+      {
+        "id":"default_terrain_piece",
+        "data":{
+          "root_slot":"ground_root",
+          "slots":[
+            {"slot":"ground_root",    "module":"terrain_root_module"},
+            {"slot":"ground",         "module":"terrain_plain_ground"}
+          ],
+          "attachments":[
+            {"slot":"ground_root",    "ap":"ap_ground",   "child":"ground"}
+          ]
+        }
+      }
+    ]
+  }
+}]

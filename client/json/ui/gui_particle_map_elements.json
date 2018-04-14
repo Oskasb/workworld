@@ -1,0 +1,102 @@
+[{
+  "GUI_PARTICLE_ELEMENTS":{
+    "ELEMENTS":[
+      {
+        "id":"gui_map_plate_element",
+        "data":{
+          "effect_ids":["gui_combat_bar_effect", "gui_combat_bar_backdrop_effect"],
+          "options":{
+            "map_actor_element_id":"gui_map_actor_element",
+            "map_attack_element_id":"gui_map_attack_element"
+          },
+          "render_calls":{
+            "gui_render_enable":"enable_fx_element",
+            "gui_render_disable":"disable_fx_element",
+            "gui_renderer_callback":"draw_local_map",
+            "gui_update_callback":"set_element_position"
+          }
+        }
+      },
+
+      {
+        "id":"gui_map_actor_element",
+        "data":{
+          "effect_ids":[
+            "gui_corner_selection_effect"
+          ],
+          "options":{
+            "offset_x": 0.006,
+            "offset_y":-0.006,
+            "text_element_id":"gui_map_state_text_element"
+          },
+          "render_calls":{
+            "gui_render_enable":"enable_fx_element",
+            "gui_render_disable":"disable_fx_element",
+            "gui_renderer_callback":null,
+            "gui_update_callback":"set_element_position"
+          }
+        }
+      },
+
+      {
+        "id":"gui_map_attack_element",
+        "data":{
+          "effect_ids":[
+            "gui_corner_selection_effect"
+          ],
+          "options":{
+            "offset_x": 0.006,
+            "offset_y":-0.006
+          },
+          "render_calls":{
+            "gui_render_enable":"enable_fx_element",
+            "gui_render_disable":"disable_fx_element",
+            "gui_renderer_callback":null,
+            "gui_update_callback":"set_element_position"
+          }
+        }
+      },
+
+      {
+        "id":"gui_map_state_text_element",
+        "data":{
+          "effect_ids":[
+            "gui_combat_bar_text_effect"
+          ],
+          "options":{
+            "step_x":0.009,
+            "step_y":-0.007
+          },
+          "render_calls":{
+            "gui_render_enable":"enable_fx_element",
+            "gui_render_disable":"disable_fx_element",
+            "gui_renderer_callback":null,
+            "gui_update_callback":"set_element_position"
+          }
+        }
+      },
+      {
+        "id":"gui_map_frame_element",
+        "data":{
+          "effect_ids":[
+            "gui_corner_selection_effect",
+            "gui_corner_selection_effect",
+            "gui_corner_selection_effect",
+            "gui_corner_selection_effect",
+            "gui_vertical_edge_effect",
+            "gui_vertical_edge_effect",
+            "gui_horizontal_edge_effect",
+            "gui_horizontal_edge_effect"
+          ],
+          "options":{},
+          "render_calls": {
+            "gui_render_enable": "enable_fx_element",
+            "gui_render_disable": "disable_fx_element",
+            "gui_renderer_callback": null,
+            "gui_update_callback": "set_element_position"
+          }
+        }
+      }
+    ]
+  }
+}]

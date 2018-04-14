@@ -1,0 +1,151 @@
+[
+  {
+    "MODELS": {
+      "THREE": [
+        {
+          "id": "control_active_inner_model_1",
+          "material": "wave_control_opaque",
+          "url": "./client/assets/models/controls/active_inner_1",
+          "pool": 5,
+          "transform": {
+            "pos": [0, 0, 0],
+            "rot": [0, 0, 0],
+            "scale": [1, 1, 1]
+          }
+        },
+        {
+          "id": "control_active_outer_model_1",
+          "material": "wave_control_additive",
+          "url": "./client/assets/models/controls/active_outer_1",
+          "pool": 5,
+          "transform": {
+            "pos": [0, 0, 0],
+            "rot": [0, 0, 0],
+            "scale": [1, 1, 1]
+          }
+        },
+        {
+          "id": "control_active_inner_model_2",
+          "material": "wave_control_opaque",
+          "url": "./client/assets/models/controls/active_inner_2",
+          "pool": 5,
+          "transform": {
+            "pos": [0, 0, 0],
+            "rot": [0, 0, 0],
+            "scale": [1, 1, 1]
+          }
+        },
+        {
+          "id": "control_active_outer_model_",
+          "material": "wave_control_additive",
+          "url": "./client/assets/models/controls/active_outer_2",
+          "pool": 5,
+          "transform": {
+            "pos": [0, 0, 0],
+            "rot": [0, 0, 0],
+            "scale": [1, 1, 1]
+          }
+        },
+        {
+          "id": "control_selector_inner_model",
+          "material": "wave_control_opaque",
+          "url": "./client/assets/models/controls/selector_inner",
+          "pool": 5,
+          "transform": {
+            "pos": [0, 0, 0],
+            "rot": [0, 0, 0],
+            "scale": [1, 1, 1]
+          }
+        },
+        {
+          "id": "control_selector_outer_model",
+          "material": "wave_control_additive",
+          "url": "./client/assets/models/controls/selector_outer",
+          "pool": 5,
+          "transform": {
+            "pos": [0, 0, 0],
+            "rot": [0, 0, 0],
+            "scale": [1, 1, 1]
+          }
+        },
+        {
+          "id": "control_cursor_inner_model",
+          "material": "wave_control_opaque",
+          "url": "./client/assets/models/controls/cursor_inner",
+          "pool": 5,
+          "transform": {
+            "pos": [0, 0, 0],
+            "rot": [0, 0, 0],
+            "scale": [1, 1, 1]
+          }
+        },
+        {
+          "id": "control_cursor_outer_model",
+          "material": "wave_control_additive",
+          "url": "./client/assets/models/controls/cursor_outer",
+          "pool": 5,
+          "transform": {
+            "pos": [0, 0, 0],
+            "rot": [0, 0, 0],
+            "scale": [1, 1, 1]
+          }
+        },
+        {
+          "id": "control_wavearrow_outer_model",
+          "material": "wave_control_additive",
+          "url": "./client/assets/models/controls/wavearrow_outer",
+          "pool": 5,
+          "transform": {
+            "pos": [0, 0, 0],
+            "rot": [0, -1, 0],
+            "scale": [1, 1, 1]
+          }
+        },
+        {
+          "id": "control_wavearrow_model",
+          "material": "wave_control_opaque",
+          "url": "./client/assets/models/controls/wavearrow",
+          "pool": 5,
+          "transform": {
+            "pos": [0, 0, 0],
+            "rot": [0, -1, 0],
+            "scale": [1, 1, 1]
+          }
+        },
+        {
+          "id": "control_heading_model",
+          "material": "main_atlas",
+          "url": "./client/assets/models/controls/heading",
+          "pool": 5,
+          "transform": {
+            "pos": [0, 0, 0],
+            "rot": [0, 0, 0],
+            "scale": [1, 1, 1]
+          }
+        },
+        {
+          "id": "control_yaw_model",
+          "material": "main_atlas",
+          "url": "./client/assets/models/controls/yaw",
+          "pool": 5,
+          "transform": {
+            "pos": [0,   0, 0],
+            "rot": [0,   0, 0],
+            "scale": [1, 1, 1]
+          }
+        },
+        {
+          "id": "control_forward_model",
+          "material": "main_atlas",
+          "url": "./client/assets/models/controls/forward",
+          "pool": 5,
+          "transform": {
+            "pos": [0,   0, 0],
+            "rot": [0,  -1, 0],
+            "scale": [1, 1, 1]
+          }
+        }
+      ]
+    }
+  }
+]

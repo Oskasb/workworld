@@ -1,29 +1,19 @@
 "use strict";
 
 define([
+        'WorkerAPI',
 		'Events',
-        'GameAPI',
         'ThreeAPI',
         'EffectsAPI',
-		'application/ClientRegistry',
-        'application/debug/SetupDebug',
-		'io/Connection',
 		'application/TimeTracker',
-		'modelviewer/ViewerMain',
-		'ui/UiMessenger',
 		'PipelineAPI'
     ],
 	function(
+        WorkerAPI,
         evt,
-        GameAPI,
         ThreeAPI,
         EffectsAPI,
-        ClientRegistry,
-        SetupDebug,
-        Connection,
         TimeTracker,
-        ViewerMain,
-        UiMessenger,
         PipelineAPI
     ) {
 3
@@ -38,83 +28,20 @@ define([
         var ClientViewer = function(pointerCursor, sceneController) {
             ClientState = ENUMS.ClientStates.INITIALIZING;
 
-            new SetupDebug();
-
             this.sceneController = sceneController;
 
 			this.pointerCursor = pointerCursor;
 
 			this.timeTracker = new TimeTracker();
-			this.viewerMain = new ViewerMain();
-
-			this.gameMain = this.viewerMain;
-
-		//	this.guiSetup = new GuiSetup();
-            new UiMessenger();
-            this.connection = new Connection();
 
             this.handlers = {};
 
-            this.handlers.clientRegistry = new ClientRegistry();
-            this.handlers.gameMain = this.viewerMain;
             this.handlers.timeTracker = this.timeTracker;
-        //    this.handlers.clientWorld = new ClientWorld();
 
-            PipelineAPI.setCategoryData(ENUMS.Category.POINTER_STATE, this.pointerCursor.inputState);
+            PipelineAPI.setCategoryData(ENUMS.Category.POINTER_STATE, this.pointerCursor.getPointerState());
 
 		};
 
-
-        ClientViewer.prototype.setClientState = function(state) {
-            ClientState = state;
-    //        console.log("SetCLientState: ", state);
-            evt.fire(evt.list().MESSAGE_UI, {channel:ENUMS.Channel.client_state, message:' - '+state});
-        };
-
-
-        ClientViewer.prototype.connectSocket = function(socketMessages, connection) {
-            this.setClientState(ENUMS.ClientStates.CONNECTING);
-
-            var disconnectedCallback = function() {
-                console.log("Socket Disconnected");
-                this.setClientState(ENUMS.ClientStates.DISCONNECTED);
-                evt.fire(evt.list().MESSAGE_UI, {channel:'connection_error', message:'Connection Lost'});
-                evt.fire(evt.list().CONNECTION_CLOSED, {data:'closed'});
-                evt.removeListener(evt.list().SEND_SERVER_REQUEST, handleSendRequest);
-                setTimeout(function() {
-                    connect();
-                }, 200)
-            }.bind(this);
-
-            var handleSendRequest = function(e) {
-                var msg = socketMessages.getMessageById(evt.args(e).id);
-                var args = evt.args(e);
-                sendMessage(msg, args);
-            };
-
-            var errorCallback = function(error) {
-                console.log("Socket Error", error);
-            };
-
-            var connectedCallback = function() {
-                this.setClientState(ENUMS.ClientStates.CONNECTED);
-                evt.fire(evt.list().MESSAGE_UI, {channel:'connection_status', message:'Connection Open'});
-                evt.fire(evt.list().CONNECTION_OPEN, {});
-                evt.on(evt.list().SEND_SERVER_REQUEST, handleSendRequest);
-            }.bind(this);
-
-            var connect = function() {
-                sendMessage = connection.setupSocket(connectedCallback, errorCallback, disconnectedCallback);
-            };
-
-            connect();
-
-        };
-
-
-        ClientViewer.prototype.initiateClientGui = function() {
-        //    this.guiSetup.initMainGui();
-		};
 
         var aggDiff = 0;
 
@@ -177,9 +104,9 @@ define([
                 setupReady()
             };
 
-            this.sceneController.setupEffectPlayers(fxReady);
-
+            fxReady();
         };
+
 
         var start;
         var gameTime = 0;
@@ -338,13 +265,13 @@ define([
             aggDiff += tpf-exactTpf;
 
 
-            GameAPI.tickControls(tpf, gameTime);
+        //    GameAPI.tickControls(tpf, gameTime);
 
             this.pointerCursor.tick();
 
-            GameAPI.tickPlayerPiece(tpf, gameTime);
+        //    GameAPI.tickPlayerPiece(tpf, gameTime);
 
-            this.sceneController.tickEffectPlayers(tpf);
+        //    this.sceneController.tickEffectPlayers(tpf);
 
             clearTimeout(tickTimeout);
             tickTimeout = setTimeout(function() {
@@ -352,25 +279,27 @@ define([
                 tickEvent.frame = frame;
                 tickEvent.tpf = tpf;
 
-                GameAPI.tickGame(tpf, gameTime);
+        //        GameAPI.tickGame(tpf, gameTime);
 
             }, 0);
 
 
+            ThreeAPI.setCameraPos(50*Math.sin(gameTime*0.5), 5, 50*Math.cos(gameTime*0.5));
+            ThreeAPI.cameraLookAt(0, 0, 0);
 
-            this.viewerMain.tickViewerClient(tpf);
+        //    this.viewerMain.tickViewerClient(tpf);
             
         //    evt.fire(evt.list().CAMERA_TICK, {frame:frame, tpf:tpf});
 
             PipelineAPI.setCategoryKeyValue('STATUS', 'TIME_GAME_TICK', performance.now() - start);
 
 
-            this.tickStatusUpdate(tpf);
+        //    this.tickStatusUpdate(tpf);
 
 
-            if (PipelineAPI.getPipelineOptions('jsonPipe').polling.enabled) {
-                PipelineAPI.tickPipelineAPI(tpf);
-            }
+        //    if (PipelineAPI.getPipelineOptions('jsonPipe').polling.enabled) {
+        //        PipelineAPI.tickPipelineAPI(tpf);
+        //    }
             
 		};
 

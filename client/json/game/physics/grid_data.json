@@ -1,0 +1,47 @@
+[
+  {
+    "PHYSICS_DATA": {
+      "GRID_MASTER":[
+
+        {
+          "name":"static",
+          "visible_range":800,
+          "sector_size":80,
+          "rows_n_columns":9,
+          "actor_count":0
+        },
+        {
+          "name":"big",
+          "visible_range":400,
+          "sector_size":75,
+          "rows_n_columns":3,
+          "actor_count":1
+        }
+      ],
+      "GRID_SYSTEMS":[
+        {
+          "id":"basic_grassland",
+          "data":[
+            {
+              "patch_content":[
+                {"id":"actor_prop_wall_rock_50",          "probability":0.5 ,  "slope":{"min":-1,    "max":0.02} , "elevation":{"min":-0.1,    "max":1}},
+                {"id":"actor_tree_2_instanced",           "probability":0.7 ,  "slope":{"min":0.005, "max":0.26} , "elevation":{"min": 0.1,    "max":38}},
+                {"id":"actor_tree_3_instanced",           "probability":0.5  , "slope":{"min":0.005, "max":0.26} , "elevation":{"min":0.1,    "max":45}}
+              ]
+            },
+            {
+              "patch_content":[
+
+                {"id":"actor_enemy_oomba",                "probability":0.2  , "slope":{"min":0.0,   "max":0.14} , "elevation":{"min": 2,    "max":55}},
+                {"id":"actor_prop_creative_crate_medium", "probability":0.24 , "slope":{"min":0.0,   "max":0.14} , "elevation":{"min": 2,    "max":55}},
+                {"id":"actor_shrub_medium",               "probability":0.15 , "slope":{"min":-0.001,"max":0.01} , "elevation":{"min": 6,    "max":38}},
+                {"id":"actor_prop_oil_drum",              "probability":0.03,  "slope":{"min":0.001, "max":0.01} , "elevation":{"min":6,    "max":35}},
+                {"id":"actor_prop_wooden_crate_large",    "probability":0.11 , "slope":{"min":0.001, "max":0.12} , "elevation":{"min":4,    "max":35}}
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  }
+]

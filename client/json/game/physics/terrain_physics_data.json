@@ -1,0 +1,18 @@
+[{
+  "PHYSICS_DATA":{
+    "PHYSICAL":[
+      {
+        "id":"physical_terrain",
+        "data":{
+          "shape":"terrain",
+          "rigid_body":{},
+          "state_map":[
+            {"param":"position",  "axis":"x",   "stateid": "state_pos_x"},
+            {"param":"position",  "axis":"y",   "stateid": "state_pos_y"},
+            {"param":"position",  "axis":"z",   "stateid": "state_pos_z"}
+          ]
+        }
+      }
+    ]
+  }
+}]

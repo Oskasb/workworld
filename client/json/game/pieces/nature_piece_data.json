@@ -1,0 +1,85 @@
+[{
+  "PIECE_DATA":{
+    "PIECES":[
+      {
+        "id":"piece_tree_2_stump",
+        "data":{
+          "root_slot":"piece_root",
+          "slots":[
+            {"slot":"piece_root",         "module":"module_tree_2_stump"}
+          ],
+          "attachments":[
+
+          ]
+        }
+      },
+      {
+        "id":"piece_tree_3_small_instanced",
+        "data":{
+          "root_slot":"piece_root",
+          "slots":[
+            {"slot":"piece_root",         "module":"module_tree_3_small_instanced"}
+          ],
+          "attachments":[
+          ]
+        }
+      },
+      {
+        "id":"piece_tree_3_combined_instanced",
+        "data":{
+          "root_slot":"piece_root",
+          "slots":[
+            {"slot":"piece_root",         "module":"module_tree_3_combined_instanced"}
+          ],
+          "attachments":[
+          ]
+        }
+      },
+      {
+        "id":"piece_tree_2_trunk_instanced",
+        "data":{
+          "root_slot":"piece_root",
+          "slots":[
+            {"slot":"piece_root",         "module":"module_tree_2_trunk_instanced"}
+          ],
+          "attachments":[
+          ]
+        }
+      },
+      {
+        "id":"piece_tree_2_trunk",
+        "data":{
+          "root_slot":"piece_root",
+          "combat_stats":{
+            "health":45,
+            "armor":0
+          },
+          "slots":[
+            {"slot":"piece_root",         "module":"module_tree_2_trunk"},
+            {"slot":"combat",             "module":"combat_module"      }
+          ],
+          "attachments":[
+            {"slot":"piece_root",         "ap":"ap_combat",     "child":"combat" }
+          ]
+        }
+      },
+      {
+        "id":"piece_shrub_medium",
+        "data":{
+          "root_slot":"piece_root",
+          "combat_stats":{
+            "health":3,
+            "armor":0
+          },
+          "slots":[
+            {"slot":"piece_root",         "module":"module_shrub_medium"},
+            {"slot":"combat",             "module":"combat_module"      }
+          ],
+          "attachments":[
+            {"slot":"piece_root",         "ap":"ap_combat",     "child":"combat" }
+          ]
+        }
+      }
+    ]
+  }
+}]

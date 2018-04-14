@@ -1,0 +1,54 @@
+[{
+  "MODULE_DATA":{
+    "MODULES":[
+      {
+        "id":"terrain_plain_ground",
+        "data":{
+          "options":{
+            "type":"array",
+            "state":true,
+            "three_terrain":"plain_ground",
+            "vegetation_system":"basic_grassland",
+            "terrain_size":1000,
+            "terrain_segments":127,
+            "invert_hill":false,
+            "terrain_edge_size":175,
+            "edge_easing":"clampSin",
+            "max_height":20,
+            "min_height":0,
+            "frequency":3,
+            "steps":6
+          },
+          "terrain":"plain_ground",
+          "channels":[
+
+          ]
+        }
+      },
+      {
+        "id":"terrain_root_module",
+        "data":{
+          "transform":{
+            "rot":  [0,   0,  0],
+            "pos":  [0,   0,  0],
+            "size": [0,   0,  0]
+          },
+
+          "channels":[
+            {"channelid":"channel_pos_x", "stateid":"state_pos_x"},
+            {"channelid":"channel_pos_y", "stateid":"state_pos_y"},
+            {"channelid":"channel_pos_z", "stateid":"state_pos_z"}
+          ],
+          "attachment_points":[
+            {"id":"ap_ground",
+              "transform":{
+                "rot":[0, 0, 0],
+                "pos":[0, 0, 0]
+              }
+            }
+          ]
+        }
+      }
+    ]
+  }
+}]

@@ -1,0 +1,24 @@
+[{
+  "MODULE_DATA":{
+    "MODULES":[
+      {
+        "id":"combat_module",
+        "data":{
+          "transform":{
+            "rot":  [0,   0,    0],
+            "pos":  [0,   0,    0],
+            "size": [0,   0,    0]
+          },
+          "combat_models":["default_combat_model"],
+          "channels":[
+            {"channelid":"channel_combat_state",  "stateid": "combat_state" },
+            {"channelid":"channel_max_health",    "stateid": "health_max_state" },
+            {"channelid":"channel_max_armor",     "stateid": "armor_max_state" },
+            {"channelid":"channel_health",        "stateid": "health_state" },
+            {"channelid":"channel_armor",         "stateid": "armor_state" }
+          ]
+        }
+      }
+    ]
+  }
+}]

@@ -1,0 +1,274 @@
+[{
+  "PHYSICS_DATA":{
+    "PHYSICAL":[
+      {
+        "id":"physical_box_crate_6m",
+        "data":{
+          "shape":"primitive",
+          "rigid_body":{
+            "state":"WANTS_DEACTIVATION",
+            "shape":"Box",
+            "args":[6, 6, 6],
+            "friction":2.5,
+            "restitution":0.5,
+            "damping":0.53,
+            "mass":5000
+          },
+          "state_map":[
+            {"param":"position",  "axis":"x",   "stateid": "state_pos_x"},
+            {"param":"position",  "axis":"y",   "stateid": "state_pos_y"},
+            {"param":"position",  "axis":"z",   "stateid": "state_pos_z"},
+            {"param":"quaternion","axis":"x",   "stateid": "quat_state_x"},
+            {"param":"quaternion","axis":"y",   "stateid": "quat_state_y"},
+            {"param":"quaternion","axis":"z",   "stateid": "quat_state_z"},
+            {"param":"quaternion","axis":"w",   "stateid": "quat_state_w"}
+          ]
+        }
+      },
+      {
+        "id":"physical_wooden_crate_2m",
+        "data":{
+          "shape":"primitive",
+          "ground_influence":{
+            "elevation":0,
+            "normal_factor":1
+          },
+          "rigid_body":{
+            "shape":"Box",
+            "state":"WANTS_DEACTIVATION",
+            "args":[5, 5, 5],
+            "angular_factor":[1,  1, 1],
+            "linear_factor":[1, 1, 1],
+            "friction":0.45,
+            "restitution":0.5,
+            "damping":0.52,
+            "mass":2000
+          },
+          "state_map":[
+            {"param":"position",  "axis":"x",   "stateid": "state_pos_x"},
+            {"param":"position",  "axis":"y",   "stateid": "state_pos_y"},
+            {"param":"position",  "axis":"z",   "stateid": "state_pos_z"},
+            {"param":"quaternion","axis":"x",   "stateid": "quat_state_x"},
+            {"param":"quaternion","axis":"y",   "stateid": "quat_state_y"},
+            {"param":"quaternion","axis":"z",   "stateid": "quat_state_z"},
+            {"param":"quaternion","axis":"w",   "stateid": "quat_state_w"}
+          ]
+        }
+      },      {
+        "id":"physical_creative_crate_medium",
+        "data":{
+          "shape":"primitive",
+          "ground_influence":{
+            "elevation":0,
+            "normal_factor":1
+          },
+          "rigid_body":{
+            "shape":"Box",
+            "state":"WANTS_DEACTIVATION",
+            "args":[2.5, 2.5, 2.5],
+            "angular_factor":[1,  1, 1],
+            "linear_factor":[1, 1, 1],
+            "friction":0.45,
+            "restitution":0.5,
+            "damping":0.52,
+            "mass":200
+          },
+          "state_map":[
+            {"param":"position",  "axis":"x",   "stateid": "state_pos_x"},
+            {"param":"position",  "axis":"y",   "stateid": "state_pos_y"},
+            {"param":"position",  "axis":"z",   "stateid": "state_pos_z"},
+            {"param":"quaternion","axis":"x",   "stateid": "quat_state_x"},
+            {"param":"quaternion","axis":"y",   "stateid": "quat_state_y"},
+            {"param":"quaternion","axis":"z",   "stateid": "quat_state_z"},
+            {"param":"quaternion","axis":"w",   "stateid": "quat_state_w"}
+          ]
+        }
+      },
+      {
+        "id":"physical_wall_50_40_50",
+        "data":{
+          "ground_influence":{
+            "elevation":0.05,
+            "normal_factor":0.3
+          },
+          "shape":"mesh",
+          "rigid_body":{
+            "convex":true,
+            "model_id":"model_wall_section_rock_50_hull",
+            "friction":0.02,
+            "restitution":0.2,
+            "damping":0,
+            "mass":0
+          },
+          "state_map":[
+            {"param":"position",  "axis":"x",   "stateid": "state_pos_x"},
+            {"param":"position",  "axis":"y",   "stateid": "state_pos_y"},
+            {"param":"position",  "axis":"z",   "stateid": "state_pos_z"},
+            {"param":"quaternion","axis":"x",   "stateid": "quat_state_x"},
+            {"param":"quaternion","axis":"y",   "stateid": "quat_state_y"},
+            {"param":"quaternion","axis":"z",   "stateid": "quat_state_z"},
+            {"param":"quaternion","axis":"w",   "stateid": "quat_state_w"}
+          ]
+        }
+      },
+
+      {
+        "id":"physical_wall_50_30_20",
+        "data":{
+          "shape":"primitive",
+          "ground_influence":{
+            "elevation":-10.1,
+            "normal_factor":0.0
+          },
+          "rigid_body":{
+            "shape":"Box",
+            "state":"WANTS_DEACTIVATION",
+            "args":[50, 40, 20],
+            "angular_factor":[1,  1, 1],
+            "linear_factor":[1, 1, 1],
+            "friction":0.05,
+            "restitution":0.5,
+            "damping":2.22,
+            "mass":0
+          },
+          "state_map":[
+            {"param":"position",  "axis":"x",   "stateid": "state_pos_x"},
+            {"param":"position",  "axis":"y",   "stateid": "state_pos_y"},
+            {"param":"position",  "axis":"z",   "stateid": "state_pos_z"},
+            {"param":"quaternion","axis":"x",   "stateid": "quat_state_x"},
+            {"param":"quaternion","axis":"y",   "stateid": "quat_state_y"},
+            {"param":"quaternion","axis":"z",   "stateid": "quat_state_z"},
+            {"param":"quaternion","axis":"w",   "stateid": "quat_state_w"}
+          ]
+        }
+      },
+      {
+        "id":"physical_oomba",
+        "data":{
+          "shape":"primitive",
+          "rigid_body":{
+            "state":"WANTS_DEACTIVATION",
+            "shape":"Cylinder",
+            "args":[5.5, 1.5, 2.5],
+            "friction":0.3,
+            "restitution":0.6,
+            "damping":0.25,
+            "mass":35000
+          },
+          "state_map":[
+            {"param":"position",  "axis":"x",   "stateid": "state_pos_x"},
+            {"param":"position",  "axis":"y",   "stateid": "state_pos_y"},
+            {"param":"position",  "axis":"z",   "stateid": "state_pos_z"},
+            {"param":"quaternion","axis":"x",   "stateid": "quat_state_x"},
+            {"param":"quaternion","axis":"y",   "stateid": "quat_state_y"},
+            {"param":"quaternion","axis":"z",   "stateid": "quat_state_z"},
+            {"param":"quaternion","axis":"w",   "stateid": "quat_state_w"}
+          ]
+        }
+      },
+      {
+        "id":"physical_oil_drum",
+        "data":{
+          "shape":"primitive",
+          "rigid_body":{
+            "state":"WANTS_DEACTIVATION",
+            "shape":"Cylinder",
+            "args":[2.5, 2.5, 4],
+            "friction":0.8,
+            "restitution":0.5,
+            "damping":0.65,
+            "mass":2000
+          },
+          "state_map":[
+            {"param":"position",  "axis":"x",   "stateid": "state_pos_x"},
+            {"param":"position",  "axis":"y",   "stateid": "state_pos_y"},
+            {"param":"position",  "axis":"z",   "stateid": "state_pos_z"},
+            {"param":"quaternion","axis":"x",   "stateid": "quat_state_x"},
+            {"param":"quaternion","axis":"y",   "stateid": "quat_state_y"},
+            {"param":"quaternion","axis":"z",   "stateid": "quat_state_z"},
+            {"param":"quaternion","axis":"w",   "stateid": "quat_state_w"}
+          ]
+        }
+      },
+      {
+        "id":"physical_giant_skateramp",
+        "data":{
+          "shape":"mesh",
+          "rigid_body":{
+            "convex":false,
+            "model_id":"model_giant_skateramp",
+            "friction":1,
+            "restitution":0.01,
+            "mass":0
+          },
+          "ground_influence":{
+            "elevation":2.0,
+            "normal_factor":0
+          },
+          "state_map":[
+            {"param":"position",  "axis":"x",   "stateid": "state_pos_x"},
+            {"param":"position",  "axis":"y",   "stateid": "state_pos_y"},
+            {"param":"position",  "axis":"z",   "stateid": "state_pos_z"},
+            {"param":"quaternion","axis":"x",   "stateid": "quat_state_x"},
+            {"param":"quaternion","axis":"y",   "stateid": "quat_state_y"},
+            {"param":"quaternion","axis":"z",   "stateid": "quat_state_z"},
+            {"param":"quaternion","axis":"w",   "stateid": "quat_state_w"}
+          ]
+        }
+      },
+      {
+        "id":"physical_platform_10x6",
+        "data":{
+          "shape":"mesh",
+          "rigid_body":{
+            "convex":true,
+            "model_id":"platform_base_10x6",
+            "friction":0.8,
+            "restitution":0.001,
+            "damping":10,
+            "mass":0
+          },
+          "ground_influence":{
+            "elevation":2.0,
+            "normal_factor":0
+          },
+          "state_map":[
+            {"param":"position",  "axis":"x",   "stateid": "state_pos_x"},
+            {"param":"position",  "axis":"y",   "stateid": "state_pos_y"},
+            {"param":"position",  "axis":"z",   "stateid": "state_pos_z"},
+            {"param":"quaternion","axis":"x",   "stateid": "quat_state_x"},
+            {"param":"quaternion","axis":"y",   "stateid": "quat_state_y"},
+            {"param":"quaternion","axis":"z",   "stateid": "quat_state_z"},
+            {"param":"quaternion","axis":"w",   "stateid": "quat_state_w"}
+          ]
+        }
+      },
+      {
+        "id":"physical_platform_35x25",
+        "data":{
+          "shape":"mesh",
+          "rigid_body":{
+            "convex":false,
+            "model_id":"platform_base_35x25",
+            "friction":2,
+            "restitution":0.001,
+            "mass":0
+          },
+          "ground_influence":{
+            "elevation":2.0,
+            "normal_factor":0
+          },
+          "state_map":[
+            {"param":"position",  "axis":"x",   "stateid": "state_pos_x"},
+            {"param":"position",  "axis":"y",   "stateid": "state_pos_y"},
+            {"param":"position",  "axis":"z",   "stateid": "state_pos_z"},
+            {"param":"quaternion","axis":"x",   "stateid": "quat_state_x"},
+            {"param":"quaternion","axis":"y",   "stateid": "quat_state_y"},
+            {"param":"quaternion","axis":"z",   "stateid": "quat_state_z"},
+            {"param":"quaternion","axis":"w",   "stateid": "quat_state_w"}
+          ]
+        }
+      }
+    ]
+  }
+}]

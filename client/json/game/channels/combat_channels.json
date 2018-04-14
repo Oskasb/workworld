@@ -1,0 +1,46 @@
+[{
+  "MODULE_CHANNELS":{
+    "CHANNELS":[
+      {
+        "id":"channel_combat_state",
+        "data":{
+          "targets":[
+            {"targetid":"target_combat_state_update"}
+          ]
+        }
+      },
+      {
+        "id":"channel_max_health",
+        "data":{
+          "targets":[
+            {"targetid":"target_combat_max_health_status"}
+          ]
+        }
+      },
+      {
+        "id":"channel_max_armor",
+        "data":{
+          "targets": [
+            {"targetid":"target_combat_max_armor_status"}
+          ]
+        }
+      },
+      {
+        "id":"channel_health",
+        "data":{
+          "targets":[
+            {"targetid":"target_combat_health_status"}
+          ]
+        }
+      },
+      {
+        "id":"channel_armor",
+        "data":{
+          "targets": [
+            {"targetid":"target_combat_armor_status"}
+          ]
+        }
+      }
+    ]
+  }
+}]

@@ -19,8 +19,10 @@ define([
             worldFrame++;
         //    console.log("Update World Sim", tpf);
         //    this.simulationState.updateState(tpf);
-            WorldAPI.sendWorldMessage(ENUMS.Protocol.NOTIFY_FRAME, worldFrame)
+            WorldAPI.updateWorldWorkerFrame(tpf, worldFrame);
+
         };
+
 
 
         var gameLoop;

@@ -1,0 +1,111 @@
+[{
+  "config_url_index":{
+    "files":[
+      "validation/schemas/base_schema.json",
+      "validation/type_validation.json",
+      "validation/shapes_validation.json",
+
+      "effects/module_effects.json",
+
+      "messages/ui_messages.json",
+
+
+      "ui/gui_elements.json",
+      "ui/gui_particle_elements.json",
+      "ui/gui_particle_map_elements.json",
+      "ui/gui_particle_menu_elements.json",
+      "ui/gui_particle_status_elements.json",
+      "ui/gui_particle_systems.json",
+
+
+      "styles/messaging.json",
+
+      "game/levels/level_data.json",
+      "game/levels/level_population_data.json",
+
+      "game/actors/actor_compounds_data.json",
+      "game/actors/enemy_actor_data.json",
+      "game/actors/player_actor_data.json",
+      "game/actors/prop_actor_data.json",
+      "game/actors/nature_actor_data.json",
+
+      "game/actors/prop_actor_static_data.json",
+      "game/actors/terrain_actor_data.json",
+
+      "game/controls/gui_control_data.json",
+
+      "game/pieces/control_piece_data.json",
+      "game/pieces/enemy_piece_data.json",
+      "game/pieces/nature_piece_data.json",
+      "game/pieces/player_piece_data.json",
+      "game/pieces/prop_piece_data.json",
+      "game/pieces/terrain_piece_data.json",
+
+
+      "game/physics/grid_data.json",
+      "game/physics/hovercraft_physics_data.json",
+      "game/physics/nature_physics_data.json",
+      "game/physics/prop_physics_data.json",
+      "game/physics/terrain_physics_data.json",
+      "game/physics/vehicle_physics_data.json",
+
+
+      "game/modules/combat_module_data.json",
+      "game/modules/nature_module_data.json",
+      "game/modules/prop_module_data.json",
+      "game/modules/terrain_module_data.json",
+      "game/modules/piece_module_data.json",
+      "game/modules/camera_data.json",
+      "game/modules/control_module_data.json",
+
+      "game/combat/piece_combat_data.json",
+      "game/weapons/piece_weapon_data.json",
+      "game/weapons/piece_turret_data.json",
+
+      "game/channels/channel_combat_targets.json",
+      "game/channels/channel_targets.json",
+      "game/channels/channel_weapon_targets.json",
+
+      "game/channels/combat_channels.json",
+      "game/channels/module_channels.json",
+      "game/channels/module_model_channels.json",
+      "game/channels/vehicle_channels.json",
+      "game/channels/weapon_channels.json",
+
+      "threedata/models/three_materials.json",
+      "threedata/models/three_models.json",
+      "threedata/models/three_models_characters.json",
+      "threedata/models/three_physics_models.json",
+      "threedata/models/three_prop_models.json",
+      "threedata/models/three_nature_models.json",
+      "threedata/models/three_control_models.json",
+      "threedata/models/three_building_models.json",
+      "threedata/models/three_environment.json",
+
+      "threedata/shaders/three_shader_chunks.json",
+      "threedata/shaders/three_particle_shaders.json",
+      "threedata/shaders/three_shader_programs.json",
+
+      "threedata/effects/three_particle_model_effects.json",
+      "threedata/effects/three_particle_model_particles.json",
+      "threedata/effects/three_particle_model_renderers.json",
+      "threedata/effects/three_particle_renderers.json",
+      "threedata/effects/three_particle_materials.json",
+      "threedata/effects/three_particle_simulations.json",
+      "threedata/effects/three_particle_effects.json",
+      "threedata/effects/three_gui_particle_effects.json",
+
+      "threedata/effects/three_particle_sprites.json",
+      "threedata/effects/three_gui_particle_sprites.json",
+
+      "threedata/effects/three_vegetation_particles.json",
+      "threedata/effects/three_gui_particles.json",
+      "threedata/effects/three_particles.json",
+
+      "threedata/vegetation/three_particle_vegetation.json",
+      "threedata/vegetation/three_vegetation_configs.json",
+
+      "system_setup.json"
+    ]
+  }
+}]

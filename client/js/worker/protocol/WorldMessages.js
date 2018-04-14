@@ -25,6 +25,11 @@ define([
                 console.log("Handle (World) NOTIFY_FRAME", msg[0], msg[1]);
             };
 
+            this.messageHandlers[ENUMS.Protocol.SET_INPUT_BUFFER] = function(msg) {
+                console.log("Handle (World) SET_INPUT_BUFFER", msg[0], msg[1]);
+                WorldAPI.setWorldInputBuffer(msg[1]);
+            };
+
         };
 
         WorldMessages.prototype.getMessageHandlers = function() {
