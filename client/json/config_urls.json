@@ -9,14 +9,12 @@
 
       "messages/ui_messages.json",
 
-
       "ui/gui_elements.json",
       "ui/gui_particle_elements.json",
       "ui/gui_particle_map_elements.json",
       "ui/gui_particle_menu_elements.json",
       "ui/gui_particle_status_elements.json",
       "ui/gui_particle_systems.json",
-
 
       "styles/messaging.json",
 
@@ -40,7 +38,6 @@
       "game/pieces/player_piece_data.json",
       "game/pieces/prop_piece_data.json",
       "game/pieces/terrain_piece_data.json",
-
 
       "game/physics/grid_data.json",
       "game/physics/hovercraft_physics_data.json",

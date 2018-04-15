@@ -24,7 +24,6 @@ define([
         };
 
 
-
         var gameLoop;
 
         WorldMain.prototype.setLoopTpf = function(tpf) {

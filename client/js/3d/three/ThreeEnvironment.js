@@ -2,12 +2,28 @@
 
 
 define(['../../PipelineObject',
+    'PipelineAPI',
     'Events'
 
 ], function(
     PipelineObject,
+    PipelineAPI,
     evt
 ) {
+
+    var envs = [
+        "dawn",
+        "pre_dawn",
+        "night",
+        "evening",
+        "morning",
+        "sunny_day",
+        "high_noon"
+    ];
+
+    var envStateMap = ENUMS.Map.Environment;
+    var envBuffer = new SharedArrayBuffer(Float32Array.BYTES_PER_ELEMENT * envStateMap.length);
+
 
     var enabled;
     var envList = {};
@@ -59,19 +75,9 @@ define(['../../PipelineObject',
             console.log("worldSetup:", currentEnvId, worldSetup);
         };
 
-        var data = {
-            "defaultEnvId":"sunny_day",
-            "params":[
-                {"id":"sun",      "THREE":"DirectionalLight"},
-                {"id":"moon",     "THREE":"DirectionalLight"},
-                {"id":"ambient",  "THREE":"AmbientLight"    },
-                {"id":"fog",      "THREE":"FogExp2"         }
-            ]
-        };
+        //    worldListLoaded('local', worldData);
 
-        worldListLoaded('local', data);
-
-    //    new PipelineObject("WORLD", "THREE", worldListLoaded);
+        new PipelineObject("WORLD", "THREE", worldListLoaded);
     };
 
     var initSky = function() {
@@ -90,7 +96,7 @@ define(['../../PipelineObject',
 
         sunSphere.position.y = - 70;
         sunSphere.visible = false;
-        scene.add( sunSphere );
+    //    scene.add( sunSphere );
     };
 
     var applyColor = function(Obj3d, color) {
@@ -108,6 +114,12 @@ define(['../../PipelineObject',
 
     var applyFog = function(Obj3d, density) {
         Obj3d.density = density;
+    };
+
+    var applyFromBuffer = function(buffer) {
+
+
+
     };
 
     var applyEnvironment = function() {
@@ -180,6 +192,7 @@ define(['../../PipelineObject',
 
     var sunRedness;
     var sunFactor;
+
     var updateDynamigFog = function(sunInTheBack) {
 
         dynamicFogColor.copy(fogColor);
@@ -252,9 +265,14 @@ define(['../../PipelineObject',
 
     //    console.log("Tick Env")
 
-        var fraction = calcTransitionProgress(evt.args(e).tpf) * 0.05;
+        var fraction = calcTransitionProgress(evt.args(e).tpf) * 1.0;
+
+        fraction = fraction*fraction*fraction;
 
         if (fraction > 1.01) {
+            var randomEnv = envs[Math.floor(Math.random()*envs.length)];
+
+            ThreeEnvironment.setEnvConfigId(randomEnv, 3);
             return;
         }
 
@@ -299,6 +317,8 @@ define(['../../PipelineObject',
         updateDynamigFog(sunInTheBack);
         updateDynamigAmbient(sunInTheBack);
 
+
+        applyFromBuffer(envBuffer);
     };
 
     ThreeEnvironment.readDynamicValue = function(worldProperty, key) {
@@ -395,205 +415,12 @@ define(['../../PipelineObject',
 
         createEnvWorld(worldSetup);
 
+        //     environmentListLoaded('', envData);
 
-        var envData = [
-            {
-                "id":"current",
-                "sky":{
-                    "luminance":  0 ,
-                    "turbidity":  0 ,
-                    "rayleigh": 0 ,
-                    "mieCoefficient": 0 ,
-                    "mieDirectionalG":  0 ,
-                    "inclination": 0.5,
-                    "azimuth": 0.5,
-                    "distance": 1000
-                },
-                "configs":[
-                    {"id":"sun",     "color":[0,  0,  0]},
-                    {"id":"moon",    "color":[0,  0,  0]},
-                    {"id":"ambient", "color":[1,  1,  1]},
-                    {"id":"fog",     "color":[1,  1,  1], "density":0.00001}
-                ]
-            },
-            {
-                "id":"flat",
-                "sky":{
-                    "luminance":  0 ,
-                    "turbidity":  0 ,
-                    "rayleigh":   0 ,
-                    "mieCoefficient":   0,
-                    "mieDirectionalG":  0,
-                    "inclination": 0.5,
-                    "azimuth": 0.5,
-                    "distance": 1000
-                },
-                "configs":[
-                    {"id":"sun",     "color":[0,  0,  0]},
-                    {"id":"moon",    "color":[0,  0,  0]},
-                    {"id":"ambient", "color":[1,  1,  1]},
-                    {"id":"fog",     "color":[1,  1,  1], "density":0.00001}
-                ]
-            },
-            {
-                "id":"fadeout",
-                "sky":{
-                    "luminance":         0.0,
-                    "turbidity":         20.7 ,
-                    "rayleigh":          20.5 ,
-                    "mieCoefficient":    20.5 ,
-                    "mieDirectionalG":   20.5 ,
-                    "inclination": 0.30,
-                    "azimuth": 0.25,
-                    "distance":          10000
-                },
-                "configs":[
-                    {"id":"sun",     "color":[0,  0,  0]},
-                    {"id":"moon",    "color":[0,  0,  0]},
-                    {"id":"ambient", "color":[0,  0,  0]},
-                    {"id":"fog",     "color":[0,  0,  0],  "density":1.0}
-                ]
-            },
-            {
-                "id":"high_noon",
-                "sky":{
-                    "luminance":       0.7  ,
-                    "turbidity":       1    ,
-                    "rayleigh":        0.53 ,
-                    "mieCoefficient":  0.005,
-                    "mieDirectionalG": 0.8  ,
-                    "inclination": 0.30,
-                    "azimuth": 0.31,
-                    "distance":          10000
-                },
-                "configs":[
-                    {"id":"sun",     "color":[0.98,  0.90,  0.55]},
-                    {"id":"moon",    "color":[0.24,  0.35,  0.42]},
-                    {"id":"ambient", "color":[0.00,  0.05,   0.20]},
-                    {"id":"fog",     "color":[0.73,  0.91,  1], "density":0.0015}
-                ]
-            },
-            {
-                "id":"sunny_day",
-                "sky":{
-                    "luminance":       0.7  ,
-                    "turbidity":       1    ,
-                    "rayleigh":        0.53 ,
-                    "mieCoefficient":  0.005,
-                    "mieDirectionalG": 0.8  ,
-                    "inclination": 0.30,
-                    "azimuth": 0.12,
-                    "distance":          10000
-                },
-                "configs":[
-                    {"id":"sun",     "color":[0.92,  0.81,  0.45]},
-                    {"id":"moon",    "color":[0.12,  0.35,  0.42]},
-                    {"id":"ambient", "color":[0.05,  0.11,  0.25]},
-                    {"id":"fog",     "color":[0.74,  0.86,  1], "density":0.002}
-                ]
-            },
-            {
-                "id":"morning",
-                "sky":{
-                    "luminance":       0.99  ,
-                    "turbidity":       5.71  ,
-                    "rayleigh":        0.9   ,
-                    "mieCoefficient":  0.015 ,
-                    "mieDirectionalG": 0.7  ,
-                    "inclination": 0.30,
-                    "azimuth": 0.25,
-                    "distance":          10000
-                },
-                "configs":[
-                    {"id":"sun",     "color":[0.98, 0.76,  0.15]},
-                    {"id":"moon",    "color":[0.01, 0.25,  0.25]},
-                    {"id":"ambient", "color":[0.06, 0.1,   0.35]},
-                    {"id":"fog",     "color":[0.63, 0.69,  0.99], "density":0.003}
-                ]
-            },
-            {
-                "id":"evening",
-                "sky":{
-                    "luminance":         0.5    ,
-                    "turbidity":         11.71  ,
-                    "rayleigh":          2.1    ,
-                    "mieCoefficient":    0.005  ,
-                    "mieDirectionalG":   0.7  ,
-                    "inclination": 0.30,
-                    "azimuth": 0.4965,
-                    "distance":          10000
-                },
-                "configs":[
-                    {"id":"sun",     "color":[0.95,  0.42,  0.00]},
-                    {"id":"moon",    "color":[0.25,  0.20,  0.42]},
-                    {"id":"ambient", "color":[0.25,  0.14,  0.11]},
-                    {"id":"fog",     "color":[0.03,  0.01,  0.02], "density":0.005}
-                ]
-            },
-            {
-                "id":"night",
-                "sky":{
-                    "luminance":         0.08    ,
-                    "turbidity":         21.71  ,
-                    "rayleigh":          1.301    ,
-                    "mieCoefficient":    0.015  ,
-                    "mieDirectionalG":   0.202  ,
-                    "inclination": 0.38,
-                    "azimuth": 0.75,
-                    "distance":          10000
-                },
-                "configs":[
-                    {"id":"sun",     "color":[0.026,  0.25,  0.38]},
-                    {"id":"moon",    "color":[0.021,  0.03,  0.22]},
-                    {"id":"ambient", "color":[0.222,  0.26,  0.89]},
-                    {"id":"fog",     "color":[0.001,  0.001, 0.02], "density":0.009}
-                ]
-            },
-            {
-                "id":"pre_dawn",
-                "sky":{
-                    "luminance":         0.12 ,
-                    "turbidity":         18.01 ,
-                    "rayleigh":          3.51  ,
-                    "mieCoefficient":    0.071 ,
-                    "mieDirectionalG":   0.58  ,
-                    "inclination":       0.5   ,
-                    "azimuth":           0.5   ,
-                    "distance":          10000
-                },
-                "configs":[
-                    {"id":"sun",     "color":[0.35,   0.43,  0.16]},
-                    {"id":"moon",    "color":[0.001,  0.03,  0.12]},
-                    {"id":"ambient", "color":[0.22,   0.33,  0.56]},
-                    {"id":"fog",     "color":[0.022,  0.025, 0.052], "density":0.007}
-                ]
-            },
-            {
-                "id":"dawn",
-                "sky":{
-                    "luminance":         0.1    ,
-                    "turbidity":         12.71  ,
-                    "rayleigh":          0.0    ,
-                    "mieCoefficient":    0.008  ,
-                    "mieDirectionalG":   0.582  ,
-                    "inclination":       0.50   ,
-                    "azimuth":           0.19   ,
-                    "distance":          10000
-                },
-                "configs":[
-                    {"id":"sun",     "color":[0.85,  0.62,  0.30]},
-                    {"id":"moon",    "color":[0.25,  0.20,  0.42]},
-                    {"id":"ambient", "color":[0.35,  0.45,  0.06]},
-                    {"id":"fog",     "color":[0.00,  0.06,  0.18],  "density":0.003}
-                ]
-            }
-        ];
-
-        environmentListLoaded('', envData);
-
-        // new PipelineObject("ENVIRONMENT", "THREE", environmentListLoaded);
+    new PipelineObject("ENVIRONMENT", "THREE", environmentListLoaded);
 
     };
+
 
     return ThreeEnvironment;
 

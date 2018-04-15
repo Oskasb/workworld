@@ -2,10 +2,12 @@
 
 define([
     'application/ClientViewer',
+    'application/DataLoader',
     '3d/SceneController',
     'io/PointerCursor'
 ], function(
     ClientViewer,
+    DataLoader,
     SceneController,
     PointerCursor
 ) {
@@ -20,12 +22,22 @@ define([
     Setup.init = function(onReady) {
         var sceneController = new SceneController();
 
+        dataLoader = new DataLoader();
+
+
+
         var clientReady = function() {
             onReady(client);
         };
 
         client = new ClientViewer(new PointerCursor(), sceneController);
-        client.setupSimulation(clientReady);
+
+        var dataLoaded = function() {
+            client.setupSimulation(clientReady);
+        };
+
+        dataLoader.loadData(dataLoaded)
+
     };
 
     Setup.completed = function() {

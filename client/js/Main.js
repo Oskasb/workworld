@@ -21,6 +21,7 @@ require([
     var client;
 
     var setupReady = function() {
+        Setup.completed();
         console.log("Setup Ready")
     };
 
@@ -29,7 +30,7 @@ require([
 
     var init = function(clientViewer) {
         client = clientViewer;
-                
+
         new ButtonEventDispatcher();
         new ControlStateDispatcher();
 

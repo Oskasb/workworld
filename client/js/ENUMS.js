@@ -12,7 +12,8 @@ if(typeof(ENUMS) === "undefined"){
         SET_LOOP:           1,
         NOTIFY_FRAME:       2,
         SET_INPUT_BUFFER:   3,
-        SET_WORLD_BUFFER:   4
+        SET_WORLD_BUFFER:   4,
+        CREATE_WORLD:       5
     };
 
     ENUMS.BufferTypes = {
@@ -100,6 +101,37 @@ if(typeof(ENUMS) === "undefined"){
         REMOVED:       10
     };
 
+    ENUMS.Environment = {
+        luminance:          0,
+        turbidity:          1,
+        rayleigh:           2,
+        mieCoefficient:     3,
+        mieDirectionalG:    4,
+        inclination:        5,
+        azimuth:            6,
+        distance:           7,
+        sunR:               8,
+        sunB:               9,
+        sunG:               10,
+        moonR:              11,
+        moon:               12,
+        moonG:              13,
+        ambientR:           14,
+        ambientB:           15,
+        ambientG:           16,
+        fogR:               17,
+        fogB:               18,
+        fogG:               19,
+        fogDensity:         20,
+        sunPosX:            21,
+        sunPosY:            22,
+        sunPosZ:            23,
+        sunQuatX:           24,
+        sunQuatY:           25,
+        sunQuatZ:           26,
+        sunQuat:            27
+    };
+
     ENUMS.Category = {
         POINTER_STATE:'POINTER_STATE',
         STATUS:'STATUS',
@@ -158,17 +190,15 @@ if(typeof(ENUMS) === "undefined"){
     var map = {};
 
     for (var key in ENUMS) {
-        map[key] = {};
+        map[key] = [];
 
         for (var i in ENUMS[key]) {
             map[key][ENUMS[key][i]] = i;
         }
     }
 
-    console.log(map);
-
     ENUMS.Map = map;
 
-    console.log(ENUMS);
+    console.log("ENUMS", ENUMS);
 
 })(ENUMS);

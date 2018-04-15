@@ -44,7 +44,7 @@ define([
         };
 
         ThreeAPI.initEnvironment = function(store) {
-            ThreeEnvironment.loadEnvironmentData();
+        //    ThreeEnvironment.loadEnvironmentData();
             ThreeEnvironment.initEnvironment(store);
             ThreeEnvironment.enableEnvironment();
         };

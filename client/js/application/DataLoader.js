@@ -6,40 +6,19 @@ define([
         'PipelineObject',
         'ui/dom/DomLoadScreen',
         'ui/GameScreen',
-        'ThreeAPI',
-        'GameAPI',
-        'PipelineAPI'
+        'PipelineAPI',
+        'ThreeAPI'
     ],
     function(
         evt,
         PipelineObject,
         DomLoadScreen,
         GameScreen,
-        ThreeAPI,
-        GameAPI,
-        PipelineAPI
+        PipelineAPI,
+        ThreeAPI
     ) {
 
-        var client;
         var loadProgress;
-
-        var setupReady = function() {
-            GameAPI.initGameGui();
-        };
-
-        var systemReady = function() {
-
-            GameAPI.initGameSystems();
-            client.clientReady(setupReady);
-        };
-
-        GameAPI.setupGameWorker(systemReady);
-
-        var path = './../../..';
-
-        var loadUrls = [
-            './Transport/MATH.js'
-        ];
 
         var pipelineOn = pollingOn;
         window.jsonConfigUrls = 'client/json/';
@@ -74,11 +53,8 @@ define([
             SYSTEM_SETUP.DEBUG = data;
         };
 
-
         var DataLoader = function() {
-
             loadProgress = new DomLoadScreen(GameScreen.getElement());
-
         };
 
         var loadStates= {
@@ -90,39 +66,6 @@ define([
 
         var loadState = loadStates.SHARED_FILES;
 
-        DataLoader.prototype.preloadImages = function() {
-
-            var imageOk = function(src, data) {
-                //        console.log("imageok:", src, data);
-            };
-
-            var imageFail = function(src, err) {
-                //        console.log("image cache fail", erc, err)
-            }
-
-            ThreeAPI.initThreeLoaders(ThreeAPI);
-
-            var styles = PipelineAPI.getCachedConfigs()['styles'];
-
-            //        console.log("STYLES ", styles);
-
-            var imageStore = [];
-
-            for (var key in styles) {
-
-                if (styles[key].backgroundImage) {
-                    if (imageStore.indexOf(styles[key].backgroundImage)) {
-                        imageStore.push(styles[key].backgroundImage);
-                        PipelineAPI.cacheImageFromUrl(styles[key].backgroundImage, imageOk, imageFail);
-                    }
-                }
-            }
-
-            //    console.log("Image count: ", imageStore.length, imageStore)
-
-
-        };
-
         DataLoader.prototype.getStates = function() {
             return loadStates;
         };
@@ -131,30 +74,20 @@ define([
 
         };
 
-        DataLoader.prototype.loadData = function(ClientViewer, PointerCursor, sceneController, onReady) {
+        DataLoader.prototype.loadData = function(onReady) {
 
             var _this = this;
 
+            ThreeAPI.initThreeLoaders();
+
             var loadingCompleted = function() {
-
-                var clientReady = function() {
-                    onReady(client);
-                };
-
-                client = new ClientViewer(new PointerCursor(), sceneController);
-
-                client.setupSimulation(clientReady);
-                //    if (onReady) {
-
-                //    }
-
+                onReady();
             };
-
 
             var loadStateChange = function(state) {
                 //    console.log('loadStateChange', state)
                 if (state == _this.getStates().IMAGES) {
-                    _this.preloadImages();
+
                 }
 
                 if (state == _this.getStates().COMPLETED) {
@@ -166,23 +99,15 @@ define([
             evt.fire(evt.list().MESSAGE_UI, {channel:'pipeline_message', message:window.location.href});
 
             function pipelineCallback(started, remaining, loaded, files) {
-                //   console.log("SRL", loadState, started, remaining, loaded, files);
+                // console.log("SRL", loadState, started, remaining, loaded, [files]);
 
                 PipelineAPI.setCategoryKeyValue("STATUS", "FILE_CACHE", loaded);
 
                 loadProgress.setProgress(loaded / started);
 
-                if (loadState == loadStates.IMAGES && remaining == 0) {
-                    console.log("IMAGE COMPLETED", started, remaining, loaded);
-                    loadState = loadStates.COMPLETED;
-                    PipelineAPI.setCategoryData('STATUS', {PIPELINE:pipelineOn});
-                    PipelineAPI.subscribeToCategoryKey('setup', 'DEBUG', setDebug);
-                    loadStateChange(loadState);
-                }
-
                 if (loadState == loadStates.CONFIGS && remaining == 0) {
                     console.log( "json cached:", PipelineAPI.getCachedConfigs());
-                    loadState = loadStates.IMAGES;
+                    loadState = loadStates.COMPLETED;
                     loadStateChange(loadState);
                 }
 
@@ -195,79 +120,23 @@ define([
 
             PipelineAPI.addProgressCallback(pipelineCallback);
 
+            var loadJsonData = function() {
 
-            var sharedFilesLoaded = function() {
-                //       console.log('sharedFilesLoaded')
-                evt.fire(evt.list().SHARED_LOADED, {});
                 function pipelineError(src, e) {
                     console.log("Pipeline error Ready", src, e);
                     evt.fire(evt.list().MESSAGE_UI, {channel:'pipeline_error', message:'Pipeline Error '+src+' '+e});
                 }
                 evt.fire(evt.list().MESSAGE_UI, {channel:'pipeline_message', message:"Request Worker Fetch"});
-                //    PipelineAPI.setCategoryData(jsonRegUrl, dataPipelineSetup, pipelineError);
                 PipelineAPI.dataPipelineSetup(jsonRegUrl, dataPipelineSetup, pipelineError);
 
             };
 
-
-            var sharedLoaded = function() {
-                //        console.log("Shared Loaded:", count, loadUrls.length, PipelineAPI.checkReadyState());
-
-                evt.fire(evt.list().MESSAGE_UI, {channel:'pipeline_message', message:"Shared Loaded"});
-                setTimeout(function() {
-
-                    _this.setupPipelineCallback(loadStateChange);
-                    sharedFilesLoaded();
-                }, 0);
-                8
-            };
-
-
-            var filesLoaded = function() {
-
-                setTimeout(function() {
-                    sharedLoaded();
-                }, 0)
-
-            };
-
-
-            var loadJS = function(url, location){
-
-                var scriptTag = document.createElement('script');
-                scriptTag.src = url;
-
-                var scriptLoaded = function(e) {
-                    if (loadUrls.length != 0) {
-                        loadJS(loadUrls.shift(), document.body);
-                    } else {
-                        //        console.log('scripts loaded',e);
-                        filesLoaded();
-                    }
-                };
-
-
-                scriptTag.addEventListener('load', scriptLoaded);
-                location.appendChild(scriptTag);
-            };
-
-            var count = 0;
-
-            var pipelineReady = function() {
-                loadJS(loadUrls.shift(), document.body);
-            };
-
-            var particles = false;
-
-            //    evt.once(evt.list().PARTICLES_READY, particlesReady);
-
-            PipelineAPI.addReadyCallback(pipelineReady);
+            _this.setupPipelineCallback(loadStateChange);
+            loadJsonData();
 
         };
 
         DataLoader.prototype.notifyCompleted = function() {
-
-            evt.fire(evt.list().PLAYER_READY, {});
             loadProgress.removeProgress();
         };
 

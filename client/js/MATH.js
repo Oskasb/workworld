@@ -40,8 +40,23 @@ if(typeof(MATH) === "undefined") {
         coswave:  cosWave
     };
 
+	MATH.bufferSetValueByMapKey = function(buffer, value, map, key) {
+		buffer[map.indexOf(key)] = value;
+	};
 
-	MATH.curves = {
+    MATH.bufferGetValueByMapKey = function(buffer, map, key) {
+        return buffer[map.indexOf(key)];
+    };
+
+    MATH.bufferSetValueByEnum = function(buffer, value, enm) {
+        buffer[enm] = value;
+    };
+
+    MATH.bufferGetValueByEnum = function(buffer, enm) {
+        return buffer[enm];
+    };
+
+    MATH.curves = {
 		"constantOne":  [[0, 1], [1, 1]],
 		"zeroToOne":    [[0, 0], [1, 1]],
 		"oneToZero":    [[0, 1], [1, 0]],

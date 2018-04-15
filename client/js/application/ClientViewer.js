@@ -40,6 +40,8 @@ define([
 
             PipelineAPI.setCategoryData(ENUMS.Category.POINTER_STATE, this.pointerCursor.getPointerState());
 
+            console.log("configs", PipelineAPI.getCachedConfigs());
+
 		};
 
 
