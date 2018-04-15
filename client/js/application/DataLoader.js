@@ -60,6 +60,7 @@ define([
         var loadStates= {
             SHARED_FILES:'SHARED_FILES',
             CONFIGS:'CONFIGS',
+            THREEDATA:'THREEDATA',
             IMAGES:'IMAGES',
             COMPLETED:'COMPLETED'
         };
@@ -80,23 +81,27 @@ define([
 
             ThreeAPI.initThreeLoaders();
 
+
             var loadingCompleted = function() {
                 onReady();
             };
 
             var loadStateChange = function(state) {
                 //    console.log('loadStateChange', state)
-                if (state == _this.getStates().IMAGES) {
+                if (state === _this.getStates().IMAGES) {
 
                 }
 
-                if (state == _this.getStates().COMPLETED) {
+                if (state === _this.getStates().COMPLETED) {
+                    loadState = loadStates.THREEDATA;
                     loadingCompleted()
                 }
 
             };
 
             evt.fire(evt.list().MESSAGE_UI, {channel:'pipeline_message', message:window.location.href});
+
+
 
             function pipelineCallback(started, remaining, loaded, files) {
                 // console.log("SRL", loadState, started, remaining, loaded, [files]);
@@ -105,15 +110,24 @@ define([
 
                 loadProgress.setProgress(loaded / started);
 
-                if (loadState == loadStates.CONFIGS && remaining == 0) {
+
+                if (loadState === loadStates.THREEDATA) {
+                    console.log( "loadThreeData:", loadState, started, remaining, loaded, [files]);
+                 //   loadState = loadStates.COMPLETED;
+                 //   loadStateChange(loadState);
+                }
+
+                if (loadState === loadStates.CONFIGS && remaining === 0) {
                     console.log( "json cached:", PipelineAPI.getCachedConfigs());
                     loadState = loadStates.COMPLETED;
+                    ThreeAPI.loadThreeData(ThreeAPI);
                     loadStateChange(loadState);
                 }
 
-                if (loadState == loadStates.SHARED_FILES && remaining == 0) {
+                if (loadState === loadStates.SHARED_FILES && remaining === 0) {
                     console.log( "shared loaded....");
                     loadState = loadStates.CONFIGS;
+
                     loadStateChange(loadState);
                 }
             }
@@ -134,6 +148,10 @@ define([
             _this.setupPipelineCallback(loadStateChange);
             loadJsonData();
 
+        };
+
+        DataLoader.prototype.loadShaderData = function() {
+            ThreeAPI.loadShaders();
         };
 
         DataLoader.prototype.notifyCompleted = function() {

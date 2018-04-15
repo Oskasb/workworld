@@ -169,11 +169,8 @@ define([],
         TerrainFunctions.prototype.getTerrainArray1d = function(terrain) {
 
             var array1d = THREE.Terrain.toArray1D(terrain.children[0].geometry.vertices, terrain.edges.invert);
-
             return array1d;
-
         };
-
 
 
         TerrainFunctions.prototype.applyEdgeElevation = function(piece, isMinX, isMaxX, isMinY, isMaxY, elevation) {

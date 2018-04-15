@@ -24,9 +24,8 @@ define([
 
         dataLoader = new DataLoader();
 
-
-
         var clientReady = function() {
+            dataLoader.loadShaderData();
             onReady(client);
         };
 

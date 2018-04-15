@@ -30,6 +30,12 @@ define([
                 WorldAPI.setWorldInputBuffer(msg[1]);
             };
 
+            this.messageHandlers[ENUMS.Protocol.CREATE_WORLD] = function(msg) {
+                console.log("Handle (World) CREATE_WORLD", msg[0], msg[1]);
+                WorldAPI.constructWorld(msg[1]);
+            };
+
+
         };
 
         WorldMessages.prototype.getMessageHandlers = function() {

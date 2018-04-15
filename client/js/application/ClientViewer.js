@@ -83,10 +83,16 @@ define([
 
 
             var sceneReady = function() {
-                ready();
+                ready()
             }.bind(this);
 
             this.sceneController.setup3dScene(sceneReady);
+
+            var fxReady = function() {
+                console.log("fxReady");
+            }
+
+
 
         };
 
@@ -106,7 +112,9 @@ define([
                 setupReady()
             };
 
-            fxReady();
+            this.sceneController.setupEffectPlayers(fxReady);
+
+        //    fxReady();
         };
 
 
@@ -286,8 +294,8 @@ define([
             }, 0);
 
 
-            ThreeAPI.setCameraPos(50*Math.sin(gameTime*0.5), 5, 50*Math.cos(gameTime*0.5));
-            ThreeAPI.cameraLookAt(0, 0, 0);
+            ThreeAPI.setCameraPos(350*Math.sin(gameTime*0.4), 110 + Math.sin(gameTime*0.35) * 50, 350*Math.cos(gameTime*0.4));
+            ThreeAPI.cameraLookAt(139*Math.cos(gameTime*1),  40,  139*Math.sin(gameTime*1));
 
         //    this.viewerMain.tickViewerClient(tpf);
             

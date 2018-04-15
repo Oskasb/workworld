@@ -47,8 +47,7 @@ require(
             WorldAPI.sendWorldMessage(ENUMS.Protocol.WORKER_READY, count);
         };
 
-        WorldAPI.initWorld();
-        onWorkerReady()
+        WorldAPI.initWorld(onWorkerReady);
 	}
 );
 

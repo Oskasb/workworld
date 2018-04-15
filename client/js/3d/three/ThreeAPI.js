@@ -60,6 +60,10 @@ define([
             ThreeSetup.addPrerenderCallback(ThreeModelLoader.updateActiveMixers);
         };
 
+        ThreeAPI.loadThreeModels = function(TAPI) {
+            ThreeModelLoader.loadData();
+        };
+
         ThreeAPI.loadThreeData = function(TAPI) {
             ThreeModelLoader.loadData();
             ThreeModelLoader.loadTerrainData(TAPI);
@@ -228,7 +232,6 @@ define([
         ThreeAPI.attachInstancedModel = function(modelId, rootObject) {
             return ThreeModelLoader.attachInstancedModelTo3DObject(modelId, rootObject, ThreeSetup);
         };
-
 
 
         ThreeAPI.loadModel = function(sx, sy, sz, partsReady) {

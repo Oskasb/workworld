@@ -13,7 +13,8 @@ if(typeof(ENUMS) === "undefined"){
         NOTIFY_FRAME:       2,
         SET_INPUT_BUFFER:   3,
         SET_WORLD_BUFFER:   4,
-        CREATE_WORLD:       5
+        CREATE_WORLD:       5,
+        REGISTER_TERRAIN:   6
     };
 
     ENUMS.BufferTypes = {

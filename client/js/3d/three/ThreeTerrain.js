@@ -34,8 +34,12 @@ define([
                 for (var i = 0; i < data.length; i++){
                     terrainList[data[i].id] = data[i];
                     terrainMaterial.addTerrainMaterial(data[i].id, data[i].textures, data[i].shader);
+                    console.log("terrainListLoaded", terrainMaterial)
                 }
             };
+
+            console.log("TERRAINS", "THREE", terrainMaterial)
+
             new PipelineObject("TERRAINS", "THREE", terrainListLoaded);
         };
 
