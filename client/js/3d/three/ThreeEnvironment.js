@@ -65,14 +65,14 @@ define(['../../PipelineObject',
 
         var worldListLoaded = function(src, data) {
 
-            console.log("Load Env World Data:", src, data);
+        //    console.log("Load Env World Data:", src, data);
 
             for (var i = 0; i < data.params.length; i++){
                 worldSetup[data.params[i].id] = data.params[i]
             }
             currentEnvId = data.defaultEnvId;
 
-            console.log("worldSetup:", currentEnvId, worldSetup);
+        //    console.log("worldSetup:", currentEnvId, worldSetup);
         };
 
         //    worldListLoaded('local', worldData);
@@ -113,7 +113,7 @@ define(['../../PipelineObject',
     };
 
     var applyFog = function(Obj3d, density) {
-        Obj3d.density = density;
+        Obj3d.density = density * 0.3;
     };
 
     var applyFromBuffer = function(buffer) {

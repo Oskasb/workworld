@@ -112,20 +112,20 @@ define([
 
 
                 if (loadState === loadStates.THREEDATA) {
-                    console.log( "loadThreeData:", loadState, started, remaining, loaded, [files]);
+                //    console.log( "loadThreeData:", loadState, started, remaining, loaded, [files]);
                  //   loadState = loadStates.COMPLETED;
                  //   loadStateChange(loadState);
                 }
 
                 if (loadState === loadStates.CONFIGS && remaining === 0) {
-                    console.log( "json cached:", PipelineAPI.getCachedConfigs());
+                //    console.log( "json cached:", PipelineAPI.getCachedConfigs());
                     loadState = loadStates.COMPLETED;
                     ThreeAPI.loadThreeData(ThreeAPI);
                     loadStateChange(loadState);
                 }
 
                 if (loadState === loadStates.SHARED_FILES && remaining === 0) {
-                    console.log( "shared loaded....");
+                //    console.log( "shared loaded....");
                     loadState = loadStates.CONFIGS;
 
                     loadStateChange(loadState);

@@ -187,6 +187,17 @@ define([
 
         var geomStore = {};
 
+        var queueLoad = function(conf, cb) {
+
+        //    console.log("Queue Load:", conf);
+
+            setTimeout(function() {
+                ParticleMesh.modelGeometry(conf, cb)
+            }, 100);
+
+        };
+
+
         ParticleMesh.modelGeometry = function(modelConf, callback) {
 
             var modelId = modelConf.model_id;
@@ -195,6 +206,13 @@ define([
 
 
             if (!geomStore[modelId]) {
+
+                if (!modelPool[modelId]) {
+                    ThreeModelLoader.loadModelId(modelId);
+                    queueLoad(modelConf, callback);
+                    return;
+                }
+
                 var mesh = modelPool[modelId][0];
                 geomStore[modelId] = mesh.geometry;
             }

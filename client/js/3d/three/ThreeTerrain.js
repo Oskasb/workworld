@@ -105,7 +105,6 @@ define([
                     var vertexBuffer = new THREE.BufferAttribute( array1d[0] ,3 );
                     terrain.children[0].geometry = new THREE.BufferGeometry();
                     terrain.children[0].geometry.addAttribute('position', vertexBuffer);
-
                     terrain.children[0].geometry.addAttribute('normal', new THREE.BufferAttribute( array1d[1] ,3 ));
                     terrain.children[0].geometry.addAttribute('color', new THREE.BufferAttribute( array1d[2] ,3 ));
                     terrain.children[0].geometry.addAttribute('uv', new THREE.BufferAttribute( array1d[3] ,2 ))

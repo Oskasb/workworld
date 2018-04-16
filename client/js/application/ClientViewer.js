@@ -294,8 +294,10 @@ define([
             }, 0);
 
 
-            ThreeAPI.setCameraPos(350*Math.sin(gameTime*0.4), 110 + Math.sin(gameTime*0.35) * 50, 350*Math.cos(gameTime*0.4));
-            ThreeAPI.cameraLookAt(139*Math.cos(gameTime*1),  40,  139*Math.sin(gameTime*1));
+            var distance = 1350 + 550 * Math.sin(gameTime*0.2);
+
+            ThreeAPI.setCameraPos(distance*Math.sin(gameTime*0.4), distance * 0.2 + Math.sin(gameTime*0.35) * 50, distance*Math.cos(gameTime*0.4));
+            ThreeAPI.cameraLookAt(19*Math.cos(gameTime*1), 40 + distance * 0.12,  19*Math.sin(gameTime*1));
 
         //    this.viewerMain.tickViewerClient(tpf);
             

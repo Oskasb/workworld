@@ -48,7 +48,7 @@ define([
 
             console.log("Terrain:", terrain, terrainBody);
 
-            WorldAPI.sendWorldMessage(ENUMS.Protocol.REGISTER_TERRAIN, [msg, terrain.array1d])
+            WorldAPI.sendWorldMessage(ENUMS.Protocol.REGISTER_TERRAIN, [msg, buffers])
 
         };
 

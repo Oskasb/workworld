@@ -13,6 +13,8 @@ define([
     ) {
 
 
+    var isLoading = [];
+
         var modelPool = {};
 
         var activeModels = {};
@@ -121,6 +123,9 @@ define([
                 clone.userData.poolId = id;
                 clone.frustumCulled = false;
                 modelPool[id].push(clone);
+
+                isLoading.splice(isLoading.indexOf(id), 1);
+
             }
 
         //    console.log("CACHE MESH", [id, modelPool, clone, mesh]);
@@ -266,6 +271,13 @@ define([
                 console.warn("No model in list by id:", id, modelList);
             }
 
+            if (isLoading.indexOf(id) !== -1) {
+                console.log("Model already loading:", id, isLoading);
+                return;
+            };
+
+            isLoading.push(id);
+
             switch ( modelList[id].format )	{
 
                 case 'dae':
@@ -290,7 +302,7 @@ define([
             //    console.log("Models updated:", data);
                 for (var i = 0; i < data.length; i++){
                     modelList[data[i].id] = data[i];
-                    ThreeModelLoader.loadModelId(data[i].id);
+                //    ThreeModelLoader.loadModelId(data[i].id);
                 }
             };
 
@@ -443,6 +455,8 @@ define([
             var mId = id;
             var fCb = cb;
 
+            ThreeModelLoader.loadModelId(mId);
+
             setTimeout(function() {
                 ThreeModelLoader.fetchPooledMeshModel(mId, fCb)
             }, 500)
@@ -574,7 +588,7 @@ define([
             yellow : new THREE.MeshBasicMaterial( { color: 0xffff88, wireframe: true, fog:false } ),
             red    : new THREE.MeshBasicMaterial( { color: 0xff5555, wireframe: true, fog:false } ),
             blue    : new THREE.MeshBasicMaterial({ color: 0x5555ff, wireframe: true, fog:false } )
-        }
+        };
 
         ThreeModelLoader.loadThreeDebugBox = function(sx, sy, sz, colorName) {
 

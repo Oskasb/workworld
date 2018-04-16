@@ -27,7 +27,7 @@ THREE.Sky = function () {
 		side: THREE.BackSide
 	} );
 
-	var skyGeo = new THREE.SphereBufferGeometry( 4000, 8, 8 );
+	var skyGeo = new THREE.SphereBufferGeometry( 40000, 12, 12 );
 	var skyMesh = new THREE.Mesh( skyGeo, skyMat );
 
 	// Expose variables

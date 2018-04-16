@@ -87,9 +87,14 @@ define([
         };
 
         ParticleRenderer.prototype.setupRendererBuffers = function(rendererReady) {
-            this.buildMeshBuffer();
-            this.attachMaterial();
-            this.createParticles(rendererReady);
+
+            var bufferReady = function() {
+                this.attachMaterial();
+                this.createParticles(rendererReady);
+            }.bind(this);
+
+            this.buildMeshBuffer(bufferReady);
+
         };
 
         ParticleRenderer.prototype.createParticles = function(rendererReady) {
@@ -112,7 +117,7 @@ define([
             new ParticleMaterial(this.config.material_options, material_config, materialReady);
         };
 
-        ParticleRenderer.prototype.buildMeshBuffer = function() {
+        ParticleRenderer.prototype.buildMeshBuffer = function(bufferReady) {
             if (this.particleBuffer) {
                 this.particleBuffer.dispose();
             }
@@ -134,6 +139,9 @@ define([
                 if (this.renderOrder) {
                     this.particleBuffer.mesh.renderOrder = this.renderOrder;
                 }
+
+                bufferReady()
+
             }.bind(this);
 
 
