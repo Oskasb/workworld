@@ -8,7 +8,8 @@ define([
 
 ], function(
     ThreeController,
-    EffectsAPI
+    EffectsAPI,
+    EffectsListeners
 ) {
     
     var SceneController = function() {
@@ -20,7 +21,13 @@ define([
     };
 
     SceneController.prototype.setupEffectPlayers = function(onReady) {
+        EffectsListeners.setupListeners();
         EffectsAPI.initEffects(onReady);
+
+    };
+
+    SceneController.prototype.tickEffectsAPI = function(tpf) {
+        EffectsAPI.tickEffectSimulation(tpf);
     };
 
     return SceneController;

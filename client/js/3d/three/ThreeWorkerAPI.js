@@ -79,7 +79,7 @@ define([
         };
 
         ThreeAPI.sampleFrustum = function(store) {
-            ThreeSetup.sampleCameraFrustum(store);
+        //    ThreeSetup.sampleCameraFrustum(store);
         };
 
         ThreeAPI.addAmbientLight = function() {
@@ -87,16 +87,16 @@ define([
         };
         
         ThreeAPI.setCameraPos = function(x, y, z) {
-            ThreeSetup.setCameraPosition(x, y, z);
+        //    ThreeSetup.setCameraPosition(x, y, z);
         };
 
         ThreeAPI.cameraLookAt = function(x, y, z) {
-            ThreeSetup.setCameraLookAt(x, y, z);
-            ThreeSetup.updateCameraMatrix();
+        //    ThreeSetup.setCameraLookAt(x, y, z);
+        //    ThreeSetup.updateCameraMatrix();
         };
 
         ThreeAPI.updateCamera = function() {
-            ThreeSetup.updateCameraMatrix();
+        //    ThreeSetup.updateCameraMatrix();
         };
 
         ThreeAPI.toScreenPosition = function(vec3, store) {
@@ -134,8 +134,8 @@ define([
         };
 
         ThreeAPI.attachObjectToCamera = function(object) {
-            ThreeSetup.addToScene(ThreeSetup.getCamera());
-            ThreeSetup.addChildToParent(object, ThreeSetup.getCamera());
+         //   ThreeSetup.addToScene(ThreeSetup.getCamera());
+         //   ThreeSetup.addChildToParent(object, ThreeSetup.getCamera());
         };
 
         ThreeAPI.applySpatialToModel = function(spatial, model) {

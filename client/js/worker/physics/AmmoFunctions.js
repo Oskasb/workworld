@@ -4,7 +4,7 @@
 define([
         'worker/physics/AmmoVehicle',
         'worker/physics/AmmoHovercraft',
-        'three/ThreeModelLoader',
+        '3d/three/ThreeModelLoader',
         'worker/physics/BodyPool'
     ],
     function(

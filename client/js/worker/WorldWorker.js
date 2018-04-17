@@ -18,6 +18,7 @@ require.config({
 	paths: {
         data_pipeline:'client/js/lib/data_pipeline/src',
         ThreeAPI:'client/js/3d/three/ThreeWorkerAPI',
+        EffectsAPI:'client/js/3d/effects/EffectsAPI',
         PipelineAPI:'client/js/io/PipelineAPI',
         PipelineObject:'client/js/PipelineObject',
         Events:'client/js/Events',
@@ -40,6 +41,8 @@ require(
 
         var count = 0;
         WorldAPI = wApi;
+
+        self.WorldAPI = WorldAPI;
 
         var onWorkerReady = function() {
             count ++;

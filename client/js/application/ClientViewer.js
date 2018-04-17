@@ -252,6 +252,11 @@ define([
 
 
 
+        var tmpVec = new THREE.Vector3();
+        var tmpVec2 = new THREE.Vector3();
+
+        var fxArg = {effect:"normal_explosion_core", pos:tmpVec, vel:tmpVec2}
+
         ClientViewer.prototype.tick = function(tpf) {
 
             gameTime += tpf;
@@ -299,13 +304,30 @@ define([
             ThreeAPI.setCameraPos(distance*Math.sin(gameTime*0.4), distance * 0.2 + Math.sin(gameTime*0.35) * 50, distance*Math.cos(gameTime*0.4));
             ThreeAPI.cameraLookAt(19*Math.cos(gameTime*1), 40 + distance * 0.12,  19*Math.sin(gameTime*1));
 
+
+            for (var i = 0; i < 15; i++) {
+                tmpVec.x = distance * Math.random() * (Math.random() - 0.5);
+                tmpVec.y = distance * Math.random() * 0.1 * Math.random();
+                tmpVec.z = distance * Math.random() * (Math.random() - 0.5);
+
+
+                tmpVec2.x = Math.sin(gameTime);
+                tmpVec2.y = Math.random();
+                tmpVec2.z = Math.cos(gameTime);
+
+                evt.fire(evt.list().GAME_EFFECT, fxArg);
+            }
+
+
         //    this.viewerMain.tickViewerClient(tpf);
             
         //    evt.fire(evt.list().CAMERA_TICK, {frame:frame, tpf:tpf});
 
+
+
             PipelineAPI.setCategoryKeyValue('STATUS', 'TIME_GAME_TICK', performance.now() - start);
 
-
+            this.sceneController.tickEffectsAPI(tpf);
         //    this.tickStatusUpdate(tpf);
 
 

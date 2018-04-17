@@ -13,6 +13,10 @@ define([
 
             this.subscribe(onDataCallback, immediateDataKey);
 
+            if (self.WorldAPI !== undefined) {
+                self.WorldAPI.fetchCategoryKeyData(category, key);
+            }
+
         };
 
 

@@ -65,10 +65,14 @@ define([
 
         };
 
+        var send = function(cat, key) {
+            WorkerAPI.callWorker(ENUMS.Worker.WORLD, WorkerAPI.buildMessage(ENUMS.Protocol.SEND_PIPELINE_DATA, {category:cat, key:key, value:PipelineAPI.readCachedConfigKey(cat, key)}));
+        };
+
         ClientMessages.prototype.setupMessageHandlers = function() {
 
             this.messageHandlers[ENUMS.Protocol.WORKER_READY] = function(msg) {
-                WorkerAPI.callWorker(ENUMS.Worker.WORLD, WorkerAPI.buildMessage(ENUMS.Protocol.SET_LOOP, {tpf:0.1}));
+                WorkerAPI.callWorker(ENUMS.Worker.WORLD, WorkerAPI.buildMessage(ENUMS.Protocol.SET_LOOP, {tpf:0.01}));
                 WorkerAPI.callWorker(ENUMS.Worker.WORLD, WorkerAPI.buildMessage(ENUMS.Protocol.CREATE_WORLD,{posx:200, posz:200, options:terrainOpts}));
                 WorkerAPI.callWorker(ENUMS.Worker.WORLD, WorkerAPI.buildMessage(ENUMS.Protocol.CREATE_WORLD,{posx:-1000, posz:200, options:terrainOpts}));
                 WorkerAPI.callWorker(ENUMS.Worker.WORLD, WorkerAPI.buildMessage(ENUMS.Protocol.CREATE_WORLD,{posx:-1000, posz:-1000, options:terrainOpts2}));
@@ -79,9 +83,11 @@ define([
             };
 
             this.messageHandlers[ENUMS.Protocol.NOTIFY_FRAME] = function(msg) {
-
                 //    console.log("Handle (Client) NOTIFY_FRAME", msg[0]);
+            };
 
+            this.messageHandlers[ENUMS.Protocol.FETCH_PIPELINE_DATA] = function(msg) {
+                send(msg[1][0], msg[1][1]);
             };
 
             this.messageHandlers[ENUMS.Protocol.REGISTER_TERRAIN] = function(msg) {

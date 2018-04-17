@@ -66,6 +66,11 @@ define([
 
             configureOptions(this.opts, systemOptions);
 
+            if (self.WorldAPI !== undefined) {
+                this.onReady()
+                return;
+            }
+
             this.setupDataTexture()
 
         };
@@ -127,7 +132,6 @@ define([
 
         };
 
-
         ParticleMaterial.prototype.setupShaders = function() {
 
             var _this = this;
@@ -143,7 +147,6 @@ define([
 
             this.shaderPipe = new PipelineObject("SHADERS", this.txMatSettings.shader, applyShaders);
         };
-        
 
         ParticleMaterial.prototype.setupMapTexture = function() {
 
@@ -156,7 +159,6 @@ define([
 
             this.txPipe = new PipelineObject("THREE_TEXTURE", "particle_texture_"+this.txMatSettings.particle_texture, applyTexture);
         };
-
 
         ParticleMaterial.prototype.setupDataTexture = function() {
 
@@ -171,8 +173,6 @@ define([
                 this.setupMapTexture();
             }
         };
-
-
 
         ParticleMaterial.prototype.dispose = function() {
             this.shaderPipe.removePipelineObject();

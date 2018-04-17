@@ -24,7 +24,14 @@ define([
         var worldControlState;
         var terrainSystem;
 
+        var fetches = {}
+
         var WorldAPI = function() {};
+
+        var fetchData = function() {
+            WorldAPI.fetchCategoryKeyData("PARTICLE_SYSTEMS", "RENDERERS");
+            WorldAPI.fetchCategoryKeyData("PARTICLE_MODEL_SYSTEMS", "RENDERERS");
+        };
 
         WorldAPI.initWorld = function(onWorkerReady) {
 
@@ -35,11 +42,27 @@ define([
                 terrainSystem = new TerrainSystem(WorldAPI, physicsApi);
                 worldMain = new WorldMain(WorldAPI);
                 protocolRequests = new ProtocolRequests();
-                protocolRequests.setMessageHandlers(worldMessages.getMessageHandlers())
-                onWorkerReady();
+                protocolRequests.setMessageHandlers(worldMessages.getMessageHandlers());
+            //    fetchData();
+                worldMain.initWorldSystems(onWorkerReady)
+            //    onWorkerReady();
             };
 
             physicsApi = new AmmoAPI(ammoReady);
+        };
+
+        WorldAPI.fetchCategoryKeyData = function(category, key) {
+            if (!fetches[category]) {
+                fetches[category] = []
+            }
+
+            if (fetches[category].indexOf(key) === -1) {
+                WorldAPI.sendWorldMessage(ENUMS.Protocol.FETCH_PIPELINE_DATA, [category, key]);
+                fetches[category].push(key);
+            }
+
+            console.log("FETCHES:", fetches);
+
         };
 
         WorldAPI.setWorldLoopTpf = function(tpf) {

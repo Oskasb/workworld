@@ -5,7 +5,7 @@ define([
         '3d/effects/particles/ParticleMaterial',
         '3d/effects/particles/ParticleMesh',
         '3d/effects/particles/ParticleBuffer',
-
+        '3d/effects/particles/RendererAttributes',
         '3d/effects/particles/Particle',
         'PipelineObject'
 
@@ -15,21 +15,25 @@ define([
         ParticleMaterial,
         ParticleMesh,
         ParticleBuffer,
+        RendererAttributes,
         Particle,
         PipelineObject
     ) {
 
-        var config;
-        var dimensions;
-        var particle;
         var req;
         var i;
         var color;
         var key;
 
-        var ParticleRenderer = function(rendererConfig, rendererReady) {
+        var ParticleRenderer = function(rendererConfig, rendererReady, idx) {
             this.id = rendererConfig.id;
+            this.setIndexOfRenderer(idx);
             this.setupRendererMaterial(rendererConfig, rendererReady);
+        };
+
+        ParticleRenderer.prototype.setIndexOfRenderer = function(index) {
+            this.index = index;
+
         };
 
         ParticleRenderer.prototype.setupRendererMaterial = function(rendererConfig, rendererReady) {
@@ -50,11 +54,10 @@ define([
             this.material = {uniforms:{}};
             this.particles = [];
             this.drawingParticles = [];
-            this.attributes = {};
+            this.rendererAttributes = new RendererAttributes(this.id, this.index);
             this.attributeConfigs = {};
 
             this.systemTime = 0;
-
             this.renderHighestIndex = 0;
 
             var particleMaterialData = function(src, data) {
@@ -77,11 +80,24 @@ define([
                this.setMaterial(material, rendererReady);
             }.bind(this);
 
+
+            var attributesReady = function(data) {
+                this.buildParticleMaterial(data, materialReady);
+            }.bind(this);
+
+
+            var dataMath = function(data) {
+                this.setupBufferAttributes(data, attributesReady);
+
+            }.bind(this);
+
+
+
             for (i = 0; i < data.length; i++) {
-                if (data[i].id == this.config.material_id) {
+                if (data[i].id === this.config.material_id) {
     //                console.log("buildParticleMaterial", data[i].id );
-                    this.setupBufferAttributes(data[i].attributes);
-                    this.buildParticleMaterial(data[i], materialReady);
+                    dataMath(data[i]);
+
                 }
             }
         };
@@ -94,7 +110,6 @@ define([
             }.bind(this);
 
             this.buildMeshBuffer(bufferReady);
-
         };
 
         ParticleRenderer.prototype.createParticles = function(rendererReady) {
@@ -105,9 +120,7 @@ define([
 
             for (i = 0; i < this.poolSize; i++) {
                 var newParticle = new Particle(i);
-                for (key in this.attributeConfigs) {
-                    newParticle.bindAttribute(key, this.attributeConfigs[key].dimensions, this.attributes[key]);
-                }
+                this.rendererAttributes.bindParticleAttributes(newParticle);
                 this.particles.push(newParticle);
             }
             rendererReady(this);
@@ -115,6 +128,7 @@ define([
 
         ParticleRenderer.prototype.buildParticleMaterial = function(material_config, materialReady) {
             new ParticleMaterial(this.config.material_options, material_config, materialReady);
+
         };
 
         ParticleRenderer.prototype.buildMeshBuffer = function(bufferReady) {
@@ -125,17 +139,14 @@ define([
             var geomCB = function(geom) {
                 this.particleBuffer = new ParticleBuffer(geom.verts, geom.uvs, geom.indices, geom.normals);
 
-
-                for (key in this.attributes) {
-                    this.particleBuffer.geometry.addAttribute( key, this.attributes[key] );
-                }
+                this.rendererAttributes.attachParticleBuffer(this.particleBuffer);
 
                 for (key in this.particleBuffer.geometry.attributes) {
-                    this.attributes[key] = this.particleBuffer.geometry.attributes[key];
+                    this.rendererAttributes.setRendererAttribute(key, this.particleBuffer.geometry.attributes[key]);
                 }
 
-
                 this.particleBuffer.addToScene(this.isScreenspace);
+
                 if (this.renderOrder) {
                     this.particleBuffer.mesh.renderOrder = this.renderOrder;
                 }
@@ -151,7 +162,6 @@ define([
                 ParticleMesh.modelGeometry(this.particleGeometry, geomCB)
             }
 
-
         //    this.particleBuffers.push(this.particleBuffer);
         };
 
@@ -159,16 +169,10 @@ define([
             this.particleBuffer.mesh.material = this.material;
         };
 
-        ParticleRenderer.prototype.setupBufferAttributes = function(attributes_config) {
-            for (var i = 0; i < attributes_config.length; i++) {
-                config = attributes_config[i];
-                this.attributeConfigs[config.name] = config;
-                dimensions = config.dimensions;
-                this.attributes[config.name] = new THREE.InstancedBufferAttribute(new Float32Array(this.poolSize * dimensions), dimensions, 1).setDynamic( config.dynamic );
-            }
+
+        ParticleRenderer.prototype.setupBufferAttributes = function(data, attributesReady) {
+            this.rendererAttributes.applyAttributesConfig(data, this.poolSize, attributesReady)
         };
-
-
 
 
         ParticleRenderer.prototype.calculateAllowance = function(requestSize) {
@@ -214,7 +218,7 @@ define([
         };
 
 
-        ParticleRenderer.prototype.computerHighestRenderingIndex = function() {
+        ParticleRenderer.prototype.computeHighestRenderingIndex = function() {
             this.renderHighestIndex = 0;
 
             if (!this.particles.length) {
@@ -235,7 +239,7 @@ define([
 
         ParticleRenderer.prototype.returnParticle = function(prtcl) {
 
-            this.discountDrawingParticle(prtcl)
+            this.discountDrawingParticle(prtcl);
             this.needsUpdate = true;
             this.particles.unshift(prtcl);
         };
@@ -259,17 +263,33 @@ define([
             uniform.value.b = color.b;
         };
 
+        ParticleRenderer.prototype.setHighestRenderingIndex = function(highestIndex) {
+            this.renderHighestIndex = highestIndex;
+        };
+
 
         ParticleRenderer.prototype.updateParticleRenderer = function(systemTime) {
 
             this.systemTime = systemTime;
 
-            if (this.needsUpdate) {
-                this.renderHighestIndex = this.computerHighestRenderingIndex();
-                this.particleBuffer.setInstancedCount( this.renderHighestIndex + 1);
-                this.needsUpdate = false;
-            };
 
+
+        //    if (this.needsUpdate) {
+                this.setHighestRenderingIndex(this.poolSize-1) //this.computeHighestRenderingIndex());
+                this.particleBuffer.setInstancedCount( this.renderHighestIndex + 1);
+                this.needsUpdate = true;
+        //    }
+
+            if (window.outerWidth) {
+                this.rendererAttributes.setNeedsUpdate()
+                this.updateParticleRendererMaterial()
+            } else {
+                // Let main thread know
+            }
+
+        };
+
+        ParticleRenderer.prototype.updateParticleRendererMaterial = function() {
 
             if (this.material.uniforms.systemTime) {
                 this.material.uniforms.systemTime.value = this.systemTime;
@@ -292,7 +312,6 @@ define([
             if (this.material.uniforms.sunLightColor) {
                 this.applyUniformEnvironmentColor(this.material.uniforms.sunLightColor, 'sun');
             }
-
         };
 
         ParticleRenderer.prototype.dispose = function() {

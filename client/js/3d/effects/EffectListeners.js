@@ -1,7 +1,7 @@
 "use strict";
 
 define([
-    'ThreeAPI',
+        'ThreeAPI',
         'EffectsAPI',
         'PipelineObject',
         'Events'
@@ -36,8 +36,8 @@ define([
                 effectList = fxPipe.buildConfig();
             };
 
-            fxPipe = new PipelineObject('PARTICLE_EFFECTS', 'THREE');
-            fxPipe.subscribe(effectData());
+            fxPipe = new PipelineObject('PARTICLE_EFFECTS', 'THREE', effectData);
+        //    fxPipe.subscribe(effectData());
             //    effectList = fxPipe.buildConfig('effects');
 
 
@@ -48,7 +48,7 @@ define([
                 setupEffect(evt.args(e));
 
                 if (!effectList[evt.args(e).effect]) {
-                        console.log("No FX")
+                        console.log("No FX", evt.args(e).effect)
                 } else {
                     EffectsAPI.requestParticleEffect(evt.args(e).effect, posVec, velVec);
                 }
@@ -57,10 +57,6 @@ define([
             evt.on(evt.list().GAME_EFFECT, playGameEffect);
         };
 
-
-        EffectsListeners.tickEffects = function(tpf) {
-            EffectsAPI.tickEffectSimulation(tpf);
-        };
 
         EffectsListeners.setEffectCallbacks = function(callbacks) {
             ThreeAPI.setEffectCallbacks(callbacks);

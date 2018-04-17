@@ -17,7 +17,10 @@ define([
         PipelineObject
     ) {
 
+
+        var inits = {};
         var renderers = {};
+
         var requestedEffects = [];
         var activeEffects = [];
         var idleEffects = [];
@@ -61,7 +64,7 @@ define([
             if (!renderers[renderer.id]) {
                 renderers[renderer.id] = [];
             }
-            renderers[renderer.id].push(renderer);
+            renderers[renderer.id][renderer.index] = renderer;
             finished ++;
 
     //        console.log("ParticleSpawner load: r/s", started, finished);
@@ -87,7 +90,7 @@ define([
         ParticleSpawner.prototype.setupParticleRenderers = function() {
 
 
-    //        console.log("SETUP PARTICLE RENDERERS");
+            console.log("SETUP PARTICLE RENDERERS");
 
             var addRen = function(data) {
                 this.addRenderer(data, rendererReady);
@@ -100,7 +103,7 @@ define([
 
                     started++;
 
-    //                console.log("SETUP PARTICLE RENDERER:", src, data[i]);
+                    console.log("SETUP PARTICLE RENDERER:", src, data[i]);
                 /*
                     if (renderers[data[i].id]) {
                         console.log("DELETE EXISTING PARTICLE RENDERER", data[i].id);
@@ -118,7 +121,13 @@ define([
         };
 
         ParticleSpawner.prototype.addRenderer = function(rendererData, onReady) {
-            new ParticleRenderer(rendererData, onReady);
+            if (!inits[rendererData.id]) {
+                inits[rendererData.id] = [];
+            }
+
+            var renderer = new ParticleRenderer(rendererData, onReady, inits[rendererData.id].length);
+            inits[renderer.id].push(renderer);
+
         };
 
         ParticleSpawner.prototype.getRenderersById = function(id) {
@@ -166,7 +175,7 @@ define([
 
             var onReady = function(rndr) {
                 rendererReady(rndr);
-                console.log("add renderer for particle group", rndr);
+                console.log("add renderer for particle group", [window], rndr);
                 renderer.adding = false;
             }
 

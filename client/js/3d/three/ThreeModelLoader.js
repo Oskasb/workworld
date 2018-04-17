@@ -265,10 +265,19 @@ define([
             return modelPool;
         };
 
+        var brute = false;
+
         ThreeModelLoader.loadModelId = function(id) {
 
             if (!modelList[id]) {
                 console.warn("No model in list by id:", id, modelList);
+
+                if (!brute) {
+                    ThreeModelLoader.loadData();
+                    brute = true;
+                }
+
+                return;
             }
 
             if (isLoading.indexOf(id) !== -1) {

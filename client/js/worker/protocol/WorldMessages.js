@@ -1,9 +1,10 @@
 "use strict";
 
 define([
+        'PipelineAPI'
     ],
     function(
-
+        PipelineAPI
     ) {
         var WorldAPI;
         var WorldMessages = function(wApi) {
@@ -35,6 +36,11 @@ define([
                 WorldAPI.constructWorld(msg[1]);
             };
 
+            this.messageHandlers[ENUMS.Protocol.SEND_PIPELINE_DATA] = function(msg) {
+                console.log("Handle (World) SEND_PIPELINE_DATA", msg[0], msg[1]);
+            //    WorldAPI.constructWorld(msg[1]);
+                PipelineAPI.setCategoryKeyValue(msg[1].category, msg[1].key, msg[1].value);
+            };
 
         };
 

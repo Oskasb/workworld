@@ -14,7 +14,9 @@ if(typeof(ENUMS) === "undefined"){
         SET_INPUT_BUFFER:   3,
         SET_WORLD_BUFFER:   4,
         CREATE_WORLD:       5,
-        REGISTER_TERRAIN:   6
+        REGISTER_TERRAIN:   6,
+        FETCH_PIPELINE_DATA:7,
+        SEND_PIPELINE_DATA: 8
     };
 
     ENUMS.BufferTypes = {
