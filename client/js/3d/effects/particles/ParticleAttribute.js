@@ -28,13 +28,13 @@ define(['PipelineAPI'],
 
             if (SharedArrayBuffer) {
 
-                var sab = new SharedArrayBuffer(Float32Array.BYTES_PER_ELEMENT * size);
+                var sab = new SharedArrayBuffer(Float32Array.BYTES_PER_ELEMENT * (size+1));
                 var buffer = new Float32Array(sab);
-                console.log("Setup Shared Attribute Buffer", this.name);
+             //   console.log("Setup Shared Attribute Buffer", this.name);
                 PipelineAPI.setCategoryKeyValue("SHARED_BUFFERS", this.bufferKey, buffer);
 
             } else {
-                var buffer = new Float32Array(size);
+                var buffer = new Float32Array(size+1);
             }
 
             this.setArrayBuffer(buffer);

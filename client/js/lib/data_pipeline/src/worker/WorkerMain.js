@@ -38,14 +38,14 @@ require(
 
 		MainWorker = new WorkerMain();
 		postMessage(['ready']);
-		console.log("Worker Require Loaded OK!")
+	//	console.log("Worker Require Loaded OK!")
 	}
 );
 
 var handleMessage = function(oEvent) {
 
 	if (!MainWorker) {
-		console.log("MainWorker not yet ready: ", oEvent);
+	//	console.log("MainWorker not yet ready: ", oEvent);
 		setTimeout(function() {
 			handleMessage(oEvent);
 		}, 250);

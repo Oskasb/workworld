@@ -24,6 +24,9 @@ define([
             this.dataKey = dataKey;
         };
 
+        RendererAttributes.prototype.getDataKey = function() {
+            return this.dataKey;
+        };
 
         RendererAttributes.prototype.setupBuffer = function(particleAttribute, config, poolSize, attribLoaded) {
 
@@ -90,10 +93,19 @@ define([
             this.attributes[name] = bufferAttribute;
         };
 
-        RendererAttributes.prototype.setNeedsUpdate = function() {
+        RendererAttributes.prototype.updateBufferNeedsUpdate = function(attribBuffer) {
+
+            if (attribBuffer.array[attribBuffer.array.length -1] === 1) {
+                attribBuffer.needsUpdate = true;
+                attribBuffer.array[attribBuffer.array.length -1] = 0;
+            }
+
+        };
+
+        RendererAttributes.prototype.updateNeedsUpdate = function() {
 
             for (var key in this.particleAttributes) {
-                this.particleAttributes[key].getInstancedBufferAttribute().needsUpdate = true;
+                this.updateBufferNeedsUpdate(this.particleAttributes[key].getInstancedBufferAttribute())
             }
 
         };

@@ -40,7 +40,7 @@ define([
 
             PipelineAPI.setCategoryData(ENUMS.Category.POINTER_STATE, this.pointerCursor.getPointerState());
 
-            console.log("configs", PipelineAPI.getCachedConfigs());
+            console.log("configs", PipelineAPI.getCachedConfigs(), ENUMS);
 
 		};
 
@@ -122,6 +122,7 @@ define([
         var gameTime = 0;
 
         ClientViewer.prototype.tickPostrender = function(tpf) {
+            WorkerAPI.wakeWorldThread();
             PipelineAPI.setCategoryKeyValue('STATUS', 'TPF', tpf);
             evt.fire(evt.list().CLIENT_TICK, tickEvent);
         };
@@ -288,15 +289,16 @@ define([
 
         //    this.sceneController.tickEffectPlayers(tpf);
 
-            clearTimeout(tickTimeout);
-            tickTimeout = setTimeout(function() {
+        //    clearTimeout(tickTimeout);
+
+        //    tickTimeout = setTimeout(function() {
 
                 tickEvent.frame = frame;
                 tickEvent.tpf = tpf;
 
         //        GameAPI.tickGame(tpf, gameTime);
 
-            }, 0);
+        //    }, 0);
 
 
             var distance = 1350 + 550 * Math.sin(gameTime*0.2);
@@ -315,7 +317,7 @@ define([
                 tmpVec2.y = Math.random();
                 tmpVec2.z = Math.cos(gameTime);
 
-                evt.fire(evt.list().GAME_EFFECT, fxArg);
+            //    evt.fire(evt.list().GAME_EFFECT, fxArg);
             }
 
 
@@ -328,7 +330,8 @@ define([
             PipelineAPI.setCategoryKeyValue('STATUS', 'TIME_GAME_TICK', performance.now() - start);
 
             this.sceneController.tickEffectsAPI(tpf);
-        //    this.tickStatusUpdate(tpf);
+
+            //    this.tickStatusUpdate(tpf);
 
 
         //    if (PipelineAPI.getPipelineOptions('jsonPipe').polling.enabled) {

@@ -19,6 +19,8 @@ if (process.env.PORT) {
 
 app.use(express.static(__dirname + "/"));
 
+express.static.mime.define({'application/wasm': ['wasm']});
+
 var server = http.createServer(app);
 server.listen(port);
 

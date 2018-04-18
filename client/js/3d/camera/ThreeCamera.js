@@ -17,7 +17,7 @@ define(['Events',
     };
 
     var setupThreeCamera = function(e) {
-        console.log("Setup Three Cam", PipelineAPI.getCachedConfigs());
+    //    console.log("Setup Three Cam", PipelineAPI.getCachedConfigs());
     //    evt.on(evt.list().CLIENT_TICK, updateCamera);
         
         cameraFunctions = new CameraFunctions();

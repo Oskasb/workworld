@@ -4,16 +4,20 @@ define([
         'WorkerAPI',
 		'io/VisualCursor',
 		'io/InputState',
-		'Events'
+		'Events',
+		'ui/GameScreen'
 	],
 	function(
         WorkerAPI,
 		VisualCursor,
 		InputState,
-		evt
+		evt,
+        GameScreen
 	) {
 
         var mouseState;
+
+        var tempVec = new THREE.Vector3();
 
 		var PointerCursor = function() {
 
@@ -77,8 +81,12 @@ define([
 
         PointerCursor.prototype.updateInputBuffer = function() {
 
-            this.buffer[ENUMS.InputState.MOUSE_X]           = mouseState.x;
-            this.buffer[ENUMS.InputState.MOUSE_Y]           = mouseState.y;
+            tempVec.x = ((mouseState.x-GameScreen.getLeft()) / GameScreen.getWidth() - 0.5) ;
+			tempVec.y = -((mouseState.y-GameScreen.getTop()) / GameScreen.getHeight()- 0.5) ;
+            GameScreen.fitView(tempVec);
+
+            this.buffer[ENUMS.InputState.MOUSE_X]           = tempVec.x ;
+            this.buffer[ENUMS.InputState.MOUSE_Y]           = tempVec.y ;
             this.buffer[ENUMS.InputState.WHEEL_DELTA]       = mouseState.wheelDelta;
             this.buffer[ENUMS.InputState.START_DRAG_X]      = mouseState.startDrag[0];
             this.buffer[ENUMS.InputState.START_DRAG_Y]      = mouseState.startDrag[1];

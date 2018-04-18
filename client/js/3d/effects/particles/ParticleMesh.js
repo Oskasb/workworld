@@ -189,7 +189,7 @@ define([
 
         var queueLoad = function(conf, cb) {
 
-            console.log("Queue Load:", [window], conf);
+        //    console.log("Queue Load:", [window], conf);
 
             setTimeout(function() {
                 ParticleMesh.modelGeometry(conf, cb)

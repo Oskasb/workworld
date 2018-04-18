@@ -1,44 +1,60 @@
 "use strict";
 
+
+
+var wait = function(cb) {
+
+  //
+    var match = Atomics.wait(worldComBuffer, ENUMS.Protocol.WAKE_INDEX, 1, 100);
+    Atomics.store(worldComBuffer, ENUMS.Protocol.WAKE_INDEX, 0);
+    console.log("Wait match:",match);
+
+    if (match === 'ok') {
+        cb();
+    } else {
+        wait(cb);
+    }
+
+};
+
 define([
-    'Events',
+        'Events',
         'EffectsAPI',
+        'PipelineObject',
         '3d/effects/EffectListeners'
     ],
     function(
         evt,
         EffectsAPI,
+        PipelineObject,
         EffectsListeners
     ) {
 
         var WorldAPI;
         var worldFrame = 0;
         var gameTime = 0;
+        var avgTfp = 0.1;
 
-        var WorldMain = function(wApi) {
-            WorldAPI = wApi;
-        };
+        var worldComBuffer;
 
+        var initTime;
+        var tpf, time, lastTime, idle, renderStart, renderEnd;
 
-        WorldMain.prototype.initWorldSystems = function(onWorkerReady) {
-            EffectsListeners.setupListeners();
-            EffectsAPI.initEffects(onWorkerReady);
-        };
+        var updateWorld = function() {
 
-        var tmpVec = new THREE.Vector3();
-        var tmpVec2 = new THREE.Vector3();
-        var fxArg = {effect:"firey_explosion_core", pos:tmpVec, vel:tmpVec2};
-
-
-
-        WorldMain.prototype.updateSimulation = function(tpf) {
+            time = performance.now() - initTime;
+            tpf = (time - lastTime)*0.001;
+            lastTime = time;
             gameTime += tpf;
+            avgTfp = tpf*0.3 + avgTfp*0.7;
             worldFrame++;
-        //    console.log("Update World Sim", tpf);
-        //    this.simulationState.updateState(tpf);
+            //    console.log("Update World Sim", tpf);
+            //    this.simulationState.updateState(tpf);
             EffectsAPI.tickEffectSimulation(tpf);
 
-            var distance = 450;
+            var distance = 850;
+
+            fxArg.effect = "firey_explosion_core";
 
             for (var i = 0; i < 2; i++) {
                 tmpVec.x = distance * Math.random() * (Math.random() - 0.5);
@@ -54,38 +70,93 @@ define([
             }
 
 
-            WorldAPI.updateWorldWorkerFrame(tpf, worldFrame);
+            WorldAPI.updateWorldWorkerFrame(avgTfp, worldFrame);
+
+        //    wait(updateWorld);
+
+        //    setTimeout(function() {
+        //        updateWorld();
+        //   })
+        //
+        };
+
+
+        var WorldMain = function(wApi) {
+            WorldAPI = wApi;
+        };
+
+
+        WorldMain.prototype.initWorldSystems = function(onWorkerReady) {
+            EffectsListeners.setupListeners();
+
+            initTime = performance.now();
+            lastTime = 0;
+
+            var fxReady = function() {
+                buildSillyWorld();
+
+                onWorkerReady()
+            };
+
+            var worldComReady = function(src, data) {
+                worldComBuffer = data;
+                EffectsAPI.initEffects(fxReady);
+            };
+
+            new PipelineObject("SHARED_BUFFERS", ENUMS.Key.WORLD_COM_BUFFER, worldComReady)
+
+        };
+
+        var tmpVec = new THREE.Vector3();
+        var tmpVec2 = new THREE.Vector3();
+        var tmpVec3 = new THREE.Vector3();
+        var fxArg = {effect:"firey_explosion_core", pos:tmpVec, vel:tmpVec2};
+
+
+
+        WorldMain.prototype.updateSimulation = function() {
+
+        //    this.updateSimulation()
 
         };
 
 
-        var gameLoop;
+        var sillyWorld = function(count, fxId) {
+
+            var distance = 1450;
+
+            fxArg.effect = "firey_explosion_core";
+
+            for (var i = 0; i < count; i++) {
+                tmpVec.x = distance * Math.random() * (Math.random() - 0.5);
+                tmpVec.y = distance * Math.random() * 0.1 * Math.random();
+                tmpVec.z = distance * Math.random() * (Math.random() - 0.5);
+
+
+                tmpVec2.x = 0;
+                tmpVec2.y = 0;
+                tmpVec2.z = 0;
+
+                tmpVec3.x = 0;
+                tmpVec3.y = 0;
+                tmpVec3.z = 0;
+
+                // evt.fire(evt.list().GAME_EFFECT, fxArg);
+
+                EffectsAPI.requestPassiveEffect(fxId, tmpVec, tmpVec2, tmpVec3)
+            }
+        };
+
+        var buildSillyWorld = function() {
+            sillyWorld(1000, "model_geometry_tree_2_trunk_effect");
+            sillyWorld(400, "model_geometry_tree_3_combined_effect");
+            sillyWorld(400, "creative_crate_geometry_effect");
+        };
+
 
 
         WorldMain.prototype.setLoopTpf = function(tpf) {
-
-            console.log("Run Worker Game Loop", tpf);
-            var activationGrid;
-
-            var initLoop = function() {
-
-                var frameTime = tpf;
-
-                var update = function() {
-                    this.updateSimulation(frameTime)
-                }.bind(this);
-
-                gameLoop = setInterval(update, tpf*1000);
-            }.bind(this);
-
-        //    activationGrid = new ActivationGrid(gridReady);
-
-            clearInterval(gameLoop);
-
-            if (tpf) {
-                initLoop();
-            }
-
+            updateWorld()
         };
 
         return WorldMain;

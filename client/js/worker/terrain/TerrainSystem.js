@@ -34,7 +34,7 @@ define([
 
         TerrainSystem.prototype.initTerrainSystem = function(msg) {
 
-            console.log("initTerrainSystem", msg);
+        //    console.log("initTerrainSystem", msg);
 
             var terrain = this.terrainFunctions.createTerrain(msg.options);
 
@@ -46,7 +46,7 @@ define([
 
             var terrainBody = this.terrainFunctions.addTerrainToPhysics(terrainOpts, terrain.array1d, msg.posx, msg.posz);
 
-            console.log("Terrain:", terrain, terrainBody);
+        //    console.log("Terrain:", terrain, terrainBody);
 
             WorldAPI.sendWorldMessage(ENUMS.Protocol.REGISTER_TERRAIN, [msg, buffers])
 

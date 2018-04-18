@@ -25,6 +25,7 @@ require.config({
         EventList:'client/js/EventList',
 		worker:'client/js/worker',
         three:'client/js/3d/three',
+        ui:'client/js/worker/ui',
         "3d":'client/js/3d',
         game:'client/js/game',
         application:'client/js/application'
@@ -55,7 +56,7 @@ require(
 );
 
 var handleMessage = function(oEvent) {
-    console.log("WorldMain GetMessage", oEvent.data);
+//    console.log("WorldMain GetMessage", oEvent.data);
     WorldAPI.processRequest(oEvent.data);
 };
 

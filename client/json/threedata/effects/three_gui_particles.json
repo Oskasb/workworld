@@ -236,7 +236,7 @@
             "alphaCurve":"sublteSin",
             "diffusionCurve":"dampen",
             "scaleCurve":"fullWhite",
-            "size":{"value":0.04, "min": 0.0, "max": 0.001},
+            "size":{"value":0.015, "min": 0.0, "max": 0.001},
             "spin":{"value":3.142,"min": -2, "max": 0},
             "velocityDiffusion":0.01,
             "accelerationDiffusion":0.01,

@@ -7,27 +7,29 @@ define([
 
     ) {
 
-        var WorldAPI;
 
-        var inputBuffer;
+
+        var inputBuffer = [];
         var lastBuffer = [];
 
 
-        var WorldControlState = function(wApi) {
-            WorldAPI = wApi;
+        var WorldControlState = function() {
+
         };
+
 
         WorldControlState.prototype.updateWorldControlState = function() {
 
             for (var i = 0; i < inputBuffer.length; i++) {
 
                 if (inputBuffer[i] !== lastBuffer[i]) {
-                    console.log("Input Update", ENUMS.Map.InputState[i], inputBuffer[i])
+                //    console.log("Input Update", ENUMS.Map.InputState[i], inputBuffer[i])
                 }
+
             }
 
+            WorldAPI.updateUiSystem(inputBuffer, lastBuffer);
             this.storeLastBuffer();
-
         };
 
         WorldControlState.prototype.storeLastBuffer = function() {
@@ -37,8 +39,9 @@ define([
         };
 
         WorldControlState.prototype.setInputBuffer = function(buffer) {
+            console.log("Set Input Buffer", buffer);
             inputBuffer = buffer;
-            this.storeLastBuffer();
+        //    this.storeLastBuffer();
         };
 
         return WorldControlState;

@@ -89,21 +89,19 @@ define([
 
         ParticleSpawner.prototype.setupParticleRenderers = function() {
 
-
-            console.log("SETUP PARTICLE RENDERERS");
+        //    console.log("SETUP PARTICLE RENDERERS");
 
             var addRen = function(data) {
                 this.addRenderer(data, rendererReady);
             }.bind(this);
 
-            
-            
+
             var renderersData = function(src, data) {
                 for (i = 0; i < data.length; i++) {
 
                     started++;
 
-                    console.log("SETUP PARTICLE RENDERER:", src, data[i]);
+                //    console.log("SETUP PARTICLE RENDERER:", src, data[i]);
                 /*
                     if (renderers[data[i].id]) {
                         console.log("DELETE EXISTING PARTICLE RENDERER", data[i].id);
@@ -169,21 +167,26 @@ define([
         };
 
 
-        ParticleSpawner.prototype.duplicateRenderer = function(renderer, effect) {
+        ParticleSpawner.prototype.duplicateRenderer = function(renderer) {
 
-            if (renderer.adding) return this.renderEffect(renderer, effect);
+            if (renderer.adding) return;
 
             var onReady = function(rndr) {
                 rendererReady(rndr);
-                console.log("add renderer for particle group", [window], rndr);
+            //    console.log("add renderer for particle group", [window], rndr);
                 renderer.adding = false;
-            }
+                this.activateEffectQueue();
+            }.bind(this);
 
             renderer.adding = true;
             //   if (!renderer.particles.length) {
-            console.log("request new renderer...", renderer);
+        //    console.log("request new renderer...", renderer);
+
+            if (!window.offsetWidth) {
+                renderer.notifyRendererCloneRequested(inits[renderer.id].length)
+            }
+
             this.addRenderer(renderer.config, onReady);
-            return this.renderEffect(renderer, effect);
 
         };
 
@@ -233,8 +236,20 @@ define([
 
         };
 
+        var effectQueue = [];
 
+        ParticleSpawner.prototype.queueEffectForRendering = function(effect) {
+            effectQueue.push(effect);
+            return effect;
+        };
 
+        ParticleSpawner.prototype.activateEffectQueue = function() {
+
+            while (effectQueue.length) {
+                requestedEffects.push(effectQueue.pop());
+            }
+
+        };
 
         ParticleSpawner.prototype.activateEffect = function(effect) {
             effect.setEffectData(this.particleEffectData.buildEffect(effect.effectData, sysKey, effect.getEffectId()));
@@ -243,6 +258,7 @@ define([
 
             if (!activateRenderer) {
                 console.log("Renderer not yet ready...", effect.effectData.effect.renderer_id);
+                this.queueEffectForRendering(effect);
                 return;
             }
 
@@ -252,7 +268,9 @@ define([
                 }
             }
 
-            return this.duplicateRenderer(activateRenderer[0], effect);
+            this.duplicateRenderer(activateRenderer[0]);
+
+            return this.queueEffectForRendering(effect);
         };
 
 
@@ -346,22 +364,34 @@ define([
             activeEffects.push(effect);
         };
 
+        ParticleSpawner.prototype.checkForRendererCloneRequest = function(renderersArray, renderer) {
 
+            if (renderersArray.length -1 < renderer.checkRendererCloneRequested()) {
+        //        console.log("Clone Request Check Detected", renderer, renderersArray, renderer.checkRendererCloneRequested());
+                this.duplicateRenderer(renderer);
+            }
+
+        };
+
+        ParticleSpawner.prototype.updateSpawnedRenderers = function(renderersArray) {
+
+            for (i = 0; i < renderersArray.length; i++) {
+                renderersArray[i].updateParticleRenderer(systemTime);
+                this.checkForRendererCloneRequest(renderersArray, renderersArray[i])
+            }
+
+        };
 
         ParticleSpawner.prototype.updateSpawnedParticles = function(tpf) {
 
             systemTime += tpf;
 
-
                 while (requestedEffects.length) {
                     this.activateEffect(requestedEffects.pop());
                 }
 
-
             for (key in renderers) {
-                for (i = 0; i < renderers[key].length; i++) {
-                    renderers[key][i].updateParticleRenderer(systemTime);
-                }
+                this.updateSpawnedRenderers(renderers[key])
             }
 
             while (endedEffects.length) {
@@ -452,7 +482,7 @@ define([
                         if (!renderers[key][i].isRendering) {
                             renderers[key][i].enableParticleRenderer();
                         }
-                        count += renderers[key][i].renderHighestIndex;
+                        count += renderers[key][i].getHighestRenderingIndex();
                         activeRenderes++;
                     } else {
                         if (renderers[key][i].isRendering) {

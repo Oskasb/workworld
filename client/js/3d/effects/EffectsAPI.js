@@ -28,7 +28,7 @@ define([
             vegetation = new Vegetation(this);
             particleSpawner = new ParticleSpawner();
 
-            console.log("Init particleSpawner", typeof(window.outerWidth), window);
+         //   console.log("Init particleSpawner", typeof(window.outerWidth), window);
 
             if (typeof(window.outerWidth) === 'number') {
                 var waterReady = function() {
@@ -44,7 +44,7 @@ define([
 
                 particleSpawner.initParticleSpawner(particlesReady);
             } else {
-                console.log("Init worker particleSpawner");
+        //        console.log("Init worker particleSpawner");
                 particleSpawner.initParticleSpawner(onReady);
             }
 
@@ -71,7 +71,6 @@ define([
         EffectsAPI.updateEffectSpriteKey = function(effect, spriteKey) {
             particleSpawner.updateEffectParticleSprite(effect, spriteKey);
         };
-
 
 
         EffectsAPI.updateEffectColorKey = function(effect, colorKey) {

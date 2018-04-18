@@ -20,7 +20,7 @@ define([],
             for (var i in handlers) {
                 this.setRequest(i, handlers[i])
             }
-            console.log("Handlers set", handlers)
+        //    console.log("Handlers set", handlers)
         };
 
         ProtocolRequests.prototype.setRequest = function(key, func) {

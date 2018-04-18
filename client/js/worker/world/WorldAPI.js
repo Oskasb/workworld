@@ -1,6 +1,8 @@
 "use strict";
 
 define([
+        'PipelineAPI',
+        'worker/ui/WorldUiSystem',
         'worker/physics/AmmoAPI',
         'worker/protocol/ProtocolRequests',
         'worker/protocol/WorldMessages',
@@ -9,6 +11,8 @@ define([
         'worker/world/WorldControlState'
     ],
     function(
+        PipelineAPI,
+        WorldUiSystem,
         AmmoAPI,
         ProtocolRequests,
         WorldMessages,
@@ -23,15 +27,11 @@ define([
         var worldMessages;
         var worldControlState;
         var terrainSystem;
+        var worldUiSystem;
 
-        var fetches = {}
+        var fetches = {};
 
         var WorldAPI = function() {};
-
-        var fetchData = function() {
-            WorldAPI.fetchCategoryKeyData("PARTICLE_SYSTEMS", "RENDERERS");
-            WorldAPI.fetchCategoryKeyData("PARTICLE_MODEL_SYSTEMS", "RENDERERS");
-        };
 
         WorldAPI.initWorld = function(onWorkerReady) {
 
@@ -44,8 +44,11 @@ define([
                 protocolRequests = new ProtocolRequests();
                 protocolRequests.setMessageHandlers(worldMessages.getMessageHandlers());
             //    fetchData();
-                worldMain.initWorldSystems(onWorkerReady)
+                worldMain.initWorldSystems(onWorkerReady);
             //    onWorkerReady();
+                worldUiSystem = new WorldUiSystem();
+
+                console.log("configs world worker", PipelineAPI.getCachedConfigs(), fetches);
             };
 
             physicsApi = new AmmoAPI(ammoReady);
@@ -61,8 +64,12 @@ define([
                 fetches[category].push(key);
             }
 
-            console.log("FETCHES:", fetches);
+        //    console.log("FETCHES:", fetches);
 
+        };
+
+        WorldAPI.updateUiSystem = function(input, lastInput) {
+            worldUiSystem.updateWorldUiSystem(input, lastInput)
         };
 
         WorldAPI.setWorldLoopTpf = function(tpf) {
@@ -82,11 +89,12 @@ define([
         };
 
         WorldAPI.setWorldInputBuffer = function(buffer) {
-            worldControlState.setInputBuffer(buffer)
+            worldControlState.setInputBuffer(buffer);
+            worldUiSystem.enableCursorElement();
         };
 
         WorldAPI.updateWorldWorkerFrame = function(tpf, frame) {
-            worldControlState.updateWorldControlState()
+            worldControlState.updateWorldControlState();
             WorldAPI.sendWorldMessage(ENUMS.Protocol.NOTIFY_FRAME, frame)
         };
 

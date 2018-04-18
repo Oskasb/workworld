@@ -82,7 +82,7 @@ define(['../../PipelineObject',
 
     var initSky = function() {
 
-        console.log("Init sky");
+    //    console.log("Init sky");
 
         // Add Sky Mesh
         sky = new THREE.Sky();
@@ -389,7 +389,7 @@ define(['../../PipelineObject',
 
         var environmentListLoaded = function(scr, data) {
 
-            console.log("Env List Loaded", data);
+        //    console.log("Env List Loaded", data);
 
             for (var i = 0; i < data.length; i++){
 

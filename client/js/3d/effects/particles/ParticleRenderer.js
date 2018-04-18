@@ -2,6 +2,7 @@
 
 define([
         'ThreeAPI',
+        '3d/effects/particles/ParticleRendererState',
         '3d/effects/particles/ParticleMaterial',
         '3d/effects/particles/ParticleMesh',
         '3d/effects/particles/ParticleBuffer',
@@ -12,6 +13,7 @@ define([
     ],
     function(
         ThreeAPI,
+        ParticleRendererState,
         ParticleMaterial,
         ParticleMesh,
         ParticleBuffer,
@@ -28,12 +30,26 @@ define([
         var ParticleRenderer = function(rendererConfig, rendererReady, idx) {
             this.id = rendererConfig.id;
             this.setIndexOfRenderer(idx);
-            this.setupRendererMaterial(rendererConfig, rendererReady);
+
+            var rendererStateReady = function() {
+                this.setUpdateRender(1);
+                rendererReady(this);
+            }.bind(this);
+
+            var renderMaterialReady = function() {
+                this.particleRendererState = new ParticleRendererState(this.id, this.index);
+                this.particleRendererState.setupRenderStateData(rendererStateReady);
+            }.bind(this);
+
+            this.setupRendererMaterial(rendererConfig, renderMaterialReady);
         };
 
         ParticleRenderer.prototype.setIndexOfRenderer = function(index) {
             this.index = index;
+        };
 
+        ParticleRenderer.prototype.getRendererKey = function() {
+            this.rendererAttributes.getDataKey();
         };
 
         ParticleRenderer.prototype.setupRendererMaterial = function(rendererConfig, rendererReady) {
@@ -49,7 +65,7 @@ define([
 
             this.biggestRequest = 5;
 
-            this.needsUpdate = true;
+
 
             this.material = {uniforms:{}};
             this.particles = [];
@@ -58,7 +74,6 @@ define([
             this.attributeConfigs = {};
 
             this.systemTime = 0;
-            this.renderHighestIndex = 0;
 
             var particleMaterialData = function(src, data) {
     //            console.log("particleMaterialData", src, data);
@@ -207,9 +222,9 @@ define([
 
             reqParticle = this.particles.shift();
 
-            if (reqParticle.particleIndex > this.renderHighestIndex) {
-                this.renderHighestIndex = reqParticle.particleIndex;
-                this.particleBuffer.setInstancedCount( this.renderHighestIndex +1)
+            if (reqParticle.particleIndex > this.getHighestRenderingIndex()) {
+                this.setHighestRenderingIndex(reqParticle.particleIndex);
+                this.updateInstancedCount();
             }
 
             reqParticle.dead = false;
@@ -219,18 +234,18 @@ define([
 
 
         ParticleRenderer.prototype.computeHighestRenderingIndex = function() {
-            this.renderHighestIndex = 0;
+            this.setHighestRenderingIndex(0);
 
             if (!this.particles.length) {
-                return this.poolSize;
+                return this.poolSize -1;
             }
 
             for (i = 0; i < this.drawingParticles.length; i++) {
-                if(this.drawingParticles[i].particleIndex > this.renderHighestIndex) {
-                    this.renderHighestIndex = this.drawingParticles[i].particleIndex
+                if(this.drawingParticles[i].particleIndex > this.getHighestRenderingIndex()) {
+                    this.setHighestRenderingIndex(this.drawingParticles[i].particleIndex);
                 }
             }
-            return this.renderHighestIndex;
+
         };
 
         ParticleRenderer.prototype.discountDrawingParticle = function(particle) {
@@ -240,7 +255,7 @@ define([
         ParticleRenderer.prototype.returnParticle = function(prtcl) {
 
             this.discountDrawingParticle(prtcl);
-            this.needsUpdate = true;
+            this.setUpdateRender(1);
             this.particles.unshift(prtcl);
         };
 
@@ -263,28 +278,60 @@ define([
             uniform.value.b = color.b;
         };
 
-        ParticleRenderer.prototype.setHighestRenderingIndex = function(highestIndex) {
-            this.renderHighestIndex = highestIndex;
+        ParticleRenderer.prototype.notifyRendererCloneRequested = function(targetIndex) {
+        //    console.log("notifyRendererCloneRequested ...", targetIndex);
+            this.particleRendererState.setRequestRendererAtIndex(targetIndex);
         };
 
+        ParticleRenderer.prototype.checkRendererCloneRequested = function() {
+            return this.particleRendererState.getRequestRendererAtIndex();
+        };
+
+        ParticleRenderer.prototype.setHighestRenderingIndex = function(highestIndex) {
+            this.particleRendererState.setHighestActiveIndex(highestIndex);
+        };
+
+        ParticleRenderer.prototype.getHighestRenderingIndex = function() {
+            return this.particleRendererState.getHighestActiveIndex()
+        };
+
+        ParticleRenderer.prototype.setUpdateRender = function(bool) {
+            this.particleRendererState.setNeedsUpdate(bool)
+        };
+
+
+        ParticleRenderer.prototype.getUpdateRender = function() {
+            return this.particleRendererState.getNeedsUpdate()
+        };
+
+        ParticleRenderer.prototype.updateInstancedCount = function() {
+            this.particleBuffer.setInstancedCount( this.getHighestRenderingIndex() + 1);
+        };
 
         ParticleRenderer.prototype.updateParticleRenderer = function(systemTime) {
 
             this.systemTime = systemTime;
 
 
-
-        //    if (this.needsUpdate) {
-                this.setHighestRenderingIndex(this.poolSize-1) //this.computeHighestRenderingIndex());
-                this.particleBuffer.setInstancedCount( this.renderHighestIndex + 1);
-                this.needsUpdate = true;
-        //    }
-
             if (window.outerWidth) {
-                this.rendererAttributes.setNeedsUpdate()
-                this.updateParticleRendererMaterial()
+
+                this.rendererAttributes.updateNeedsUpdate();
+                this.updateParticleRendererMaterial();
+
+            //    if (this.getUpdateRender()) {
+                //    this.computeHighestRenderingIndex();
+                    this.updateInstancedCount();
+
+            //    }
+
             } else {
-                // Let main thread know
+
+                if (this.getUpdateRender()) {
+                    this.computeHighestRenderingIndex();
+                    this.updateInstancedCount();
+                    this.setUpdateRender(0);
+                }
+                // Main thread gets attribute update from lastIndex of attributeBuffer
             }
 
         };

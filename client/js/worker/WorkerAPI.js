@@ -12,6 +12,8 @@ define([
         var workerRunner;
         var clientMessages;
 
+        var wakeupFunction = function() {};
+
         var WorkerAPI = function() {};
 
         WorkerAPI.initWorkers = function() {
@@ -21,6 +23,14 @@ define([
 
         WorkerAPI.registerHandlers = function() {
             workerRunner.registerWorkerHandlers(clientMessages.getMessageHandlers());
+        };
+
+        WorkerAPI.wakeWorldThread = function() {
+            wakeupFunction();
+        };
+
+        WorkerAPI.setWakeupFunction = function(func) {
+            wakeupFunction = func;
         };
 
         WorkerAPI.runWorkers = function() {

@@ -120,7 +120,7 @@
             "system_key":"THREE",
             "renderer_id":"gpu_additive_gui_renderer",
             "particle_id":"gui_pointer_follow_particle",
-            "count":3,
+            "count":2,
             "simulation_id":"gpu_gui_simulation"
           }
         },

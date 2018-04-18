@@ -214,7 +214,7 @@ define([
                     url = url.substr(2);
 
                     url = baseUrl+url;
-                    console.log(url);
+        //            console.log(url);
                 }
 
                 loader.load(url, function ( object ) {
@@ -270,7 +270,7 @@ define([
         ThreeModelLoader.loadModelId = function(id) {
 
             if (!modelList[id]) {
-                console.warn("No model in list by id:", id, modelList);
+        //               console.warn("No model in list by id:", id, modelList);
 
                 if (!brute) {
                     ThreeModelLoader.loadData();

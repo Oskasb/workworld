@@ -6,17 +6,17 @@ if(typeof(ENUMS) === "undefined"){
 (function(ENUMS){
 
 
-
     ENUMS.Protocol = {
-        WORKER_READY:       0,
-        SET_LOOP:           1,
-        NOTIFY_FRAME:       2,
-        SET_INPUT_BUFFER:   3,
-        SET_WORLD_BUFFER:   4,
-        CREATE_WORLD:       5,
-        REGISTER_TERRAIN:   6,
-        FETCH_PIPELINE_DATA:7,
-        SEND_PIPELINE_DATA: 8
+        WAKE_INDEX:         0,
+        WORKER_READY:       1,
+        SET_LOOP:           2,
+        NOTIFY_FRAME:       3,
+        SET_INPUT_BUFFER:   4,
+        SET_WORLD_BUFFER:   5,
+        CREATE_WORLD:       6,
+        REGISTER_TERRAIN:   7,
+        FETCH_PIPELINE_DATA:8,
+        SEND_PIPELINE_DATA: 9
     };
 
     ENUMS.BufferTypes = {
@@ -154,6 +154,7 @@ if(typeof(ENUMS) === "undefined"){
     };
 
     ENUMS.Key = {
+        WORLD_COM_BUFFER:'WORLD_COM_BUFFER',
         MON_VEGETATION:'MON_VEGETATION',
         DEBUG:'DEBUG',
         FULL_SCREEN:'FULL_SCREEN',
@@ -202,6 +203,6 @@ if(typeof(ENUMS) === "undefined"){
 
     ENUMS.Map = map;
 
-    console.log("ENUMS", ENUMS);
+  //  console.log("ENUMS", ENUMS);
 
 })(ENUMS);

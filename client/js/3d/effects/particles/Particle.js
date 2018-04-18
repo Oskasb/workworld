@@ -110,14 +110,14 @@ define([],
                 
         Particle.prototype.setAttribute1D = function(name, value) {
             this.buffers[name][this.attributes[name]] = value;
-            this.attributeBuffers[name].needsUpdate = true;
+            this.setAttributeNeedsUpdate(this.attributeBuffers[name])
         };
 
         Particle.prototype.setAttribute2D = function(name, value1, value2) {
 
             this.buffers[name][this.attributes[name]] = value1;
             this.buffers[name][this.attributes[name]+1] = value2;
-            this.attributeBuffers[name].needsUpdate = true;
+            this.setAttributeNeedsUpdate(this.attributeBuffers[name])
         };
 
         Particle.prototype.setAttribute3D = function(name, value1, value2, value3) {
@@ -125,7 +125,7 @@ define([],
             this.buffers[name][this.attributes[name]] = value1;
             this.buffers[name][this.attributes[name]+1] = value2;
             this.buffers[name][this.attributes[name]+2] = value3;
-            this.attributeBuffers[name].needsUpdate = true;
+            this.setAttributeNeedsUpdate(this.attributeBuffers[name])
         };
 
         Particle.prototype.setAttribute4D = function(name, value1, value2, value3, value4) {
@@ -134,9 +134,14 @@ define([],
             this.buffers[name][this.attributes[name]+1] = value2;
             this.buffers[name][this.attributes[name]+2] = value3;
             this.buffers[name][this.attributes[name]+3] = value4;
-            this.attributeBuffers[name].needsUpdate = true;
+
+            this.setAttributeNeedsUpdate(this.attributeBuffers[name])
         };
-                
+
+        Particle.prototype.setAttributeNeedsUpdate = function(attribBuffer) {
+            attribBuffer.array[attribBuffer.array.length -1] = 1;
+        };
+
         return Particle;
 
     });

@@ -26,7 +26,7 @@ define([
 
     ThreeController.setupThreeRenderer = function(ready) {
         new ThreeCamera();
-        console.log("Setup Three Renderer");
+    //    console.log("Setup Three Renderer");
 
         pxRatio = window.devicePixelRatio;
 
