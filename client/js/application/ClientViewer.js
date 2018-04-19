@@ -21,6 +21,7 @@ define([
 		var frame = 0;
 
 		var name;
+        var memory;
 
         var ClientState = '';
         var sendMessage = function() {};
@@ -155,51 +156,55 @@ define([
         };
 
         var statusUpdate = 0;
+        var comBuffer;
 
         ClientViewer.prototype.tickStatusUpdate = function(ftpf) {
+
+            comBuffer = PipelineAPI.readCachedConfigKey('SHARED_BUFFERS', ENUMS.Key.WORLD_COM_BUFFER);
+
 
             statusUpdate += ftpf;
             if (statusUpdate < 0.5) return;
             statusUpdate = 0;
 
 
-            notifyStatus(monitorGame,    '',                                              'MAIN THREAD');
-            notifyStatus(monitorGame,    GameAPI.getActors().length,                      'ACTORS');
-            notifyStatus(monitorGame,    GameAPI.getPieces().length,                      'PIECES');
-            notifyStatus(monitorGame,    GameAPI.countCombatPieces(),                     'COMBATANTS');
-            notifyStatus(monitorGame,    GameAPI.getGameCommander().countActiveAttacks(), 'ATTACK_POOL');
+        //    notifyStatus(monitorGame,    '',                                              'MAIN THREAD');
+        //    notifyStatus(monitorGame,    GameAPI.getActors().length,                      'ACTORS');
+        //    notifyStatus(monitorGame,    GameAPI.getPieces().length,                      'PIECES');
+        //    notifyStatus(monitorGame,    GameAPI.countCombatPieces(),                     'COMBATANTS');
+        //    notifyStatus(monitorGame,    GameAPI.getGameCommander().countActiveAttacks(), 'ATTACK_POOL');
+        //    notifyStatus(monitorSystem,    '',                                              'DATA TRANSFERS');
+        //    notifyStatus(monitorSystem,    GameAPI.getGameWorker().getProtocolCount(),      'PROTOCOLS');
+        //    notifyStatus(monitorSystem,    GameAPI.getGameWorker().getCallCount(),          'WRKR_CALLS');
+        //    notifyStatus(monitorSystem,    GameAPI.getGameWorker().getCallbackCount(),      'CALLBACKS');
+        //    notifyStatus(monitorSystem,    GameAPI.getGameWorker().getProtocolUpdateCount(),'BAD_UPDATES');
+        //    notifyStatus(monitorSystem,    GameAPI.getGameCommander().countExecutionCalls(),'EXEC_CALLS');
+        //    notifyStatus(monitorSystem,    GameAPI.getGameCommander().getFetchMisses(),     'FETCH_MISS');
 
-            notifyStatus(monitorSystem,    '',                                              'DATA TRANSFERS');
-            notifyStatus(monitorSystem,    GameAPI.getGameWorker().getProtocolCount(),      'PROTOCOLS');
+        //    notifyStatus(monitorEffects, EffectsAPI.sampleTotalParticlePool(),       'PRTCL_POOL');
+        //    notifyStatus(monitorEffects, EffectsAPI.sampleActiveRenderersCount(),    'RENDERERS');
+        //    notifyStatus(monitorEffects, EffectsAPI.countTotalEffectPool(),          'FX_POOL');
+        //    notifyStatus(monitorEffects, EffectsAPI.sampleActiveEffectsCount(),      'FX_COUNT');
+        //    notifyStatus(monitorEffects, EffectsAPI.sampleActiveParticleCount(),     'PARTICLES');
+        //    notifyStatus(monitorEffects, EffectsAPI.sampleEffectActivations(),       'FX_ADDS');
 
-            notifyStatus(monitorSystem,    GameAPI.getGameWorker().getCallCount(),          'WRKR_CALLS');
-            notifyStatus(monitorSystem,    GameAPI.getGameWorker().getCallbackCount(),      'CALLBACKS');
-            notifyStatus(monitorSystem,    GameAPI.getGameWorker().getProtocolUpdateCount(),'BAD_UPDATES');
-            notifyStatus(monitorSystem,    GameAPI.getGameCommander().countExecutionCalls(),'EXEC_CALLS');
-            notifyStatus(monitorSystem,    GameAPI.getGameCommander().getFetchMisses(),     'FETCH_MISS');
-
-            notifyStatus(monitorEffects, EffectsAPI.sampleTotalParticlePool(),       'PRTCL_POOL');
-            notifyStatus(monitorEffects, EffectsAPI.sampleActiveRenderersCount(),    'RENDERERS');
-            notifyStatus(monitorEffects, EffectsAPI.countTotalEffectPool(),          'FX_POOL');
-            notifyStatus(monitorEffects, EffectsAPI.sampleActiveEffectsCount(),      'FX_COUNT');
-            notifyStatus(monitorEffects, EffectsAPI.sampleActiveParticleCount(),     'PARTICLES');
-            notifyStatus(monitorEffects, EffectsAPI.sampleEffectActivations(),       'FX_ADDS');
-
-            var memory = performance.memory;
+            memory = performance.memory;
             var memoryUsed = ( (memory.usedJSHeapSize / 1048576) / (memory.jsHeapSizeLimit / 1048576 ));
             var mb = Math.round(memory.usedJSHeapSize / 104857.6) / 10;
 
-            var tpf = PipelineAPI.readCachedConfigKey('STATUS', 'TPF')*1000;
-            var timeGame = PipelineAPI.readCachedConfigKey('STATUS', 'TIME_GAME_TICK')/1000;
-            var timeIdle = PipelineAPI.readCachedConfigKey('STATUS', 'TIME_ANIM_IDLE');
-            var timeRender = PipelineAPI.readCachedConfigKey('STATUS', 'TIME_ANIM_RENDER');
+            comBuffer[ENUMS.BufferChannels.MEM_JS_HEAP] = memoryUsed;
+            comBuffer[ENUMS.BufferChannels.MEM_JS_MB]   = mb;
 
-            notifyStatus(monitorTime,      Math.floor(tpf)+'ms',                        'TPF');
-            notifyStatus(monitorTime,      Math.floor(tpf)+'ms',                        'IDLE');
-            notifyStatus(monitorTime,      percentify(timeGame*1000, tpf) + '%',        'TIME_GAME');
-            notifyStatus(monitorTime,      percentify(timeRender*1000, tpf) +'%',       'TIME_RENDER');
-            notifyStatus(monitorTime,      mb+'MB',                                     'MEM_USED');
-            notifyStatus(monitorTime,      Math.round(100 - (memoryUsed*100)) + '%',    'MEM_LEFT');
+            var tpf =           PipelineAPI.readCachedConfigKey('STATUS', 'TPF')*1000;
+            var timeGame =      PipelineAPI.readCachedConfigKey('STATUS', 'TIME_GAME_TICK')/1000;
+            var timeIdle =      PipelineAPI.readCachedConfigKey('STATUS', 'TIME_ANIM_IDLE')*1000;
+            var timeRender =    PipelineAPI.readCachedConfigKey('STATUS', 'TIME_ANIM_RENDER');
+
+            comBuffer[ENUMS.BufferChannels.TPF]         =  Math.floor(tpf)  ;
+            comBuffer[ENUMS.BufferChannels.IDLE]        =  Math.floor(timeIdle)  ;
+            comBuffer[ENUMS.BufferChannels.TIME_GAME]   =  percentify(timeGame*1000, tpf) ;
+            comBuffer[ENUMS.BufferChannels.TIME_RENDER] =  percentify(timeRender*1000, tpf);
+//
 
             var shaders = ThreeAPI.sampleRenderInfo('programs', null);
             var count = 0;
@@ -207,13 +212,22 @@ define([
                 count++
             }
 
-            notifyStatus(monitorRender,      ThreeAPI.countAddedSceneModels(),                              'SCN_NODES');
-            notifyStatus(monitorRender,      ThreeAPI.countPooledModels(),                                  'MESH_POOL');
-            notifyStatus(monitorRender,      ThreeAPI.sampleRenderInfo('render', 'calls'),                  'DRAW_CALLS');
-            notifyStatus(monitorRender,      kilofy(ThreeAPI.sampleRenderInfo('render', 'vertices'))+'k',   'VERTICES');
-            notifyStatus(monitorRender,      ThreeAPI.sampleRenderInfo('memory', 'geometries'),             'GEOMETRIES');
-            notifyStatus(monitorRender,      ThreeAPI.sampleRenderInfo('memory', 'textures'),               'TEXTURES');
-            notifyStatus(monitorRender,      count,                                                         'SHADERS');
+            comBuffer[ENUMS.BufferChannels.SCN_NODES]   = ThreeAPI.countAddedSceneModels();
+            comBuffer[ENUMS.BufferChannels.MESH_POOL]   = ThreeAPI.countPooledModels();
+            comBuffer[ENUMS.BufferChannels.DRAW_CALLS]  = ThreeAPI.sampleRenderInfo('render', 'calls');
+            comBuffer[ENUMS.BufferChannels.VERTICES]    = ThreeAPI.sampleRenderInfo('render', 'triangles');
+            comBuffer[ENUMS.BufferChannels.GEOMETRIES]  = ThreeAPI.sampleRenderInfo('memory', 'geometries');
+            comBuffer[ENUMS.BufferChannels.TEXTURES]    = ThreeAPI.sampleRenderInfo('memory', 'textures');
+            comBuffer[ENUMS.BufferChannels.SHADERS]     = count;
+
+
+              comBuffer[ENUMS.BufferChannels.FILE_CACHE]        =    PipelineAPI.readCachedConfigKey('STATUS',      'FILE_CACHE');
+              comBuffer[ENUMS.BufferChannels.EVENT_LISTENERS]   =    PipelineAPI.readCachedConfigKey('STATUS',      'EVENT_LISTENERS');
+              comBuffer[ENUMS.BufferChannels.EVENT_TYPES]       =    PipelineAPI.readCachedConfigKey('STATUS',      'EVENT_TYPES');
+              comBuffer[ENUMS.BufferChannels.LISTENERS_ONCE]    =    PipelineAPI.readCachedConfigKey('STATUS',      'LISTENERS_ONCE');
+              comBuffer[ENUMS.BufferChannels.FIRED_EVENTS]      =    PipelineAPI.readCachedConfigKey('STATUS',      'FIRED_EVENTS');
+
+            return;
 
             var monitorBrowser = {};
             var monitorStatus = {};
@@ -234,11 +248,7 @@ define([
 
             notifyStatus(monitorStatus,      status.DEV_MODE,                'DEV_MODE');
             notifyStatus(monitorStatus,      status.DEV_STATUS,              'DEV_STATUS');
-            notifyStatus(monitorStatus,      status.FILE_CACHE,              'FILE_CACHE');
-            notifyStatus(monitorStatus,      status.EVENT_LISTENERS,         'EVT_LISTNRS');
-            notifyStatus(monitorStatus,      status.EVENT_TYPES,             'EVT_TYPES');
-            notifyStatus(monitorStatus,      status.LISTENERS_ONCE,          'LISTNRS_1');
-            notifyStatus(monitorStatus,      status.FIRED_EVENTS,            'FIRED_EVTS');
+
 
 //
             listData(renderEntries, monitorRender);
@@ -326,12 +336,11 @@ define([
         //    evt.fire(evt.list().CAMERA_TICK, {frame:frame, tpf:tpf});
 
 
-
             PipelineAPI.setCategoryKeyValue('STATUS', 'TIME_GAME_TICK', performance.now() - start);
 
             this.sceneController.tickEffectsAPI(tpf);
 
-            //    this.tickStatusUpdate(tpf);
+            this.tickStatusUpdate(tpf);
 
 
         //    if (PipelineAPI.getPipelineOptions('jsonPipe').polling.enabled) {

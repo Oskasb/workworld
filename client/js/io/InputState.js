@@ -36,6 +36,7 @@ define([
                 lastAction:[0, 0],
                 pressFrames:0
             };
+            POINTER_STATE.buffer = [];
 
             this.line = POINTER_STATE.line;
             this.mouseState = POINTER_STATE.mouseState;
@@ -58,6 +59,10 @@ define([
 
         InputState.prototype.getLine = function() {
             return this.line;
+        };
+
+        InputState.prototype.setuoUpdateCallback = function(cb) {
+            this.elementListeners.attachUpdateCallback(cb);
         };
 
         InputState.prototype.getPointerState = function() {

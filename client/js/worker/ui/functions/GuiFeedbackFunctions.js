@@ -2,14 +2,12 @@
 
 
 define([
-    'io/PipelineAPI',
-    'EffectsAPI',
-    'game/modules/ModuleEffectCreator'
+    'PipelineAPI',
+    'EffectsAPI'
 
 ], function(
     PipelineAPI,
-    EffectsAPI,
-    ModuleEffectCreator
+    EffectsAPI
 ) {
 
     var calcVec = new THREE.Vector3();
@@ -22,15 +20,7 @@ define([
     };
 
     var generateElement = function(pos, particleFxId, store) {
-
-        return ModuleEffectCreator.createPassiveEffect(
-            particleFxId,
-            pos,
-            calcVec2,
-            null,
-            null,
-            store
-        );
+        store.push(EffectsAPI.requestPassiveEffect(particleFxId, pos, calcVec2, null, null));
     };
 
     GuiFeedbackFunctions.prototype.enableElement = function(elementId, posVec, particleFxId, fxStore) {
@@ -39,19 +29,25 @@ define([
     };
 
     GuiFeedbackFunctions.prototype.updateElementPosition = function(fxElement, posVec) {
-        ModuleEffectCreator.setEffectPosition(fxElement, posVec);
+        EffectsAPI.updateEffectPosition(fxElement, posVec);
     };
 
     GuiFeedbackFunctions.prototype.updateElementsColor = function(fxArray, colorKey) {
-        ModuleEffectCreator.applyColorKeyToFxArray(fxArray, colorKey);
+        for (var i = 0; i < fxArray.length; i++) {
+            EffectsAPI.updateEffectColorKey(fxArray[i], colorKey);
+        }
     };
 
     GuiFeedbackFunctions.prototype.updateElementsSprite = function(fxArray, spriteKey) {
-        ModuleEffectCreator.applySpriteKeyToFxArray(fxArray, spriteKey);
+        for (var i = 0; i < fxArray.length; i++) {
+            EffectsAPI.updateEffectSpriteKey(fxArray[i], spriteKey);
+        }
     };
 
-    GuiFeedbackFunctions.prototype.disableElement = function(fxStore) {
-        ModuleEffectCreator.removeModuleStaticEffect(fxStore)
+    GuiFeedbackFunctions.prototype.disableElement = function(fxArray) {
+        while (fxArray.length) {
+            EffectsAPI.returnPassiveEffect(fxArray.pop())
+        }
     };
 
     return GuiFeedbackFunctions;

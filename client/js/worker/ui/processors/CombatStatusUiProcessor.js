@@ -1,10 +1,10 @@
 "use strict";
 
 define([
-        'ui/GameScreen'
+
     ],
     function(
-        GameScreen
+
     ) {
 
         var GameAPI;

@@ -72,12 +72,16 @@ define([
         };
 
         GuiElement.prototype.setText = function(text) {
-            if (this.text !== text || Math.random() < 0.01) {
+            if (text === undefined) {
+                console.log("Undefined Text", this);
+                text = "MISSING";
+            }
+
+            if (this.text !== text || Math.random() < 1) {
                 this.generateChildrenForText(text);
             }
             this.text = text;
         };
-
 
 
         GuiElement.prototype.setPointerState = function(state) {

@@ -185,25 +185,25 @@ define([],
 
         var elementIsPointedAt = false;
 
-        HudPointerProcessor.prototype.applyPointerToElement = function(guiElement, mouseState, cursorPosition) {
+        HudPointerProcessor.prototype.applyPointerToElement = function(guiElement, cursorPosition) {
 
-            pressFrames = mouseState.pressFrames;
+            pressFrames = WorldAPI.sampleInputBuffer(ENUMS.InputState.PRESS_FRAMES);
 
             elementIsPointedAt = isPointedAt(guiElement, cursorPosition);
 
             if (elementIsPointedAt) {
-                this.updateTargetElementAction(guiElement, mouseState.action[0])
+                this.updateTargetElementAction(guiElement, WorldAPI.sampleInputBuffer(ENUMS.InputState.ACTION_0))
             } else {
-                this.updateNonTargetElementAction(guiElement, mouseState.action[0])
+                this.updateNonTargetElementAction(guiElement, WorldAPI.sampleInputBuffer(ENUMS.InputState.ACTION_0))
             }
         };
 
 
-        HudPointerProcessor.prototype.updateElementPointerState = function(guiElement, mouseState, cursorPosition) {
+        HudPointerProcessor.prototype.updateElementPointerState = function(guiElement, cursorPosition) {
 
             currentPointerState = guiElement.getPointerState();
 
-            this.applyPointerToElement(guiElement, mouseState, cursorPosition);
+            this.applyPointerToElement(guiElement, cursorPosition);
 
             return currentPointerState !== guiElement.getPointerState();
 

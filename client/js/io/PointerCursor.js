@@ -57,6 +57,14 @@ define([
 			evt.on(evt.list().SCREEN_CONFIG, configureListener);
             mouseState = this.inputState.getPointerState().mouseState;
             this.setupInputBuffer();
+            this.inputState.getPointerState().buffer = this.buffer;
+
+
+            var onInputUpdate = function() {
+            	this.tick();
+			}.bind(this);
+
+            this.inputState.setuoUpdateCallback(onInputUpdate);
 
 		};
 
@@ -75,18 +83,27 @@ define([
         PointerCursor.prototype.setupInputBuffer = function() {
             var buffer = new SharedArrayBuffer(Float32Array.BYTES_PER_ELEMENT * ENUMS.InputState.BUFFER_SIZE);
             this.buffer = new Float32Array(buffer);
-            this.inputState.getPointerState().buffer = this.buffer;
 
         };
 
         PointerCursor.prototype.updateInputBuffer = function() {
 
-            tempVec.x = ((mouseState.x-GameScreen.getLeft()) / GameScreen.getWidth() - 0.5) ;
-			tempVec.y = -((mouseState.y-GameScreen.getTop()) / GameScreen.getHeight()- 0.5) ;
+            this.buffer[ENUMS.InputState.VIEW_LEFT]         = GameScreen.getLeft();
+            this.buffer[ENUMS.InputState.VIEW_TOP]          = GameScreen.getTop();
+
+            this.buffer[ENUMS.InputState.VIEW_WIDTH]        = GameScreen.getWidth();
+            this.buffer[ENUMS.InputState.VIEW_HEIGHT]       = GameScreen.getHeight();
+
+            this.buffer[ENUMS.InputState.ASPECT]            = GameScreen.getAspect();
+
+            tempVec.x = (mouseState.x-this.buffer[ENUMS.InputState.VIEW_LEFT]) / this.buffer[ENUMS.InputState.VIEW_WIDTH] - 0.5;
+            tempVec.y = -(mouseState.y-this.buffer[ENUMS.InputState.VIEW_TOP]) / this.buffer[ENUMS.InputState.VIEW_HEIGHT] + 0.5;
+
             GameScreen.fitView(tempVec);
 
             this.buffer[ENUMS.InputState.MOUSE_X]           = tempVec.x ;
             this.buffer[ENUMS.InputState.MOUSE_Y]           = tempVec.y ;
+
             this.buffer[ENUMS.InputState.WHEEL_DELTA]       = mouseState.wheelDelta;
             this.buffer[ENUMS.InputState.START_DRAG_X]      = mouseState.startDrag[0];
             this.buffer[ENUMS.InputState.START_DRAG_Y]      = mouseState.startDrag[1];
@@ -96,7 +113,8 @@ define([
             this.buffer[ENUMS.InputState.ACTION_1]          = mouseState.action[1];
             this.buffer[ENUMS.InputState.LAST_ACTION_0]     = mouseState.lastAction[0];
             this.buffer[ENUMS.InputState.LAST_ACTION_1]     = mouseState.lastAction[1];
-            this.buffer[ENUMS.InputState.PRESS_FRAMES]      = mouseState.pressFrames
+            this.buffer[ENUMS.InputState.PRESS_FRAMES]      = mouseState.pressFrames;
+            this.buffer[ENUMS.InputState.FRUSTUM_FACTOR]    = 0.82;
 
         };
 

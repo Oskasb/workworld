@@ -38,6 +38,15 @@ define([
             }
         };
 
+        WorldControlState.prototype.frustumCoordsToView = function(coordsVector) {
+            coordsVector.x *= lastBuffer[ENUMS.InputState.FRUSTUM_FACTOR] * lastBuffer[ENUMS.InputState.ASPECT];
+            coordsVector.y *= lastBuffer[ENUMS.InputState.FRUSTUM_FACTOR];
+        };
+
+        WorldControlState.prototype.valueFromInputBuffer = function(bufferIndex) {
+            return inputBuffer[bufferIndex];
+        };
+
         WorldControlState.prototype.setInputBuffer = function(buffer) {
             console.log("Set Input Buffer", buffer);
             inputBuffer = buffer;

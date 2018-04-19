@@ -1,8 +1,8 @@
 "use strict";
 
 define([
-        'ui/particle/functions/GuiRenderer',
-        'ui/particle/GuiState'
+        'ui/functions/GuiRenderer',
+        'ui/GuiState'
     ],
     function(
         GuiRenderer,
@@ -10,23 +10,22 @@ define([
     ) {
 
         var guiRenderer;
-        var GameAPI;
 
         var defaultGuySystems = [
-            "gui_main_menu_system",
-            "gui_system_combat",
-            "gui_system_interaction"
+            "gui_main_menu_system"
+        //    "gui_system_combat",
+        //    "gui_system_interaction"
         ];
 
         var GuiAPI = function() {
 
         };
 
-        GuiAPI.initGuiApi = function(gameApi) {
-        //    GuiState.initGuiState();
+        GuiAPI.initGuiApi = function() {
+            GuiState.initGuiState();
         //    GameAPI = gameApi;
-        //    guiRenderer = new GuiRenderer(GameAPI);
-        //    GuiAPI.activateDefaultGuiSystems();
+            guiRenderer = new GuiRenderer();
+
         };
 
         GuiAPI.activateDefaultGuiSystems = function() {
@@ -46,7 +45,7 @@ define([
         };
 
         GuiAPI.updateGui = function() {
-            guiRenderer.requestCameraMatrixUpdate();
+        //    guiRenderer.requestCameraMatrixUpdate();
             guiRenderer.updateGuiRenderer();
         };
 

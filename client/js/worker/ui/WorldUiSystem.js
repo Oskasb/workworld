@@ -1,11 +1,13 @@
 "use strict";
 
 define([
+    'GuiAPI',
         'Events',
         'EffectsAPI',
         'PipelineObject'
     ],
     function(
+        GuiAPI,
         evt,
         EffectsAPI,
         PipelineObject
@@ -21,7 +23,11 @@ define([
 
         var WorldUiSystem = function() {
             this.cursorElement;
-            // GuiAPI.initGuiApi();
+            GuiAPI.initGuiApi();
+        };
+
+        WorldUiSystem.prototype.activateDefaultGui = function() {
+            GuiAPI.activateDefaultGuiSystems();
         };
 
         WorldUiSystem.prototype.enableCursorElement = function() {
@@ -74,11 +80,10 @@ define([
 
         };
 
-        WorldUiSystem.prototype.storeLastBuffer = function() {
 
-        };
 
         WorldUiSystem.prototype.updateWorldUiSystem = function(inputBuffer, lastInputBuffer) {
+            GuiAPI.updateGui();
             this.renderImmediateInputState(inputBuffer, lastInputBuffer);
         };
 

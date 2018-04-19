@@ -56,7 +56,7 @@ define([
 
             fxArg.effect = "firey_explosion_core";
 
-            for (var i = 0; i < 2; i++) {
+            for (var i = 0; i < 5; i++) {
                 tmpVec.x = distance * Math.random() * (Math.random() - 0.5);
                 tmpVec.y = distance * Math.random() * 0.1 * Math.random();
                 tmpVec.z = distance * Math.random() * (Math.random() - 0.5);
@@ -113,10 +113,9 @@ define([
         var fxArg = {effect:"firey_explosion_core", pos:tmpVec, vel:tmpVec2};
 
 
+        WorldMain.prototype.worldComBuffer = function() {
 
-        WorldMain.prototype.updateSimulation = function() {
-
-        //    this.updateSimulation()
+            return worldComBuffer;
 
         };
 

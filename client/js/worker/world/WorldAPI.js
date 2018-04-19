@@ -8,7 +8,8 @@ define([
         'worker/protocol/WorldMessages',
         'worker/world/WorldMain',
         'worker/terrain/TerrainSystem',
-        'worker/world/WorldControlState'
+        'worker/world/WorldControlState',
+        'worker/StatusMonitor'
     ],
     function(
         PipelineAPI,
@@ -18,9 +19,11 @@ define([
         WorldMessages,
         WorldMain,
         TerrainSystem,
-        WorldControlState
+        WorldControlState,
+        StatusMonitor
     ) {
 
+        var frameStartTime;
         var physicsApi;
         var worldMain;
         var protocolRequests;
@@ -28,7 +31,7 @@ define([
         var worldControlState;
         var terrainSystem;
         var worldUiSystem;
-
+        var statusMonitor;
         var fetches = {};
 
         var WorldAPI = function() {};
@@ -43,11 +46,11 @@ define([
                 worldMain = new WorldMain(WorldAPI);
                 protocolRequests = new ProtocolRequests();
                 protocolRequests.setMessageHandlers(worldMessages.getMessageHandlers());
-            //    fetchData();
+                //    fetchData();
                 worldMain.initWorldSystems(onWorkerReady);
-            //    onWorkerReady();
+                //    onWorkerReady();
                 worldUiSystem = new WorldUiSystem();
-
+                statusMonitor = new StatusMonitor();
                 console.log("configs world worker", PipelineAPI.getCachedConfigs(), fetches);
             };
 
@@ -64,7 +67,7 @@ define([
                 fetches[category].push(key);
             }
 
-        //    console.log("FETCHES:", fetches);
+            //    console.log("FETCHES:", fetches);
 
         };
 
@@ -72,8 +75,22 @@ define([
             worldUiSystem.updateWorldUiSystem(input, lastInput)
         };
 
+        WorldAPI.fitView = function(frustumCoords) {
+            worldControlState.frustumCoordsToView(frustumCoords)
+        };
+
+        WorldAPI.sampleInputBuffer = function(inputIndex) {
+            return worldControlState.valueFromInputBuffer(inputIndex)
+        };
+
+        WorldAPI.getWorldComBuffer = function() {
+            return worldMain.worldComBuffer()
+        };
+
         WorldAPI.setWorldLoopTpf = function(tpf) {
-            worldMain.setLoopTpf(tpf)
+            frameStartTime = performance.now();
+            worldMain.setLoopTpf(tpf);
+            statusMonitor.tick(frameStartTime);
         };
 
         WorldAPI.constructWorld = function(msg) {
@@ -90,7 +107,7 @@ define([
 
         WorldAPI.setWorldInputBuffer = function(buffer) {
             worldControlState.setInputBuffer(buffer);
-            worldUiSystem.enableCursorElement();
+            worldUiSystem.activateDefaultGui();
         };
 
         WorldAPI.updateWorldWorkerFrame = function(tpf, frame) {

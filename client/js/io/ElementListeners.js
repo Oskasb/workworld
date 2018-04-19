@@ -14,11 +14,13 @@ define([
 		) {
 
 
-		var x;
-		var y;
-		var dx;
-		var dy;
-		var wheelDelta;
+		var x = 0;
+		var y = 0;
+		var dx = 0;
+		var dy = 0;
+		var wheelDelta = 0;
+
+		var callInputUpdate = function() {};
 
 		var ElementListeners = function() {
 
@@ -52,8 +54,7 @@ define([
 				window.removeEventListener('mousemove', setupMouse);
 				window.removeEventListener('touchstart', setupTouch);
 			};
-			
-			
+
 			window.addEventListener('mousemove', setupMouse);
 			window.addEventListener('touchstart', setupTouch);
 		};
@@ -66,12 +67,14 @@ define([
 				y = (e.clientY);
 				dx = 2 * ((x) - GameScreen.getWidth() / 2) / GameScreen.getWidth();
 				dy = 2 * ((y) - GameScreen.getHeight() / 2) / GameScreen.getHeight();
+                callInputUpdate();
 			});
 
 			GameScreen.getElement().addEventListener('mouseout', function(e) {
 			//	e.stopPropagation();
 				dx = 0;
 				dy = 0;
+                callInputUpdate();
 			});
 
 			var zoomTimeout;
@@ -84,6 +87,7 @@ define([
 					zoomTimeout = false;
 				}, 100);
 				zoomTimeout = true;
+                callInputUpdate();
 			});
 		};
 
@@ -95,6 +99,7 @@ define([
 				y = (e.touches[0].clientY);
 				dx = 0;
 				dy = 0;
+                callInputUpdate();
 			});
 
 			GameScreen.getElement().addEventListener('touchmove', function(e) {
@@ -103,6 +108,7 @@ define([
 				y = (e.touches[0].clientY);
 				dx = 2 * ((x) - GameScreen.getWidth() / 2) / GameScreen.getWidth();
 				dy = 2 * ((y) - GameScreen.getHeight() / 2) / GameScreen.getHeight();
+                callInputUpdate();
 			});
 
 
@@ -110,6 +116,7 @@ define([
 			//	e.preventDefault();
 				dx = 0;
 				dy = 0;
+                callInputUpdate();
 			});
 		};
 
@@ -136,6 +143,10 @@ define([
 			dx = 0;
 			dy = 0;
 		};
+
+        ElementListeners.prototype.attachUpdateCallback = function(callback) {
+            callInputUpdate = callback;
+        };
 
 		return ElementListeners;
 

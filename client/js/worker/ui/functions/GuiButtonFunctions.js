@@ -8,11 +8,9 @@ define([
     PipelineAPI
 ) {
 
-    var GameAPI;
     var guiRenderer;
 
-    var GuiButtonFunctions = function(gRenderer, gameApi) {
-        GameAPI = gameApi;
+    var GuiButtonFunctions = function(gRenderer) {
         guiRenderer = gRenderer;
     };
 
@@ -28,9 +26,7 @@ define([
 
 
     var toggleStatusKey = function(systemKey, bool) {
-
         PipelineAPI.setCategoryKeyValue(ENUMS.Category.STATUS, systemKey, bool);
-
     };
 
 

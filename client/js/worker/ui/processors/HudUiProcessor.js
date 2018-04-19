@@ -1,21 +1,18 @@
 "use strict";
 
 define([
-        'ui/particle/functions/GuiButtonFunctions',
-        'ui/particle/processors/HudPointerProcessor',
-        'ui/GameScreen',
+        'ui/functions/GuiButtonFunctions',
+        'ui/processors/HudPointerProcessor',
         'PipelineAPI'
     ],
     function(
         GuiButtonFunctions,
         HudPointerProcessor,
-        GameScreen,
         PipelineAPI
     ) {
 
         var GameAPI;
         var guiRenderer;
-        var mouseState;
 
         var calcVec = new THREE.Vector3();
         var calcVec2 = new THREE.Vector3();
@@ -56,7 +53,7 @@ define([
                 }
 
                 guiElement.origin.copy(activeSelection.piece.frustumCoords);
-                GameScreen.fitView(guiElement.origin);
+                WorldAPI.fitView(guiElement.origin);
 
                 var max_offset = 20;
 
@@ -102,7 +99,7 @@ define([
 
 
                 guiElement.origin.copy(activeSelection.piece.frustumCoords);
-                GameScreen.fitView(guiElement.origin);
+                WorldAPI.fitView(guiElement.origin);
 
                 var distance = activeSelection.piece.cameraDistance;
                 var size = activeSelection.piece.boundingSize;
@@ -140,27 +137,17 @@ define([
             } else if (guiElement.enabled) {
                 guiElement.disableGuiElement();
             }
-
         };
 
 
         HudUiProcessor.prototype.updateCursorPoint = function() {
-
-            cursorPosition.set(
-                ((mouseState.x-GameScreen.getLeft()) / GameScreen.getWidth() - 0.5),
-                -((mouseState.y-GameScreen.getTop()) / GameScreen.getHeight()) + 0.5,
-                -1
-            );
-
-            GameScreen.fitView(cursorPosition);
-
+            cursorPosition.x = WorldAPI.sampleInputBuffer(ENUMS.InputState.MOUSE_X);
+            cursorPosition.y = WorldAPI.sampleInputBuffer(ENUMS.InputState.MOUSE_Y);
         };
 
         HudUiProcessor.prototype.show_cursor_point = function(guiElement) {
 
-
-
-            if (mouseState.action[0]) {
+            if (WorldAPI.sampleInputBuffer(ENUMS.InputState.ACTION_0)) {
 
                 if (!guiElement.enabled) {
                     guiElement.enableGuiElement();
@@ -200,7 +187,7 @@ define([
                 }
 
                 guiElement.origin.copy(activeSelection.piece.frustumCoords);
-                GameScreen.fitView(guiElement.origin);
+                WorldAPI.fitView(guiElement.origin);
 
                 for (var i = 0; i < guiElement.fxElements.length; i++) {
                     guiElement.applyElementPosition(i);
@@ -243,6 +230,11 @@ define([
 
             var monitor = PipelineAPI.readCachedConfigKey('STATUS', guiElement.options.monitor_key);
 
+            if (typeof(monitor) === 'string') {
+                return;
+
+            }
+
             if (!monitor.length) return;
 
 
@@ -259,7 +251,7 @@ define([
             calcVec.y = 0;
 
             guiElement.origin.set(guiElement.options.screen_pos[0], guiElement.options.screen_pos[1], guiElement.options.screen_pos[2]);
-            GameScreen.fitView(guiElement.origin);
+            WorldAPI.fitView(guiElement.origin);
 
 
 
@@ -307,7 +299,7 @@ define([
                 calcVec2.x = child.options.offset_x;
                 calcVec2.y = child.options.offset_y;
 
-                if (monitor[i].dirty || Math.random() < 0.005) {
+                if (monitor[i].dirty || Math.random() < 1) {
                     update = true;
                     this.updateTextElement(monitor[i].key, child, calcVec, calcVec2);
 
@@ -321,11 +313,11 @@ define([
                             calcVec2.x = child.options.offset_x;
                             calcVec2.y = child.options.offset_y;
 
-
                             this.updateTextElement(''+monitor[i].value, child, calcVec, calcVec2);
 
                         }
                     }
+
                     monitor[i].dirty = false;
                 }
 
@@ -393,7 +385,7 @@ define([
 
 
             guiElement.origin.set(guiElement.options.screen_pos[0], guiElement.options.screen_pos[1], guiElement.options.screen_pos[2]);
-            GameScreen.fitView(guiElement.origin);
+            WorldAPI.fitView(guiElement.origin);
 
             calcVec.z = 0;
             calcVec.x = 0;
@@ -429,8 +421,7 @@ define([
                 stateMap = child.options.state_map;
 
 
-
-                var stateChanged = this.hudPointerProcessor.updateElementPointerState(child, mouseState, cursorPosition);
+                var stateChanged = this.hudPointerProcessor.updateElementPointerState(child, cursorPosition);
 
                 if (stateChanged) {
 
@@ -473,8 +464,7 @@ define([
         };
 
 
-        HudUiProcessor.prototype.updateMouseState = function(mState) {
-            mouseState = mState;
+        HudUiProcessor.prototype.updateMouseState = function() {
             this.updateCursorPoint();
         };
 

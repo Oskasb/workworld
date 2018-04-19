@@ -19,6 +19,31 @@ if(typeof(ENUMS) === "undefined"){
         SEND_PIPELINE_DATA: 9
     };
 
+    ENUMS.BufferChannels = {
+        WAKE_INDEX:         0,
+        MEM_JS_HEAP:        1,
+        MEM_JS_MB:          2,
+        SHADERS:            3,
+        SCN_NODES:          4,
+        MESH_POOL:          5,
+        DRAW_CALLS:         6,
+        VERTICES:           7,
+        GEOMETRIES:         8,
+        TEXTURES:           9,
+
+        TPF:                10,
+        IDLE:               11,
+        TIME_GAME:          12,
+        TIME_RENDER:        13,
+        FILE_CACHE:         14,
+        EVENT_LISTENERS:    15,
+        EVENT_TYPES:        16,
+        LISTENERS_ONCE:     17,
+        FIRED_EVENTS:       18
+
+
+    };
+
     ENUMS.BufferTypes = {
         ENVIRONMENT:        0,
         CAMERA:             1,
@@ -71,7 +96,13 @@ if(typeof(ENUMS) === "undefined"){
         LAST_ACTION_0:  9,
         LAST_ACTION_1:  10,
         PRESS_FRAMES:   11,
-        BUFFER_SIZE:    12
+        VIEW_LEFT:      12,
+        VIEW_WIDTH:     13,
+        VIEW_TOP:       14,
+        VIEW_HEIGHT:    15,
+        ASPECT:         16,
+        FRUSTUM_FACTOR: 17,
+        BUFFER_SIZE:    18
     };
 
     ENUMS.PieceAlignments = {

@@ -2,16 +2,16 @@
 
 define([
         'ThreeAPI',
-        'io/PipelineAPI',
-        'ui/particle/functions/GuiRendererCallbacks',
+        'PipelineObject',
+        'ui/functions/GuiRendererCallbacks',
 
-        'ui/particle/elements/GuiElement',
-        'ui/particle/elements/GuiSystem',
+        'ui/elements/GuiElement',
+        'ui/elements/GuiSystem',
         'application/ExpandingPool'
     ],
     function(
         ThreeAPI,
-        PipelineAPI,
+        PipelineObject,
         GuiRendererCallbacks,
         GuiElement,
         GuiSystem,
@@ -21,8 +21,6 @@ define([
         var mouseState;
 
         var guiRendererCallbacks;
-
-        var GameAPI;
 
         var combatElemId = "gui_combat_plate_element";
 
@@ -38,18 +36,11 @@ define([
             new GuiElement(dataKey, onReadyCB)
         }
 
-        var GuiRenderer = function(gameApi) {
-            GameAPI = gameApi;
-            guiRendererCallbacks = new GuiRendererCallbacks(this, GameAPI);
+        var GuiRenderer = function() {
+        //    GameAPI = gameApi;
+            guiRendererCallbacks = new GuiRendererCallbacks(this);
 
             this.initiateGuiSystems();
-
-
-            var fetchPointer = function(src, data) {
-                mouseState = data;
-            };
-
-            PipelineAPI.subscribeToCategoryKey('POINTER_STATE', 'mouseState', fetchPointer);
 
         };
 
@@ -101,13 +92,9 @@ define([
 
             }.bind(this);
 
-            PipelineAPI.subscribeToCategoryKey('GUI_PARTICLE_SYSTEMS', 'SYSTEMS', guiSystemData)
+            new PipelineObject('GUI_PARTICLE_SYSTEMS', 'SYSTEMS', guiSystemData)
         };
 
-
-        GuiRenderer.prototype.requestCameraMatrixUpdate = function() {
-            ThreeAPI.updateCamera();
-        };
 
         var addBombatElementCB = function(element) {
             combatStatusElements.push(element);
@@ -159,6 +146,7 @@ define([
                 guiSystems[key].updateGuiSystem(guiRendererCallbacks);
             }
 
+            /*
             var actors = GameAPI.getActors();
 
             for (var i = 0; i < actors.length; i++) {
@@ -174,6 +162,8 @@ define([
                     }
                 }
             }
+
+            */
         };
 
         return GuiRenderer;

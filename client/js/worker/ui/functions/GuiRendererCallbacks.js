@@ -2,10 +2,10 @@
 
 define([
 
-        'ui/particle/functions/GuiFeedbackFunctions',
-    'ui/particle/processors/CombatStatusUiProcessor',
-        'ui/particle/processors/HudUiProcessor',
-        'ui/particle/processors/HudMapProcessor'
+        'ui/functions/GuiFeedbackFunctions',
+    'ui/processors/CombatStatusUiProcessor',
+        'ui/processors/HudUiProcessor',
+        'ui/processors/HudMapProcessor'
     ],
     function(
 
@@ -15,21 +15,17 @@ define([
         HudMapProcessor
     ) {
 
-        var GameAPI;
         var guiRenderer;
 
 
-        var GuiRendererCallbacks = function(gRenderer, gameApi) {
-            GameAPI = gameApi;
+        var GuiRendererCallbacks = function(gRenderer) {
             guiRenderer = gRenderer;
             this.guiFeedbackFunctions = new GuiFeedbackFunctions();
             this.cursorElement = null;
-            this.combatStatusUiProcessor = new CombatStatusUiProcessor(gRenderer, gameApi);
+            this.combatStatusUiProcessor = new CombatStatusUiProcessor(gRenderer);
 
-
-
-            this.hudUiProcessor = new HudUiProcessor(gRenderer, gameApi);
-            this.hudMapProcessor = new HudMapProcessor(gRenderer, gameApi);
+            this.hudUiProcessor = new HudUiProcessor(gRenderer);
+            this.hudMapProcessor = new HudMapProcessor(gRenderer);
 
         };
 
