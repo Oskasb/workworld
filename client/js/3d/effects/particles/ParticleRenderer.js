@@ -253,7 +253,6 @@ define([
         };
 
         ParticleRenderer.prototype.returnParticle = function(prtcl) {
-
             this.discountDrawingParticle(prtcl);
             this.setUpdateRender(1);
             this.particles.unshift(prtcl);

@@ -1,57 +1,37 @@
 "use strict";
 
 define([
-        'worker/terrain/TerrainFunctions'
+        'worker/terrain/TerrainFunctions',
+        'worker/terrain/TerrainArea'
     ],
     function(
-        TerrainFunctions
+        TerrainFunctions,
+        TerrainArea
     ) {
 
-        var terrainOpts = {
-            "type":"array",
-            "state":true,
-            "three_terrain":"plain_ground",
-            "vegetation_system":"basic_grassland",
-            "terrain_size":1000,
-            "terrain_segments":127,
-            "invert_hill":false,
-            "terrain_edge_size":175,
-            "edge_easing":"clampSin",
-            "max_height":20,
-            "min_height":0,
-            "frequency":3,
-            "steps":6
-        };
 
 
-        var WorldAPI;
-
-        var TerrainSystem = function(wApi, physicsApi) {
-            WorldAPI = wApi;
+        var TerrainSystem = function(physicsApi) {
             this.terrainFunctions = new TerrainFunctions(physicsApi);
+            this.terrainAreas = [];
         };
 
 
         TerrainSystem.prototype.initTerrainSystem = function(msg) {
 
-        //    console.log("initTerrainSystem", msg);
+            var terrainArea = new TerrainArea(this.terrainFunctions);
 
-            var terrain = this.terrainFunctions.createTerrain(msg.options);
+            terrainArea.createAreaOfTerrain(msg);
 
-        //    level.addTerrainToLevel(terrain);
-
-            var buffers = this.terrainFunctions.getTerrainBuffers(terrain);
-
-            terrain.array1d = buffers[4];
-
-            var terrainBody = this.terrainFunctions.addTerrainToPhysics(terrainOpts, terrain.array1d, msg.posx, msg.posz);
-
-        //    console.log("Terrain:", terrain, terrainBody);
-
-            WorldAPI.sendWorldMessage(ENUMS.Protocol.REGISTER_TERRAIN, [msg, buffers])
-
+            this.terrainAreas.push(terrainArea)
         };
 
+        TerrainSystem.prototype.updateTerrainSystem = function(tpf) {
+
+            for (var i = 0; i < this.terrainAreas.length; i++) {
+                this.terrainAreas[i].updateTerrainArea(tpf);
+            }
+        };
 
         return TerrainSystem;
 

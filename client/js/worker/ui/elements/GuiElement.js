@@ -77,7 +77,7 @@ define([
                 text = "MISSING";
             }
 
-            if (this.text !== text || Math.random() < 1) {
+            if (this.text !== text) {
                 this.generateChildrenForText(text);
             }
             this.text = text;
@@ -268,9 +268,9 @@ define([
         };
 
         GuiElement.prototype.disableGuiElement = function() {
-            this.setText('');
-            calcVec.set(0, 0, 0);
-            this.renderText(calcVec);
+        //    this.setText('');
+        //    calcVec.set(0, 0, 0);
+        //    this.renderText(calcVec);
 
             this.enabled = false;
             this.spriteKey = null;

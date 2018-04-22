@@ -109,25 +109,25 @@
           "sprite_key":"ATLAS",
           "sprite_id":"explosion",
           "config":{
-            "age":     {"min":0.001, "max":0.002},
-            "lifeTime":{"min":1.0,"max":1.0},
+            "age":     {"min":0.001, "max":0.02},
+            "lifeTime":{"min":2.5,"max":2.5},
             "positionSpread":{"x":1.01, "y":1.01, "z":1.01},
-            "gravity":15.001,
-            "drag":0.2,
-            "bend":0.2,
+            "gravity":4.001,
+            "drag":0.06,
+            "bend":0.05,
 
             "colorCurve":"warmFire",
             "alphaCurve":"earlyFadeOut",
             "diffusionCurve":"pulseSlowOut",
             "scaleCurve":"cubeIn",
-            "size":{"value":11.0, "min": -2.0, "max": 0.0},
+            "size":{"value":1.0, "min": -0.5, "max": 3.0},
             "spin":{"value":0.1, "min":-0.30, "max":0.0},
             "spinDrag":0.31,
             "velocitySpread":{"min":-1,"max":1},
-            "velocityDiffusion":0.97,
-            "accelerationDiffusion":0.55,
-            "colorDiffusion":0.05,
-            "velocityFactor":0.51
+            "velocityDiffusion":5.5,
+            "accelerationDiffusion":0.15,
+            "colorDiffusion":0.08,
+            "velocityFactor":1.0
           }
         },
 
@@ -500,6 +500,44 @@
             "accelerationDiffusion":0.0001,
             "colorDiffusion":0.35,
             "velocityFactor":0.23
+          }
+        },
+
+        {
+          "id":"water_foam_particles",
+          "sprite_key":"ATLAS",
+          "sprite_id":"foam",
+          "config":{
+            "lifeTime":{"min":9.0,"max":11.5},
+            "positionSpread":{"x":1.01, "y":0.2, "z":1.01},
+            "colorCurve":"randomBlue",
+            "alphaCurve":"oneToZero",
+            "diffusionCurve":"zeroOneZero",
+            "scaleCurve":"zeroOneZero",
+            "size":{"value":1.5, "min":-2.5, "max":9.1},
+            "velocityDiffusion":0.00001,
+            "accelerationDiffusion":10.00001,
+            "colorDiffusion":0.025,
+            "velocityFactor":100
+          }
+        },
+
+        {
+          "id":"water_shade_particles",
+          "sprite_key":"ATLAS",
+          "sprite_id":"foam",
+          "config":{
+            "lifeTime":{"min":3.0,"max":17.5},
+            "positionSpread":{"x":14.01, "y":0.2, "z":14.01},
+            "colorCurve":"nearBlack",
+            "alphaCurve":"zeroOneZero",
+            "diffusionCurve":"zeroOneZero",
+            "scaleCurve":"oneToZero",
+            "size":{"value":1.15, "min":-2.5, "max":7.1},
+            "velocityDiffusion":0.00001,
+            "accelerationDiffusion":10.00001,
+            "colorDiffusion":0.025,
+            "velocityFactor":100
           }
         },
 

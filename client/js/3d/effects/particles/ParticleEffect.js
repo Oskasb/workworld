@@ -23,6 +23,7 @@ define(['3d/effects/particles/EffectSimulators',
             this.lastTpf = 0.016;
 
             this.effectDuration = 0;
+            this.shortestParticleLifetime = 0;
             this.effectData = {};
             this.renderer = null;
             this.aliveParticles = [];
@@ -63,6 +64,7 @@ define(['3d/effects/particles/EffectSimulators',
 
         ParticleEffect.prototype.setEffectDuration = function(duration) {
             this.effectDuration = duration;
+            this.shortestParticleLifetime = duration;
         };
 
         ParticleEffect.prototype.setEffectPosition = function(pos) {
@@ -121,6 +123,16 @@ define(['3d/effects/particles/EffectSimulators',
             }
 
             this.effectDuration = maxDuration + this.lastTpf;
+            this.shortestParticleLifetime = maxDuration;
+
+            for (c = 0; c < this.aliveParticles.length; c++) {
+
+                if (this.aliveParticles[c].getLifeTime() < this.shortestParticleLifetime) {
+                    this.shortestParticleLifetime = particle.params.lifeTime.value;
+                }
+            }
+
+
 
         };
 
@@ -134,15 +146,15 @@ define(['3d/effects/particles/EffectSimulators',
 
             var frameTpfFraction = this.lastTpf*(index/allowedCount);
 
-                ParticleParamParser.applyEffectParams(particle, this.effectData.gpuEffect.init_params);
-                particle.posOffset.set(0, 0, 0);
+            ParticleParamParser.applyEffectParams(particle, this.effectData.gpuEffect.init_params);
+            particle.posOffset.set(0, 0, 0);
 
-                spreadVector(particle.posOffset, this.size);
-                spreadVector(particle.posOffset, this.effectData.gpuEffect.positionSpread.vec4);
+            spreadVector(particle.posOffset, this.size);
+            spreadVector(particle.posOffset, this.effectData.gpuEffect.positionSpread.vec4);
 
-                particle.setQuaternion(this.quat);
-                particle.setPosition(this.pos);
-                particle.addPosition(particle.posOffset);
+            particle.setQuaternion(this.quat);
+            particle.setPosition(this.pos);
+            particle.addPosition(particle.posOffset);
 
 
             ParticleParamParser.applyEffectSprite(particle, this.dynamicSprite || this.effectData.sprite);
@@ -151,7 +163,7 @@ define(['3d/effects/particles/EffectSimulators',
                 this.updateEffectColorTexelRow(this.dynamicColor);
             }
 
-            particle.initToSimulation(systemTime+frameTpfFraction, calcVec, this.vel);
+            particle.initToSimulation(systemTime+frameTpfFraction, this.vel);
 
             this.updateParticle(particle, frameTpfFraction);
 
@@ -222,18 +234,13 @@ define(['3d/effects/particles/EffectSimulators',
             }
         };
 
-
         ParticleEffect.prototype.updateEffectAge = function(tpf) {
             this.age += tpf;
             this.lastTpf = tpf;
         };
 
-        ParticleEffect.prototype.popDeadIndex = function() {
-            return this.aliveParticles.indexOf(this.deadParticles.pop())
-        };
-
         ParticleEffect.prototype.getDeadParticle = function() {
-            return this.aliveParticles.splice(this.popDeadIndex(), 1)[0]
+            return this.aliveParticles.splice(this.deadParticles.pop(), 1)[0]
         };
 
         ParticleEffect.prototype.returnDeadParticles = function() {
@@ -249,27 +256,25 @@ define(['3d/effects/particles/EffectSimulators',
             if (this.age > this.effectDuration) {
                 for (i = 0; i < this.aliveParticles.length; i++) {
                     EffectSimulators.dead(this.aliveParticles[i], tpf);
-                    this.deadParticles.push(this.aliveParticles[i]);
+                    this.deadParticles.push(i);
                 }
             } else {
 
-                for (i = 0; i < this.aliveParticles.length; i++) {
-                    if (this.aliveParticles[i].dead) {
-                        EffectSimulators.dead(this.aliveParticles[i], tpf);
-                        this.deadParticles.push(this.aliveParticles[i]);
+                if (this.age > this.shortestParticleLifetime) {
 
-                        console.log("Legacy Fx update called...")
+                    for (i = 0; i < this.aliveParticles.length; i++) {
 
-                    } else {
                         //    this.updateGpuParticle(this.aliveParticles[i], tpf)
-                        if (this.aliveParticles[i].params.lifeTime.value < this.age + this.lastTpf * 2) {
-
-                       //     console.log("Vegetation uses this...")
-
+                        if (this.age > this.aliveParticles[i].getLifeTime()) {
+                            //     console.log("Vegetation uses this...")
                             EffectSimulators.dead(this.aliveParticles[i], tpf);
-                            this.deadParticles.push(this.aliveParticles[i]);
-                        }
 
+                            this.applyParticleSimulator(EffectSimulators.simulators.position, this.aliveParticles[i], tpf);
+                        //    this.applyParticleSimulator(EffectSimulators.simulators.duration, this.aliveParticles[i], tpf);
+                        //    this.updateParticle(this.aliveParticles[i], this.aliveParticles[i].getLifeTime());
+                            this.deadParticles.push(i)
+
+                        }
                     }
                 }
             }

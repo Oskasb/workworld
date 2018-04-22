@@ -1,0 +1,337 @@
+[
+  {
+    "dataType":"PIECE_DATA",
+    "pieces":{
+      "tall_building_17":{
+        "size":25,
+        "controls":{
+          "actions": {
+            "timeoutEvent": "EXPLODE"
+          },
+          "constants":{
+          }
+        },
+        "attachment_points":[
+          {"slot":"root" ,   "transform":{"rot":[0, 0, 0], "pos":[0, 7, 0], "size":[17, 134, 29]}}
+        ],
+        "default_modules":[
+          "tall_building_17_module"
+        ]
+      },
+
+      "tall_building_10":{
+        "size":22,
+        "controls":{
+          "actions": {
+            "timeoutEvent": "EXPLODE"
+          },
+          "constants":{
+          }
+        },
+        "attachment_points":[
+          {"slot":"root" ,   "transform":{"rot":[0, 0, 0], "pos":[0, 7, 0], "size":[17, 84, 29]}}
+        ],
+        "default_modules":[
+          "tall_building_10_module"
+        ]
+      },
+
+      "small_house_building":{
+        "size":14,
+        "controls":{
+          "actions": {
+            "timeoutEvent": "EXPLODE"
+          },
+          "constants":{
+          }
+        },
+        "attachment_points":[
+          {"slot":"root" ,   "transform":{"rot":[0, 0, 0], "pos":[0, 7, 0], "size":[17, 14, 29]}}
+        ],
+        "default_modules":[
+          "small_house_combined_module"
+        ]
+      },
+
+      "plasma_blob_piece":{
+        "size":5,
+        "controls":{
+          "actions": {
+            "applyForward":1,
+            "timeoutEvent": "EXPLODE"
+          },
+          "constants":{
+            "velocityDrag":0.98,
+            "radialDrag":1
+          }
+        },
+        "attachment_points":[
+          {"slot":"hull" ,   "transform":{"rot":[0, 0, 0], "pos":[0, 2, 0], "size":[1, 2, 1]}}
+        ],
+        "default_modules":[
+          "plasma_blob_module"
+        ]
+      },
+      "clay_blob_piece":{
+        "size":35,
+        "controls":{
+          "actions": {
+            "applyForward":1,
+            "timeoutEvent": "EXPLODE"
+          },
+          "constants":{
+            "velocityDrag":0.5,
+            "radialDrag":1
+          }
+        },
+        "attachment_points":[
+          {"slot":"hull" ,   "transform":{"rot":[0, 0, 0], "pos":[0, 4, 0], "size":[16, 12, 22]}}
+        ],
+        "default_modules":[
+          "rock_10m_module"
+        ]
+      },
+      "ground_plane":{
+        "size":1100,
+        "controls":{
+          "actions": {},
+          "constants":{}
+        },
+        "attachment_points":[
+          {"slot":"ground" ,   "transform":{"rot":[0, 0, 0], "pos":[0, 0, 0], "size":[400, 0, 400]}}
+        ],
+        "default_modules":[
+          "plane_ground_module"
+        ]
+      },
+      "ground_pit":{
+        "size":1100,
+        "controls":{
+          "actions": {},
+          "constants":{}
+        },
+        "attachment_points":[
+          {"slot":"ground" ,   "transform":{"rot":[0, 0, 0], "pos":[0, 0, 0], "size":[400, 0, 400]}}
+        ],
+        "default_modules":[
+          "plane_ground_pit_module"
+        ]
+      },
+      "ground_hill":{
+        "size":1100,
+        "controls":{
+          "actions": {},
+          "constants":{}
+        },
+        "attachment_points":[
+          {"slot":"ground" ,   "transform":{"rot":[0, 0, 0], "pos":[0, 0, 0], "size":[400, 0, 400]}}
+        ],
+        "default_modules":[
+          "plane_ground_hill_module"
+        ]
+      },
+      "big_space_rock_piece":{
+        "size":35,
+        "controls":{
+          "actions": {
+            "applyForward":1,
+            "timeoutEvent": "EXPLODE"
+          },
+          "constants":{
+            "velocityDrag":0.5,
+            "radialDrag":1
+          }
+        },
+        "attachment_points":[
+          {"slot":"root" ,   "transform":{"rot":[0, 0, 0.2], "pos":[0, 4, 0], "size":[16, 12, 22]}}
+        ],
+        "default_modules":[
+          "rock_10m_module"
+        ]
+      },
+      "huge_tree_piece":{
+        "size":15,
+        "controls":{
+          "actions": {
+            "applyForward":1,
+            "timeoutEvent": "EXPLODE"
+          },
+          "constants":{
+            "velocityDrag":0.5,
+            "radialDrag":1
+          }
+        },
+        "attachment_points":[
+          {"slot":"root" ,   "transform":{"rot":[0, 0, 0], "pos":[0,   5,   0], "size":[12, 8, 12]}},
+          {"slot":"shape" ,   "transform":{"rot":[0, 0, 0], "pos":[0,   18,  0], "size":[65, 8, 65]}},
+          {"slot":"shape" ,   "transform":{"rot":[0, 0, 0], "pos":[35,  14,  0], "size":[22, 4, 22]}},
+          {"slot":"shape" ,   "transform":{"rot":[0, 0, 0], "pos":[0,   14,  35], "size":[22, 4, 22]}},
+          {"slot":"shape" ,   "transform":{"rot":[0, 0, 0], "pos":[-23, 14, -13], "size":[22, 4, 22]}},
+          {"slot":"shape" ,   "transform":{"rot":[0, 0, 0], "pos":[33,  14,  22], "size":[12, 4, 12]}},
+          {"slot":"shape" ,   "transform":{"rot":[0, 0, 0], "pos":[-12, 14,  33], "size":[12, 4, 12]}},
+          {"slot":"shape" ,   "transform":{"rot":[0, 0, 0], "pos":[22 , 14, -43], "size":[12, 4, 12]}}
+        ],
+        "default_modules":[
+          "tree_trunk_4_module",
+          "tree_leaves_volume_module",
+          "tree_leaves_volume_module",
+          "tree_leaves_volume_module",
+          "tree_leaves_volume_module",
+          "tree_leaves_volume_module",
+          "tree_leaves_volume_module",
+          "tree_leaves_volume_module"
+        ]
+      },
+
+      "big_tree_piece":{
+        "size":12,
+        "controls":{
+          "actions": {
+            "applyForward":1,
+            "timeoutEvent": "EXPLODE"
+          },
+          "constants":{
+            "velocityDrag":0.5,
+            "radialDrag":1
+          }
+        },
+        "attachment_points":[
+            {"slot":"root" ,   "transform":{"rot":[0, 0, 0], "pos":[0,  8, 0], "size":[7, 20, 7]}},
+            {"slot":"shape" ,   "transform":{"rot":[0, 0, 0], "pos":[0,  18,  0], "size":[16, 9, 16]}},
+            {"slot":"shape" ,   "transform":{"rot":[0, 0, 0], "pos":[8,  15,  0], "size":[5, 3, 5]}},
+            {"slot":"shape" ,   "transform":{"rot":[0, 0, 0], "pos":[0,  15,  8], "size":[5, 3, 5]}},
+            {"slot":"shape" ,   "transform":{"rot":[0, 0, 0], "pos":[-4,  15,  -4], "size":[5, 3, 5]}}
+        ],
+        "default_modules":[
+          "tree_trunk_1_module",
+          "tree_leaves_volume_module",
+          "tree_leaves_volume_module",
+          "tree_leaves_volume_module",
+          "tree_leaves_volume_module"
+        ]
+      },
+
+
+
+      "medium_tree_piece":{
+        "size":9,
+        "controls":{
+          "actions": {
+            "applyForward":1,
+            "timeoutEvent": "EXPLODE"
+          },
+          "constants":{
+            "velocityDrag":0.5,
+            "radialDrag":1
+          }
+        },
+        "attachment_points":[
+          {"slot":"root" ,   "transform":{"rot":[0, 0, 0], "pos":[0, 10, 0], "size":[6, 20, 6]}},
+          {"slot":"shape" ,   "transform":{"rot":[0, 0, 0], "pos":[0, 14, 0], "size":[22, 5, 22]}},
+          {"slot":"shape" ,   "transform":{"rot":[0, 0, 0], "pos":[14,  9,  0], "size":[5, 2, 5]}},
+          {"slot":"shape" ,   "transform":{"rot":[0, 0, 0], "pos":[0,  9,  4], "size":[5, 2, 5]}},
+          {"slot":"shape" ,   "transform":{"rot":[0, 0, 0], "pos":[-8,  9,  -8], "size":[5, 2, 5]}}
+        ],
+        "default_modules":[
+          "tree_trunk_3_module",
+          "tree_leaves_volume_module",
+          "tree_leaves_volume_module",
+          "tree_leaves_volume_module",
+          "tree_leaves_volume_module"
+        ]
+      },
+
+      "small_tree_piece":{
+        "size":8,
+        "controls":{
+          "actions": {
+            "applyForward":1,
+            "timeoutEvent": "EXPLODE"
+          },
+          "constants":{
+            "velocityDrag":0.5,
+            "radialDrag":1
+          }
+        },
+        "attachment_points":[
+          {"slot":"root" ,   "transform":{"rot":[0, 0, 0], "pos":[0, 4,  0], "size":[4, 7, 4]}},
+          {"slot":"shape" ,   "transform":{"rot":[0, 0, 0], "pos":[0, 8,  0], "size":[7, 4, 7]}},
+          {"slot":"shape" ,   "transform":{"rot":[0, 0, 0], "pos":[5,  7,  0], "size":[2, 1, 2]}},
+          {"slot":"shape" ,   "transform":{"rot":[0, 0, 0], "pos":[0,  7,  5], "size":[2, 1, 2]}}
+        ],
+        "default_modules":[
+          "tree_trunk_2_module",
+          "tree_leaves_volume_module",
+          "tree_leaves_volume_module",
+          "tree_leaves_volume_module"
+        ]
+      },
+
+      "big_shrub_piece":{
+        "size":6,
+        "priority":2,
+        "controls":{
+          "actions": {
+            "applyForward":1,
+            "timeoutEvent": "EXPLODE"
+          },
+          "constants":{
+            "velocityDrag":0.5,
+            "radialDrag":1
+          }
+        },
+        "attachment_points":[
+          {"slot":"root" ,   "transform":{"rot":[0, 0, 0], "pos":[0, 0.3,  0], "size":[0, 0.01, 0]}},
+          {"slot":"shape" ,   "transform":{"rot":[0, 0, 0], "pos":[0, 0.8,  0], "size":[4, 6,    4]}}
+        ],
+        "default_modules":[
+          "big_shrub_module",
+          "shrub_volume_module"
+        ]
+      },
+
+      "big_fuzzy_shrub_piece":{
+        "size":4,
+        "priority":3,
+        "controls":{
+          "actions": {
+            "applyForward":1,
+            "timeoutEvent": "EXPLODE"
+          },
+          "constants":{
+            "velocityDrag":0.5,
+            "radialDrag":1
+          }
+        },
+        "attachment_points":[
+          {"slot":"root" ,   "transform":{"rot":[0, 0, 0], "pos":[0, 0.3,  0], "size":[0, 0.01, 0]}},
+          {"slot":"shape" ,   "transform":{"rot":[0, 0, 0], "pos":[0, 0.8,  0], "size":[4, 6,    4]}}
+        ],
+        "default_modules":[
+          "big_fuzzy_shrub_module",
+          "shrub_volume_module"
+        ]
+      },
+
+      "small_space_rock_piece":{
+        "size":17,
+        "controls":{
+          "actions": {
+            "applyForward":1,
+            "timeoutEvent": "EXPLODE"
+          },
+          "constants":{
+            "velocityDrag":0.5,
+            "radialDrag":1
+          }
+        },
+        "attachment_points":[
+          {"slot":"root" ,    "transform":{"rot":[0, 0.4, 0], "pos":[0, 4, 0], "size":[16, 12, 22]}}
+        ],
+        "default_modules":[
+          "rock_10m_module"
+        ]
+      }
+    }
+  }
+]

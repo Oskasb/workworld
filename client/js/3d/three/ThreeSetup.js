@@ -99,7 +99,7 @@ define(['../../ui/GameScreen',
 
         lastTime = 0;
         init();
-        ThreeSetup.callPrerender(0.1);
+        ThreeSetup.callPrerender(0.016);
 
 
         store.scene = scene;

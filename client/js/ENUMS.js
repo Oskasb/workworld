@@ -39,8 +39,8 @@ if(typeof(ENUMS) === "undefined"){
         EVENT_LISTENERS:    15,
         EVENT_TYPES:        16,
         LISTENERS_ONCE:     17,
-        FIRED_EVENTS:       18
-
+        FIRED_EVENTS:       18,
+        FRAME_RENDER_TIME:  19
 
     };
 
@@ -82,6 +82,15 @@ if(typeof(ENUMS) === "undefined"){
         ACTIVE_PRESS:   9,
         DEACTIVATE:     10
     };
+
+    ENUMS.TerrainFeature = {
+        SHORELINE:      0,
+        STEEP_SLOPE:    1,
+        SLOPE:          2,
+        FLAT_GROUND:    3,
+        WOODS:          4
+    };
+
 
     ENUMS.InputState = {
         MOUSE_X:        0,

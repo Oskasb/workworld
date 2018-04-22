@@ -4,12 +4,14 @@ define([
     'application/ClientViewer',
     'application/DataLoader',
     '3d/SceneController',
-    'io/PointerCursor'
+    'io/PointerCursor',
+    'PipelineAPI'
 ], function(
     ClientViewer,
     DataLoader,
     SceneController,
-    PointerCursor
+    PointerCursor,
+    PipelineAPI
 ) {
 
     var dataLoader;
@@ -20,11 +22,13 @@ define([
     };
 
     Setup.init = function(onReady) {
+
         var sceneController = new SceneController();
 
         dataLoader = new DataLoader();
 
         var clientReady = function() {
+            Setup.enableJsonPipelinePolling();
             dataLoader.loadShaderData();
             onReady(client);
         };
@@ -40,7 +44,14 @@ define([
     };
 
     Setup.completed = function() {
-        dataLoader.notifyCompleted()
+        dataLoader.notifyCompleted();
+
+    };
+
+
+    Setup.enableJsonPipelinePolling = function() {
+        PipelineAPI.getPipelineOptions('jsonPipe').polling.enabled = true;
+        PipelineAPI.getPipelineOptions('jsonPipe').polling.frequency = 8;
     };
 
     return Setup;

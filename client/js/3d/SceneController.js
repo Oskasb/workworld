@@ -26,8 +26,8 @@ define([
 
     };
 
-    SceneController.prototype.tickEffectsAPI = function(tpf) {
-        EffectsAPI.tickEffectSimulation(tpf);
+    SceneController.prototype.tickEffectsAPI = function(systemTime) {
+        EffectsAPI.tickEffectSimulation(systemTime);
     };
 
     return SceneController;

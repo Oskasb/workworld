@@ -89,9 +89,9 @@ define([
             return particleSpawner.recoverPassiveEffect(effect);
         };
         
-        EffectsAPI.tickEffectSimulation = function(tpf) {
-            if (vegetation) vegetation.updateVegetation(tpf);
-            if (particleSpawner) particleSpawner.updateSpawnedParticles(tpf);
+        EffectsAPI.tickEffectSimulation = function(systemTime) {
+            if (vegetation) vegetation.updateVegetation(systemTime);
+            if (particleSpawner) particleSpawner.updateSpawnedParticles(systemTime);
         };
 
         EffectsAPI.sampleTotalParticlePool = function() {

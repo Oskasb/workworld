@@ -1,0 +1,345 @@
+[{
+  "dataType":"MODULE_DATA",
+  "modules":{
+
+    "modern_transport_hull":{
+      "type":"hull",
+      "id":"modern_transport_hull",
+      "source":"initiate",
+      "initState": true,
+      "size":4,
+      "applies":{
+        "type":"string",
+        "state":true,
+        "three_model":"modern_transport_hull"
+      }
+    },
+
+    "sherman_hull":{
+      "type":"hull",
+      "id":"sherman_hull",
+      "source":"initiate",
+      "initState": true,
+      "size":4,
+      "rigid_body":{
+        "shape":"Vehicle",
+        "mass":5,
+        "size":4
+      },
+      "applies":{
+        "type":"string",
+        "state":true,
+        "pitch_roll":[1, 1],
+        "three_model":"sherman_hull"
+      }
+    },
+
+    "shield":{
+      "type":"shield",
+      "id":"shield",
+
+      "initState": false,
+      "applies":{
+        "type":"toggle",
+        "state":true,
+        "control_constants":{
+          "throttleAmplitude":-1,
+          "radialDrag":-0.5,
+          "radialLerpFactor":-0.05,
+          "velocityDrag":0.5
+        },
+        "drain":2,
+        "dynamic_effect":"shield_module_effect"
+      }
+    },
+
+    "hyper_drive":{
+      "type":"drive",
+      "id":"hyper_drive",
+      "initState":false,
+      "applies":{
+        "type":"toggle",
+        "state":true,
+        "control_constants":{
+          "throttleAmplitude":1,
+          "radialVelocityClamp":-0.14,
+          "radialDrag":-1,
+          "velocityDrag":-0.9
+        },
+        "drain":2,
+        "flicker":0.4,
+        "effect_data":{
+          "intensity":0.3,
+          "strength":32,
+          "lifeSpan":0.15
+        },
+        "dynamic_effect":"hyper_module_effect"
+      }
+    },
+
+    "warp_drive":{
+      "type":"drive",
+      "id":"warp_drive",
+      "initState":false,
+      "applies":{
+        "type":"toggle",
+        "state":true,
+        "trigger":{
+          "attackTime":2,
+          "action":"teleport"
+        },
+        "drain":2,
+        "flicker":0.4,
+        "effect_data":{
+          "intensity":1,
+          "strength":582,
+          "growth":[-300, -200],
+          "size":10,
+          "color":[1, 0.1, 0.4, 1],
+          "lifespan":[0.35, 0.9]
+        },
+        "plant_static_effect":"festive_flowers_veg_module_fx"
+      }
+    },
+
+    "tank_turret":{
+      "type":"turret",
+      "id":"tank_turret",
+      "initState": 0.01,
+      "applies":{
+        "type":"float",
+        "action":"applyYaw",
+        "master_module_id":"input_target_select",
+        "delay":0,
+        "cooldown":0.4,
+        "spatial_axis":"yaw",
+        "rotation_axis":[0, 1, 0],
+        "rotation_velocity":0.5,
+        "rotation_min":-6.2,
+        "rotation_max":6.2,
+        "three_model":"sherman_turret"
+      }
+    },
+
+    "cannon_pitch":{
+      "type":"turret",
+      "id":"cannon_pitch",
+      "initState": 0.01,
+      "applies":{
+        "type":"float",
+        "action":"applyPitch",
+        "master_module_id":"input_target_select",
+        "delay":1,
+        "cooldown":0.4,
+        "spatial_axis":"pitch",
+        "rotation_axis":[1, 0, 0],
+        "rotation_velocity":0.08,
+        "rotation_min":0,
+        "rotation_max":0.4,
+        "game_effect":"cannon_lazer_module"
+      }
+    },
+
+    "auto_cannon":{
+      "type":"weapon",
+      "id":"auto_cannon",
+      "initState": true,
+      "applies":{
+        "type":"string",
+        "action":"fireCannon",
+        "master_module_id":"input_toggle_attack",
+        "delay":0.4,
+        "cooldown":0.1,
+        "yaw_module":"tank_turret",
+        "pitch_module":"cannon_pitch",
+        "bullet":"cannon_bullet",
+        "exitVelocity":135,
+        "lifeTime":30,
+        "barrel_length": 3.5,
+        "three_model":"sherman_cannon"
+      }
+    },
+
+    "lazer_cannon":{
+      "type":"weapon",
+      "id":"lazer_cannon",
+
+      "initState": true,
+      "applies":{
+        "type":"string",
+        "action":"fireCannon",
+        "bullet":"lazer_beam_bullet",
+        "master_module_id":"input_toggle_attack",
+        "exitVelocity":340,
+        "lifeTime":0.16,
+        "game_effect":"cannon_lazer_module"
+      }
+    },
+
+    "plasma_cannon":{
+      "type":"weapon",
+      "id":"plasma_cannon",
+
+      "initState": true,
+      "applies":{
+        "type":"boolean",
+        "action":"fireCannon",
+        "bullet":"plasma_bullet",
+        "master_module_id":"input_toggle_attack",
+        "exitVelocity":65,
+        "lifeTime":0.7,
+        "game_effect":"cannon_plasma_module"
+      }
+    },
+
+    "engine":{
+      "type":"engine",
+      "id":"engine",
+
+      "source":"throttle",
+      "initState": 0,
+      "applies":{
+        "type":"float",
+        "state":true,
+        "action":"applyThrottle",
+        "state_factor":30,
+        "emit_effect":"tank_engine_fx",
+        "effect_data":{
+          "intensity":0.3,
+          "strength":10,
+          "lifeSpan":0.4
+        },
+        "threshold":0.2,
+        "message":"wroom"
+      }
+    },
+
+    "track_l":{
+      "type":"engine",
+      "id":"track_l",
+
+      "source":"throttle",
+      "initState": 0,
+      "applies":{
+        "type":"float",
+        "state":true,
+        "action":"applyForward",
+        "state_factor":30,
+        "emit_effect":"tank_track_fx",
+        "ground_print_effect":"track_ground_print_fx",
+        "threshold":0.2,
+        "message":"wroom",
+        "three_model":"sherman_track_l",
+        "animate_texture":[0, -1],
+        "animate_speed_scale":0.005,
+        "animate_shake":[0.1,0.1,0.02]
+      }
+    },
+
+
+    "track_r":{
+      "type":"engine",
+      "id":"track_r",
+
+      "source":"throttle",
+      "initState": 0,
+      "applies":{
+        "type":"float",
+        "state":true,
+        "action":"applyForward",
+        "state_factor":30,
+        "emit_effect":"tank_track_fx",
+        "ground_print_effect":"track_ground_print_fx",
+        "threshold":0.2,
+        "message":"wroom",
+        "three_model":"sherman_track_r",
+        "animate_texture":[0, -1],
+        "animate_speed_scale":0.005,
+        "animate_shake":[0.1,0.1,0.02]
+      }
+    },
+
+    "input_toggle_attack":{
+      "type":"control",
+      "id":"input_toggle_attack",
+      "initState": null,
+      "applies":{
+        "type":"bool",
+        "state":false
+      }
+    },
+
+    "input_toggle_control":{
+      "type":"control",
+      "id":"input_toggle_control",
+      "initState": null,
+      "applies":{
+        "type":"bool",
+        "state":false
+      }
+    },
+
+
+    "input_target_select":{
+      "type":"control",
+      "id":"input_target_select",
+      "initState": null,
+      "applies":{
+        "type":"string",
+        "yaw_aim_module_id":"turret_aim_yaw",
+        "pitch_aim_module_id":"turret_aim_pitch",
+        "toggle_attack_module_id":"input_toggle_attack",
+        "state":false
+      }
+    },
+
+    "turret_aim_yaw":{
+      "type":"control",
+      "id":"turret_aim_yaw",
+      "initState": null,
+      "applies":{
+        "type":"float",
+        "state":false
+      }
+    },
+
+    "turret_aim_pitch":{
+      "type":"control",
+      "id":"turret_aim_pitch",
+      "initState": null,
+      "applies":{
+        "type":"float",
+        "state":false
+      }
+    },
+
+    "inputControls":{
+      "type":"control",
+      "id":"inputControls",
+
+      "source":"currentState",
+      "initState": [0, 0],
+      "applies":{
+        "type":"array",
+        "state":true,
+        "action":"applyControl"
+      }
+    },
+
+
+
+    "nameplate":{
+      "type":"name",
+      "id":"nameplate",
+
+      "source":"playerName",
+      "initState":"noName",
+      "applies":{
+        "type":"string",
+        "state":true,
+        "action":"applyControl"
+      }
+    }
+
+  }
+}]

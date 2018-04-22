@@ -24,8 +24,8 @@ define([
         WorkerRunner.prototype.buildMainWorldComBuffer = function(size) {
 
             if (SharedArrayBuffer) {
-                var sab = new SharedArrayBuffer(Int32Array.BYTES_PER_ELEMENT * size);
-                var buffer = new Int32Array(sab);
+                var sab = new SharedArrayBuffer(Float32Array.BYTES_PER_ELEMENT * size);
+                var buffer = new Float32Array(sab);
                 PipelineAPI.setCategoryKeyValue("SHARED_BUFFERS", ENUMS.Key.WORLD_COM_BUFFER, buffer);
             } else {
                 alert("SharedBufferArray not supported. Enable it in chrome://flags");

@@ -97,7 +97,7 @@
             "system_key":"THREE",
             "renderer_id":"gpu_additive_atlas_renderer",
             "particle_id":"firey_explosion_core_particles",
-            "count":5,
+            "count":65,
             "simulation_id":"gpu_predictive_simulation"
           }
         },
@@ -377,6 +377,17 @@
             "system_key":"THREE",
             "renderer_id":"gpu_opaque_stamp_renderer",
             "particle_id":"ground_dirt_clob_particle",
+            "count":1,
+            "simulation_id":"gpu_stamp_simulation"
+          }
+        },
+
+        {
+          "id":"water_foam_particle_effect",
+          "data":{
+            "system_key":"THREE",
+            "renderer_id":"gpu_opaque_stamp_renderer",
+            "particle_id":"water_foam_particles",
             "count":1,
             "simulation_id":"gpu_stamp_simulation"
           }

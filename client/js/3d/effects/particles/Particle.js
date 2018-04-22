@@ -36,7 +36,6 @@ define([],
             this.buffers = {};
             this.attributes = {};
 
-
             this.posOffset = new THREE.Vector3();
             this.velVec = new THREE.Vector4();
             this.posVec = new THREE.Vector4();
@@ -44,7 +43,6 @@ define([],
             this.quat = new THREE.Quaternion();
 
             this.systemTime = {value:0};
-
 
             this.params = {
                 position:this.posVec,
@@ -60,17 +58,36 @@ define([],
 
         Particle.prototype.setStartTime = function(systemTime) {
             this.progress = 0;
-            this.systemTime = {value:systemTime};
             this.params.systemTime.value = systemTime;
         };
 
-        Particle.prototype.initToSimulation = function(systemTime, pos, vel) {
+        Particle.prototype.initToSimulation = function(systemTime, vel) {
+            this.dead = false;
             this.usedCount++;
-            this.addPosition(pos);
             this.addVelocity(vel);
             this.setStartTime(systemTime);
         };
-        
+
+        Particle.prototype.applyDead = function() {
+            this.params.position.x = 0;
+            this.params.position.y = 0;
+            this.params.position.z = 0;
+            this.params.position.w = 0;
+            this.params.lifeTime.value = 0;
+        };
+
+        Particle.prototype.getProgress = function() {
+            return this.progress;
+        };
+
+        Particle.prototype.getLifeTime = function() {
+            return this.params.lifeTime.value;
+        };
+
+        Particle.prototype.getParamValue = function(param) {
+            return this.params[param].value;
+        };
+
         Particle.prototype.addPosition = function(pos) {
             this.params.position.x += pos.x;
             this.params.position.y += pos.y;

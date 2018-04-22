@@ -40,7 +40,7 @@ define([
 
 		DataComparator.prototype.compareAndCacheJson = function(url, json, dataLoader) {
 
-			if (cachedJson[url] == JSON.stringify(json)) {
+			if (cachedJson[url] === JSON.stringify(json)) {
 				// already got this one okayed
 				return;
 			}
@@ -54,7 +54,7 @@ define([
 			};
 
 			var isValid = function(validJson) {
-				if (cachedJson[url] != validJson) {
+				if (cachedJson[url] !== validJson) {
 					cachedJson[url] = JSON.stringify(validJson);
 
 					success(validJson)

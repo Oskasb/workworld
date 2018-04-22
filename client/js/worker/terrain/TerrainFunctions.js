@@ -339,9 +339,9 @@ define([],
         };
 
 
-        var p1  = {x:0, y:0, z:0};
-        var p2  = {x:0, y:0, z:0};
-        var p3  = {x:0, y:0, z:0};
+        var p1  = new THREE.Vector3();
+        var p2  = new THREE.Vector3();
+        var p3  = new THREE.Vector3();
 
 
         var points = [];
@@ -398,6 +398,8 @@ define([],
         };
 
 
+        var triangle = new THREE.Triangle();
+
         TerrainFunctions.prototype.getPreciseHeight = function(array1d, segments, x, z, normalStore, htN, htP) {
             var tri = this.getTriangleAt(array1d, segments, x, z);
 
@@ -408,23 +410,31 @@ define([],
 
             if (normalStore) {
 
-                tri[0].x = this.returnToWorldDimensions(tri[0].x, htN, htP, segments);
-                tri[0].y = this.returnToWorldDimensions(tri[0].y, htN, htP, segments);
-                tri[1].x = this.returnToWorldDimensions(tri[1].x, htN, htP, segments);
-                tri[1].y = this.returnToWorldDimensions(tri[1].y, htN, htP, segments);
-                tri[2].x = this.returnToWorldDimensions(tri[2].x, htN, htP, segments);
-                tri[2].y = this.returnToWorldDimensions(tri[2].y, htN, htP, segments);
+                triangle.a.x =  this.returnToWorldDimensions(tri[0].x, htN, htP, segments);
+                triangle.a.z =  this.returnToWorldDimensions(tri[0].y, htN, htP, segments);
+                triangle.a.y =  tri[0].z;
 
-                calcVec1.set((tri[1].x-tri[0].x), (tri[1].z-tri[0].z), (tri[1].y-tri[0].y));
-                calcVec2.set((tri[2].x-tri[0].x), (tri[2].z-tri[0].z), (tri[2].y-tri[0].y));
+                triangle.b.x =  this.returnToWorldDimensions(tri[1].x, htN, htP, segments);
+                triangle.b.z =  this.returnToWorldDimensions(tri[1].y, htN, htP, segments);
+                triangle.b.y =  tri[1].z;
 
-                calcVec1.cross(calcVec2);
-                if (calcVec1.y < 0) {
-                    calcVec1.negate();
+                triangle.c.x =  this.returnToWorldDimensions(tri[2].x, htN, htP, segments);
+                triangle.c.z =  this.returnToWorldDimensions(tri[2].y, htN, htP, segments);
+                triangle.c.y =  tri[2].z;
+
+                if (triangle.a.equals(triangle.b)) {
+                    console.log("TrianglePoint is the same..., A & B");
                 }
 
-                calcVec1.normalize();
-                normalStore.copy(calcVec1);
+                if (triangle.b.equals(triangle.c)) {
+                    console.log("TrianglePoint is the same..., B & C");
+                }
+
+                if (triangle.a.equals(triangle.c)) {
+                    console.log("TrianglePoint is the same..., A & C");
+                }
+
+                triangle.getNormal(normalStore);
 
             }
 
@@ -504,21 +514,21 @@ define([],
 
 
 
-        TerrainFunctions.prototype.getTerrainHeightAt = function(terrain, pos, rootObj3D, normalStore) {
+        TerrainFunctions.prototype.getTerrainHeightAt = function(terrain, pos, terrainOrigin, normalStore) {
 
 
-            calcVec1.copy(rootObj3D.position);
-            calcVec2.copy(pos);
-            calcVec2.subVectors(calcVec2, calcVec1);
+        //    calcVec1.copy(terrainOrigin);
+        //    calcVec2.copy(pos);
+            calcVec2.subVectors(pos, terrainOrigin);
 
             var terrainSize = terrain.opts.xSize;
             var segments = terrain.opts.xSegments;
 
-            var height = terrain.opts.maxHeight - terrain.opts.minHeight;
+        //    var height = terrain.opts.maxHeight - terrain.opts.minHeight;
 
-            calcVec2.x += terrain.opts.xSize / 1;
-            calcVec2.z += terrain.opts.xSize / 1;
-
+            calcVec2.x -= terrain.opts.xSize / 2;
+            calcVec2.z -= terrain.opts.xSize / 2;
+2
             return this.getHeightAt(calcVec2, terrain.array1d, terrainSize, segments, normalStore);
         };
 
@@ -533,16 +543,24 @@ define([],
 
         TerrainFunctions.prototype.getHeightAt = function(pos, array1d, terrainSize, segments, normalStore) {
 
-            var htP = terrainSize * 1.5; // 2;
-            var htN = terrainSize / 2; // - htP;
+            var htP = terrainSize*0.5;
+            var htN = - htP;
 
-            if (pos.x < htN || pos.x > htP || pos.z < htN || pos.z > htP) {
+            if (pos.x < htN || pos.z < htN) {-
 
                 console.log("Terrain!", pos.x, pos.z, htP, htN ,"Is Outside WORKER");
                 //    return -1000;
                 pos.x = MATH.clamp(pos.x, htN, htP);
                 pos.z = MATH.clamp(pos.z, htN, htP);
             }
+
+            if (pos.x > htP  || pos.z > htP) {
+                console.log("Terrain!", pos.x, pos.z, htP, htN ,"Is Outside WORKER");
+                //    return -1000;
+                pos.x = MATH.clamp(pos.x, htN, htP);
+                pos.z = MATH.clamp(pos.z, htN, htP);
+            }
+
 
             return this.getDisplacedHeight(array1d, segments, pos.x, pos.z, htP, htN, normalStore);
         };

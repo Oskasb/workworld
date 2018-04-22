@@ -83,9 +83,9 @@ define([
             this.vegetationSystems = [];
         };
 
-        Vegetation.prototype.updateVegetation = function(tpf) {
+        Vegetation.prototype.updateVegetation = function(systemTime) {
             for (var i = 0; i < this.vegetationSystems.length; i++) {
-                this.vegetationSystems[i].updateVegetationSystem(tpf, ThreeAPI.getCamera());
+                this.vegetationSystems[i].updateVegetationSystem(systemTime, ThreeAPI.getCamera());
             }
         };
 

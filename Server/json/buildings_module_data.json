@@ -1,0 +1,93 @@
+[{
+  "dataType":"MODULE_DATA",
+  "modules":{
+
+    "tall_building_17_module":{
+      "id":"tall_building_17_module",
+      "type":"hull",
+      "size":15,
+      "source":"initiate",
+      "initState": true,
+      "applies":{
+        "type":"string",
+        "state":true,
+        "three_model":"tall_building_17_combined"
+      }
+    },
+
+    "tall_building_10_module":{
+      "id":"tall_building_10_module",
+      "type":"hull",
+      "size":15,
+      "source":"initiate",
+      "initState": true,
+      "applies":{
+        "type":"string",
+        "state":true,
+        "three_model":"tall_building_10_combined"
+      }
+    },
+
+    "small_house_combined_module":{
+      "id":"small_house_combined_module",
+      "type":"hull",
+      "size":15,
+      "source":"initiate",
+      "initState": true,
+      "applies":{
+        "type":"string",
+        "state":true,
+        "three_model":"small_house_combined"
+      }
+    },
+
+    "small_house_exterior_module":{
+      "id":"small_house_exterior_module",
+      "type":"hull",
+      "size":15,
+      "source":"initiate",
+      "initState": true,
+      "applies":{
+        "type":"string",
+        "state":true,
+        "three_model":"small_house_exterior"
+      }
+    },
+    "small_house_interior_module":{
+      "id":"small_house_interior_module",
+      "type":"hull",
+      "size":15,
+      "source":"initiate",
+      "initState": true,
+      "applies":{
+        "type":"string",
+        "state":true,
+        "three_model":"small_house_interior"
+      }
+    },
+    "small_house_window_bars_module":{
+      "id":"small_house_window_bars_module",
+      "type":"hull",
+      "size":15,
+      "source":"initiate",
+      "initState": true,
+      "applies":{
+        "type":"string",
+        "state":true,
+        "three_model":"small_house_window_bars"
+      }
+    },
+    "small_house_window_glass_module":{
+      "id":"small_house_window_glass_module",
+      "type":"hull",
+      "size":15,
+      "source":"initiate",
+      "initState": true,
+      "applies":{
+        "type":"string",
+        "state":true,
+        "three_model":"small_house_window_glass"
+      }
+    }
+  }
+}]

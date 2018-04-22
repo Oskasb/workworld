@@ -133,7 +133,7 @@ define([
 
         };
         
-        VegetationSystem.prototype.updateVegetationSystem = function(tpf, camera) {
+        VegetationSystem.prototype.updateVegetationSystem = function(systemTime, camera) {
 
             if (!camera) return;
             

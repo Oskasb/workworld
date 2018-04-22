@@ -24,40 +24,44 @@ express.static.mime.define({'application/wasm': ['wasm']});
 var server = http.createServer(app);
 server.listen(port);
 
+
 if (devMode) {
 
+    var fsPort = 5001;
     var fileServer = http.createServer();
     fileServer.listen(5001);
-    fileServer.on('request', request);  
+    console.log("Setup FileServer, port:", fsPort);
+    fileServer.on('request', request);
 }
 
 
 function request(request, response) {
-	var store = '';
-	request.on('data', function(data)
-	{
-		store += data;
-	});
-	request.on('end', function()
-	{  
-		response.setHeader("Content-Type", "text/json");
-		response.setHeader("Access-Control-Allow-Origin", "*");
+ //   console.log("File Server Called");
+    var store = '';
+    request.on('data', function(data)
+    {
+        store += data;
+    });
+    request.on('end', function()
+    {
+        response.setHeader("Content-Type", "text/json");
+        response.setHeader("Access-Control-Allow-Origin", "*");
         response.setHeader("Access-Control-Allow-Methods", "GET,HEAD,OPTIONS,POST,PUT");
         response.setHeader("Access-Control-Allow-Headers", "Access-Control-Allow-Headers, Origin,Accept, X-Requested-With, Content-Type, Access-Control-Request-Method, Access-Control-Request-Headers");
         response.setHeader("Access-Control-Allow-Credentials", "true");
-		response.end(store);
+        response.end(store);
 
-    //    console.log("Response End:", store);
+        //    console.log("Response End:", store);
 
         try {
             var data = JSON.parse(store);
             fs.writeFile('content/'+data[0], data[1]);
-    //        console.log("Store File (END): ", data[0]);
+            console.log("Store File (END): ", data[0]);
         } catch(err) {
-    //        console.log("JSON Parse error (END)")
+            console.log("JSON Parse error (END)", err)
         }
 
-	});
+    });
 }
 
 
@@ -65,57 +69,57 @@ var wss = new WebSocketServer({server: server});
 
 var SetupServer = function() {
 
-    console.log("http server port %d", port) ;
+    console.log("http server listening on %d", port) ;
 
     console.log("websocket server created");
 
     return;
 
-	function start() {
-		servers.push(initServerMain(devMode));
-	}
+    function start() {
+        servers.push(initServerMain(devMode));
+    }
 
-	var files = [
+    var files = [
 
-		'Transport/MATH',
-		'Transport/GAME',
-		'Transport/MODEL',
-		'Transport/ACTIONS',
-		'Transport/io/SocketMessages',
-		'Server/io/ServerConnection',
-		'Transport/io/Message',
-		'Server/io/ConnectedClient',
-		'Server/io/ActiveClients',
-		'Server/DataHub',
-		'Server/Game/terrain/ServerTerrain',
-		'Server/Game/terrain/TerrainFunctions',
-		'Server/Game/ServerAttachmentPoint',
-		'Server/Game/ServerModule',
-		'Server/Game/GridSector',
-		'Server/Game/PieceSpawner',
-		'Server/Game/SectorGrid',
-		'Server/Game/ServerWorld',
-		'Server/Game/ServerGameMain',
+        'Transport/MATH',
+        'Transport/GAME',
+        'Transport/MODEL',
+        'Transport/ACTIONS',
+        'Transport/io/SocketMessages',
+        'Server/io/ServerConnection',
+        'Transport/io/Message',
+        'Server/io/ConnectedClient',
+        'Server/io/ActiveClients',
+        'Server/DataHub',
+        'Server/Game/terrain/ServerTerrain',
+        'Server/Game/terrain/TerrainFunctions',
+        'Server/Game/ServerAttachmentPoint',
+        'Server/Game/ServerModule',
+        'Server/Game/GridSector',
+        'Server/Game/PieceSpawner',
+        'Server/Game/SectorGrid',
+        'Server/Game/ServerWorld',
+        'Server/Game/ServerGameMain',
         'Server/Game/ServerPieceProcessor',
-		'Server/Game/ServerCollisionDetection',
-		'Server/Game/modules/ServerModuleHandler',
-		'Server/Game/modules/ServerModuleFunctions',
-		'Server/Game/modules/ServerModuleCallbacks',
-		'Server/ServerMain',
-		'Server/Game/ServerPlayer',
-		'Server/io/ConfigLoader'
-	];
+        'Server/Game/ServerCollisionDetection',
+        'Server/Game/modules/ServerModuleHandler',
+        'Server/Game/modules/ServerModuleFunctions',
+        'Server/Game/modules/ServerModuleCallbacks',
+        'Server/ServerMain',
+        'Server/Game/ServerPlayer',
+        'Server/io/ConfigLoader'
+    ];
 
 
     var attachFile = function(file) {
         require(path+file);
     };
 
-	for (var i = 0; i < files.length; i++) {
+    for (var i = 0; i < files.length; i++) {
         attachFile(files[i]);
-	}
+    }
 
-	start();
+    start();
 
 
 };
@@ -124,19 +128,20 @@ var SetupServer = function() {
 var initServerMain = function(devMode) {
 
     var serverMain = new ServerMain();
-	var configLoader = new ConfigLoader('./Server/json/');
+    var configLoader = new ConfigLoader('./Server/json/');
 
-	dataUpdated = function(configData) {
-		serverMain.applyConfigData(configData, devMode);
-	};
+    dataUpdated = function(configData) {
+        serverMain.applyConfigData(configData, devMode);
+    };
 
-	configLoader.setUpdateCallback(dataUpdated);
+    configLoader.setUpdateCallback(dataUpdated);
 //	serverMain.initServerMain(new DataHub());
 //	serverMain.initServerConnection(wss);
 //	serverMain.initConfigs(configLoader, 'server_setup', devMode);
-	return serverMain;
+    return serverMain;
 };
 
 
 SetupServer();
+
 

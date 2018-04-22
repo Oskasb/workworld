@@ -42,7 +42,7 @@ define([
                 physicsApi.initPhysics();
                 worldMessages = new WorldMessages(WorldAPI);
                 worldControlState = new WorldControlState(WorldAPI);
-                terrainSystem = new TerrainSystem(WorldAPI, physicsApi);
+                terrainSystem = new TerrainSystem(physicsApi);
                 worldMain = new WorldMain(WorldAPI);
                 protocolRequests = new ProtocolRequests();
                 protocolRequests.setMessageHandlers(worldMessages.getMessageHandlers());
@@ -87,9 +87,11 @@ define([
             return worldMain.worldComBuffer()
         };
 
-        WorldAPI.setWorldLoopTpf = function(tpf) {
+        WorldAPI.notifyFrameInit = function() {
             frameStartTime = performance.now();
-            worldMain.setLoopTpf(tpf);
+        };
+
+        WorldAPI.updateStatusMonitor = function() {
             statusMonitor.tick(frameStartTime);
         };
 
@@ -112,6 +114,7 @@ define([
 
         WorldAPI.updateWorldWorkerFrame = function(tpf, frame) {
             worldControlState.updateWorldControlState();
+            terrainSystem.updateTerrainSystem(tpf);
             WorldAPI.sendWorldMessage(ENUMS.Protocol.NOTIFY_FRAME, frame)
         };
 

@@ -56,6 +56,7 @@ define([
 
         var dead;
         var spliced;
+        var tempVec = new THREE.Vector3();
     //    var addRen;
 
         var ready = function() {};
@@ -345,6 +346,8 @@ define([
             return this.buildEffect(id, pos, vel, size, quat);
         };
 
+
+
         ParticleSpawner.prototype.recoverPassiveEffect = function(effect) {
 
             if (typeof(effect) === 'undefined') {
@@ -359,6 +362,11 @@ define([
 
             effect.age = effect.effectDuration + effect.lastTpf;
 
+            tempVec.x   = 0;
+            tempVec.y   = -99999999;
+            tempVec.z   = 0;
+
+            effect.setEffectPosition(tempVec);
             effect.setEffectDuration(0);
 
             activeEffects.push(effect);
@@ -382,9 +390,12 @@ define([
 
         };
 
-        ParticleSpawner.prototype.updateSpawnedParticles = function(tpf) {
+        var tpf;
 
-            systemTime += tpf;
+        ParticleSpawner.prototype.updateSpawnedParticles = function(sysTime) {
+
+            tpf = sysTime - systemTime;
+            systemTime = sysTime;
 
                 while (requestedEffects.length) {
                     this.activateEffect(requestedEffects.pop());

@@ -96,7 +96,7 @@ define([
 
 
         };
-
+        var comBuffer;
         ClientViewer.prototype.clientReady = function(setupReady) {
 
             var clientTick = function(tpf) {
@@ -110,9 +110,10 @@ define([
             var fxReady = function() {
                 ThreeAPI.getSetup().addPrerenderCallback(clientTick);
                 ThreeAPI.getSetup().addPostrenderCallback(postrenderTick);
+                comBuffer = PipelineAPI.readCachedConfigKey('SHARED_BUFFERS', ENUMS.Key.WORLD_COM_BUFFER);
                 setupReady()
             };
-
+          //  comBuffer = PipelineAPI.readCachedConfigKey('SHARED_BUFFERS', ENUMS.Key.WORLD_COM_BUFFER);
             this.sceneController.setupEffectPlayers(fxReady);
 
         //    fxReady();
@@ -122,11 +123,7 @@ define([
         var start;
         var gameTime = 0;
 
-        ClientViewer.prototype.tickPostrender = function(tpf) {
-            WorkerAPI.wakeWorldThread();
-            PipelineAPI.setCategoryKeyValue('STATUS', 'TPF', tpf);
-            evt.fire(evt.list().CLIENT_TICK, tickEvent);
-        };
+
 
         var tickTimeout;
 
@@ -156,11 +153,11 @@ define([
         };
 
         var statusUpdate = 0;
-        var comBuffer;
+
 
         ClientViewer.prototype.tickStatusUpdate = function(ftpf) {
 
-            comBuffer = PipelineAPI.readCachedConfigKey('SHARED_BUFFERS', ENUMS.Key.WORLD_COM_BUFFER);
+
 
 
             statusUpdate += ftpf;
@@ -268,9 +265,11 @@ define([
 
         var fxArg = {effect:"normal_explosion_core", pos:tmpVec, vel:tmpVec2}
 
+
         ClientViewer.prototype.tick = function(tpf) {
 
             gameTime += tpf;
+            comBuffer[ENUMS.BufferChannels.FRAME_RENDER_TIME] = gameTime;
             start = performance.now();
             
 			frame++;
@@ -313,7 +312,7 @@ define([
 
             var distance = 1350 + 550 * Math.sin(gameTime*0.2);
 
-            ThreeAPI.setCameraPos(distance*Math.sin(gameTime*0.4), distance * 0.2 + Math.sin(gameTime*0.35) * 50, distance*Math.cos(gameTime*0.4));
+            ThreeAPI.setCameraPos(distance*Math.sin(gameTime*0.2), distance * 0.4 + Math.sin(gameTime*0.35) * 50, distance*Math.cos(gameTime*0.2));
             ThreeAPI.cameraLookAt(19*Math.cos(gameTime*1), 40 + distance * 0.12,  19*Math.sin(gameTime*1));
 
 
@@ -338,16 +337,28 @@ define([
 
             PipelineAPI.setCategoryKeyValue('STATUS', 'TIME_GAME_TICK', performance.now() - start);
 
-            this.sceneController.tickEffectsAPI(tpf);
+            this.sceneController.tickEffectsAPI(comBuffer[ENUMS.BufferChannels.FRAME_RENDER_TIME]-tpf);
+
+
 
             this.tickStatusUpdate(tpf);
 
 
-        //    if (PipelineAPI.getPipelineOptions('jsonPipe').polling.enabled) {
-        //        PipelineAPI.tickPipelineAPI(tpf);
-        //    }
+            if (PipelineAPI.getPipelineOptions('jsonPipe').polling.enabled) {
+                PipelineAPI.tickPipelineAPI(tpf);
+            }
             
 		};
+
+        ClientViewer.prototype.tickPostrender = function(tpf) {
+
+            comBuffer[ENUMS.BufferChannels.WAKE_INDEX]++;
+
+            WorkerAPI.wakeWorldThread();
+
+            PipelineAPI.setCategoryKeyValue('STATUS', 'TPF', tpf);
+            evt.fire(evt.list().CLIENT_TICK, tickEvent);
+        };
 
 		return ClientViewer;
 

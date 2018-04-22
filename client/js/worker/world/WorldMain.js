@@ -42,42 +42,44 @@ define([
 
         var updateWorld = function() {
 
-            time = performance.now() - initTime;
-            tpf = (time - lastTime)*0.001;
+            if (worldComBuffer[ENUMS.BufferChannels.WAKE_INDEX] !== worldFrame ) {
+                worldFrame = worldComBuffer[ENUMS.BufferChannels.WAKE_INDEX];
+                worldFrame++;
+                return;
+            }
+
+            time = worldComBuffer[ENUMS.BufferChannels.FRAME_RENDER_TIME] - initTime;
+            tpf = time - lastTime;
             lastTime = time;
             gameTime += tpf;
             avgTfp = tpf*0.3 + avgTfp*0.7;
             worldFrame++;
             //    console.log("Update World Sim", tpf);
             //    this.simulationState.updateState(tpf);
-            EffectsAPI.tickEffectSimulation(tpf);
 
-            var distance = 850;
+
+            var distance = 1250;
 
             fxArg.effect = "firey_explosion_core";
 
-            for (var i = 0; i < 5; i++) {
+            EffectsAPI.tickEffectSimulation(worldComBuffer[ENUMS.BufferChannels.FRAME_RENDER_TIME]);
+
+            for (var i = 0; i < Math.floor(Math.random()*10); i++) {
                 tmpVec.x = distance * Math.random() * (Math.random() - 0.5);
                 tmpVec.y = distance * Math.random() * 0.1 * Math.random();
                 tmpVec.z = distance * Math.random() * (Math.random() - 0.5);
 
 
-                tmpVec2.x = Math.sin(gameTime);
-                tmpVec2.y = Math.random()*20;
-                tmpVec2.z = Math.cos(gameTime);
+                tmpVec2.x = 0 // Math.sin(gameTime);
+                tmpVec2.y = 0.2 // Math.random()*0.2;
+                tmpVec2.z = 0 // Math.cos(gameTime);
 
-                evt.fire(evt.list().GAME_EFFECT, fxArg);
+            //    evt.fire(evt.list().GAME_EFFECT, fxArg);
             }
 
 
             WorldAPI.updateWorldWorkerFrame(avgTfp, worldFrame);
 
-        //    wait(updateWorld);
-
-        //    setTimeout(function() {
-        //        updateWorld();
-        //   })
-        //
         };
 
 
@@ -89,13 +91,13 @@ define([
         WorldMain.prototype.initWorldSystems = function(onWorkerReady) {
             EffectsListeners.setupListeners();
 
-            initTime = performance.now();
-            lastTime = 0;
-
             var fxReady = function() {
-                buildSillyWorld();
+            //    buildSillyWorld();
 
-                onWorkerReady()
+                initTime = worldComBuffer[ENUMS.BufferChannels.FRAME_RENDER_TIME];
+                lastTime = 0;
+
+                onWorkerReady(updateWorld)
             };
 
             var worldComReady = function(src, data) {
@@ -128,7 +130,7 @@ define([
 
             for (var i = 0; i < count; i++) {
                 tmpVec.x = distance * Math.random() * (Math.random() - 0.5);
-                tmpVec.y = distance * Math.random() * 0.1 * Math.random();
+                tmpVec.y = distance * Math.random() * 0.3 * Math.random();
                 tmpVec.z = distance * Math.random() * (Math.random() - 0.5);
 
 
@@ -147,12 +149,10 @@ define([
         };
 
         var buildSillyWorld = function() {
-            sillyWorld(1000, "model_geometry_tree_2_trunk_effect");
-            sillyWorld(400, "model_geometry_tree_3_combined_effect");
-            sillyWorld(400, "creative_crate_geometry_effect");
+            sillyWorld(40, "model_geometry_tree_2_trunk_effect");
+            sillyWorld(40, "model_geometry_tree_3_combined_effect");
+            sillyWorld(40, "creative_crate_geometry_effect");
         };
-
-
 
         WorldMain.prototype.setLoopTpf = function(tpf) {
             updateWorld()

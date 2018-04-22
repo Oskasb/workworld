@@ -87,8 +87,8 @@ define([
             notifyStatus(monitorTime,      comBuffer[ENUMS.BufferChannels.TPF] +'ms',                        'TPF');
             notifyStatus(monitorTime,      comBuffer[ENUMS.BufferChannels.IDLE]+'ms',                        'IDLE');
 
-            notifyStatus(monitorTime,      percentify(comBuffer[ENUMS.BufferChannels.TIME_GAME] *1000, comBuffer[ENUMS.BufferChannels.TPF] ) + '%',        'TIME_GAME');
-            notifyStatus(monitorTime,      percentify(comBuffer[ENUMS.BufferChannels.TIME_RENDER] *1000, comBuffer[ENUMS.BufferChannels.TPF] ) +'%',       'TIME_RENDER');
+            notifyStatus(monitorTime,      percentify(comBuffer[ENUMS.BufferChannels.TIME_GAME], comBuffer[ENUMS.BufferChannels.TPF] ) + '%',        'TIME_GAME');
+            notifyStatus(monitorTime,      percentify(comBuffer[ENUMS.BufferChannels.TIME_RENDER], comBuffer[ENUMS.BufferChannels.TPF] ) +'%',       'TIME_RENDER');
 
             statusUpdate += 1;
             if (statusUpdate < 3) return;

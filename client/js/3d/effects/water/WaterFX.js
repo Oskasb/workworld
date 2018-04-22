@@ -20,10 +20,10 @@ define([
         var calcVec = new THREE.Vector3();
 
         var parameters = {
-            width: 10000000,
-            height: 10000000,
-            widthSegments: 32,
-            heightSegments: 32,
+            width: 100000,
+            height: 100000,
+            widthSegments: 127,
+            heightSegments: 127,
             depth: 1500,
             param: 4,
             filterparam: 1
