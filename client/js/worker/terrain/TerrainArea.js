@@ -117,8 +117,8 @@ define([
                                 hits++;
                                 this.terrainFeatures[ENUMS.TerrainFeature.SHORELINE].generateTerrainElement(tempVec1, tempVec2);
 
-                                if (hits > 3){
-                                    k+=25;
+                                if (hits > 2){
+                                    k+=45;
                                 }
                             }
 

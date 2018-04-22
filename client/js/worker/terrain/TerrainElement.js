@@ -54,12 +54,12 @@ define([
 
 
             if (this.effects.length) {
-                if (Math.random() < tpf*this.effects.length * 1) {
+            //    if (Math.random() < tpf*this.effects.length * 2) {
                     EffectsAPI.returnPassiveEffect(this.effects.pop())
-                }
+            //    }
             }
 
-            if (Math.random() < tpf * 0.5) {
+            if (true) {
 
                 fxArg.effect = "water_foam_particle_effect";
 

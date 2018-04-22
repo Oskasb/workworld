@@ -20,6 +20,8 @@ define([
             this.featureType = featureType;
             this.featureKey = ENUMS.Map.TerrainFeature[featureType];
             this.elements = [];
+            this.lastStartIndex = 0;
+            this.stride = 85;
         };
 
 
@@ -37,11 +39,22 @@ define([
 
         TerrainFeature.prototype.updateTerrainFeatureFX = function(tpf) {
 
-            for (var i = 0; i < this.elements.length; i++) {
-                if (Math.random() < 0.1) {
-                    this.elements[i].triggerTerrainFeatureEffect(fxByFeature[this.featureType], tpf)
-                }
+            this.stride = Math.floor(this.elements.length / 50);
+
+            if (Math.random() > 0.25) {
+                return;
             }
+
+            if (this.lastStartIndex > this.stride) {
+                this.lastStartIndex = 0;
+            }
+
+            for (var i = this.lastStartIndex; i < this.elements.length; i+=this.stride) {
+                    this.elements[i].triggerTerrainFeatureEffect(fxByFeature[this.featureType], tpf)
+            }
+
+            this.lastStartIndex++;
+
         };
 
         return TerrainFeature;
