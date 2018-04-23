@@ -153,7 +153,6 @@ define([
 
         ThreeAPI.cameraLookAt = function(x, y, z) {
             ThreeSetup.setCameraLookAt(x, y, z);
-            ThreeSetup.updateCameraMatrix();
         };
 
         ThreeAPI.updateCamera = function() {

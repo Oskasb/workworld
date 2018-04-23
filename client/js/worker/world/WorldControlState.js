@@ -1,10 +1,10 @@
 "use strict";
 
 define([
-
+        'worker/world/WorldCamera'
     ],
     function(
-
+        WorldCamera
     ) {
 
 
@@ -12,9 +12,8 @@ define([
         var inputBuffer = [];
         var lastBuffer = [];
 
-
         var WorldControlState = function() {
-
+            this.worldCamera = new WorldCamera();
         };
 
 
@@ -30,6 +29,7 @@ define([
 
             WorldAPI.updateUiSystem(inputBuffer, lastBuffer);
             this.storeLastBuffer();
+            this.worldCamera.applyCameraComBuffer(WorldAPI.getWorldComBuffer());
         };
 
         WorldControlState.prototype.storeLastBuffer = function() {
@@ -52,6 +52,11 @@ define([
             inputBuffer = buffer;
         //    this.storeLastBuffer();
         };
+
+        WorldControlState.prototype.getWorldCamera = function() {
+            return this.worldCamera;
+        };
+
 
         return WorldControlState;
 

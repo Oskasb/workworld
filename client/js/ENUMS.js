@@ -40,7 +40,18 @@ if(typeof(ENUMS) === "undefined"){
         EVENT_TYPES:        16,
         LISTENERS_ONCE:     17,
         FIRED_EVENTS:       18,
-        FRAME_RENDER_TIME:  19
+        FRAME_RENDER_TIME:  19,
+        CAM_POS_X:          20,
+        CAM_POS_Y:          21,
+        CAM_POS_Z:          22,
+        CAM_QUAT_X:         23,
+        CAM_QUAT_Y:         24,
+        CAM_QUAT_Z:         25,
+        CAM_QUAT_W:         26,
+        CAM_FOV:            27,
+        CAM_NEAR:           28,
+        CAM_FAR:            29,
+        CAM_ASPECT:         30
 
     };
 
@@ -213,8 +224,19 @@ if(typeof(ENUMS) === "undefined"){
         REMOVE:'REMOVE'
     };
 
+    ENUMS.InstantiableModels = {
+        "creative_crate_geometry_effect":           0,
+        "crate_wood_geometry_effect":               1,
+        "model_geometry_tree_2_trunk_effect":       2,
+        "model_geometry_wall_rock_50_effect":       3,
+        "model_geometry_tree_3_combined_effect":    4,
+        "model_geometry_tree_3_small_effect":       5,
+        "model_geometry_enemy_oomba_effect":        6,
+        "model_geometry_swivel_cannon_20mm_effect": 7
+    };
+
     ENUMS.Channel = {
-        client_state:'client_state'
+        client_state:'client_sta2te'
     };
 
     ENUMS.Gui = {
@@ -224,7 +246,7 @@ if(typeof(ENUMS) === "undefined"){
 
     ENUMS.Type = {
         toggle:'toggle'
-    }
+    };
 
     ENUMS.ModuleParams = {
         attachment_points:'attachment_points',

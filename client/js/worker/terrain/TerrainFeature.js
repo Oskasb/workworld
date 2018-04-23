@@ -57,6 +57,15 @@ define([
 
         };
 
+        TerrainFeature.prototype.updateTerrainFeature = function(tpf) {
+
+            for (var i = 0; i < this.elements.length; i++) {
+                this.elements[i].updateTerrainElement(tpf)
+            }
+
+        };
+
+
         return TerrainFeature;
 
     });

@@ -31,6 +31,7 @@ define(['3d/effects/particles/EffectSimulators',
             this.pos = new THREE.Vector3();
             this.vel = new THREE.Vector3();
             this.quat = new THREE.Quaternion();
+            this.scale = 1;
             this.deadParticles = [];
 
             this.dynamicSprite = null;
@@ -55,6 +56,7 @@ define(['3d/effects/particles/EffectSimulators',
         };
 
         ParticleEffect.prototype.resetParticleEffect = function() {
+            this.scale = 1;
             this.dynamicSprite = null;
         };
 
@@ -164,8 +166,9 @@ define(['3d/effects/particles/EffectSimulators',
             }
 
             particle.initToSimulation(systemTime+frameTpfFraction, this.vel);
-
+            particle.setSize(this.scale*particle.params.position.w);
             this.updateParticle(particle, frameTpfFraction);
+
 
         };
 
@@ -204,6 +207,16 @@ define(['3d/effects/particles/EffectSimulators',
                 this.aliveParticles[i].setPosition(pos);
                 this.aliveParticles[i].addPosition(this.aliveParticles[i].posOffset);
 
+                this.applyParticleSimulator(EffectSimulators.simulators.position, this.aliveParticles[i], tpf)
+            }
+        };
+
+        ParticleEffect.prototype.updateEffectScaleSimulator = function(scale, tpf) {
+
+            this.scale = scale;
+
+            for (i = 0; i < this.aliveParticles.length; i++) {
+                this.aliveParticles[i].setSize(scale*this.aliveParticles[i].params.position.w);
                 this.applyParticleSimulator(EffectSimulators.simulators.position, this.aliveParticles[i], tpf)
             }
         };

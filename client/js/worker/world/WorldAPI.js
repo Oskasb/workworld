@@ -87,6 +87,10 @@ define([
             return worldMain.worldComBuffer()
         };
 
+        WorldAPI.getWorldCamera = function() {
+            return worldControlState.getWorldCamera()
+        };
+
         WorldAPI.notifyFrameInit = function() {
             frameStartTime = performance.now();
         };

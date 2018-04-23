@@ -266,6 +266,26 @@ define([
         var fxArg = {effect:"normal_explosion_core", pos:tmpVec, vel:tmpVec2}
 
 
+
+        var relayCamera = function(camera) {
+
+            comBuffer[ENUMS.BufferChannels.CAM_POS_X]      = camera.position.x;
+            comBuffer[ENUMS.BufferChannels.CAM_POS_Y]      = camera.position.y;
+            comBuffer[ENUMS.BufferChannels.CAM_POS_Z]      = camera.position.z;
+
+            comBuffer[ENUMS.BufferChannels.CAM_QUAT_X]     = camera.quaternion.x;
+            comBuffer[ENUMS.BufferChannels.CAM_QUAT_Y]     = camera.quaternion.y;
+            comBuffer[ENUMS.BufferChannels.CAM_QUAT_Z]     = camera.quaternion.z;
+            comBuffer[ENUMS.BufferChannels.CAM_QUAT_W]     = camera.quaternion.w;
+
+            comBuffer[ENUMS.BufferChannels.CAM_FOV]        = camera.fov;
+            comBuffer[ENUMS.BufferChannels.CAM_NEAR]       = camera.near;
+            comBuffer[ENUMS.BufferChannels.CAM_FAR]        = camera.far;
+            comBuffer[ENUMS.BufferChannels.CAM_ASPECT]     = camera.aspect;
+
+        };
+
+
         ClientViewer.prototype.tick = function(tpf) {
 
             gameTime += tpf;
@@ -310,7 +330,7 @@ define([
         //    }, 0);
 
 
-            var distance = 1350 + 550 * Math.sin(gameTime*0.2);
+            var distance = 850 + 300*Math.sin(gameTime*0.2);
 
             ThreeAPI.setCameraPos(distance*Math.sin(gameTime*0.2), distance * 0.4 + Math.sin(gameTime*0.35) * 50, distance*Math.cos(gameTime*0.2));
             ThreeAPI.cameraLookAt(19*Math.cos(gameTime*1), 40 + distance * 0.12,  19*Math.sin(gameTime*1));
@@ -339,10 +359,11 @@ define([
 
             this.sceneController.tickEffectsAPI(comBuffer[ENUMS.BufferChannels.FRAME_RENDER_TIME]-tpf);
 
-
-
             this.tickStatusUpdate(tpf);
 
+        //    ThreeAPI.updateCamera();
+
+            relayCamera(ThreeAPI.getCamera());
 
             if (PipelineAPI.getPipelineOptions('jsonPipe').polling.enabled) {
                 PipelineAPI.tickPipelineAPI(tpf);

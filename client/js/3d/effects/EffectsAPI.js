@@ -57,15 +57,19 @@ define([
         };
 
         EffectsAPI.updateEffectPosition = function(effect, pos, state, tpf) {
-            particleSpawner.updateActiveParticleEffect(effect, pos, state, tpf);
+            particleSpawner.updateActiveParticleEffect(effect, pos, tpf);
         };
 
         EffectsAPI.updateEffectVelocity = function(effect, vel, state, tpf) {
-            particleSpawner.updateActiveParticleVelocity(effect, vel, state, tpf);
+            particleSpawner.updateActiveParticleVelocity(effect, vel, tpf);
         };
 
         EffectsAPI.updateEffectQuaternion = function(effect, quat, state, tpf) {
-            particleSpawner.updateActiveEffectQuaternion(effect, quat, state, tpf);
+            particleSpawner.updateActiveEffectQuaternion(effect, quat, tpf);
+        };
+
+        EffectsAPI.updateEffectScale = function(effect, size, tpf) {
+            particleSpawner.updateActiveEffectScale(effect, size, tpf);
         };
 
         EffectsAPI.updateEffectSpriteKey = function(effect, spriteKey) {

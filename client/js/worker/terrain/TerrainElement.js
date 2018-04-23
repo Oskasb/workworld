@@ -2,11 +2,11 @@
 
 define([
         'EffectsAPI',
-    'Events'
+        'worker/geometry/GeometryInstance'
     ],
     function(
         EffectsAPI,
-        evt
+        GeometryInstance
     ) {
 
         var tmpVec = new THREE.Vector3();
@@ -16,42 +16,27 @@ define([
 
         var TerrainElement = function(pos, normal) {
 
+            this.isVisible = false;
             this.object3d = new THREE.Object3D();
             this.object3d.position.copy(pos);
             this.normal = new THREE.Vector3().copy(normal);
 
-
-        //    this.normal.x = Math.random()-0.5
-        //    this.normal.y = Math.random()-0.5
-        //    this.normal.z = Math.random()-0.5
-        //    this.object3d.up.copy(this.normal);
             this.object3d.lookAt(this.normal);
 
-        //      this.object3d.rotateX(this.normal.z);
-        //      this.object3d.rotateZ(-this.normal.x);
-
-        //      this.object3d.rotateY(this.normal.y * Math.PI * Math.random());
-
-        //      this.object3d.quaternion.
-
-              this.effects = [];
-
-            //    this.object3d.quaternion.x = Math.random()-0.5
-        //    this.object3d.quaternion.y = Math.random()-0.5
-        //    this.object3d.quaternion.z = Math.random()-0.5
+            this.effects = [];
 
         };
 
-
-
         TerrainElement.prototype.visualizeTerrainElement = function(fxId) {
             this.fxId = fxId;
-            this.effects.push(EffectsAPI.requestPassiveEffect(this.fxId, this.object3d.position, this.normal, null, this.object3d.quaternion));
+            this.geometryInstance = new GeometryInstance(fxId);
+            this.geometryInstance.setInstancePosition(this.object3d.position);
+            this.geometryInstance.setInstanceQuaternion(this.object3d.quaternion);
+            this.geometryInstance.setInstanceSize(2*(Math.random()+0.5) * Math.random());
         };
 
         TerrainElement.prototype.triggerTerrainFeatureEffect = function(fxId, tpf) {
             this.fxId = fxId;
-
 
             if (this.effects.length) {
             //    if (Math.random() < tpf*this.effects.length * 2) {
@@ -82,8 +67,6 @@ define([
 
             //    fxArg.vel.applyQuaternion(this.object3d.quaternion);
 
-
-
                 fxArg.vel.x = 0;
                 fxArg.vel.y = 1;
                 fxArg.vel.z = 0;
@@ -103,7 +86,18 @@ define([
                 //      evt.fire(evt.list().GAME_EFFECT, fxArg);
             }
 
+        };
 
+
+        TerrainElement.prototype.updateTerrainElement = function(tpf) {
+
+            this.isVisible = this.geometryInstance.testIsVisible();
+
+            if (this.isVisible) {
+                this.geometryInstance.renderGeometryInstance();
+            } else {
+                this.geometryInstance.hideGeometryInstance();
+            }
 
         };
 

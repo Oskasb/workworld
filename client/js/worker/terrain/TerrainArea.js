@@ -142,7 +142,8 @@ define([
 
 
         TerrainArea.prototype.updateTerrainArea = function(tpf) {
-
+            this.terrainFeatures[ENUMS.TerrainFeature.WOODS].updateTerrainFeature(tpf);
+        //    this.terrainFeatures[ENUMS.TerrainFeature.SHORELINE].updateTerrainFeature(tpf);
             this.terrainFeatures[ENUMS.TerrainFeature.SHORELINE].updateTerrainFeatureFX(tpf);
 
         };

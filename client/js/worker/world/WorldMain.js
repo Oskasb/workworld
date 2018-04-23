@@ -62,7 +62,7 @@ define([
 
             fxArg.effect = "firey_explosion_core";
 
-            EffectsAPI.tickEffectSimulation(worldComBuffer[ENUMS.BufferChannels.FRAME_RENDER_TIME]);
+
 
             for (var i = 0; i < Math.floor(Math.random()*10); i++) {
                 tmpVec.x = distance * Math.random() * (Math.random() - 0.5);
@@ -79,7 +79,7 @@ define([
 
 
             WorldAPI.updateWorldWorkerFrame(avgTfp, worldFrame);
-
+            EffectsAPI.tickEffectSimulation(worldComBuffer[ENUMS.BufferChannels.FRAME_RENDER_TIME]);
         };
 
 
@@ -116,9 +116,7 @@ define([
 
 
         WorldMain.prototype.worldComBuffer = function() {
-
             return worldComBuffer;
-
         };
 
 

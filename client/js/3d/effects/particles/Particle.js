@@ -35,6 +35,7 @@ define([],
             this.particleIndex = particleIndex;
             this.buffers = {};
             this.attributes = {};
+            this.scale = 1;
 
             this.posOffset = new THREE.Vector3();
             this.velVec = new THREE.Vector4();
@@ -98,6 +99,10 @@ define([],
             this.params.position.x = pos.x;
             this.params.position.y = pos.y;
             this.params.position.z = pos.z;
+        };
+
+        Particle.prototype.setSize = function(size) {
+            this.params.position.w = size;
         };
 
         Particle.prototype.setQuaternion = function(quat) {

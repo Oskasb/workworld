@@ -288,18 +288,21 @@ define([
             activeEffects.push(activateEffect);
         };
 
-        ParticleSpawner.prototype.updateActiveParticleEffect = function(effect, pos, state, tpf) {
+        ParticleSpawner.prototype.updateActiveParticleEffect = function(effect, pos, tpf) {
             effect.updateEffectPositionSimulator(pos, tpf);
         };
 
-        ParticleSpawner.prototype.updateActiveParticleVelocity = function(effect, vel, state, tpf) {
+        ParticleSpawner.prototype.updateActiveParticleVelocity = function(effect, vel, tpf) {
             effect.updateEffectVelocitySimulator(vel, tpf);
         };
 
-        ParticleSpawner.prototype.updateActiveEffectQuaternion = function(effect, quat, state, tpf) {
+        ParticleSpawner.prototype.updateActiveEffectQuaternion = function(effect, quat, tpf) {
             effect.updateEffectQuaternionSimulator(quat, tpf);
         };
 
+        ParticleSpawner.prototype.updateActiveEffectScale = function(effect, size, tpf) {
+            effect.updateEffectScaleSimulator(size, tpf);
+        };
 
         ParticleSpawner.prototype.updateEffectParticleSprite = function(effect, spriteKey) {
             fxConf       = this.particleEffectData.fetchEffect(sysKey,  effect.id);
@@ -366,6 +369,7 @@ define([
             tempVec.y   = -99999999;
             tempVec.z   = 0;
 
+            effect.scale = 1;
             effect.setEffectPosition(tempVec);
             effect.setEffectDuration(0);
 
