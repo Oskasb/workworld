@@ -95,11 +95,13 @@ if(typeof(ENUMS) === "undefined"){
     };
 
     ENUMS.TerrainFeature = {
-        SHORELINE:      0,
-        STEEP_SLOPE:    1,
-        SLOPE:          2,
-        FLAT_GROUND:    3,
-        WOODS:          4
+        OCEAM:          0,
+        SHORELINE:      1,
+        STEEP_SLOPE:    2,
+        SLOPE:          3,
+        FLAT_GROUND:    4,
+        WOODS:          5,
+        AREA_SECTION:   6
     };
 
 

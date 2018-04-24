@@ -9,30 +9,88 @@ define([
         GeometryInstance
     ) {
 
-        var tmpVec = new THREE.Vector3();
-        var tmpVec2 = new THREE.Vector3();
-        var tmpObj3D = new THREE.Object3D();
-        var fxArg = {effect:"firey_explosion_core", pos:tmpVec, vel:tmpVec2};
+        var fxByFeature = [
+            "water_foam_particle_effect",
+            "model_geometry_tree_3_combined_effect",
+            "model_geometry_tree_3_combined_effect",
+            "model_geometry_tree_3_combined_effect",
+            "creative_crate_geometry_effect",
+            "model_geometry_tree_3_combined_effect"
+        ];
 
-        var TerrainElement = function(pos, normal) {
+        var tempVec1 = new THREE.Vector3();
+        var tempVec2 = new THREE.Vector3();
+        var tempObj3D = new THREE.Object3D();
+        var fxArg = {effect:"firey_explosion_core", pos:tempVec1, vel:tempVec2};
 
-            this.isVisible = false;
-            this.object3d = new THREE.Object3D();
-            this.object3d.position.copy(pos);
-            this.normal = new THREE.Vector3().copy(normal);
+        var TerrainElement = function(area, origin, sideSize) {
 
-            this.object3d.lookAt(this.normal);
+            this.area = area;
+            this.origin = new THREE.Vector3().copy(origin);
+            this.extents = new THREE.Vector3(sideSize, sideSize, sideSize);
+            this.center = new THREE.Vector3().copy(this.extents).multiplyScalar(0.5);
+            this.center.addVectors(this.center, this.origin);
 
-            this.effects = [];
-
+            this.terrainElements = [];
+            this.elementType = 0;
+            this.scale = 1;
         };
 
-        TerrainElement.prototype.visualizeTerrainElement = function(fxId) {
-            this.fxId = fxId;
-            this.geometryInstance = new GeometryInstance(fxId);
-            this.geometryInstance.setInstancePosition(this.object3d.position);
-            this.geometryInstance.setInstanceQuaternion(this.object3d.quaternion);
-            this.geometryInstance.setInstanceSize(2*(Math.random()+0.5) * Math.random());
+
+
+        TerrainElement.prototype.testTerrainElementsForType = function(elements, type) {
+            for (var i = 0; i < elements.length; i++) {
+                if (elements[i].elementType === type) {
+                    return true;
+                }
+            }
+        };
+
+        TerrainElement.prototype.visualizeTerrainElement = function(obj3d) {
+            this.fxId = fxByFeature[this.elementType];
+            this.geometryInstance = new GeometryInstance(this.fxId);
+            this.geometryInstance.setInstancePosition(obj3d.position);
+            this.geometryInstance.setInstanceQuaternion(obj3d.quaternion);
+            this.geometryInstance.setInstanceSize(this.scale);
+        };
+
+        TerrainElement.prototype.determineTerrainElementType = function(otherElements) {
+
+            tempObj3D.position.x = this.center.x;
+            tempObj3D.position.z = this.center.z;
+            tempObj3D.position.y = this.area.getHeightAndNormalForPos(tempObj3D.position, tempVec2);
+
+            if (tempObj3D.position.y > 0) {
+
+                if (tempObj3D.position.y > 5 && tempVec2.y > 0.95) {
+
+                    tempObj3D.lookAt(tempVec2);
+
+                    if (!this.testTerrainElementsForType(otherElements, ENUMS.TerrainFeature.WOODS)) {
+                        this.scale = 0.5 // 2*(Math.random()+0.5) * Math.random();
+                        tempObj3D.position.y += 6 * this.scale;
+
+                        this.elementType = ENUMS.TerrainFeature.WOODS;
+
+                    } else {
+                        this.scale = 2;
+                        this.elementType = ENUMS.TerrainFeature.FLAT_GROUND;
+                    }
+                }
+
+                this.visualizeTerrainElement(tempObj3D);
+                return;
+            } else {
+
+                if (tempObj3D.position.y > -3) {
+                    this.elementType = ENUMS.TerrainFeature.SHORELINE;
+                }
+
+
+            }
+
+
+
         };
 
         TerrainElement.prototype.triggerTerrainFeatureEffect = function(fxId, tpf) {
@@ -89,14 +147,36 @@ define([
         };
 
 
-        TerrainElement.prototype.updateTerrainElement = function(tpf) {
+        TerrainElement.prototype.updateTerrainElementVisibility = function(tpf, visible) {
 
-            this.isVisible = this.geometryInstance.testIsVisible();
+            if (this.geometryInstance) {
+                if (visible) {
+                    this.geometryInstance.renderGeometryInstance();
+                } else {
+                    this.geometryInstance.hideGeometryInstance();
+                }
+            }
 
-            if (this.isVisible) {
-                this.geometryInstance.renderGeometryInstance();
-            } else {
-                this.geometryInstance.hideGeometryInstance();
+        };
+
+        TerrainElement.prototype.updateTerrainElement = function(tpf, idx) {
+
+            if (this.geometryInstance) {
+
+                this.geometryInstance.getInstancePosition(tempObj3D.position);
+
+                tempObj3D.position.x += 0.1*Math.cos(WorldAPI.getWorldTime()*0.3 + idx);
+                tempObj3D.position.z += 0.1*Math.sin(WorldAPI.getWorldTime()*0.3 + idx);
+                tempObj3D.position.y += 0.1*Math.sin(WorldAPI.getWorldTime()*0.2 + idx);
+
+                this.geometryInstance.getInstanceQuaternion(tempObj3D.quaternion);
+
+                tempObj3D.rotateY(tpf*2);
+                tempObj3D.rotateZ(tpf*2);
+
+                this.geometryInstance.setInstancePosition(tempObj3D.position);
+                this.geometryInstance.setInstanceQuaternion(tempObj3D.quaternion);
+
             }
 
         };

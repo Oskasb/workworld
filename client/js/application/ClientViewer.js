@@ -330,7 +330,7 @@ define([
         //    }, 0);
 
 
-            var distance = 850 + 300*Math.sin(gameTime*0.2);
+            var distance = 350 + 100*Math.sin(gameTime*0.2);
 
             ThreeAPI.setCameraPos(distance*Math.sin(gameTime*0.2), distance * 0.4 + Math.sin(gameTime*0.35) * 50, distance*Math.cos(gameTime*0.2));
             ThreeAPI.cameraLookAt(19*Math.cos(gameTime*1), 40 + distance * 0.12,  19*Math.sin(gameTime*1));
@@ -361,7 +361,7 @@ define([
 
             this.tickStatusUpdate(tpf);
 
-        //    ThreeAPI.updateCamera();
+            ThreeAPI.updateCamera();
 
             relayCamera(ThreeAPI.getCamera());
 

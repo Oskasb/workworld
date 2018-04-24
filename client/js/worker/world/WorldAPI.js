@@ -91,6 +91,10 @@ define([
             return worldControlState.getWorldCamera()
         };
 
+        WorldAPI.visibilityTest = function(pos, radius) {
+            return worldControlState.getWorldCamera().testPosRadiusVisible(pos, radius);
+        };
+
         WorldAPI.notifyFrameInit = function() {
             frameStartTime = performance.now();
         };
@@ -120,6 +124,10 @@ define([
             worldControlState.updateWorldControlState();
             terrainSystem.updateTerrainSystem(tpf);
             WorldAPI.sendWorldMessage(ENUMS.Protocol.NOTIFY_FRAME, frame)
+        };
+
+        WorldAPI.getWorldTime = function() {
+            return worldMain.worldComBuffer()[ENUMS.BufferChannels.FRAME_RENDER_TIME]
         };
 
         return WorldAPI;

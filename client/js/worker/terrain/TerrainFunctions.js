@@ -423,16 +423,21 @@ define([],
                 triangle.c.y =  tri[2].z;
 
                 if (triangle.a.equals(triangle.b)) {
-                    console.log("TrianglePoint is the same..., A & B");
+                //    console.log("TrianglePoint is the same..., A & B");
+                    if (triangle.b.equals(triangle.c)) {
+                   //     console.log("TrianglePoint is the same..., B & C");
+
+                    //    if (triangle.a.equals(triangle.c)) {
+                            console.log("TrianglePoint is the same..., A, B & C", x, z);
+                    //    }
+
+                    }
+
                 }
 
-                if (triangle.b.equals(triangle.c)) {
-                    console.log("TrianglePoint is the same..., B & C");
-                }
 
-                if (triangle.a.equals(triangle.c)) {
-                    console.log("TrianglePoint is the same..., A & C");
-                }
+
+
 
                 triangle.getNormal(normalStore);
 

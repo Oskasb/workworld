@@ -146,9 +146,9 @@
         {
           "id": "main_ocean",
           "textures": [
-            {"uniform":"tx0", "file":"watertile2",       "repeat":[400, 700]},
-            {"uniform":"tx1", "file":"watertile",        "repeat":[750, 350]},
-            {"uniform":"tx2", "file":"watertile",        "repeat":[850, 850]}
+            {"uniform":"tx0", "file":"watertile2",       "repeat":[500, 400]},
+            {"uniform":"tx1", "file":"watertile",        "repeat":[650, 750]},
+            {"uniform":"tx2", "file":"watertile",        "repeat":[850, 900]}
           ],
           "shader":"OCEAN_SHADER",
           "transform": {

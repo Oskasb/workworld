@@ -204,7 +204,6 @@ define([
         };
 
 
-
         ThreeAPI.transformModel = function(model, px, py, pz, rx, ry, rz) {
             model.position.set(px, py, pz);
             model.rotation.set(rx, ry, rz, 'ZYX');

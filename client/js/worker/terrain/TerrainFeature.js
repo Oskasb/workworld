@@ -7,6 +7,8 @@ define([
         TerrainElement
     ) {
 
+        var tempVec1 = new THREE.Vector3();
+        var tempVec2 = new THREE.Vector3();
 
         var fxByFeature = [
             "water_foam_particle_effect",
@@ -16,26 +18,35 @@ define([
             "model_geometry_tree_3_combined_effect"
         ];
 
-        var TerrainFeature = function(featureType) {
-            this.featureType = featureType;
-            this.featureKey = ENUMS.Map.TerrainFeature[featureType];
-            this.elements = [];
-            this.lastStartIndex = 0;
-            this.stride = 85;
+        var TerrainFeature = function(area, origin, sideSize) {
+            this.area = area;
+            this.origin = new THREE.Vector3().copy(origin);
+            this.extents = new THREE.Vector3(sideSize, sideSize, sideSize);
+            this.center = new THREE.Vector3().copy(this.extents).multiplyScalar(0.5);
+            this.center.addVectors(this.center, this.origin);
+
+            this.terrainElements = [];
         };
 
+        TerrainFeature.prototype.generateFeatureElements = function(gridSide) {
 
-        TerrainFeature.prototype.generateTerrainElement = function(pos, normal) {
-            this.elements.push(new TerrainElement(pos, normal))
-        };
+            var size = (this.extents.x/gridSide);
 
-        TerrainFeature.prototype.visualizeFeatureElements = function() {
+            for (var i = 0; i < gridSide; i++) {
+                for (var j = 0; j < gridSide; j++) {
 
-            for (var i = 0; i < this.elements.length; i++) {
-                this.elements[i].visualizeTerrainElement(fxByFeature[this.featureType])
+                    tempVec1.x = this.origin.x + i * size;
+                    tempVec1.z = this.origin.z + j * size;
+                    tempVec1.y = this.area.getHeightAndNormalForPos(tempVec1, tempVec2);
+
+                    var element = new TerrainElement(this.area, tempVec1, size);
+                    element.determineTerrainElementType(this.terrainElements);
+                    this.terrainElements.push(element);
+                }
             }
-
         };
+
+
 
         TerrainFeature.prototype.updateTerrainFeatureFX = function(tpf) {
 
@@ -57,13 +68,29 @@ define([
 
         };
 
-        TerrainFeature.prototype.updateTerrainFeature = function(tpf) {
 
-            for (var i = 0; i < this.elements.length; i++) {
-                this.elements[i].updateTerrainElement(tpf)
+        TerrainFeature.prototype.updateFeatureVisibility = function(tpf, visible) {
+
+            this.isVisible = visible;
+
+            if (this.isVisible !== this.wasVisible) {
+                for (var i = 0; i < this.terrainElements.length; i++) {
+                    this.terrainElements[i].updateTerrainElementVisibility(tpf, this.isVisible)
+                }
             }
 
+            this.wasVisible = this.isVisible;
+
         };
+
+        TerrainFeature.prototype.updateTerrainFeature = function(tpf) {
+
+                for (var i = 0; i < this.terrainElements.length; i++) {
+                    this.terrainElements[i].updateTerrainElement(tpf, i)
+                }
+
+        };
+
 
 
         return TerrainFeature;

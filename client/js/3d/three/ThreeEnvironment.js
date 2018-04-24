@@ -130,13 +130,13 @@ define(['../../PipelineObject',
 
             if (config[key].color) {
 
-                if (key == 'sun') {
+                if (key === 'sun') {
 
                     world[key].position.copy(sunSphere.position);
                     world[key].lookAt(worldCenter)
                 }
 
-                if (key == 'moon') {
+                if (key === 'moon') {
 
                     world[key].position.x = 10 -sunSphere.position.x * 0.2;
                     world[key].position.y = 1000 +sunSphere.position.y * 5;
@@ -145,11 +145,11 @@ define(['../../PipelineObject',
                 }
 
 
-                if (key == 'fog') {
+                if (key === 'fog') {
                     fogColor.setRGB(config[key].color[0],config[key].color[1],config[key].color[2]);
                 }
 
-                if (key == 'ambient') {
+                if (key === 'ambient') {
                     ambientColor.setRGB(config[key].color[0],config[key].color[1],config[key].color[2]);
                 }
 
@@ -317,12 +317,15 @@ define(['../../PipelineObject',
         updateDynamigFog(sunInTheBack);
         updateDynamigAmbient(sunInTheBack);
 
-
         applyFromBuffer(envBuffer);
     };
 
     ThreeEnvironment.readDynamicValue = function(worldProperty, key) {
         return world[worldProperty][key];  
+    };
+
+    ThreeEnvironment.getEnvironmentDynamicWorld = function() {
+        return world;
     };
 
     ThreeEnvironment.enableEnvironment = function() {

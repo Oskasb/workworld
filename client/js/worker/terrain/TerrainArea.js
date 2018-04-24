@@ -2,11 +2,11 @@
 
 define([
         'worker/terrain/AreaFunctions',
-        'worker/terrain/TerrainFeature'
+        'worker/terrain/TerrainSection'
     ],
     function(
         AreaFunctions,
-        TerrainFeature
+        TerrainSection
     ) {
 
         var tempVec1 = new THREE.Vector3();
@@ -22,7 +22,8 @@ define([
             this.terrainOptions = null;
             this.buffers = null;
             this.terrain = null;
-            this.terrainFeatures = [];
+            this.terrainSections = [];
+
         };
 
         TerrainArea.prototype.setTerrainOptions = function(options) {
@@ -47,19 +48,16 @@ define([
             return this.extents;
         };
 
+        TerrainArea.prototype.getHeightAndNormalForPos = function(pos, norm) {
+            return this.areaFunctions.getHeightAtPos(pos, norm);
+        };
+
         TerrainArea.prototype.setTerrainExtentsXYZ = function(x, y, z) {
             this.extents.x = x;
             this.extents.y = y;
             this.extents.z = z;
         };
 
-        TerrainArea.prototype.addTerrainFeatures = function() {
-
-            for (var key in ENUMS.TerrainFeature) {
-                this.terrainFeatures[ENUMS.TerrainFeature[key]] = new TerrainFeature(ENUMS.TerrainFeature[key]);
-            }
-
-        };
 
         TerrainArea.prototype.createAreaOfTerrain = function(msg) {
 
@@ -76,16 +74,11 @@ define([
 
             WorldAPI.sendWorldMessage(ENUMS.Protocol.REGISTER_TERRAIN, [msg, this.buffers]);
 
-            this.addTerrainFeatures();
-
-            this.generateTerrainFeature(ENUMS.TerrainFeature.WOODS, 0.1);
+            this.generateTerrainSectons(0.005);
 
         };
 
-        TerrainArea.prototype.generateTerrainFeature = function(featureType, density) {
-
-            var x;
-            var y;
+        TerrainArea.prototype.generateTerrainSectons = function(density) {
 
             var countX = Math.floor(density*this.size);
             var countY = countX;
@@ -95,56 +88,28 @@ define([
             for (var i = 0; i < countX; i++) {
                 for (var j = 0; j < countY; j++) {
 
-                    tempVec1.x = this.getOrigin().x + i*featureSize + Math.random()*0.8*featureSize;
-                    tempVec1.y = this.getOrigin().y;
-                    tempVec1.z = this.getOrigin().z + j*featureSize + Math.random()*0.8*featureSize;
+                    tempVec1.x = this.getOrigin().x + i*featureSize;
+                    tempVec1.z = this.getOrigin().z + j*featureSize;
 
-                    tempVec1.y = this.areaFunctions.getHeightAtPos(tempVec1, tempVec2);
+                    tempVec1.y = this.areaFunctions.getHeightAtPos(tempVec1);
 
-                    var hits = 0;
+                    var section = new TerrainSection(this, tempVec1, featureSize);
 
-                    if (tempVec1.y < 9 && tempVec1.y > - 9) {
+                    section.genereateSectionFeatures(4);
 
-                        for (var k = 0; k < 250; k++) {
-
-                            tempVec1.x = this.getOrigin().x + i*featureSize + Math.random()*featureSize*1.0 - featureSize*0.0;
-                            tempVec1.z = this.getOrigin().z + j*featureSize + Math.random()*featureSize*1.0 - featureSize*0.0;
-
-                            tempVec1.y = this.areaFunctions.getHeightAtPos(tempVec1, tempVec2);
-
-                            if (tempVec1.y < 0.01 && tempVec1.y > - 2) {
-                                tempVec1.y = 0.7;
-                                hits++;
-                                this.terrainFeatures[ENUMS.TerrainFeature.SHORELINE].generateTerrainElement(tempVec1, tempVec2);
-
-                                if (hits > 2){
-                                    k+=45;
-                                }
-                            }
-
-                        }
-
-                    }
-
-                    if (Math.random() < 0.2) {
-                        if (tempVec1.y > 5 && tempVec2.y > 0.95) {
-                            tempVec1.y += 6;
-                            this.terrainFeatures[ENUMS.TerrainFeature.WOODS].generateTerrainElement(tempVec1, tempVec2);
-                        }
-                    }
+                    this.terrainSections.push(section);
 
                 }
             }
-
-            this.terrainFeatures[ENUMS.TerrainFeature.WOODS].visualizeFeatureElements();
 
         };
 
 
         TerrainArea.prototype.updateTerrainArea = function(tpf) {
-            this.terrainFeatures[ENUMS.TerrainFeature.WOODS].updateTerrainFeature(tpf);
-        //    this.terrainFeatures[ENUMS.TerrainFeature.SHORELINE].updateTerrainFeature(tpf);
-            this.terrainFeatures[ENUMS.TerrainFeature.SHORELINE].updateTerrainFeatureFX(tpf);
+
+            for (var i = 0; i < this.terrainSections.length; i++) {
+                this.terrainSections[i].updateTerrainSection(tpf)
+            }
 
         };
 

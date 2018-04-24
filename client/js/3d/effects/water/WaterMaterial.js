@@ -74,17 +74,12 @@ define([
             loadShader(id, shader, shaderLoaded);
 
 
-
             var global_uniforms = {
                 systemTime:systemTime,
                 ambientLightColor: { value: {r:1, g:1, b:1}},
                 sunLightColor: { value: {r:1, g:1, b:1}},
                 sunLightDirection: { value: {x:0.7, y:-0.3, z:0.7}}
             };
-
-
-
-
 
         };
 

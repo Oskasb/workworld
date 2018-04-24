@@ -15,18 +15,21 @@ define([
         var materialList = {};
 
         var uniforms = {};
-
         var samplingUniforms = false;
 
+        var color;
+        var rot;
+
+
         var applyUniformEnvironmentColor = function(uniform, worldProperty) {
-            var color = ThreeAPI.readEnvironmentUniform(worldProperty, 'color');
+            color = ThreeAPI.readEnvironmentUniform(worldProperty, 'color');
             uniform.value.r = color.r;
             uniform.value.g = color.g;
             uniform.value.b = color.b;
         };
 
         var applyUniformEnvironmentRotation = function(uniform, worldProperty) {
-            var rot = ThreeAPI.readEnvironmentUniform(worldProperty, 'rotation');
+            rot = ThreeAPI.readEnvironmentUniform(worldProperty, 'rotation');
             uniform.value.x = Math.sin(rot.z-0.5);
             uniform.value.y = Math.cos(rot.y);
             uniform.value.z = Math.sin(rot.x-0.5)
