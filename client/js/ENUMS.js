@@ -101,7 +101,9 @@ if(typeof(ENUMS) === "undefined"){
         SLOPE:          3,
         FLAT_GROUND:    4,
         WOODS:          5,
-        AREA_SECTION:   6
+        AREA_SECTION:   6,
+        SHALLOW_WATER:  7,
+        DEEP_WATER:     8
     };
 
 

@@ -11,12 +11,14 @@ define([
 
         var fxByFeature = [
             "water_foam_particle_effect",
-            "creative_crate_geometry_effect",
-
+            "water_foam_particle_effect",
             "model_geometry_wall_rock_50_effect",
             "model_geometry_tree_3_combined_effect",
             "crate_wood_geometry_effect",
-            "model_geometry_tree_3_combined_effect"
+            "model_geometry_tree_3_combined_effect",
+            "crate_wood_geometry_effect",
+            "water_shade_particle_effect",
+            "crate_wood_geometry_effect"
         ];
 
         var tempVec1 = new THREE.Vector3();
@@ -24,7 +26,7 @@ define([
         var tempObj3D = new THREE.Object3D();
         var fxArg = {effect:"firey_explosion_core", pos:tempVec1, vel:tempVec2};
 
-        var TerrainElement = function(area, origin, sideSize) {
+        var ShoreElement = function(area, origin, sideSize) {
 
             this.area = area;
             this.origin = new THREE.Vector3().copy(origin);
@@ -35,10 +37,14 @@ define([
             this.terrainElements = [];
             this.elementType = 0;
             this.scale = 1;
+
+            this.shoreDepth = -100;
+
+            this.effects = [];
         };
 
 
-        TerrainElement.prototype.testTerrainElementsForType = function(elements, type) {
+        ShoreElement.prototype.testTerrainElementsForType = function(elements, type) {
             for (var i = 0; i < elements.length; i++) {
                 if (elements[i].elementType === type) {
                     return true;
@@ -46,7 +52,7 @@ define([
             }
         };
 
-        TerrainElement.prototype.visualizeTerrainElement = function(pos, quat) {
+        ShoreElement.prototype.visualizeShoreElement = function(pos, quat) {
             this.fxId = fxByFeature[this.elementType];
             this.geometryInstance = new GeometryInstance(this.fxId);
             this.geometryInstance.setInstancePosition(pos);
@@ -54,7 +60,7 @@ define([
             this.geometryInstance.setInstanceSize(this.scale);
         };
 
-        TerrainElement.prototype.determineTerrainElementType = function(otherElements) {
+        ShoreElement.prototype.determineShoreElementType = function(otherElements) {
 
             tempVec1.x = this.center.x;
             tempVec1.z = this.center.z;
@@ -69,41 +75,47 @@ define([
             tempObj3D.rotateX(Math.PI * 0.5);
         //    tempObj3D.rotateY(Math.PI * Math.random());
 
-            if (tempVec1.y > 0) {
 
-                if (tempVec1.y > 1 && tempVec2.y > 0.95) {
 
-                    if (!this.testTerrainElementsForType(otherElements, ENUMS.TerrainFeature.WOODS)) {
-                        this.scale = 0.7 // 2*(Math.random()+0.5) * Math.random();
-                        tempVec1.y += 6 * this.scale;
-                        this.elementType = ENUMS.TerrainFeature.WOODS;
+            if (tempVec1.y < 0) {
 
-                    } else {
-                        this.scale = 0.3;
-                        tempVec1.y += 6 * this.scale;
-                        this.elementType = ENUMS.TerrainFeature.WOODS;
-                    }
+                this.shoreDepth = tempVec1.y;
+                tempVec1.y = 0.5;
+
+                if (this.shoreDepth > -2) {
+
+                    tempVec1.x += tempVec2.z * this.shoreDepth * 3;
+                    //    tempObj3D.position.y += tempVec2.y * tempObj3D.position.y;
+                    tempVec1.z += tempVec2.x * this.shoreDepth * 3;
+
+                    this.elementType = ENUMS.TerrainFeature.SHORELINE;
+
+                //    this.visualizeShoreElement(tempVec1, tempObj3D.quaternion);
+
                 } else {
 
-                    if (tempVec2.y > 0.80) {
-                        this.scale = 0.5;
-                        this.elementType = ENUMS.TerrainFeature.FLAT_GROUND;
-                    } else {
-                        this.scale = 0.1;
-                        this.elementType = ENUMS.TerrainFeature.STEEP_SLOPE;
-                    }
+                    tempVec1.x -= tempVec2.z * this.shoreDepth * 3;
+                    //    tempObj3D.position.y += tempVec2.y * tempObj3D.position.y;
+                    tempVec1.z -= tempVec2.x * this.shoreDepth * 3;
 
+                    this.scale = 0.3;
+                    this.elementType = ENUMS.TerrainFeature.SHALLOW_WATER;
                 }
 
-            } else {
-                return
-            }
+                this.center.copy(tempVec1);
 
-            this.visualizeTerrainElement(tempVec1, tempObj3D.quaternion);
+                if (this.testTerrainElementsForType(otherElements, this.elementType)) {
+            //        return;
+                }
+
+
+            }
 
         };
 
-        TerrainElement.prototype.triggerTerrainFeatureEffect = function(fxId, tpf) {
+
+
+        ShoreElement.prototype.triggerShoreEffect = function(fxId, tpf) {
             this.fxId = fxId;
 
             if (this.effects.length) {
@@ -114,7 +126,7 @@ define([
 
             if (true) {
 
-                fxArg.effect = "water_foam_particle_effect";
+                fxArg.effect = fxByFeature[this.elementType];
 
             //    this.normal.x = (Math.random()-0.5) * 5;
             //    this.normal.z = (Math.random()-0.5) * 5;
@@ -124,9 +136,7 @@ define([
             //    EffectsAPI.requestTemporaryPassiveEffect(this.fxId, this.object3d.position, this.normal, null, this.object3d.quaternion, 10)
 
             //    fxArg.effect = this.fxId;
-                fxArg.pos.copy(this.object3d.position);
             //    fxArg.vel.copy(this.normal);
-
             //    fxArg.vel.normalize();
 
                 fxArg.vel.x = 0;
@@ -139,15 +149,19 @@ define([
                 fxArg.vel.y = 1;
                 fxArg.vel.z = 0;
 
-                tmpObj3D.lookAt(fxArg.vel);
-                tmpObj3D.rotateZ(Math.random()*Math.PI);
+                tempObj3D.position.x = 0;
+                tempObj3D.position.z = 0;
+                tempObj3D.position.y = 0;
 
-                fxArg.vel.copy(this.normal);
+                tempObj3D.lookAt(fxArg.vel);
+                tempObj3D.rotateZ(Math.random()*Math.PI);
 
-                    fxArg.vel.y = 0;
-                    fxArg.vel.normalize();
+            //    fxArg.vel.copy(this.normal);
 
-                this.effects.unshift(EffectsAPI.requestPassiveEffect(this.fxId, this.object3d.position, fxArg.vel, null, tmpObj3D.quaternion))
+            //    fxArg.vel.y = 0;
+            //    fxArg.vel.normalize();
+
+                this.effects.unshift(EffectsAPI.requestPassiveEffect(fxArg.effect, this.center, fxArg.vel, null, tempObj3D.quaternion))
 
                 // EffectsAPI.requestTemporaryPassiveEffect(fxArg.effect, fxArg.pos, fxArg.vel, 10, this.object3d.quaternion, 3);
 
@@ -157,41 +171,21 @@ define([
         };
 
 
-        TerrainElement.prototype.updateTerrainElementVisibility = function(tpf, visible) {
+        ShoreElement.prototype.updateShoreElementVisibility = function(tpf, visible) {
 
-            if (this.geometryInstance) {
-                if (visible) {
-                    this.geometryInstance.renderGeometryInstance();
-                } else {
-                    this.geometryInstance.hideGeometryInstance();
-                }
-            }
+            this.triggerShoreEffect();
 
         };
 
-        TerrainElement.prototype.updateTerrainElement = function(tpf, idx) {
+        ShoreElement.prototype.updateShoreElement = function(tpf, idx) {
 
-            if (this.geometryInstance) {
-
-                this.geometryInstance.getInstancePosition(tempObj3D.position);
-
-            //    tempObj3D.position.x += 0.001*Math.cos(WorldAPI.getWorldTime()*0.3 + idx);
-            //    tempObj3D.position.z += 0.001*Math.sin(WorldAPI.getWorldTime()*0.3 + idx);
-                tempObj3D.position.y += 0.001*Math.sin(WorldAPI.getWorldTime()*0.2 + idx*idx);
-
-                this.geometryInstance.getInstanceQuaternion(tempObj3D.quaternion);
-
-                tempObj3D.rotateY(tpf*2);
-                tempObj3D.rotateZ(tpf*2);
-
-                this.geometryInstance.setInstancePosition(tempObj3D.position);
-                this.geometryInstance.setInstanceQuaternion(tempObj3D.quaternion);
-
-            }
+        //    if (this.elementType === ENUMS.TerrainFeature.SHORELINE) {
+                this.triggerShoreEffect();
+        //    }
 
         };
 
-        return TerrainElement;
+        return ShoreElement;
 
     });
 

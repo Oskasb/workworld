@@ -392,7 +392,16 @@
             "simulation_id":"gpu_stamp_simulation"
           }
         },
-
+        {
+          "id":"water_shade_particle_effect",
+          "data":{
+            "system_key":"THREE",
+            "renderer_id":"gpu_opaque_stamp_renderer",
+            "particle_id":"water_shade_particles",
+            "count":1,
+            "simulation_id":"gpu_stamp_simulation"
+          }
+        },
         {
           "id":"track_ground_dark_module_effect",
           "data":{

@@ -20,9 +20,9 @@ define([
             "invert_hill":false,
             "terrain_edge_size":105,
             "edge_easing":"clampSin",
-            "max_height":30,
-            "min_height":-14,
-            "frequency":3,
+            "max_height":35,
+            "min_height":-15,
+            "frequency":5,
             "steps":4
         };
 
@@ -36,8 +36,8 @@ define([
             "invert_hill":false,
             "terrain_edge_size":105,
             "edge_easing":"clampSin",
-            "max_height":60,
-            "min_height":-21,
+            "max_height":45,
+            "min_height":-15,
             "frequency":6,
             "steps":5
         };

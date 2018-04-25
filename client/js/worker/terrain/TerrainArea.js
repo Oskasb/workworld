@@ -95,7 +95,7 @@ define([
 
                     var section = new TerrainSection(this, tempVec1, featureSize);
 
-                    section.genereateSectionFeatures(6);
+                    section.genereateSectionFeatures(4);
 
                     this.terrainSections.push(section);
 
