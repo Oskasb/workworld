@@ -3,9 +3,11 @@
 
 
 define([
+        'ui/elements/InteractiveElement',
         'PipelineObject'
     ],
     function(
+        InteractiveElement,
         PipelineObject
     ) {
 
@@ -30,6 +32,8 @@ define([
         var GuiElement = function(dataKey, ready) {
 
             count++;
+
+            this.interactiveElement = new InteractiveElement();
 
             this.elementId = dataKey+'_'+count;
 
@@ -67,7 +71,6 @@ define([
             this.updateFunc = config.render_calls.gui_update_callback;
             this.options = config.options;
             this.fxIds = config.effect_ids;
-
             ready(this)
         };
 
@@ -83,7 +86,6 @@ define([
             this.text = text;
         };
 
-
         GuiElement.prototype.setPointerState = function(state) {
             this.pointerState = state;
         };
@@ -92,6 +94,13 @@ define([
             return this.pointerState;
         };
 
+        GuiElement.prototype.getInteractiveMenuState = function() {
+            return this.interactiveElement.getMenuState();
+        };
+
+        GuiElement.prototype.getOptionByKey = function(key) {
+            return this.options[key];
+        };
 
         GuiElement.prototype.generateChildrenForText = function(text) {
 
@@ -275,8 +284,8 @@ define([
             this.enabled = false;
             this.spriteKey = null;
             this.colorCurveKey = null;
-            guiRendererCallbacks[this.disableFunc](this.fxElements);
             this.removeChildren();
+            guiRendererCallbacks[this.disableFunc](this.fxElements);
         };
 
         GuiElement.prototype.updateGuiElement = function(guiCallbacks) {

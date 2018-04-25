@@ -111,7 +111,7 @@
       {
         "id":"gui_cursor_element",
         "data":{
-          "effect_ids":["gui_pointer_follow_effect", "gui_pointer_follow_backdrop"],
+          "effect_ids":["gui_pointer_follow_effect", "gui_corner_selection_effect"],
           "options":{},
           "render_calls":{
             "gui_render_enable":"enable_fx_element",
@@ -122,6 +122,22 @@
 
         }
       },
+
+      {
+        "id":"gui_press_init_element",
+        "data":{
+          "effect_ids":["gui_corner_selection_effect"],
+          "options":{},
+          "render_calls":{
+            "gui_render_enable":"enable_fx_element",
+            "gui_render_disable":"disable_fx_element",
+            "gui_renderer_callback":"show_press_init_point",
+            "gui_update_callback":"set_element_position"
+          }
+
+        }
+      },
+
       {
         "id":"gui_active_selection_element",
         "data":{

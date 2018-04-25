@@ -30,16 +30,13 @@ define([
             while (this.elements.length) {
                 this.elements.pop().disableGuiElement();
             }
-
         };
 
         GuiSystem.prototype.updateGuiSystem = function(guiRendererCallbacks) {
 
-
             for (var i = 0; i < this.elements.length; i++) {
                 this.elements[i].updateGuiElement(guiRendererCallbacks);
             }
-
         };
 
         return GuiSystem;

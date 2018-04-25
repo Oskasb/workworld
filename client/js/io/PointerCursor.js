@@ -86,7 +86,15 @@ define([
 
         };
 
+        PointerCursor.prototype.screenFitXY = function(x, y, vec) {
+
+            vec.x = (x-this.buffer[ENUMS.InputState.VIEW_LEFT]) / this.buffer[ENUMS.InputState.VIEW_WIDTH] - 0.5;
+            vec.y = -(y-this.buffer[ENUMS.InputState.VIEW_TOP]) / this.buffer[ENUMS.InputState.VIEW_HEIGHT] + 0.5;
+            GameScreen.fitView(vec);
+		};
+
         PointerCursor.prototype.updateInputBuffer = function() {
+
 
             this.buffer[ENUMS.InputState.VIEW_LEFT]         = GameScreen.getLeft();
             this.buffer[ENUMS.InputState.VIEW_TOP]          = GameScreen.getTop();
@@ -96,19 +104,24 @@ define([
 
             this.buffer[ENUMS.InputState.ASPECT]            = GameScreen.getAspect();
 
-            tempVec.x = (mouseState.x-this.buffer[ENUMS.InputState.VIEW_LEFT]) / this.buffer[ENUMS.InputState.VIEW_WIDTH] - 0.5;
-            tempVec.y = -(mouseState.y-this.buffer[ENUMS.InputState.VIEW_TOP]) / this.buffer[ENUMS.InputState.VIEW_HEIGHT] + 0.5;
-
-            GameScreen.fitView(tempVec);
+            this.screenFitXY(mouseState.x, mouseState.y, tempVec);
 
             this.buffer[ENUMS.InputState.MOUSE_X]           = tempVec.x ;
             this.buffer[ENUMS.InputState.MOUSE_Y]           = tempVec.y ;
 
             this.buffer[ENUMS.InputState.WHEEL_DELTA]       = mouseState.wheelDelta;
-            this.buffer[ENUMS.InputState.START_DRAG_X]      = mouseState.startDrag[0];
-            this.buffer[ENUMS.InputState.START_DRAG_Y]      = mouseState.startDrag[1];
-            this.buffer[ENUMS.InputState.DRAG_DISTANCE_X]   = mouseState.dragDistance[0];
-            this.buffer[ENUMS.InputState.DRAG_DISTANCE_Y]   = mouseState.dragDistance[1];
+
+            if (mouseState.pressFrames === 0) {
+                this.buffer[ENUMS.InputState.START_DRAG_X]      = tempVec.x ;
+                this.buffer[ENUMS.InputState.START_DRAG_Y]      = tempVec.y ;
+            }
+
+			//    this.screenFitXY(mouseState.startDrag[0], mouseState.startDrag[1], tempVec);
+
+            this.screenFitXY(mouseState.dragDistance[0], mouseState.dragDistance[1], tempVec);
+
+            this.buffer[ENUMS.InputState.DRAG_DISTANCE_X]   = tempVec.x ;
+            this.buffer[ENUMS.InputState.DRAG_DISTANCE_Y]   = tempVec.y ;
             this.buffer[ENUMS.InputState.ACTION_0]          = mouseState.action[0];
             this.buffer[ENUMS.InputState.ACTION_1]          = mouseState.action[1];
             this.buffer[ENUMS.InputState.LAST_ACTION_0]     = mouseState.lastAction[0];

@@ -1,30 +1,42 @@
 [{
   "GUI_PARTICLE_ELEMENTS":{
     "ELEMENTS":[
-
       {
-        "id":"gui_main_menu_element",
+        "id":"gui_input_steer_element",
         "data":{
           "effect_ids":[],
           "options":{
-            "gui_key":"MAIN_MENU",
-            "screen_pos":[-0.43, 0.46, -1],
+            "gui_key":"INPUT_STEER",
+            "screen_pos":[-0.27, -0.20, -1],
             "offset_children":[0.004, -0.004, 0.03, -0.002],
-            "label_elemet_id":"gui_menu_label_container_element"
+            "label_elemet_id":"gui_input_steer_container_element"
           },
           "render_calls":{
             "gui_render_enable":"enable_fx_element",
             "gui_render_disable":"disable_fx_element",
-            "gui_renderer_callback":"show_menu_status",
+            "gui_renderer_callback":"sample_drag_state",
+            "gui_update_callback":"set_element_position"
+          }
+        }
+      },
+      {
+        "id":"gui_input_plate_element",
+        "data":{
+          "effect_ids":["gui_combat_bar_effect", "gui_combat_bar_backdrop_effect"],
+          "options":{
+
+          },
+          "render_calls":{
+            "gui_render_enable":"enable_fx_element",
+            "gui_render_disable":"disable_fx_element",
+            "gui_renderer_callback":"draw_input_vector",
             "gui_update_callback":"set_element_position"
           }
         }
       },
 
-
-
       {
-        "id":"gui_menu_label_container_element",
+        "id":"gui_input_steer_container_element",
         "data":{
           "effect_ids":[
             "gui_combat_bar_effect"
@@ -34,10 +46,10 @@
             "offset_x": -0.030 ,
             "offset_y": -0.010,
             "row_y":0.048,
-            "height":0.042,
-            "width":0.15,
+            "height":0.4,
+            "width":0.4,
             "pad_x":-0.012,
-            "pad_y":0.0,
+            "pad_y":-0.0,
             "state_map":[
               {"color_curve":"flatGrey"},
 
@@ -61,26 +73,6 @@
             "gui_render_disable":"disable_fx_element",
             "gui_renderer_callback":null,
             "gui_update_callback":"set_element_position"
-          }
-        }
-      },
-
-
-      {
-        "id": "gui_menu_text_element",
-        "data": {
-          "effect_ids": [
-            "gui_menu_text_effect"
-          ],
-          "options": {
-            "step_x": 0.021,
-            "step_y": 0.006
-          },
-          "render_calls": {
-            "gui_render_enable": "enable_fx_element",
-            "gui_render_disable": "disable_fx_element",
-            "gui_renderer_callback": null,
-            "gui_update_callback": "set_element_position"
           }
         }
       }

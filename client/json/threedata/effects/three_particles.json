@@ -533,7 +533,7 @@
             "alphaCurve":"zeroOneZero",
             "diffusionCurve":"zeroOneZero",
             "scaleCurve":"oneToZero",
-            "size":{"value":1.15, "min":-2.5, "max":4.1},
+            "size":{"value":1.5, "min":-1.5, "max":4.1},
             "velocityDiffusion":0.00001,
             "accelerationDiffusion":10.00001,
             "colorDiffusion":0.025,

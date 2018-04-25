@@ -18,6 +18,7 @@ define([
         var calcVec2 = new THREE.Vector3();
 
         var cursorPosition = new THREE.Vector3();
+        var pressInitPosition = new THREE.Vector3();
 
         var POINTER_STATES;
 
@@ -76,7 +77,6 @@ define([
             }
 
         };
-
 
 
         HudUiProcessor.prototype.show_selection_corners = function(guiElement) {
@@ -143,6 +143,10 @@ define([
         HudUiProcessor.prototype.updateCursorPoint = function() {
             cursorPosition.x = WorldAPI.sampleInputBuffer(ENUMS.InputState.MOUSE_X);
             cursorPosition.y = WorldAPI.sampleInputBuffer(ENUMS.InputState.MOUSE_Y);
+            pressInitPosition.x = WorldAPI.sampleInputBuffer(ENUMS.InputState.START_DRAG_X);
+            pressInitPosition.y = WorldAPI.sampleInputBuffer(ENUMS.InputState.START_DRAG_Y);
+            cursorPosition.z = -1;
+            pressInitPosition.z = cursorPosition.z
         };
 
         HudUiProcessor.prototype.show_cursor_point = function(guiElement) {
@@ -162,6 +166,28 @@ define([
             calcVec.set(0, 0, 0);
             guiElement.applyElementPosition(null, calcVec);
 
+        };
+
+
+        HudUiProcessor.prototype.show_press_init_point = function(guiElement) {
+
+            if (WorldAPI.sampleInputBuffer(ENUMS.InputState.ACTION_0)) {
+
+                if (!guiElement.enabled) {
+                    guiElement.enableGuiElement();
+                //    return;
+                }
+
+            } else if (guiElement.enabled) {
+                guiElement.disableGuiElement();
+            //    pressInitPosition.z = 1;
+            }
+
+
+
+            guiElement.origin.copy(pressInitPosition);
+            calcVec.set(0, 0, 0);
+            guiElement.applyElementPosition(null, calcVec);
         };
 
         HudUiProcessor.prototype.show_active_selection = function(guiElement) {
@@ -337,8 +363,6 @@ define([
         HudUiProcessor.prototype.activateMenuState = function(menuState) {
             menuState.active = true;
             this.guiButtonFunctions.callButtonActivate(menuState.functionKey , menuState.value)
-
-
         };
 
         HudUiProcessor.prototype.deactivateMenuState = function(menuState) {
@@ -346,123 +370,39 @@ define([
             this.guiButtonFunctions.callButtonDeactivate(menuState.functionKey , menuState.value)
         };
 
+        var callback;
+
         HudUiProcessor.prototype.show_menu_status = function(guiElement) {
 
             //    return;
-
-            var offsetChildren = guiElement.options.offset_children;
-
-            var i;
-
-            var menuState = PipelineAPI.readCachedConfigKey('GUI_STATE', guiElement.options.gui_key);
-
-            if (!menuState.length) return;
-
-            var labelElemId = guiElement.options.label_elemet_id;
-            var valueElemId = guiElement.options.value_elemet_id;
-
-            if (!guiElement.enabled) {
-                guiElement.enableGuiElement();
+            if (!guiElement.interactiveElement.setupInteractiveElement(guiElement)) {
                 return;
             }
 
-            if (!guiElement.children[labelElemId]) {
-                for (i = 0; i < menuState.length; i++) {
-                    guiElement.spawnChildElement(labelElemId);
-                }
+            callback = guiElement.interactiveElement.getCallback('menuStateCallback');
 
-                return;
-            }
-
-
-            if (menuState.length > guiElement.children[labelElemId].length) {
-                for (i = guiElement.children[labelElemId].length; i < menuState.length; i++) {
-                    //        guiElement.spawnChildElement(labelElemId);
-                }
-                return;
-            }
-
-
-
-            guiElement.origin.set(guiElement.options.screen_pos[0], guiElement.options.screen_pos[1], guiElement.options.screen_pos[2]);
-            WorldAPI.fitView(guiElement.origin);
-
-            calcVec.z = 0;
-            calcVec.x = 0;
-            calcVec.y = 0;
-
-            calcVec2.x = 0;
-            calcVec2.y = 0;
-            calcVec2.z = 0;
-
-            var child;
-            var stateMap;
-            var state = 0;
-
-            calcVec.y = offsetChildren[1];
-
-            var update = false;
-
-            for (i = 0; i < guiElement.children[labelElemId].length; i++) {
-
-                if (!menuState[i]) {
-                    return;
-                }
-
-                child = guiElement.children[labelElemId][i];
-
-                child.origin.copy(guiElement.origin);
-
-                calcVec.x = offsetChildren[0];
-
-                calcVec2.x = child.options.offset_x;
-                calcVec2.y = child.options.offset_y;
-
-                stateMap = child.options.state_map;
-
-
-                var stateChanged = this.hudPointerProcessor.updateElementPointerState(child, cursorPosition);
-
-                if (stateChanged) {
-
-                    var elementState = child.getPointerState();
-
-                    if (elementState === POINTER_STATES.DEACTIVATE) {
-
-                        console.log(child.getPointerState());
-
-                        if (menuState[i].active) {
-                            this.deactivateMenuState(menuState[i])
-                        }
-                    }
-
-
-                    if (elementState === POINTER_STATES.ACTIVATE) {
-                        if (!menuState[i].active) {
-                            this.activateMenuState(menuState[i])
-                        }
-                    }
-
-
-                    menuState[i].dirty = true;
-                }
-
-
-                if (menuState[i].dirty || Math.random() < 0.1) {
-                    update = true;
-
-                    this.applyElementStateMap(child, stateMap);
-                    this.updateTextElement(menuState[i].key, child, calcVec, calcVec2);
-
-                    menuState[i].dirty = false;
-                }
-
-                calcVec.y -= child.options.row_y;
-            }
-
+            guiElement.interactiveElement.processInteractiveChildren(this, cursorPosition, callback)
 
         };
 
+        HudUiProcessor.prototype.getHudPointerProcessor = function() {
+            return this.hudPointerProcessor;
+        };
+
+
+
+        HudUiProcessor.prototype.sample_drag_state = function(guiElement) {
+
+            //    return;
+            if (!guiElement.interactiveElement.setupInteractiveElement(guiElement)) {
+                return;
+            }
+
+            callback = guiElement.interactiveElement.getCallback('inputVectorCallback');
+
+            guiElement.interactiveElement.processInteractiveChildren(this, cursorPosition, callback)
+
+        };
 
         HudUiProcessor.prototype.updateMouseState = function() {
             this.updateCursorPoint();

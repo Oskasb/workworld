@@ -112,12 +112,24 @@ define([
             this.hudUiProcessor.show_menu_status(guiElement);
         };
 
+        GuiRendererCallbacks.prototype.sample_drag_state = function(guiElement) {
+            this.hudUiProcessor.sample_drag_state(guiElement);
+        };
+
+        GuiRendererCallbacks.prototype.draw_input_vector = function(guiElement) {
+            this.hudUiProcessor.draw_input_vector(guiElement);
+        };
+
         GuiRendererCallbacks.prototype.show_selection_corners = function(guiElement) {
             this.hudUiProcessor.show_selection_corners(guiElement);
         };
 
         GuiRendererCallbacks.prototype.show_cursor_point = function(guiElement) {
             this.hudUiProcessor.show_cursor_point(guiElement);
+        };
+
+        GuiRendererCallbacks.prototype.show_press_init_point = function(guiElement) {
+            this.hudUiProcessor.show_press_init_point(guiElement);
         };
 
         GuiRendererCallbacks.prototype.show_active_selection = function(guiElement) {

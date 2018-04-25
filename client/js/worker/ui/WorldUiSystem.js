@@ -84,7 +84,7 @@ define([
 
         WorldUiSystem.prototype.updateWorldUiSystem = function(inputBuffer, lastInputBuffer) {
             GuiAPI.updateGui();
-            this.renderImmediateInputState(inputBuffer, lastInputBuffer);
+        //    this.renderImmediateInputState(inputBuffer, lastInputBuffer);
         };
 
         return WorldUiSystem;

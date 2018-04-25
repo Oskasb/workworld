@@ -120,7 +120,7 @@ define([
         //            this.terrainElements[i].updateTerrainElement(tpf, i)
                 }
 
-                if (MATH.sillyRandom(this.age+tpf) > 0.02 * tpf * this.shoreElements.length) {
+                if (MATH.sillyRandom(this.age+tpf) > 0.05 * tpf * this.shoreElements.length) {
                     return;
                 }
 

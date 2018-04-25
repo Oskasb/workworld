@@ -1,6 +1,7 @@
 "use strict";
 
 define([
+
         'ui/functions/GuiRenderer',
         'ui/GuiState'
     ],
@@ -12,9 +13,11 @@ define([
         var guiRenderer;
 
         var defaultGuySystems = [
-            "gui_main_menu_system"
+          "gui_main_menu_system",
+            "gui_input_steer_system",
+            "gui_system_interaction"
         //    "gui_system_combat",
-        //    "gui_system_interaction"
+        //
         ];
 
         var GuiAPI = function() {

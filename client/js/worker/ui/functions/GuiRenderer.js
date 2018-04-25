@@ -44,7 +44,6 @@ define([
 
         };
 
-
         GuiRenderer.prototype.getGuiElement = function(dataKey, callback) {
 
             if (!expandingPools[dataKey]) {

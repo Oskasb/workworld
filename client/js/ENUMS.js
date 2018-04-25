@@ -252,6 +252,17 @@ if(typeof(ENUMS) === "undefined"){
         toggle:'toggle'
     };
 
+    ENUMS.OptionKeys = {
+        offset_x:'offset_x',
+        offset_y:'offset_y',
+        state_map:'state_map',
+        row_y:'row_y',
+        label_elemet_id:'label_elemet_id',
+        offset_children:'offset_children',
+        screen_pos:'screen_pos',
+        gui_key:'gui_key'
+    };
+
     ENUMS.ModuleParams = {
         attachment_points:'attachment_points',
         channels:'channels'

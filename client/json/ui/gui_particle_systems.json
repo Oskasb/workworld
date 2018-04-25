@@ -10,6 +10,24 @@
         }
       },
       {
+        "id":"gui_input_steer_system",
+        "data":{
+          "elements":[
+            "gui_input_steer_element"
+          ]
+        }
+      },
+
+      {
+        "id":"steer_input_vector",
+        "data":{
+          "elements":[
+            "gui_input_plate_element"
+          ]
+        }
+      },
+
+      {
         "id":"gui_system_status",
         "data":{
           "elements":[
@@ -39,8 +57,7 @@
         "data":{
           "elements":[
             "gui_cursor_element",
-            "gui_active_selection_element",
-            "gui_frame_selection_element"
+            "gui_press_init_element"
 
           ]
         }
