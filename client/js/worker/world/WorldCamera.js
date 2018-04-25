@@ -81,7 +81,7 @@ define([
         if (dot < 0.5) {
             return false;
         }
-        
+
     //    return true;
 
         isVisible = this.cameraFrustumContainsPoint(pos);

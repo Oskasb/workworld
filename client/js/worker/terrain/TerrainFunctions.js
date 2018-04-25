@@ -430,16 +430,15 @@ define([],
                     //    if (triangle.a.equals(triangle.c)) {
                             console.log("TrianglePoint is the same..., A, B & C", x, z);
                     //    }
-
                     }
 
                 }
 
-
-
-
-
                 triangle.getNormal(normalStore);
+
+                if (normalStore.y < 0) {
+                    normalStore.negate();
+                }
 
             }
 

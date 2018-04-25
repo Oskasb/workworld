@@ -19,7 +19,8 @@ define([
         GeometryInstance.prototype.setInstancePosition = function(pos) {
             this.object3d.position.copy(pos);
             if (this.effect) {
-                EffectsAPI.updateEffectPosition(this.effect, this.object3d.position)
+                this.effect.updateEffectPositionSimulator(this.object3d.position);
+            //    EffectsAPI.updateEffectPosition(this.effect, this.object3d.position)
             }
         };
 
@@ -30,7 +31,8 @@ define([
         GeometryInstance.prototype.setInstanceQuaternion = function(quat) {
             this.object3d.quaternion.copy(quat);
             if (this.effect) {
-                EffectsAPI.updateEffectQuaternion(this.effect, this.object3d.quaternion)
+                this.effect.updateEffectQuaternionSimulator(this.object3d.quaternion);
+            //    EffectsAPI.updateEffectQuaternion(this.effect, this.object3d.quaternion)
             }
         };
 
@@ -41,7 +43,8 @@ define([
         GeometryInstance.prototype.setInstanceSize = function(size) {
             this.size = size;
             if (this.effect) {
-                EffectsAPI.updateEffectScale(this.effect, this.size)
+                this.effect.updateEffectScaleSimulator(this.size);
+            //    EffectsAPI.updateEffectScale(this.effect, this.size)
             }
         };
 
@@ -52,14 +55,14 @@ define([
         GeometryInstance.prototype.lookAt = function(vec3) {
             this.object3d.lookAt(vec3);
             if (this.effect) {
-                EffectsAPI.updateEffectQuaternion(this.effect, this.object3d.quaternion)
+                this.effect.updateEffectQuaternionSimulator(this.object3d.quaternion);
             }
         };
 
         GeometryInstance.prototype.renderGeometryInstance = function() {
             if (!this.effect) {
                 this.effect = EffectsAPI.requestPassiveEffect(this.fxId, this.object3d.position, null, null, this.object3d.quaternion);
-                EffectsAPI.updateEffectScale(this.effect, this.size)
+               this.setInstanceSize(this.size)
             }
         };
 

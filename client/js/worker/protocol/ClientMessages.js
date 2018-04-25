@@ -20,8 +20,8 @@ define([
             "invert_hill":false,
             "terrain_edge_size":105,
             "edge_easing":"clampSin",
-            "max_height":40,
-            "min_height":-10,
+            "max_height":30,
+            "min_height":-14,
             "frequency":3,
             "steps":4
         };
@@ -36,10 +36,10 @@ define([
             "invert_hill":false,
             "terrain_edge_size":105,
             "edge_easing":"clampSin",
-            "max_height":80,
-            "min_height":-10,
-            "frequency":2,
-            "steps":4
+            "max_height":60,
+            "min_height":-21,
+            "frequency":6,
+            "steps":5
         };
 
         var terrainOpts3 = {
@@ -53,7 +53,7 @@ define([
             "terrain_edge_size":305,
             "edge_easing":"clampSin",
             "max_height":280,
-            "min_height":-10,
+            "min_height":-15,
             "frequency":2,
             "steps":4
         };

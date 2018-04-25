@@ -10,13 +10,6 @@ define([
         var tempVec1 = new THREE.Vector3();
         var tempVec2 = new THREE.Vector3();
 
-        var fxByFeature = [
-            "water_foam_particle_effect",
-            "model_geometry_tree_3_combined_effect",
-            "model_geometry_tree_3_combined_effect",
-            "model_geometry_tree_3_combined_effect",
-            "model_geometry_tree_3_combined_effect"
-        ];
 
         var TerrainFeature = function(area, origin, sideSize) {
             this.area = area;
@@ -86,7 +79,7 @@ define([
         TerrainFeature.prototype.updateTerrainFeature = function(tpf) {
 
                 for (var i = 0; i < this.terrainElements.length; i++) {
-                    this.terrainElements[i].updateTerrainElement(tpf, i)
+        //            this.terrainElements[i].updateTerrainElement(tpf, i)
                 }
 
         };

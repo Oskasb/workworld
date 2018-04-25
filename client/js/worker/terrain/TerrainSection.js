@@ -33,7 +33,7 @@ define([
                     tempVec1.y = this.area.getHeightAndNormalForPos(tempVec1);
 
                     var feature = new TerrainFeature(this.area, tempVec1, size);
-                    feature.generateFeatureElements(2);
+                    feature.generateFeatureElements(6);
                     this.terrainFeatures.push(feature);
                 }
             }
