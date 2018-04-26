@@ -79,6 +79,17 @@
           "id":"indicate_pitch_upper",
           "tiles":[[1, 2]]
         },
+
+        {
+          "id":"arrow_top_left",
+          "tiles":[[3, 1]]
+        },
+
+        {
+          "id":"corner_top_left",
+          "tiles":[[4, 1]]
+        },
+
         {
           "id":"indicate_pitch_low",
           "tiles":[[2, 2]]

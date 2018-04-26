@@ -171,7 +171,7 @@ define([
                     }
                 };
 
-                PipelineAPI.subscribeToCategoryKey('gui_elements', 'containers', elemData);
+            //    PipelineAPI.subscribeToCategoryKey('gui_elements', 'containers', elemData);
 
             } else {
 

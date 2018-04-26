@@ -20,7 +20,7 @@ define([
                 this.dataLoaded(data);
             }.bind(this);
 
-            this.pipeObj = new PipelineObject('GUI_SYSTEMS', 'GUI_POINTER_SYSTEM', dataUpdated);
+            this.pipeObj = new PipelineObject(config, key, dataUpdated);
 
         };
 

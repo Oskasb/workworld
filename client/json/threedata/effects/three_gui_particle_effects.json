@@ -144,6 +144,37 @@
             "simulation_id":"gpu_gui_simulation"
           }
         },
+
+        {
+          "id":"gui_arrow_top_left_additive_effect",
+          "data":{
+            "system_key":"THREE",
+            "renderer_id":"gpu_additive_gui_renderer",
+            "particle_id":"gui_arrow_top_left_particle",
+            "count":1,
+            "simulation_id":"gpu_gui_simulation"
+          }
+        },
+        {
+          "id":"gui_arrow_top_left_normal_effect",
+          "data":{
+            "system_key":"THREE",
+            "renderer_id":"gpu_normal_gui_renderer",
+            "particle_id":"gui_arrow_top_left_particle",
+            "count":1,
+            "simulation_id":"gpu_gui_simulation"
+          }
+        },
+        {
+          "id":"gui_corner_top_left_normal_effect",
+          "data":{
+            "system_key":"THREE",
+            "renderer_id":"gpu_normal_gui_renderer",
+            "particle_id":"gui_corner_top_left_particle",
+            "count":1,
+            "simulation_id":"gpu_gui_simulation"
+          }
+        },
         {
           "id":"gui_corner_selection_effect",
           "data":{

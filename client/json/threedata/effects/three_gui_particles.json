@@ -3,6 +3,46 @@
     "GUI_PARTICLES": {
       "THREE":[
         {
+          "id":"gui_arrow_top_left_particle",
+          "sprite_key":"GUI",
+          "sprite_id":"arrow_top_left",
+          "config":{
+            "lifeTime":{"min":2,"max":2},
+            "positionSpread":{"x":0.0001, "y":0.0001, "z":0.0001},
+            "gravity":0.0001,
+            "colorCurve":"darkPurple",
+            "alphaCurve":"sublteSin",
+            "diffusionCurve":"dampen",
+            "scaleCurve":"fullWhite",
+            "size":{"value":0.012, "min": 0.0, "max": 0.001},
+            "spin":{"value":0.000001, "min": 0.0001, "max": 0.0001},
+            "velocityDiffusion":0.01,
+            "accelerationDiffusion":0.01,
+            "colorDiffusion":0.05,
+            "velocityFactor":0.03
+          }
+        },
+        {
+          "id":"gui_corner_top_left_particle",
+          "sprite_key":"GUI",
+          "sprite_id":"corner_top_left",
+          "config":{
+            "lifeTime":{"min":2,"max":2},
+            "positionSpread":{"x":0.0001, "y":0.0001, "z":0.0001},
+            "gravity":0.0001,
+            "colorCurve":"darkBlue",
+            "alphaCurve":"sublteSin",
+            "diffusionCurve":"dampen",
+            "scaleCurve":"fullWhite",
+            "size":{"value":0.012, "min": 0.0, "max": 0.001},
+            "spin":{"value":0.000001, "min": 0.0001, "max": 0.0001},
+            "velocityDiffusion":0.01,
+            "accelerationDiffusion":0.01,
+            "colorDiffusion":0.05,
+            "velocityFactor":0.03
+          }
+        },
+        {
           "id":"gui_combat_status_icon_particle",
           "sprite_key":"GUI",
           "sprite_id":"alert",

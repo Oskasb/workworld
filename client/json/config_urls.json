@@ -7,9 +7,6 @@
 
       "effects/module_effects.json",
 
-      "messages/ui_messages.json",
-
-
       "ui/gui_elements.json",
       "ui/gui_particle_elements.json",
       "ui/gui_particle_input_elements.json",
@@ -19,8 +16,6 @@
       "ui/gui_particle_systems.json",
 
       "ui/gui_systems.json",
-
-      "styles/messaging.json",
 
       "game/levels/level_data.json",
       "game/levels/level_population_data.json",

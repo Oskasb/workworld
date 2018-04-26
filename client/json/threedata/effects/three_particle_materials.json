@@ -28,7 +28,7 @@
 
         {
           "id":"gpu_gui_sprite_atlas_material",
-          "shader":"INSTANCING_GPU_FLAT_TEXTURED",
+          "shader":"INSTANCING_GPU_GUI_GEOMETRY",
           "attributes": [
             {"name":"startTime",   "dimensions":1, "dynamic":true},
             {"name":"duration",    "dimensions":1, "dynamic":false},
@@ -37,7 +37,8 @@
             {"name":"tileindex",   "dimensions":2},
             {"name":"diffusors",   "dimensions":4, "dynamic":false},
             {"name":"acceleration","dimensions":4, "dynamic":false},
-            {"name":"velocity",    "dimensions":4, "dynamic":false}
+            {"name":"velocity",    "dimensions":4, "dynamic":false},
+            {"name":"orientation", "dimensions":4, "dynamic":false}
           ],
           "particle_texture":"./client/assets/images/effects/gui_atlas_6x6.png",
           "data_texture":"./client/assets/images/effects/data_texture.png",
@@ -51,7 +52,7 @@
 
         {
           "id":"gpu_gui_sprite_font_material",
-          "shader":"INSTANCING_GPU_FLAT_TEXTURED",
+          "shader":"INSTANCING_GPU_GUI_GEOMETRY",
           "attributes": [
             {"name":"startTime",   "dimensions":1, "dynamic":true},
             {"name":"duration",    "dimensions":1, "dynamic":false},
@@ -60,7 +61,8 @@
             {"name":"tileindex",   "dimensions":2},
             {"name":"diffusors",   "dimensions":4, "dynamic":false},
             {"name":"acceleration","dimensions":4, "dynamic":false},
-            {"name":"velocity",    "dimensions":4, "dynamic":false}
+            {"name":"velocity",    "dimensions":4, "dynamic":false},
+            {"name":"orientation", "dimensions":4, "dynamic":false}
           ],
           "particle_texture":"./client/assets/images/effects/fontatlas.png",
           "data_texture":"./client/assets/images/effects/data_texture.png",
@@ -83,7 +85,8 @@
             {"name":"tileindex",   "dimensions":2},
             {"name":"diffusors",   "dimensions":4, "dynamic":false},
             {"name":"acceleration","dimensions":4, "dynamic":false},
-            {"name":"velocity",    "dimensions":4, "dynamic":false}
+            {"name":"velocity",    "dimensions":4, "dynamic":false},
+            {"name":"orientation", "dimensions":4, "dynamic":false}
           ],
           "particle_texture":"./client/assets/images/effects/particle_atlas_6x6.png",
           "data_texture":"./client/assets/images/effects/data_texture.png",

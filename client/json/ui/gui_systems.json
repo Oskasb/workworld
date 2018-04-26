@@ -7,6 +7,14 @@
           "surface":{
             "center_x":0
           },
+          "drag_vector":{
+            "fx_count":16,
+            "radius_min":0.03,
+            "radius_max":0.16,
+            "init_time":5,
+            "order_curve":"zeroOneZero",
+            "expand_curve":"zeroToOne"
+          },
           "hover_point_effects":[
             "gui_corner_selection_effect"
           ],
