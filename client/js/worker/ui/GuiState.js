@@ -14,7 +14,7 @@ define([
                 {key:'MAP',     functionKey:'toggle_gui_system' ,   value:'gui_system_map',          active:false,       dirty:true}
             ],
             INPUT_STEER:[
-                {key:'STEER',   functionKey:'toggle_gui_system' ,   value:'gui_input_steer_system',  active:false,       dirty:true}
+                {key:'STEER',   functionKey:'toggle_gui_system' ,   value:'gui_system_input_vector', active:false,       dirty:true}
             ]
         };
 

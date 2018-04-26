@@ -155,11 +155,11 @@ define(['PipelineAPI'],
                     }
                 }
 
-                if (menuState.active) {
-                    if (!WorldAPI.sampleInputBuffer(ENUMS.InputState.PRESS_FRAMES)) {
+            //    if (menuState.active) {
+                    if (!WorldAPI.sampleInputBuffer(ENUMS.InputState.ACTION_0)) {
                         hudUiProcessor.deactivateMenuState(menuState)
                     }
-                }
+            //    }
             };
 
             callbacks = {

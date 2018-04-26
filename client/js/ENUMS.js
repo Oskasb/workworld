@@ -239,6 +239,73 @@ if(typeof(ENUMS) === "undefined"){
         "model_geometry_swivel_cannon_20mm_effect": 7
     };
 
+    ENUMS.ColorCurve = {
+        flatCyan    :   63,
+        brightCyan  :   62,
+        threatSixe  :   61,
+        threatFive  :   60,
+        threatFour  :   59,
+        threatThree :   58,
+        threatTwo   :   57,
+        threatOne   :   56,
+        threatZero  :   55,
+        steadyOrange:   54,
+        darkPurple:     53,
+        darkBlue:       52,
+        darkRed:        51,
+        steadyPurple:   50,
+        steadyBlue:     49,
+        steadyRed:      48,
+        dust:           47,
+        earlyFadeOut:   46,
+        lateFadeOut:    45,
+        flashGrey:      44,
+        brightYellow:   43,
+        fullWhite:      42,
+        greenToPurple:  41,
+        blueYellowRed:  40,
+        redToYellow:    39,
+        qubeIn:         38,
+        rootIn:         37,
+        randomGreen:    36,
+        randomRed:      35,
+        randomYellow:   34,
+        randomBlue:     33,
+        rainbow:        32,
+        warmToCold:     31,
+        hotFire:        30,
+        fire:           29,
+        warmFire:       28,
+        hotToCool:      27,
+        orangeFire:     26,
+        smoke:          25,
+        dirt:           24,
+        brightMix:      23,
+        nearWhite:      22,
+        darkSmoke:      21,
+        nearBlack:      20,
+        doubleSin:      19,
+        halfSin:        18,
+        sin:            17,
+        sublteSin:      16,
+        pulseSlowOut:   15,
+        slowFadeIn:     14,
+        halfQuickIn:    13,
+        halfFadeIn:     12,
+        smooth:         11,
+        slowFadeOut:    10,
+        dampen:         9,
+        noiseFadeOut:   8,
+        quickFadeOut:   7,
+        quickIn:        6,
+        quickInSlowOut: 5,
+        zeroOneZero:    4,
+        oneZeroOne:     3,
+        zeroToOne:      2,
+        oneToZero:      1
+    };
+
+
     ENUMS.Channel = {
         client_state:'client_sta2te'
     };
@@ -280,6 +347,6 @@ if(typeof(ENUMS) === "undefined"){
 
     ENUMS.Map = map;
 
-  //  console.log("ENUMS", ENUMS);
+    //  console.log("ENUMS", ENUMS);
 
 })(ENUMS);

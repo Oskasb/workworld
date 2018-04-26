@@ -1,88 +1,54 @@
 "use strict";
 
 define([
-    'GuiAPI',
+        'GuiAPI',
         'Events',
         'EffectsAPI',
-        'PipelineObject'
+        'ui/systems/GuiPointerSystem'
     ],
     function(
         GuiAPI,
         evt,
         EffectsAPI,
-        PipelineObject
+        GuiPointerSystem
     ) {
 
-        var pointerFrustumPos = new THREE.Vector3();
-        var cursorElementId = 'gui_cursor_pointer_follow';
-        var cursorEeffectId = 'gui_pointer_follow_effect';
+        var guiSystems = [];
 
-        var inputBuffer = [];
-        var lastBuffer = [];
+        var systemReady = function(guiSystem) {
 
+            if (guiSystems.indexOf(guiSystem) === -1) {
+                guiSystems.push(guiSystem);
+            }
+        };
 
         var WorldUiSystem = function() {
-            this.cursorElement;
             GuiAPI.initGuiApi();
         };
 
         WorldUiSystem.prototype.activateDefaultGui = function() {
             GuiAPI.activateDefaultGuiSystems();
+
+            var pointerSys = new GuiPointerSystem();
+            this.addGuiSystem(pointerSys)
+
         };
 
-        WorldUiSystem.prototype.enableCursorElement = function() {
-        //
-
-            var fx = EffectsAPI.requestPassiveEffect(cursorEeffectId, pointerFrustumPos);
-        //    console.log("Enable Cursor", fx);
-            this.cursorElement = fx;
+        WorldUiSystem.prototype.addGuiSystem = function(guiSystem) {
+            guiSystem.initGuiSystem(systemReady)
         };
-
-        WorldUiSystem.prototype.disableCursorElement = function() {
-            //    console.log("Enable Cursor", cursorElementId, pointerFrustumPos, cursorEeffectId);
-            EffectsAPI.returnPassiveEffect(this.cursorElement);
-            this.cursorElement = null;
-        };
-
 
         WorldUiSystem.prototype.setElementPosition = function(fx, posVec) {
             EffectsAPI.updateEffectPosition(fx, posVec);
         };
 
-        WorldUiSystem.prototype.renderImmediateInputState = function(inputBuffer, lastInputBuffer) {
-
-            pointerFrustumPos.x = inputBuffer[ENUMS.InputState.MOUSE_X];
-            pointerFrustumPos.y = inputBuffer[ENUMS.InputState.MOUSE_Y];
-            pointerFrustumPos.z = -1;
-
-            //    for (var i = 0; i < inputBuffer.length; i++) {
-
-                if (inputBuffer[ENUMS.InputState.ACTION_0] && this.cursorElement) {
-                    this.setElementPosition(this.cursorElement, pointerFrustumPos)
-                }
-
-                if (inputBuffer[ENUMS.InputState.ACTION_0] !== lastInputBuffer[ENUMS.InputState.ACTION_0]) {
-
-                    if (inputBuffer[ENUMS.InputState.ACTION_0]) {
-                    //    console.log("Input Update On", inputBuffer[ENUMS.InputState.ACTION_0], lastInputBuffer[ENUMS.InputState.ACTION_0])
-                        this.enableCursorElement();
-                    } else {
-                    //    console.log("Input Update Off", inputBuffer[ENUMS.InputState.ACTION_0], lastInputBuffer[ENUMS.InputState.ACTION_0])
-                        if (this.cursorElement) {
-                            this.disableCursorElement();
-                        }
-
-                    }
-
-                }
-
-        //    }
-
-        };
-
 
 
         WorldUiSystem.prototype.updateWorldUiSystem = function(inputBuffer, lastInputBuffer) {
+            for (var i = 0; i < guiSystems.length; i++) {
+                guiSystems[i].updateGuiSystem();
+            }
+
             GuiAPI.updateGui();
         //    this.renderImmediateInputState(inputBuffer, lastInputBuffer);
         };

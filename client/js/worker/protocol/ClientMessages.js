@@ -16,11 +16,11 @@ define([
             "three_terrain":"plain_ground",
             "vegetation_system":"basic_grassland",
             "terrain_size":1000,
-            "terrain_segments":127,
+            "terrain_segments":63,
             "invert_hill":false,
             "terrain_edge_size":105,
             "edge_easing":"clampSin",
-            "max_height":35,
+            "max_height":25,
             "min_height":-15,
             "frequency":5,
             "steps":4
@@ -32,14 +32,14 @@ define([
             "three_terrain":"plain_ground",
             "vegetation_system":"basic_grassland",
             "terrain_size":1000,
-            "terrain_segments":127,
+            "terrain_segments":63,
             "invert_hill":false,
             "terrain_edge_size":105,
             "edge_easing":"clampSin",
-            "max_height":45,
-            "min_height":-15,
-            "frequency":6,
-            "steps":5
+            "max_height":15,
+            "min_height":-25,
+            "frequency":3,
+            "steps":4
         };
 
         var terrainOpts3 = {

@@ -1,7 +1,7 @@
 "use strict";
 
 
-define(['../../PipelineObject',
+define(['PipelineObject',
     'PipelineAPI',
     'Events'
 

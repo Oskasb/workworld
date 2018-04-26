@@ -51,7 +51,7 @@ define([
 
     Setup.enableJsonPipelinePolling = function() {
         PipelineAPI.getPipelineOptions('jsonPipe').polling.enabled = true;
-        PipelineAPI.getPipelineOptions('jsonPipe').polling.frequency = 8;
+        PipelineAPI.getPipelineOptions('jsonPipe').polling.frequency = 45;
     };
 
     return Setup;

@@ -168,7 +168,6 @@ define([
 
         };
 
-
         HudUiProcessor.prototype.show_press_init_point = function(guiElement) {
 
             if (WorldAPI.sampleInputBuffer(ENUMS.InputState.ACTION_0)) {
@@ -183,12 +182,30 @@ define([
             //    pressInitPosition.z = 1;
             }
 
+            guiElement.origin.copy(pressInitPosition);
+            calcVec.set(0, 0, 0);
+            guiElement.applyElementPosition(null, calcVec);
+        };
 
+        HudUiProcessor.prototype.draw_input_vector = function(guiElement) {
+
+            if (WorldAPI.sampleInputBuffer(ENUMS.InputState.ACTION_0)) {
+
+                if (!guiElement.enabled) {
+                    guiElement.enableGuiElement();
+                    //    return;
+                }
+
+            } else if (guiElement.enabled) {
+            //    guiElement.disableGuiElement();
+                //    pressInitPosition.z = 1;
+            }
 
             guiElement.origin.copy(pressInitPosition);
             calcVec.set(0, 0, 0);
             guiElement.applyElementPosition(null, calcVec);
         };
+
 
         HudUiProcessor.prototype.show_active_selection = function(guiElement) {
 

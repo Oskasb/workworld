@@ -13,9 +13,7 @@ define([
         var guiRenderer;
 
         var defaultGuySystems = [
-          "gui_main_menu_system",
-            "gui_input_steer_system",
-            "gui_system_interaction"
+            "gui_main_menu_system"
         //    "gui_system_combat",
         //
         ];
@@ -28,7 +26,6 @@ define([
             GuiState.initGuiState();
         //    GameAPI = gameApi;
             guiRenderer = new GuiRenderer();
-
         };
 
         GuiAPI.activateDefaultGuiSystems = function() {

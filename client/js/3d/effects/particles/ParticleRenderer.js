@@ -234,7 +234,7 @@ define([
 
 
         ParticleRenderer.prototype.computeHighestRenderingIndex = function() {
-            this.setHighestRenderingIndex(0);
+            this.setHighestRenderingIndex(-1);
 
             if (!this.particles.length) {
                 return this.poolSize -1;

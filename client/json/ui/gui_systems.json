@@ -1,0 +1,24 @@
+[{
+  "GUI_SYSTEMS":{
+    "GUI_POINTER_SYSTEM":[
+      {
+        "id":"config",
+        "data":{
+          "surface":{
+            "center_x":0
+          },
+          "hover_point_effects":[
+            "gui_corner_selection_effect"
+          ],
+          "cursor_effects":[
+            "gui_pointer_follow_effect"
+          ],
+          "drag_start_effects":[
+            "gui_corner_selection_effect",
+            "gui_active_selection_effect"
+          ]
+        }
+      }
+    ]
+  }
+}]

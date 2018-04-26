@@ -19,7 +19,7 @@
       },
 
       {
-        "id":"steer_input_vector",
+        "id":"gui_system_input_vector",
         "data":{
           "elements":[
             "gui_input_plate_element"

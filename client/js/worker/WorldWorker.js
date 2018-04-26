@@ -22,6 +22,7 @@ require.config({
         EffectsAPI:'client/js/3d/effects/EffectsAPI',
         PipelineAPI:'client/js/io/PipelineAPI',
         PipelineObject:'client/js/PipelineObject',
+        ConfigObject:'client/js/ConfigObject',
         Events:'client/js/Events',
         EventList:'client/js/EventList',
 		worker:'client/js/worker',

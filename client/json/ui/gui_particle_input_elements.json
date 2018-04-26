@@ -22,7 +22,7 @@
       {
         "id":"gui_input_plate_element",
         "data":{
-          "effect_ids":["gui_combat_bar_effect", "gui_combat_bar_backdrop_effect"],
+          "effect_ids":["gui_pointer_follow_effect"],
           "options":{
 
           },
@@ -51,21 +51,20 @@
             "pad_x":-0.012,
             "pad_y":-0.0,
             "state_map":[
-              {"color_curve":"flatGrey"},
 
+              {"color_curve":"oneToZero"},
               {"color_curve":"darkBlue"},
               {"color_curve":"randomGreen"},
               {"color_curve":"oneToZero"},
               {"color_curve":"steadyBlue"},
               {"color_curve":"oneToZero"},
-
               {"color_curve":"oneToZero"},
               {"color_curve":"flatCyan"},
               {"color_curve":"brightCyan"},
               {"color_curve":"randomRed"},
               {"color_curve":"zeroToOne"},
-
               {"color_curve":"rainbow"}
+
             ]
           },
           "render_calls":{
