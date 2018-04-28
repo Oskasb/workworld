@@ -1,10 +1,17 @@
 [{
-  "GUI_ELEMENTS": {
-    "GUI_ARROW_ELEMENT":[
+  "GUI_WIDGETS": {
+    "GUI_THUMBSTICK_WIDGET":[
       {
         "id": "config",
         "data": {
-
+          "surface":{
+            "top":0.25,
+            "left":0.05,
+            "bottom":0.05,
+            "right":0.45,
+            "corner_fx":"corner_effects",
+            "corner_hint_fx":"corner_hint_effects"
+          },
           "drag_vector_effects":[
             "gui_arrow_top_left_additive_effect",
             "gui_corner_top_left_normal_effect"
@@ -13,16 +20,12 @@
       }
     ],
 
-    "GUI_SURFACE_ELEMENT":[
+    "GUI_BUTTON_WIDGET":[
       {
         "id": "config",
         "data": {
 
-          "corner_effects":[
-            "gui_corner_selection_effect"
-          ],
-
-          "corner_hint_effects":[
+          "drag_vector_effects":[
             "gui_arrow_top_left_additive_effect",
             "gui_corner_top_left_normal_effect"
           ]

@@ -134,7 +134,7 @@ define([
 
             var ok = function(src, data) {
                 images[textureStore.url] = data;
-                console.log("TextureCached", src, textureStore);
+        //        console.log("TextureCached", src, textureStore);
                 textureStore.bufferData = data;
                 PipelineAPI.setCategoryKeyValue('BUFFER_IMAGE', textureStore.url, data);
             //    PipelineAPI.subscribeToConfigUrl(contentUrl(textureStore.url), jsonImage, fail);

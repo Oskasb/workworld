@@ -45,7 +45,7 @@ define([
 
                         if (tempVec1.y > 0) {
                             var feature = new TerrainFeature(this.area, tempVec1, size);
-                            feature.generateFeatureGroundElements(4);
+                            feature.generateFeatureGroundElements(3);
                             this.terrainFeatures.push(feature);
                         }
                     }
@@ -60,9 +60,9 @@ define([
                         tempVec1.z = this.origin.z + j * size;
                         tempVec1.y = this.area.getHeightAndNormalForPos(tempVec1);
 
-                        if (tempVec1.y < 10) {
+                        if (tempVec1.y < 8) {
                             var feature = new TerrainFeature(this.area, tempVec1, size);
-                            feature.generateFeatureShoreElements(32);
+                            feature.generateFeatureShoreElements(24);
                             this.terrainFeatures.push(feature);
                         }
                     }

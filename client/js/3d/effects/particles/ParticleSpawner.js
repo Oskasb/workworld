@@ -367,10 +367,12 @@ define([
 
             tempVec.x   = 0;
             tempVec.y   = -99999999;
-            tempVec.z   = 0;
+            tempVec.z   = -10;
 
             effect.scale = 1;
-            effect.setEffectPosition(tempVec);
+
+            effect.updateEffectPositionSimulator(tempVec);
+
             effect.setEffectDuration(0);
 
             activeEffects.push(effect);

@@ -2,7 +2,7 @@
 
 define([
         'PipelineAPI',
-        'worker/ui/WorldUiSystem',
+        'GuiAPI',
         'worker/physics/AmmoAPI',
         'worker/protocol/ProtocolRequests',
         'worker/protocol/WorldMessages',
@@ -13,7 +13,7 @@ define([
     ],
     function(
         PipelineAPI,
-        WorldUiSystem,
+        GuiAPI,
         AmmoAPI,
         ProtocolRequests,
         WorldMessages,
@@ -30,7 +30,6 @@ define([
         var worldMessages;
         var worldControlState;
         var terrainSystem;
-        var worldUiSystem;
         var statusMonitor;
         var fetches = {};
 
@@ -49,11 +48,10 @@ define([
                 //    fetchData();
                 worldMain.initWorldSystems(onWorkerReady);
                 //    onWorkerReady();
-                worldUiSystem = new WorldUiSystem();
                 statusMonitor = new StatusMonitor();
                 console.log("configs world worker", PipelineAPI.getCachedConfigs(), fetches);
             };
-
+            GuiAPI.initGuiApi();
             physicsApi = new AmmoAPI(ammoReady);
         };
 
@@ -72,7 +70,7 @@ define([
         };
 
         WorldAPI.updateUiSystem = function(input, lastInput) {
-            worldUiSystem.updateWorldUiSystem(input, lastInput)
+            GuiAPI.updateGui(input, lastInput)
         };
 
         WorldAPI.fitView = function(frustumCoords) {
@@ -117,7 +115,7 @@ define([
 
         WorldAPI.setWorldInputBuffer = function(buffer) {
             worldControlState.setInputBuffer(buffer);
-            worldUiSystem.activateDefaultGui();
+            GuiAPI.enableGuiSystems();
         };
 
         WorldAPI.updateWorldWorkerFrame = function(tpf, frame) {

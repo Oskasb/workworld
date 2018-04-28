@@ -21,7 +21,6 @@ define([
             }.bind(this);
 
             this.pipeObj = new PipelineObject(config, key, dataUpdated);
-
         };
 
         ConfigObject.prototype.dataLoaded = function(data) {

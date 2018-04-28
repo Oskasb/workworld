@@ -64,12 +64,13 @@ if(typeof(MATH) === "undefined") {
 		"quickFadeIn":  [[0, 0], [0.3,0.8], [1,   1]],
 		"attackIn":     [[0, 1], [0.1,0], [1,   0]],
 		"centerStep":   [[0, 0], [0.25,0],[0.75,1], [1, 1]],
-		"quickInOut":   [[0, 0], [0.1,1], [0.9, 1], [1, 0]],
+		"quickInOut":   [[0, 0], [0.15,1], [0.85, 1], [1, 0]],
 		"posToNeg":     [[0, 1], [1,-1]],
 		"negToPos":     [[0,-1], [1, 1]],
 		"zeroOneZero":  [[0, 0], [0.5,1], [1,  0]],
-        "lateFadeIn":   [[0, 0], [0.4,0.15], [0.7,0.33], [0.9,0.7], [1,  1]],
-        "centerPeak":   [[0, 0], [0.35,0.25], [0.5,1], [0.65,0.25], [1,  0]],
+        "lateFadeIn":   [[0, 0], [0.4,0.15], [0.7,0.33],  [0.9,0.7], [1,  1]],
+        "centerPeak":   [[0, 0], [0.35,0.25], [0.5,1],    [0.65,0.25], [1,  0]],
+        "centerHump":   [[0, 0], [0.1,0.5],   [0.2,0.75], [0.5,1],     [0.8,0.75], [0.9,0.5], [1,  0]],
 		"oneZeroOne":   [[0, 1], [0.5,0], [1,  1]],
 		"growShrink":   [[0, 1], [0.5,0], [1, -2]],
 		"shrink":   	[[0, -0.3], [0.3, -1]]
@@ -292,8 +293,12 @@ if(typeof(MATH) === "undefined") {
 	};
 
 	MATH.vectorXYToAngleAxisZ = function(vec) {
-		return Math.atan2(vec.getX(), vec.getY()) + Math.PI*0.5;
+		return Math.atan2(vec.x, vec.y);
 	};
+
+    MATH.angleZFromVectorToVector = function(fromVec, toVec) {
+        return Math.atan2(toVec.y-fromVec.y, toVec.x-fromVec.x) // + Math.PI*0.5;
+    };
 
 	MATH.vectorYZToAngleAxisX = function(vec) {
 		return Math.atan2(vec.getY(), vec.getZ()) + Math.PI;

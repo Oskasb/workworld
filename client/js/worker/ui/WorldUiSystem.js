@@ -2,15 +2,15 @@
 
 define([
         'GuiAPI',
-        'Events',
         'EffectsAPI',
-        'ui/systems/GuiPointerSystem'
+        'ui/systems/GuiPointerSystem',
+        'ui/systems/GuiSurfaceSystem'
     ],
     function(
         GuiAPI,
-        evt,
         EffectsAPI,
-        GuiPointerSystem
+        GuiPointerSystem,
+        GuiSurfaceSystem
     ) {
 
         var guiSystems = [];
@@ -31,18 +31,14 @@ define([
 
             var pointerSys = new GuiPointerSystem();
             this.addGuiSystem(pointerSys)
+            this.guiSurfaceSystem = new GuiSurfaceSystem();
+            this.addGuiSystem(this.guiSurfaceSystem)
 
         };
 
         WorldUiSystem.prototype.addGuiSystem = function(guiSystem) {
             guiSystem.initGuiSystem(systemReady)
         };
-
-        WorldUiSystem.prototype.setElementPosition = function(fx, posVec) {
-            EffectsAPI.updateEffectPosition(fx, posVec);
-        };
-
-
 
         WorldUiSystem.prototype.updateWorldUiSystem = function(inputBuffer, lastInputBuffer) {
             for (var i = 0; i < guiSystems.length; i++) {

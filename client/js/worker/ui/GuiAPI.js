@@ -2,51 +2,77 @@
 
 define([
 
-        'ui/functions/GuiRenderer',
-        'ui/GuiState'
+        'ui/systems/GuiPointerSystem',
+        'ui/systems/GuiSurfaceSystem'
     ],
     function(
-        GuiRenderer,
-        GuiState
+        GuiPointerSystem,
+        GuiSurfaceSystem
     ) {
 
-        var guiRenderer;
 
-        var defaultGuySystems = [
-            "gui_main_menu_system"
-        //    "gui_system_combat",
-        //
-        ];
+        var pointerSys;
+        var guiSurfaceSystem;
+        var guiSystems = [];
+
+        var callbackRegistry = {};
+
+        var guiUpdateCallbacks = [];
+
+        var systemReady = function(guiSystem) {
+
+            if (guiSystems.indexOf(guiSystem) === -1) {
+                guiSystems.push(guiSystem);
+            }
+        };
 
         var GuiAPI = function() {
 
         };
 
         GuiAPI.initGuiApi = function() {
-            GuiState.initGuiState();
-        //    GameAPI = gameApi;
-            guiRenderer = new GuiRenderer();
+            pointerSys = new GuiPointerSystem();
+            guiSurfaceSystem = new GuiSurfaceSystem();
         };
 
-        GuiAPI.activateDefaultGuiSystems = function() {
+        GuiAPI.enableGuiSystems = function() {
+            GuiAPI.addGuiSystem(pointerSys);
+            GuiAPI.addGuiSystem(guiSurfaceSystem)
+        };
 
-            for (var i = 0; i < defaultGuySystems.length; i++) {
-                GuiAPI.activateGuiSystem(defaultGuySystems[i])
-            }
+        GuiAPI.getSurfaceSystem = function() {
+            return guiSurfaceSystem;
+        };
+
+        GuiAPI.activateDefaultGui = function() {
 
         };
 
-        GuiAPI.activateGuiSystem = function(systemId) {
-            guiRenderer.activateGuiSystemId(systemId);
+        GuiAPI.registerCallback = function() {
+
         };
 
-        GuiAPI.deactivateGuiSystem = function(systemId) {
-            guiRenderer.deactivateGuiSystemId(systemId);
+        GuiAPI.addGuiUpdateCallback = function(cb) {
+            guiUpdateCallbacks.push(cb);
+        };
+
+        GuiAPI.removeGuiUpdateCallback = function(cb) {
+            guiUpdateCallbacks.splice(guiUpdateCallbacks.indexOf(cb, 1));
+        };
+
+        GuiAPI.addGuiSystem = function(guiSystem) {
+            guiSystem.initGuiSystem(systemReady)
         };
 
         GuiAPI.updateGui = function() {
-        //    guiRenderer.requestCameraMatrixUpdate();
-            guiRenderer.updateGuiRenderer();
+            for (var i = 0; i < guiSystems.length; i++) {
+                guiSystems[i].updateGuiSystem();
+            }
+
+            for (i = 0; i < guiUpdateCallbacks.length; i++) {
+                guiUpdateCallbacks[i]();
+            }
+
         };
 
         return GuiAPI;

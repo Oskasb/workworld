@@ -4,14 +4,13 @@
       {
         "id":"config",
         "data":{
-          "surface":{
-            "center_x":0
-          },
           "drag_vector":{
-            "fx_count":16,
+            "range_min":0.001,
+            "fx_count":4,
             "radius_min":0.03,
             "radius_max":0.16,
-            "init_time":5,
+            "init_time_min":0.12,
+            "init_time_max":0.3,
             "order_curve":"zeroOneZero",
             "expand_curve":"zeroToOne"
           },
@@ -24,6 +23,32 @@
           "drag_start_effects":[
             "gui_corner_selection_effect",
             "gui_active_selection_effect"
+          ]
+        }
+      }
+    ],
+    "GUI_SURFACE_SYSTEM":[
+      {
+        "id":"config",
+        "data":{
+          "drag_vector":{
+            "range_min":0.001,
+            "fx_count":4,
+            "radius_min":0.03,
+            "radius_max":0.16,
+            "init_time_min":0.12,
+            "init_time_max":0.3,
+            "order_curve":"zeroOneZero",
+            "expand_curve":"zeroToOne"
+          },
+          "corner_indicator":[
+            "gui_corner_top_left_normal_effect"
+          ],
+          "hover_indicator":[
+            "gui_arrow_top_left_normal_effect"
+          ],
+          "press_indicator":[
+            "gui_arrow_top_left_additive_effect"
           ]
         }
       }

@@ -114,7 +114,7 @@
           "vPosition = vPosition * sampledSizeFactor;"
         ],
 
-        "vertexVegetationTextureData":[
+        "vertexGeometryTextureData":[
 
           "effectAge = systemTime - startTime;",
 
@@ -146,17 +146,14 @@
 
           "sampledDataTexel = texture2D(data_texture, pixelSelector);",
 
-
           "pixelSelector.y = 1.0 - ((rowAlpha / data_rows) - (0.5 / data_rows));",
           "sampledDataTexel = texture2D(data_texture, pixelSelector);",
           "sampledAlpha = sampledDataTexel.r;",
-
 
           "pixelSelector.y = 1.0 - ((rowColor / data_rows) - (0.5 / data_rows));",
           "sampledDataTexel = texture2D(data_texture, pixelSelector);",
 
           "vec4 vertexColor = vec4(sampledDataTexel.r, sampledDataTexel.g, sampledDataTexel.b, sampledDataTexel.a * sampledAlpha) * colorDiffusion;",
-
 
           "sampledSizeFactor = size;"
 
@@ -204,8 +201,6 @@
           "accelerationDiffusion = vec4(1.0 - accelerationDiffusion.x, 1.0 - accelerationDiffusion.y, 1.0 - accelerationDiffusion.z, 1.0);",
           "accelerationDiffusion = accelerationDiffusion * diffusors.z;",
 
-
-
           "vec4 colorDiffusion        = vec4(0.5 + sillyRandom3*0.5 * diffusors.w + 1.0-diffusors.w, 0.5 + sillyRandom1*0.5*diffusors.w + 1.0-diffusors.w, 0.5 + sillyRandom4*0.5*diffusors.w + 1.0-diffusors.w, 0.5 + sillyRandom2*0.5*diffusors.w + 1.0-diffusors.w);",
 
           "velocityFactor = diffusors.z;",
@@ -244,7 +239,6 @@
 
           "float dragFactor = 1.0 / (1.0 + (0.5 * acceleration.x * gravityDiffusion * cycleAge * cycleAge));",
           "float gravityFactor = 0.5 * acceleration.y * cycleAge * cycleAge;",
-
 
           "float verticalComponent =  (diffusedVelocity.y * cycleAge + gravityFactor)  * dragFactor * accelerationDiffusion.y;",
           "float xComponent =         diffusedVelocity.x * cycleAge * dragFactor * accelerationDiffusion.x;",

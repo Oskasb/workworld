@@ -60,7 +60,7 @@
         {
           "id":"gpu_spatial_tree_3_combined_renderer",
           "material_id":"gpu_main_atlas_spatial_material",
-          "particle_pool":8000,
+          "particle_pool":16000,
           "particle_geometry":{
             "model_id":"model_tree_3_combined"
           },

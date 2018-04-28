@@ -1,21 +1,25 @@
 "use strict";
 
 define([
-        'worker/world/WorldCamera'
+        'worker/world/WorldCamera',
+        'ui/widgets/GuiThumbstickWidget'
     ],
     function(
-        WorldCamera
+        WorldCamera,
+        GuiThumbstickWidget
     ) {
-
 
 
         var inputBuffer = [];
         var lastBuffer = [];
 
+        var thumbstick;
+
         var WorldControlState = function() {
             this.worldCamera = new WorldCamera();
-        };
 
+            thumbstick = new GuiThumbstickWidget();
+        };
 
         WorldControlState.prototype.updateWorldControlState = function() {
 
@@ -24,7 +28,6 @@ define([
                 if (inputBuffer[i] !== lastBuffer[i]) {
                 //    console.log("Input Update", ENUMS.Map.InputState[i], inputBuffer[i])
                 }
-
             }
 
             WorldAPI.updateUiSystem(inputBuffer, lastBuffer);
@@ -39,18 +42,31 @@ define([
         };
 
         WorldControlState.prototype.frustumCoordsToView = function(coordsVector) {
-            coordsVector.x *= lastBuffer[ENUMS.InputState.FRUSTUM_FACTOR] * lastBuffer[ENUMS.InputState.ASPECT];
-            coordsVector.y *= lastBuffer[ENUMS.InputState.FRUSTUM_FACTOR];
+            coordsVector.x *= inputBuffer[ENUMS.InputState.FRUSTUM_FACTOR] * inputBuffer[ENUMS.InputState.ASPECT];
+            coordsVector.y *= inputBuffer[ENUMS.InputState.FRUSTUM_FACTOR];
         };
 
         WorldControlState.prototype.valueFromInputBuffer = function(bufferIndex) {
             return inputBuffer[bufferIndex];
         };
 
+        WorldControlState.prototype.enableDefaultGuiWidgets = function() {
+
+
+            var stickReady = function(stick) {
+                stick.enableWidget();
+            };
+
+            thumbstick.initGuiWidget(stickReady);
+
+        };
+
+
+
         WorldControlState.prototype.setInputBuffer = function(buffer) {
             console.log("Set Input Buffer", buffer);
             inputBuffer = buffer;
-        //    this.storeLastBuffer();
+            this.enableDefaultGuiWidgets()
         };
 
         WorldControlState.prototype.getWorldCamera = function() {
