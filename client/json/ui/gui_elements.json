@@ -19,10 +19,26 @@
         "data": {
 
           "corner_effects":[
-            "gui_corner_selection_effect"
+            "gui_corner_center_normal_effect"
           ],
 
           "corner_hint_effects":[
+            "gui_arrow_top_left_additive_effect",
+            "gui_corner_top_left_normal_effect"
+          ]
+        }
+      }
+    ],
+    "GUI_CORNER_ELEMENT":[
+      {
+        "id": "config",
+        "data": {
+
+          "corner_passive_effects":[
+            "gui_corner_center_normal_effect"
+          ],
+
+          "corner_active_effects":[
             "gui_arrow_top_left_additive_effect",
             "gui_corner_top_left_normal_effect"
           ]

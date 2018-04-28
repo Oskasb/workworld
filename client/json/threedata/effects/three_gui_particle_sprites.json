@@ -89,7 +89,10 @@
           "id":"corner_top_left",
           "tiles":[[4, 1]]
         },
-
+        {
+          "id":"corner_center",
+          "tiles":[[5, 1]]
+        },
         {
           "id":"indicate_pitch_low",
           "tiles":[[2, 2]]

@@ -5,12 +5,12 @@
         "id": "config",
         "data": {
           "surface":{
-            "top":0.25,
-            "left":0.05,
-            "bottom":0.05,
-            "right":0.45,
-            "corner_fx":"corner_effects",
-            "corner_hint_fx":"corner_hint_effects"
+            "top":-0.15,
+            "left":-0.45,
+            "bottom":-0.39,
+            "right":-0.05,
+            "corner_passive_fx":"corner_passive_effects",
+            "corner_active_fx":"corner_active_effects"
           },
           "drag_vector_effects":[
             "gui_arrow_top_left_additive_effect",
