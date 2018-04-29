@@ -29,6 +29,19 @@
           }
         },
         {
+          "id":"gui_corner_highlight_particle",
+          "sprite_key":"GUI",
+          "sprite_id":"corner_highlight",
+          "config":{
+            "colorCurve":"darkBlue",
+            "alphaCurve":"sublteSin",
+            "diffusionCurve":"dampen",
+            "scaleCurve":"fullWhite",
+            "size":{"value":0.024},
+            "colorDiffusion":0.05
+          }
+        },
+        {
           "id":"gui_corner_top_left_particle",
           "sprite_key":"GUI",
           "sprite_id":"corner_top_left",

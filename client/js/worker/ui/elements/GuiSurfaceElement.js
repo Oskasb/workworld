@@ -1,24 +1,32 @@
 "use strict";
 
 define([
+        'GuiAPI',
         'ConfigObject',
         'ui/elements/GuiCornerElement',
+        'ui/functions/GuiSurfaceLayout',
         'ui/elements/EffectList'
     ],
     function(
+        GuiAPI,
         ConfigObject,
         GuiCornerElement,
+        GuiSurfaceLayout,
         EffectList
     ) {
 
         var cursor_x;
         var cursor_y;
 
+        var surfaceAvtive = false;
+        var surfacePassive = false;
+
         var tempVec1 = new THREE.Vector3();
 
         var GuiSurfaceElement = function() {
 
             this.obj3d = new THREE.Object3D();
+            this.guiSurfaceLayout = new GuiSurfaceLayout();
 
             this.topLeft = new GuiCornerElement();
             this.topRight = new GuiCornerElement();
@@ -44,7 +52,7 @@ define([
         };
 
         GuiSurfaceElement.prototype.initSurfaceCorners = function(cornersReady) {
-            
+
 
             var br = function(crnr) {
                 crnr.getCornerQuaternion().set(0, 0, -1, 0);
@@ -75,10 +83,8 @@ define([
         };
 
         GuiSurfaceElement.prototype.applySurfaceData = function(surfaceData) {
-            this.topLeft.setCornerXY(surfaceData.left, surfaceData.top);
-            this.topRight.setCornerXY(surfaceData.right, surfaceData.top);
-            this.bottomLeft.setCornerXY(surfaceData.left, surfaceData.bottom);
-            this.bottomRight.setCornerXY(surfaceData.right, surfaceData.bottom);
+            this.guiSurfaceLayout.parseLaoutConfig(surfaceData.layout);
+            this.guiSurfaceLayout.applyLayoutToCorners(this.topLeft, this.topRight, this.bottomLeft, this.bottomRight);
         };
 
         GuiSurfaceElement.prototype.applySurfacePassive = function(bool, dataKey) {
@@ -95,27 +101,15 @@ define([
             this.bottomRight.setCornerActive(bool, dataKey);
         };
 
+
         GuiSurfaceElement.prototype.testPointerHover = function(surfaceData) {
 
-            cursor_x = WorldAPI.sampleInputBuffer(ENUMS.InputState.MOUSE_X);
-            cursor_y = WorldAPI.sampleInputBuffer(ENUMS.InputState.MOUSE_Y);
+            surfacePassive = this.guiSurfaceLayout.isInsideXY(GuiAPI.getMouseX(), GuiAPI.getMouseY());
 
-            var surfaceAvtive = false;
-            var surfacePassive = false;
-
-            if (cursor_x > surfaceData.left && cursor_x < surfaceData.right && cursor_y > surfaceData.bottom && cursor_y < surfaceData.top) {
-                surfacePassive = true;
-            }
+            surfaceAvtive = false;
 
             if (WorldAPI.sampleInputBuffer(ENUMS.InputState.ACTION_0)) {
-
-                cursor_x = WorldAPI.sampleInputBuffer(ENUMS.InputState.START_DRAG_X);
-                cursor_y = WorldAPI.sampleInputBuffer(ENUMS.InputState.START_DRAG_Y);
-
-                if (cursor_x > surfaceData.left && cursor_x < surfaceData.right && cursor_y > surfaceData.bottom && cursor_y < surfaceData.top) {
-                    surfaceAvtive = true;
-                }
-
+                surfaceAvtive = this.guiSurfaceLayout.isInsideXY(GuiAPI.getStartDragX(), GuiAPI.getStartDragY());
             }
 
             this.applySurfacePassive(surfacePassive, surfaceData.corner_passive_fx);

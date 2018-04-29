@@ -5,10 +5,16 @@
         "id": "config",
         "data": {
           "surface":{
-            "top":-0.15,
-            "left":-0.45,
-            "bottom":-0.39,
-            "right":-0.05,
+
+            "layout":{
+              "anchor":"bottom_left",
+              "fixed_aspect":true,
+              "margin_x":0.05,
+              "margin_y":0.05,
+              "width": 0.25,
+              "height":0.25
+            },
+
             "corner_passive_fx":"corner_passive_effects",
             "corner_active_fx":"corner_active_effects"
           },

@@ -64,7 +64,7 @@ define([
 
 
         WorldControlState.prototype.setInputBuffer = function(buffer) {
-            console.log("Set Input Buffer", buffer);
+    //        console.log("Set Input Buffer", buffer);
             inputBuffer = buffer;
             this.enableDefaultGuiWidgets()
         };

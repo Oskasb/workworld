@@ -319,6 +319,27 @@ if(typeof(ENUMS) === "undefined"){
         toggle:'toggle'
     };
 
+    ENUMS.Layout = {
+        x_min:'x_min',
+        x_max:'x_max',
+        y_min:'y_min',
+        y_max:'y_max',
+
+        anchor:'anchor',
+        top_left:'top_left',
+        top_right:'top_right',
+        bottom_left:'bottom_left',
+        bottom_right:'bottom_right',
+        center:'center',
+        fixed_aspect:'fixed_aspect',
+        width:'width',
+        height:'height',
+        margin_x:'margin_x',
+        margin_y:'margin_y'
+    };
+
+
+
     ENUMS.OptionKeys = {
         offset_x:'offset_x',
         offset_y:'offset_y',

@@ -1,10 +1,12 @@
 "use strict";
 
 define([
+    'GuiAPI',
         'ConfigObject',
         'ui/elements/EffectList'
     ],
     function(
+        GuiAPI,
         ConfigObject,
         EffectList
     ) {

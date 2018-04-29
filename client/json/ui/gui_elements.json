@@ -39,8 +39,7 @@
           ],
 
           "corner_active_effects":[
-            "gui_arrow_top_left_additive_effect",
-            "gui_corner_top_left_normal_effect"
+            "gui_corner_center_highlight_effect"
           ]
         }
       }

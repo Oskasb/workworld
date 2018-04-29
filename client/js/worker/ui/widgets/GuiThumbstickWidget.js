@@ -51,7 +51,6 @@ define([
         GuiThumbstickWidget.prototype.updateGuiWidget = function() {
 
             this.updateSurfaceState();
-            console.log("UpdateTSICK")
 
         };
 
