@@ -14,22 +14,32 @@
         },
 
         {
-          "id":"gui_menu_text_effect",
+          "id":"gui_basic_text_effect",
           "data":{
             "system_key":"THREE",
             "renderer_id":"gpu_normal_font_renderer",
-            "particle_id":"gui_menu_text_particle",
+            "particle_id":"gui_default_text_particle",
             "count":1,
             "simulation_id":"gpu_gui_simulation"
           }
         },
 
         {
+          "id":"gui_menu_text_effect",
+          "data":{
+            "system_key":"THREE",
+            "renderer_id":"gpu_normal_font_renderer",
+            "particle_id":"gui_default_text_particle",
+            "count":1,
+            "simulation_id":"gpu_gui_simulation"
+          }
+        },
+        {
           "id":"gui_status_text_effect",
           "data":{
             "system_key":"THREE",
             "renderer_id":"gpu_normal_font_renderer",
-            "particle_id":"gui_status_text_particle",
+            "particle_id":"gui_default_text_particle",
             "count":1,
             "simulation_id":"gpu_gui_simulation"
           }

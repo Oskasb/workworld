@@ -9,14 +9,20 @@ define([
 
         var i;
 
+        var tempVec1 = new THREE.Vector3();
+
         var EffectList = function() {
-            this.effects = []
+            this.effects = [];
         };
 
         EffectList.prototype.enableEffectList = function(effectIds, posVec, quat, size, aspect) {
             for (i = 0; i < effectIds.length; i++) {
-                this.effects.push(EffectsAPI.requestPassiveEffect(effectIds[i], posVec, null, null, quat, size, aspect))
+                this.addEffectToList(effectIds[i], posVec, quat, size, aspect)
             }
+        };
+
+        EffectList.prototype.addEffectToList = function(effectId, posVec, quat, size, aspect) {
+            this.effects.push(EffectsAPI.requestPassiveEffect(effectId, posVec, null, null, quat, size, aspect))
         };
 
         EffectList.prototype.setEffectListScale = function(scale) {
@@ -24,6 +30,15 @@ define([
                 this.effects[i].setAliveParticlesSize(scale);
             }
         };
+
+        EffectList.prototype.setEffectIndexSpriteKey = function(index, spriteKey) {
+            EffectsAPI.updateEffectSpriteKey( this.effects[index], spriteKey);
+        };
+
+        EffectList.prototype.getEffectIndexSpriteKey = function(index) {
+            return this.effects[index].dynamicSprite;
+        };
+
 
         EffectList.prototype.setEffectListAspect = function(aspect) {
             for (i = 0; i < this.effects.length; i++) {
@@ -33,8 +48,12 @@ define([
 
         EffectList.prototype.setEffectListPosition = function(posVec) {
             for (i = 0; i < this.effects.length; i++) {
-                this.effects[i].updateEffectPositionSimulator(posVec);
+                this.setEffectIndexPosition(i, posVec);
             }
+        };
+
+        EffectList.prototype.setEffectIndexPosition = function(index, posVec) {
+            this.effects[index].updateEffectPositionSimulator(posVec);
         };
 
         EffectList.prototype.setEffectListQuaternion = function(quat) {
@@ -48,6 +67,7 @@ define([
                 EffectsAPI.returnPassiveEffect(this.effects.pop())
             }
         };
+
 
         EffectList.prototype.effectCount = function() {
            return this.effects.length;

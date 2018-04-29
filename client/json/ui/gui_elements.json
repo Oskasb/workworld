@@ -1,5 +1,17 @@
 [{
   "GUI_ELEMENTS": {
+
+    "GUI_TEXT_ELEMENT":[
+      {
+        "id": "config",
+        "data": {
+
+          "default_font_effect": "gui_basic_text_effect"
+
+        }
+      }
+    ],
+
     "GUI_ARROW_ELEMENT":[
       {
         "id": "config",
@@ -18,14 +30,6 @@
         "id": "config",
         "data": {
 
-          "corner_effects":[
-            "gui_corner_center_normal_effect"
-          ],
-
-          "corner_hint_effects":[
-            "gui_arrow_top_left_additive_effect",
-            "gui_corner_top_left_normal_effect"
-          ]
         }
       }
     ],

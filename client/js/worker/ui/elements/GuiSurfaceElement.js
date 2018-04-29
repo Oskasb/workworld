@@ -6,6 +6,7 @@ define([
         'ui/elements/GuiPlateElement',
         'ui/elements/GuiEdgeElement',
         'ui/elements/GuiCornerElement',
+        'ui/elements/GuiTextElement',
         'ui/functions/GuiSurfaceLayout'
     ],
     function(
@@ -14,20 +15,20 @@ define([
         GuiPlateElement,
         GuiEdgeElement,
         GuiCornerElement,
+        GuiTextElement,
         GuiSurfaceLayout
     ) {
 
-
         var surfaceAvtive = false;
         var surfacePassive = false;
-
-        var tempVec1 = new THREE.Vector3();
 
         var GuiSurfaceElement = function() {
 
             this.obj3d = new THREE.Object3D();
 
             this.guiSurfaceLayout = new GuiSurfaceLayout();
+
+            this.textElement = new GuiTextElement();
 
             this.backplate = new GuiPlateElement();
 
@@ -40,7 +41,6 @@ define([
             this.left = new GuiEdgeElement();
             this.right = new GuiEdgeElement();
             this.bottom = new GuiEdgeElement();
-
         };
 
         GuiSurfaceElement.prototype.initSurfaceElement = function(onReadyCB) {
@@ -48,7 +48,6 @@ define([
             var cornersReady = function() {
                 onReadyCB(this);
             }.bind(this);
-
 
             var configLoaded = function() {
                 this.initSurfaceCorners(cornersReady);
@@ -105,7 +104,11 @@ define([
                 this.top.initEdgeElement(l)
             }.bind(this);
 
-            this.backplate.initPlateElement(t)
+            var txt = function() {
+                this.textElement.initTextElement(t)
+            }.bind(this);
+
+            this.backplate.initPlateElement(txt)
 
         };
 
@@ -116,7 +119,7 @@ define([
         GuiSurfaceElement.prototype.applySurfaceData = function(surfaceData) {
             this.guiSurfaceLayout.parseLaoutConfig(surfaceData.layout);
             this.guiSurfaceLayout.applyLayoutToCorners(this.topLeft, this.topRight, this.bottomLeft, this.bottomRight);
-            this.guiSurfaceLayout.applyLayoutToEdges(this.top, this.left, this.right, this.bottom);
+            this.guiSurfaceLayout.applyLayoutToEdges(this.top, this.left, this.right, this.bottom, surfaceData.edges.thickness);
             this.guiSurfaceLayout.getLayoutCenter(this.backplate.getPlatePosition());
             this.backplate.setPlateWidthAndHeight(this.guiSurfaceLayout.getLayoutWidth(), this.guiSurfaceLayout.getLayoutHeight())
         };
@@ -174,24 +177,30 @@ define([
                 this.applyBackplateActive(surfaceAvtive, surfaceData.backplate.active_fx);
             }
 
+            if (this.textElement.textString) {
+                this.textElement.visualizeText(surfaceData.text, this.guiSurfaceLayout, surfacePassive, surfaceAvtive)
+            }
+
         };
 
-        GuiSurfaceElement.prototype.testPointerHover = function(surfaceData) {
+        GuiSurfaceElement.prototype.testPointerHover = function() {
 
             surfacePassive = this.guiSurfaceLayout.isInsideXY(GuiAPI.getMouseX(), GuiAPI.getMouseY());
-
             surfaceAvtive = false;
 
             if (WorldAPI.sampleInputBuffer(ENUMS.InputState.ACTION_0)) {
                 surfaceAvtive = this.guiSurfaceLayout.isInsideXY(GuiAPI.getStartDragX(), GuiAPI.getStartDragY());
             }
+        };
 
+        GuiSurfaceElement.prototype.setSurfaceText = function(string) {
+            this.textElement.setElementText(string);
         };
 
         GuiSurfaceElement.prototype.updateSurfaceElement = function(surfaceData) {
 
             this.applySurfaceData(surfaceData);
-            this.testPointerHover(surfaceData);
+            this.testPointerHover();
             this.updateSurfaceVisuals(surfaceData)
 
         };

@@ -94,22 +94,17 @@
           }
         },
         {
-          "id":"gui_menu_text_particle",
+          "id":"gui_default_text_particle",
           "sprite_key":"FONT",
           "sprite_id":"test",
           "config":{
             "lifeTime":{"min":4,"max":4},
             "positionSpread":{"x":0.0001, "y":0.0001, "z":0.0001},
-            "gravity":0.0001,
             "colorCurve":"brightYellow",
             "alphaCurve":"sublteSin",
             "diffusionCurve":"dampen",
-            "size":{"value":0.022, "min": 0.0, "max": 0.0001},
-            "spin":{"value":0.000001, "min": 0.0001, "max": 0.0001},
-            "velocityDiffusion":0.01,
-            "accelerationDiffusion":0.01,
-            "colorDiffusion":0.05,
-            "velocityFactor":0.03
+            "size":{"value":1},
+            "colorDiffusion":0.05
           }
         },
         {

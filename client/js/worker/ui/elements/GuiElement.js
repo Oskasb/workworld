@@ -127,9 +127,7 @@ define([
                 }
             }
         };
-
-
-
+        
 
         GuiElement.prototype.renderText = function(textOffsetVector) {
 

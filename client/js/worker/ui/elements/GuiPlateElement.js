@@ -12,8 +12,6 @@ define([
     ) {
 
 
-        var tempVec1 = new THREE.Vector3();
-
         var GuiPlateElement = function() {
 
             this.obj3d = new THREE.Object3D();

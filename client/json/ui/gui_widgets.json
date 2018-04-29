@@ -9,10 +9,10 @@
             "layout":{
               "anchor":"bottom_left",
               "fixed_aspect":true,
-              "margin_x":0.08,
-              "margin_y":0.08,
-              "width": 0.45,
-              "height":0.25
+              "margin_x":0.05,
+              "margin_y":0.05,
+              "width": 0.37,
+              "height":0.31
             },
 
             "corners":{
@@ -23,12 +23,18 @@
             "edges":{
               "passive_fx":"edge_passive_effects",
               "active_fx":"edge_active_effects",
-              "thickness":0.015
+              "thickness":0.022
             },
 
             "backplate":{
               "passive_fx":"plate_passive_effects",
               "active_fx":"plate_active_effects"
+            },
+
+            "text":{
+              "font_size":19,
+              "italic":true,
+              "font_effect":"default_font_effect"
             }
 
           },

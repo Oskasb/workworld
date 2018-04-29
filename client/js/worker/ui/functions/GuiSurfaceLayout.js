@@ -97,18 +97,18 @@ define([
             bottomRight.setCornerXY(this.xMax,  this.yMax);
         };
 
-        GuiSurfaceLayout.prototype.applyLayoutToEdges = function(top, left, right, bottom) {
+        GuiSurfaceLayout.prototype.applyLayoutToEdges = function(top, left, right, bottom, thickness) {
             top.setEdgeXY(    this.getCenterX(),  this.yMin);
             left.setEdgeXY(   this.xMin,  this.getCenterY());
             right.setEdgeXY(  this.xMax,  this.getCenterY());
             bottom.setEdgeXY( this.getCenterX(),  this.yMax);
 
-            top.setEdgeWidthAndHeight(this.getLayoutWidth(), 0.015);
+            top.setEdgeWidthAndHeight(this.getLayoutWidth(), thickness);
 
-            left.setEdgeWidthAndHeight(0.015, this.getLayoutHeight());
-            right.setEdgeWidthAndHeight(0.015, this.getLayoutHeight());
+            left.setEdgeWidthAndHeight(thickness, this.getLayoutHeight());
+            right.setEdgeWidthAndHeight(thickness, this.getLayoutHeight());
 
-            bottom.setEdgeWidthAndHeight(this.getLayoutWidth(), 0.015)
+            bottom.setEdgeWidthAndHeight(this.getLayoutWidth(), thickness)
 
         };
 

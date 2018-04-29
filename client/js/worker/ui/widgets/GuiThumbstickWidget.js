@@ -1,23 +1,20 @@
 "use strict";
 
 define([
-    'GuiAPI',
+        'GuiAPI',
         'ConfigObject',
-        'ui/elements/GuiSurfaceElement',
-        'ui/elements/EffectList'
+        'ui/elements/GuiSurfaceElement'
     ],
     function(
         GuiAPI,
         ConfigObject,
-        GuiSurfaceElement,
-        EffectList
+        GuiSurfaceElement
     ) {
 
         var GuiThumbstickWidget = function() {
 
             this.obj3d = new THREE.Object3D();
             this.surfaceElement = new GuiSurfaceElement();
-            this.arrowEffects = new EffectList();
             this.callbacks = [];
         };
 
@@ -34,7 +31,6 @@ define([
             }.bind(this);
 
             this.surfaceElement.initSurfaceElement(surfaceReady);
-
         };
 
         GuiThumbstickWidget.prototype.configRead = function(dataKey) {
@@ -42,25 +38,17 @@ define([
         };
 
         GuiThumbstickWidget.prototype.updateSurfaceState = function(fromVec, toVec) {
-
             this.surfaceElement.updateSurfaceElement(this.configObject.getConfigByDataKey('surface'))
-
         };
-
 
         GuiThumbstickWidget.prototype.updateGuiWidget = function() {
-
             this.updateSurfaceState();
-
         };
 
-
         GuiThumbstickWidget.prototype.disableWidget = function() {
-
             while (this.callbacks.length) {
                 GuiAPI.removeGuiUpdateCallback(this.callbacks.pop())
             }
-
         };
 
         GuiThumbstickWidget.prototype.enableWidget = function() {
@@ -71,6 +59,7 @@ define([
 
             GuiAPI.addGuiUpdateCallback(cb);
             this.callbacks.push(cb);
+            this.surfaceElement.setSurfaceText('Steer Stick')
         };
 
 
