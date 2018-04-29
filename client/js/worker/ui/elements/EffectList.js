@@ -68,6 +68,11 @@ define([
             }
         };
 
+        EffectList.prototype.removeEffectListElementCount = function(count) {
+            for (var i = 0; i < count; i++) {
+                EffectsAPI.returnPassiveEffect(this.effects.pop())
+            }
+        };
 
         EffectList.prototype.effectCount = function() {
            return this.effects.length;

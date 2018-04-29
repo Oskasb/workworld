@@ -381,7 +381,7 @@ define([
             tempVec.y   = -99999999;
             tempVec.z   = -10;
 
-            effect.scale = 1;
+            effect.scale = 0;
 
             effect.updateEffectPositionSimulator(tempVec);
 

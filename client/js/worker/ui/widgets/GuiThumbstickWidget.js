@@ -54,12 +54,13 @@ define([
         GuiThumbstickWidget.prototype.enableWidget = function() {
 
             var cb = function() {
+                this.surfaceElement.setSurfaceText('Steer '+Math.floor(Math.random()*Math.random()*Math.random()*1000000000000));
                 this.updateGuiWidget();
             }.bind(this);
 
             GuiAPI.addGuiUpdateCallback(cb);
             this.callbacks.push(cb);
-            this.surfaceElement.setSurfaceText('Steer Stick')
+            this.surfaceElement.setSurfaceText('Steer '+Math.floor(Math.random()*100));
         };
 
 
