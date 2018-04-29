@@ -39,15 +39,10 @@ define([
             this.yMin = 0;
             this.yMax = 0;
 
-            this.layout = {
-                x_min:0,
-                x_max:0,
-                y_min:0,
-                y_max:0
-            };
-
             this.anchorX = 0;
             this.anchorY = 0;
+            this.centerX = 0;
+            this.centerY = 0;
 
         };
 
@@ -66,8 +61,6 @@ define([
 
         GuiSurfaceLayout.prototype.setupLayout = function(layout) {
 
-
-
             scax = GuiAPI.layoutToViewX(this.anchorX);
             scay = GuiAPI.layoutToViewY(this.anchorY);
 
@@ -79,22 +72,12 @@ define([
                 height = -GuiAPI.scaleByHeight(layout[ENUMS.Layout.height]) // WorldAPI.sampleInputBuffer(ENUMS.InputState.ASPECT));
             }
 
-
-        //    width =  layout[ENUMS.Layout.width];
-        //    height = layout[ENUMS.Layout.height];
-
             this.xMin = scax - width  * anchorX;
             this.xMax = scax + width  * (1-anchorX);
             this.yMin = scay - height * anchorY;
             this.yMax = scay + height * (1-anchorY);
 
-        //    this.layout.x_min = x1;
-        //    this.layout.x_max = x2;
-        //    this.layout.y_min = y1;
-        //    this.layout.y_max = y2;
-
         };
-
 
         GuiSurfaceLayout.prototype.applyLayoutRules = function(layoutConfig) {
 
@@ -103,14 +86,8 @@ define([
 
         };
 
-
         GuiSurfaceLayout.prototype.parseLaoutConfig = function(layoutConfig) {
             this.applyLayoutRules(layoutConfig);
-
-         ////   this.xMin = this.layout.x_min;
-         ////   this.xMax = this.layout.x_max;
-         ////   this.yMin = this.layout.y_min;
-         ////   this.yMax = this.layout.y_max;
         };
 
         GuiSurfaceLayout.prototype.applyLayoutToCorners = function(topLeft, topRight, bottomLeft, bottomRight) {
@@ -118,6 +95,20 @@ define([
             topRight.setCornerXY(   this.xMax,  this.yMin);
             bottomLeft.setCornerXY( this.xMin,  this.yMax);
             bottomRight.setCornerXY(this.xMax,  this.yMax);
+        };
+
+        GuiSurfaceLayout.prototype.getLayoutCenter = function(storeVec) {
+            storeVec.x = (this.xMin + this.xMax) / 2;
+            storeVec.y = (this.yMin + this.yMax) / 2;
+            storeVec.z = -1;
+        };
+
+        GuiSurfaceLayout.prototype.getLayoutWidth = function() {
+            return this.xMax - this.xMin
+        };
+
+        GuiSurfaceLayout.prototype.getLayoutHeight = function() {
+            return this.yMax - this.yMin
         };
 
         GuiSurfaceLayout.prototype.isInsideXY = function(x, y) {

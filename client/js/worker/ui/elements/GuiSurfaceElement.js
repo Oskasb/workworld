@@ -3,20 +3,18 @@
 define([
         'GuiAPI',
         'ConfigObject',
+        'ui/elements/GuiPlateElement',
         'ui/elements/GuiCornerElement',
-        'ui/functions/GuiSurfaceLayout',
-        'ui/elements/EffectList'
+        'ui/functions/GuiSurfaceLayout'
     ],
     function(
         GuiAPI,
         ConfigObject,
+        GuiPlateElement,
         GuiCornerElement,
-        GuiSurfaceLayout,
-        EffectList
+        GuiSurfaceLayout
     ) {
 
-        var cursor_x;
-        var cursor_y;
 
         var surfaceAvtive = false;
         var surfacePassive = false;
@@ -26,7 +24,10 @@ define([
         var GuiSurfaceElement = function() {
 
             this.obj3d = new THREE.Object3D();
+
             this.guiSurfaceLayout = new GuiSurfaceLayout();
+
+            this.backplate = new GuiPlateElement();
 
             this.topLeft = new GuiCornerElement();
             this.topRight = new GuiCornerElement();
@@ -74,7 +75,11 @@ define([
                 this.topRight.initCornerElement(tr)
             }.bind(this);
 
-            this.topLeft.initCornerElement(tl)
+            var bp = function() {
+                this.topLeft.initCornerElement(tl)
+            }.bind(this);
+
+            this.backplate.initPlateElement(bp)
 
         };
 
@@ -85,22 +90,46 @@ define([
         GuiSurfaceElement.prototype.applySurfaceData = function(surfaceData) {
             this.guiSurfaceLayout.parseLaoutConfig(surfaceData.layout);
             this.guiSurfaceLayout.applyLayoutToCorners(this.topLeft, this.topRight, this.bottomLeft, this.bottomRight);
+            this.guiSurfaceLayout.getLayoutCenter(this.backplate.getPlatePosition());
+            this.backplate.setPlateWidthAndHeight(this.guiSurfaceLayout.getLayoutWidth(), this.guiSurfaceLayout.getLayoutHeight())
         };
 
-        GuiSurfaceElement.prototype.applySurfacePassive = function(bool, dataKey) {
+        GuiSurfaceElement.prototype.applyCornersPassive = function(bool, dataKey) {
             this.topLeft.setCornerPassive(bool, dataKey);
             this.topRight.setCornerPassive(bool, dataKey);
             this.bottomLeft.setCornerPassive(bool, dataKey);
             this.bottomRight.setCornerPassive(bool, dataKey);
         };
 
-        GuiSurfaceElement.prototype.applySurfaceActive = function(bool, dataKey) {
+        GuiSurfaceElement.prototype.applyCornersActive = function(bool, dataKey) {
             this.topLeft.setCornerActive(bool, dataKey);
             this.topRight.setCornerActive(bool, dataKey);
             this.bottomLeft.setCornerActive(bool, dataKey);
             this.bottomRight.setCornerActive(bool, dataKey);
         };
 
+        GuiSurfaceElement.prototype.applyBackplatePassive = function(bool, dataKey) {
+            this.backplate.setPlatePassive(bool, dataKey);
+        };
+
+        GuiSurfaceElement.prototype.applyBackplateActive = function(bool, dataKey) {
+            this.backplate.setPlateActive(bool, dataKey);
+        };
+
+        GuiSurfaceElement.prototype.updateSurfaceVisuals = function(surfaceData) {
+
+            if (surfaceData.corners) {
+                this.applyCornersPassive(surfacePassive, surfaceData.corners.corner_passive_fx);
+                this.applyCornersActive(surfaceAvtive, surfaceData.corners.corner_active_fx);
+            }
+
+            if (surfaceData.backplate) {
+                this.applyBackplatePassive(surfacePassive, surfaceData.backplate.plate_passive_fx);
+                this.applyBackplateActive(surfaceAvtive, surfaceData.backplate.plate_active_fx);
+            }
+
+
+        };
 
         GuiSurfaceElement.prototype.testPointerHover = function(surfaceData) {
 
@@ -112,16 +141,13 @@ define([
                 surfaceAvtive = this.guiSurfaceLayout.isInsideXY(GuiAPI.getStartDragX(), GuiAPI.getStartDragY());
             }
 
-            this.applySurfacePassive(surfacePassive, surfaceData.corner_passive_fx);
-            this.applySurfaceActive(surfaceAvtive, surfaceData.corner_active_fx);
-
         };
 
         GuiSurfaceElement.prototype.updateSurfaceElement = function(surfaceData) {
 
             this.applySurfaceData(surfaceData);
-
-            this.testPointerHover(surfaceData)
+            this.testPointerHover(surfaceData);
+            this.updateSurfaceVisuals(surfaceData)
 
         };
 

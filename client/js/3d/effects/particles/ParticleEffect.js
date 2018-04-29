@@ -35,6 +35,7 @@ define(['3d/effects/particles/EffectSimulators',
             this.deadParticles = [];
 
             this.dynamicSprite = null;
+            this.dynamicScale = null;
 
             this.temporary = {
                 startTime:0,
@@ -165,8 +166,14 @@ define(['3d/effects/particles/EffectSimulators',
                 this.updateEffectColorTexelRow(this.dynamicColor);
             }
 
+
             particle.initToSimulation(systemTime+frameTpfFraction, this.vel);
             particle.setSize(this.scale*particle.params.position.w);
+
+            if (this.dynamicScale) {
+                particle.params.texelRowSelect.z = this.dynamicScale;
+            }
+
             this.updateParticle(particle, frameTpfFraction);
 
 
@@ -191,6 +198,18 @@ define(['3d/effects/particles/EffectSimulators',
             }
 
         };
+
+        ParticleEffect.prototype.updateEffectScaleTexelRow = function(value) {
+
+            this.dynamicScale = value;
+
+            for (i = 0; i < this.aliveParticles.length; i++) {
+                this.aliveParticles[i].params.texelRowSelect.z = value;
+                this.applyParticleSimulator(EffectSimulators.simulators.texelRowSelect, this.aliveParticles[i], 0)
+            }
+
+        };
+
 
         ParticleEffect.prototype.updateEffectSpriteSimulator = function(sprite) {
             this.dynamicSprite = sprite;
@@ -219,6 +238,14 @@ define(['3d/effects/particles/EffectSimulators',
                 this.aliveParticles[i].setSize(scale*this.aliveParticles[i].params.position.w);
                 this.applyParticleSimulator(EffectSimulators.simulators.position, this.aliveParticles[i], tpf)
             }
+        };
+
+        ParticleEffect.prototype.setAliveParticlesSize = function(size, tpf) {
+
+            for (i = 0; i < this.aliveParticles.length; i++) {
+                this.aliveParticles[i].setSize(size);
+            }
+
         };
 
         ParticleEffect.prototype.updateEffectVelocitySimulator = function(vel, tpf) {

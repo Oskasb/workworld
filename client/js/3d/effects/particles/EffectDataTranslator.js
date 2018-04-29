@@ -83,7 +83,7 @@ define([
             this.position.setValues(tV, tV, tV, 1, tV, tV);
             this.acceleration.setValues(tV, -9.81, tV, tV, tV, tV);
             this.velocity.setValues(tV, tV, tV, tV, tV, tV);
-            this.texelRowSelect.setValues(2, 1, 2, 1, 0, 0);
+            this.texelRowSelect.setValues(2, 1, 1, 1, 0, 0);
             this.diffusors.setValues(0.5, 0.3, 1, 1, tV, tV);
             this.positionSpread.setValues(tV, tV, tV, tV, tV, tV);
             this.velocitySpread.setValues(0.5, 0.5, 0.5, tV, tV, tV);

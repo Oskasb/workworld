@@ -13,9 +13,21 @@ define([
             this.effects = []
         };
 
-        EffectList.prototype.enableEffectList = function(effectIds, posVec, quat) {
+        EffectList.prototype.enableEffectList = function(effectIds, posVec, quat, size, aspect) {
             for (i = 0; i < effectIds.length; i++) {
-                this.effects.push(EffectsAPI.requestPassiveEffect(effectIds[i], posVec, null, null, quat))
+                this.effects.push(EffectsAPI.requestPassiveEffect(effectIds[i], posVec, null, null, quat, size, aspect))
+            }
+        };
+
+        EffectList.prototype.setEffectListScale = function(scale) {
+            for (i = 0; i < this.effects.length; i++) {
+                this.effects[i].setAliveParticlesSize(scale);
+            }
+        };
+
+        EffectList.prototype.setEffectListAspect = function(aspect) {
+            for (i = 0; i < this.effects.length; i++) {
+                this.effects[i].updateEffectScaleTexelRow(aspect);
             }
         };
 

@@ -76,11 +76,6 @@ define([
             return this.obj3d.quaternion;
         };
 
-        GuiCornerElement.prototype.updateSurfaceElement = function(surfaceData) {
-
-            this.testPointerHover(surfaceData)
-
-        };
 
         return GuiCornerElement;
 

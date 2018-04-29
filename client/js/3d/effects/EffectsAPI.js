@@ -85,8 +85,8 @@ define([
             return particleSpawner.spawnTemporaryPassiveEffect(id, pos, vel, size, quat, duration);
         };
 
-        EffectsAPI.requestPassiveEffect = function(id, pos, vel, size, quat) {
-            return particleSpawner.spawnPassiveEffect(id, pos, vel, size, quat);
+        EffectsAPI.requestPassiveEffect = function(id, pos, vel, size, quat, scale, aspect) {
+            return particleSpawner.spawnPassiveEffect(id, pos, vel, size, quat, scale, aspect);
         };
 
         EffectsAPI.returnPassiveEffect = function(effect) {

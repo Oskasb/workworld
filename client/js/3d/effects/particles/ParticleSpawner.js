@@ -191,13 +191,19 @@ define([
 
         };
 
-        ParticleSpawner.prototype.buildEffect = function(id, pos, vel, size, quat, duration) {
+        ParticleSpawner.prototype.buildEffect = function(id, pos, vel, size, quat, duration, scale, aspect) {
 
             effect = this.getEffect();
 
             effect.setEffectId(id);
 
             effect.setEffectPosition(pos);
+
+            if (scale) {
+                effect.scale = scale;
+            } else {
+                effect.scale = 1;
+            }
 
             if (vel) {
                 effect.setEffectVelocity(vel);
@@ -222,6 +228,12 @@ define([
                 effect.quat.y = 0;
                 effect.quat.z = 0;
                 effect.quat.w = 1;
+            }
+
+            if (aspect) {
+                effect.dynamicScale = aspect;
+            } else {
+                effect.dynamicScale = null;
             }
 
             if (duration) {
@@ -345,8 +357,8 @@ define([
             return activateEffect;
         };
 
-        ParticleSpawner.prototype.spawnPassiveEffect = function(id, pos, vel, size, quat) {
-            return this.buildEffect(id, pos, vel, size, quat);
+        ParticleSpawner.prototype.spawnPassiveEffect = function(id, pos, vel, size, quat, scale, aspect) {
+            return this.buildEffect(id, pos, vel, size, quat, null, scale, aspect);
         };
 
 

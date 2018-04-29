@@ -114,6 +114,10 @@
           "vPosition = vPosition * sampledSizeFactor;"
         ],
 
+        "vertexAspectFromTexRowSelectZ":[
+          "vPosition.y = vPosition.y * rowSize;"
+        ],
+
         "vertexGeometryTextureData":[
 
           "effectAge = systemTime - startTime;",

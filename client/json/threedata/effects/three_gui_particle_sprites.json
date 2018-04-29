@@ -81,6 +81,11 @@
         },
 
         {
+          "id":"plate",
+          "tiles":[[3, 2]]
+        },
+
+        {
           "id":"arrow_top_left",
           "tiles":[[3, 1]]
         },
