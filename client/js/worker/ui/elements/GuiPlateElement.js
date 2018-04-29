@@ -69,22 +69,8 @@ define([
             }
         };
 
-
-        GuiPlateElement.prototype.applyPlateScale = function(scale) {
-
-        //    if (this.scale !== scale) {
-                this.scale = scale;
-                this.platePassiveEffect.setEffectListScale(scale);
-                this.plateActiveEffect.setEffectListScale(scale);
-
-                this.platePassiveEffect.setEffectListPosition(this.getPlatePosition());
-                this.plateActiveEffect.setEffectListPosition(this.getPlatePosition())
-        //    }
-        };
-
         GuiPlateElement.prototype.setPlateWidthAndHeight = function(width, height) {
             this.scale = width;
-
             this.aspect = height/width;
             this.platePassiveEffect.setEffectListAspect(this.aspect);
             this.plateActiveEffect.setEffectListAspect(this.aspect)

@@ -99,6 +99,10 @@
           "tiles":[[5, 1]]
         },
         {
+          "id":"edge",
+          "tiles":[[5, 3]]
+        },
+        {
           "id":"corner_highlight",
           "tiles":[[5, 2]]
         },

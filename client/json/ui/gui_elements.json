@@ -44,6 +44,21 @@
         }
       }
     ],
+    "GUI_EDGE_ELEMENT":[
+      {
+        "id": "config",
+        "data": {
+
+          "edge_passive_effects":[
+            "gui_edge_normal_effect"
+          ],
+
+          "edge_active_effects":[
+            "gui_edge_highlight_effect"
+          ]
+        }
+      }
+    ],
     "GUI_PLATE_ELEMENT":[
       {
         "id": "config",

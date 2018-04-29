@@ -8,20 +8,27 @@
 
             "layout":{
               "anchor":"bottom_left",
-              "fixed_aspect":false,
+              "fixed_aspect":true,
               "margin_x":0.08,
               "margin_y":0.08,
               "width": 0.45,
-              "height":0.15
+              "height":0.25
             },
 
             "corners":{
-              "corner_passive_fx":"corner_passive_effects",
-              "corner_active_fx":"corner_active_effects"
+              "passive_fx":"corner_passive_effects",
+              "active_fx":"corner_active_effects"
             },
+
+            "edges":{
+              "passive_fx":"edge_passive_effects",
+              "active_fx":"edge_active_effects",
+              "thickness":0.015
+            },
+
             "backplate":{
-              "plate_passive_fx":"plate_passive_effects",
-              "plate_active_fx":"plate_active_effects"
+              "passive_fx":"plate_passive_effects",
+              "active_fx":"plate_active_effects"
             }
 
           },

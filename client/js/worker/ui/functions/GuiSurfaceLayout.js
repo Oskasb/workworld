@@ -97,10 +97,33 @@ define([
             bottomRight.setCornerXY(this.xMax,  this.yMax);
         };
 
+        GuiSurfaceLayout.prototype.applyLayoutToEdges = function(top, left, right, bottom) {
+            top.setEdgeXY(    this.getCenterX(),  this.yMin);
+            left.setEdgeXY(   this.xMin,  this.getCenterY());
+            right.setEdgeXY(  this.xMax,  this.getCenterY());
+            bottom.setEdgeXY( this.getCenterX(),  this.yMax);
+
+            top.setEdgeWidthAndHeight(this.getLayoutWidth(), 0.015);
+
+            left.setEdgeWidthAndHeight(0.015, this.getLayoutHeight());
+            right.setEdgeWidthAndHeight(0.015, this.getLayoutHeight());
+
+            bottom.setEdgeWidthAndHeight(this.getLayoutWidth(), 0.015)
+
+        };
+
         GuiSurfaceLayout.prototype.getLayoutCenter = function(storeVec) {
-            storeVec.x = (this.xMin + this.xMax) / 2;
-            storeVec.y = (this.yMin + this.yMax) / 2;
+            storeVec.x = this.getCenterX();
+            storeVec.y = this.getCenterY();
             storeVec.z = -1;
+        };
+
+        GuiSurfaceLayout.prototype.getCenterX = function() {
+            return (this.xMin + this.xMax) / 2;
+        };
+
+        GuiSurfaceLayout.prototype.getCenterY = function() {
+            return (this.yMin + this.yMax) / 2;
         };
 
         GuiSurfaceLayout.prototype.getLayoutWidth = function() {

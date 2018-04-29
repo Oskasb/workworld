@@ -7,8 +7,8 @@
           "sprite_key":"GUI",
           "sprite_id":"plate",
           "config":{
-            "colorCurve":"darkPurple",
-            "alphaCurve":"sublteSin",
+            "colorCurve":"darkBlue",
+            "alphaCurve":"flashGrey",
             "diffusionCurve":"dampen",
             "size":{"value":0.5},
             "colorDiffusion":0.05
@@ -23,6 +23,18 @@
             "alphaCurve":"sublteSin",
             "diffusionCurve":"dampen",
             "size":{"value":0.024},
+            "colorDiffusion":0.05
+          }
+        },
+        {
+          "id":"gui_edge_particle",
+          "sprite_key":"GUI",
+          "sprite_id":"edge",
+          "config":{
+            "colorCurve":"darkBlue",
+            "alphaCurve":"sublteSin",
+            "diffusionCurve":"dampen",
+            "size":{"value":0.5},
             "colorDiffusion":0.05
           }
         },
