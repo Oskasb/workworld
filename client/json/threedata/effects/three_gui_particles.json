@@ -32,7 +32,7 @@
           "sprite_id":"edge",
           "config":{
             "colorCurve":"darkBlue",
-            "alphaCurve":"sublteSin",
+            "alphaCurve":"noiseFadeOut",
             "diffusionCurve":"dampen",
             "size":{"value":0.5},
             "colorDiffusion":0.05

@@ -342,6 +342,19 @@ define([
 
         };
 
+        ParticleSpawner.prototype.updateEffectParticleAlpha = function(effect, alphaKey) {
+            texelRow = EffectDataTranslator.getTexelRowByName(alphaKey);
+
+            if (isNaN(texelRow)) {
+                console.log("No such curve: ", alphaKey);
+                return;
+            }
+
+            effect.updateEffectAlphaTexelRow(texelRow);
+
+        };
+
+
         ParticleSpawner.prototype.spawnTemporaryPassiveEffect = function(id, pos, vel, size, quat, duration) {
 
             activateEffect = this.buildEffect(id, pos, vel, size, quat, duration);
@@ -357,8 +370,8 @@ define([
             return activateEffect;
         };
 
-        ParticleSpawner.prototype.spawnPassiveEffect = function(id, pos, vel, size, quat, scale, aspect) {
-            return this.buildEffect(id, pos, vel, size, quat, null, scale, aspect);
+        ParticleSpawner.prototype.spawnPassiveEffect = function(id, pos, vel, size, quat, scale, aspect, colorKey) {
+            return this.buildEffect(id, pos, vel, size, quat, null, scale, aspect, colorKey);
         };
 
 
@@ -382,6 +395,11 @@ define([
             tempVec.z   = -10;
 
             effect.scale = 0;
+
+            effect.dynamicSprite = null;
+            effect.dynamicScale = null;
+            effect.dynamicAlpha = null;
+            effect.dynamicColor = null;
 
             effect.updateEffectPositionSimulator(tempVec);
 

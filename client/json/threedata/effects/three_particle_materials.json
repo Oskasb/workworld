@@ -22,7 +22,7 @@
             "tiles_x":6,
             "tiles_y":6,
             "flip_y":true,
-            "data_rows":64
+            "data_rows":128
           }
         },
 
@@ -46,7 +46,7 @@
             "tiles_x":6,
             "tiles_y":6,
             "flip_y":true,
-            "data_rows":64
+            "data_rows":128
           }
         },
 
@@ -70,7 +70,7 @@
             "tiles_x":16,
             "tiles_y":16,
             "flip_y":true,
-            "data_rows":64
+            "data_rows":128
           }
         },
 
@@ -94,7 +94,7 @@
             "tiles_x":6,
             "tiles_y":6,
             "flip_y":true,
-            "data_rows":64
+            "data_rows":128
           }
         },
         {
@@ -122,7 +122,7 @@
             "tiles_x":6,
             "tiles_y":6,
             "flip_y":true,
-            "data_rows":64
+            "data_rows":128
           }
         },{
 
@@ -151,7 +151,7 @@
             "tiles_x":6,
             "tiles_y":6,
             "flip_y":true,
-            "data_rows":64
+            "data_rows":128
           }
         },{
 
@@ -181,7 +181,7 @@
             "tiles_x":1,
             "tiles_y":1,
             "flip_y":true,
-            "data_rows":64
+            "data_rows":128
           }
         },{
 
@@ -210,7 +210,7 @@
             "tiles_x":6,
             "tiles_y":6,
             "flip_y":true,
-            "data_rows":64
+            "data_rows":128
           }
 
         },{
@@ -240,7 +240,7 @@
             "tiles_x":6,
             "tiles_y":6,
             "flip_y":true,
-            "data_rows":64
+            "data_rows":128
           }
 
         },{
@@ -271,7 +271,7 @@
             "tiles_x":6,
             "tiles_y":6,
             "flip_y":true,
-            "data_rows":64
+            "data_rows":128
           }
         }
       ],

@@ -21,8 +21,8 @@ define([
             }
         };
 
-        EffectList.prototype.addEffectToList = function(effectId, posVec, quat, size, aspect) {
-            this.effects.push(EffectsAPI.requestPassiveEffect(effectId, posVec, null, null, quat, size, aspect))
+        EffectList.prototype.addEffectToList = function(effectId, posVec, quat, size, aspect, colorKey) {
+            this.effects.push(EffectsAPI.requestPassiveEffect(effectId, posVec, null, null, quat, size, aspect, colorKey))
         };
 
         EffectList.prototype.setEffectListScale = function(scale) {
@@ -35,8 +35,16 @@ define([
             EffectsAPI.updateEffectSpriteKey( this.effects[index], spriteKey);
         };
 
-        EffectList.prototype.getEffectIndexSpriteKey = function(index) {
-            return this.effects[index].dynamicSprite;
+        EffectList.prototype.setEffectIndexColorKey = function(index, colorKey) {
+            EffectsAPI.updateEffectColorKey( this.effects[index], colorKey);
+        };
+
+        EffectList.prototype.setEffectIndexAlphaKey = function(index, alphaKey) {
+            EffectsAPI.updateEffectAlphaKey( this.effects[index], alphaKey);
+        };
+
+        EffectList.prototype.setEffectIndexScale = function(index, scale) {
+            this.effects[index].setAliveParticlesSize(scale);
         };
 
 

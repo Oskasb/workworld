@@ -19,16 +19,18 @@ define([
         GuiSurfaceLayout
     ) {
 
+        var i;
+        var elem;
         var surfaceAvtive = false;
         var surfacePassive = false;
 
         var GuiSurfaceElement = function() {
 
+            this.textElements = [];
+
             this.obj3d = new THREE.Object3D();
 
             this.guiSurfaceLayout = new GuiSurfaceLayout();
-
-            this.textElement = new GuiTextElement();
 
             this.backplate = new GuiPlateElement();
 
@@ -50,6 +52,7 @@ define([
             }.bind(this);
 
             var configLoaded = function() {
+                this.configObject.removeCallback(configLoaded);
                 this.initSurfaceCorners(cornersReady);
             }.bind(this);
 
@@ -104,11 +107,7 @@ define([
                 this.top.initEdgeElement(l)
             }.bind(this);
 
-            var txt = function() {
-                this.textElement.initTextElement(t)
-            }.bind(this);
-
-            this.backplate.initPlateElement(txt)
+            this.backplate.initPlateElement(t)
 
         };
 
@@ -177,9 +176,11 @@ define([
                 this.applyBackplateActive(surfaceAvtive, surfaceData.backplate.active_fx);
             }
 
-            if (this.textElement.textString) {
-                this.textElement.visualizeText(surfaceData.text, this.guiSurfaceLayout, surfacePassive, surfaceAvtive)
+
+            for (i = 0; i < this.textElements.length; i++) {
+                this.textElements[i].visualizeText(this.guiSurfaceLayout, surfacePassive, surfaceAvtive)
             }
+
 
         };
 
@@ -193,8 +194,20 @@ define([
             }
         };
 
-        GuiSurfaceElement.prototype.setSurfaceText = function(string) {
-            this.textElement.setElementText(string);
+
+
+        GuiSurfaceElement.prototype.addSurfaceTextElement = function(layoutKey, string) {
+
+            var txt = function(txtElem) {
+                txtElem.setElementText(string);
+                this.textElements.push(txtElem);
+            }.bind(this);
+
+            elem = new GuiTextElement();
+            elem.setElementLayoutKey(layoutKey);
+            elem.initTextElement(txt);
+            return elem;
+
         };
 
         GuiSurfaceElement.prototype.updateSurfaceElement = function(surfaceData) {

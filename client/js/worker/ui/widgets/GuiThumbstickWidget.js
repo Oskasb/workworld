@@ -16,12 +16,21 @@ define([
             this.obj3d = new THREE.Object3D();
             this.surfaceElement = new GuiSurfaceElement();
             this.callbacks = [];
+
+        };
+
+        GuiThumbstickWidget.prototype.setupTextElements = function() {
+
+            this.header = this.surfaceElement.addSurfaceTextElement('header', 'Header');
+            this.typeLabel = this.surfaceElement.addSurfaceTextElement('type_label', 'Type Label');
+
         };
 
 
         GuiThumbstickWidget.prototype.initGuiWidget = function(onReadyCB) {
 
             var configLoaded = function() {
+                this.configObject.removeCallback(configLoaded);
                 onReadyCB(this);
             }.bind(this);
 
@@ -37,13 +46,19 @@ define([
             return this.configObject.getConfigByDataKey(dataKey)
         };
 
-        GuiThumbstickWidget.prototype.updateSurfaceState = function(fromVec, toVec) {
+        GuiThumbstickWidget.prototype.updateSurfaceState = function() {
             this.surfaceElement.updateSurfaceElement(this.configObject.getConfigByDataKey('surface'))
         };
 
         GuiThumbstickWidget.prototype.updateGuiWidget = function() {
             this.updateSurfaceState();
         };
+
+
+        GuiThumbstickWidget.prototype.addWidgetText = function(text) {
+            this.header = this.surfaceElement.addSurfaceTextElement('header' ,text);
+        };
+
 
         GuiThumbstickWidget.prototype.disableWidget = function() {
             while (this.callbacks.length) {
@@ -54,13 +69,21 @@ define([
         GuiThumbstickWidget.prototype.enableWidget = function() {
 
             var cb = function() {
-                this.surfaceElement.setSurfaceText('Steer '+Math.floor(Math.random()*Math.random()*Math.random()*1000000000000));
+
+                if (Math.random() < 0.5) {
+                    this.header.setElementText('Header: '+Math.floor(Math.random()*160));
+                    this.typeLabel.setElementText('Type Label: '+Math.floor(Math.random()*10));
+                }
+
+
                 this.updateGuiWidget();
             }.bind(this);
 
             GuiAPI.addGuiUpdateCallback(cb);
             this.callbacks.push(cb);
-            this.surfaceElement.setSurfaceText('Steer '+Math.floor(Math.random()*100));
+
+            this.setupTextElements();
+
         };
 
 

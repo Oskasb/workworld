@@ -24,6 +24,7 @@ define([
         GuiEdgeElement.prototype.initEdgeElement = function(onReadyCB) {
 
             var configLoaded = function() {
+                this.configObject.removeCallback(configLoaded);
                 onReadyCB(this);
             }.bind(this);
 

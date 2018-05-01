@@ -36,6 +36,7 @@ define(['3d/effects/particles/EffectSimulators',
 
             this.dynamicSprite = null;
             this.dynamicScale = null;
+            this.dynamicAlpha = null;
 
             this.temporary = {
                 startTime:0,
@@ -162,16 +163,20 @@ define(['3d/effects/particles/EffectSimulators',
 
             ParticleParamParser.applyEffectSprite(particle, this.dynamicSprite || this.effectData.sprite);
 
-            if (this.dynamicColor) {
-                this.updateEffectColorTexelRow(this.dynamicColor);
-            }
-
-
             particle.initToSimulation(systemTime+frameTpfFraction, this.vel);
             particle.setSize(this.scale*particle.params.position.w);
 
+
             if (this.dynamicScale) {
                 particle.params.texelRowSelect.z = this.dynamicScale;
+            }
+
+            if (this.dynamicColor) {
+                particle.params.texelRowSelect.x = this.dynamicColor;
+            }
+
+            if (this.dynamicAlpha) {
+                particle.params.texelRowSelect.w = this.dynamicAlpha;
             }
 
             this.updateParticle(particle, frameTpfFraction);
@@ -198,6 +203,17 @@ define(['3d/effects/particles/EffectSimulators',
             }
 
         };
+
+        ParticleEffect.prototype.updateEffectAlphaTexelRow = function(value) {
+            this.dynamicAlpha = value;
+
+            for (i = 0; i < this.aliveParticles.length; i++) {
+                this.aliveParticles[i].params.texelRowSelect.w = value;
+                this.applyParticleSimulator(EffectSimulators.simulators.texelRowSelect, this.aliveParticles[i], 0)
+            }
+
+        };
+
 
         ParticleEffect.prototype.updateEffectScaleTexelRow = function(value) {
 

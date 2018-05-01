@@ -29,12 +29,6 @@
             "backplate":{
               "passive_fx":"plate_passive_effects",
               "active_fx":"plate_active_effects"
-            },
-
-            "text":{
-              "font_size":19,
-              "italic":true,
-              "font_effect":"default_font_effect"
             }
 
           },

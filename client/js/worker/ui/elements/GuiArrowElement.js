@@ -18,6 +18,7 @@ define([
             this.dataKey = dataKey;
 
             var configLoaded = function() {
+                this.configObject.removeCallback(configLoaded);
                 onReadyCB(this);
             }.bind(this);
 

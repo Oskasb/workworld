@@ -6,7 +6,60 @@
         "id": "config",
         "data": {
 
-          "default_font_effect": "gui_basic_text_effect"
+          "header":{
+            "font_size":20,
+            "letter_spacing":0.86,
+            "text_align_x":0.5,
+            "text_align_y":0,
+            "text_margin_x":1.6,
+            "text_margin_y":0.3,
+            "italic":true,
+            "font_effect":"gui_basic_normal_text_effect",
+            "color_map":"header_color_map",
+            "alpha_map":"header_alpha_map"
+          },
+
+          "type_label":{
+            "font_size":12,
+            "letter_spacing":0.88,
+            "text_align_x":1,
+            "text_align_y":1,
+            "text_margin_x":0.6,
+            "text_margin_y":0.7,
+            "italic":false,
+            "font_effect":"gui_basic_additive_text_effect",
+            "color_map":"label_color_map",
+            "alpha_map":"label_alpha_map"
+          },
+
+          "header_color_map":{
+            "color":"blue_1",
+            "disabled":"red_2",
+            "passive":"orange_3",
+            "active":"green_4"
+          },
+
+          "label_color_map":{
+            "color":"purple_2",
+            "disabled":"flashGrey",
+            "passive":"green_3",
+            "active":"yellow_2"
+          },
+
+          "header_alpha_map":{
+            "color":"alpha_20",
+            "disabled":"alpha_20",
+            "passive":"alpha_40",
+            "active":"alpha_20"
+          },
+
+          "label_alpha_map":{
+            "color":"alpha_80",
+            "disabled":"alpha_60",
+            "passive":"alpha_40",
+            "active":"alpha_20"
+          }
+
 
         }
       }

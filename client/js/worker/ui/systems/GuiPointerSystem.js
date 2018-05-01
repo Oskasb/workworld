@@ -35,7 +35,7 @@ define([
             this.configObject = new ConfigObject('GUI_SYSTEMS', 'GUI_POINTER_SYSTEM', 'config');
 
             var configLoaded = function(config) {
-
+                this.configObject.removeCallback(configLoaded);
                 console.log("Config: GUI_POINTER_SYSTEM", config);
 
                 systemReady(this);

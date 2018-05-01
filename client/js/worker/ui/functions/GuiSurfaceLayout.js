@@ -134,6 +134,23 @@ define([
             return this.yMax - this.yMin
         };
 
+        GuiSurfaceLayout.prototype.getLayoutTop = function() {
+            return this.yMin
+        };
+
+        GuiSurfaceLayout.prototype.getLayoutLeft = function() {
+            return this.xMin
+        };
+
+        GuiSurfaceLayout.prototype.getLayoutRight = function() {
+            return this.xMax
+        };
+
+        GuiSurfaceLayout.prototype.getLayoutBottom = function() {
+            return this.yMax
+        };
+
+
         GuiSurfaceLayout.prototype.isInsideXY = function(x, y) {
             // y flips when moving from screen space to world space (where the geometry resides)
 

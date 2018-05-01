@@ -40,7 +40,7 @@
           "is_screenspace":true,
           "render_order":2,
           "material_options":{
-            "blending":"NormalBlending",
+            "blending":"AdditiveBlending",
             "transparent":true,
             "alphaTest":0.001,
             "depthWrite":false,
@@ -58,6 +58,21 @@
             "blending":"NormalBlending",
             "transparent":true,
             "alphaTest":0.001,
+            "depthWrite":false,
+            "depthTest":true
+          }
+        },
+        {
+          "id":"gpu_opaque_font_renderer",
+          "material_id":"gpu_gui_sprite_font_material",
+          "particle_pool":5500,
+          "particle_geometry":"quad",
+          "is_screenspace":true,
+          "render_order":2,
+          "material_options":{
+            "blending":"NoBlending",
+            "transparent":true,
+            "alphaTest":0.01,
             "depthWrite":false,
             "depthTest":false
           }

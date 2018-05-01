@@ -60,9 +60,9 @@ define([
                         tempVec1.z = this.origin.z + j * size;
                         tempVec1.y = this.area.getHeightAndNormalForPos(tempVec1);
 
-                        if (tempVec1.y < 8) {
+                        if (tempVec1.y < 4) {
                             var feature = new TerrainFeature(this.area, tempVec1, size);
-                            feature.generateFeatureShoreElements(24);
+                            feature.generateFeatureShoreElements(32);
                             this.terrainFeatures.push(feature);
                         }
                     }

@@ -81,6 +81,10 @@ define([
             particleSpawner.updateEffectParticleColor(effect, colorKey);
         };
 
+        EffectsAPI.updateEffectAlphaKey = function(effect, alphaKey) {
+            particleSpawner.updateEffectParticleAlpha(effect, alphaKey);
+        };
+
         EffectsAPI.requestTemporaryPassiveEffect = function(id, pos, vel, size, quat, duration) {
             return particleSpawner.spawnTemporaryPassiveEffect(id, pos, vel, size, quat, duration);
         };

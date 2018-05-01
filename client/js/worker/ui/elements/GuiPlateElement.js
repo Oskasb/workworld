@@ -25,6 +25,7 @@ define([
         GuiPlateElement.prototype.initPlateElement = function(onReadyCB) {
 
             var configLoaded = function() {
+                this.configObject.removeCallback(configLoaded);
                 onReadyCB(this);
             }.bind(this);
 

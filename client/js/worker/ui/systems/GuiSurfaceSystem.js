@@ -28,7 +28,7 @@ define([
             this.configObject = new ConfigObject('GUI_SYSTEMS', 'GUI_SURFACE_SYSTEM', 'config');
 
             var configLoaded = function(config) {
-
+                this.configObject.removeCallback(configLoaded);
                 console.log("Config: GUI_SURFACE_SYSTEM", config);
                 systemReady(this);
 
