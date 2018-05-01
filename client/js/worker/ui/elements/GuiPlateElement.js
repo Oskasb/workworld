@@ -1,22 +1,20 @@
 "use strict";
 
 define([
-        'GuiAPI',
         'ConfigObject',
-        'ui/elements/EffectList'
+        'ui/elements/RenderableElement'
     ],
     function(
-        GuiAPI,
         ConfigObject,
-        EffectList
+        RenderableElement
     ) {
-
 
         var GuiPlateElement = function() {
 
             this.obj3d = new THREE.Object3D();
-            this.platePassiveEffect = new EffectList();
-            this.plateActiveEffect = new EffectList();
+
+            this.passiveRenderable = new RenderableElement(this.obj3d);
+            this.activeRenderable = new RenderableElement(this.obj3d);
 
             this.scale = 1;
             this.aspect = 1;
@@ -38,43 +36,28 @@ define([
             return this.configObject.getConfigByDataKey(dataKey)
         };
 
+        GuiPlateElement.prototype.applyPlateElementDataState = function(config, hover, press, on) {
 
-        GuiPlateElement.prototype.enablePlateEffects = function(effectList, dataKey) {
-            if (effectList.effectCount() === 0) {
-                effectList.enableEffectList(this.configRead(dataKey), this.obj3d.position, this.obj3d.quaternion, this.scale, this.aspect);
-            }
-        };
-
-        GuiPlateElement.prototype.disablePlateEffects = function(effectList) {
-            effectList.disableEffectList();
-        };
-
-        GuiPlateElement.prototype.setPlateActive = function(bool, dataKey) {
-
-            if (bool) {
-                this.enablePlateEffects(this.plateActiveEffect, dataKey)
-            } else {
-                this.disablePlateEffects(this.plateActiveEffect)
-            }
-
-        };
-
-        GuiPlateElement.prototype.setPlatePassive = function(bool, dataKey) {
-
-            if (bool) {
-                this.enablePlateEffects(this.platePassiveEffect, dataKey)
-            } else {
-                this.disablePlateEffects(this.platePassiveEffect)
-            }
+            this.passiveRenderable.applyRenderableDataState(this.configRead(config.passive_fx), hover, on);
+            this.activeRenderable.applyRenderableDataState(this.configRead(config.active_fx), press, on);
         };
 
         GuiPlateElement.prototype.setPlateWidthAndHeight = function(width, height) {
-            this.scale = width;
-            this.aspect = height/width;
-            this.platePassiveEffect.setEffectListAspect(this.aspect);
-            this.plateActiveEffect.setEffectListAspect(this.aspect)
+            this.passiveRenderable.setRenderableWidthAndHeight(width, height);
+            this.activeRenderable.setRenderableWidthAndHeight(width, height);
         };
 
+        GuiPlateElement.prototype.setPlatePosition = function(posVec) {
+
+            if (posVec.equals(this.obj3d.position)) {
+                return;
+            }
+
+            this.obj3d.position.copy(posVec);
+            this.passiveRenderable.updateRenderablePosition();
+            this.activeRenderable.updateRenderablePosition();
+
+        };
 
         GuiPlateElement.prototype.getPlatePosition = function() {
             return this.obj3d.position;

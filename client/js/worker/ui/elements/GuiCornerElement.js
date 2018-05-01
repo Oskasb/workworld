@@ -1,22 +1,20 @@
 "use strict";
 
 define([
-    'GuiAPI',
         'ConfigObject',
-        'ui/elements/EffectList'
+        'ui/elements/RenderableElement'
     ],
     function(
-        GuiAPI,
         ConfigObject,
-        EffectList
+        RenderableElement
     ) {
 
         var GuiCornerElement = function() {
 
             this.obj3d = new THREE.Object3D();
 
-            this.cornerPassiveEffect = new EffectList();
-            this.cornerActiveEffect = new EffectList();
+            this.passiveRenderable = new RenderableElement(this.obj3d);
+            this.activeRenderable = new RenderableElement(this.obj3d);
         };
 
         GuiCornerElement.prototype.initCornerElement = function(onReadyCB) {
@@ -28,45 +26,26 @@ define([
 
             this.configObject = new ConfigObject('GUI_ELEMENTS', 'GUI_CORNER_ELEMENT', 'config');
             this.configObject.addCallback(configLoaded);
-
         };
 
         GuiCornerElement.prototype.configRead = function(dataKey) {
             return this.configObject.getConfigByDataKey(dataKey)
         };
 
-        GuiCornerElement.prototype.enableCornerEffects = function(effectList, dataKey) {
-            if (effectList.effectCount() === 0) {
-                effectList.enableEffectList(this.configRead(dataKey), this.obj3d.position, this.obj3d.quaternion);
-            }
-        };
+        GuiCornerElement.prototype.applyCornerElementDataState = function(config, hover, press, on) {
 
-        GuiCornerElement.prototype.disableCornerEffects = function(effectList) {
-            effectList.disableEffectList();
-        };
-
-        GuiCornerElement.prototype.setCornerActive = function(bool, dataKey) {
-
-            if (bool) {
-                this.enableCornerEffects(this.cornerActiveEffect, dataKey)
-            } else {
-                this.disableCornerEffects(this.cornerActiveEffect)
-            }
+            this.passiveRenderable.applyRenderableDataState(this.configRead(config.passive_fx), hover, on);
+            this.activeRenderable.applyRenderableDataState(this.configRead(config.active_fx), press, on);
 
         };
-
-        GuiCornerElement.prototype.setCornerPassive = function(bool, dataKey) {
-
-            if (bool) {
-                this.enableCornerEffects(this.cornerPassiveEffect, dataKey)
-            } else {
-                this.disableCornerEffects(this.cornerPassiveEffect)
-            }
-        };
-
 
         GuiCornerElement.prototype.setCornerXY = function(x, y) {
-            this.obj3d.position.set(x, y, -1);
+
+            if (x !== this.obj3d.position.x || y !== this.obj3d.position.y) {
+                this.obj3d.position.set(x, y, -1);
+                this.passiveRenderable.updateRenderablePosition();
+                this.activeRenderable.updateRenderablePosition();
+            }
         };
 
         GuiCornerElement.prototype.setCornerQuaternion = function(quat) {

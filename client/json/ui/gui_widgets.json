@@ -23,7 +23,7 @@
             "edges":{
               "passive_fx":"edge_passive_effects",
               "active_fx":"edge_active_effects",
-              "thickness":0.022
+              "thickness":-0.025
             },
 
             "backplate":{
@@ -40,17 +40,78 @@
       }
     ],
 
+
     "GUI_BUTTON_WIDGET":[
       {
         "id": "config",
         "data": {
+          "surface":{
 
-          "drag_vector_effects":[
-            "gui_arrow_top_left_additive_effect",
-            "gui_corner_top_left_normal_effect"
-          ]
+            "layout":{
+              "anchor":"top_right",
+              "fixed_aspect":true,
+              "margin_x":0.02,
+              "margin_y":0.04,
+              "width": 0.14,
+              "height":0.03
+            },
+
+            "corners":{
+              "passive_fx":"corner_passive_effects",
+              "active_fx":"corner_active_effects"
+            },
+
+            "edges":{
+              "passive_fx":"edge_passive_effects",
+              "active_fx":"edge_active_effects",
+              "thickness":-0.022
+            },
+
+            "backplate":{
+              "passive_fx":"plate_passive_effects",
+              "active_fx":"plate_active_effects"
+            }
+
+          }
+        }
+      }
+    ],
+
+    "MONITOR_LIST_WIDGET":[
+      {
+        "id": "config",
+        "data": {
+          "surface":{
+
+            "layout":{
+              "anchor":"top_right",
+              "fixed_aspect":true,
+              "margin_x":0.02,
+              "margin_y":0.04,
+              "width": 0.24,
+              "height":0.43
+            },
+
+            "corners":{
+              "passive_fx":"corner_passive_effects",
+              "active_fx":"corner_active_effects"
+            },
+
+            "edges":{
+              "passive_fx":"edge_passive_effects",
+              "active_fx":"edge_active_effects",
+              "thickness":0.012
+            },
+
+            "backplate":{
+              "passive_fx":"plate_passive_effects",
+              "active_fx":"plate_active_effects"
+            }
+
+          }
         }
       }
     ]
+
   }
 }]

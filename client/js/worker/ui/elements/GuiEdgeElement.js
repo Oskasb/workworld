@@ -1,22 +1,21 @@
 "use strict";
 
 define([
-    'GuiAPI',
         'ConfigObject',
-        'ui/elements/EffectList'
+        'ui/elements/RenderableElement'
     ],
     function(
-        GuiAPI,
         ConfigObject,
-        EffectList
+        RenderableElement
     ) {
 
         var GuiEdgeElement = function() {
 
             this.obj3d = new THREE.Object3D();
 
-            this.edgePassiveEffect = new EffectList();
-            this.edgeActiveEffect = new EffectList();
+            this.passiveRenderable = new RenderableElement(this.obj3d);
+            this.activeRenderable = new RenderableElement(this.obj3d);
+
             this.scale = 1;
             this.aspect = 1;
         };
@@ -37,44 +36,25 @@ define([
             return this.configObject.getConfigByDataKey(dataKey)
         };
 
-        GuiEdgeElement.prototype.enableEdgeEffects = function(effectList, dataKey) {
-            if (effectList.effectCount() === 0) {
-                effectList.enableEffectList(this.configRead(dataKey), this.obj3d.position, this.obj3d.quaternion, this.scale, this.aspect);
-            }
-        };
+        GuiEdgeElement.prototype.applyEdgeElementDataState = function(config, hover, press, on) {
 
-        GuiEdgeElement.prototype.disableEdgeEffects = function(effectList) {
-            effectList.disableEffectList();
-        };
+            this.passiveRenderable.applyRenderableDataState(this.configRead(config.passive_fx), hover, on);
+            this.activeRenderable.applyRenderableDataState(this.configRead(config.active_fx), press, on);
 
-        GuiEdgeElement.prototype.setEdgeActive = function(bool, dataKey) {
-
-            if (bool) {
-                this.enableEdgeEffects(this.edgeActiveEffect, dataKey)
-            } else {
-                this.disableEdgeEffects(this.edgeActiveEffect)
-            }
-
-        };
-
-        GuiEdgeElement.prototype.setEdgePassive = function(bool, dataKey) {
-
-            if (bool) {
-                this.enableEdgeEffects(this.edgePassiveEffect, dataKey)
-            } else {
-                this.disableEdgeEffects(this.edgePassiveEffect)
-            }
         };
 
         GuiEdgeElement.prototype.setEdgeWidthAndHeight = function(width, height) {
-            this.scale = width;
-            this.aspect = height/width;
-            this.edgePassiveEffect.setEffectListAspect(this.aspect);
-            this.edgePassiveEffect.setEffectListAspect(this.aspect)
+            this.passiveRenderable.setRenderableWidthAndHeight(width, height);
+            this.activeRenderable.setRenderableWidthAndHeight(width, height);
         };
 
         GuiEdgeElement.prototype.setEdgeXY = function(x, y) {
-            this.obj3d.position.set(x, y, -1);
+
+            if (x !== this.obj3d.position.x || y !== this.obj3d.position.y) {
+                this.obj3d.position.set(x, y, -1);
+                this.passiveRenderable.updateRenderablePosition();
+                this.activeRenderable.updateRenderablePosition();
+            }
         };
 
         GuiEdgeElement.prototype.setEdgeQuaternion = function(quat) {

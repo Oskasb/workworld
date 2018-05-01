@@ -59,8 +59,8 @@ define([
                     tempVec1.z = this.origin.z + j * size;
                     tempVec1.y = this.area.getHeightAndNormalForPos(tempVec1);
 
-                    if (tempVec1.y > -10*Math.random()) {
-                        if (tempVec1.y < 0 && Math.random() > tempVec1.y / -10) {
+                    if (tempVec1.y > -8*Math.random()) {
+                        if (tempVec1.y < 0 && 1 + Math.random()*Math.random() > tempVec1.y / -7) {
                             var element = new ShoreElement(this.area, tempVec1, size);
                             element.determineShoreElementType(this.shoreElements);
                             this.shoreElements.push(element);

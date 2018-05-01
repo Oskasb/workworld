@@ -2,7 +2,7 @@
 
 define([
         'PipelineAPI',
-    'EffectsAPI'
+        'EffectsAPI'
     ],
     function(
         PipelineAPI,

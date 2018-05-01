@@ -2,23 +2,21 @@
 
 define([
         'worker/world/WorldCamera',
-        'ui/widgets/GuiThumbstickWidget'
+        'ui/widgets/WidgetLoader'
     ],
     function(
         WorldCamera,
-        GuiThumbstickWidget
+        WidgetLoader
     ) {
 
 
         var inputBuffer = [];
         var lastBuffer = [];
 
-        var thumbstick;
-
         var WorldControlState = function() {
             this.worldCamera = new WorldCamera();
 
-            thumbstick = new GuiThumbstickWidget();
+            this.widgetLoader = new WidgetLoader();
         };
 
         WorldControlState.prototype.updateWorldControlState = function() {
@@ -52,16 +50,9 @@ define([
 
         WorldControlState.prototype.enableDefaultGuiWidgets = function() {
 
-
-            var stickReady = function(stick) {
-                stick.enableWidget();
-            };
-
-            thumbstick.initGuiWidget(stickReady);
+            this.widgetLoader.enableDefaultGuiWidgets();
 
         };
-
-
 
         WorldControlState.prototype.setInputBuffer = function(buffer) {
     //        console.log("Set Input Buffer", buffer);

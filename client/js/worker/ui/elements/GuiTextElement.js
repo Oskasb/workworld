@@ -173,7 +173,7 @@ define([
             this.effectSize = this.config.font_size / 1000;
             this.textSpacingX = this.effectSize * this.config.letter_spacing;
             this.textSpacingY = this.effectSize * 2;
-            this.elementWidth = this.textSpacingX * (textString.length);
+            this.elementWidth = this.textSpacingX * (textString.length-1);
 
             if (this.config.italic) {
                 this.obj3d.quaternion.x = -0.23;

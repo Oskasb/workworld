@@ -28,7 +28,17 @@ define([
 
             this.textElements = [];
 
-            this.obj3d = new THREE.Object3D();
+            this.hover = false;
+            this.press = false;
+            this.on = false;
+
+            this.callbacks = {
+                hover   : [],
+                press   : [],
+                release : []
+            };
+
+            this.centerPosition = new THREE.Vector3();
 
             this.guiSurfaceLayout = new GuiSurfaceLayout();
 
@@ -43,6 +53,7 @@ define([
             this.left = new GuiEdgeElement();
             this.right = new GuiEdgeElement();
             this.bottom = new GuiEdgeElement();
+
         };
 
         GuiSurfaceElement.prototype.initSurfaceElement = function(onReadyCB) {
@@ -115,86 +126,85 @@ define([
             return this.configObject.getConfigByDataKey(dataKey)
         };
 
-        GuiSurfaceElement.prototype.applySurfaceData = function(surfaceData) {
+        GuiSurfaceElement.prototype.applySurfaceData = function(posVec, surfaceData) {
+
+            this.guiSurfaceLayout.setRootPosition(posVec);
+
             this.guiSurfaceLayout.parseLaoutConfig(surfaceData.layout);
             this.guiSurfaceLayout.applyLayoutToCorners(this.topLeft, this.topRight, this.bottomLeft, this.bottomRight);
             this.guiSurfaceLayout.applyLayoutToEdges(this.top, this.left, this.right, this.bottom, surfaceData.edges.thickness);
-            this.guiSurfaceLayout.getLayoutCenter(this.backplate.getPlatePosition());
+
+            this.guiSurfaceLayout.getLayoutCenter(this.centerPosition);
+
+            this.backplate.setPlatePosition(this.centerPosition);
+
             this.backplate.setPlateWidthAndHeight(this.guiSurfaceLayout.getLayoutWidth(), this.guiSurfaceLayout.getLayoutHeight())
         };
 
-        GuiSurfaceElement.prototype.applyCornersPassive = function(bool, dataKey) {
-            this.topLeft.setCornerPassive(bool, dataKey);
-            this.topRight.setCornerPassive(bool, dataKey);
-            this.bottomLeft.setCornerPassive(bool, dataKey);
-            this.bottomRight.setCornerPassive(bool, dataKey);
+
+        GuiSurfaceElement.prototype.applyCornersStates = function(edgesData, hover, press, on) {
+            this.topLeft.applyCornerElementDataState(edgesData, hover, press, on);
+            this.topRight.applyCornerElementDataState(edgesData, hover, press, on);
+            this.bottomLeft.applyCornerElementDataState(edgesData, hover, press, on);
+            this.bottomRight.applyCornerElementDataState(edgesData, hover, press, on);
         };
 
-        GuiSurfaceElement.prototype.applyCornersActive = function(bool, dataKey) {
-            this.topLeft.setCornerActive(bool, dataKey);
-            this.topRight.setCornerActive(bool, dataKey);
-            this.bottomLeft.setCornerActive(bool, dataKey);
-            this.bottomRight.setCornerActive(bool, dataKey);
+        GuiSurfaceElement.prototype.applyEdgesStates = function(edgesData, hover, press, on) {
+            this.top.applyEdgeElementDataState(edgesData, hover, press, on);
+            this.left.applyEdgeElementDataState(edgesData, hover, press, on);
+            this.right.applyEdgeElementDataState(edgesData, hover, press, on);
+            this.bottom.applyEdgeElementDataState(edgesData, hover, press, on);
         };
 
-        GuiSurfaceElement.prototype.applyEdgesPassive = function(bool, dataKey) {
-            this.top.setEdgeActive(bool, dataKey);
-            this.left.setEdgeActive(bool, dataKey);
-            this.right.setEdgeActive(bool, dataKey);
-            this.bottom.setEdgeActive(bool, dataKey);
-        };
-
-        GuiSurfaceElement.prototype.applyEdgesActive = function(bool, dataKey) {
-            this.top.setEdgePassive(bool, dataKey);
-            this.left.setEdgePassive(bool, dataKey);
-            this.right.setEdgePassive(bool, dataKey);
-            this.bottom.setEdgePassive(bool, dataKey);
-        };
-
-        GuiSurfaceElement.prototype.applyBackplatePassive = function(bool, dataKey) {
-            this.backplate.setPlatePassive(bool, dataKey);
-        };
-
-        GuiSurfaceElement.prototype.applyBackplateActive = function(bool, dataKey) {
-            this.backplate.setPlateActive(bool, dataKey);
+        GuiSurfaceElement.prototype.applyBackplateStates = function(edgesData, hover, press, on) {
+            this.backplate.applyPlateElementDataState(edgesData, hover, press, on);
         };
 
         GuiSurfaceElement.prototype.updateSurfaceVisuals = function(surfaceData) {
 
             if (surfaceData.corners) {
-                this.applyCornersPassive(surfacePassive, surfaceData.corners.passive_fx);
-                this.applyCornersActive(surfaceAvtive, surfaceData.corners.active_fx);
+                this.applyCornersStates(surfaceData.corners, this.hover, this.press, this.on);
             }
 
             if (surfaceData.edges) {
-                this.applyEdgesPassive(surfacePassive, surfaceData.edges.passive_fx);
-                this.applyEdgesActive(surfaceAvtive, surfaceData.edges.active_fx);
+                this.applyEdgesStates(surfaceData.edges, this.hover, this.press, this.on);
             }
 
             if (surfaceData.backplate) {
-                this.applyBackplatePassive(surfacePassive, surfaceData.backplate.passive_fx);
-                this.applyBackplateActive(surfaceAvtive, surfaceData.backplate.active_fx);
+                this.applyBackplateStates(surfaceData.backplate, this.hover, this.press, this.on);
             }
-
 
             for (i = 0; i < this.textElements.length; i++) {
-                this.textElements[i].visualizeText(this.guiSurfaceLayout, surfacePassive, surfaceAvtive)
+                this.textElements[i].visualizeText(this.guiSurfaceLayout, this.hover, this.press)
             }
-
 
         };
 
         GuiSurfaceElement.prototype.testPointerHover = function() {
 
             surfacePassive = this.guiSurfaceLayout.isInsideXY(GuiAPI.getMouseX(), GuiAPI.getMouseY());
-            surfaceAvtive = false;
+
+            if (surfacePassive !== this.hover) {
+                this.hover = surfacePassive;
+                this.callSurfaceCallbackList(this.callbacks.hover, this.hover);
+            }
 
             if (WorldAPI.sampleInputBuffer(ENUMS.InputState.ACTION_0)) {
                 surfaceAvtive = this.guiSurfaceLayout.isInsideXY(GuiAPI.getStartDragX(), GuiAPI.getStartDragY());
+
+                if (surfaceAvtive !== this.press) {
+                    this.press = surfaceAvtive;
+                    this.callSurfaceCallbackList(this.callbacks.press, this.press);
+                }
+
+            } else {
+
+                if (this.press) {
+                    this.callSurfaceCallbackList(this.callbacks.release, this.hover);
+                }
+                this.press = false;
             }
         };
-
-
 
         GuiSurfaceElement.prototype.addSurfaceTextElement = function(layoutKey, string) {
 
@@ -207,14 +217,37 @@ define([
             elem.setElementLayoutKey(layoutKey);
             elem.initTextElement(txt);
             return elem;
+        };
+
+        GuiSurfaceElement.prototype.updateSurfaceElement = function(posVec, surfaceData) {
+
+            this.applySurfaceData(posVec ,surfaceData);
+            this.testPointerHover();
+            this.updateSurfaceVisuals(surfaceData)
 
         };
 
-        GuiSurfaceElement.prototype.updateSurfaceElement = function(surfaceData) {
+        GuiSurfaceElement.prototype.addSurfaceHoverCallback = function(cb) {
+            this.callbacks.hover.push(cb);
+        };
 
-            this.applySurfaceData(surfaceData);
-            this.testPointerHover();
-            this.updateSurfaceVisuals(surfaceData)
+        GuiSurfaceElement.prototype.addSurfacePressCallback = function(cb) {
+            this.callbacks.press.push(cb);
+        };
+
+        GuiSurfaceElement.prototype.addSurfaceReleaseCallback = function(cb) {
+            this.callbacks.release.push(cb);
+        };
+
+        GuiSurfaceElement.prototype.addSurfaceOutCallback = function(cb) {
+            this.callbacks.out.push(cb);
+        };
+
+        GuiSurfaceElement.prototype.callSurfaceCallbackList = function(callbacks, bool) {
+
+            for (var i = 0; i < callbacks.length; i++) {
+                callbacks[i](bool);
+            }
 
         };
 

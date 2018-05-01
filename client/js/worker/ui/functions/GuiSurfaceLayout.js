@@ -28,12 +28,10 @@ define([
         var mx;
         var my;
 
-        var x1;
-        var x2;
-        var y1;
-        var y2;
-
         var GuiSurfaceLayout = function() {
+
+            this.position = new THREE.Vector3();
+
             this.xMin = 0;
             this.xMax = 0;
             this.yMin = 0;
@@ -56,13 +54,12 @@ define([
 
             this.anchorX = (1-anchorX) * mx + anchorX * (1-mx);
             this.anchorY = (1-anchorY) * my + anchorY * (1-my);
-
         };
 
         GuiSurfaceLayout.prototype.setupLayout = function(layout) {
 
-            scax = GuiAPI.layoutToViewX(this.anchorX);
-            scay = GuiAPI.layoutToViewY(this.anchorY);
+            scax = GuiAPI.layoutToViewX(this.anchorX) + this.position.x;
+            scay = GuiAPI.layoutToViewY(this.anchorY) + this.position.y;
 
             if (layout[ENUMS.Layout.fixed_aspect] === true) {
                 width = GuiAPI.scaleByClampedAspect(layout[ENUMS.Layout.width]);
@@ -76,7 +73,6 @@ define([
             this.xMax = scax + width  * (1-anchorX);
             this.yMin = scay - height * anchorY;
             this.yMax = scay + height * (1-anchorY);
-
         };
 
         GuiSurfaceLayout.prototype.applyLayoutRules = function(layoutConfig) {
@@ -116,6 +112,14 @@ define([
             storeVec.x = this.getCenterX();
             storeVec.y = this.getCenterY();
             storeVec.z = -1;
+        };
+
+        GuiSurfaceLayout.prototype.setRootPosition = function(posVec) {
+            this.position.copy(posVec);
+        };
+
+        GuiSurfaceLayout.prototype.getRootPosition = function() {
+            return this.position;
         };
 
         GuiSurfaceLayout.prototype.getCenterX = function() {

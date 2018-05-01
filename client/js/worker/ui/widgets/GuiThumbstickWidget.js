@@ -1,19 +1,21 @@
 "use strict";
 
 define([
-        'GuiAPI',
         'ConfigObject',
-        'ui/elements/GuiSurfaceElement'
+        'ui/elements/GuiSurfaceElement',
+        'ui/functions/GuiUpdatable'
     ],
     function(
-        GuiAPI,
         ConfigObject,
-        GuiSurfaceElement
+        GuiSurfaceElement,
+        GuiUpdatable
     ) {
 
         var GuiThumbstickWidget = function() {
 
-            this.obj3d = new THREE.Object3D();
+            this.guiUpdatable = new GuiUpdatable();
+
+            this.position = new THREE.Vector3();
             this.surfaceElement = new GuiSurfaceElement();
             this.callbacks = [];
 
@@ -47,40 +49,46 @@ define([
         };
 
         GuiThumbstickWidget.prototype.updateSurfaceState = function() {
-            this.surfaceElement.updateSurfaceElement(this.configObject.getConfigByDataKey('surface'))
+            this.surfaceElement.updateSurfaceElement(this.position, this.configObject.getConfigByDataKey('surface'))
         };
 
         GuiThumbstickWidget.prototype.updateGuiWidget = function() {
             this.updateSurfaceState();
         };
 
+        GuiThumbstickWidget.prototype.setGuiWidgetPosition = function(posVec) {
+            this.position.copy(posVec);
+
+            this.updateSurfaceState();
+
+        };
 
         GuiThumbstickWidget.prototype.addWidgetText = function(text) {
             this.header = this.surfaceElement.addSurfaceTextElement('header' ,text);
         };
 
-
         GuiThumbstickWidget.prototype.disableWidget = function() {
-            while (this.callbacks.length) {
-                GuiAPI.removeGuiUpdateCallback(this.callbacks.pop())
-            }
+            this.guiUpdatable.disableUpdates();
         };
 
         GuiThumbstickWidget.prototype.enableWidget = function() {
 
             var cb = function() {
 
+                this.position.x = Math.sin(WorldAPI.getWorldTime()*3.7)*0.1;
+                this.position.y = Math.cos(WorldAPI.getWorldTime()*3.7)*0.1;
+
                 if (Math.random() < 0.5) {
+
                     this.header.setElementText('Header: '+Math.floor(Math.random()*160));
                     this.typeLabel.setElementText('Type Label: '+Math.floor(Math.random()*10));
                 }
 
-
                 this.updateGuiWidget();
+
             }.bind(this);
 
-            GuiAPI.addGuiUpdateCallback(cb);
-            this.callbacks.push(cb);
+            this.guiUpdatable.enableUpdates(cb);
 
             this.setupTextElements();
 
