@@ -31,6 +31,7 @@ define([
                 console.log("Button Release", active);
                 if (acceptClick) {
                     this.callButtonClick()
+                    this.surfaceElement.setOn(!this.surfaceElement.getOn());
                 }
             }.bind(this);
 

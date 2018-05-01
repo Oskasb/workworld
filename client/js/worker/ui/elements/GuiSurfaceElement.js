@@ -175,7 +175,7 @@ define([
             }
 
             for (i = 0; i < this.textElements.length; i++) {
-                this.textElements[i].visualizeText(this.guiSurfaceLayout, this.hover, this.press)
+                this.textElements[i].visualizeText(this.guiSurfaceLayout, this.hover, this.press, this.on)
             }
 
         };
@@ -229,6 +229,14 @@ define([
 
         GuiSurfaceElement.prototype.addSurfaceHoverCallback = function(cb) {
             this.callbacks.hover.push(cb);
+        };
+
+        GuiSurfaceElement.prototype.setOn = function(bool) {
+            this.on = bool;
+        };
+
+        GuiSurfaceElement.prototype.getOn = function() {
+            return this.on;
         };
 
         GuiSurfaceElement.prototype.addSurfacePressCallback = function(cb) {

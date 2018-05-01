@@ -50,28 +50,32 @@
             "color":"cyan_2",
             "disabled":"red_2",
             "passive":"blue_3",
-            "active":"yellow_4"
+            "active":"yellow_4",
+            "on":"yellow_5"
           },
 
           "label_color_map":{
             "color":"blue_2",
             "disabled":"flashGrey",
             "passive":"blue_3",
-            "active":"orange_3"
+            "active":"orange_3",
+            "on":"orange_3"
           },
 
           "header_alpha_map":{
             "color":"alpha_40",
             "disabled":"alpha_20",
             "passive":"alpha_60",
-            "active":"alpha_60"
+            "active":"alpha_80",
+            "on":"alpha_40"
           },
 
           "label_alpha_map":{
             "color":"alpha_40",
             "disabled":"alpha_60",
             "passive":"alpha_40",
-            "active":"alpha_60"
+            "active":"alpha_60",
+            "on":"alpha_80"
           }
 
 

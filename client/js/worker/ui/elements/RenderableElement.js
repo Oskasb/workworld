@@ -15,6 +15,9 @@ define([
             this.renderableEffects = new EffectList();
             this.scale = 1;
             this.aspect = 1;
+            this.stateOn = null;
+            this.colorKey = null;
+
         };
 
         RenderableElement.prototype.configRead = function(dataKey) {
@@ -36,13 +39,19 @@ define([
         };
 
 
-        RenderableElement.prototype.applyRenderableDataState = function(effectConfig, pointerBool, stateOn) {
-            if (pointerBool) {
-                this.enableRenderableEffects(effectConfig)
+        RenderableElement.prototype.applyRenderableDataState = function(effectConfig, pointerBool, stateOn, colorKey) {
+            if (pointerBool || stateOn) {
+                this.enableRenderableEffects(effectConfig);
+
+                if (colorKey && colorKey !== this.colorKey) {
+                    this.renderableEffects.setEffectListColorKey(colorKey)
+                }
+
             } else {
                 this.disableRenderableEffects()
             }
 
+            this.stateOn = stateOn;
         };
 
         RenderableElement.prototype.setRenderableWidthAndHeight = function(width, height) {

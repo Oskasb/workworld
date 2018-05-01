@@ -64,13 +64,19 @@
             "edges":{
               "passive_fx":"edge_passive_effects",
               "active_fx":"edge_active_effects",
-              "thickness":-0.022
+              "color_on":"orange_2",
+              "color":"cyan_1",
+              "thickness":-0.025
             },
 
             "backplate":{
               "passive_fx":"plate_passive_effects",
-              "active_fx":"plate_active_effects"
+              "active_fx":"plate_active_effects",
+              "color_on":"orange_1",
+              "color":"cyan_1"
             }
+
+
 
           }
         }

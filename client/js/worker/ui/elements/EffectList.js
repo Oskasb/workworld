@@ -47,6 +47,11 @@ define([
             this.effects[index].setAliveParticlesSize(scale);
         };
 
+        EffectList.prototype.setEffectListColorKey = function(colorKey) {
+            for (i = 0; i < this.effects.length; i++) {
+                this.setEffectIndexColorKey(i, colorKey);
+            }
+        };
 
         EffectList.prototype.setEffectListAspect = function(aspect) {
             for (i = 0; i < this.effects.length; i++) {

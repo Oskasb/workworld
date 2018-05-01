@@ -8,7 +8,7 @@ define([
         ConfigObject,
         RenderableElement
     ) {
-
+        var colorKey;
         var GuiEdgeElement = function() {
 
             this.obj3d = new THREE.Object3D();
@@ -38,8 +38,16 @@ define([
 
         GuiEdgeElement.prototype.applyEdgeElementDataState = function(config, hover, press, on) {
 
+            colorKey = null;
+            if (config.color) {
+                colorKey = config.color;
+                if (on && config.color_on) {
+                    colorKey = config.color_on;
+                }
+            }
+
             this.passiveRenderable.applyRenderableDataState(this.configRead(config.passive_fx), hover, on);
-            this.activeRenderable.applyRenderableDataState(this.configRead(config.active_fx), press, on);
+            this.activeRenderable.applyRenderableDataState(this.configRead(config.active_fx), press, on, colorKey);
 
         };
 

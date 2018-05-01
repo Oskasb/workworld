@@ -25,6 +25,7 @@ define([
         };
 
         var TEXT_STATE = {
+            on:"on",
             color:"color",
             disabled:"disabled",
             passive:"passive",
@@ -75,14 +76,16 @@ define([
                 color:      "fullWhite",
                 disabled:   "flashGrey",
                 passive:    "flatCyan",
-                active:     "fullWhite"
+                active:     "fullWhite",
+                on:         "orange_3"
             };
 
             this.stateAlphaMap = {
                 color:      "alpha_40",
                 disabled:   "alpha_40",
                 passive:    "alpha_60",
-                active:     "alpha_20"
+                active:     "alpha_20",
+                on:         "alpha_80"
             };
 
             this.textState = TEXT_STATE.color;
@@ -210,10 +213,13 @@ define([
 
         };
 
-        GuiTextElement.prototype.updateTextState = function(passive, active) {
+        GuiTextElement.prototype.updateTextState = function(passive, active, on) {
+
 
             if (active) {
                 state = TEXT_STATE.active;
+            } else if (on) {
+                state = TEXT_STATE.on;
             } else if (passive) {
                 state = TEXT_STATE.passive;
             } else {
@@ -232,9 +238,9 @@ define([
 
 
 
-        GuiTextElement.prototype.visualizeText = function(surfaceLayout, passive, active) {
+        GuiTextElement.prototype.visualizeText = function(surfaceLayout, passive, active, stateOn) {
 
-            this.updateTextState(passive, active);
+            this.updateTextState(passive, active, stateOn);
 
 
             this.updateTextConfig(this.configRead(this.layoutKey));
