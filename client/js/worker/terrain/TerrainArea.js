@@ -85,7 +85,7 @@ define([
 
             WorldAPI.sendWorldMessage(ENUMS.Protocol.REGISTER_TERRAIN, [msg, this.buffers]);
 
-            this.generateTerrainSectons(0.005);
+            this.generateTerrainSectons(0.0025);
 
         };
 

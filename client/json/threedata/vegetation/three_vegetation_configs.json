@@ -8,14 +8,14 @@
           "vegetationSectorSize":45,
           "rowsNColumns":9,
           "spawnFrames":1,
-          "plantCount":15
+          "plantCount":8
         },
         {
           "name":"big",
-          "vegetationSectorSize":54,
+          "vegetationSectorSize":74,
           "rowsNColumns":7,
-          "spawnFrames":8,
-          "plantCount":85
+          "spawnFrames":1,
+          "plantCount":20
         }
       ],
 
@@ -25,14 +25,16 @@
           "data":[
             {
               "vegetation_effects":[
-                {"id":"red_flower_veg",     "slope":{"min":0.005,    "max":0.22} , "elevation":{"min":1,    "max":350}},
-                {"id":"white_flower_veg",   "slope":{"min":0.0,      "max":0.06} , "elevation":{"min":1,    "max":350}}
+                {"id":"red_flower_veg",     "slope":{"min":0.03,     "max":0.11} , "elevation":{"min":1,    "max":350}},
+                {"id":"white_flower_veg",   "slope":{"min":0.0,      "max":0.03} , "elevation":{"min":1,    "max":350}}
               ]
             },
             {
               "vegetation_effects":[
-                {"id":"standing_grass_veg", "slope":{"min":0,     "max":0.07}, "elevation":{"min":1,    "max":450}},
-                {"id":"standing_fern_veg",  "slope":{"min":0.015, "max":0.29} , "elevation":{"min":1,    "max":450}}
+                {"id":"standing_grass_veg", "slope":{"min":0,     "max":0.02},  "elevation":{"min":1,    "max":450}},
+                {"id":"standing_fern_veg",  "slope":{"min":0.015, "max":0.09} , "elevation":{"min":1,    "max":450}},
+                {"id":"big_shrub_veg",      "slope":{"min":0.01,      "max":0.19} , "elevation":{"min":-1,    "max":2}},
+                {"id":"big_fuzzy_shrub_veg","slope":{"min":0.01,      "max":0.19} , "elevation":{"min":-2,    "max":1}}
               ]
             }
           ]

@@ -21,6 +21,7 @@ define([
 
     var WorldCamera = function() {
         camera = new THREE.PerspectiveCamera( 45, 1, 0.3, 50000 );
+        camera.position.set(0, 10, -50)
     };
 
     var vector = new THREE.Vector3();
@@ -78,11 +79,11 @@ define([
 
         var dot = vector.dot(cameraForward);
 
-        if (dot < 0.3) {
+        if (dot < 0.7-(radius*0.5/distance)) {
             return false;
         }
 
-    //    return true;
+        return true;
 
         isVisible = this.cameraFrustumContainsPoint(pos);
 

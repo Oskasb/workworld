@@ -89,6 +89,10 @@ define([
             return worldControlState.getWorldCamera()
         };
 
+        WorldAPI.getWorldCursor = function() {
+            return worldControlState.getWorldCursor()
+        };
+
         WorldAPI.visibilityTest = function(pos, radius) {
             return worldControlState.getWorldCamera().testPosRadiusVisible(pos, radius);
         };
@@ -107,6 +111,10 @@ define([
 
         WorldAPI.getTerrainSystem = function() {
             return terrainSystem;
+        };
+
+        WorldAPI.getTerrainElevationAtPos = function(pos, normalStore) {
+            return terrainSystem.getTerrainHeightAndNormal(pos, normalStore);
         };
 
         WorldAPI.processRequest = function(msg) {

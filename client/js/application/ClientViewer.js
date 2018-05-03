@@ -111,6 +111,7 @@ define([
                 ThreeAPI.getSetup().addPrerenderCallback(clientTick);
                 ThreeAPI.getSetup().addPostrenderCallback(postrenderTick);
                 comBuffer = PipelineAPI.readCachedConfigKey('SHARED_BUFFERS', ENUMS.Key.WORLD_COM_BUFFER);
+            //    ThreeAPI.getCamera().position.set(0, 10, -50);
                 setupReady()
             };
           //  comBuffer = PipelineAPI.readCachedConfigKey('SHARED_BUFFERS', ENUMS.Key.WORLD_COM_BUFFER);
@@ -378,7 +379,7 @@ define([
 
             ThreeAPI.updateCamera();
 
-            relayCamera(ThreeAPI.getCamera());
+        //    relayCamera(ThreeAPI.getCamera());
 
             if (PipelineAPI.getPipelineOptions('jsonPipe').polling.enabled) {
                 PipelineAPI.tickPipelineAPI(tpf);

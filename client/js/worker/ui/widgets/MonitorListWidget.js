@@ -3,24 +3,21 @@
 define([
         'PipelineAPI',
         'ConfigObject',
-        'ui/elements/GuiSurfaceElement',
-        'ui/functions/GuiUpdatable'
+        'ui/elements/GuiSurfaceElement'
     ],
     function(
         PipelineAPI,
         ConfigObject,
-        GuiSurfaceElement,
-        GuiUpdatable
+        GuiSurfaceElement
     ) {
 
-var i;
+        var i;
 
         var MonitorListWidget = function(label, category, key) {
             this.label = label;
             this.category = category;
             this.key = key;
             this.position = new THREE.Vector3();
-            this.guiUpdatable = new GuiUpdatable();
             this.surfaceElement = new GuiSurfaceElement();
 
             this.surfaceElement.setSamplePointer(false);

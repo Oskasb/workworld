@@ -2,10 +2,12 @@
 
 define([
         'worker/world/WorldCamera',
+        'worker/world/WorldCursor',
         'ui/widgets/WidgetLoader'
     ],
     function(
         WorldCamera,
+        WorldCursor,
         WidgetLoader
     ) {
 
@@ -15,7 +17,7 @@ define([
 
         var WorldControlState = function() {
             this.worldCamera = new WorldCamera();
-
+            this.worldCursor = new WorldCursor();
             this.widgetLoader = new WidgetLoader();
         };
 
@@ -32,6 +34,7 @@ define([
 
             WorldAPI.updateUiSystem(inputBuffer, lastBuffer);
 
+            this.worldCursor.updateWorldCursor()
             this.worldCamera.relayCamera(WorldAPI.getWorldComBuffer());
             this.storeLastBuffer();
 
@@ -62,12 +65,16 @@ define([
     //        console.log("Set Input Buffer", buffer);
             inputBuffer = buffer;
             this.enableDefaultGuiWidgets()
+            this.worldCursor.enableWorldCursor();
         };
 
         WorldControlState.prototype.getWorldCamera = function() {
             return this.worldCamera;
         };
 
+        WorldControlState.prototype.getWorldCursor = function() {
+            return this.worldCursor;
+        };
 
         return WorldControlState;
 

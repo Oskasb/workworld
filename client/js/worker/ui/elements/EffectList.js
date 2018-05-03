@@ -57,7 +57,6 @@ define([
             }
         };
 
-
         EffectList.prototype.setEffectListAspect = function(aspect) {
             for (i = 0; i < this.effects.length; i++) {
                 this.effects[i].updateEffectScaleTexelRow(aspect);

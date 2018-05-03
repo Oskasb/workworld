@@ -514,7 +514,7 @@
             "alphaCurve":"nearWhite",
             "diffusionCurve":"zeroOneZero",
             "scaleCurve":"nearWhite",
-            "size":{"value":1.2, "min":-3.5, "max":2.1},
+            "size":{"value":1.7, "min":-3.5, "max":2.6},
             "velocityDiffusion":0.00001,
             "accelerationDiffusion":10.00001,
             "colorDiffusion":0.025,

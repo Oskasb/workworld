@@ -2,18 +2,14 @@
 
 define([
         'ConfigObject',
-        'ui/elements/GuiSurfaceElement',
-        'ui/functions/GuiUpdatable'
+        'ui/elements/GuiSurfaceElement'
     ],
     function(
         ConfigObject,
-        GuiSurfaceElement,
-        GuiUpdatable
+        GuiSurfaceElement
     ) {
 
         var GuiThumbstickWidget = function() {
-
-            this.guiUpdatable = new GuiUpdatable();
 
             this.position = new THREE.Vector3();
             this.surfaceElement = new GuiSurfaceElement();
@@ -70,12 +66,11 @@ define([
             if (this.surfaceElement.getPress()) {
 
                 this.lookVec.x = MATH.clamp(WorldAPI.sampleInputBuffer(ENUMS.InputState.DRAG_DISTANCE_X) * 5, -2, 2);
-                this.lookVec.y = MATH.clamp(WorldAPI.sampleInputBuffer(ENUMS.InputState.DRAG_DISTANCE_Y) * 5, -2, 2);
-                this.lookVec.z = 0;
+                this.lookVec.y = 0;
+                this.lookVec.z = MATH.clamp(-WorldAPI.sampleInputBuffer(ENUMS.InputState.DRAG_DISTANCE_Y) * 5, -2, 2);
                 this.lookVec.applyQuaternion(WorldAPI.getWorldCamera().getCamera().quaternion);
 
-                lookAt.addVectors(WorldAPI.getWorldCamera().getCameraLookAt(), this.lookVec);
-                WorldAPI.getWorldCamera().setLookAtVec(lookAt);
+                WorldAPI.getWorldCursor().moveCursorPosition(this.lookVec);
 
             } else {
 
@@ -91,6 +86,7 @@ define([
                 WorldAPI.getWorldCamera().getCamera().position.z += this.sourceVec.z;
             }
 
+            WorldAPI.getWorldCamera().setLookAtVec(WorldAPI.getWorldCursor().getCursorPosition());
             WorldAPI.getWorldCamera().updateCameraLookAt();
         };
 
