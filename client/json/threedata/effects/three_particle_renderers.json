@@ -42,7 +42,7 @@
           "material_options":{
             "blending":"AdditiveBlending",
             "transparent":true,
-            "alphaTest":0.001,
+            "alphaTest":0.05,
             "depthWrite":false,
             "depthTest":false
           }
@@ -57,7 +57,7 @@
           "material_options":{
             "blending":"NormalBlending",
             "transparent":true,
-            "alphaTest":0.001,
+            "alphaTest":0.05,
             "depthWrite":false,
             "depthTest":true
           }
@@ -72,7 +72,7 @@
           "material_options":{
             "blending":"NoBlending",
             "transparent":true,
-            "alphaTest":0.01,
+            "alphaTest":0.1,
             "depthWrite":false,
             "depthTest":false
           }

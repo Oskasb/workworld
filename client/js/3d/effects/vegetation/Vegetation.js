@@ -2,27 +2,23 @@
 
 define([
         'ThreeAPI',
-        'PipelineAPI',
+        'PipelineObject',
         '3d/effects/vegetation/VegetationSystem'
         //   'EffectAPI'
     ],
     function(
         ThreeAPI,
-        PipelineAPI,
+        PipelineObject,
         VegetationSystem
         //    EffectAPI
     ) {
 
 
         var EffectAPI;
-
-        var ownPiece;
-        var camera;
-
         var vegConf = [];
-
-
         var vegData = {};
+
+        var requested = false;
 
         var Vegetation = function(FxAPI) {
 
@@ -30,49 +26,35 @@ define([
 
             EffectAPI = FxAPI;
 
-            var initiated = false;
-
-            var initVeg = function() {
-                if (!initiated) {
-                    this.createVegetationSystems();
-                }
-            }.bind(this);
-
-
-            var playerPiece = function(src, data) {
-                ownPiece = data.ownPiece.piece;
-                camera = ThreeAPI.getCamera();
-                initVeg();
-            };
-
-            var getCamera = function(src, data) {
-                camera = data.camera;
-            };
-
             var vegSysData = function(src, data) {
                 for (var i = 0; i < data.length; i++) {
                     vegData[data[i].id] = data[i].data;
                 }
-            };
+
+                if (requested) {
+                    this.createVegetationSystems();
+                }
+            }.bind(this);
 
             var vegMasterData = function(src, data) {
                 for (var i = 0; i < data.length; i++) {
                     vegConf[i] = data[i];
                 }
-                
+                new PipelineObject('VEGETATION', 'SYSTEMS', vegSysData);
             };
 
-            PipelineAPI.subscribeToCategoryKey('VEGETATION', 'SYSTEMS', vegSysData);
-            PipelineAPI.subscribeToCategoryKey('VEGETATION', 'MASTER_CONFIG', vegMasterData);
+            new PipelineObject('VEGETATION', 'MASTER_CONFIG', vegMasterData);
 
-            PipelineAPI.subscribeToCategoryKey('GAME_DATA', 'OWN_PLAYER', playerPiece);
-            PipelineAPI.subscribeToCategoryKey('CAMERA_DATA', 'CAMERA', getCamera);
         };
 
 
         Vegetation.prototype.createVegetationSystems = function() {
+
+            requested = true;
+
             for (var i = 0; i < vegConf.length; i++) {
                 this.vegetationSystems.push(new VegetationSystem(i, EffectAPI, vegData, vegConf));
+                requested = false;
             }
         };
 
@@ -85,7 +67,7 @@ define([
 
         Vegetation.prototype.updateVegetation = function(systemTime) {
             for (var i = 0; i < this.vegetationSystems.length; i++) {
-                this.vegetationSystems[i].updateVegetationSystem(systemTime, ThreeAPI.getCamera());
+                this.vegetationSystems[i].updateVegetationSystem(systemTime, WorldAPI.getWorldCamera().getCamera());
             }
         };
 

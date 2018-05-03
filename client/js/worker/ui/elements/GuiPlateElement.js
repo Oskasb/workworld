@@ -48,7 +48,7 @@ define([
                 }
             }
 
-            this.passiveRenderable.applyRenderableDataState(this.configRead(config.passive_fx), hover, on, colorKey);
+            this.passiveRenderable.applyRenderableDataState(this.configRead(config.passive_fx), hover, on);
             this.activeRenderable.applyRenderableDataState(this.configRead(config.active_fx), press, on, colorKey);
         };
 
@@ -67,6 +67,11 @@ define([
             this.passiveRenderable.updateRenderablePosition();
             this.activeRenderable.updateRenderablePosition();
 
+        };
+
+        GuiPlateElement.prototype.disablePlateElement = function() {
+            this.passiveRenderable.disableRenderableEffects();
+            this.activeRenderable.disableRenderableEffects();
         };
 
         GuiPlateElement.prototype.getPlatePosition = function() {

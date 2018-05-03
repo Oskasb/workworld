@@ -118,8 +118,6 @@ define(['PipelineObject',
 
     var applyFromBuffer = function(buffer) {
 
-
-
     };
 
     var applyEnvironment = function() {

@@ -53,6 +53,17 @@ define([
         };
 
         GuiThumbstickWidget.prototype.updateGuiWidget = function() {
+
+            this.position.x = Math.sin(WorldAPI.getWorldTime()*3.7)*0.1;
+            this.position.y = Math.cos(WorldAPI.getWorldTime()*3.7)*0.1;
+
+            if (Math.random() < 0.5) {
+
+                this.header.setElementText('Header: '+Math.floor(Math.random()*160));
+                this.typeLabel.setElementText('Type Label: '+Math.floor(Math.random()*10));
+            }
+
+
             this.updateSurfaceState();
         };
 
@@ -68,30 +79,20 @@ define([
         };
 
         GuiThumbstickWidget.prototype.disableWidget = function() {
-            this.guiUpdatable.disableUpdates();
+            this.surfaceElement.disableSurfaceElement();
+        };
+
+        GuiThumbstickWidget.prototype.getWidgetSurfaceLayout = function() {
+            return this.surfaceElement.getSurfaceLayout();
+        };
+
+        GuiThumbstickWidget.prototype.setWidgetPosXY = function(x, y) {
+            this.position.x = x;
+            this.position.y = y;
         };
 
         GuiThumbstickWidget.prototype.enableWidget = function() {
-
-            var cb = function() {
-
-                this.position.x = Math.sin(WorldAPI.getWorldTime()*3.7)*0.1;
-                this.position.y = Math.cos(WorldAPI.getWorldTime()*3.7)*0.1;
-
-                if (Math.random() < 0.5) {
-
-                    this.header.setElementText('Header: '+Math.floor(Math.random()*160));
-                    this.typeLabel.setElementText('Type Label: '+Math.floor(Math.random()*10));
-                }
-
-                this.updateGuiWidget();
-
-            }.bind(this);
-
-            this.guiUpdatable.enableUpdates(cb);
-
             this.setupTextElements();
-
         };
 
 

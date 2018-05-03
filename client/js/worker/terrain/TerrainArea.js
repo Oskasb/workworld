@@ -36,6 +36,11 @@ define([
             this.origin.z = z;
         };
 
+        TerrainArea.prototype.getTerrainVegetationSystemId = function() {
+            return this.terrainOptions.vegetation_system;
+        };
+
+
         TerrainArea.prototype.getTerrain = function() {
             return this.terrain;
         };
@@ -46,6 +51,12 @@ define([
 
         TerrainArea.prototype.getExtents = function() {
             return this.extents;
+        };
+
+        TerrainArea.prototype.positionIsWithin = function(pos) {
+            if (pos.x > this.origin.x && pos.x < this.extents.x + this.origin.x && pos.z > this.origin.z && pos.z < this.extents.z + this.origin.z) {
+                return true
+            }
         };
 
         TerrainArea.prototype.getHeightAndNormalForPos = function(pos, norm) {

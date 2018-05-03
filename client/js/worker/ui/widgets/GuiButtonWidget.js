@@ -30,9 +30,10 @@ define([
             var onButtonRelease = function(active)  {
                 console.log("Button Release", active);
                 if (acceptClick) {
-                    this.callButtonClick()
                     this.surfaceElement.setOn(!this.surfaceElement.getOn());
+                    this.callButtonClick(this.surfaceElement.getOn())
                 }
+                acceptClick = false;
             }.bind(this);
 
             var onButtonPress = function(active)  {
@@ -80,9 +81,9 @@ define([
             this.updateSurfaceState();
         };
 
-        GuiButtonWidget.prototype.callButtonClick = function() {
+        GuiButtonWidget.prototype.callButtonClick = function(bool) {
             for (i = 0; i < this.clickCallbacks.length; i++) {
-                this.clickCallbacks[i](this);
+                this.clickCallbacks[i](bool);
             }
         };
 
@@ -91,16 +92,19 @@ define([
         };
 
         GuiButtonWidget.prototype.disableWidget = function() {
-            this.guiUpdatable.disableUpdates();
+            this.surfaceElement.disableSurfaceElement();
+        };
+
+        GuiButtonWidget.prototype.getWidgetSurfaceLayout = function() {
+            return this.surfaceElement.getSurfaceLayout();
+        };
+
+        GuiButtonWidget.prototype.setWidgetPosXY = function(x, y) {
+            this.position.x = x;
+            this.position.y = y;
         };
 
         GuiButtonWidget.prototype.enableWidget = function() {
-
-            var cb = function() {
-                this.updateGuiWidget();
-            }.bind(this);
-
-            this.guiUpdatable.enableUpdates(cb);
             this.setupTextElements()
 
         };

@@ -1,25 +1,44 @@
 "use strict";
 
 define([
-        'GuiAPI',
+        'PipelineAPI',
         'ConfigObject',
-        'ui/elements/GuiSurfaceElement'
+        'ui/elements/GuiSurfaceElement',
+        'ui/functions/GuiUpdatable'
     ],
     function(
-        GuiAPI,
+        PipelineAPI,
         ConfigObject,
-        GuiSurfaceElement
+        GuiSurfaceElement,
+        GuiUpdatable
     ) {
 
-        var MonitorListWidget = function(label) {
+var i;
+
+        var MonitorListWidget = function(label, category, key) {
             this.label = label;
+            this.category = category;
+            this.key = key;
             this.position = new THREE.Vector3();
+            this.guiUpdatable = new GuiUpdatable();
             this.surfaceElement = new GuiSurfaceElement();
-            this.callbacks = [];
+
+            this.surfaceElement.setSamplePointer(false);
+            this.surfaceElement.setOn(true);
+
+            this.textFields = [];
+            this.valueFields = [];
+
         };
 
         MonitorListWidget.prototype.setupTextElements = function() {
-            this.header = this.surfaceElement.addSurfaceTextElement('button_label', this.label);
+
+            var txtRdy = function(elem) {
+                this.header = elem;
+            }.bind(this);
+
+            this.header = this.surfaceElement.addSurfaceTextElement('list_header', this.label, txtRdy);
+
         };
 
         MonitorListWidget.prototype.initGuiWidget = function(onReadyCB) {
@@ -45,26 +64,53 @@ define([
             this.surfaceElement.updateSurfaceElement(this.position ,this.configObject.getConfigByDataKey('surface'))
         };
 
-        MonitorListWidget.prototype.updateGuiWidget = function() {
-            this.updateSurfaceState();
+
+        MonitorListWidget.prototype.updateWidgetDataField = function(index, dataField) {
+
+            if (!this.textFields[index]) {
+                this.textFields[index] = this.surfaceElement.addSurfaceTextElement('list_key', dataField.key);
+                this.valueFields[index] = this.surfaceElement.addSurfaceTextElement('list_value', dataField.value);
+
+                this.getWidgetSurfaceLayout().setDynamicLayout('height', 0.055 + this.textFields.length * this.textFields[index].getTextEffectSize() * 0.2)
+
+            } else if (dataField.dirty || false) {
+                this.valueFields[index].setElementText(dataField.value);
+            }
+
+            this.textFields[index].setTextOffsetY(-index * this.textFields[index].getTextEffectSize() * 2);
+            this.valueFields[index].setTextOffsetY(-index * this.textFields[index].getTextEffectSize() * 2)
+
         };
 
+        MonitorListWidget.prototype.updateWidgetDataFields = function(dataFields) {
 
-        MonitorListWidget.prototype.disableWidget = function() {
-            while (this.callbacks.length) {
-                GuiAPI.removeGuiUpdateCallback(this.callbacks.pop())
+            for (i = 0; i < dataFields.length; i++) {
+                this.updateWidgetDataField(i, dataFields[i])
             }
         };
 
+        MonitorListWidget.prototype.updateGuiWidget = function() {
+            var renderStatus = PipelineAPI.readCachedConfigKey(this.category, this.key);
+            this.updateSurfaceState();
+            this.updateWidgetDataFields(renderStatus)
+        };
+
+        MonitorListWidget.prototype.disableWidget = function() {
+            this.surfaceElement.disableSurfaceElement();
+        };
+
+        MonitorListWidget.prototype.getWidgetSurfaceLayout = function() {
+            return this.surfaceElement.getSurfaceLayout();
+        };
+
+        MonitorListWidget.prototype.setWidgetPosXY = function(x, y) {
+            this.position.x = x;
+            this.position.y = y;
+            this.position.z = -1;
+        };
+
         MonitorListWidget.prototype.enableWidget = function() {
-
-            var cb = function() {
-                this.updateGuiWidget();
-            }.bind(this);
-
-            GuiAPI.addGuiUpdateCallback(cb);
-            this.callbacks.push(cb);
-            this.setupTextElements();
+            this.setupTextElements()
         };
 
         return MonitorListWidget;

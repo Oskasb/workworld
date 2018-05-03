@@ -118,11 +118,13 @@
           "vPosition.y = vPosition.y * rowSize;"
         ],
 
+        "vertexSkewFromVelocity":[
+          "vPosition.x = vPosition.x + vPosition.y * velocity.x;"
+        ],
+
         "vertexGeometryTextureData":[
 
           "effectAge = systemTime - startTime;",
-
-
 
           "progress = min(effectAge*1.0, 0.8);",
 

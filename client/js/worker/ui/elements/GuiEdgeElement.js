@@ -65,6 +65,11 @@ define([
             }
         };
 
+        GuiEdgeElement.prototype.disableEdgeElement = function() {
+            this.passiveRenderable.disableRenderableEffects();
+            this.activeRenderable.disableRenderableEffects();
+        };
+
         GuiEdgeElement.prototype.setEdgeQuaternion = function(quat) {
             this.obj3d.quaternion.copy(quat);
         };

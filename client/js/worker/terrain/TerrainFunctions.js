@@ -550,17 +550,16 @@ define([],
             var htP = terrainSize*0.5;
             var htN = - htP;
 
-            if (pos.x < htN || pos.z < htN) {-
-
-                console.log("Terrain!", pos.x, pos.z, htP, htN ,"Is Outside WORKER");
-                //    return -1000;
+            if (pos.x < htN || pos.z < htN) {
+            //    console.log("Terrain!", pos.x, pos.z, htP, htN ,"Is Outside WORKER");
+                return false;
                 pos.x = MATH.clamp(pos.x, htN, htP);
                 pos.z = MATH.clamp(pos.z, htN, htP);
             }
 
             if (pos.x > htP  || pos.z > htP) {
-                console.log("Terrain!", pos.x, pos.z, htP, htN ,"Is Outside WORKER");
-                //    return -1000;
+            //    console.log("Terrain!", pos.x, pos.z, htP, htN ,"Is Outside WORKER");
+                return false;
                 pos.x = MATH.clamp(pos.x, htN, htP);
                 pos.z = MATH.clamp(pos.z, htN, htP);
             }

@@ -55,6 +55,11 @@ define([
             }
         };
 
+        GuiCornerElement.prototype.disableCornerElement = function() {
+            this.passiveRenderable.disableRenderableEffects();
+            this.activeRenderable.disableRenderableEffects();
+        };
+
         GuiCornerElement.prototype.setCornerQuaternion = function(quat) {
             this.obj3d.quaternion.copy(quat);
         };

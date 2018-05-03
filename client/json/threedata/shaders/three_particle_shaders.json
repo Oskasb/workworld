@@ -463,9 +463,14 @@
           {"source":"INSTANCING_CHUNKS", "chunk":"enterVoidMain"},
 
           {"source":"INSTANCING_PROGRAMS", "chunk":"vertexGeometryTextureData"},
+
+
           {"source":"INSTANCING_PROGRAMS", "chunk":"vertexColorFromAttribColor4"},
 
           {"source":"INSTANCING_PROGRAMS", "chunk":"vertexPositionMain"},
+
+          {"source":"INSTANCING_PROGRAMS", "chunk":"vertexSkewFromVelocity"},
+
           {"source":"INSTANCING_PROGRAMS", "chunk":"vertexNormalMain"},
 
           {"source":"INSTANCING_PROGRAMS", "chunk":"vertexSpatialMain"},

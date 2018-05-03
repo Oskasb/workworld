@@ -123,7 +123,7 @@ define([
 
 
 
-            notifyStatus(monitorTime,      comBuffer[ENUMS.BufferChannels.MEM_JS_MB]+'MB',                        'MEM_USED');
+            notifyStatus(monitorTime,      Math.round(comBuffer[ENUMS.BufferChannels.MEM_JS_MB])+'MB',                'MEM_USED');
             notifyStatus(monitorTime,      Math.round(100 - (comBuffer[ENUMS.BufferChannels.MEM_JS_HEAP]*100)) + '%', 'MEM_LEFT');
 
         //    var shaders = ThreeAPI.sampleRenderInfo('programs', null);

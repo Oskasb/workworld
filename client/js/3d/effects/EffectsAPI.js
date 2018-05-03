@@ -32,6 +32,7 @@ define([
 
             if (typeof(window.outerWidth) === 'number') {
                 var waterReady = function() {
+
                     waterFx.initWaterEffect();
                     onReady()
                 };
@@ -39,13 +40,16 @@ define([
 
                 var particlesReady = function() {
                     waterFx = new WaterFX(waterReady);
+
                 };
 
 
                 particleSpawner.initParticleSpawner(particlesReady);
             } else {
         //        console.log("Init worker particleSpawner");
+                EffectsAPI.enableTerrainVegetation();
                 particleSpawner.initParticleSpawner(onReady);
+
             }
 
 

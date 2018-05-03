@@ -33,6 +33,24 @@ define([
             }
         };
 
+        TerrainSystem.prototype.getTerrainHeightAndNormal = function(pos, normalStore) {
+
+            for (var i = 0; i < this.terrainAreas.length; i++) {
+                if (this.terrainAreas[i].positionIsWithin(pos)) {
+                    return this.terrainAreas[i].getHeightAndNormalForPos(pos, normalStore)
+                }
+            }
+        };
+
+        TerrainSystem.prototype.getTerrainAreaAtPos = function(pos) {
+
+            for (var i = 0; i < this.terrainAreas.length; i++) {
+                if (this.terrainAreas[i].positionIsWithin(pos)) {
+                    return this.terrainAreas[i];
+                }
+            }
+        };
+
         return TerrainSystem;
 
     });

@@ -105,6 +105,10 @@ define([
             terrainSystem.initTerrainSystem(msg)
         };
 
+        WorldAPI.getTerrainSystem = function() {
+            return terrainSystem;
+        };
+
         WorldAPI.processRequest = function(msg) {
             protocolRequests.handleMessage(msg)
         };

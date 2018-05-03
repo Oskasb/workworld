@@ -34,6 +34,8 @@ define([
             this.posY = 0;
             this.posZ = 0;
 
+            this.posVec = new THREE.Vector3();
+
             this.parentObject3d = ThreeAPI.createRootObject();
             this.debugging = false;
             
@@ -84,14 +86,16 @@ define([
             calcVec.y = outside;
             calcVec.z = this.posZ;
 
-            ThreeAPI.setYbyTerrainHeightAt(calcVec);
+            this.posY = WorldAPI.getTerrainSystem().getTerrainHeightAndNormal(calcVec);
 
-            this.posY = calcVec.y;
-
-
-            if (this.posY !== outside) {
+            if (this.posY) {
+                calcVec.y = this.posY;
                 this.parentObject3d.position.copy(calcVec);
+            } else {
+                this.posY = outside;
             }
+
+            this.posVec.copy(calcVec);
 
         };
 
@@ -144,7 +148,7 @@ define([
 
         VegetationSector.prototype.checkVisibility = function(activePatches, patchPool) {
 
-            var visible = ThreeAPI.checkVolumeObjectVisible( this.posX, this.posY , this.posZ , this.size() * 1.6);
+            var visible = WorldAPI.getWorldCamera().testPosRadiusVisible( this.posVec , this.size() * 1.8);
 
             if (visible && !this.isVisible) {
                 this.enableVegetationSector(activePatches, patchPool);

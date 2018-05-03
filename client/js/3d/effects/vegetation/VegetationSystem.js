@@ -1,7 +1,6 @@
 "use strict";
 
 define([
-        'ThreeAPI',
         'PipelineAPI',
         '3d/effects/vegetation/VegetationSector',
         '3d/effects/vegetation/PatchPool',
@@ -9,7 +8,6 @@ define([
  //   'EffectAPI'
     ],
     function(
-        ThreeAPI,
         PipelineAPI,
         VegetationSector,
         PatchPool,
@@ -103,7 +101,7 @@ define([
 
             tempVec.x = 0;
             tempVec.y = 0;
-            tempVec.z = -50;
+            tempVec.z = -this.conf().vegetationSectorSize*this.conf().rowsNColumns*0.4;
 
             tempVec.applyQuaternion(camera.quaternion);
 
@@ -116,7 +114,7 @@ define([
             var posX = Math.floor(tempVec2.x / this.conf().vegetationSectorSize);
             var posZ = Math.floor(tempVec2.z / this.conf().vegetationSectorSize);
             
-            if (this.lastX != posX || this.lastZ != posZ) {
+            if (this.lastX !== posX || this.lastZ !== posZ) {
                 this.lastX = posX;
                 this.lastZ = posZ;
                 this.updateSectorPositions();
@@ -128,7 +126,7 @@ define([
             if (!this.patchPool.length) {
                 return new VegetationPatch(this.systemIndex, this.config, EffectAPI, this.vegData);
             } else {
-               return this.patchPool.pop()
+                return this.patchPool.pop()
             }
 
         };

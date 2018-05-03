@@ -42,6 +42,9 @@ define([
             this.centerX = 0;
             this.centerY = 0;
 
+            this.dynamicLayout = {};
+            this.layout = {}
+
         };
 
         GuiSurfaceLayout.prototype.setupAnchorPoint = function(layout) {
@@ -83,7 +86,11 @@ define([
         };
 
         GuiSurfaceLayout.prototype.parseLaoutConfig = function(layoutConfig) {
-            this.applyLayoutRules(layoutConfig);
+            for (var key in layoutConfig) {
+                this.layout[key] = this.dynamicLayout[key] || layoutConfig[key];
+            }
+
+            this.applyLayoutRules(this.layout);
         };
 
         GuiSurfaceLayout.prototype.applyLayoutToCorners = function(topLeft, topRight, bottomLeft, bottomRight) {
@@ -120,6 +127,10 @@ define([
 
         GuiSurfaceLayout.prototype.getRootPosition = function() {
             return this.position;
+        };
+
+        GuiSurfaceLayout.prototype.setDynamicLayout = function(key, value) {
+            this.dynamicLayout[key] = value;
         };
 
         GuiSurfaceLayout.prototype.getCenterX = function() {

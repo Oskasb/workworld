@@ -34,6 +34,7 @@ define(['3d/effects/particles/EffectSimulators',
             this.scale = 1;
             this.deadParticles = [];
 
+            this.dynamicVelocity = null;
             this.dynamicSprite = null;
             this.dynamicScale = null;
             this.dynamicAlpha = null;
@@ -59,7 +60,10 @@ define(['3d/effects/particles/EffectSimulators',
 
         ParticleEffect.prototype.resetParticleEffect = function() {
             this.scale = 1;
+            this.dynamicVelocity = null;
             this.dynamicSprite = null;
+            this.dynamicScale = null;
+            this.dynamicAlpha = null;
         };
 
         ParticleEffect.prototype.setEffectData = function(effectData) {
@@ -265,7 +269,7 @@ define(['3d/effects/particles/EffectSimulators',
         };
 
         ParticleEffect.prototype.updateEffectVelocitySimulator = function(vel, tpf) {
-
+            this.vel.copy(vel);
             for (i = 0; i < this.aliveParticles.length; i++) {
 
                 this.aliveParticles[i].setVelocity(vel);

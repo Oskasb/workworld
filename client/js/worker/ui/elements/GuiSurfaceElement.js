@@ -54,6 +54,7 @@ define([
             this.right = new GuiEdgeElement();
             this.bottom = new GuiEdgeElement();
 
+            this.samplePointer = true;
         };
 
         GuiSurfaceElement.prototype.initSurfaceElement = function(onReadyCB) {
@@ -206,11 +207,14 @@ define([
             }
         };
 
-        GuiSurfaceElement.prototype.addSurfaceTextElement = function(layoutKey, string) {
+        GuiSurfaceElement.prototype.addSurfaceTextElement = function(layoutKey, string, cb) {
 
             var txt = function(txtElem) {
                 txtElem.setElementText(string);
                 this.textElements.push(txtElem);
+                if (typeof(cb) === 'function') {
+                    cb(txtElem);
+                }
             }.bind(this);
 
             elem = new GuiTextElement();
@@ -222,13 +226,22 @@ define([
         GuiSurfaceElement.prototype.updateSurfaceElement = function(posVec, surfaceData) {
 
             this.applySurfaceData(posVec ,surfaceData);
-            this.testPointerHover();
-            this.updateSurfaceVisuals(surfaceData)
 
+            if (this.samplePointer) {
+                this.testPointerHover();
+            }
+
+            this.updateSurfaceVisuals(surfaceData)
         };
 
         GuiSurfaceElement.prototype.addSurfaceHoverCallback = function(cb) {
             this.callbacks.hover.push(cb);
+        };
+
+
+
+        GuiSurfaceElement.prototype.setSamplePointer = function(bool) {
+            this.samplePointer = bool;
         };
 
         GuiSurfaceElement.prototype.setOn = function(bool) {
@@ -251,12 +264,36 @@ define([
             this.callbacks.out.push(cb);
         };
 
+        GuiSurfaceElement.prototype.disableSurfaceElement = function() {
+
+            this.topLeft.disableCornerElement();
+            this.topRight.disableCornerElement();
+            this.bottomLeft.disableCornerElement();
+            this.bottomRight.disableCornerElement();
+
+            this.top.disableEdgeElement();
+            this.left.disableEdgeElement();
+            this.right.disableEdgeElement();
+            this.bottom.disableEdgeElement();
+
+            this.backplate.disablePlateElement();
+
+            for (i = 0; i < this.textElements.length; i++) {
+                this.textElements[i].disableTextElement()
+            }
+
+        };
+
         GuiSurfaceElement.prototype.callSurfaceCallbackList = function(callbacks, bool) {
 
             for (var i = 0; i < callbacks.length; i++) {
                 callbacks[i](bool);
             }
 
+        };
+
+        GuiSurfaceElement.prototype.getSurfaceLayout = function() {
+            return this.guiSurfaceLayout;
         };
 
         return GuiSurfaceElement;

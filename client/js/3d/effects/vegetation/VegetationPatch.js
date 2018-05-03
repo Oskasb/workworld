@@ -164,19 +164,24 @@ define([
             tempVec2.y = 0;
             tempVec2.z = 0;
 
-            if (!pos.x) return;
-
+            /*
+            if (!pos.x) {
+                console.log("Looking for missing pos.x ??");
+                return;
+            }
+*/
             
-            
-            var vegSysId = ThreeAPI.plantVegetationAt(pos, tempVec3);
+            var area = WorldAPI.getTerrainSystem().getTerrainAreaAtPos(pos);
 
-            if (!vegSysId) {
+            if (!area) {
                 this.skipCount ++;
             //    console.log("No vegSysId for position, is outside world");
                 return;
             }
 
+            pos.y = area.getHeightAndNormalForPos(pos, tempVec3);
 
+            var vegSysId = area.getTerrainVegetationSystemId();
 
             var plantId = this.plantIdBySystemAndNormal(vegSysId, pos, tempVec3);
 

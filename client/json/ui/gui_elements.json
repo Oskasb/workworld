@@ -33,25 +33,63 @@
           },
 
           "button_label":{
-            "font_size":10,
+            "font_size":12,
             "letter_spacing":0.98,
             "text_align_x":0.5,
             "text_align_y":0.5,
             "text_margin_x":1.6,
             "text_margin_y":1.3,
-            "italic":false,
+            "italic":true,
             "font_effect":"gui_basic_normal_text_effect",
             "color_map":"header_color_map",
             "alpha_map":"header_alpha_map"
           },
 
+          "list_header":{
+            "font_size":11,
+            "letter_spacing":0.96,
+            "text_align_x":0.0,
+            "text_align_y":0.0,
+            "text_margin_x":1.2,
+            "text_margin_y":0.3,
+            "italic":true,
+            "font_effect":"gui_basic_normal_text_effect",
+            "color_map":"header_color_map",
+            "alpha_map":"label_alpha_map"
+          },
+
+          "list_key":{
+            "font_size":9,
+            "letter_spacing":1,
+            "text_align_x":0.0,
+            "text_align_y":0.0,
+            "text_margin_x":2.0,
+            "text_margin_y":2.9,
+            "italic":false,
+            "font_effect":"gui_basic_normal_text_effect",
+            "color_map":"list_key_color_map",
+            "alpha_map":"label_alpha_map"
+          },
+
+          "list_value":{
+            "font_size":9,
+            "letter_spacing":1,
+            "text_align_x":1.0,
+            "text_align_y":0.0,
+            "text_margin_x":2.0,
+            "text_margin_y":2.9,
+            "italic":false,
+            "font_effect":"gui_basic_normal_text_effect",
+            "color_map":"list_value_color_map",
+            "alpha_map":"label_alpha_map"
+          },
 
           "header_color_map":{
             "color":"cyan_2",
             "disabled":"red_2",
             "passive":"blue_3",
             "active":"yellow_4",
-            "on":"yellow_5"
+            "on":"cyan_4"
           },
 
           "label_color_map":{
@@ -67,7 +105,7 @@
             "disabled":"alpha_20",
             "passive":"alpha_60",
             "active":"alpha_80",
-            "on":"alpha_40"
+            "on":"alpha_60"
           },
 
           "label_alpha_map":{
@@ -76,8 +114,25 @@
             "passive":"alpha_40",
             "active":"alpha_60",
             "on":"alpha_80"
-          }
+          },
 
+
+
+          "list_key_color_map":{
+            "color":"blue_2",
+            "disabled":"flashGrey",
+            "passive":"blue_3",
+            "active":"orange_3",
+            "on":"cyan_3"
+          },
+
+          "list_value_color_map":{
+            "color":"blue_2",
+            "disabled":"flashGrey",
+            "passive":"blue_3",
+            "active":"orange_3",
+            "on":"orange_4"
+          }
 
         }
       }

@@ -186,7 +186,7 @@ define([
         //    notifyStatus(monitorEffects, EffectsAPI.sampleEffectActivations(),       'FX_ADDS');
 
             memory = performance.memory;
-            var memoryUsed = ( (memory.usedJSHeapSize / 1048576) / (memory.jsHeapSizeLimit / 1048576 ));
+            var memoryUsed = (memory.usedJSHeapSize / 1048576) / (memory.jsHeapSizeLimit / 1048576 );
             var mb = Math.round(memory.usedJSHeapSize / 104857.6) / 10;
 
             comBuffer[ENUMS.BufferChannels.MEM_JS_HEAP] = memoryUsed;

@@ -16,14 +16,6 @@ define([
         var state;
         var tempVec1 = new THREE.Vector3();
 
-        var textAlignMap = {
-            top:{x:0},
-            left:{y:0},
-            right:{x:1},
-            bottom:{y:1},
-            center:{x:0.5, y:0.5}
-        };
-
         var TEXT_STATE = {
             on:"on",
             color:"color",
@@ -39,7 +31,11 @@ define([
             this.originX = 0;
             this.originY = 0;
 
+            this.offsetX = 0;
+            this.offsetY = 0;
+
             this.obj3d = new THREE.Object3D();
+            this.skewVec = new THREE.Vector3();
 
             this.obj3d.quaternion.x = 0;
             this.obj3d.quaternion.y = 0;
@@ -66,7 +62,7 @@ define([
                 text_align_y:0,
                 text_margin_x:0.3,
                 text_margin_y:0.6,
-                italic:false,
+                italic:true,
                 font_effect:"default_font_effect",
                 color_map:  "state_color_map",
                 alpha_map:  "state_alpha_map"
@@ -97,6 +93,7 @@ define([
 
             var configLoaded = function() {
                 this.configObject.removeCallback(configLoaded);
+                this.dirty = true;
                 onReadyCB(this);
             }.bind(this);
 
@@ -126,29 +123,45 @@ define([
             this.getLetterPositionAtIndex(index, tempVec1);
             this.effectList.addEffectToList(this.fontEffect, tempVec1, this.obj3d.quaternion, this.effectSize);
             this.setLetterAtIndex(letter, index);
-            this.setLetterIndexColor(index, this.getLetterColorAtIndex(index));
-            this.setLetterIndexAlpha(index, this.getLetterAlphaAtIndex(index));
+            this.applyConfigurationToLetter(index);
         };
 
         GuiTextElement.prototype.setLetterAtIndex = function(letter, index) {
+            if (this.effectList.effectCount() <= index) return;
             this.effectList.setEffectIndexSpriteKey(index, letter);
         };
 
         GuiTextElement.prototype.setLetterIndexColor = function(index, colorCurve) {
+            if (this.effectList.effectCount() <= index) return;
             this.effectList.setEffectIndexColorKey(index, colorCurve);
         };
 
         GuiTextElement.prototype.setLetterIndexAlpha = function(index, alphaCurve) {
+            if (this.effectList.effectCount() <= index) return;
             this.effectList.setEffectIndexAlphaKey(index, alphaCurve);
         };
 
         GuiTextElement.prototype.setLetterIndexScale = function(index, scale) {
+            if (this.effectList.effectCount() <= index) return;
             this.effectList.setEffectIndexScale(index, scale);
         };
 
         GuiTextElement.prototype.updateLetterIndexPosition = function(index) {
+            if (this.effectList.effectCount() <= index) return;
             this.getLetterPositionAtIndex(index, tempVec1);
             this.effectList.setEffectIndexPosition(index, tempVec1);
+        };
+
+        GuiTextElement.prototype.setSkewTextVector = function(vec3) {
+            this.effectList.setEffectListVelocity(vec3);
+        };
+
+        GuiTextElement.prototype.applyConfigurationToLetter = function(index) {
+            if (this.effectList.effectCount() <= index) return;
+            this.setLetterIndexScale(index, this.effectSize);
+            this.setLetterIndexColor(index, this.getLetterColorAtIndex(index));
+            this.setLetterIndexAlpha(index, this.getLetterAlphaAtIndex(index));
+            this.effectList.setEffectIndexVelocity(index, this.skewVec)
         };
 
         GuiTextElement.prototype.applySurfaceLayout = function(surfaceLayout) {
@@ -158,8 +171,8 @@ define([
             this.right = surfaceLayout.getLayoutRight() - this.effectSize * this.config.text_margin_x;
             this.bottom = surfaceLayout.getLayoutBottom() + this.effectSize * this.config.text_margin_y;
 
-            this.obj3d.position.x = this.left + (this.right - this.left)*this.config.text_align_x;
-            this.obj3d.position.y = this.top  + (this.bottom - this.top)*this.config.text_align_y;
+            this.obj3d.position.x = this.left + (this.right - this.left)*this.config.text_align_x + this.offsetX;
+            this.obj3d.position.y = this.top  + (this.bottom - this.top)*this.config.text_align_y + this.offsetY;
             this.obj3d.position.z = -1;
 
             if (this.originX !== this.obj3d.position.x ||this.originY !== this.obj3d.position.y) {
@@ -179,9 +192,9 @@ define([
             this.elementWidth = this.textSpacingX * (textString.length-1);
 
             if (this.config.italic) {
-                this.obj3d.quaternion.x = -0.23;
+                this.skewVec.set(0.24, 0, 0);
             } else {
-                this.obj3d.quaternion.x = 0;
+                this.skewVec.set(0, 0, 0);
             }
         };
 
@@ -210,11 +223,9 @@ define([
                     this.dirty = true
                 }
             }
-
         };
 
         GuiTextElement.prototype.updateTextState = function(passive, active, on) {
-
 
             if (active) {
                 state = TEXT_STATE.active;
@@ -229,21 +240,18 @@ define([
             if (state !== this.textState) {
                 this.textState = state;
                 for (i = 0; i < this.textString.length; i++) {
-                    this.setLetterIndexColor(i, this.getLetterColorAtIndex(i));
-                    this.setLetterIndexAlpha(i, this.getLetterAlphaAtIndex(i));
+                    this.applyConfigurationToLetter(i);
                 }
             }
-
         };
-
 
 
         GuiTextElement.prototype.visualizeText = function(surfaceLayout, passive, active, stateOn) {
 
+            this.updateTextConfig(this.configRead(this.layoutKey));
+
             this.updateTextState(passive, active, stateOn);
 
-
-            this.updateTextConfig(this.configRead(this.layoutKey));
             this.updateStateColorMaps(this.configRead(this.config.color_map), this.configRead(this.config.alpha_map));
 
             this.applyTextConfig(this.textString);
@@ -259,14 +267,10 @@ define([
             if (this.dirty) {
 
                 //    this.effectList.disableEffectList();
-
                 for (i = 0; i < this.textString.length; i++) {
                     this.updateLetterIndexPosition(i);
-                    this.setLetterIndexColor(i, this.getLetterColorAtIndex(i));
-                    this.setLetterIndexAlpha(i, this.getLetterAlphaAtIndex(i));
-                    this.setLetterIndexScale(i, this.effectSize);
+                    this.applyConfigurationToLetter(i);
                 }
-
             }
 
             this.dirty = false;
@@ -274,7 +278,11 @@ define([
 
 
         GuiTextElement.prototype.updateFontEffecs = function(string) {
+
+
             if (string.length && this.effectList.effectCount()) {
+
+                this.updateTextConfig(this.configRead(this.layoutKey));
 
                 if (this.effectList.effectCount() > string.length) {
                     this.effectList.removeEffectListElementCount(this.effectList.effectCount() - string.length)
@@ -291,6 +299,7 @@ define([
                         }
                     }
                     this.updateLetterIndexPosition(i);
+                    this.effectList.setEffectIndexVelocity(i, this.skewVec)
                 }
              //   this.dirty = true;
             } else {
@@ -299,11 +308,35 @@ define([
 
         };
 
+        GuiTextElement.prototype.setTextOffsetX = function(x) {
+            this.offsetX = x;
+        };
+
+        GuiTextElement.prototype.getTextOffsetX = function() {
+            return this.offsetX;
+        };
+
+        GuiTextElement.prototype.setTextOffsetY = function(y) {
+            this.offsetY = y;
+        };
+
+        GuiTextElement.prototype.getTextOffsetY = function() {
+            return this.offsetY;
+        };
+
+        GuiTextElement.prototype.getTextEffectSize = function() {
+            return this.effectSize;
+        };
+
         GuiTextElement.prototype.setElementLayoutKey = function(layoutKey) {
             this.layoutKey = layoutKey;
         };
 
         GuiTextElement.prototype.setElementText = function(string) {
+
+            if (typeof(string) !== 'string') {
+                string = ''+string;
+            }
 
             if (this.textString !== string) {
                 this.updateFontEffecs(string);
@@ -311,6 +344,11 @@ define([
 
             this.textString = string;
         };
+
+        GuiTextElement.prototype.disableTextElement = function() {
+            this.effectList.disableEffectList();
+        };
+
 
         return GuiTextElement;
 

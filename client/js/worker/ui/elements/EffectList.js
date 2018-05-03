@@ -47,11 +47,16 @@ define([
             this.effects[index].setAliveParticlesSize(scale);
         };
 
+        EffectList.prototype.setEffectIndexVelocity = function(index, velVec) {
+            this.effects[index].updateEffectVelocitySimulator(velVec);
+        };
+
         EffectList.prototype.setEffectListColorKey = function(colorKey) {
             for (i = 0; i < this.effects.length; i++) {
                 this.setEffectIndexColorKey(i, colorKey);
             }
         };
+
 
         EffectList.prototype.setEffectListAspect = function(aspect) {
             for (i = 0; i < this.effects.length; i++) {
@@ -62,6 +67,12 @@ define([
         EffectList.prototype.setEffectListPosition = function(posVec) {
             for (i = 0; i < this.effects.length; i++) {
                 this.setEffectIndexPosition(i, posVec);
+            }
+        };
+
+        EffectList.prototype.setEffectListVelocity = function(velVec) {
+            for (i = 0; i < this.effects.length; i++) {
+                this.setEffectIndexVelocity(i, velVec);
             }
         };
 
