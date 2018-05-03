@@ -252,6 +252,10 @@ define([
             return this.on;
         };
 
+        GuiSurfaceElement.prototype.getPress = function() {
+            return this.press
+        };
+
         GuiSurfaceElement.prototype.addSurfacePressCallback = function(cb) {
             this.callbacks.press.push(cb);
         };

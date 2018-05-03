@@ -234,7 +234,11 @@ if(typeof(MATH) === "undefined") {
 			store[i] = (1-frac)*from[i] + frac*to[i];
 		}
 	};
-	
+
+    MATH.decimalify = function(value, scale) {
+		return Math.round(value*scale) / scale;
+    };
+
 	MATH.curveBlendArray = function(value, curve, from, to, store) {
 		blend = MATH.valueFromCurve(value, curve);
 		MATH.blendArray(from, to, blend, store);

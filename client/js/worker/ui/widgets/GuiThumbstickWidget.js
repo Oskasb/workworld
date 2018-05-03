@@ -19,13 +19,17 @@ define([
             this.surfaceElement = new GuiSurfaceElement();
             this.callbacks = [];
 
+            this.lookVec = new THREE.Vector3();
+            this.sourceVec = new THREE.Vector3();
+
         };
 
         GuiThumbstickWidget.prototype.setupTextElements = function() {
 
             this.header = this.surfaceElement.addSurfaceTextElement('header', 'Header');
             this.typeLabel = this.surfaceElement.addSurfaceTextElement('type_label', 'Type Label');
-
+            this.typeLabel2 = this.surfaceElement.addSurfaceTextElement('type_label', 'Type Label');
+            this.typeLabel.setTextOffsetY(this.typeLabel.getTextEffectSize() * 0.2);
         };
 
 
@@ -52,19 +56,42 @@ define([
             this.surfaceElement.updateSurfaceElement(this.position, this.configObject.getConfigByDataKey('surface'))
         };
 
+        var lookAt = new THREE.Vector3();
+
         GuiThumbstickWidget.prototype.updateGuiWidget = function() {
 
-            this.position.x = Math.sin(WorldAPI.getWorldTime()*3.7)*0.1;
-            this.position.y = Math.cos(WorldAPI.getWorldTime()*3.7)*0.1;
 
-            if (Math.random() < 0.5) {
-
-                this.header.setElementText('Header: '+Math.floor(Math.random()*160));
-                this.typeLabel.setElementText('Type Label: '+Math.floor(Math.random()*10));
-            }
-
+            this.header.setElementText('STEER');
+            this.typeLabel.setElementText('Drag X: '+ MATH.decimalify(WorldAPI.sampleInputBuffer(ENUMS.InputState.DRAG_DISTANCE_X), 100));
+            this.typeLabel2.setElementText('Drag Y: '+ MATH.decimalify(WorldAPI.sampleInputBuffer(ENUMS.InputState.DRAG_DISTANCE_Y), 100));
 
             this.updateSurfaceState();
+
+            if (this.surfaceElement.getPress()) {
+
+                this.lookVec.x = MATH.clamp(WorldAPI.sampleInputBuffer(ENUMS.InputState.DRAG_DISTANCE_X) * 5, -2, 2);
+                this.lookVec.y = MATH.clamp(WorldAPI.sampleInputBuffer(ENUMS.InputState.DRAG_DISTANCE_Y) * 5, -2, 2);
+                this.lookVec.z = 0;
+                this.lookVec.applyQuaternion(WorldAPI.getWorldCamera().getCamera().quaternion);
+
+                lookAt.addVectors(WorldAPI.getWorldCamera().getCameraLookAt(), this.lookVec);
+                WorldAPI.getWorldCamera().setLookAtVec(lookAt);
+
+            } else {
+
+                this.sourceVec.x = MATH.clamp(WorldAPI.sampleInputBuffer(ENUMS.InputState.DRAG_DISTANCE_X) * 5, -2, 2);
+                this.sourceVec.y = 0;
+                this.sourceVec.z = 0;
+
+                this.sourceVec.applyQuaternion(WorldAPI.getWorldCamera().getCamera().quaternion);
+                this.sourceVec.y = MATH.clamp(WorldAPI.sampleInputBuffer(ENUMS.InputState.DRAG_DISTANCE_Y) * 5, -2, 2);
+
+                WorldAPI.getWorldCamera().getCamera().position.x += this.sourceVec.x;
+                WorldAPI.getWorldCamera().getCamera().position.y += this.sourceVec.y;
+                WorldAPI.getWorldCamera().getCamera().position.z += this.sourceVec.z;
+            }
+
+            WorldAPI.getWorldCamera().updateCameraLookAt();
         };
 
         GuiThumbstickWidget.prototype.setGuiWidgetPosition = function(posVec) {

@@ -258,8 +258,6 @@ define([
 
         };
 
-
-
         var tmpVec = new THREE.Vector3();
         var tmpVec2 = new THREE.Vector3();
 
@@ -285,6 +283,22 @@ define([
 
         };
 
+
+        var sampleCamera = function(camera) {
+
+            camera.position.x   = comBuffer[ENUMS.BufferChannels.CAM_POS_X] ;
+            camera.position.y   = comBuffer[ENUMS.BufferChannels.CAM_POS_Y] ;
+            camera.position.z   = comBuffer[ENUMS.BufferChannels.CAM_POS_Z] ;
+            camera.quaternion.x = comBuffer[ENUMS.BufferChannels.CAM_QUAT_X];
+            camera.quaternion.y = comBuffer[ENUMS.BufferChannels.CAM_QUAT_Y];
+            camera.quaternion.z = comBuffer[ENUMS.BufferChannels.CAM_QUAT_Z];
+            camera.quaternion.w = comBuffer[ENUMS.BufferChannels.CAM_QUAT_W];
+            camera.fov          = comBuffer[ENUMS.BufferChannels.CAM_FOV]   ;
+            camera.near         = comBuffer[ENUMS.BufferChannels.CAM_NEAR]  ;
+            camera.far          = comBuffer[ENUMS.BufferChannels.CAM_FAR]   ;
+            camera.aspect       = comBuffer[ENUMS.BufferChannels.CAM_ASPECT];
+
+        };
 
         ClientViewer.prototype.tick = function(tpf) {
 
@@ -329,7 +343,7 @@ define([
 
         //    }, 0);
 
-
+/*
             var distance = 350 + 100*Math.sin(gameTime*0.2);
 
             ThreeAPI.setCameraPos(distance*Math.sin(gameTime*0.2), distance * 0.4 + Math.sin(gameTime*0.35) * 50, distance*Math.cos(gameTime*0.2));
@@ -348,8 +362,7 @@ define([
 
             //    evt.fire(evt.list().GAME_EFFECT, fxArg);
             }
-
-
+  */
         //    this.viewerMain.tickViewerClient(tpf);
             
         //    evt.fire(evt.list().CAMERA_TICK, {frame:frame, tpf:tpf});
@@ -360,6 +373,8 @@ define([
             this.sceneController.tickEffectsAPI(comBuffer[ENUMS.BufferChannels.FRAME_RENDER_TIME]-tpf);
 
             this.tickStatusUpdate(tpf);
+
+            sampleCamera(ThreeAPI.getCamera());
 
             ThreeAPI.updateCamera();
 

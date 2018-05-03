@@ -28,9 +28,13 @@ define([
                 }
             }
 
-            WorldAPI.updateUiSystem(inputBuffer, lastBuffer);
-            this.storeLastBuffer();
             this.worldCamera.applyCameraComBuffer(WorldAPI.getWorldComBuffer());
+
+            WorldAPI.updateUiSystem(inputBuffer, lastBuffer);
+
+            this.worldCamera.relayCamera(WorldAPI.getWorldComBuffer());
+            this.storeLastBuffer();
+
         };
 
         WorldControlState.prototype.storeLastBuffer = function() {

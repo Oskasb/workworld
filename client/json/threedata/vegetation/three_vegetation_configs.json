@@ -5,17 +5,17 @@
 
         {
           "name":"small",
-          "vegetationSectorSize":65,
+          "vegetationSectorSize":45,
           "rowsNColumns":9,
-          "spawnFrames":3,
-          "plantCount":25
+          "spawnFrames":1,
+          "plantCount":15
         },
         {
           "name":"big",
-          "vegetationSectorSize":74,
-          "rowsNColumns":9,
-          "spawnFrames":5,
-          "plantCount":45
+          "vegetationSectorSize":54,
+          "rowsNColumns":7,
+          "spawnFrames":8,
+          "plantCount":85
         }
       ],
 

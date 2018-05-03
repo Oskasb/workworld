@@ -78,7 +78,7 @@ define([
 
         var dot = vector.dot(cameraForward);
 
-        if (dot < 0.5) {
+        if (dot < 0.3) {
             return false;
         }
 
@@ -92,7 +92,6 @@ define([
 
         return isVisible;
     };
-
 
     var sphere = new THREE.Sphere();
 
@@ -110,11 +109,22 @@ define([
     var frustum = new THREE.Frustum();
     var frustumMatrix = new THREE.Matrix4();
 
-
     WorldCamera.prototype.setCameraPosition = function(px, py, pz) {
         camera.position.x = px;
         camera.position.y = py;
         camera.position.z = pz;
+    };
+
+    WorldCamera.prototype.getCameraLookAt = function() {
+        return lookAt;
+    };
+
+    WorldCamera.prototype.setLookAtVec = function(vec) {
+        lookAt.copy(vec);
+    };
+
+    WorldCamera.prototype.updateCameraLookAt = function() {
+        camera.lookAt(lookAt)
     };
 
     WorldCamera.prototype.setCameraLookAt = function(x, y, z) {
@@ -143,6 +153,22 @@ define([
 
     WorldCamera.prototype.getCamera = function() {
         return camera;
+    };
+
+    WorldCamera.prototype.relayCamera = function(comBuffer) {
+
+        comBuffer[ENUMS.BufferChannels.CAM_POS_X]      = camera.position.x;
+        comBuffer[ENUMS.BufferChannels.CAM_POS_Y]      = camera.position.y;
+        comBuffer[ENUMS.BufferChannels.CAM_POS_Z]      = camera.position.z;
+        comBuffer[ENUMS.BufferChannels.CAM_QUAT_X]     = camera.quaternion.x;
+        comBuffer[ENUMS.BufferChannels.CAM_QUAT_Y]     = camera.quaternion.y;
+        comBuffer[ENUMS.BufferChannels.CAM_QUAT_Z]     = camera.quaternion.z;
+        comBuffer[ENUMS.BufferChannels.CAM_QUAT_W]     = camera.quaternion.w;
+        comBuffer[ENUMS.BufferChannels.CAM_FOV]        = camera.fov;
+        comBuffer[ENUMS.BufferChannels.CAM_NEAR]       = camera.near;
+        comBuffer[ENUMS.BufferChannels.CAM_FAR]        = camera.far;
+        comBuffer[ENUMS.BufferChannels.CAM_ASPECT]     = camera.aspect;
+
     };
 
     WorldCamera.prototype.applyCameraComBuffer = function(comBuffer) {
