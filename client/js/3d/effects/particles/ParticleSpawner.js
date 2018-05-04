@@ -433,9 +433,9 @@ define([
             tpf = sysTime - systemTime;
             systemTime = sysTime;
 
-                while (requestedEffects.length) {
-                    this.activateEffect(requestedEffects.pop());
-                }
+            while (requestedEffects.length) {
+                this.activateEffect(requestedEffects.pop());
+            }
 
             for (key in renderers) {
                 this.updateSpawnedRenderers(renderers[key])
@@ -448,16 +448,6 @@ define([
                 idleEffects.push(spliced);
             }
 
-            for (i = 0; i < activeEffects.length; i++) {
-
-                if (typeof(activeEffects[i]) === 'undefined') {
-                    console.log("Bad Effect pool handling,", activeEffects);
-                    activeEffects.splice(activeEffects.indexOf(dead), 1)[0];
-                    return;
-                }
-
-            }
-
             for (i = 0; i < temporaryEffects.length; i++) {
                 if (temporaryEffects[i].temporary.endTime < systemTime) {
                     this.recoverPassiveEffect(temporaryEffects.splice(i, 1)[0]);
@@ -466,8 +456,6 @@ define([
             }
 
             for (i = 0; i < activeEffects.length; i++) {
-
-
                 if (activeEffects[i].aliveParticles.length !== 0) {
                     activeEffects[i].updateEffect(tpf, systemTime);
                 } else {

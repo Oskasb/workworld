@@ -93,23 +93,31 @@ define([
                 console.log("fxReady");
             }
 
-
-
         };
+
         var comBuffer;
+
         ClientViewer.prototype.clientReady = function(setupReady) {
 
             var clientTick = function(tpf) {
                 this.tick(tpf)
             }.bind(this);
 
+        //    clientTick = function(tpf)
+
             var postrenderTick = function(tpf) {
                 this.tickPostrender(tpf)
             }.bind(this);
 
+            var workerFrameTick = function(msg) {
+                this.tickWorkerPing(msg)
+            }.bind(this);
+
+
             var fxReady = function() {
                 ThreeAPI.getSetup().addPrerenderCallback(clientTick);
                 ThreeAPI.getSetup().addPostrenderCallback(postrenderTick);
+                WorkerAPI.addOnWorkerFrameCallback(workerFrameTick);
                 comBuffer = PipelineAPI.readCachedConfigKey('SHARED_BUFFERS', ENUMS.Key.WORLD_COM_BUFFER);
             //    ThreeAPI.getCamera().position.set(0, 10, -50);
                 setupReady()
@@ -394,6 +402,11 @@ define([
             WorkerAPI.wakeWorldThread();
 
             PipelineAPI.setCategoryKeyValue('STATUS', 'TPF', tpf);
+
+        };
+
+        ClientViewer.prototype.tickWorkerPing = function(msg) {
+
             evt.fire(evt.list().CLIENT_TICK, tickEvent);
         };
 

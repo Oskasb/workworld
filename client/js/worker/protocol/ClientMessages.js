@@ -47,7 +47,7 @@ define([
             "state":true,
             "three_terrain":"plain_ground",
             "vegetation_system":"basic_grassland",
-            "terrain_size":2000,
+            "terrain_size":4000,
             "terrain_segments":127,
             "invert_hill":false,
             "terrain_edge_size":305,
@@ -84,16 +84,17 @@ define([
 
                 WorkerAPI.setWakeupFunction(wakeupFunc);
 
-                WorkerAPI.callWorker(ENUMS.Worker.WORLD, WorkerAPI.buildMessage(ENUMS.Protocol.CREATE_WORLD,{posx:-1500, posz:-230, options:terrainOpts2}));
-            //    WorkerAPI.callWorker(ENUMS.Worker.WORLD, WorkerAPI.buildMessage(ENUMS.Protocol.CREATE_WORLD,{posx:-1300, posz:200, options:terrainOpts}));
+                WorkerAPI.callWorker(ENUMS.Worker.WORLD, WorkerAPI.buildMessage(ENUMS.Protocol.CREATE_WORLD,{posx:1500, posz:-1230, options:terrainOpts2}));
+                WorkerAPI.callWorker(ENUMS.Worker.WORLD, WorkerAPI.buildMessage(ENUMS.Protocol.CREATE_WORLD,{posx:-1500, posz:-1200, options:terrainOpts}));
                 WorkerAPI.callWorker(ENUMS.Worker.WORLD, WorkerAPI.buildMessage(ENUMS.Protocol.CREATE_WORLD,{posx:-400, posz:-350, options:terrainOpts}));
-            //    WorkerAPI.callWorker(ENUMS.Worker.WORLD, WorkerAPI.buildMessage(ENUMS.Protocol.CREATE_WORLD,{posx:-200, posz:-1300, options:terrainOpts}));
-            //    WorkerAPI.callWorker(ENUMS.Worker.WORLD, WorkerAPI.buildMessage(ENUMS.Protocol.CREATE_WORLD,{posx:-1000, posz:-3000, options:terrainOpts3}));
+                WorkerAPI.callWorker(ENUMS.Worker.WORLD, WorkerAPI.buildMessage(ENUMS.Protocol.CREATE_WORLD,{posx:-200, posz:-1300, options:terrainOpts}));
+                WorkerAPI.callWorker(ENUMS.Worker.WORLD, WorkerAPI.buildMessage(ENUMS.Protocol.CREATE_WORLD,{posx:1000, posz:1000, options:terrainOpts3}));
                 WorkerAPI.callWorker(ENUMS.Worker.WORLD, WorkerAPI.buildMessage(ENUMS.Protocol.SET_INPUT_BUFFER, PipelineAPI.getCachedConfigs().POINTER_STATE.buffer));
                 console.log("Handle (Client) WORKER_READY", msg);
             };
 
             this.messageHandlers[ENUMS.Protocol.NOTIFY_FRAME] = function(msg) {
+                WorkerAPI.callOnWorkerFrameCallbacks(msg);
                 //    console.log("Handle (Client) NOTIFY_FRAME", msg[0]);
             };
 
@@ -104,7 +105,6 @@ define([
             this.messageHandlers[ENUMS.Protocol.REGISTER_TERRAIN] = function(msg) {
 
                 console.log("Handle (Client) REGISTER_TERRAIN", msg[1]);
-
 
                 var rootObj = ThreeAPI.loadGround(msg[1][0].options, msg[1][1], ThreeAPI.createRootObject());
 

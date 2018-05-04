@@ -57,6 +57,11 @@ define([
         return store;
     };
 
+
+    WorldCamera.prototype.testBoxVisible = function(box) {
+        return frustum.intersectsBox(box)
+    };
+
     var isVisible;
 
     WorldCamera.prototype.testPosRadiusVisible = function(pos, radius) {
@@ -144,7 +149,7 @@ define([
         camera.updateProjectionMatrix();
 
         frustum.setFromMatrix(frustumMatrix.multiplyMatrices(camera.projectionMatrix, camera.matrixWorldInverse));
-        camera.needsUpdate = true;
+    //    camera.needsUpdate = true;
 
         for (var i = 0; i < camera.children.length; i++) {
             camera.children[i].updateMatrixWorld(true);

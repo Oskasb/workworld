@@ -34,13 +34,15 @@ define([
             return buffer;
         };
 
-        WorkerRunner.prototype.wakeWorldComBuffer = function() {
-            Atomics.store(worldComBuffer, ENUMS.Protocol.WAKE_INDEX, 1);
-            Atomics.wake(worldComBuffer, ENUMS.Protocol.WAKE_INDEX, 1);
-        };
 
         WorkerRunner.prototype.runWorldWorker = function() {
+            var staticWorldWorker = new SharedWorker('./client/js/worker/StaticWorldWorker.js');
+            staticWorldWorker.port.start();
+
             var worker = new Worker('./client/js/worker/WorldWorker.js');
+
+            worker.postMessage({sharedWorkerPort: staticWorldWorker.port}, [staticWorldWorker.port]);
+
             worker.onmessage = function(msg) {
                 this.onmessage(msg)
             }.bind(this);

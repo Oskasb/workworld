@@ -8,9 +8,10 @@ define([
         ClientMessages,
         WorkerRunner
     ) {
-
+        var i;
         var workerRunner;
         var clientMessages;
+        var onWorkerFrameCallbacks = [];
 
         var wakeupFunction = function() {};
 
@@ -31,6 +32,20 @@ define([
 
         WorkerAPI.setWakeupFunction = function(func) {
             wakeupFunction = func;
+        };
+
+        WorkerAPI.addOnWorkerFrameCallback = function(cb) {
+            onWorkerFrameCallbacks.push(cb);
+        };
+
+        WorkerAPI.removeOnWorkerFrameCallback = function(cb) {
+            onWorkerFrameCallbacks.splice(onWorkerFrameCallbacks.indexOf(cb), 1)
+        };
+
+        WorkerAPI.callOnWorkerFrameCallbacks = function(msg) {
+            for (i = 0; i < onWorkerFrameCallbacks.length; i++) {
+                onWorkerFrameCallbacks[i](msg);
+            }
         };
 
         WorkerAPI.runWorkers = function() {

@@ -9,7 +9,7 @@ define([
         TerrainArea
     ) {
 
-
+        var tempVec = new THREE.Vector3();
 
         var TerrainSystem = function(physicsApi) {
             this.terrainFunctions = new TerrainFunctions(physicsApi);
@@ -20,11 +20,23 @@ define([
         TerrainSystem.prototype.initTerrainSystem = function(msg) {
 
             var terrainArea = new TerrainArea(this.terrainFunctions);
-
             terrainArea.createAreaOfTerrain(msg);
-
             this.terrainAreas.push(terrainArea)
+
         };
+
+        TerrainSystem.prototype.applyTerrainAreaData = function(msg) {
+
+
+            console.log("Apply Terrain Data", msg);
+            tempVec.x = msg[0].posx + msg[0].options.terrain_size * 0.5;
+            tempVec.y = 0;
+            tempVec.z = msg[0].posz + msg[0].options.terrain_size * 0.5;
+
+            var area = this.getTerrainAreaAtPos(tempVec);
+            area.applyStaticTerrainData(msg);
+        };
+
 
         TerrainSystem.prototype.updateTerrainSystem = function(tpf) {
 

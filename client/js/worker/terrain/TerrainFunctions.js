@@ -157,8 +157,8 @@ define([],
 
         TerrainFunctions.prototype.getTerrainBuffers = function(terrain) {
 
-            terrain.children[0].geometry.computeFaceNormals();
-            terrain.children[0].geometry.computeVertexNormals();
+        //    terrain.children[0].geometry.computeFaceNormals();
+        //    terrain.children[0].geometry.computeVertexNormals();
 
             var bufferGeo = new THREE.BufferGeometry().fromGeometry( terrain.children[0].geometry );
             var position = bufferGeo.attributes.position.array;

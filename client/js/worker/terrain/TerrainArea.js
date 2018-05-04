@@ -17,13 +17,20 @@ define([
             this.size = 0;
             this.origin = new THREE.Vector3();
             this.extents = new THREE.Vector3();
+            this.center = new THREE.Vector3();
             this.terrainFunctions = terrainFunctions;
             this.areaFunctions = new AreaFunctions(terrainFunctions);
             this.terrainOptions = null;
             this.buffers = null;
             this.terrain = null;
             this.terrainSections = [];
+            this.boundingBox = new THREE.Box3();
+            this.isVisible = false;
+            this.wasVisible = false;
 
+            this.msg = null;
+
+            this.dataRequested = false;
         };
 
         TerrainArea.prototype.setTerrainOptions = function(options) {
@@ -34,6 +41,7 @@ define([
             this.origin.x = x;
             this.origin.y = y;
             this.origin.z = z;
+            this.updateCenter();
         };
 
         TerrainArea.prototype.getTerrainVegetationSystemId = function() {
@@ -53,6 +61,12 @@ define([
             return this.extents;
         };
 
+        TerrainArea.prototype.updateCenter = function() {
+            this.center.copy(this.extents);
+            this.center.multiplyScalar(0.5);
+            this.center.addVectors(this.origin, this.center);
+        };
+
         TerrainArea.prototype.positionIsWithin = function(pos) {
             if (pos.x > this.origin.x && pos.x < this.extents.x + this.origin.x && pos.z > this.origin.z && pos.z < this.extents.z + this.origin.z) {
                 return true
@@ -60,33 +74,123 @@ define([
         };
 
         TerrainArea.prototype.getHeightAndNormalForPos = function(pos, norm) {
-            return this.areaFunctions.getHeightAtPos(pos, norm);
+            if (this.terrain) {
+                return this.areaFunctions.getHeightAtPos(pos, norm);
+            }
         };
 
         TerrainArea.prototype.setTerrainExtentsXYZ = function(x, y, z) {
             this.extents.x = x;
             this.extents.y = y;
             this.extents.z = z;
+            this.updateCenter();
         };
 
 
+        TerrainArea.prototype.registerTerrainPhysics = function() {
+            this.terrainBody = this.terrainFunctions.addTerrainToPhysics(this.terrainOptions, this.terrain.array1d, this.origin.x, this.origin.z);
+        };
+
+        TerrainArea.prototype.requestStaticTerrainData = function(msg) {
+
+            WorldAPI.callStaticWorldWorker(ENUMS.Protocol.GENERATE_STATIC_AREA, msg)
+
+        };
+
+
+        var createTerrain = function(applies, array) {
+
+
+            var opts = {
+                after: null,
+                easing: THREE.Terrain.EaseInOut,
+                heightmap: THREE.Terrain.DiamondSquare,
+                material: null,
+                maxHeight: applies.max_height,
+                minHeight: applies.min_height,
+                optimization: THREE.Terrain.NONE,
+                frequency: applies.frequency,
+                steps: applies.steps,
+                stretch: true,
+                turbulent: false,
+                useBufferGeometry: false,
+                xSegments: applies.terrain_segments,
+                xSize: applies.terrain_size,
+                ySegments: applies.terrain_segments,
+                ySize: applies.terrain_size
+            };
+
+            var terrain;
+
+                    opts.xSegments = 3;
+                    opts.ySegments = 3;
+                    terrain = new THREE.Terrain(opts);
+
+                    var vertexBuffer = new THREE.BufferAttribute( array[0] ,3 );
+                    terrain.children[0].geometry = new THREE.BufferGeometry();
+
+
+            terrain.children[0].needsUpdate = true;
+            terrain.children[0].position.x += applies.terrain_size*0.5;
+            terrain.children[0].position.y -= applies.terrain_size*0.5;
+
+            terrain.size = applies.terrain_size;
+            terrain.segments = applies.terrain_segments;
+            terrain.array1d = array[4];
+            terrain.height = applies.max_height - applies.min_height;
+            terrain.vegetation = applies.vegetation_system;
+
+            return terrain;
+        };
+
+
+        TerrainArea.prototype.applyStaticTerrainData = function(msg) {
+
+            console.log("Apply Static Terrain Data:", msg);
+
+            this.buffers = msg[1];
+
+            var applies = this.terrainOptions;
+
+            var dummyOptions = {};
+            for (var key in applies) {
+                dummyOptions[key] = applies[key];
+            }
+
+            dummyOptions.terrain_segments = 3;
+
+            this.terrain = this.terrainFunctions.createTerrain(dummyOptions);
+
+            this.terrain.opts.xSegments = applies.terrain_segments;
+            this.terrain.opts.ySegments = applies.terrain_segments;
+
+            this.terrain.size = applies.terrain_size;
+            this.terrain.segments = applies.terrain_segments;
+            this.terrain.height = applies.max_height - applies.min_height;
+            this.terrain.vegetation = applies.vegetation_system;
+
+            this.terrain.array1d = this.buffers[4];
+            this.areaFunctions.setTerrainArea(this);
+
+            WorldAPI.sendWorldMessage(ENUMS.Protocol.REGISTER_TERRAIN, [msg[0], this.buffers]);
+
+            if (!this.terrainBody) {
+                this.registerTerrainPhysics();
+            }
+
+            this.generateTerrainSectons(0.0025);
+        };
+
         TerrainArea.prototype.createAreaOfTerrain = function(msg) {
+            this.msg = msg;
 
             this.setTerrainOptions(msg.options);
             this.size = this.terrainOptions.terrain_size;
             this.setTerrainPosXYZ(msg.posx, this.terrainOptions.min_height, msg.posz);
             this.setTerrainExtentsXYZ(this.size, this.terrainOptions.max_height - this.terrainOptions.min_height, this.size);
 
-            this.terrain = this.terrainFunctions.createTerrain(this.terrainOptions);
-            this.buffers = this.terrainFunctions.getTerrainBuffers(this.terrain);
-            this.terrain.array1d = this.buffers[4];
-            this.terrainBody = this.terrainFunctions.addTerrainToPhysics(this.terrainOptions, this.terrain.array1d, this.origin.x, this.origin.z);
-            this.areaFunctions.setTerrainArea(this);
-
-            WorldAPI.sendWorldMessage(ENUMS.Protocol.REGISTER_TERRAIN, [msg, this.buffers]);
-
-            this.generateTerrainSectons(0.0025);
-
+            this.boundingBox.min.copy(this.origin);
+            this.boundingBox.max.addVectors(this.origin, this.extents);
         };
 
         TerrainArea.prototype.generateTerrainSectons = function(density) {
@@ -118,9 +222,36 @@ define([
 
         TerrainArea.prototype.updateTerrainArea = function(tpf) {
 
-            for (var i = 0; i < this.terrainSections.length; i++) {
-                this.terrainSections[i].updateTerrainSection(tpf)
+            //       this.isVisible = WorldAPI.getWorldCamera().testBoxVisible(this.boundingBox);
+            this.isVisible = WorldAPI.getWorldCamera().testPosRadiusVisible(this.center, this.size*0.75);
+
+            if (this.isVisible) {
+
+                if (!this.dataRequested) {
+                    this.requestStaticTerrainData(this.msg);
+                    this.dataRequested = true;
+                    return;
+                }
+
             }
+
+            if (!this.terrain) {
+                return;
+            }
+
+            if (this.isVisible) {
+
+                for (var i = 0; i < this.terrainSections.length; i++) {
+                    this.terrainSections[i].updateTerrainSection(tpf)
+                }
+            } else if (this.wasVisible) {
+                console.log("Hide area by box")
+                for (var i = 0; i < this.terrainSections.length; i++) {
+                    this.terrainSections[i].applyTerrainSectionVisibility(tpf, false);
+                }
+            }
+
+            this.wasVisible = this.isVisible;
 
         };
 

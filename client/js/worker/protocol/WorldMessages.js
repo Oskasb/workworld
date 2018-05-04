@@ -36,6 +36,16 @@ define([
                 WorldAPI.constructWorld(msg[1]);
             };
 
+            this.messageHandlers[ENUMS.Protocol.GENERATE_STATIC_AREA] = function(msg) {
+                //    console.log("Handle (World) CREATE_WORLD", msg[0], msg[1]);
+                StaticWorldAPI.generateStaticArea(msg[1]);
+            };
+
+            this.messageHandlers[ENUMS.Protocol.STATIC_AREA_DATA] = function(msg) {
+                //    console.log("Handle (World) CREATE_WORLD", msg[0], msg[1]);
+                WorldAPI.applyStaticWorldData(msg[1]);
+            };
+
             this.messageHandlers[ENUMS.Protocol.SEND_PIPELINE_DATA] = function(msg) {
             //    console.log("Handle (World) SEND_PIPELINE_DATA", msg[0], msg[1]);
             //    WorldAPI.constructWorld(msg[1]);

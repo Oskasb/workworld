@@ -122,12 +122,15 @@ define([
                 return;
             }
 
+            this.applyTerrainSectionVisibility(tpf, this.isVisible);
+        };
+
+        TerrainSection.prototype.applyTerrainSectionVisibility = function(tpf, isVisible) {
+
             for (var i = 0; i < this.terrainFeatures.length; i++) {
-                this.terrainFeatures[i].updateFeatureVisibility(tpf, this.isVisible);
+                this.terrainFeatures[i].updateFeatureVisibility(tpf, isVisible);
             }
-
-            this.wasVisible = this.isVisible;
-
+            this.wasVisible = isVisible;
         };
 
         TerrainSection.prototype.updateTerrainSection = function(tpf) {
@@ -139,7 +142,6 @@ define([
                     this.terrainFeatures[i].updateTerrainFeature(tpf, this.isVisible)
                 }
             }
-
 
         };
 

@@ -109,6 +109,10 @@ define([
             terrainSystem.initTerrainSystem(msg)
         };
 
+        WorldAPI.applyStaticWorldData = function(msg) {
+            terrainSystem.applyTerrainAreaData(msg)
+        };
+
         WorldAPI.getTerrainSystem = function() {
             return terrainSystem;
         };
@@ -125,16 +129,22 @@ define([
             protocolRequests.sendMessage(protocolKey, data)
         };
 
+        WorldAPI.callStaticWorldWorker = function(protocolKey, data) {
+            StaticWorldWorkerPort.postMessage(protocolRequests.buildMessage(protocolKey, data))
+        };
+
         WorldAPI.setWorldInputBuffer = function(buffer) {
             worldControlState.setInputBuffer(buffer);
             GuiAPI.enableGuiSystems();
         };
 
         WorldAPI.updateWorldWorkerFrame = function(tpf, frame) {
+            WorldAPI.sendWorldMessage(ENUMS.Protocol.NOTIFY_FRAME, frame);
             worldControlState.updateWorldControlState();
             terrainSystem.updateTerrainSystem(tpf);
-            WorldAPI.sendWorldMessage(ENUMS.Protocol.NOTIFY_FRAME, frame)
         };
+
+
 
         WorldAPI.getWorldTime = function() {
             return worldMain.worldComBuffer()[ENUMS.BufferChannels.FRAME_RENDER_TIME]

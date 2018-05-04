@@ -7,16 +7,19 @@ if(typeof(ENUMS) === "undefined"){
 
 
     ENUMS.Protocol = {
-        WAKE_INDEX:         0,
-        WORKER_READY:       1,
-        SET_LOOP:           2,
-        NOTIFY_FRAME:       3,
-        SET_INPUT_BUFFER:   4,
-        SET_WORLD_BUFFER:   5,
-        CREATE_WORLD:       6,
-        REGISTER_TERRAIN:   7,
-        FETCH_PIPELINE_DATA:8,
-        SEND_PIPELINE_DATA: 9
+        WAKE_INDEX:             0,
+        WORKER_READY:           1,
+        SET_LOOP:               2,
+        NOTIFY_FRAME:           3,
+        SET_INPUT_BUFFER:       4,
+        SET_WORLD_BUFFER:       5,
+        CREATE_WORLD:           6,
+        REGISTER_TERRAIN:       7,
+        FETCH_PIPELINE_DATA:    8,
+        SEND_PIPELINE_DATA:     9,
+        GENERATE_STATIC_AREA:   10,
+        STATIC_AREA_DATA:       11
+
     };
 
     ENUMS.BufferChannels = {

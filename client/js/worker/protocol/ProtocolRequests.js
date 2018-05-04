@@ -67,5 +67,7 @@ define([],
             worker.postMessage(msg)
         };
 
+
+
         return ProtocolRequests;
     });

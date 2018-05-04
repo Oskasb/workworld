@@ -3,6 +3,7 @@ var baseUrl = './../../../';
 var WorldAPI;
 var window = self;
 var postMessage = self.postMessage;
+var StaticWorldWorkerPort;
 var updateWorld = function() {};
 
 importScripts(baseUrl+'client/js/ENUMS.js');
@@ -58,7 +59,11 @@ require(
 
         WorldAPI.initWorld(onWorkerReady);
 
-        onmessage = function (oEvent) {
+        StaticWorldWorkerPort.onmessage = function(e) {
+            WorldAPI.processRequest(e.data);
+        };
+
+        onmessage = function(oEvent) {
             if (oEvent.data[0] === ENUMS.Protocol.SET_LOOP) {
                 WorldAPI.notifyFrameInit();
                 updateWorld();
@@ -66,7 +71,17 @@ require(
             } else {
                 WorldAPI.processRequest(oEvent.data);
             }
-        };
+        }
+
 	}
 );
 
+
+onmessage = function (oEvent) {
+    if (oEvent.data.sharedWorkerPort) {
+        StaticWorldWorkerPort = oEvent.data.sharedWorkerPort;
+        console.log("Get StaticPort...", oEvent.data)
+    } else {
+        console.log("Premature message arrival..", oEvent);
+    }
+};
