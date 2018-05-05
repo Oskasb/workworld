@@ -7,20 +7,29 @@ define([
         EffectsAPI
     ) {
 
-        var GeometryInstance = function(fxId) {
-
-            this.fxId = fxId;
-            this.object3d = new THREE.Object3D();
-            this.frustumCoords = new THREE.Vector3();
+        var GeometryInstance = function() {
             this.effect = null;
             this.size = 1;
+            this.isVisible = false;
+            this.wasVisible = false;
+        };
+
+        GeometryInstance.prototype.setInstanceFxId = function(fxId) {
+            this.fxId = fxId;
+        };
+
+        GeometryInstance.prototype.setObject3d  = function(object3d) {
+            this.object3d = object3d;
+        };
+
+        GeometryInstance.prototype.getObject3d  = function() {
+            return this.object3d;
         };
 
         GeometryInstance.prototype.setInstancePosition = function(pos) {
             this.object3d.position.copy(pos);
             if (this.effect) {
                 this.effect.updateEffectPositionSimulator(this.object3d.position);
-            //    EffectsAPI.updateEffectPosition(this.effect, this.object3d.position)
             }
         };
 
@@ -32,7 +41,6 @@ define([
             this.object3d.quaternion.copy(quat);
             if (this.effect) {
                 this.effect.updateEffectQuaternionSimulator(this.object3d.quaternion);
-            //    EffectsAPI.updateEffectQuaternion(this.effect, this.object3d.quaternion)
             }
         };
 
@@ -44,7 +52,6 @@ define([
             this.size = size;
             if (this.effect) {
                 this.effect.updateEffectScaleSimulator(this.size);
-            //    EffectsAPI.updateEffectScale(this.effect, this.size)
             }
         };
 
@@ -62,7 +69,7 @@ define([
         GeometryInstance.prototype.renderGeometryInstance = function() {
             if (!this.effect) {
                 this.effect = EffectsAPI.requestPassiveEffect(this.fxId, this.object3d.position, null, null, this.object3d.quaternion);
-               this.setInstanceSize(this.size)
+                this.setInstanceSize(this.size)
             }
         };
 
@@ -74,19 +81,32 @@ define([
         };
 
         GeometryInstance.prototype.testIsVisible = function() {
+            return WorldAPI.getWorldCamera().testPosRadiusVisible(this.object3d.position, 15);
+        };
 
-            this.isVisible = WorldAPI.getWorldCamera().cameraFrustumContainsPoint(this.object3d.position);
-
-            //  MATH.valueIsBetween(this.frustumCoords.x, 0, 1) && MATH.valueIsBetween(this.frustumCoords.y, 0, 1);
-
-            if (!this.isVisible) {
-                this.isVisible = WorldAPI.getWorldCamera().cameraTestXYZRadius(this.object3d.position, 15);
+        GeometryInstance.prototype.applyVisibility = function(isVisible) {
+            if (isVisible) {
+                this.renderGeometryInstance();
             } else {
-            //    console.log("Visible")
+                this.hideGeometryInstance();
+            }
+            this.wasVisible = isVisible;
+        };
+
+        GeometryInstance.prototype.updateGeometryInstance = function() {
+
+            this.isVisible = this.testIsVisible();
+            if (this.isVisible !== this.wasVisible) {
+                this.applyVisibility(this.isVisible);
             }
 
-            return this.isVisible;
+            if (this.isVisible) {
+                this.effect.updateEffectPositionSimulator(this.object3d.position);
+                this.effect.updateEffectQuaternionSimulator(this.object3d.quaternion);
+            }
+
         };
+
 
         return GeometryInstance;
 

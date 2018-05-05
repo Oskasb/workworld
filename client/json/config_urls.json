@@ -18,6 +18,8 @@
       "ui/gui_systems.json",
       "ui/gui_widgets.json",
 
+      "geometry/renderable_dynamic.json",
+
       "game/levels/level_data.json",
       "game/levels/level_population_data.json",
 

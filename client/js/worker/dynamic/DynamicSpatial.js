@@ -39,6 +39,12 @@ define([
         };
 
         //Used in the Dynamic World Worker
+        DynamicSpatial.prototype.registerRigidBody = function(msg) {
+            console.log("Request Physics for spatial from here...");
+            WorldAPI.callSharedWorker(ENUMS.Worker.PHYSICS_WORLD, ENUMS.Protocol.PHYSICS_BODY_ADD, [msg, this.getSpatialBuffer()])// this.terrainBody = this.terrainFunctions.addTerrainToPhysics(this.terrainOptions, this.terrain.array1d, this.origin.x, this.origin.z);
+        };
+
+        //Used in the Dynamic World Worker
         DynamicSpatial.prototype.setupSpatialBuffer = function() {
             var sab = new SharedArrayBuffer(Float32Array.BYTES_PER_ELEMENT * ENUMS.BufferSpatial.BUFFER_SIZE);
             this.spatialBuffer = new Float32Array(sab);
@@ -52,15 +58,15 @@ define([
             storeVec.x = this.spatialBuffer[ENUMS.BufferSpatial.POS_X];
             storeVec.y = this.spatialBuffer[ENUMS.BufferSpatial.POS_Y];
             storeVec.z = this.spatialBuffer[ENUMS.BufferSpatial.POS_Z];
+            return storeVec;
         };
-
-
 
         DynamicSpatial.prototype.getSpatialQuaternion = function(storeQuat) {
             storeQuat.x = this.spatialBuffer[ENUMS.BufferSpatial.QUAT_X];
             storeQuat.y = this.spatialBuffer[ENUMS.BufferSpatial.QUAT_Y];
             storeQuat.z = this.spatialBuffer[ENUMS.BufferSpatial.QUAT_Z];
             storeQuat.w = this.spatialBuffer[ENUMS.BufferSpatial.QUAT_W];
+            return storeQuat;
         };
 
         DynamicSpatial.prototype.applySpatialPositionXYZ = function(x, y, z) {
@@ -74,6 +80,18 @@ define([
             this.spatialBuffer[ENUMS.BufferSpatial.QUAT_Y] = y;
             this.spatialBuffer[ENUMS.BufferSpatial.QUAT_Z] = z;
             this.spatialBuffer[ENUMS.BufferSpatial.QUAT_W] = w;
+        };
+
+        DynamicSpatial.prototype.applyVelocityXYZ = function(x, y, z) {
+            this.spatialBuffer[ENUMS.BufferSpatial.VELOCITY_X] = x;
+            this.spatialBuffer[ENUMS.BufferSpatial.VELOCITY_Y] = y;
+            this.spatialBuffer[ENUMS.BufferSpatial.VELOCITY_Z] = z;
+        };
+
+        DynamicSpatial.prototype.applyAngularVelocityXYZ = function(x, y, z) {
+            this.spatialBuffer[ENUMS.BufferSpatial.ANGULAR_VEL_X] = x;
+            this.spatialBuffer[ENUMS.BufferSpatial.ANGULAR_VEL_Y] = y;
+            this.spatialBuffer[ENUMS.BufferSpatial.ANGULAR_VEL_Z] = z;
         };
 
         DynamicSpatial.prototype.getSpatialForce = function(storeVec) {
@@ -129,6 +147,16 @@ define([
             return this.spatialBuffer[ENUMS.BufferSpatial.BODY_POINTER];
         };
 
+        DynamicSpatial.prototype.setSpatialFromObj3d = function(obj3d) {
+            this.applySpatialPositionXYZ(obj3d.position.x, obj3d.position.y,obj3d.position.z);
+            this.applySpatialQuaternionXYZW(obj3d.quaternion.x, obj3d.quaternion.y,obj3d.quaternion.z, obj3d.quaternion.w)
+        };
+
+        DynamicSpatial.prototype.setObj3dFromSpatial = function(obj3d) {
+            this.getSpatialPosition(obj3d.position);
+            this.getSpatialQuaternion(obj3d.quaternion);
+        };
+
         DynamicSpatial.prototype.tickPhysicsForces = function(ammoApi) {
 
             if (this.bufferContainsTorque() || this.bufferContainsForce()) {
@@ -138,9 +166,7 @@ define([
                 this.clearSpatialTorque();
                 ammoApi.applyForceAndTorqueToBody(tempVec1, this.body, tempVec2)
             }
-
         };
-
 
         DynamicSpatial.prototype.sampleBodyState = function() {
 
@@ -163,7 +189,14 @@ define([
                 }
 
                 this.applySpatialPositionXYZ(p.x(), p.y(), p.z());
-                this.applySpatialQuaternionXYZW(q.x(), q.y(), q.z(), q.w())
+                this.applySpatialQuaternionXYZW(q.x(), q.y(), q.z(), q.w());
+
+                this.body.getLinearVelocity(VECTOR_AUX);
+                this.applyVelocityXYZ(VECTOR_AUX.x(), VECTOR_AUX.y(), VECTOR_AUX.z());
+
+                this.body.getAngularVelocity(VECTOR_AUX);
+                this.applyAngularVelocityXYZ(VECTOR_AUX.x(), VECTOR_AUX.y(), VECTOR_AUX.z());
+
             }
         };
 

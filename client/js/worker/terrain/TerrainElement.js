@@ -48,7 +48,10 @@ define([
 
         TerrainElement.prototype.visualizeTerrainElement = function(pos, quat) {
             this.fxId = fxByFeature[this.elementType];
-            this.geometryInstance = new GeometryInstance(this.fxId);
+            this.geometryInstance = new GeometryInstance();
+            this.geometryInstance.setInstanceFxId(this.fxId);
+            this.geometryInstance.setObject3d(new THREE.Object3D());
+
             this.geometryInstance.setInstancePosition(pos);
             this.geometryInstance.setInstanceQuaternion(quat);
             this.geometryInstance.setInstanceSize(this.scale);

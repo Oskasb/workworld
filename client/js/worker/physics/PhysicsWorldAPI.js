@@ -51,27 +51,27 @@ define([
             }
         };
 
-        PhysicsWorldAPI.startPhysicsSimulationLoop = function(tickMs) {
+        var start;
+        var applyDynamicSpatials = function() {
+            for (var i = 0; i < dynamicSpatials.length; i++) {
+                dynamicSpatials[i].tickPhysicsForces();
+            }
+        };
 
-            var applyDynamicSpatials = function() {
-                for (var i = 0; i < dynamicSpatials.length; i++) {
-                    dynamicSpatials[i].tickPhysicsForces();
-                }
-            };
+        var updateDynamicSpatials = function() {
+            for (var i = 0; i < dynamicSpatials.length; i++) {
+                dynamicSpatials[i].sampleBodyState();
+            }
+        };
 
-            var updateDynamicSpatials = function() {
-                for (var i = 0; i < dynamicSpatials.length; i++) {
-                    dynamicSpatials[i].sampleBodyState();
-                }
-            };
+        PhysicsWorldAPI.callPhysicsSimulationUpdate = function() {
+            applyDynamicSpatials();
+            ammoApi.updatePhysicsSimulation((performance.now() - start) / 1000);
+            updateDynamicSpatials()
+        };
 
-            var tickPhysics = function() {
-                applyDynamicSpatials();
-                ammoApi.updatePhysicsSimulation(performance.now() / 1000000);
-                updateDynamicSpatials()
-            };
-
-            setInterval(tickPhysics, tickMs)
+        PhysicsWorldAPI.startPhysicsSimulationLoop = function() {
+            start = performance.now();
         };
 
         var getTerrainKey = function(msg) {
@@ -105,10 +105,21 @@ define([
             console.log("dynamicSpatials:", dynamicSpatials);
         };
 
-        PhysicsWorldAPI.getTerrainSystem = function() {
-            return terrainSystem;
-        };
 
+        PhysicsWorldAPI.addBodyToPhysics = function(msg) {
+            console.log("Physics Worker Add Body:", msg);
+
+            var dynamicSpatial = new DynamicSpatial();
+            dynamicSpatial.setSpatialBuffer(msg[1]);
+
+            var rigidBody = ammoApi.setupRigidBody(msg[0], dynamicSpatial);
+
+            dynamicSpatial.setPhysicsBody(rigidBody);
+            dynamicSpatials.push(dynamicSpatial);
+
+            ammoApi.includeBody(rigidBody);
+            console.log("dynamicSpatials:", dynamicSpatials);
+        };
 
 
         PhysicsWorldAPI.processRequest = function(msg) {

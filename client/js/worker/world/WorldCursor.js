@@ -40,6 +40,10 @@ define([
 
         };
 
+        WorldCursor.prototype.getCursorObj3d = function() {
+            return this.obj3d
+        };
+
         WorldCursor.prototype.setCursorPosition = function(posVec) {
             this.obj3d.position.copy(posVec);
         };

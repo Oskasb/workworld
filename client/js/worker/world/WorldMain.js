@@ -82,11 +82,6 @@ define([
             EffectsAPI.tickEffectSimulation(worldComBuffer[ENUMS.BufferChannels.FRAME_RENDER_TIME]);
         };
 
-
-        WorldMain.prototype.setLoopTpf = function(tpf) {
-            updateWorld()
-        };
-
         return WorldMain;
 
     });

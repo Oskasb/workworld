@@ -21,7 +21,9 @@ if(typeof(ENUMS) === "undefined"){
         STATIC_AREA_DATA:       11,
         REQUEST_SHARED_WORKER:  12,
         SHARED_WORKER_PORT:     13,
-        PHYSICS_TERRAIN_ADD:    14
+        PHYSICS_TERRAIN_ADD:    14,
+        PHYSICS_BODY_ADD:       15,
+        PHYSICS_CALL_UPDATE:    16
 
     };
 
@@ -83,8 +85,14 @@ if(typeof(ENUMS) === "undefined"){
         TORQUE_X:           12,
         TORQUE_Y:           13,
         TORQUE_Z:           14,
-        BODY_POINTER:       15,
-        BUFFER_SIZE:        16
+        VELOCITY_X:         15,
+        VELOCITY_Y:         16,
+        VELOCITY_Z:         17,
+        ANGULAR_VEL_X:      18,
+        ANGULAR_VEL_Y:      19,
+        ANGULAR_VEL_Z:      20,
+        BODY_POINTER:       21,
+        BUFFER_SIZE:        22
     };
 
 

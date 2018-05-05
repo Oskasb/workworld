@@ -322,7 +322,7 @@ define([
         var remaining = 0;
         var MODEL = {};
 
-        MODEL.PhysicsStepTime = 0.05;
+        MODEL.PhysicsStepTime = 0.01;
         MODEL.PhysicsMaxSubSteps = 2;
         MODEL.SpatialTolerance = 1;
         MODEL.AngularVelocityTolerance = 1;
@@ -333,14 +333,14 @@ define([
             if(lastTime !== undefined){
                 var dt = (currentTime - lastTime);
 
-                remaining = dt + remaining;
+            //    remaining = dt + remaining;
 
-                while (remaining >= 0) {
+            //    while (remaining > 0) {
 
-                    world.stepSimulation(MODEL.PhysicsStepTime , MODEL.PhysicsMaxSubSteps, MODEL.PhysicsStepTime);
+                    world.stepSimulation(dt, MODEL.PhysicsMaxSubSteps, dt);
 
-                    remaining -= MODEL.PhysicsStepTime;
-                }
+            //        remaining -= MODEL.PhysicsStepTime;
+             //   }
             }
             //   console.log("Sphere xyz position: "+ sphereBody.position.x +' _ '+ sphereBody.position.y+' _ '+ sphereBody.position.z);
             lastTime = currentTime;
@@ -540,20 +540,18 @@ define([
             }
         }
 
+        AmmoFunctions.prototype.createRigidBody = function(body_config, dynamicSpatial) {
+            var conf = body_config;
 
-
-        AmmoFunctions.prototype.addPhysicalActor = function(world, actor) {
-            var conf = actor.physicalPiece.config;
-
-            var rigid_body = conf.rigid_body;
+            var rigid_body = body_config;
 
             var args = rigid_body.args;
 
-            var dataKey = actor.physicalPiece.dataKey;
-            var shapeKey = conf.shape;
+            var dataKey = rigid_body.body_key;
+            var shapeKey = rigid_body.category;
 
-            var position = actor.piece.rootObj3D.position;
-            var quaternion = actor.piece.rootObj3D.quaternion;
+            var position = dynamicSpatial.getSpatialPosition(threeVec);
+            var quaternion = dynamicSpatial.getSpatialQuaternion(threeQuat);
 
             var rigidBody;
 
@@ -564,27 +562,26 @@ define([
             if (shapeKey === "primitive") {
 
                 var createFunc = function(physicsShape) {
-                    return createPrimitiveBody(world, physicsShape, rigid_body);
+                    return createPrimitiveBody(physicsShape, rigid_body);
                 };
 
                 rigidBody = fetchPoolBody(dataKey);
+
                 if (!rigidBody) {
 
                     var shape = createPrimitiveShape(rigid_body);
-
                     bodyPools[dataKey] = new BodyPool(shape, createFunc);
                     rigidBody = fetchPoolBody(dataKey);
                 } else {
                     rigidBody.forceActivationState(STATE.ACTIVE);
                 }
 
-                position.y += args[2] / 2;
-
+                position.y += args[2] * 2;
                 setBodyTransform(rigid_body, rigidBody, position, quaternion);
             }
 
             if (shapeKey === "vehicle") {
-                var ammoVehicle = new AmmoVehicle(world, conf.rigid_body, position, quaternion);
+                var ammoVehicle = new AmmoVehicle(world, rigid_body, position, quaternion);
 
                 actor.piece.processor = ammoVehicle.processor;
                 rigidBody = ammoVehicle.body;
@@ -592,26 +589,20 @@ define([
             }
 
             if (shapeKey === "hovercraft") {
-                var ammoVehicle = new AmmoHovercraft(world, conf.rigid_body, position, quaternion);
+                var ammoVehicle = new AmmoHovercraft(world, rigid_body, position, quaternion);
 
                 actor.piece.processor = ammoVehicle.processor;
                 rigidBody = ammoVehicle.body;
                 actor.piece.hovercraft = ammoVehicle;
             }
 
-
-
             if (shapeKey === "mesh") {
-                rigidBody = createMeshBody(world, conf.rigid_body, position, quaternion);
+                rigidBody = createMeshBody(conf.rigid_body, position, quaternion);
             }
 
-            actor.setPhysicsBody(rigidBody);
-
-            world.addRigidBody(rigidBody);
-
-            return actor;
-
+            return rigidBody;
         };
+
 
 
         function createBody(geometry, mass) {
@@ -719,7 +710,7 @@ define([
             return mesh.shape;
         }
 
-        var createMeshBody = function(world, bodyParams, position, quaternion) {
+        var createMeshBody = function(bodyParams, position, quaternion) {
             var args = bodyParams.args;
 
             var heightOffset = 0;
@@ -833,7 +824,7 @@ define([
             //    body.forceActivationState(STATE.WANTS_DEACTIVATION);
         };
 
-        var createPrimitiveBody = function(world, shape, bodyParams) {
+        var createPrimitiveBody = function(shape, bodyParams) {
             var mass = bodyParams.mass || 0;
             var body = createBody(shape, mass);
 

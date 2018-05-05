@@ -1,12 +1,10 @@
 "use strict";
 
 define([
-        'EffectsAPI',
-        'worker/geometry/GeometryInstance'
+        'EffectsAPI'
     ],
     function(
-        EffectsAPI,
-        GeometryInstance
+        EffectsAPI
     ) {
 
         var fxByFeature = [
@@ -52,13 +50,6 @@ define([
             }
         };
 
-        ShoreElement.prototype.visualizeShoreElement = function(pos, quat) {
-            this.fxId = fxByFeature[this.elementType];
-            this.geometryInstance = new GeometryInstance(this.fxId);
-            this.geometryInstance.setInstancePosition(pos);
-            this.geometryInstance.setInstanceQuaternion(quat);
-            this.geometryInstance.setInstanceSize(this.scale);
-        };
 
         ShoreElement.prototype.determineShoreElementType = function(otherElements) {
 

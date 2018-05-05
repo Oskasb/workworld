@@ -3,7 +3,7 @@
 define([
         'worker/terrain/AreaFunctions',
         'worker/terrain/TerrainSection',
-    'worker/dynamic/DynamicSpatial'
+        'worker/dynamic/DynamicSpatial'
     ],
     function(
         AreaFunctions,

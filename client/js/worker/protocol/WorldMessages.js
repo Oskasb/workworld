@@ -24,6 +24,8 @@ define([
             };
 
             this.messageHandlers[ENUMS.Protocol.NOTIFY_FRAME] = function(msg) {
+                WorldAPI.callSharedWorker(ENUMS.Worker.PHYSICS_WORLD, ENUMS.Protocol.PHYSICS_CALL_UPDATE, null);
+
                 WorldAPI.notifyFrameInit();
                 WorldAPI.updateStatusMonitor()
             };
@@ -51,6 +53,14 @@ define([
 
             this.messageHandlers[ENUMS.Protocol.PHYSICS_TERRAIN_ADD] = function(msg) {
                 PhysicsWorldAPI.addTerrainToPhysics(msg[1])
+            };
+
+            this.messageHandlers[ENUMS.Protocol.PHYSICS_BODY_ADD] = function(msg) {
+                PhysicsWorldAPI.addBodyToPhysics(msg[1])
+            };
+
+            this.messageHandlers[ENUMS.Protocol.PHYSICS_CALL_UPDATE] = function() {
+                PhysicsWorldAPI.callPhysicsSimulationUpdate()
             };
 
         };

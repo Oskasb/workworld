@@ -66,7 +66,7 @@ require(
                 PhysicsWorldAPI.processRequest(premauteMessageQueue.pop().data);
             }
 
-            PhysicsWorldAPI.startPhysicsSimulationLoop(7);
+            PhysicsWorldAPI.startPhysicsSimulationLoop(12);
 
         };
 

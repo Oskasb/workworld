@@ -59,6 +59,14 @@ define(['worker/physics/AmmoFunctions'],
             return body;
         };
 
+        AmmoAPI.prototype.setupRigidBody = function(bodyConf, dynamicSpatial) {
+
+            var body = ammoFunctions.createRigidBody(bodyConf, dynamicSpatial);
+            bodies.push(body);
+            world.addRigidBody(body);
+            return body;
+        };
+
 
         AmmoAPI.prototype.setupPhysicalActor = function(actor) {
 

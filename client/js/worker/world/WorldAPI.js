@@ -6,6 +6,7 @@ define([
         'worker/protocol/ProtocolRequests',
         'worker/protocol/WorldMessages',
         'worker/world/WorldMain',
+        'worker/dynamic/DynamicWorld',
         'worker/terrain/TerrainSystem',
         'worker/world/WorldControlState',
         'worker/StatusMonitor'
@@ -16,6 +17,7 @@ define([
         ProtocolRequests,
         WorldMessages,
         WorldMain,
+        DynamicWorld,
         TerrainSystem,
         WorldControlState,
         StatusMonitor
@@ -23,6 +25,7 @@ define([
 
         var frameStartTime;
         var worldMain;
+        var dynamicWorld;
         var protocolRequests;
         var worldMessages;
         var worldControlState;
@@ -47,7 +50,7 @@ define([
             worldControlState = new WorldControlState(WorldAPI);
             terrainSystem = new TerrainSystem();
             worldMain = new WorldMain(WorldAPI);
-
+            dynamicWorld = new DynamicWorld();
             //    fetchData();
             worldMain.initWorldSystems(onWorkerReady);
             //    onWorkerReady();
@@ -121,6 +124,10 @@ define([
             return terrainSystem;
         };
 
+        WorldAPI.getDynamicWorld = function() {
+            return dynamicWorld;
+        };
+
         WorldAPI.getTerrainElevationAtPos = function(pos, normalStore) {
             return terrainSystem.getTerrainHeightAndNormal(pos, normalStore);
         };
@@ -165,6 +172,7 @@ define([
         WorldAPI.updateWorldWorkerFrame = function(tpf, frame) {
             WorldAPI.sendWorldMessage(ENUMS.Protocol.NOTIFY_FRAME, frame);
             worldControlState.updateWorldControlState();
+            dynamicWorld.updateDynamicWorld();
             terrainSystem.updateTerrainSystem(tpf);
         };
 

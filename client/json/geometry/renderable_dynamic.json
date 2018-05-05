@@ -1,0 +1,23 @@
+[{
+  "GEOMETRY": {
+    "DYNAMIC_RENDERABLE":[
+      {
+        "id": "wooden_crate",
+        "data": {
+          "instance_id":"crate_wood_geometry_effect",
+          "rigid_body":{
+            "body_key":"box_6x6x6_crate",
+            "category":"primitive",
+            "state":"ACTIVE",
+            "shape":"Box",
+            "args":[6, 6, 6],
+            "friction":2.5,
+            "restitution":0.5,
+            "damping":0.53,
+            "mass":5000
+          }
+        }
+      }
+    ]
+  }
+}]

@@ -51,8 +51,27 @@ define([
         monkeypatchCustomEngine();
     };
 
+    var relayCamera = function(camera, comBuffer) {
+
+        comBuffer[ENUMS.BufferChannels.CAM_POS_X]      = camera.position.x;
+        comBuffer[ENUMS.BufferChannels.CAM_POS_Y]      = camera.position.y;
+        comBuffer[ENUMS.BufferChannels.CAM_POS_Z]      = camera.position.z;
+
+        comBuffer[ENUMS.BufferChannels.CAM_QUAT_X]     = camera.quaternion.x;
+        comBuffer[ENUMS.BufferChannels.CAM_QUAT_Y]     = camera.quaternion.y;
+        comBuffer[ENUMS.BufferChannels.CAM_QUAT_Z]     = camera.quaternion.z;
+        comBuffer[ENUMS.BufferChannels.CAM_QUAT_W]     = camera.quaternion.w;
+
+        comBuffer[ENUMS.BufferChannels.CAM_FOV]        = camera.fov;
+        comBuffer[ENUMS.BufferChannels.CAM_NEAR]       = camera.near;
+        comBuffer[ENUMS.BufferChannels.CAM_FAR]        = camera.far;
+        comBuffer[ENUMS.BufferChannels.CAM_ASPECT]     = camera.aspect;
+
+    };
+
     var notifyRezize = function() {
         ThreeAPI.updateWindowParameters(GameScreen.getWidth(), GameScreen.getHeight(), GameScreen.getAspect(), pxRatio);
+        relayCamera(ThreeAPI.getCamera(), PipelineAPI.readCachedConfigKey('SHARED_BUFFERS', ENUMS.Key.WORLD_COM_BUFFER));
     };
 
     var monkeypatchCustomEngine = function() {
