@@ -24,7 +24,6 @@ if(typeof(ENUMS) === "undefined"){
         PHYSICS_TERRAIN_ADD:    14,
         PHYSICS_BODY_ADD:       15,
         PHYSICS_CALL_UPDATE:    16
-
     };
 
     ENUMS.BufferChannels = {
@@ -91,8 +90,12 @@ if(typeof(ENUMS) === "undefined"){
         ANGULAR_VEL_X:      18,
         ANGULAR_VEL_Y:      19,
         ANGULAR_VEL_Z:      20,
-        BODY_POINTER:       21,
-        BUFFER_SIZE:        22
+        SCALE_X:            21,
+        SCALE_Y:            22,
+        SCALE_Z:            23,
+        BODY_POINTER:       24,
+        BODY_IS_DISABLED:   25,
+        BUFFER_SIZE:        26
     };
 
 

@@ -54,7 +54,7 @@ define([
         var start;
         var applyDynamicSpatials = function() {
             for (var i = 0; i < dynamicSpatials.length; i++) {
-                dynamicSpatials[i].tickPhysicsForces();
+                dynamicSpatials[i].tickPhysicsUpdate(ammoApi);
             }
         };
 

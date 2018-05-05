@@ -28,13 +28,14 @@ define([
         DynamicWorld.prototype.spawnDynamicRenderable = function(renderableId, parentObj3d) {
             newDynRen = new DynamicRenderable();
             newDynRen.inheritObj3D(parentObj3d);
+            newDynRen.obj3d.position.y += 5+Math.random()*8;
             newDynRen.initRenderable(renderableId, addDynamicRenderable);
         };
 
 
         DynamicWorld.prototype.updateDynamicWorld = function() {
 
-            if (Math.random() < 0.01) {
+            if (Math.random() < 0.02) {
                 this.spawnDynamicRenderable('wooden_crate', WorldAPI.getWorldCursor().getCursorObj3d())
             }
 

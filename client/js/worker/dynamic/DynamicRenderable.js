@@ -41,6 +41,10 @@ define([
                 this.geometryInstance.setObject3d(this.obj3d);
                 this.geometryInstance.setInstanceFxId(data.instance_id);
                 this.dynamicSpatial.setSpatialFromObj3d(this.obj3d);
+
+                var scale = 1+(Math.floor(Math.random()*4)*3);
+                this.geometryInstance.setInstanceSize(scale);
+                this.dynamicSpatial.applySpatialScaleXYZ(scale, scale, scale);
                 this.dynamicSpatial.registerRigidBody(data.rigid_body);
                 onReady(this);
             }.bind(this);
@@ -58,8 +62,8 @@ define([
         DynamicRenderable.prototype.tickRenderable = function() {
 
             this.dynamicSpatial.setObj3dFromSpatial(this.geometryInstance.getObject3d());
-            this.geometryInstance.updateGeometryInstance()
-
+            this.geometryInstance.updateGeometryInstance();
+            this.dynamicSpatial.notifyVisibility(this.geometryInstance.getIsVisibile());
         };
 
 

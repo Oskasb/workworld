@@ -80,8 +80,12 @@ define([
             this.effect = null;
         };
 
+        GeometryInstance.prototype.getIsVisibile = function() {
+            return this.isVisible;
+        };
+
         GeometryInstance.prototype.testIsVisible = function() {
-            return WorldAPI.getWorldCamera().testPosRadiusVisible(this.object3d.position, 15);
+            return WorldAPI.getWorldCamera().testPosRadiusVisible(this.object3d.position, this.size*0.65);
         };
 
         GeometryInstance.prototype.applyVisibility = function(isVisible) {

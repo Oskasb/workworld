@@ -15,6 +15,7 @@ define([
     ) {
 
         var threeVec;
+        var threeVec2;
         var threeEuler;
         var threeEuler2;
         var threeObj;
@@ -70,6 +71,7 @@ define([
 
             MATHVec3 = new MATH.Vec3();
             threeVec = new THREE.Vector3();
+            threeVec2 = new THREE.Vector3();
             threeObj = new THREE.Object3D();
             threeObj2 = new THREE.Object3D();
             threeQuat = new THREE.Quaternion();
@@ -348,7 +350,7 @@ define([
         };
 
 
-        function createTerrainShape(data, sideSize, terrainMaxHeight, terrainMinHeight) {
+        function createTerrainShape(data, sideSize, terrainMaxHeight, terrainMinHeight, margin) {
 
             var terrainWidthExtents = sideSize;
             var terrainDepthExtents = sideSize;
@@ -394,7 +396,7 @@ define([
             var scaleX = terrainWidthExtents / ( terrainWidth - 1 );
             var scaleZ = terrainDepthExtents / ( terrainDepth - 1 );
             heightFieldShape.setLocalScaling(new Ammo.btVector3(scaleX, 1, scaleZ));
-            heightFieldShape.setMargin(0.05);
+            heightFieldShape.setMargin(margin+0.01);
             return heightFieldShape;
         }
 
@@ -402,6 +404,8 @@ define([
         AmmoFunctions.prototype.createPhysicalTerrain = function(world, data, totalSize, posx, posz, minHeight, maxHeight) {
 
             console.log("createPhysicalTerrain", totalSize, posx, posz, minHeight, maxHeight);
+
+            var margin = 5;
 
             var terrainMaxHeight = maxHeight;
             var terrainMinHeight = minHeight;
@@ -414,12 +418,12 @@ define([
 
             //    console.log("Ground Matrix: ", data.length)
 
-            var groundShape = createTerrainShape( data, totalSize, terrainMaxHeight, terrainMinHeight );
+            var groundShape = createTerrainShape( data, totalSize, terrainMaxHeight, terrainMinHeight, margin );
             shapes.push(groundShape);
             var groundTransform = new Ammo.btTransform();
             groundTransform.setIdentity();
             // Shifts the terrain, since bullet re-centers it on its bounding box.
-            groundTransform.setOrigin( new Ammo.btVector3(posx, minHeight + (heightDiff) * 0.5 ,posz) );
+            groundTransform.setOrigin( new Ammo.btVector3(posx, -margin + minHeight + (heightDiff) * 0.5 ,posz) );
             var groundMass = 0;
             var groundLocalInertia = new Ammo.btVector3( 0, 0, 0 );
             var groundMotionState = new Ammo.btDefaultMotionState( groundTransform );
@@ -547,11 +551,15 @@ define([
 
             var args = rigid_body.args;
 
-            var dataKey = rigid_body.body_key;
+            var dataKey = rigid_body.body_key+dynamicSpatial.getScaleKey();
             var shapeKey = rigid_body.category;
 
             var position = dynamicSpatial.getSpatialPosition(threeVec);
             var quaternion = dynamicSpatial.getSpatialQuaternion(threeQuat);
+
+            var scale = dynamicSpatial.getSpatialScale(threeVec2);
+
+
 
             var rigidBody;
 
@@ -562,7 +570,7 @@ define([
             if (shapeKey === "primitive") {
 
                 var createFunc = function(physicsShape) {
-                    return createPrimitiveBody(physicsShape, rigid_body);
+                    return createPrimitiveBody(physicsShape, rigid_body, scale);
                 };
 
                 rigidBody = fetchPoolBody(dataKey);
@@ -570,13 +578,15 @@ define([
                 if (!rigidBody) {
 
                     var shape = createPrimitiveShape(rigid_body);
+                    shape.setLocalScaling(new Ammo.btVector3(scale.x, scale.y, scale.z));
+
                     bodyPools[dataKey] = new BodyPool(shape, createFunc);
                     rigidBody = fetchPoolBody(dataKey);
                 } else {
                     rigidBody.forceActivationState(STATE.ACTIVE);
                 }
 
-                position.y += args[2] * 2;
+            //    position.y += args[2] / 2;
                 setBodyTransform(rigid_body, rigidBody, position, quaternion);
             }
 
@@ -824,8 +834,8 @@ define([
             //    body.forceActivationState(STATE.WANTS_DEACTIVATION);
         };
 
-        var createPrimitiveBody = function(shape, bodyParams) {
-            var mass = bodyParams.mass || 0;
+        var createPrimitiveBody = function(shape, bodyParams, scale) {
+            var mass = bodyParams.mass*scale.x*scale.y*scale.z || 0;
             var body = createBody(shape, mass);
 
             //    applyBodyParams(body, bodyParams);

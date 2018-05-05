@@ -36,6 +36,7 @@ define([
         //Used inside the physics worker
         DynamicSpatial.prototype.setSpatialBuffer = function(buffer) {
             return this.spatialBuffer = buffer;
+
         };
 
         //Used in the Dynamic World Worker
@@ -48,6 +49,7 @@ define([
         DynamicSpatial.prototype.setupSpatialBuffer = function() {
             var sab = new SharedArrayBuffer(Float32Array.BYTES_PER_ELEMENT * ENUMS.BufferSpatial.BUFFER_SIZE);
             this.spatialBuffer = new Float32Array(sab);
+            this.applySpatialScaleXYZ(1, 1, 1);
         };
 
         DynamicSpatial.prototype.getSpatialBuffer = function() {
@@ -69,6 +71,13 @@ define([
             return storeQuat;
         };
 
+        DynamicSpatial.prototype.getSpatialScale = function(storeVec) {
+            storeVec.x = this.spatialBuffer[ENUMS.BufferSpatial.SCALE_X];
+            storeVec.y = this.spatialBuffer[ENUMS.BufferSpatial.SCALE_Y];
+            storeVec.z = this.spatialBuffer[ENUMS.BufferSpatial.SCALE_Z];
+            return storeVec;
+        };
+
         DynamicSpatial.prototype.applySpatialPositionXYZ = function(x, y, z) {
             this.spatialBuffer[ENUMS.BufferSpatial.POS_X] = x;
             this.spatialBuffer[ENUMS.BufferSpatial.POS_Y] = y;
@@ -80,6 +89,12 @@ define([
             this.spatialBuffer[ENUMS.BufferSpatial.QUAT_Y] = y;
             this.spatialBuffer[ENUMS.BufferSpatial.QUAT_Z] = z;
             this.spatialBuffer[ENUMS.BufferSpatial.QUAT_W] = w;
+        };
+
+        DynamicSpatial.prototype.applySpatialScaleXYZ = function(x, y, z) {
+            this.spatialBuffer[ENUMS.BufferSpatial.SCALE_X] = x;
+            this.spatialBuffer[ENUMS.BufferSpatial.SCALE_Y] = y;
+            this.spatialBuffer[ENUMS.BufferSpatial.SCALE_Z] = z;
         };
 
         DynamicSpatial.prototype.applyVelocityXYZ = function(x, y, z) {
@@ -147,6 +162,22 @@ define([
             return this.spatialBuffer[ENUMS.BufferSpatial.BODY_POINTER];
         };
 
+        DynamicSpatial.prototype.setSpatialSimulateFlag = function(value) {
+            this.spatialBuffer[ENUMS.BufferSpatial.SIMULATE] = value;
+        };
+
+        DynamicSpatial.prototype.getSpatialSimulateFlag = function() {
+            return this.spatialBuffer[ENUMS.BufferSpatial.SIMULATE];
+        };
+
+        DynamicSpatial.prototype.setSpatialDisabledFlag = function(value) {
+            this.spatialBuffer[ENUMS.BufferSpatial.BODY_IS_DISABLED] = value;
+        };
+
+        DynamicSpatial.prototype.getSpatialDisabledFlag = function() {
+            return this.spatialBuffer[ENUMS.BufferSpatial.BODY_IS_DISABLED];
+        };
+
         DynamicSpatial.prototype.setSpatialFromObj3d = function(obj3d) {
             this.applySpatialPositionXYZ(obj3d.position.x, obj3d.position.y,obj3d.position.z);
             this.applySpatialQuaternionXYZW(obj3d.quaternion.x, obj3d.quaternion.y,obj3d.quaternion.z, obj3d.quaternion.w)
@@ -156,6 +187,19 @@ define([
             this.getSpatialPosition(obj3d.position);
             this.getSpatialQuaternion(obj3d.quaternion);
         };
+
+        DynamicSpatial.prototype.getScaleKey = function() {
+            return '_scale_'+this.spatialBuffer[ENUMS.BufferSpatial.SCALE_X]+this.spatialBuffer[ENUMS.BufferSpatial.SCALE_Y]+this.spatialBuffer[ENUMS.BufferSpatial.SCALE_Z]
+        };
+
+        DynamicSpatial.prototype.notifyVisibility = function(isVisible) {
+            if (isVisible) {
+                this.setSpatialSimulateFlag(1);
+            } else {
+                this.setSpatialSimulateFlag(0);
+            }
+        };
+
 
         DynamicSpatial.prototype.tickPhysicsForces = function(ammoApi) {
 
@@ -168,7 +212,31 @@ define([
             }
         };
 
+        DynamicSpatial.prototype.tickPhysicsUpdate = function(ammoApi) {
+
+            if (this.getSpatialSimulateFlag()) {
+
+                if (this.getSpatialDisabledFlag()) {
+                    ammoApi.includeBody(this.body);
+                    this.setSpatialDisabledFlag(0);
+                }
+            //    this.tickPhysicsForces(ammoApi);
+
+            } else {
+
+                if (!this.getSpatialDisabledFlag()) {
+                    ammoApi.excludeBody(this.body);
+                    this.setSpatialDisabledFlag(1);
+                }
+            }
+
+        };
+
         DynamicSpatial.prototype.sampleBodyState = function() {
+
+            if (this.getSpatialDisabledFlag()) {
+                return;
+            }
 
             if (!this.body.getMotionState) {
                 console.log("Bad physics body", this.body);

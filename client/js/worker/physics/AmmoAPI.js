@@ -115,8 +115,11 @@ define(['worker/physics/AmmoFunctions'],
             this.excludeBody(body, dataKey);
         };
 
+        AmmoAPI.prototype.disableRigidBody = function(body) {
+            this.excludeBody(body);
+        };
 
-        AmmoAPI.prototype.excludeBody = function(body, dataKey) {
+        AmmoAPI.prototype.excludeBody = function(body) {
             var bi = bodies.indexOf(body);
             bodies.splice(bi, 1);
 
