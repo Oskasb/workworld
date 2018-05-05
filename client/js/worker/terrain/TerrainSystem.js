@@ -27,8 +27,6 @@ define([
 
         TerrainSystem.prototype.applyTerrainAreaData = function(msg) {
 
-
-            console.log("Apply Terrain Data", msg);
             tempVec.x = msg[0].posx + msg[0].options.terrain_size * 0.5;
             tempVec.y = 0;
             tempVec.z = msg[0].posz + msg[0].options.terrain_size * 0.5;

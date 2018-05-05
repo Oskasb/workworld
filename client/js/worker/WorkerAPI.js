@@ -52,12 +52,27 @@ define([
             workerRunner.runWorldWorker();
         };
 
+
+        WorkerAPI.requestSharedWorker = function(workerKey) {
+
+            if (workerKey === ENUMS.Worker.PHYSICS_WORLD) {
+                return workerRunner.initSharedPhysicsWorker();
+            }
+
+            if (workerKey === ENUMS.Worker.STATIC_WORLD) {
+                return workerRunner.initSharedStaticWorldWorker();
+            }
+
+            console.log("No worker create call for workerKey", workerKey);
+
+        };
+
         WorkerAPI.buildMessage = function(protocolKey, data) {
             return [protocolKey, data];
         };
 
-        WorkerAPI.callWorker = function(workerKey, msg) {
-            workerRunner.postToWorker(workerKey, msg);
+        WorkerAPI.callWorker = function(workerKey, msg, transfer) {
+            workerRunner.postToWorker(workerKey, msg, transfer);
         };
 
         return WorkerAPI;

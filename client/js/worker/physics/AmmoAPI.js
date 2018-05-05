@@ -161,7 +161,6 @@ define(['worker/physics/AmmoFunctions'],
 
         AmmoAPI.prototype.fetchPhysicsStatus = function() {
 
-
            status.bodyCount = bodies.length;
             //    this.status.contactCount = this.world.contacts.length;
 

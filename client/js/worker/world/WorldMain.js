@@ -1,22 +1,6 @@
 "use strict";
 
 
-
-var wait = function(cb) {
-
-  //
-    var match = Atomics.wait(worldComBuffer, ENUMS.Protocol.WAKE_INDEX, 1, 100);
-    Atomics.store(worldComBuffer, ENUMS.Protocol.WAKE_INDEX, 0);
-    console.log("Wait match:",match);
-
-    if (match === 'ok') {
-        cb();
-    } else {
-        wait(cb);
-    }
-
-};
-
 define([
         'Events',
         'EffectsAPI',
@@ -57,31 +41,8 @@ define([
             //    console.log("Update World Sim", tpf);
             //    this.simulationState.updateState(tpf);
 
-
-            var distance = 1250;
-
-            fxArg.effect = "firey_explosion_core";
-
-
-
-            for (var i = 0; i < Math.floor(Math.random()*10); i++) {
-                tmpVec.x = distance * Math.random() * (Math.random() - 0.5);
-                tmpVec.y = distance * Math.random() * 0.1 * Math.random();
-                tmpVec.z = distance * Math.random() * (Math.random() - 0.5);
-
-
-                tmpVec2.x = 0 // Math.sin(gameTime);
-                tmpVec2.y = 0.2 // Math.random()*0.2;
-                tmpVec2.z = 0 // Math.cos(gameTime);
-
-            //    evt.fire(evt.list().GAME_EFFECT, fxArg);
-            }
-
-
             WorldAPI.updateWorldWorkerFrame(avgTfp, worldFrame);
-            EffectsAPI.tickEffectSimulation(worldComBuffer[ENUMS.BufferChannels.FRAME_RENDER_TIME]);
         };
-
 
         var WorldMain = function(wApi) {
             WorldAPI = wApi;
@@ -109,48 +70,18 @@ define([
 
         };
 
-        var tmpVec = new THREE.Vector3();
-        var tmpVec2 = new THREE.Vector3();
-        var tmpVec3 = new THREE.Vector3();
-        var fxArg = {effect:"firey_explosion_core", pos:tmpVec, vel:tmpVec2};
-
-
         WorldMain.prototype.worldComBuffer = function() {
             return worldComBuffer;
         };
 
-
-        var sillyWorld = function(count, fxId) {
-
-            var distance = 1450;
-
-            fxArg.effect = "firey_explosion_core";
-
-            for (var i = 0; i < count; i++) {
-                tmpVec.x = distance * Math.random() * (Math.random() - 0.5);
-                tmpVec.y = distance * Math.random() * 0.3 * Math.random();
-                tmpVec.z = distance * Math.random() * (Math.random() - 0.5);
-
-
-                tmpVec2.x = 0;
-                tmpVec2.y = 0;
-                tmpVec2.z = 0;
-
-                tmpVec3.x = 0;
-                tmpVec3.y = 0;
-                tmpVec3.z = 0;
-
-                // evt.fire(evt.list().GAME_EFFECT, fxArg);
-
-                EffectsAPI.requestPassiveEffect(fxId, tmpVec, tmpVec2, tmpVec3)
-            }
+        WorldMain.prototype.updateWorld = function() {
+            updateWorld()
         };
 
-        var buildSillyWorld = function() {
-            sillyWorld(40, "model_geometry_tree_2_trunk_effect");
-            sillyWorld(40, "model_geometry_tree_3_combined_effect");
-            sillyWorld(40, "creative_crate_geometry_effect");
+        WorldMain.prototype.updateWorldEffects = function() {
+            EffectsAPI.tickEffectSimulation(worldComBuffer[ENUMS.BufferChannels.FRAME_RENDER_TIME]);
         };
+
 
         WorldMain.prototype.setLoopTpf = function(tpf) {
             updateWorld()

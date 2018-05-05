@@ -2,11 +2,13 @@
 
 define([
         'worker/terrain/AreaFunctions',
-        'worker/terrain/TerrainSection'
+        'worker/terrain/TerrainSection',
+    'worker/dynamic/DynamicSpatial'
     ],
     function(
         AreaFunctions,
-        TerrainSection
+        TerrainSection,
+        DynamicSpatial
     ) {
 
         var tempVec1 = new THREE.Vector3();
@@ -14,6 +16,8 @@ define([
         var tempObj3d = new THREE.Object3D();
 
         var TerrainArea = function(terrainFunctions) {
+            this.dynamicSpatial = new DynamicSpatial();
+            this.dynamicSpatial.setupSpatialBuffer();
             this.size = 0;
             this.origin = new THREE.Vector3();
             this.extents = new THREE.Vector3();
@@ -86,61 +90,13 @@ define([
             this.updateCenter();
         };
 
-
-        TerrainArea.prototype.registerTerrainPhysics = function() {
-            this.terrainBody = this.terrainFunctions.addTerrainToPhysics(this.terrainOptions, this.terrain.array1d, this.origin.x, this.origin.z);
+        TerrainArea.prototype.registerTerrainPhysics = function(msg) {
+            console.log("Request Physics for terrain from here...");
+            WorldAPI.callSharedWorker(ENUMS.Worker.PHYSICS_WORLD, ENUMS.Protocol.PHYSICS_TERRAIN_ADD, [msg, this.buffers[4], this.dynamicSpatial.getSpatialBuffer()])// this.terrainBody = this.terrainFunctions.addTerrainToPhysics(this.terrainOptions, this.terrain.array1d, this.origin.x, this.origin.z);
         };
 
         TerrainArea.prototype.requestStaticTerrainData = function(msg) {
-
-            WorldAPI.callStaticWorldWorker(ENUMS.Protocol.GENERATE_STATIC_AREA, msg)
-
-        };
-
-
-        var createTerrain = function(applies, array) {
-
-
-            var opts = {
-                after: null,
-                easing: THREE.Terrain.EaseInOut,
-                heightmap: THREE.Terrain.DiamondSquare,
-                material: null,
-                maxHeight: applies.max_height,
-                minHeight: applies.min_height,
-                optimization: THREE.Terrain.NONE,
-                frequency: applies.frequency,
-                steps: applies.steps,
-                stretch: true,
-                turbulent: false,
-                useBufferGeometry: false,
-                xSegments: applies.terrain_segments,
-                xSize: applies.terrain_size,
-                ySegments: applies.terrain_segments,
-                ySize: applies.terrain_size
-            };
-
-            var terrain;
-
-                    opts.xSegments = 3;
-                    opts.ySegments = 3;
-                    terrain = new THREE.Terrain(opts);
-
-                    var vertexBuffer = new THREE.BufferAttribute( array[0] ,3 );
-                    terrain.children[0].geometry = new THREE.BufferGeometry();
-
-
-            terrain.children[0].needsUpdate = true;
-            terrain.children[0].position.x += applies.terrain_size*0.5;
-            terrain.children[0].position.y -= applies.terrain_size*0.5;
-
-            terrain.size = applies.terrain_size;
-            terrain.segments = applies.terrain_segments;
-            terrain.array1d = array[4];
-            terrain.height = applies.max_height - applies.min_height;
-            terrain.vegetation = applies.vegetation_system;
-
-            return terrain;
+            WorldAPI.callSharedWorker(ENUMS.Worker.STATIC_WORLD, ENUMS.Protocol.GENERATE_STATIC_AREA, msg)
         };
 
 
@@ -175,7 +131,7 @@ define([
             WorldAPI.sendWorldMessage(ENUMS.Protocol.REGISTER_TERRAIN, [msg[0], this.buffers]);
 
             if (!this.terrainBody) {
-                this.registerTerrainPhysics();
+                this.registerTerrainPhysics(this.msg);
             }
 
             this.generateTerrainSectons(0.0025);

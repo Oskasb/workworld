@@ -16,13 +16,13 @@ define([
             "three_terrain":"plain_ground",
             "vegetation_system":"basic_grassland",
             "terrain_size":1000,
-            "terrain_segments":63,
+            "terrain_segments":255,
             "invert_hill":false,
             "terrain_edge_size":105,
             "edge_easing":"clampSin",
-            "max_height":25,
-            "min_height":-15,
-            "frequency":5,
+            "max_height":45,
+            "min_height":-12,
+            "frequency":4,
             "steps":4
         };
 
@@ -32,12 +32,12 @@ define([
             "three_terrain":"plain_ground",
             "vegetation_system":"basic_grassland",
             "terrain_size":1000,
-            "terrain_segments":63,
+            "terrain_segments":127,
             "invert_hill":false,
             "terrain_edge_size":105,
             "edge_easing":"clampSin",
-            "max_height":15,
-            "min_height":-25,
+            "max_height":25,
+            "min_height":-12,
             "frequency":3,
             "steps":4
         };
@@ -47,15 +47,15 @@ define([
             "state":true,
             "three_terrain":"plain_ground",
             "vegetation_system":"basic_grassland",
-            "terrain_size":4000,
+            "terrain_size":8000,
             "terrain_segments":127,
             "invert_hill":false,
             "terrain_edge_size":305,
             "edge_easing":"clampSin",
-            "max_height":280,
-            "min_height":-15,
-            "frequency":2,
-            "steps":4
+            "max_height":120,
+            "min_height":-12,
+            "frequency":6,
+            "steps":5
         };
 
         var ClientMessages = function(wApi) {
@@ -77,20 +77,26 @@ define([
         ClientMessages.prototype.setupMessageHandlers = function() {
 
             this.messageHandlers[ENUMS.Protocol.WORKER_READY] = function(msg) {
-
-                var wakeupFunc = function() {
-                    WorkerAPI.callWorker(ENUMS.Worker.WORLD, WorkerAPI.buildMessage(ENUMS.Protocol.SET_LOOP, {tpf:0.01}));
-                };
-
-                WorkerAPI.setWakeupFunction(wakeupFunc);
-
-                WorkerAPI.callWorker(ENUMS.Worker.WORLD, WorkerAPI.buildMessage(ENUMS.Protocol.CREATE_WORLD,{posx:1500, posz:-1230, options:terrainOpts2}));
-                WorkerAPI.callWorker(ENUMS.Worker.WORLD, WorkerAPI.buildMessage(ENUMS.Protocol.CREATE_WORLD,{posx:-1500, posz:-1200, options:terrainOpts}));
-                WorkerAPI.callWorker(ENUMS.Worker.WORLD, WorkerAPI.buildMessage(ENUMS.Protocol.CREATE_WORLD,{posx:-400, posz:-350, options:terrainOpts}));
-                WorkerAPI.callWorker(ENUMS.Worker.WORLD, WorkerAPI.buildMessage(ENUMS.Protocol.CREATE_WORLD,{posx:-200, posz:-1300, options:terrainOpts}));
-                WorkerAPI.callWorker(ENUMS.Worker.WORLD, WorkerAPI.buildMessage(ENUMS.Protocol.CREATE_WORLD,{posx:1000, posz:1000, options:terrainOpts3}));
-                WorkerAPI.callWorker(ENUMS.Worker.WORLD, WorkerAPI.buildMessage(ENUMS.Protocol.SET_INPUT_BUFFER, PipelineAPI.getCachedConfigs().POINTER_STATE.buffer));
                 console.log("Handle (Client) WORKER_READY", msg);
+
+                if (msg[1] === ENUMS.Worker.WORLD) {
+
+                    var wakeupMessage = WorkerAPI.buildMessage(ENUMS.Protocol.NOTIFY_FRAME);
+                    var wakeupFunc = function() {
+                        WorkerAPI.callWorker(ENUMS.Worker.WORLD, wakeupMessage);
+                    };
+
+                    WorkerAPI.setWakeupFunction(wakeupFunc);
+
+                    //   WorkerAPI.callWorker(ENUMS.Worker.WORLD, WorkerAPI.buildMessage(ENUMS.Protocol.CREATE_WORLD,{posx:1500, posz:-1230, options:terrainOpts2}));
+                    //   WorkerAPI.callWorker(ENUMS.Worker.WORLD, WorkerAPI.buildMessage(ENUMS.Protocol.CREATE_WORLD,{posx:-1500, posz:-1200, options:terrainOpts}));
+                    //   WorkerAPI.callWorker(ENUMS.Worker.WORLD, WorkerAPI.buildMessage(ENUMS.Protocol.CREATE_WORLD,{posx:-400, posz:-350, options:terrainOpts}));
+                    //   WorkerAPI.callWorker(ENUMS.Worker.WORLD, WorkerAPI.buildMessage(ENUMS.Protocol.CREATE_WORLD,{posx:-200, posz:-1300, options:terrainOpts}));
+                    WorkerAPI.callWorker(ENUMS.Worker.WORLD, WorkerAPI.buildMessage(ENUMS.Protocol.CREATE_WORLD,{posx:-500, posz:-500, options:terrainOpts}));
+                    WorkerAPI.callWorker(ENUMS.Worker.WORLD, WorkerAPI.buildMessage(ENUMS.Protocol.SET_INPUT_BUFFER, PipelineAPI.getCachedConfigs().POINTER_STATE.buffer));
+
+                }
+
             };
 
             this.messageHandlers[ENUMS.Protocol.NOTIFY_FRAME] = function(msg) {
@@ -100,6 +106,13 @@ define([
 
             this.messageHandlers[ENUMS.Protocol.FETCH_PIPELINE_DATA] = function(msg) {
                 send(msg[1][0], msg[1][1]);
+            };
+
+            this.messageHandlers[ENUMS.Protocol.REQUEST_SHARED_WORKER] = function(msg) {
+                var workerKey = msg[1];
+                var sharedWorker = WorkerAPI.requestSharedWorker(workerKey);
+
+                WorkerAPI.callWorker(ENUMS.Worker.WORLD, WorkerAPI.buildMessage(ENUMS.Protocol.SHARED_WORKER_PORT, [workerKey, sharedWorker.port]), [sharedWorker.port])
             };
 
             this.messageHandlers[ENUMS.Protocol.REGISTER_TERRAIN] = function(msg) {

@@ -16,15 +16,13 @@ define([
         TimeTracker,
         PipelineAPI
     ) {
-3
+
 
 		var frame = 0;
 
-		var name;
         var memory;
 
         var ClientState = '';
-        var sendMessage = function() {};
 
         var ClientViewer = function(pointerCursor, sceneController) {
             ClientState = ENUMS.ClientStates.INITIALIZING;
@@ -42,9 +40,7 @@ define([
             PipelineAPI.setCategoryData(ENUMS.Category.POINTER_STATE, this.pointerCursor.getPointerState());
 
             console.log("configs", PipelineAPI.getCachedConfigs(), ENUMS);
-
 		};
-
 
         var aggDiff = 0;
 
@@ -317,10 +313,6 @@ define([
             
 			frame++;
 
-        //    var responseStack = this.connection.processTick();
-
-        //    this.processResponseStack(responseStack);
-
 			var exactTpf = this.timeTracker.trackFrameTime(frame);
 
             if (exactTpf < 0.002) {
@@ -328,53 +320,12 @@ define([
                 return;
             }
 
-		//	console.log(tpf - exactTpf, tpf, this.timeTracker.tpf);
-
             aggDiff += tpf-exactTpf;
-
-
-        //    GameAPI.tickControls(tpf, gameTime);
 
             this.pointerCursor.tick();
 
-        //    GameAPI.tickPlayerPiece(tpf, gameTime);
-
-        //    this.sceneController.tickEffectPlayers(tpf);
-
-        //    clearTimeout(tickTimeout);
-
-        //    tickTimeout = setTimeout(function() {
-
                 tickEvent.frame = frame;
                 tickEvent.tpf = tpf;
-
-        //        GameAPI.tickGame(tpf, gameTime);
-
-        //    }, 0);
-
-/*
-            var distance = 350 + 100*Math.sin(gameTime*0.2);
-
-            ThreeAPI.setCameraPos(distance*Math.sin(gameTime*0.2), distance * 0.4 + Math.sin(gameTime*0.35) * 50, distance*Math.cos(gameTime*0.2));
-            ThreeAPI.cameraLookAt(19*Math.cos(gameTime*1), 40 + distance * 0.12,  19*Math.sin(gameTime*1));
-
-
-            for (var i = 0; i < 15; i++) {
-                tmpVec.x = distance * Math.random() * (Math.random() - 0.5);
-                tmpVec.y = distance * Math.random() * 0.1 * Math.random();
-                tmpVec.z = distance * Math.random() * (Math.random() - 0.5);
-
-
-                tmpVec2.x = Math.sin(gameTime);
-                tmpVec2.y = Math.random();
-                tmpVec2.z = Math.cos(gameTime);
-
-            //    evt.fire(evt.list().GAME_EFFECT, fxArg);
-            }
-  */
-        //    this.viewerMain.tickViewerClient(tpf);
-            
-        //    evt.fire(evt.list().CAMERA_TICK, {frame:frame, tpf:tpf});
 
 
             PipelineAPI.setCategoryKeyValue('STATUS', 'TIME_GAME_TICK', performance.now() - start);
@@ -387,21 +338,17 @@ define([
 
             ThreeAPI.updateCamera();
 
-        //    relayCamera(ThreeAPI.getCamera());
-
             if (PipelineAPI.getPipelineOptions('jsonPipe').polling.enabled) {
                 PipelineAPI.tickPipelineAPI(tpf);
             }
-            
 		};
 
         ClientViewer.prototype.tickPostrender = function(tpf) {
 
             comBuffer[ENUMS.BufferChannels.WAKE_INDEX]++;
 
-            WorkerAPI.wakeWorldThread();
-
             PipelineAPI.setCategoryKeyValue('STATUS', 'TPF', tpf);
+            WorkerAPI.wakeWorldThread();
 
         };
 

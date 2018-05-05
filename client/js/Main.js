@@ -28,15 +28,17 @@ require([
     GameScreen.registerAppContainer(document.body);
     new SystemDetector();
 
+    WorkerAPI.initWorkers();
+    WorkerAPI.registerHandlers();
+    WorkerAPI.runWorkers();
+
     var init = function(clientViewer) {
         client = clientViewer;
 
         new ButtonEventDispatcher();
         new ControlStateDispatcher();
 
-        WorkerAPI.initWorkers();
-        WorkerAPI.registerHandlers();
-        WorkerAPI.runWorkers();
+
         client.clientReady(setupReady);
     };
 

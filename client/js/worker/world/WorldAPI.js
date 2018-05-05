@@ -3,7 +3,6 @@
 define([
         'PipelineAPI',
         'GuiAPI',
-        'worker/physics/AmmoAPI',
         'worker/protocol/ProtocolRequests',
         'worker/protocol/WorldMessages',
         'worker/world/WorldMain',
@@ -14,7 +13,6 @@ define([
     function(
         PipelineAPI,
         GuiAPI,
-        AmmoAPI,
         ProtocolRequests,
         WorldMessages,
         WorldMain,
@@ -24,7 +22,6 @@ define([
     ) {
 
         var frameStartTime;
-        var physicsApi;
         var worldMain;
         var protocolRequests;
         var worldMessages;
@@ -33,26 +30,30 @@ define([
         var statusMonitor;
         var fetches = {};
 
+        var SHARED_WORKER_PORTS = [];
+
         var WorldAPI = function() {};
+
+        WorldAPI.initWorkerCom = function() {
+            worldMessages = new WorldMessages(WorldAPI);
+            protocolRequests = new ProtocolRequests();
+            protocolRequests.setMessageHandlers(worldMessages.getMessageHandlers());
+        };
 
         WorldAPI.initWorld = function(onWorkerReady) {
 
-            var ammoReady = function() {
-                physicsApi.initPhysics();
-                worldMessages = new WorldMessages(WorldAPI);
-                worldControlState = new WorldControlState(WorldAPI);
-                terrainSystem = new TerrainSystem(physicsApi);
-                worldMain = new WorldMain(WorldAPI);
-                protocolRequests = new ProtocolRequests();
-                protocolRequests.setMessageHandlers(worldMessages.getMessageHandlers());
-                //    fetchData();
-                worldMain.initWorldSystems(onWorkerReady);
-                //    onWorkerReady();
-                statusMonitor = new StatusMonitor();
-                console.log("configs world worker", PipelineAPI.getCachedConfigs(), fetches);
-            };
             GuiAPI.initGuiApi();
-            physicsApi = new AmmoAPI(ammoReady);
+
+            worldControlState = new WorldControlState(WorldAPI);
+            terrainSystem = new TerrainSystem();
+            worldMain = new WorldMain(WorldAPI);
+
+            //    fetchData();
+            worldMain.initWorldSystems(onWorkerReady);
+            //    onWorkerReady();
+            statusMonitor = new StatusMonitor();
+            console.log("configs world worker", PipelineAPI.getCachedConfigs(), fetches);
+
         };
 
         WorldAPI.fetchCategoryKeyData = function(category, key) {
@@ -99,11 +100,14 @@ define([
 
         WorldAPI.notifyFrameInit = function() {
             frameStartTime = performance.now();
+            worldMain.updateWorld();
+            worldMain.updateWorldEffects()
         };
 
         WorldAPI.updateStatusMonitor = function() {
             statusMonitor.tick(frameStartTime);
         };
+
 
         WorldAPI.constructWorld = function(msg) {
             terrainSystem.initTerrainSystem(msg)
@@ -129,6 +133,26 @@ define([
             protocolRequests.sendMessage(protocolKey, data)
         };
 
+        WorldAPI.registerSharedWorkerPort = function(workerKey, port) {
+
+            if (SHARED_WORKER_PORTS[workerKey]) {
+                console.log( "PORT ALREADY IN USE... OVERWRITING", SHARED_WORKER_PORTS);
+            }
+
+            SHARED_WORKER_PORTS[workerKey] = port;
+
+            port.onmessage = function(e) {
+                WorldAPI.processRequest(e.data);
+            };
+
+            console.log("Register Shared worker Port", SHARED_WORKER_PORTS)
+
+        };
+
+        WorldAPI.callSharedWorker = function(workerKey, protocolKey, data) {
+            SHARED_WORKER_PORTS[workerKey].postMessage(protocolRequests.buildMessage(protocolKey, data))
+        };
+
         WorldAPI.callStaticWorldWorker = function(protocolKey, data) {
             StaticWorldWorkerPort.postMessage(protocolRequests.buildMessage(protocolKey, data))
         };
@@ -143,7 +167,6 @@ define([
             worldControlState.updateWorldControlState();
             terrainSystem.updateTerrainSystem(tpf);
         };
-
 
 
         WorldAPI.getWorldTime = function() {

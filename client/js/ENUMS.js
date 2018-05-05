@@ -18,7 +18,10 @@ if(typeof(ENUMS) === "undefined"){
         FETCH_PIPELINE_DATA:    8,
         SEND_PIPELINE_DATA:     9,
         GENERATE_STATIC_AREA:   10,
-        STATIC_AREA_DATA:       11
+        STATIC_AREA_DATA:       11,
+        REQUEST_SHARED_WORKER:  12,
+        SHARED_WORKER_PORT:     13,
+        PHYSICS_TERRAIN_ADD:    14
 
     };
 
@@ -33,7 +36,6 @@ if(typeof(ENUMS) === "undefined"){
         VERTICES:           7,
         GEOMETRIES:         8,
         TEXTURES:           9,
-
         TPF:                10,
         IDLE:               11,
         TIME_GAME:          12,
@@ -65,9 +67,32 @@ if(typeof(ENUMS) === "undefined"){
         TERRAIN:            3
     };
 
+    ENUMS.BufferSpatial = {
+        DYNAMIC:            0,
+        SIMULATE:           1,
+        POS_X:              2,
+        POS_Y:              3,
+        POS_Z:              4,
+        QUAT_X:             5,
+        QUAT_Y:             6,
+        QUAT_Z:             7,
+        QUAT_W:             8,
+        FORCE_X:            9,
+        FORCE_Y:            10,
+        FORCE_Z:            11,
+        TORQUE_X:           12,
+        TORQUE_Y:           13,
+        TORQUE_Z:           14,
+        BODY_POINTER:       15,
+        BUFFER_SIZE:        16
+    };
+
+
     ENUMS.Worker = {
         WORLD:              0,
-        DATA:               1
+        STATIC_WORLD:       1,
+        PHYSICS_WORLD:      2,
+        DATA:               3
     };
 
     ENUMS.ClientStates = {

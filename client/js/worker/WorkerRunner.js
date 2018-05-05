@@ -11,11 +11,11 @@ define([
         ProtocolRequests
     ) {
 
-
-
         var workers = [];
         var worldComBuffer;
         var worldCommBufferSize = 256;
+        var staticWorldWorker;
+        var physicsWorldWorker;
 
         var WorkerRunner = function() {
             this.potocolRequests = new ProtocolRequests();
@@ -34,20 +34,39 @@ define([
             return buffer;
         };
 
-
         WorkerRunner.prototype.runWorldWorker = function() {
-            var staticWorldWorker = new SharedWorker('./client/js/worker/StaticWorldWorker.js');
-            staticWorldWorker.port.start();
 
             var worker = new Worker('./client/js/worker/WorldWorker.js');
-
-            worker.postMessage({sharedWorkerPort: staticWorldWorker.port}, [staticWorldWorker.port]);
 
             worker.onmessage = function(msg) {
                 this.onmessage(msg)
             }.bind(this);
             workers[ENUMS.Worker.WORLD] = worker;
             worldComBuffer = this.buildMainWorldComBuffer(worldCommBufferSize);
+        };
+
+        WorkerRunner.prototype.initSharedStaticWorldWorker = function() {
+
+            if (staticWorldWorker) {
+                console.log("staticWorldWorker already initiated... TERMINATING");
+                staticWorldWorker.terminate();
+            }
+
+            staticWorldWorker = new SharedWorker('./client/js/worker/StaticWorldWorker.js');
+            staticWorldWorker.port.start();
+            return staticWorldWorker;
+        };
+
+        WorkerRunner.prototype.initSharedPhysicsWorker = function() {
+
+            if (physicsWorldWorker) {
+                console.log("physicsWorldWorker already initiated... TERMINATING");
+                physicsWorldWorker.terminate();
+            }
+
+            physicsWorldWorker = new SharedWorker('./client/js/worker/PhysicsWorldWorker.js');
+            physicsWorldWorker.port.start();
+            return physicsWorldWorker;
         };
 
         WorkerRunner.prototype.registerWorkerHandlers = function(handlers) {
@@ -58,8 +77,8 @@ define([
             this.potocolRequests.handleMessage(msg.data);
         };
 
-        WorkerRunner.prototype.postToWorker = function(workerKey, msg) {
-            workers[workerKey].postMessage(msg);
+        WorkerRunner.prototype.postToWorker = function(workerKey, msg, transfer) {
+            workers[workerKey].postMessage(msg, transfer);
         };
 
         return WorkerRunner;

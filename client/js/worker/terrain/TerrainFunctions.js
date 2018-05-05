@@ -12,14 +12,12 @@ define([],
         var jWeightCurve;
 
         var TerrainFunctions = function(CNNAPI) {
-            this.physicsApi = CNNAPI;
             physicsApi = CNNAPI;
             calcVec1 = new THREE.Vector3();
             calcVec2 = new THREE.Vector3();
 
             iWeightCurve = new MATH.CurveState(MATH.curves['zeroOneZero'], 1);
             jWeightCurve = new MATH.CurveState(MATH.curves['zeroOneZero'], 1);
-
         };
 
 

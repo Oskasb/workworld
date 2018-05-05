@@ -10,7 +10,6 @@ define([
         GuiSurfaceSystem
     ) {
 
-
         var pointerSys;
         var guiSurfaceSystem;
         var guiSystems = [];

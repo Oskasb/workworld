@@ -5,13 +5,11 @@ define([
     'ThreeAPI',
     'PipelineAPI',
     'Events',
-    '3d/camera/ThreeCamera',
     'ui/GameScreen'
 ], function(
     ThreeAPI,
     PipelineAPI,
     evt,
-    ThreeCamera,
     GameScreen
 ) {
     var pxRatio;
@@ -25,7 +23,7 @@ define([
     };
 
     ThreeController.setupThreeRenderer = function(ready) {
-        new ThreeCamera();
+    //    new ThreeCamera();
     //    console.log("Setup Three Renderer");
 
         pxRatio = window.devicePixelRatio;

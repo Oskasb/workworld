@@ -1,23 +1,19 @@
 var baseUrl = './../../../';
 
 var WorldAPI;
-var StaticWorldAPI;
+var PhysicsWorldAPI;
 var window = self;
 var postMessage;
 var onmessage;
-var StaticWorldWorkerPort;
+var PhysicsWorldWorkerPort;
 
 var premauteMessageQueue = [];
 
-console.log("Static World SharedWorker file init...");
-
-var updateWorld = function() {};
 
 importScripts(baseUrl+'client/js/ENUMS.js');
 importScripts(baseUrl+'client/js/MATH.js');
 importScripts(baseUrl+'client/js/lib/three.js');
-importScripts(baseUrl+'client/js/lib/three/OBJLoader.js');
-importScripts(baseUrl+'client/js/worker/terrain/ServerTerrain.js');
+importScripts(baseUrl+'client/js/lib/ammo/ammo.wasm.js');
 importScripts(baseUrl+'client/js/lib/require.js');
 
 require.config({
@@ -43,44 +39,44 @@ require.config({
 
 require(
     [
-        'worker/static/StaticWorldAPI'
+        'worker/physics/PhysicsWorldAPI'
     ],
     function(
         sWApi
     ) {
 
-        var count = 0;
-        StaticWorldAPI = sWApi;
+        PhysicsWorldAPI = sWApi;
         WorldAPI = sWApi;
 
         self.StaticWorldAPI = sWApi;
 
-        console.log("Static World SharedWorker loaded...");
+        console.log("Physics World SharedWorker loaded...");
+
 
         var onWorkerReady = function() {
-            count ++;
-            console.log("Static World SharedWorker loaded", count);
 
-            StaticWorldAPI.sendWorldMessage(ENUMS.Protocol.WORKER_READY, ENUMS.Worker.STATIC_WORLD);
+            PhysicsWorldAPI.sendWorldMessage(ENUMS.Protocol.WORKER_READY, ENUMS.Worker.PHYSICS_WORLD);
 
-            StaticWorldWorkerPort.onmessage = function(e) {
-                console.log("Shared Worker message:", e);
-                StaticWorldAPI.processRequest(e.data);
+            PhysicsWorldWorkerPort.onmessage = function(e) {
+                console.log("Physics Worker message:", e);
+                PhysicsWorldAPI.processRequest(e.data);
             };
 
             while (premauteMessageQueue.length) {
-                StaticWorldAPI.processRequest(premauteMessageQueue.pop().data);
+                PhysicsWorldAPI.processRequest(premauteMessageQueue.pop().data);
             }
+
+            PhysicsWorldAPI.startPhysicsSimulationLoop(7);
 
         };
 
-        StaticWorldAPI.initWorld(onWorkerReady);
+        PhysicsWorldAPI.initPhysicsWorld(onWorkerReady);
     }
 );
 
 onconnect = function(e) {
 
-    console.log("Shared Worker connect:", e);
+    console.log("Physics Shared Worker connect:", e);
     var port = e.ports[0];
 
     postMessage = function(msg) {
@@ -88,10 +84,10 @@ onconnect = function(e) {
     };
 
     port.onmessage = function(e) {
-        console.log("Premature Shared Worker message:", e);
+        console.log("Premature Physics Shared Worker message:", e);
         premauteMessageQueue.push(e);
 
     };
 
-    StaticWorldWorkerPort = port;
+    PhysicsWorldWorkerPort = port;
 };
