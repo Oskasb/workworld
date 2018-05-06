@@ -38,6 +38,9 @@ define([
         var monitorStatus = {};
         var statusEntries = [];
 
+        var monitorPhysics = {};
+        var physicsEntries = [];
+
         var StatusMonitor = function() {
             PipelineAPI.setCategoryKeyValue('STATUS', 'RENDER_MONITOR', renderEntries);
             PipelineAPI.setCategoryKeyValue('STATUS', 'TIME_MONITOR', timeEntries);
@@ -46,6 +49,7 @@ define([
             PipelineAPI.setCategoryKeyValue('STATUS', 'SYSTEM_MONITOR', systemEntries);
             PipelineAPI.setCategoryKeyValue('STATUS', 'BROWSER_MONITOR', browserEntries);
             PipelineAPI.setCategoryKeyValue('STATUS', 'STATUS_MONITOR', statusEntries);
+            PipelineAPI.setCategoryKeyValue('STATUS', 'PHYSICS_MONITOR', physicsEntries);
         };
 
 
@@ -59,6 +63,10 @@ define([
 
         var kilofy = function(number) {
             return Math.round((number/1000));
+        };
+
+        var twoDecimals = function(number) {
+            return MATH.decimalify(number, 100)
         };
 
         var notifyStatus = function(store, value, dataKey) {
@@ -167,14 +175,30 @@ define([
             notifyStatus(monitorStatus,      comBuffer[ENUMS.BufferChannels.LISTENERS_ONCE]  ,  'LISTNRS_1');
             notifyStatus(monitorStatus,      comBuffer[ENUMS.BufferChannels.FIRED_EVENTS]    ,  'FIRED_EVTS');
 
-//
+            notifyStatus(monitorPhysics,     percentify(comBuffer[ENUMS.BufferChannels.PHYSICS_LOAD], 1)+'%',   'THREAD_LOAD');
+
+            notifyStatus(monitorPhysics,     twoDecimals(comBuffer[ENUMS.BufferChannels.FRAME_IDLE]*1000)+'ms',  'FRAME_IDLE');
+
+            notifyStatus(monitorPhysics,     twoDecimals(comBuffer[ENUMS.BufferChannels.STEP_TIME]*1000)+'ms',  'STEP_TIME');
+            notifyStatus(monitorPhysics,     twoDecimals((comBuffer[ENUMS.BufferChannels.FRAME_TIME]-comBuffer[ENUMS.BufferChannels.STEP_TIME])*1000)+'ms', 'TIME_UPDATES');
+
+            notifyStatus(monitorPhysics,     comBuffer[ENUMS.BufferChannels.DYNAMIC_COUNT]  ,                   'DYNAMICS');
+            notifyStatus(monitorPhysics,     comBuffer[ENUMS.BufferChannels.BODIES_ACTIVE]  ,                   'RGBD_ACTIVE');
+            notifyStatus(monitorPhysics,     comBuffer[ENUMS.BufferChannels.BODIES_PASSIVE] ,                   'RGBD_PASSIVE');
+            notifyStatus(monitorPhysics,     comBuffer[ENUMS.BufferChannels.BODIES_STATIC]  ,                   'RGBD_STATIC');
+            notifyStatus(monitorPhysics,     comBuffer[ENUMS.BufferChannels.BODIES_TERRAIN] ,                   'TERRAINS');
+            notifyStatus(monitorPhysics,     comBuffer[ENUMS.BufferChannels.SKIP_FRAMES] ,                      'SKIP_FRAMES');
+            notifyStatus(monitorPhysics,     comBuffer[ENUMS.BufferChannels.PHYS_ERRORS] ,                      'ERRORS');
+
+
             listData(renderEntries, monitorRender);
             listData(timeEntries, monitorTime);
-            listData(effectEntries, monitorEffects)
+            listData(effectEntries, monitorEffects);
             listData(gameEntries, monitorGame);
             listData(systemEntries, monitorSystem);
             listData(browserEntries, monitorBrowser);
             listData(statusEntries, monitorStatus);
+            listData(physicsEntries, monitorPhysics);
 
         };
 

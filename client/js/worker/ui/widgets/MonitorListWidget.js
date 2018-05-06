@@ -68,7 +68,7 @@ define([
                 this.textFields[index] = this.surfaceElement.addSurfaceTextElement('list_key', dataField.key);
                 this.valueFields[index] = this.surfaceElement.addSurfaceTextElement('list_value', dataField.value);
 
-                this.getWidgetSurfaceLayout().setDynamicLayout('height', 0.055 + this.textFields.length * this.textFields[index].getTextEffectSize() * 0.2)
+                this.getWidgetSurfaceLayout().setDynamicLayout('height', 0.05 + this.textFields.length * this.textFields[index].getTextEffectSize() * 0.21)
 
             } else if (dataField.dirty || false) {
                 this.valueFields[index].setElementText(dataField.value);

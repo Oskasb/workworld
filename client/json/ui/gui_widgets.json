@@ -93,7 +93,7 @@
               "anchor":"top_right",
               "fixed_aspect":true,
               "margin_x":0.02,
-              "margin_y":0.09,
+              "margin_y":0.08,
               "width": 0.22,
               "height":0.43
             },

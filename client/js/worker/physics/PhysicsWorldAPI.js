@@ -15,10 +15,25 @@ define([
         DynamicSpatial
     ) {
 
+    var comBuffer;
         var ammoApi;
         var protocolRequests;
         var worldMessages;
         var fetches = {};
+
+        var tpf;
+        var skipFrames = 0;
+        var skipFrame = false;
+        var frameIdle;
+        var frameStart;
+        var frameEnd;
+        var lastFrameTime;
+
+        var stepStart;
+        var stepEnd;
+        var activeBodies;
+        var passiveBodies;
+        var staticBodies;
 
         var dynamicSpatials = [];
         var terrainBodies = {};
@@ -37,6 +52,14 @@ define([
             };
 
             ammoApi = new AmmoAPI(ammoReady);
+        };
+
+        PhysicsWorldAPI.setWorldComBuffer = function(buffer) {
+            comBuffer = buffer;
+        };
+
+        PhysicsWorldAPI.getWorldComBuffer = function() {
+            return comBuffer;
         };
 
         PhysicsWorldAPI.fetchCategoryKeyData = function(category, key) {
@@ -61,17 +84,51 @@ define([
         var updateDynamicSpatials = function() {
             for (var i = 0; i < dynamicSpatials.length; i++) {
                 dynamicSpatials[i].sampleBodyState();
+                activeBodies += dynamicSpatials[i].getSpatialSimulateFlag();
+                passiveBodies += dynamicSpatials[i].getSpatialDisabledFlag();
+                staticBodies += dynamicSpatials[i].isStatic();
             }
         };
 
+        var getNow = function() {
+            return (performance.now() - start) / 1000
+        };
+
         PhysicsWorldAPI.callPhysicsSimulationUpdate = function() {
+
+            if (!comBuffer) return;
+
+            tpf = comBuffer[ENUMS.BufferChannels.TPF]/1000;
+            skipFrame = false;
+            frameStart = getNow();
+            frameIdle = frameStart - frameEnd;
+
+
+            activeBodies = 0;
+            passiveBodies = 0;
+            staticBodies = 0;
+
             applyDynamicSpatials();
-            ammoApi.updatePhysicsSimulation((performance.now() - start) / 1000);
-            updateDynamicSpatials()
+            stepStart = getNow();
+
+            if (comBuffer[ENUMS.BufferChannels.PHYSICS_LOAD] < 0.9) {
+                ammoApi.updatePhysicsSimulation(tpf);
+            } else {
+                skipFrame = true;
+                skipFrames++;
+            }
+
+            stepEnd = getNow();
+            updateDynamicSpatials();
+            frameEnd = getNow();
+
+            PhysicsWorldAPI.updatePhysicsStats();
+
         };
 
         PhysicsWorldAPI.startPhysicsSimulationLoop = function() {
             start = performance.now();
+            frameEnd = getNow();
         };
 
         var getTerrainKey = function(msg) {
@@ -118,7 +175,7 @@ define([
             dynamicSpatials.push(dynamicSpatial);
 
             ammoApi.includeBody(rigidBody);
-            console.log("dynamicSpatials:", dynamicSpatials);
+         //   console.log("dynamicSpatials:", dynamicSpatials);
         };
 
 
@@ -130,7 +187,38 @@ define([
             protocolRequests.sendMessage(protocolKey, data)
         };
 
-        PhysicsWorldAPI.updateWorldWorkerFrame = function(tpf, frame) {
+        var getTerrainsCount = function() {
+            var count = 0;
+            for (var key in terrainBodies) {
+                count ++;
+            }
+            return count;
+        };
+
+        PhysicsWorldAPI.registerPhysError = function() {
+            comBuffer[ENUMS.BufferChannels.PHYS_ERRORS]++;
+        };
+
+        PhysicsWorldAPI.updatePhysicsStats = function() {
+
+            comBuffer[ENUMS.BufferChannels.FRAME_IDLE] = frameIdle;
+
+            comBuffer[ENUMS.BufferChannels.FRAME_TIME] = frameEnd - frameStart;
+
+            if (!skipFrame) {
+
+                comBuffer[ENUMS.BufferChannels.STEP_TIME] = stepEnd - stepStart;
+            }
+
+            comBuffer[ENUMS.BufferChannels.DYNAMIC_COUNT] = dynamicSpatials.length;
+            comBuffer[ENUMS.BufferChannels.BODIES_ACTIVE] = activeBodies;
+            comBuffer[ENUMS.BufferChannels.BODIES_PASSIVE] = passiveBodies;
+            comBuffer[ENUMS.BufferChannels.BODIES_STATIC] = staticBodies;
+            comBuffer[ENUMS.BufferChannels.BODIES_TERRAIN] = getTerrainsCount();
+
+            comBuffer[ENUMS.BufferChannels.SKIP_FRAMES] = skipFrames;
+            comBuffer[ENUMS.BufferChannels.PHYSICS_LOAD] = comBuffer[ENUMS.BufferChannels.FRAME_TIME]*1000 / comBuffer[ENUMS.BufferChannels.TPF];
+
 
         };
 

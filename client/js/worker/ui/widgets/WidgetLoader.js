@@ -17,12 +17,16 @@ define([
 
         var widgets = [];
 
+        var buttons = {};
+
         var thumbstick;
         var statusMonButton;
 
+        var button;
         var statusMon;
         var effectMon;
         var timeMon;
+        var physicsMon;
 
         var widgetReady = function(widget) {
             widget.enableWidget();
@@ -34,52 +38,118 @@ define([
             widgets.splice(widgets.indexOf(widget), 1);
         };
 
+
+
+        var addButtonWidget = function(label, callback, dynamicLayout, masterBuffer, masterIndex) {
+            button = new GuiButtonWidget(label);
+            button.initGuiWidget(widgetReady);
+
+            if (callback) {
+                button.addButtonClickCallback(callback);
+            }
+
+            if (masterBuffer) {
+                button.setMasterBuffer(masterBuffer, masterIndex);
+            }
+
+            button.applyDynamicLayout(dynamicLayout);
+            return button;
+        };
+
         var WidgetLoader = function() {
             this.guiUpdatable = new GuiUpdatable();
             thumbstick = new GuiThumbstickWidget();
-            statusMonButton = new GuiButtonWidget('STATUS');
+
+            addButtonWidget('STATUS', buttonFunctions.monitorSystem);
+            addButtonWidget('PHYSICS', buttonFunctions.physicsPanel, {anchor:'top_left'});
+
             statusMon = new MonitorListWidget('RENDER_MONITOR', 'STATUS', 'RENDER_MONITOR');
             effectMon = new MonitorListWidget('EFFECT_MONITOR', 'STATUS', 'EFFECT_MONITOR');
             timeMon = new MonitorListWidget('TIME_MONITOR', 'STATUS', 'TIME_MONITOR');
+            physicsMon = new MonitorListWidget('PHYSICS_MONITOR', 'STATUS', 'PHYSICS_MONITOR');
         };
 
-        var enableStatusMon = function(bool) {
+
+        var toggleMonitor = function(bool, monitor, marginY) {
             if (bool) {
-                statusMon.initGuiWidget(widgetReady);
+
+                monitor.initGuiWidget(widgetReady);
+                monitor.getWidgetSurfaceLayout().setDynamicLayout('margin_y', marginY)
             } else {
-                removeWidget(statusMon);
+                removeWidget(monitor);
             }
         };
 
-        var enableEffectMon = function(bool) {
-            if (bool) {
-                effectMon.initGuiWidget(widgetReady);
-                effectMon.getWidgetSurfaceLayout().setDynamicLayout('margin_y', 0.3)
-            } else {
-                removeWidget(effectMon);
+
+        var physPanelButtons = [];
+
+        var addPanelWidget = function(button, panelStore) {
+            panelStore.push(button);
+        };
+
+        var removePanelWidgets = function(panelStore) {
+            while (panelStore.length) {
+                removeWidget(panelStore.pop())
             }
         };
 
-        var enableTimeMon = function(bool) {
+        var enablePhysPanel = function(bool) {
+
+
             if (bool) {
-                timeMon.initGuiWidget(widgetReady);
-                timeMon.getWidgetSurfaceLayout().setDynamicLayout('margin_y', 0.5)
+
+                var ySep = 0.07;
+                var my = 0.12;
+                addPanelWidget(
+                    addButtonWidget('BOX RAIN', null, {anchor:'top_left', margin_y:my,  margin_x:0.025}, WorldAPI.getWorldComBuffer(), ENUMS.BufferChannels.SPAWM_BOX_RAIN),
+                    physPanelButtons
+                );
+
+                my += ySep;
+
+                addPanelWidget(
+                    addButtonWidget('POKE ALL', null, {anchor:'top_left', margin_y:my,  margin_x:0.025}, WorldAPI.getWorldComBuffer(), ENUMS.BufferChannels.PUSH_ALL_DYNAMICS),
+                    physPanelButtons
+                );
+                my += ySep;
+
+                addPanelWidget(
+                    addButtonWidget('ATTRACT', null, {anchor:'top_left', margin_y:my,  margin_x:0.025}, WorldAPI.getWorldComBuffer(), ENUMS.BufferChannels.ATTRACT_DYNAMICS),
+                    physPanelButtons
+                );
+                my += ySep;
+
+                addPanelWidget(
+                    addButtonWidget('REPEL',   null, {anchor:'top_left', margin_y:my,  margin_x:0.025}, WorldAPI.getWorldComBuffer(), ENUMS.BufferChannels.REPEL_DYNAMICS),
+                    physPanelButtons
+                );
+
             } else {
-                removeWidget(timeMon);
+                removePanelWidgets(physPanelButtons)
             }
         };
 
         var buttonFunctions = {
 
             monitorSystem:function(bool) {
-
                 console.log("Click!", bool);
+                toggleMonitor(bool, statusMon, 0);
+                toggleMonitor(bool, effectMon, 0.28);
+                toggleMonitor(bool, timeMon, 0.46);
+                toggleMonitor(bool, physicsMon, 0.64);
+            },
 
-                enableStatusMon(bool);
-                enableEffectMon(bool);
-                enableTimeMon(bool);
+            physicsPanel:function(bool) {
+                enablePhysPanel(bool)
+            },
+
+            testPhysics:function(bool) {
+                if (bool) {
+                    WorldAPI.setCom(ENUMS.BufferChannels.SPAWM_BOX_RAIN, 1);
+                } else {
+                    WorldAPI.setCom(ENUMS.BufferChannels.SPAWM_BOX_RAIN, 0);
+                }
             }
-
         };
 
         var updateWidgets = function() {
@@ -88,13 +158,11 @@ define([
             }
         };
 
+
         WidgetLoader.prototype.enableDefaultGuiWidgets = function() {
 
             this.guiUpdatable.enableUpdates(updateWidgets);
-
             thumbstick.initGuiWidget(widgetReady);
-            statusMonButton.initGuiWidget(widgetReady);
-            statusMonButton.addButtonClickCallback(buttonFunctions.monitorSystem);
 
         };
 

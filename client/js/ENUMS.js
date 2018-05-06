@@ -12,7 +12,7 @@ if(typeof(ENUMS) === "undefined"){
         SET_LOOP:               2,
         NOTIFY_FRAME:           3,
         SET_INPUT_BUFFER:       4,
-        SET_WORLD_BUFFER:       5,
+        SET_WORLD_COM_BUFFER:   5,
         CREATE_WORLD:           6,
         REGISTER_TERRAIN:       7,
         FETCH_PIPELINE_DATA:    8,
@@ -57,7 +57,22 @@ if(typeof(ENUMS) === "undefined"){
         CAM_FOV:            27,
         CAM_NEAR:           28,
         CAM_FAR:            29,
-        CAM_ASPECT:         30
+        CAM_ASPECT:         30,
+        PHYSICS_LOAD:       31,
+        DYNAMIC_COUNT:      32,
+        BODIES_ACTIVE:      33,
+        BODIES_PASSIVE:     34,
+        BODIES_STATIC:      35,
+        BODIES_TERRAIN:     36,
+        STEP_TIME:          37,
+        FRAME_IDLE:         38,
+        SKIP_FRAMES:        39,
+        FRAME_TIME:         40,
+        PHYS_ERRORS:        41,
+        SPAWM_BOX_RAIN:     42,
+        PUSH_ALL_DYNAMICS:  43,
+        ATTRACT_DYNAMICS:   44,
+        REPEL_DYNAMICS:     45
 
     };
 
@@ -95,7 +110,9 @@ if(typeof(ENUMS) === "undefined"){
         SCALE_Z:            23,
         BODY_POINTER:       24,
         BODY_IS_DISABLED:   25,
-        BUFFER_SIZE:        26
+        BODY_MASS:          26,
+        STILL_FRAMES:       27,
+        BUFFER_SIZE:        28
     };
 
 

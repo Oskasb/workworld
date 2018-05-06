@@ -89,6 +89,14 @@ define([
             return worldMain.worldComBuffer()
         };
 
+        WorldAPI.setCom = function(index, value) {
+            worldMain.worldComBuffer()[index] = value;
+        };
+
+        WorldAPI.getCom = function(index) {
+            return worldMain.worldComBuffer()[index]
+        };
+
         WorldAPI.getWorldCamera = function() {
             return worldControlState.getWorldCamera()
         };

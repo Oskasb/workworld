@@ -132,8 +132,8 @@ define(['worker/physics/AmmoFunctions'],
         };
 
 
-        AmmoAPI.prototype.updatePhysicsSimulation = function(currentTime) {
-            ammoFunctions.updatePhysicalWorld(world, currentTime)
+        AmmoAPI.prototype.updatePhysicsSimulation = function(dt) {
+            ammoFunctions.updatePhysicalWorld(world, dt)
         };
 
         AmmoAPI.prototype.applyForceAndTorqueToBody = function(forceVec3, body, torqueVec) {
@@ -145,12 +145,8 @@ define(['worker/physics/AmmoFunctions'],
             ammoFunctions.applyForceToBodyWithMass(forceVec3, actor.getPhysicsBody(), actor.physicalPiece.getPhysicsPieceMass(), randomize)
         };
 
-        AmmoAPI.prototype.triggerPhysicallyRelaxed = function(actor) {
-            if (actor.framesAtState > 3) {
-                ammoFunctions.relaxBodySimulation(actor.getPhysicsBody());
-            }
-
-            //  actor.getPhysicsBody().activate();
+        AmmoAPI.prototype.relaxSimulatingBody = function(body) {
+            ammoFunctions.relaxBodySimulation(body);
         };
 
 

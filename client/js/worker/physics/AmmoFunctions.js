@@ -165,6 +165,8 @@ define([
 
         AmmoFunctions.prototype.forceAndTorqueToBody = function(forceVec3, body, torqueVec) {
 
+            body.activate();
+            body.forceActivationState(STATE.ACTIVE);
 
             if (forceVec3) {
                 VECTOR_AUX.setX(forceVec3.x);
@@ -330,25 +332,10 @@ define([
         MODEL.AngularVelocityTolerance = 1;
         MODEL.TemporalTolerance = 1;
 
-        AmmoFunctions.prototype.updatePhysicalWorld = function(world, currentTime) {
 
-            if(lastTime !== undefined){
-                var dt = (currentTime - lastTime);
-
-            //    remaining = dt + remaining;
-
-            //    while (remaining > 0) {
-
-                    world.stepSimulation(dt, MODEL.PhysicsMaxSubSteps, dt);
-
-            //        remaining -= MODEL.PhysicsStepTime;
-             //   }
-            }
-            //   console.log("Sphere xyz position: "+ sphereBody.position.x +' _ '+ sphereBody.position.y+' _ '+ sphereBody.position.z);
-            lastTime = currentTime;
-
+        AmmoFunctions.prototype.updatePhysicalWorld = function(world, dt) {
+            world.stepSimulation(dt, MODEL.PhysicsMaxSubSteps, dt);
         };
-
 
         function createTerrainShape(data, sideSize, terrainMaxHeight, terrainMinHeight, margin) {
 
@@ -545,11 +532,8 @@ define([
         }
 
         AmmoFunctions.prototype.createRigidBody = function(body_config, dynamicSpatial) {
-            var conf = body_config;
 
             var rigid_body = body_config;
-
-            var args = rigid_body.args;
 
             var dataKey = rigid_body.body_key+dynamicSpatial.getScaleKey();
             var shapeKey = rigid_body.category;
@@ -560,6 +544,15 @@ define([
             var scale = dynamicSpatial.getSpatialScale(threeVec2);
 
 
+            if (rigid_body.mass) {
+                dynamicSpatial.setSpatialDynamicFlag(1);
+            } else {
+                dynamicSpatial.setSpatialDynamicFlag(0);
+            }
+
+            var mass = rigid_body.mass*scale.x*scale.y*scale.z || 0;
+
+            dynamicSpatial.setSpatialBodyMass(mass);
 
             var rigidBody;
 
@@ -607,7 +600,7 @@ define([
             }
 
             if (shapeKey === "mesh") {
-                rigidBody = createMeshBody(conf.rigid_body, position, quaternion);
+                rigidBody = createMeshBody(rigid_body, position, quaternion);
             }
 
             return rigidBody;

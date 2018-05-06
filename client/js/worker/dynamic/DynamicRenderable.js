@@ -54,10 +54,21 @@ define([
 
         };
 
-        DynamicRenderable.prototype.setPhysicsBody = function(body) {
-
+        DynamicRenderable.prototype.getDynamicPosition = function(vec3) {
+            return this.dynamicSpatial.getSpatialPosition(vec3)
         };
 
+        DynamicRenderable.prototype.getDynamicMass = function() {
+            return this.dynamicSpatial.getSpatialBodyMass()
+        };
+
+        DynamicRenderable.prototype.applyForceVector = function(vec3) {
+            this.dynamicSpatial.applySpatialImpulseVector(vec3)
+        };
+
+        DynamicRenderable.prototype.applyTorqueVector = function(vec3) {
+            this.dynamicSpatial.applySpatialTorqueVector(vec3)
+        };
 
         DynamicRenderable.prototype.tickRenderable = function() {
 

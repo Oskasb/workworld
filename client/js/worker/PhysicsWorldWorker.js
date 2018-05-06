@@ -58,7 +58,7 @@ require(
             PhysicsWorldAPI.sendWorldMessage(ENUMS.Protocol.WORKER_READY, ENUMS.Worker.PHYSICS_WORLD);
 
             PhysicsWorldWorkerPort.onmessage = function(e) {
-                console.log("Physics Worker message:", e);
+            //    console.log("Physics Worker message:", e);
                 PhysicsWorldAPI.processRequest(e.data);
             };
 
@@ -66,7 +66,7 @@ require(
                 PhysicsWorldAPI.processRequest(premauteMessageQueue.pop().data);
             }
 
-            PhysicsWorldAPI.startPhysicsSimulationLoop(12);
+            PhysicsWorldAPI.startPhysicsSimulationLoop();
 
         };
 

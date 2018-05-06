@@ -16,7 +16,7 @@ define([
             "three_terrain":"plain_ground",
             "vegetation_system":"basic_grassland",
             "terrain_size":1000,
-            "terrain_segments":255,
+            "terrain_segments":127,
             "invert_hill":false,
             "terrain_edge_size":105,
             "edge_easing":"clampSin",
@@ -94,9 +94,7 @@ define([
                     //   WorkerAPI.callWorker(ENUMS.Worker.WORLD, WorkerAPI.buildMessage(ENUMS.Protocol.CREATE_WORLD,{posx:-200, posz:-1300, options:terrainOpts}));
                     WorkerAPI.callWorker(ENUMS.Worker.WORLD, WorkerAPI.buildMessage(ENUMS.Protocol.CREATE_WORLD,{posx:-500, posz:-500, options:terrainOpts}));
                     WorkerAPI.callWorker(ENUMS.Worker.WORLD, WorkerAPI.buildMessage(ENUMS.Protocol.SET_INPUT_BUFFER, PipelineAPI.getCachedConfigs().POINTER_STATE.buffer));
-
                 }
-
             };
 
             this.messageHandlers[ENUMS.Protocol.NOTIFY_FRAME] = function(msg) {

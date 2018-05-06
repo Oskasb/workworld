@@ -63,6 +63,11 @@ define([
                 PhysicsWorldAPI.callPhysicsSimulationUpdate()
             };
 
+
+            this.messageHandlers[ENUMS.Protocol.SET_WORLD_COM_BUFFER] = function(msg) {
+                PhysicsWorldAPI.setWorldComBuffer(msg[1])
+            };
+
         };
 
         WorldMessages.prototype.getMessageHandlers = function() {

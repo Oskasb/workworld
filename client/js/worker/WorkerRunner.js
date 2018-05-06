@@ -25,13 +25,13 @@ define([
 
             if (SharedArrayBuffer) {
                 var sab = new SharedArrayBuffer(Float32Array.BYTES_PER_ELEMENT * size);
-                var buffer = new Float32Array(sab);
-                PipelineAPI.setCategoryKeyValue("SHARED_BUFFERS", ENUMS.Key.WORLD_COM_BUFFER, buffer);
+                worldComBuffer = new Float32Array(sab);
+                PipelineAPI.setCategoryKeyValue("SHARED_BUFFERS", ENUMS.Key.WORLD_COM_BUFFER, worldComBuffer);
             } else {
                 alert("SharedBufferArray not supported. Enable it in chrome://flags");
             }
 
-            return buffer;
+            return worldComBuffer;
         };
 
         WorkerRunner.prototype.runWorldWorker = function() {
@@ -54,6 +54,7 @@ define([
 
             staticWorldWorker = new SharedWorker('./client/js/worker/StaticWorldWorker.js');
             staticWorldWorker.port.start();
+        //    staticWorldWorker.port.postMessage([ENUMS.Protocol.SET_WORLD_COM_BUFFER, worldComBuffer]);
             return staticWorldWorker;
         };
 
