@@ -80,6 +80,25 @@ define([
             return storeVec;
         };
 
+        DynamicSpatial.prototype.getVectorByFirstIndex = function(indx, storeVec) {
+            storeVec.x = this.spatialBuffer[indx];
+            storeVec.y = this.spatialBuffer[indx+1];
+            storeVec.z = this.spatialBuffer[indx+2];
+            return storeVec;
+        };
+
+        DynamicSpatial.prototype.copyBufferAByFirstIndexToBufferB = function(indxA, indxB) {
+            this.spatialBuffer[indxB]   = this.spatialBuffer[indxA];
+            this.spatialBuffer[indxB+1] = this.spatialBuffer[indxA+1];
+            this.spatialBuffer[indxB+2] = this.spatialBuffer[indxA+2];
+        };
+
+        DynamicSpatial.prototype.bufferAByFirstIndexSubBufferB = function(indxA, indxB) {
+            this.spatialBuffer[indxA]   -= this.spatialBuffer[indxB];
+            this.spatialBuffer[indxA+1] -= this.spatialBuffer[indxB+1];
+            this.spatialBuffer[indxA+2] -= this.spatialBuffer[indxB+2];
+        };
+
         DynamicSpatial.prototype.applySpatialPositionXYZ = function(x, y, z) {
             this.spatialBuffer[ENUMS.BufferSpatial.POS_X] = x;
             this.spatialBuffer[ENUMS.BufferSpatial.POS_Y] = y;
@@ -118,9 +137,9 @@ define([
         };
 
         DynamicSpatial.prototype.applySpatialImpulseVector = function(threeVec) {
-            this.spatialBuffer[ENUMS.BufferSpatial.FORCE_X] = threeVec.x;
-            this.spatialBuffer[ENUMS.BufferSpatial.FORCE_Y] = threeVec.y;
-            this.spatialBuffer[ENUMS.BufferSpatial.FORCE_Z] = threeVec.z;
+            this.spatialBuffer[ENUMS.BufferSpatial.FORCE_X] += threeVec.x;
+            this.spatialBuffer[ENUMS.BufferSpatial.FORCE_Y] += threeVec.y;
+            this.spatialBuffer[ENUMS.BufferSpatial.FORCE_Z] += threeVec.z;
             this.setSpatialStillFrames(0)
         };
 
@@ -131,9 +150,9 @@ define([
         };
 
         DynamicSpatial.prototype.applySpatialTorqueVector = function(threeVec) {
-            this.spatialBuffer[ENUMS.BufferSpatial.TORQUE_X] = threeVec.x;
-            this.spatialBuffer[ENUMS.BufferSpatial.TORQUE_Y] = threeVec.y;
-            this.spatialBuffer[ENUMS.BufferSpatial.TORQUE_Z] = threeVec.z;
+            this.spatialBuffer[ENUMS.BufferSpatial.TORQUE_X] += threeVec.x;
+            this.spatialBuffer[ENUMS.BufferSpatial.TORQUE_Y] += threeVec.y;
+            this.spatialBuffer[ENUMS.BufferSpatial.TORQUE_Z] += threeVec.z;
             this.setSpatialStillFrames(0)
         };
 
@@ -145,13 +164,31 @@ define([
             return this.spatialBuffer[ENUMS.BufferSpatial.TORQUE_X] || this.spatialBuffer[ENUMS.BufferSpatial.TORQUE_Y] || this.spatialBuffer[ENUMS.BufferSpatial.TORQUE_Z];
         };
 
+        DynamicSpatial.prototype.getTorqueApplied = function(storeVec) {
+            storeVec.x = this.spatialBuffer[ENUMS.BufferSpatial.TORQUE_APPLIED_X];
+            storeVec.y = this.spatialBuffer[ENUMS.BufferSpatial.TORQUE_APPLIED_Y];
+            storeVec.z = this.spatialBuffer[ENUMS.BufferSpatial.TORQUE_APPLIED_Z];
+        };
+
+        DynamicSpatial.prototype.getForceApplied = function(storeVec) {
+            storeVec.x = this.spatialBuffer[ENUMS.BufferSpatial.FORCE_APPLIED_X];
+            storeVec.y = this.spatialBuffer[ENUMS.BufferSpatial.FORCE_APPLIED_Y];
+            storeVec.z = this.spatialBuffer[ENUMS.BufferSpatial.FORCE_APPLIED_Z];
+        };
+
         DynamicSpatial.prototype.clearSpatialForce = function() {
+            this.spatialBuffer[ENUMS.BufferSpatial.FORCE_APPLIED_X] = this.spatialBuffer[ENUMS.BufferSpatial.FORCE_X];
+            this.spatialBuffer[ENUMS.BufferSpatial.FORCE_APPLIED_Y] = this.spatialBuffer[ENUMS.BufferSpatial.FORCE_Y];
+            this.spatialBuffer[ENUMS.BufferSpatial.FORCE_APPLIED_Z] = this.spatialBuffer[ENUMS.BufferSpatial.FORCE_Z];
             this.spatialBuffer[ENUMS.BufferSpatial.FORCE_X] = 0;
             this.spatialBuffer[ENUMS.BufferSpatial.FORCE_Y] = 0;
             this.spatialBuffer[ENUMS.BufferSpatial.FORCE_Z] = 0;
         };
 
         DynamicSpatial.prototype.clearSpatialTorque = function() {
+            this.spatialBuffer[ENUMS.BufferSpatial.TORQUE_APPLIED_X] = this.spatialBuffer[ENUMS.BufferSpatial.TORQUE_X];
+            this.spatialBuffer[ENUMS.BufferSpatial.TORQUE_APPLIED_Y] = this.spatialBuffer[ENUMS.BufferSpatial.TORQUE_Y];
+            this.spatialBuffer[ENUMS.BufferSpatial.TORQUE_APPLIED_Z] = this.spatialBuffer[ENUMS.BufferSpatial.TORQUE_Z];
             this.spatialBuffer[ENUMS.BufferSpatial.TORQUE_X] = 0;
             this.spatialBuffer[ENUMS.BufferSpatial.TORQUE_Y] = 0;
             this.spatialBuffer[ENUMS.BufferSpatial.TORQUE_Z] = 0;
@@ -236,26 +273,21 @@ define([
         DynamicSpatial.prototype.tickPhysicsForces = function(ammoApi) {
 
             if (this.bufferContainsTorque() || this.bufferContainsForce()) {
-                console.log("Apply forces...")
+                console.log("Apply forces...");
                 this.getSpatialForce(tempVec1);
                 this.getSpatialTorque(tempVec2);
-                this.clearSpatialForce();
-                this.clearSpatialTorque();
                 ammoApi.applyForceAndTorqueToBody(tempVec1, this.body, tempVec2)
             }
+        };
+
+        DynamicSpatial.prototype.testVectorByFirstIndex = function(indx) {
+            return (Math.abs(this.spatialBuffer[indx]) + Math.abs(this.spatialBuffer[indx+1]) + Math.abs(this.spatialBuffer[indx+2]))
         };
 
         var motion;
 
         DynamicSpatial.prototype.testSpatialMotion = function() {
-            motion = (
-                Math.abs(this.spatialBuffer[ENUMS.BufferSpatial.VELOCITY_X]) +
-                Math.abs(this.spatialBuffer[ENUMS.BufferSpatial.VELOCITY_Y]) +
-                Math.abs(this.spatialBuffer[ENUMS.BufferSpatial.VELOCITY_Z]) +
-                Math.abs(this.spatialBuffer[ENUMS.BufferSpatial.ANGULAR_VEL_X]) +
-                Math.abs(this.spatialBuffer[ENUMS.BufferSpatial.ANGULAR_VEL_Y]) +
-                Math.abs(this.spatialBuffer[ENUMS.BufferSpatial.ANGULAR_VEL_Z])
-            );
+            motion = this.testVectorByFirstIndex(ENUMS.BufferSpatial.VELOCITY_X)+this.testVectorByFirstIndex(ENUMS.BufferSpatial.ANGULAR_VEL_X);
 
             if (motion < 0.1) {
                 this.setSpatialStillFrames(this.getSpatialStillFrames()+1);
@@ -268,6 +300,8 @@ define([
         DynamicSpatial.prototype.tickPhysicsUpdate = function(ammoApi) {
 
             this.testSpatialMotion();
+
+
 
             if (this.getSpatialStillFrames() < this.stillLimit) {
                 this.setSpatialSimulateFlag(1)
@@ -290,6 +324,10 @@ define([
                     this.setSpatialDisabledFlag(1);
                 }
             }
+
+            this.clearSpatialForce();
+            this.clearSpatialTorque();
+
         };
 
         var vel;
@@ -300,6 +338,9 @@ define([
             if (this.getSpatialDisabledFlag()) {
                 return;
             }
+
+            this.copyBufferAByFirstIndexToBufferB(ENUMS.BufferSpatial.VELOCITY_X, ENUMS.BufferSpatial.ACCELERATION_X);
+            this.copyBufferAByFirstIndexToBufferB(ENUMS.BufferSpatial.ANGULAR_VEL_X, ENUMS.BufferSpatial.ANGULAR_ACCEL_X);
 
             if (!this.body.getMotionState) {
                 PhysicsWorldAPI.registerPhysError();
@@ -331,11 +372,13 @@ define([
                 angVel = this.body.getAngularVelocity();
                 this.applyAngularVelocityXYZ(angVel.x(), angVel.y(), angVel.z());
 
-
-
             } else {
                 PhysicsWorldAPI.registerPhysError();
             }
+
+            this.bufferAByFirstIndexSubBufferB(ENUMS.BufferSpatial.ACCELERATION_X, ENUMS.BufferSpatial.VELOCITY_X);
+            this.bufferAByFirstIndexSubBufferB(ENUMS.BufferSpatial.ANGULAR_ACCEL_X, ENUMS.BufferSpatial.ANGULAR_VEL_X);
+
         };
 
 

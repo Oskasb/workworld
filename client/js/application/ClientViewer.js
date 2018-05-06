@@ -353,6 +353,7 @@ define([
         };
 
         ClientViewer.prototype.tickWorkerPing = function(msg) {
+
             evt.fire(evt.list().CLIENT_TICK, tickEvent);
         };
 

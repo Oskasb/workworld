@@ -62,42 +62,47 @@ define([
             WorldAPI.setCom(ENUMS.BufferChannels.PUSH_ALL_DYNAMICS, 0);
         };
 
-        var attractAllDyn = function() {
+        var attractAllDyn = function(maxRange) {
 
             tempVec2.copy(WorldAPI.getWorldCursor().getCursorObj3d().position);
-            tempVec2.y+=10;
+            tempVec2.y+=20;
 
             for (var i = 0; i < dynamics.length;i++) {
-
-                mass = dynamics[i].getDynamicMass();
 
                 dynamics[i].getDynamicPosition(tempVec1);
                 tempVec1.subVectors(tempVec2, tempVec1);
-            //    tempVec1.normalize();
-                tempVec1.multiplyScalar(100 * (mass+100) / Math.sqrt(distance));
-                dynamics[i].applyForceVector(tempVec1);
+                distance = tempVec1.length();
+
+                if (distance < maxRange) {
+                    mass = dynamics[i].getDynamicMass();
+                    tempVec1.normalize();
+                    tempVec1.multiplyScalar(500 * (mass+200) * Math.sqrt(1/distance));
+                    dynamics[i].applyForceVector(tempVec1);
+                }
+
             }
         };
 
-        var repelAllDyn = function() {
+        var repelAllDyn = function(maxRange) {
 
             tempVec2.copy(WorldAPI.getWorldCursor().getCursorObj3d().position);
-
-            tempVec2.y-=1;
+            tempVec2.y += 2;
 
             for (var i = 0; i < dynamics.length;i++) {
-
-                mass = dynamics[i].getDynamicMass();
-
 
                 dynamics[i].getDynamicPosition(tempVec1);
                 tempVec1.subVectors(tempVec1, tempVec2);
                 distance = tempVec1.length();
-                tempVec1.normalize();
-                tempVec1.multiplyScalar(5000 * (mass+5000) / Math.sqrt(distance));
-                dynamics[i].applyForceVector(tempVec1);
+
+                if (distance < maxRange) {
+                    mass = dynamics[i].getDynamicMass();
+                    tempVec1.normalize();
+                    tempVec1.multiplyScalar(1500 * (mass + 500) / (maxRange/distance+1));
+                    dynamics[i].applyForceVector(tempVec1);
+                }
+
             }
-            WorldAPI.setCom(ENUMS.BufferChannels.REPEL_DYNAMICS, 0);
+        //    WorldAPI.setCom(ENUMS.BufferChannels.REPEL_DYNAMICS, 0);
         };
 
         DynamicWorld.prototype.updateDynamicWorld = function() {
@@ -113,11 +118,11 @@ define([
             }
 
             if (WorldAPI.getCom(ENUMS.BufferChannels.ATTRACT_DYNAMICS)) {
-                attractAllDyn();
+                attractAllDyn(150);
             }
 
             if (WorldAPI.getCom(ENUMS.BufferChannels.REPEL_DYNAMICS)) {
-                repelAllDyn();
+                repelAllDyn(35);
             }
 
             for (var i = 0; i < dynamics.length;i++) {

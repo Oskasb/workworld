@@ -5,6 +5,7 @@
         "id": "wooden_crate",
         "data": {
           "instance_id":"crate_wood_geometry_effect",
+          "dynamic_feedback":"crate_feedback",
           "rigid_body":{
             "body_key":"box_1x1x1_crate",
             "category":"primitive",
@@ -12,8 +13,8 @@
             "shape":"Box",
             "args":[1, 1, 1],
             "friction":1.5,
-            "restitution":0.95,
-            "damping":0.015,
+            "restitution":0.75,
+            "damping":0.45,
             "mass":200
           }
         }
@@ -22,6 +23,7 @@
         "id": "creative_crate",
         "data": {
           "instance_id":"creative_crate_geometry_effect",
+          "dynamic_feedback":"crate_feedback",
           "rigid_body":{
             "body_key":"box_1x1x1_creative_crate",
             "category":"primitive",
@@ -29,8 +31,8 @@
             "shape":"Box",
             "args":[1, 1, 1],
             "friction":1.3,
-            "restitution":0.97,
-            "damping":0.01,
+            "restitution":0.85,
+            "damping":0.15,
             "mass":2000
           }
         }

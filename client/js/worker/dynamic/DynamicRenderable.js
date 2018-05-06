@@ -2,11 +2,13 @@
 
 define([
         'worker/dynamic/DynamicSpatial',
+        'worker/dynamic/DynamicFeedback',
         'worker/geometry/GeometryInstance',
         'ConfigObject'
     ],
     function(
         DynamicSpatial,
+        DynamicFeedback,
         GeometryInstance,
         ConfigObject
     ) {
@@ -22,6 +24,7 @@ define([
         var DynamicRenderable = function() {
             this.obj3d = new THREE.Object3D();
             this.dynamicSpatial = new DynamicSpatial();
+            this.dynamicFeedback = new DynamicFeedback();
             this.geometryInstance = new GeometryInstance();
             this.dynamicSpatial.setupSpatialBuffer();
         };
@@ -37,16 +40,21 @@ define([
 
         DynamicRenderable.prototype.initRenderable = function(renderableId, onReady) {
 
+            var feedbackReady = function() {
+                this.dynamicFeedback.inheritPosVector(this.obj3d.position);
+                this.dynamicFeedback.inheritQuaternion(this.obj3d.quaternion);
+                onReady(this);
+            }.bind(this);
+
             var configLoaded = function(data) {
                 this.geometryInstance.setObject3d(this.obj3d);
                 this.geometryInstance.setInstanceFxId(data.instance_id);
                 this.dynamicSpatial.setSpatialFromObj3d(this.obj3d);
-
-                var scale = 1+(Math.floor(Math.random()*4)*3);
+                var scale = 1+(Math.floor(Math.random()*2)*2);
                 this.geometryInstance.setInstanceSize(scale);
                 this.dynamicSpatial.applySpatialScaleXYZ(scale, scale, scale);
                 this.dynamicSpatial.registerRigidBody(data.rigid_body);
-                onReady(this);
+                this.dynamicFeedback.initDynamicFeedback(data.dynamic_feedback, feedbackReady);
             }.bind(this);
 
             this.configObject = new ConfigObject('GEOMETRY', 'DYNAMIC_RENDERABLE', renderableId);
@@ -71,10 +79,10 @@ define([
         };
 
         DynamicRenderable.prototype.tickRenderable = function() {
-
             this.dynamicSpatial.setObj3dFromSpatial(this.geometryInstance.getObject3d());
             this.geometryInstance.updateGeometryInstance();
             this.dynamicSpatial.notifyVisibility(this.geometryInstance.getIsVisibile());
+            this.dynamicFeedback.tickDynamicFeedback(this.dynamicSpatial, this.geometryInstance.getIsVisibile());
         };
 
 

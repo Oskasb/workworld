@@ -19,6 +19,7 @@
       "ui/gui_widgets.json",
 
       "geometry/renderable_dynamic.json",
+      "geometry/dynamic_feedback.json",
 
       "game/levels/level_data.json",
       "game/levels/level_population_data.json",

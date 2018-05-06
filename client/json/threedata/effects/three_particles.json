@@ -109,22 +109,21 @@
           "sprite_key":"ATLAS",
           "sprite_id":"explosion",
           "config":{
-            "age":     {"min":0.001, "max":0.02},
-            "lifeTime":{"min":2.5,"max":2.5},
+            "age":     {"min":0.001, "max":0.9},
+            "lifeTime":{"min":0.2,"max":3.5},
             "positionSpread":{"x":1.01, "y":1.01, "z":1.01},
             "gravity":4.001,
             "drag":0.06,
             "bend":0.05,
-
             "colorCurve":"warmFire",
             "alphaCurve":"earlyFadeOut",
             "diffusionCurve":"pulseSlowOut",
             "scaleCurve":"cubeIn",
-            "size":{"value":1.0, "min": -0.5, "max": 3.0},
+            "size":{"value":1.0, "min": -0.2, "max": 0.2},
             "spin":{"value":0.1, "min":-0.30, "max":0.0},
             "spinDrag":0.31,
             "velocitySpread":{"min":-1,"max":1},
-            "velocityDiffusion":5.5,
+            "velocityDiffusion":0.2,
             "accelerationDiffusion":0.15,
             "colorDiffusion":0.08,
             "velocityFactor":1.0
@@ -283,24 +282,24 @@
           "sprite_key":"ATLAS",
           "sprite_id":"fielddot",
           "config":{
-            "age":     {"min":0.01, "max":0.05},
-            "lifeTime":{"min":1.5,"max":8.0},
-            "positionSpread":{"x":3, "y":3, "z":3},
+            "age":     {"min":0.01, "max":0.7},
+            "lifeTime":{"min":1.1,"max":8.0},
+            "positionSpread":{"x":6, "y":6, "z":6},
             "gravity":1.201,
-            "drag":0.25,
-            "bend":2.0,
+            "drag":0.05,
+            "bend":1.2,
             "spinDrag":0.8,
             "colorCurve":"hotFire",
             "alphaCurve":"oneToZero",
             "diffusionCurve":"oneToZero",
             "scaleCurve":"noiseFadeOut",
-            "size":{"value":0.1, "min": -0.1, "max": 0.8},
+            "size":{"value":0.2, "min": -0.1, "max": 0.1},
             "spin":{"value":0.01, "min":-2.5, "max":2.5},
             "velocitySpread":{"min":1,"max":1},
-            "velocityDiffusion":1,
-            "accelerationDiffusion":0.3,
+            "velocityDiffusion":0.6,
+            "accelerationDiffusion":0.6,
             "colorDiffusion":0.35,
-            "velocityFactor":0.13
+            "velocityFactor":0.53
           }
         },
 
@@ -309,11 +308,11 @@
           "sprite_key":"ATLAS",
           "sprite_id":"spinfield",
           "config":{
-            "age":     {"min":0.01, "max":2.5},
-            "lifeTime":{"min":4.5,"max":5.5},
+            "age":     {"min":0.01, "max":0.9},
+            "lifeTime":{"min":0.9,"max":1.1},
             "positionSpread":{"x":0.02, "y":0.01, "z":0.02},
             "gravity":0.01,
-            "drag":2.7,
+            "drag":0.7,
             "bend":0.0001,
             "spinDrag":0.05,
             "colorCurve":"randomBlue",
@@ -325,7 +324,7 @@
             "velocityDiffusion":0.0001,
             "accelerationDiffusion":0.0001,
             "colorDiffusion":0.35,
-            "velocityFactor":0.23
+            "velocityFactor":1.0
           }
         },
 
@@ -360,7 +359,7 @@
           "sprite_id":"double_arc",
           "config":{
             "age":     {"min":0.001, "max":2.1},
-            "lifeTime":{"min":2.5,"max":2.9},
+            "lifeTime":{"min":0.8,"max":1.2},
             "positionSpread":{"x":0.002, "y":0.001, "z":0.002},
             "gravity":0.01,
             "drag":2.7,
@@ -370,7 +369,7 @@
             "alphaCurve":"sin",
             "diffusionCurve":"sin",
             "scaleCurve":"qubeIn",
-            "size":{"value":2.3, "min": 0.001, "max": 0.001},
+            "size":{"value":1.0, "min": 0.001, "max": 0.001},
             "spin":{"value":0.1, "min": -25.01, "max": 20.01},
             "velocityDiffusion":0.0001,
             "accelerationDiffusion":0.0001,
@@ -434,23 +433,23 @@
           "sprite_key":"ATLAS",
           "sprite_id":"star",
           "config":{
-            "age":     {"min":0.01, "max":0.3},
-            "lifeTime":{"min":0.45,"max":0.3},
+            "age":     {"min":0.01, "max":0.2},
+            "lifeTime":{"min":0.85,"max":1.2},
             "positionSpread":{"x":0.25, "y":0.21, "z":0.25},
             "gravity":0.01,
             "drag":0.45,
-            "bend":0.6,
+            "bend":0.3,
             "spinDrag":0.25,
             "colorCurve":"blueYellowRed",
             "alphaCurve":"oneToZero",
             "diffusionCurve":"oneToZero",
             "scaleCurve":"oneToZero",
-            "size":{"value":0.8, "min":-0.3, "max": 0.8},
+            "size":{"value":1.0, "min":-0.3, "max": 0.3},
             "spin":{"value":0.5, "min": -8.1, "max": 6},
-            "velocityDiffusion":0.2,
-            "accelerationDiffusion":0.4,
+            "velocityDiffusion":0.02,
+            "accelerationDiffusion":0.002,
             "colorDiffusion":0.35,
-            "velocityFactor":4.00
+            "velocityFactor":0.000001
           }
         },
         {
@@ -623,8 +622,8 @@
           "sprite_id":"free_leafs",
           "config":{
             "age":     {"min":0.01, "max":0.05},
-            "lifeTime":{"min":2.5,"max":6.0},
-            "positionSpread":{"x":2, "y":2, "z":2},
+            "lifeTime":{"min":1.5,  "max":3.0},
+            "positionSpread":{"x":3, "y":3, "z":3},
             "gravity":-1.201,
             "drag":0.412,
             "bend":0.2,
@@ -633,13 +632,13 @@
             "alphaCurve":"nearWhite",
             "diffusionCurve":"oneToZero",
             "scaleCurve":"oneToZero",
-            "size":{"value":0.3, "min": 0.0, "max": 0.7},
+            "size":{"value":0.4, "min": 0.0, "max": 0.4},
             "spin":{"value":0.01, "min":-44.5, "max":44.5},
-            "velocitySpread":{"min":-1,"max":1},
-            "velocityDiffusion":0.7,
+            "velocitySpread":{"min":-0.2,"max":0.2},
+            "velocityDiffusion":0.37,
             "accelerationDiffusion":0.3,
             "colorDiffusion":0.15,
-            "velocityFactor":3.613
+            "velocityFactor":0.1
           }
         },
 
