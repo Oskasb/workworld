@@ -5,6 +5,8 @@
 define([],
     function() {
 
+        var buffer;
+        var attribIdx;
 
         function buffer1DEqualsValue(buffer, index, value) {
             if (buffer[index] === value) {
@@ -123,7 +125,9 @@ define([],
             this.params.velocity.y += vel.y;
             this.params.velocity.z += vel.z;
         };
-        
+
+
+
         Particle.prototype.bindAttribute = function(name, dimensions, attributeBuffer) {
             this.buffers[name] = attributeBuffer.array;
             this.attributeBuffers[name] = attributeBuffer;
@@ -137,26 +141,30 @@ define([],
 
         Particle.prototype.setAttribute2D = function(name, value1, value2) {
 
-            this.buffers[name][this.attributes[name]] = value1;
-            this.buffers[name][this.attributes[name]+1] = value2;
+            buffer = this.buffers[name];
+            attribIdx = this.attributes[name];
+            buffer[attribIdx]   = value1;
+            buffer[attribIdx+1] = value2;
             this.setAttributeNeedsUpdate(this.attributeBuffers[name])
         };
 
         Particle.prototype.setAttribute3D = function(name, value1, value2, value3) {
+            buffer = this.buffers[name];
+            attribIdx = this.attributes[name];
 
-            this.buffers[name][this.attributes[name]] = value1;
-            this.buffers[name][this.attributes[name]+1] = value2;
-            this.buffers[name][this.attributes[name]+2] = value3;
+            buffer[attribIdx]   = value1;
+            buffer[attribIdx+1] = value2;
+            buffer[attribIdx+2] = value3;
             this.setAttributeNeedsUpdate(this.attributeBuffers[name])
         };
 
         Particle.prototype.setAttribute4D = function(name, value1, value2, value3, value4) {
-
-            this.buffers[name][this.attributes[name]] = value1;
-            this.buffers[name][this.attributes[name]+1] = value2;
-            this.buffers[name][this.attributes[name]+2] = value3;
-            this.buffers[name][this.attributes[name]+3] = value4;
-
+            buffer = this.buffers[name];
+            attribIdx = this.attributes[name];
+            buffer[attribIdx]   = value1;
+            buffer[attribIdx+1] = value2;
+            buffer[attribIdx+2] = value3;
+            buffer[attribIdx+3] = value4;
             this.setAttributeNeedsUpdate(this.attributeBuffers[name])
         };
 

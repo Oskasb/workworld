@@ -30,14 +30,13 @@ define([
         DynamicWorld.prototype.spawnDynamicRenderable = function(renderableId, parentObj3d) {
             newDynRen = new DynamicRenderable();
             newDynRen.inheritObj3D(parentObj3d);
-            newDynRen.obj3d.position.x += -190+Math.random()*380;
-            newDynRen.obj3d.position.y += 15+Math.random()*165;
-            newDynRen.obj3d.position.z += -190+Math.random()*380;
+            newDynRen.pos.x += -190+Math.random()*380;
+            newDynRen.pos.y += 15+Math.random()*165;
+            newDynRen.pos.z += -190+Math.random()*380;
             newDynRen.initRenderable(renderableId, addDynamicRenderable);
         };
 
         var geoms = ['wooden_crate', 'creative_crate'];
-
         var distance;
         var mass;
 

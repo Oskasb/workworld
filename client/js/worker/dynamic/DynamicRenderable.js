@@ -13,16 +13,10 @@ define([
         ConfigObject
     ) {
 
-        var forceApply = false;
-        var torqueApply = false;
-
-        var tempVec1 = new THREE.Vector3();
-        var tempVec2 = new THREE.Vector3();
-        var tempQuat = new THREE.Quaternion();
-
-
         var DynamicRenderable = function() {
-            this.obj3d = new THREE.Object3D();
+            this.pos = new THREE.Vector3();
+            this.quat = new THREE.Quaternion();
+
             this.dynamicSpatial = new DynamicSpatial();
             this.dynamicFeedback = new DynamicFeedback();
             this.geometryInstance = new GeometryInstance();
@@ -30,8 +24,10 @@ define([
         };
 
         DynamicRenderable.prototype.inheritObj3D = function(obj3d) {
-            this.obj3d.position.copy(obj3d.position);
-            this.obj3d.quaternion.copy(obj3d.quaternion);
+
+            this.pos.copy(obj3d.position);
+            this.quat.copy(obj3d.quaternion);
+
         };
 
         DynamicRenderable.prototype.configRead = function(dataKey) {
@@ -41,15 +37,15 @@ define([
         DynamicRenderable.prototype.initRenderable = function(renderableId, onReady) {
 
             var feedbackReady = function() {
-                this.dynamicFeedback.inheritPosVector(this.obj3d.position);
-                this.dynamicFeedback.inheritQuaternion(this.obj3d.quaternion);
+                this.dynamicFeedback.inheritPosVector(this.pos);
+                this.dynamicFeedback.inheritQuaternion(this.quat);
                 onReady(this);
             }.bind(this);
 
             var configLoaded = function(data) {
-                this.geometryInstance.setObject3d(this.obj3d);
+                this.geometryInstance.inheritPosAndQuat(this.pos, this.quat);
                 this.geometryInstance.setInstanceFxId(data.instance_id);
-                this.dynamicSpatial.setSpatialFromObj3d(this.obj3d);
+                this.dynamicSpatial.setSpatialFromPosAndQuat(this.pos, this.quat);
                 var scale = 1+(Math.floor(Math.random()*2)*2);
                 this.geometryInstance.setInstanceSize(scale);
                 this.dynamicSpatial.applySpatialScaleXYZ(scale, scale, scale);
@@ -79,12 +75,13 @@ define([
         };
 
         DynamicRenderable.prototype.tickRenderable = function() {
-            this.dynamicSpatial.setObj3dFromSpatial(this.geometryInstance.getObject3d());
+            this.dynamicSpatial.getSpatialPosition(this.geometryInstance.pos);
+            this.dynamicSpatial.getSpatialQuaternion(this.geometryInstance.quat);
+
             this.geometryInstance.updateGeometryInstance();
             this.dynamicSpatial.notifyVisibility(this.geometryInstance.getIsVisibile());
             this.dynamicFeedback.tickDynamicFeedback(this.dynamicSpatial, this.geometryInstance.getIsVisibile());
         };
-
 
         DynamicRenderable.prototype.sampleRenderableState = function() {
 

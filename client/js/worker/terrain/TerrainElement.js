@@ -50,8 +50,6 @@ define([
             this.fxId = fxByFeature[this.elementType];
             this.geometryInstance = new GeometryInstance();
             this.geometryInstance.setInstanceFxId(this.fxId);
-            this.geometryInstance.setObject3d(new THREE.Object3D());
-
             this.geometryInstance.setInstancePosition(pos);
             this.geometryInstance.setInstanceQuaternion(quat);
             this.geometryInstance.setInstanceSize(this.scale);
@@ -80,7 +78,7 @@ define([
                 if (tempVec1.y > 1 && tempVec2.y > 0.95) {
 
                     if (!this.testTerrainElementsForType(otherElements, ENUMS.TerrainFeature.WOODS)) {
-                        this.scale = 7.5*(Math.random())+0.3;
+                        this.scale = 6.5*(Math.random())+0.2;
                         tempVec1.y += 6 * this.scale;
                         this.elementType = ENUMS.TerrainFeature.WOODS;
 
@@ -88,7 +86,7 @@ define([
 
                         if (Math.random() < 0.5) return;
 
-                        this.scale =  0.5 + 5.2*(Math.random()+0.4) * Math.random();
+                        this.scale =  0.2 + 4.2*(Math.random()+0.4) * Math.random();
                         tempVec1.y += 6 * this.scale;
                         this.elementType = ENUMS.TerrainFeature.WOODS;
                     }

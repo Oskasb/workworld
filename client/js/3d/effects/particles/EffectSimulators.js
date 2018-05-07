@@ -7,6 +7,8 @@ define([],
 
         var calcVec = new THREE.Vector3();
 
+        var param;
+
         function addVectorsTpf(source, target, tpf) {
             calcVec.x = source.x;
             calcVec.y = source.y;
@@ -101,10 +103,11 @@ define([],
         };
 
         EffectSimulators.valueToQuat = function(particle, tpf, source, target) {
-            particle.params[target].x -= particle.params[source].value*tpf*4;
-            particle.params[target].y += Math.sin(particle.params[source].value*tpf);
-            particle.params[target].z = Math.sin(particle.params[source].value*tpf*5);
-            particle.params[target].normalize();
+            param = particle.params[source];
+            param.x -= particle.params[source].value*tpf*4;
+            param.y += Math.sin(particle.params[source].value*tpf);
+            param.z = Math.sin(particle.params[source].value*tpf*5);
+            param.normalize();
         };
         
         EffectSimulators.vec3toCurve3D = function(particle, tpf, source, target) {
@@ -124,25 +127,28 @@ define([],
         };
 
         EffectSimulators.attrib4D = function(particle, tpf, source, target) {
+            param = particle.params[source];
             particle.setAttribute4D(target,
-                particle.params[source].x,
-                particle.params[source].y,
-                particle.params[source].z,
-                particle.params[source].w
+                param.x,
+                param.y,
+                param.z,
+                param.w
             )
         };
 
         EffectSimulators.attrib3D = function(particle, tpf, source, target) {
+            param = particle.params[source];
             particle.setAttribute3D(target,
-                particle.params[source].x,
-                particle.params[source].y,
-                particle.params[source].z)
+                param.x,
+                param.y,
+                param.z)
         };
 
         EffectSimulators.attrib2D = function(particle, tpf, source, target) {
+            param = particle.params[source];
             particle.setAttribute2D(target,
-                particle.params[source].x,
-                particle.params[source].y)
+                param.x,
+                param.y)
         };
 
         EffectSimulators.attrib1D = function(particle, tpf, source, target) {

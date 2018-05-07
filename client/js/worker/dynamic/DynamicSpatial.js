@@ -7,8 +7,6 @@ define([
 
     ) {
 
-        var forceApply = false;
-        var torqueApply = false;
 
         var tempVec1 = new THREE.Vector3();
         var tempVec2 = new THREE.Vector3();
@@ -18,7 +16,6 @@ define([
         var VECTOR_AUX;
 
         var DynamicSpatial = function() {
-            this.lowMotionFrames = 0;
             this.stillLimit = 5;
             this.visiblePingFrames = 200;
         };
@@ -247,15 +244,11 @@ define([
             return 1 - this.getSpatialDynamicFlag();
         };
 
-        DynamicSpatial.prototype.setSpatialFromObj3d = function(obj3d) {
-            this.applySpatialPositionXYZ(obj3d.position.x, obj3d.position.y,obj3d.position.z);
-            this.applySpatialQuaternionXYZW(obj3d.quaternion.x, obj3d.quaternion.y,obj3d.quaternion.z, obj3d.quaternion.w)
+        DynamicSpatial.prototype.setSpatialFromPosAndQuat = function(pos, quat) {
+            this.applySpatialPositionXYZ(pos.x, pos.y,pos.z);
+            this.applySpatialQuaternionXYZW(quat.x, quat.y,quat.z, quat.w)
         };
 
-        DynamicSpatial.prototype.setObj3dFromSpatial = function(obj3d) {
-            this.getSpatialPosition(obj3d.position);
-            this.getSpatialQuaternion(obj3d.quaternion);
-        };
 
         DynamicSpatial.prototype.getScaleKey = function() {
             return '_scale_'+this.spatialBuffer[ENUMS.BufferSpatial.SCALE_X]+this.spatialBuffer[ENUMS.BufferSpatial.SCALE_Y]+this.spatialBuffer[ENUMS.BufferSpatial.SCALE_Z]

@@ -7,9 +7,17 @@ define([
         EffectsAPI
     ) {
 
+        var tempObj3d = new THREE.Object3D();
+
         var GeometryInstance = function() {
             this.effect = null;
             this.size = 1;
+
+            this.pos = new THREE.Vector3();
+            this.quat = new THREE.Quaternion();
+
+            this.lastPos = new THREE.Vector3();
+            this.lastQuat = new THREE.Quaternion();
             this.isVisible = false;
             this.wasVisible = false;
         };
@@ -18,34 +26,32 @@ define([
             this.fxId = fxId;
         };
 
-        GeometryInstance.prototype.setObject3d  = function(object3d) {
-            this.object3d = object3d;
-        };
-
-        GeometryInstance.prototype.getObject3d  = function() {
-            return this.object3d;
+        GeometryInstance.prototype.inheritPosAndQuat  = function(pos, quat) {
+            this.pos = pos;
+            this.quat = quat
         };
 
         GeometryInstance.prototype.setInstancePosition = function(pos) {
-            this.object3d.position.copy(pos);
+            this.pos.copy(pos);
             if (this.effect) {
-                this.effect.updateEffectPositionSimulator(this.object3d.position);
+                this.effect.updateEffectPositionSimulator(this.pos);
+                this.lastPos.copy(this.pos);
             }
         };
 
         GeometryInstance.prototype.getInstancePosition = function(storeVec) {
-            storeVec.copy(this.object3d.position);
+            storeVec.copy(this.pos);
         };
 
         GeometryInstance.prototype.setInstanceQuaternion = function(quat) {
-            this.object3d.quaternion.copy(quat);
+            this.quat.copy(quat);
             if (this.effect) {
-                this.effect.updateEffectQuaternionSimulator(this.object3d.quaternion);
+                this.effect.updateEffectQuaternionSimulator(this.quat);
             }
         };
 
         GeometryInstance.prototype.getInstanceQuaternion = function(storeQuat) {
-            storeQuat.copy(this.object3d.quaternion);
+            storeQuat.copy(this.quat);
         };
 
         GeometryInstance.prototype.setInstanceSize = function(size) {
@@ -60,16 +66,21 @@ define([
         };
 
         GeometryInstance.prototype.lookAt = function(vec3) {
-            this.object3d.lookAt(vec3);
+            tempObj3d.position.copy(this.pos);
+            tempObj3d.lookAt(vec3);
+            this.quat.copy(tempObj3d.quaternion);
             if (this.effect) {
-                this.effect.updateEffectQuaternionSimulator(this.object3d.quaternion);
+                this.lastQuat.copy(this.quat);
+                this.effect.updateEffectQuaternionSimulator(this.quat);
             }
         };
 
         GeometryInstance.prototype.renderGeometryInstance = function() {
             if (!this.effect) {
-                this.effect = EffectsAPI.requestPassiveEffect(this.fxId, this.object3d.position, null, null, this.object3d.quaternion);
+                this.effect = EffectsAPI.requestPassiveEffect(this.fxId, this.pos, null, null, this.quat);
                 this.setInstanceSize(this.size)
+                this.lastQuat.copy(this.quat);
+                this.lastPos.copy(this.pos);
             }
         };
 
@@ -85,7 +96,7 @@ define([
         };
 
         GeometryInstance.prototype.testIsVisible = function() {
-            return WorldAPI.getWorldCamera().testPosRadiusVisible(this.object3d.position, this.size*0.65);
+            return WorldAPI.getWorldCamera().testPosRadiusVisible(this.pos, this.size*0.65);
         };
 
         GeometryInstance.prototype.applyVisibility = function(isVisible) {
@@ -105,10 +116,16 @@ define([
             }
 
             if (this.isVisible) {
-                this.effect.updateEffectPositionSimulator(this.object3d.position);
-                this.effect.updateEffectQuaternionSimulator(this.object3d.quaternion);
-            }
+                if (!this.lastPos.equals(this.pos)) {
+                    this.effect.updateEffectPositionSimulator(this.pos);
+                    this.lastPos.copy(this.pos);
+                }
 
+                if (!this.lastQuat.equals(this.quat)) {
+                    this.effect.updateEffectQuaternionSimulator(this.quat);
+                    this.lastQuat.copy(this.quat);
+                }
+            }
         };
 
 
