@@ -59,12 +59,20 @@ define(['worker/physics/AmmoFunctions'],
             return body;
         };
 
-        AmmoAPI.prototype.setupRigidBody = function(bodyConf, dynamicSpatial) {
+        AmmoAPI.prototype.registerGeoBuffer = function(id, buffer) {
+            ammoFunctions.setGeometryBuffer(id, buffer);
+        };
 
-            var body = ammoFunctions.createRigidBody(bodyConf, dynamicSpatial);
-            bodies.push(body);
-            world.addRigidBody(body);
-            return body;
+        AmmoAPI.prototype.setupRigidBody = function(bodyConf, dynamicSpatial, cb) {
+
+            var onReady = function(body) {
+                bodies.push(body);
+                world.addRigidBody(body);
+                cb(dynamicSpatial, body);
+            };
+
+            ammoFunctions.createRigidBody(bodyConf, dynamicSpatial, onReady);
+
         };
 
 

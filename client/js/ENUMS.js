@@ -23,7 +23,9 @@ if(typeof(ENUMS) === "undefined"){
         SHARED_WORKER_PORT:     13,
         PHYSICS_TERRAIN_ADD:    14,
         PHYSICS_BODY_ADD:       15,
-        PHYSICS_CALL_UPDATE:    16
+        PHYSICS_CALL_UPDATE:    16,
+        FETCH_GEOMETRY_BUFFER:  17,
+        SET_GEOMETRY_BUFFER:    18
     };
 
     ENUMS.BufferChannels = {
@@ -127,8 +129,8 @@ if(typeof(ENUMS) === "undefined"){
         ANGULAR_ACCEL_X:    37,
         ANGULAR_ACCEL_Y:    38,
         ANGULAR_ACCEL_Z:    39,
-
-        BUFFER_SIZE:        40
+        VISUAL_SIZE:        40,
+        BUFFER_SIZE:        41
     };
 
 

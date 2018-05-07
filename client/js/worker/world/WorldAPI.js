@@ -97,6 +97,18 @@ define([
             return worldMain.worldComBuffer()[index]
         };
 
+        WorldAPI.buildDynamicRenderable = function(renderableId, pos, quat, scale) {
+            return dynamicWorld.setupDynamicRenderable(renderableId, pos, quat, scale)
+        };
+
+        WorldAPI.attachDynamicRenderable = function(renderable) {
+            dynamicWorld.includeDynamicRenderable(renderable)
+        };
+
+        WorldAPI.detachDynamicRenderable = function(renderable) {
+            dynamicWorld.spliceDynamicRenderable(renderable)
+        };
+
         WorldAPI.getWorldCamera = function() {
             return worldControlState.getWorldCamera()
         };

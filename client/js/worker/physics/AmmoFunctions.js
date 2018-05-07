@@ -531,7 +531,55 @@ define([
             }
         }
 
-        AmmoFunctions.prototype.createRigidBody = function(body_config, dynamicSpatial) {
+        var geometryBuffers = {};
+        var geoShapes = {};
+        var geoCallbacks = {};
+
+        AmmoFunctions.prototype.setGeometryBuffer = function(id, buffer) {
+            geometryBuffers[id] = buffer;
+            while (geoCallbacks[id].length) {
+                geoCallbacks[id].pop()()
+            }
+        };
+
+        var fetchGeometryBuffer = function(id, cb) {
+            if(!geoCallbacks[id]) {
+                geoCallbacks[id] = [];
+                PhysicsWorldAPI.sendWorldMessage(ENUMS.Protocol.FETCH_GEOMETRY_BUFFER, id);
+            }
+            geoCallbacks[id].push(cb);
+        };
+
+        function createMeshShape(dataKey, bodyParams, position, quaternion, mass, scale, onReady, dynamicSpatial, ammoFuncs) {
+            console.log("CreateMEshShape", dataKey, bodyParams, position, quaternion, mass, scale, onReady)
+            if (geoShapes[dataKey]) {
+                configureMeshShape(geoShapes[dataKey], bodyParams, position, quaternion, mass, scale, onReady)
+            } else {
+
+                if (geometryBuffers[bodyParams.model_id]) {
+
+                    if (bodyParams.convex) {
+                        geoShapes[dataKey] = createConvexHullFromBuffer(geometryBuffers[bodyParams.model_id], scale);
+                    } else {
+                        geoShapes[dataKey] = createTriMeshFromBuffer(geometryBuffers[bodyParams.model_id], scale);
+                    }
+                    configureMeshShape(geoShapes[dataKey], bodyParams, position, quaternion, mass, scale, onReady)
+                } else {
+
+                    var bp = bodyParams;
+                    var ds = dynamicSpatial;
+                    var or = onReady;
+
+                    var modelCB = function() {
+                        ammoFuncs.createRigidBody(bp, ds, or)
+                    };
+
+                    fetchGeometryBuffer(bodyParams.model_id, modelCB)
+                }
+            }
+        }
+
+        AmmoFunctions.prototype.createRigidBody = function(body_config, dynamicSpatial, onReady) {
 
             var rigid_body = body_config;
 
@@ -600,10 +648,11 @@ define([
             }
 
             if (shapeKey === "mesh") {
-                rigidBody = createMeshBody(rigid_body, position, quaternion);
+                createMeshBody(dataKey, rigid_body, position, quaternion, mass, scale, onReady, dynamicSpatial, this);
+            } else {
+                onReady(rigidBody);
             }
 
-            return rigidBody;
         };
 
 
@@ -618,15 +667,12 @@ define([
             var localInertia = new Ammo.btVector3(0, 0, 0);
             geometry.calculateLocalInertia(mass, localInertia);
 
-
-
             var rbInfo = new Ammo.btRigidBodyConstructionInfo(mass, motionState, geometry, localInertia);
 
             if (mass) {
                 rbInfo.set_m_linearSleepingThreshold(1.0);
                 rbInfo.set_m_angularSleepingThreshold(0.40);
             }
-
 
             var body = new Ammo.btRigidBody(rbInfo);
 
@@ -641,7 +687,8 @@ define([
             return new Ammo.btCylinderShape(new Ammo.btVector3(w * 0.5, l * 0.5, h * 1));
         }
 
-        function createConvexHullFromBuffer(buffer) {
+        function createConvexHullFromBuffer(buffer, scale) {
+            console.log("Create Convex Hull...", buffer, scale);
             var btConvexHullShape = new Ammo.btConvexHullShape();
             var _vec3_1 = new Ammo.btVector3(0,0,0);
             var _vec3_2 = new Ammo.btVector3(0,0,0);
@@ -661,10 +708,13 @@ define([
                 btConvexHullShape.addPoint(_vec3_2,true);
                 btConvexHullShape.addPoint(_vec3_3,true);
             }
+
+            btConvexHullShape.setLocalScaling(new Ammo.btVector3(scale.x, scale.y, scale.z));
+
             return btConvexHullShape;
         }
 
-        function createTriMeshFromBuffer(buffer) {
+        function createTriMeshFromBuffer(buffer, scale) {
             var triangle_mesh = new Ammo.btTriangleMesh;
             var _vec3_1 = new Ammo.btVector3(0,0,0);
             var _vec3_2 = new Ammo.btVector3(0,0,0);
@@ -686,52 +736,16 @@ define([
                     true
                 );
             }
-            return new Ammo.btBvhTriangleMeshShape( triangle_mesh, true, true );
+            var shape = new Ammo.btBvhTriangleMeshShape( triangle_mesh, true, true );
+            shape.setLocalScaling(new Ammo.btVector3(scale.x, scale.y, scale.z));
+            return shape
         }
 
 
-        function createMeshShape(model_id, convex) {
-
-            var modelPool = ThreeModelLoader.getModelPool();
-
-            var mesh = modelPool[model_id][0];
-
-            if (mesh.shape) {
-                return mesh.shape;
-            }
-
-            var geometry = mesh.geometry;
-
-            if (convex) {
-                mesh.shape = createConvexHullFromBuffer(geometry.attributes.position.array);
-            } else {
-                mesh.shape = createTriMeshFromBuffer(geometry.attributes.position.array);
-            }
-
-            console.log("create mesh shape", mesh);
-
-            return mesh.shape;
-        }
-
-        var createMeshBody = function(bodyParams, position, quaternion) {
+        var configureMeshShape = function(shape, bodyParams, position, quaternion, mass, scale, onReady) {
             var args = bodyParams.args;
 
-            var heightOffset = 0;
-
-            var mass = bodyParams.mass;
-
             var friction = bodyParams.friction || 2.9;
-
-            var shape = createMeshShape(bodyParams.model_id, bodyParams.convex);
-
-            //    heightOffset = args[2] / 2;
-
-
-            if (!mass) {
-                heightOffset = 0;
-            }
-
-            threeVec.y += heightOffset;
 
             shape.setMargin(0.05);
 
@@ -762,10 +776,19 @@ define([
             body.setWorldTransform(transform);
             body.getMotionState().setWorldTransform(transform);
 
-        //    var body = createBody(shape, mass);
-                        //    body.setActivationState(DISABLE_DEACTIVATION);
-            return body;
+            //    var body = createBody(shape, mass);
+            //    body.setActivationState(DISABLE_DEACTIVATION);
+            console.log("Mesh shape body:", body);
 
+            applyBodyParams(body, bodyParams);
+
+            onReady(body);
+        }
+
+
+
+        var createMeshBody = function(dataKey, bodyParams, position, quaternion, mass, scale, onReady, dynamicSpatial, ammoFuncs) {
+            createMeshShape(dataKey, bodyParams, position, quaternion, mass, scale, onReady, dynamicSpatial, ammoFuncs);
         };
 
         var createPrimitiveShape = function(bodyParams) {

@@ -124,6 +124,7 @@ define([
                 clone.frustumCulled = false;
                 modelPool[id].push(clone);
 
+                PipelineAPI.setCategoryKeyValue("MESH_LIST", id, mesh);
                 isLoading.splice(isLoading.indexOf(id), 1);
 
             }
@@ -317,21 +318,10 @@ define([
 
             new PipelineObject("MODELS", "THREE", modelListLoaded);
             new PipelineObject("MODELS", "THREE_BUILDINGS", modelListLoaded);
-        };
-
-        ThreeModelLoader.loadPhysicsData = function(onModelsOk) {
-
-            var modelListLoaded = function(scr, data) {
-                //    console.log("Models updated:", data);
-                for (var i = 0; i < data.length; i++){
-                    modelList[data[i].id] = data[i];
-                    ThreeModelLoader.loadModelId(data[i].id);
-                }
-
-                onModelsOk();
-            };
             new PipelineObject("MODELS", "THREE_PHYSICS", modelListLoaded)
+
         };
+
 
 
         ThreeModelLoader.loadTerrainData = function(TAPI) {

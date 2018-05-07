@@ -163,21 +163,26 @@ define([
         };
 
 
+        var bodyReady = function(dynamicSpatial, rigidBody) {
+            dynamicSpatial.setPhysicsBody(rigidBody);
+            dynamicSpatials.push(dynamicSpatial);
+            ammoApi.includeBody(rigidBody);
+        };
+
         PhysicsWorldAPI.addBodyToPhysics = function(msg) {
             console.log("Physics Worker Add Body:", msg);
 
             var dynamicSpatial = new DynamicSpatial();
             dynamicSpatial.setSpatialBuffer(msg[1]);
+            ammoApi.setupRigidBody(msg[0], dynamicSpatial, bodyReady);
 
-            var rigidBody = ammoApi.setupRigidBody(msg[0], dynamicSpatial);
-
-            dynamicSpatial.setPhysicsBody(rigidBody);
-            dynamicSpatials.push(dynamicSpatial);
-
-            ammoApi.includeBody(rigidBody);
          //   console.log("dynamicSpatials:", dynamicSpatials);
         };
 
+        PhysicsWorldAPI.setPhysicsGeometryBuffer = function(msg) {
+            console.log("Set Phys Buffer", msg)
+            ammoApi.registerGeoBuffer(msg[0], msg[1])
+        };
 
         PhysicsWorldAPI.processRequest = function(msg) {
             protocolRequests.handleMessage(msg)

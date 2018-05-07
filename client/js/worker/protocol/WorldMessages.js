@@ -1,10 +1,12 @@
 "use strict";
 
 define([
-        'PipelineAPI'
+        'PipelineAPI',
+        '3d/three/ThreeModelLoader'
     ],
     function(
-        PipelineAPI
+        PipelineAPI,
+        ThreeModelLoader
     ) {
         var WorldAPI;
         var WorldMessages = function(wApi) {
@@ -63,9 +65,23 @@ define([
                 PhysicsWorldAPI.callPhysicsSimulationUpdate()
             };
 
-
             this.messageHandlers[ENUMS.Protocol.SET_WORLD_COM_BUFFER] = function(msg) {
                 PhysicsWorldAPI.setWorldComBuffer(msg[1])
+            };
+
+            this.messageHandlers[ENUMS.Protocol.FETCH_GEOMETRY_BUFFER] = function(msg) {
+
+                var cb = function(mesh) {
+                    console.log("Fetch GEO BUFFER", mesh)
+                    WorldAPI.callSharedWorker(ENUMS.Worker.PHYSICS_WORLD, ENUMS.Protocol.SET_GEOMETRY_BUFFER, [msg[1], mesh.geometry.attributes.position.array]);
+                };
+
+                ThreeModelLoader.fetchPooledMeshModel(msg[1], cb);
+
+            };
+
+            this.messageHandlers[ENUMS.Protocol.SET_GEOMETRY_BUFFER] = function(msg) {
+                PhysicsWorldAPI.setPhysicsGeometryBuffer(msg[1])
             };
 
         };

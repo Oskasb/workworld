@@ -36,6 +36,63 @@
             "mass":2000
           }
         }
+      },
+      {
+        "id": "tree_leafy_1",
+        "data": {
+          "instance_id":"model_geometry_tree_3_combined_effect",
+          "dynamic_feedback":"crate_feedback",
+          "visual_size":10,
+          "rigid_body":{
+            "body_key":"mesh_cvx_tree_leafy_1",
+            "category":"mesh",
+            "convex":true,
+            "model_id":"model_tree_3_combined_hull",
+            "state":"WANTS_DEACTIVATION",
+            "friction":0.25,
+            "restitution":0.65,
+            "damping":0.12,
+            "mass":0
+          }
+        }
+      },
+      {
+        "id": "tree_leafy_2",
+        "data": {
+          "instance_id":"model_geometry_tree_2_trunk_effect",
+          "dynamic_feedback":"crate_feedback",
+          "visual_size":8,
+          "rigid_body":{
+            "body_key":"tree_2_trunk",
+            "category":"mesh",
+            "convex":true,
+            "model_id":"model_tree_2_rooted_hull",
+            "state":"WANTS_DEACTIVATION",
+            "friction":0.25,
+            "restitution":0.65,
+            "damping":0.12,
+            "mass":0
+          }
+        }
+      },
+      {
+        "id": "wall_rock_1",
+        "data": {
+          "instance_id":"model_geometry_wall_rock_50_effect",
+          "dynamic_feedback":"crate_feedback",
+          "visual_size":50,
+          "rigid_body":{
+            "body_key":"wall_rock_1",
+            "category":"primitive",
+            "state":"WANTS_DEACTIVATION",
+            "shape":"Box",
+            "args":[1, 1, 1],
+            "friction":1.3,
+            "restitution":0.85,
+            "damping":0.15,
+            "mass":0
+          }
+        }
       }
     ]
   }

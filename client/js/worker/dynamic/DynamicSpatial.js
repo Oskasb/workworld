@@ -200,6 +200,14 @@ define([
             return this.spatialBuffer[ENUMS.BufferSpatial.BODY_POINTER];
         };
 
+        DynamicSpatial.prototype.setVisualSize = function(size) {
+            this.spatialBuffer[ENUMS.BufferSpatial.VISUAL_SIZE] = size;
+        };
+
+        DynamicSpatial.prototype.getVisualSize = function() {
+            return this.spatialBuffer[ENUMS.BufferSpatial.VISUAL_SIZE];
+        };
+
         DynamicSpatial.prototype.setSpatialBodyMass = function(mass) {
             this.spatialBuffer[ENUMS.BufferSpatial.BODY_MASS] = mass;
         };

@@ -45,7 +45,7 @@ define([
 
                         if (tempVec1.y > 0) {
                             var feature = new TerrainFeature(this.area, tempVec1, size);
-                            feature.generateFeatureGroundElements(8);
+                            feature.generateFeatureGroundElements(5);
                             this.terrainFeatures.push(feature);
                         }
                     }

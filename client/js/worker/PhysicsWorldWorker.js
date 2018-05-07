@@ -62,12 +62,13 @@ require(
                 PhysicsWorldAPI.processRequest(e.data);
             };
 
-            while (premauteMessageQueue.length) {
-                PhysicsWorldAPI.processRequest(premauteMessageQueue.pop().data);
-            }
+            setTimeout(function() {
+                while (premauteMessageQueue.length) {
+                    PhysicsWorldAPI.processRequest(premauteMessageQueue.pop().data);
+                }
+            }, 1000);
 
             PhysicsWorldAPI.startPhysicsSimulationLoop();
-
         };
 
         PhysicsWorldAPI.initPhysicsWorld(onWorkerReady);

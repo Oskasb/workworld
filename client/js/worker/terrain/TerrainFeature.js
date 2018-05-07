@@ -28,6 +28,9 @@ define([
 
         TerrainFeature.prototype.generateFeatureGroundElements = function(gridSide) {
 
+
+
+
             var size = (this.extents.x/gridSide);
 
             for (var i = 0; i < gridSide; i++) {
@@ -39,10 +42,22 @@ define([
 
                     if (tempVec1.y > 0) {
                         var element = new TerrainElement(this.area, tempVec1, size);
-                        element.determineTerrainElementType(this.terrainElements);
-                        this.terrainElements.push(element);
-                    }
+                        var dynRen = element.determineTerrainElementType(this.terrainElements);
+                        if (dynRen) {
 
+
+                            var addDynRen = function(ren, elem) {
+                                var rdy = function(rnd) {
+                                    elem.addRenderable(rnd);
+                                };
+                                ren.initRenderable(rdy)
+                            };
+
+
+                            this.terrainElements.push(element);
+                            addDynRen(dynRen, element)
+                        }
+                    }
                 }
             }
         };
@@ -72,26 +87,6 @@ define([
         };
 
 
-        TerrainFeature.prototype.updateTerrainFeatureFX = function(tpf) {
-
-            this.stride = Math.floor(this.elements.length / 50);
-
-            if (Math.random() > 0.25) {
-                return;
-            }
-
-            if (this.lastStartIndex > this.stride) {
-                this.lastStartIndex = 0;
-            }
-
-            for (var i = this.lastStartIndex; i < this.elements.length; i+=this.stride) {
-                    this.elements[i].triggerTerrainFeatureEffect(fxByFeature[this.featureType], tpf)
-            }
-
-            this.lastStartIndex++;
-
-        };
-
 
         TerrainFeature.prototype.updateFeatureVisibility = function(tpf, visible) {
 
@@ -120,7 +115,7 @@ define([
             this.age += tpf;
 
                 for (var i = 0; i < this.terrainElements.length; i++) {
-        //            this.terrainElements[i].updateTerrainElement(tpf, i)
+                    this.terrainElements[i].updateTerrainElement(tpf, i)
                 }
 
                 if (MATH.sillyRandom(this.age+tpf) > 0.05 * tpf * this.shoreElements.length) {

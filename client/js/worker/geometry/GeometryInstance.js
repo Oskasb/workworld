@@ -12,6 +12,7 @@ define([
         var GeometryInstance = function() {
             this.effect = null;
             this.size = 1;
+            this.visualSize = 1;
 
             this.pos = new THREE.Vector3();
             this.quat = new THREE.Quaternion();
@@ -61,6 +62,10 @@ define([
             }
         };
 
+        GeometryInstance.prototype.setInstanceVisualSize = function(size) {
+            this.visualSize = size;
+        };
+
         GeometryInstance.prototype.getInstanceSize = function() {
             return this.size;
         };
@@ -96,7 +101,7 @@ define([
         };
 
         GeometryInstance.prototype.testIsVisible = function() {
-            return WorldAPI.getWorldCamera().testPosRadiusVisible(this.pos, this.size*0.65);
+            return WorldAPI.getWorldCamera().testPosRadiusVisible(this.pos, this.size*0.65*this.visualSize);
         };
 
         GeometryInstance.prototype.applyVisibility = function(isVisible) {
