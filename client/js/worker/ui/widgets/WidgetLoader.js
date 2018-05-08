@@ -40,7 +40,7 @@ define([
 
 
 
-        var addButtonWidget = function(label, callback, dynamicLayout, masterBuffer, masterIndex) {
+        var addButtonWidget = function(label, callback, dynamicLayout, masterBuffer, masterIndex, matchValue) {
             button = new GuiButtonWidget(label);
             button.initGuiWidget(widgetReady);
 
@@ -49,7 +49,7 @@ define([
             }
 
             if (masterBuffer) {
-                button.setMasterBuffer(masterBuffer, masterIndex);
+                button.setMasterBuffer(masterBuffer, masterIndex, matchValue);
             }
 
             button.applyDynamicLayout(dynamicLayout);
@@ -62,6 +62,7 @@ define([
 
             addButtonWidget('STATUS', buttonFunctions.monitorSystem);
             addButtonWidget('PHYSICS', buttonFunctions.physicsPanel, {anchor:'top_left'});
+            addButtonWidget('ENVIRONMENT', buttonFunctions.envPanel, {anchor:'top_left', margin_x:0.180});
 
             statusMon = new MonitorListWidget('RENDER_MONITOR', 'STATUS', 'RENDER_MONITOR');
             effectMon = new MonitorListWidget('EFFECT_MONITOR', 'STATUS', 'EFFECT_MONITOR');
@@ -129,6 +130,32 @@ define([
             }
         };
 
+        var envPanelButtons = [];
+
+        var enableEnvPanel = function(bool) {
+
+            if (bool) {
+
+                var ySep = 0.07;
+                var my = 0.12;
+                var mx = 0.185;
+
+                var i = 0;
+                for (var key in ENUMS.Environments) {
+                    i++;
+                    addPanelWidget(
+                        addButtonWidget(key, null, {anchor:'top_left', margin_y:my,  margin_x:mx}, WorldAPI.getWorldComBuffer(), ENUMS.BufferChannels.ENV_INDEX, i),
+                        envPanelButtons
+                    );
+                    my += ySep;
+                }
+
+            } else {
+                removePanelWidgets(envPanelButtons)
+            }
+        };
+
+
         var buttonFunctions = {
 
             monitorSystem:function(bool) {
@@ -143,12 +170,8 @@ define([
                 enablePhysPanel(bool)
             },
 
-            testPhysics:function(bool) {
-                if (bool) {
-                    WorldAPI.setCom(ENUMS.BufferChannels.SPAWM_BOX_RAIN, 1);
-                } else {
-                    WorldAPI.setCom(ENUMS.BufferChannels.SPAWM_BOX_RAIN, 0);
-                }
+            envPanel:function(bool) {
+                enableEnvPanel(bool);
             }
         };
 

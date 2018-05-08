@@ -74,7 +74,7 @@ define([
         }
 
 
-        if (distance > 150 + Math.sqrt(radius + 100) + 10 * radius * radius) {
+        if (distance > 150 + Math.sqrt(radius + 50) + 0.5 * radius * radius) {
             return false;
         }
 

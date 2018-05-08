@@ -74,7 +74,8 @@ if(typeof(ENUMS) === "undefined"){
         SPAWM_BOX_RAIN:     42,
         PUSH_ALL_DYNAMICS:  43,
         ATTRACT_DYNAMICS:   44,
-        REPEL_DYNAMICS:     45
+        REPEL_DYNAMICS:     45,
+        ENV_INDEX:          46
 
     };
 
@@ -231,6 +232,16 @@ if(typeof(ENUMS) === "undefined"){
         DESTROYED:      8,
         KILLED:         9,
         REMOVED:       10
+    };
+
+    ENUMS.Environments = {
+        PRE_DAWN:       1,
+        DAWN:           2,
+        MORNING:        3,
+        SUNNY_DAY:      4,
+        HIGH_NOON:      5,
+        EVENING:        6,
+        NIGHT:          7
     };
 
     ENUMS.Environment = {

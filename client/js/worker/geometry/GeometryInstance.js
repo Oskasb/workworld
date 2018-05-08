@@ -105,22 +105,15 @@ define([
         };
 
         GeometryInstance.prototype.applyVisibility = function(isVisible) {
+
+
             if (isVisible) {
                 this.renderGeometryInstance();
             } else {
                 this.hideGeometryInstance();
             }
-            this.wasVisible = isVisible;
-        };
 
-        GeometryInstance.prototype.updateGeometryInstance = function() {
-
-            this.isVisible = this.testIsVisible();
-            if (this.isVisible !== this.wasVisible) {
-                this.applyVisibility(this.isVisible);
-            }
-
-            if (this.isVisible) {
+            if (isVisible) {
                 if (!this.lastPos.equals(this.pos)) {
                     this.effect.updateEffectPositionSimulator(this.pos);
                     this.lastPos.copy(this.pos);
@@ -131,6 +124,17 @@ define([
                     this.lastQuat.copy(this.quat);
                 }
             }
+
+            if (isVisible === this.wasVisible) {
+                return;
+            } else {
+                this.wasVisible = isVisible;
+            }
+
+        };
+
+        GeometryInstance.prototype.updateGeometryInstance = function() {
+            this.isVisible = this.testIsVisible();
         };
 
 

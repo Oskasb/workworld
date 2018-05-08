@@ -1,5 +1,7 @@
 "use strict";
 
+
+
 define([
         'PipelineAPI',
         'ThreeAPI'
@@ -8,22 +10,21 @@ define([
         PipelineAPI,
         ThreeAPI
     ) {
-        var WorkerAPI;
 
         var terrainOpts = {
             "type":"array",
             "state":true,
             "three_terrain":"plain_ground",
             "vegetation_system":"basic_grassland",
-            "terrain_size":1000,
+            "terrain_size":4000,
             "terrain_segments":127,
             "invert_hill":false,
-            "terrain_edge_size":105,
+            "terrain_edge_size":1000,
             "edge_easing":"clampSin",
-            "max_height":45,
-            "min_height":-12,
+            "max_height":175,
+            "min_height":-70,
             "frequency":4,
-            "steps":4
+            "steps":6
         };
 
         var terrainOpts2 = {
@@ -58,8 +59,7 @@ define([
             "steps":5
         };
 
-        var ClientMessages = function(wApi) {
-            WorkerAPI = wApi;
+        var ClientMessages = function() {
             this.messageHandlers = [];
             this.setupMessageHandlers()
 
@@ -92,7 +92,7 @@ define([
                     //   WorkerAPI.callWorker(ENUMS.Worker.WORLD, WorkerAPI.buildMessage(ENUMS.Protocol.CREATE_WORLD,{posx:-1500, posz:-1200, options:terrainOpts}));
                     //   WorkerAPI.callWorker(ENUMS.Worker.WORLD, WorkerAPI.buildMessage(ENUMS.Protocol.CREATE_WORLD,{posx:-400, posz:-350, options:terrainOpts}));
                     //   WorkerAPI.callWorker(ENUMS.Worker.WORLD, WorkerAPI.buildMessage(ENUMS.Protocol.CREATE_WORLD,{posx:-200, posz:-1300, options:terrainOpts}));
-                    WorkerAPI.callWorker(ENUMS.Worker.WORLD, WorkerAPI.buildMessage(ENUMS.Protocol.CREATE_WORLD,{posx:-500, posz:-500, options:terrainOpts}));
+                    WorkerAPI.callWorker(ENUMS.Worker.WORLD, WorkerAPI.buildMessage(ENUMS.Protocol.CREATE_WORLD,{posx:-1000, posz:-1000, options:terrainOpts}));
                     WorkerAPI.callWorker(ENUMS.Worker.WORLD, WorkerAPI.buildMessage(ENUMS.Protocol.SET_INPUT_BUFFER, PipelineAPI.getCachedConfigs().POINTER_STATE.buffer));
                 }
             };

@@ -870,6 +870,7 @@ THREE.Terrain.RadialEdges = function(g, options, direction, distance, easing) {
         xSegmentSize = options.xSize / options.xSegments,
         ySegmentSize = options.ySize / options.ySegments,
         edgeRadius = Math.min(options.xSize, options.ySize) * 0.5 - distance,
+        easing = easing || THREE.Terrain.EaseInOut;
         i, j, multiplier, k, vertexDistance;
     for (i = 0; i < xl; i++) {
         for (j = 0; j < yl2; j++) {

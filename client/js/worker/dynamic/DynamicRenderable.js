@@ -96,6 +96,7 @@ define([
         };
 
         DynamicRenderable.prototype.applyRenderableVisibility = function(isVisible) {
+            this.geometryInstance.applyVisibility(isVisible);
             this.dynamicSpatial.notifyVisibility(isVisible);
             this.dynamicFeedback.tickDynamicFeedback(this.dynamicSpatial, isVisible);
         };

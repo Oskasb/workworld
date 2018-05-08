@@ -87,30 +87,30 @@ define([
 
             if (tempVec1.y > 0) {
 
-                if (tempVec1.y > 1 && tempVec2.y > 0.95) {
+                if (tempVec1.y > 1 && tempVec2.y > 0.92) {
 
                     if (!this.testTerrainElementsForType(otherElements, ENUMS.TerrainFeature.WOODS)) {
                         this.scale = Math.floor(10*(Math.random()*Math.random()))+2;
-                        tempVec1.y += 7 * this.scale;
+                        tempVec1.y += 6.5 * this.scale;
                         this.elementType = ENUMS.TerrainFeature.WOODS;
 
                     } else {
 
                         if (Math.random() < 0.5) return;
 
-                        this.scale =  0.5 + Math.floor(5*(Math.random()));
-                        tempVec1.y += 7 * this.scale;
+                        this.scale =  1.5 + Math.floor(5*(Math.random()));
+                        tempVec1.y += 6 * this.scale;
                         this.elementType = ENUMS.TerrainFeature.WOODS;
                     }
                 } else {
 
                     if (tempVec2.y > 0.70) {
-                        this.scale = Math.floor(3*(Math.random()))+0.5;
-                        tempVec1.y += 6 * this.scale;
-                        this.elementType = ENUMS.TerrainFeature.FLAT_GROUND;
+                        this.scale = 0.2 * Math.floor(4*(Math.random()))+0.5;
+                        tempVec1.y += 2.5 * this.scale;
+                        this.elementType = ENUMS.TerrainFeature.STEEP_SLOPE;
                     } else {
-                        this.scale = Math.floor(4*(Math.random()))*0.1 +0.1;
-                        tempVec1.y += 6 * this.scale;
+                        this.scale = Math.floor(4*(Math.random()))*0.1 +0.2;
+                        tempVec1.y += 2 * this.scale;
                         this.elementType = ENUMS.TerrainFeature.STEEP_SLOPE;
                     }
 
@@ -135,8 +135,6 @@ define([
 
 
         TerrainElement.prototype.updateTerrainElementVisibility = function(tpf, visible) {
-
-
 
                 for (i = 0; i < this.renderables.length; i++) {
                     this.renderables[i].applyRenderableVisibility(visible);

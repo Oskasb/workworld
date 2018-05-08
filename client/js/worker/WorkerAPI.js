@@ -1,5 +1,7 @@
 "use strict";
 
+var WorkerAPI;
+
 define([
         'worker/protocol/ClientMessages',
         'worker/WorkerRunner'
@@ -13,9 +15,11 @@ define([
         var clientMessages;
         var onWorkerFrameCallbacks = [];
 
+        var comBuffer;
+
         var wakeupFunction = function() {};
 
-        var WorkerAPI = function() {};
+        WorkerAPI = function() {};
 
         WorkerAPI.initWorkers = function() {
             workerRunner = new WorkerRunner();
@@ -32,6 +36,14 @@ define([
 
         WorkerAPI.setWakeupFunction = function(func) {
             wakeupFunction = func;
+        };
+
+        WorkerAPI.setCom = function(buffer) {
+            comBuffer = buffer;
+        };
+
+        WorkerAPI.getCom = function(index) {
+            return comBuffer[index]
         };
 
         WorkerAPI.addOnWorkerFrameCallback = function(cb) {

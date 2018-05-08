@@ -27,6 +27,7 @@ define([
                 var sab = new SharedArrayBuffer(Float32Array.BYTES_PER_ELEMENT * size);
                 worldComBuffer = new Float32Array(sab);
                 PipelineAPI.setCategoryKeyValue("SHARED_BUFFERS", ENUMS.Key.WORLD_COM_BUFFER, worldComBuffer);
+                WorkerAPI.setCom(worldComBuffer);
             } else {
                 alert("SharedBufferArray not supported. Enable it in chrome://flags");
             }

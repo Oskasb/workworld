@@ -268,6 +268,8 @@ define([
                 if (this.getSpatialStillFrames() > this.visiblePingFrames) {
                     this.setSpatialStillFrames(this.stillLimit-2);
                 }
+            } else {
+
             }
         };
 

@@ -134,7 +134,7 @@ define([
                 this.registerTerrainPhysics(this.msg);
             }
 
-            this.generateTerrainSectons(0.0025);
+            this.generateTerrainSectons(0.002);
         };
 
         TerrainArea.prototype.createAreaOfTerrain = function(msg) {

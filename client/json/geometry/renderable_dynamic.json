@@ -6,6 +6,7 @@
         "data": {
           "instance_id":"crate_wood_geometry_effect",
           "dynamic_feedback":"crate_feedback",
+          "visual_size":8,
           "rigid_body":{
             "body_key":"box_1x1x1_crate",
             "category":"primitive",
@@ -23,6 +24,7 @@
         "id": "creative_crate",
         "data": {
           "instance_id":"creative_crate_geometry_effect",
+          "visual_size":8,
           "dynamic_feedback":"crate_feedback",
           "rigid_body":{
             "body_key":"box_1x1x1_creative_crate",
@@ -42,7 +44,7 @@
         "data": {
           "instance_id":"model_geometry_tree_3_combined_effect",
           "dynamic_feedback":"crate_feedback",
-          "visual_size":10,
+          "visual_size":30,
           "rigid_body":{
             "body_key":"mesh_cvx_tree_leafy_1",
             "category":"mesh",
@@ -61,7 +63,7 @@
         "data": {
           "instance_id":"model_geometry_tree_2_trunk_effect",
           "dynamic_feedback":"crate_feedback",
-          "visual_size":8,
+          "visual_size":28,
           "rigid_body":{
             "body_key":"tree_2_trunk",
             "category":"mesh",

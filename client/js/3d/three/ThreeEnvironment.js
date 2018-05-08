@@ -11,19 +11,23 @@ define(['PipelineObject',
     evt
 ) {
 
-    var envs = [
-        "dawn",
-        "pre_dawn",
-        "night",
-        "evening",
-        "morning",
-        "sunny_day",
-        "high_noon"
-    ];
 
     var envStateMap = ENUMS.Map.Environment;
     var envBuffer = new SharedArrayBuffer(Float32Array.BYTES_PER_ELEMENT * envStateMap.length);
 
+    var envs = [
+        "flat",
+        "pre_dawn",
+        "dawn",
+        "morning",
+        "sunny_day",
+        "high_noon",
+        "evening",
+        "night"
+    ];
+
+
+    var currentEnvIndex = undefined;
 
     var enabled;
     var envList = {};
@@ -71,7 +75,7 @@ define(['PipelineObject',
                 worldSetup[data.params[i].id] = data.params[i]
             }
             currentEnvId = data.defaultEnvId;
-
+            currentEnvIndex = undefined;
         //    console.log("worldSetup:", currentEnvId, worldSetup);
         };
 
@@ -259,18 +263,24 @@ define(['PipelineObject',
         return MATH.calcFraction(0, transitionTime, transitionProgress);
     };
 
+    var comEnvIdx;
+    var fraction;
+
     var tickEnvironment = function(e) {
 
     //    console.log("Tick Env")
 
-        var fraction = calcTransitionProgress(evt.args(e).tpf) * 1.0;
+        fraction = calcTransitionProgress(evt.args(e).tpf) * 1.0;
 
         fraction = fraction*fraction*fraction;
 
-        if (fraction > 1.01) {
-            var randomEnv = envs[Math.floor(Math.random()*envs.length)];
+        comEnvIdx =  WorkerAPI.getCom(ENUMS.BufferChannels.ENV_INDEX);
+        if (currentEnvIndex !== comEnvIdx) {
+            ThreeEnvironment.setEnvConfigId(envs[comEnvIdx], 3);
+            currentEnvIndex = comEnvIdx
+        }
 
-            ThreeEnvironment.setEnvConfigId(randomEnv, 3);
+        if (fraction > 1.01) {
             return;
         }
 
@@ -278,7 +288,7 @@ define(['PipelineObject',
 
         interpolateEnv(currentEnvConfig, envList[currentEnvId], fraction);
 
-        if (fraction < 1) {
+        if (fraction <= 1) {
             applyEnvironment();
             applySkyConfig()
         }
