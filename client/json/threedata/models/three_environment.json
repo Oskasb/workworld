@@ -47,7 +47,7 @@
           "configs":[
             {"id":"sun",     "color":[0,  0,  0]},
             {"id":"moon",    "color":[0,  0,  0]},
-            {"id":"ambient", "color":[1,  1,  1]},
+            {"id":"ambient", "color":[0.2,  0.2,  0.2]},
             {"id":"fog",     "color":[1,  1,  1], "density":0.0000001}
           ]
         },
@@ -85,10 +85,10 @@
             "distance":          10000
           },
           "configs":[
-            {"id":"sun",     "color":[0.55,   0.46,  0.06]},
+            {"id":"sun",     "color":[0.55,   0.32,  0.02]},
             {"id":"moon",    "color":[0.001,  0.03,  0.12]},
-            {"id":"ambient", "color":[0.72,   0.66,  0.36]},
-            {"id":"fog",     "color":[0.102,  0.001, 0.126], "density":0.0025}
+            {"id":"ambient", "color":[0.72,   0.45,  0.21]},
+            {"id":"fog",     "color":[0.032,  0.00001, 0.106], "density":0.0022}
           ]
         },
         {
@@ -104,10 +104,10 @@
             "distance":          10000
           },
           "configs":[
-            {"id":"sun",     "color":[0.76,  0.53,  0.21]},
+            {"id":"sun",     "color":[0.55,  0.41,  0.11]},
             {"id":"moon",    "color":[0.25,  0.20,  0.42]},
-            {"id":"ambient", "color":[0.45,  0.42,  0.21]},
-            {"id":"fog",     "color":[0.16,  0.43,  0.58],  "density":0.0017}
+            {"id":"ambient", "color":[0.01,  0.12,  0.25]},
+            {"id":"fog",     "color":[0.11,  0.37,  0.48],  "density":0.0015}
           ]
         },
         {
@@ -123,9 +123,9 @@
             "distance":        10000
           },
           "configs":[
-            {"id":"sun",     "color":[0.98, 0.76,  0.25]},
+            {"id":"sun",     "color":[0.78, 0.51,  0.11]},
             {"id":"moon",    "color":[0.01, 0.25,  0.25]},
-            {"id":"ambient", "color":[0.06, 0.1,   0.35]},
+            {"id":"ambient", "color":[0.06, 0.1,   0.45]},
             {"id":"fog",     "color":[0.43, 0.63,  0.79], "density":0.0013}
           ]
         },
@@ -145,7 +145,7 @@
             {"id":"sun",     "color":[0.92,  0.71,  0.35]},
             {"id":"moon",    "color":[0.12,  0.35,  0.42]},
             {"id":"ambient", "color":[0.32,  0.46,  0.81]},
-            {"id":"fog",     "color":[0.78,  0.85,  1], "density":0.0011}
+            {"id":"fog",     "color":[0.85,  0.95,  1], "density":0.0008}
           ]
         },
         {
@@ -164,7 +164,7 @@
             {"id":"sun",     "color":[1.0,   0.62,  0.32]},
             {"id":"moon",    "color":[0.24,  0.35,  0.42]},
             {"id":"ambient", "color":[0.40,  0.69,  0.85]},
-            {"id":"fog",     "color":[0.89,  0.98,  0.97], "density":0.0009}
+            {"id":"fog",     "color":[0.86,  0.97,  1.00], "density":0.0009}
           ]
         },
         {
@@ -183,26 +183,26 @@
             {"id":"sun",     "color":[0.99,  0.32,  0.36]},
             {"id":"moon",    "color":[0.25,  0.20,  0.42]},
             {"id":"ambient", "color":[0.55,  0.44,  0.41]},
-            {"id":"fog",     "color":[0.19,  0.082, 0.15], "density":0.0013}
+            {"id":"fog",     "color":[0.001,  0.03, 0.16], "density":0.0018}
           ]
         },
         {
           "id":"night",
           "sky":{
-            "luminance":         0.8   ,
+            "luminance":         1.18   ,
             "turbidity":         1.0   ,
             "rayleigh":          0.00  ,
             "mieCoefficient":    0.00  ,
             "mieDirectionalG":   0.00  ,
-            "inclination":       0.98  ,
-            "azimuth":           0.3   ,
+            "inclination":       0.8  ,
+            "azimuth":           1.2   ,
             "distance":          10000
           },
           "configs":[
-            {"id":"sun",     "color":[0.026,  0.25,  0.38]},
+            {"id":"sun",     "color":[0.096,  0.08,  0.38]},
             {"id":"moon",    "color":[0.021,  0.03,  0.22]},
-            {"id":"ambient", "color":[0.222,  0.26,  0.89]},
-            {"id":"fog",     "color":[0.001,  0.001, 0.02], "density":0.0025}
+            {"id":"ambient", "color":[0.052,  0.11,  0.83]},
+            {"id":"fog",     "color":[0.009,  0.001, 0.12], "density":0.0019}
           ]
         }
       ]

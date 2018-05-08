@@ -272,12 +272,13 @@ define(['PipelineObject',
 
         fraction = calcTransitionProgress(evt.args(e).tpf) * 1.0;
 
-        fraction = fraction*fraction*fraction;
+    //    fraction = fraction;
 
         comEnvIdx =  WorkerAPI.getCom(ENUMS.BufferChannels.ENV_INDEX);
         if (currentEnvIndex !== comEnvIdx) {
+            currentEnvIndex = comEnvIdx;
             ThreeEnvironment.setEnvConfigId(envs[comEnvIdx], 3);
-            currentEnvIndex = comEnvIdx
+            return;
         }
 
         if (fraction > 1.01) {
