@@ -23,6 +23,7 @@
           "vec3 vPosition = vertexPosition;"
         ],
         "vertexNormalMain":[
+
           "vec3 normal = vertexNormal;"
         ],
         "fxTerrainTextureLayers":[
@@ -37,27 +38,36 @@
           "vUv0 = uv * tx0repeat;",
           "vUv1 = uv * tx1repeat;",
           "vUv2 = uv * tx2repeat;",
-          "slope = sin(systemTime*0.2 + position.x*21.0 + position.y*1.0 + (sin(systemTime * 0.16 + position.x * 22.1 + position.y * 2.5)*0.5));",
+
           "height = position.z;"
         ],
 
         "fragmentOceanTxLayersMain":[
 
-          "float waveSpeed = systemTime * 0.06;",
+          "float waveSpeed = systemTime * 0.11;",
 
-          "vec2 waveTranslate = vec2(0.2*cos(waveSpeed) + cos(waveSpeed*7.4)*0.06, 0.03 * sin(waveSpeed*0.2));",
+          "vec2 waveTranslate = vec2(waveSpeed*0.02 + 0.1*cos(waveSpeed*2.5), waveSpeed + 0.02 * sin(waveSpeed*3.62));",
+
+          "float slope = sin(vUv0.y*(1.0+sin(vUv0.x*0.2+systemTime*0.3)*0.005)) + sin(vUv0.y*(1.0+cos(vUv0.x*0.2+systemTime*0.3)*0.005)) * 0.2 + sin(systemTime*2.0)*0.0025+cos(systemTime*2.0)*0.0025;",
 
           "vec4 txColor0 = smoothstep(0.0, 0.95, slope)                                   * texture2D( tx0, vUv0 + (waveTranslate));",
 
-          "waveTranslate = waveTranslate * cos(systemTime*0.4) + waveSpeed*0.003 + cos(systemTime*0.5)*0.01;",
+          "waveTranslate = waveTranslate + cos(systemTime*2.4)*0.03 - waveSpeed*0.01 + cos(systemTime*1.5)*0.01;",
 
           "vec4 txColor1 = (smoothstep(-0.95, 0.0, slope) -  smoothstep(0.0, 0.95, slope)) * texture2D( tx1, vUv1 + (waveTranslate));",
 
-          "waveTranslate = waveTranslate * cos(waveSpeed*0.04) + sin(waveSpeed*0.061)*0.4;",
+          "waveTranslate = waveTranslate + cos(waveSpeed*1.04)*0.052 - sin(waveSpeed*0.861)*0.01;",
 
           "vec4 txColor2 = (1.0 - smoothstep(-0.95, 0.0, slope))                          * texture2D( tx2, vUv2 + (waveTranslate));",
 
-          "vec4 txColor = txColor0 + txColor1 + txColor2;"
+          "vec4 txColor3 = (1.0 - smoothstep(-0.75, 0.0, slope*2.0))                          * texture2D( tx2, vUv2*0.13 + (waveTranslate*0.1));",
+          "vec4 txColor4 = texture2D( tx0, vUv1*0.04 + (waveTranslate*0.02));",
+
+          "vec2 vUv3 = vec2(vUv1.x*0.7 , vUv1.y*0.7);",
+
+          "vec4 txColor5 = texture2D( tx0, vUv3*0.03 + (waveTranslate*0.03));",
+
+          "vec4 txColor = (txColor0*2.0 + txColor1*1.0 + txColor2*1.0) * ((txColor3+0.2) ) * txColor4*(1.5+(1.0+slope)) + txColor5*0.2*(1.0-slope);"
         ],
 
 
@@ -377,7 +387,7 @@
 
         "vertexShadeLowerVerts":[
 
-          "float lowness = 0.8 + vPosition.y * 0.2;",
+          "float lowness = 0.95 + vPosition.y * 0.2;",
 
           "vColor.r *= lowness*1.0;",
           "vColor.g *= lowness*1.0;",
@@ -397,18 +407,44 @@
         "vertexDirectionalVertexLight":[
 
 
-          "sunDir = sunLightColor * (0.4 + dot(normal, sunLightDirection) * 0.8);",
+          "sunDir = sunLightColor * (0.4 + dot(normal, sunLightDirection) * 0.6);",
 
           "vColor.r = ambientLightColor.r*1.0;",
           "vColor.g = ambientLightColor.g*1.0;",
           "vColor.b = ambientLightColor.b*1.0;"
         ],
+
         "vertexGeometryDirectionalLight":[
 
+          "vec3 faceNormal = normal + 2.0 * cross( orientation.xyz, cross( orientation.xyz, normal ) + orientation.w * normal );",
+
+          "float intensity = 0.4 + dot(faceNormal, sunLightDirection ) * 0.6;",
+          "sunDir = (sunLightColor * intensity * 1.0);",
+
+
+          "vColor.r = sunDir.r + ambientLightColor.r*1.0;",
+          "vColor.g = sunDir.g + ambientLightColor.g*1.0;",
+          "vColor.b = sunDir.b + ambientLightColor.b*1.0;"
+        ],
+
+        "x":[
+
+
+          "normal = vecV * (2.0 * orientation.w) + (cross(orientation.xyz, vecV) * 2.0 + normal);",
+
+          "sunTurned.x = 0.0;",
+          "sunTurned.y = 1.0;",
+          "sunTurned.z = 0.0;",
+
+          "vec3 faceNormal = normal + 2.0 * cross( orientation.xyz, cross( orientation.xyz, normal ) + orientation.w * normal );"
+
+        ],
+
+        "vertexGeometryDirectionalLight_":[
 
           "vec3 sunTurned = sunLightDirection;",
-          "sunTurned.x = -sunLightDirection.z;",
-          "sunTurned.z = -sunLightDirection.x;",
+          "sunTurned.x = sunLightDirection.x;",
+          "sunTurned.z = sunLightDirection.z;",
           "vec3 lightNormal = sunTurned + 2.0 * cross( cross( sunTurned, orientation.xyz ) + orientation.w * sunTurned, orientation.xyz );",
           "float intensity = 0.5 + dot(normal, lightNormal ) * 0.5;",
           "sunDir = (sunLightColor * intensity * 0.5) + (sunLightColor * intensity * intensity * intensity * 0.5);",

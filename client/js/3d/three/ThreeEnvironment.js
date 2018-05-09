@@ -40,7 +40,7 @@ define(['PipelineObject',
     var currentEnvConfig;
     var currentSkyConfig;
 
-    var worldCenter = new THREE.Vector3(0, 0, 0);
+    var worldCenter = new THREE.Vector3(0, -100, 0);
     var calcVec = new THREE.Vector3();
     var calcVec2 = new THREE.Vector3();
 
@@ -266,23 +266,26 @@ define(['PipelineObject',
     var comEnvIdx;
     var fraction;
 
+    var t = 0;
+
     var tickEnvironment = function(e) {
 
     //    console.log("Tick Env")
 
         fraction = calcTransitionProgress(evt.args(e).tpf) * 1.0;
 
+    //    t+=evt.args(e).tpf
     //    fraction = fraction;
 
         comEnvIdx =  WorkerAPI.getCom(ENUMS.BufferChannels.ENV_INDEX);
         if (currentEnvIndex !== comEnvIdx) {
             currentEnvIndex = comEnvIdx;
-            ThreeEnvironment.setEnvConfigId(envs[comEnvIdx], 3);
+            ThreeEnvironment.setEnvConfigId(envs[comEnvIdx], 45);
             return;
         }
 
         if (fraction > 1.01) {
-            return;
+    //        return;
         }
 
         var useSky = interpolateSky(currentSkyConfig, skyList[currentEnvId], fraction);
@@ -295,17 +298,20 @@ define(['PipelineObject',
         }
 
         theta = Math.PI * ( useSky.inclination - 0.5 );
-        phi = 2 * Math.PI * ( useSky.azimuth - 0.5 );
+        phi = 2 * Math.PI * ( useSky.azimuth - 0.5 )+t;
 
         sunSphere.position.x = camera.position.x + useSky.distance * Math.cos( phi );
         sunSphere.position.y = camera.position.y + useSky.distance * Math.sin( phi ) * Math.sin( theta );
         sunSphere.position.z = camera.position.z + useSky.distance * Math.sin( phi ) * Math.cos( theta );
+        sunSphere.lookAt(camera.position);
 
         sky.mesh.position.copy(camera.position);
+
+
         sky.uniforms.sunPosition.value.copy( sunSphere.position );
 
         world.sun.position.copy(sunSphere.position);
-        world.sun.lookAt(camera.position);
+        world.sun.quaternion.copy(sunSphere.quaternion);
 
         calcVec.x = 0;
         calcVec.y = 0;

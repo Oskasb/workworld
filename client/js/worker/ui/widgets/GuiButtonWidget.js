@@ -29,9 +29,9 @@ define([
 
             var acceptClick = false;
 
-            var onButtonHover = function(bool)  {
+            var onButtonHover = function()  {
                 acceptClick = false;
-            }.bind(this);
+            };
 
             var onButtonRelease = function(active)  {
                 console.log("Button Release", active);
@@ -42,8 +42,6 @@ define([
                     } else {
                         this.surfaceElement.setOn(0);
                     }
-
-
                     this.callButtonClick(this.getBufferState())
                 }
                 acceptClick = false;
@@ -53,7 +51,7 @@ define([
                 if (active) {
                     acceptClick = true;
                 }
-            }.bind(this);
+            };
 
             this.surfaceElement.addSurfaceHoverCallback(onButtonHover);
             this.surfaceElement.addSurfaceReleaseCallback(onButtonRelease);

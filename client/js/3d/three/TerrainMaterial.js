@@ -19,7 +19,9 @@ define([
 
         var color;
         var rot;
+        var quat;
 
+        var tempVec = new THREE.Vector3();
 
         var applyUniformEnvironmentColor = function(uniform, worldProperty) {
             color = ThreeAPI.readEnvironmentUniform(worldProperty, 'color');
@@ -29,12 +31,13 @@ define([
         };
 
         var applyUniformEnvironmentRotation = function(uniform, worldProperty) {
-            rot = ThreeAPI.readEnvironmentUniform(worldProperty, 'rotation');
-            uniform.value.x = Math.sin(rot.z-0.5);
-            uniform.value.y = Math.cos(rot.y);
-            uniform.value.z = Math.sin(rot.x-0.5)
+            tempVec.set(0, 0, -1);
+            quat = ThreeAPI.readEnvironmentUniform(worldProperty, 'quaternion');
+            tempVec.applyQuaternion(quat);
+            uniform.value.x = tempVec.x;
+            uniform.value.y = tempVec.y;
+            uniform.value.z = tempVec.z
         };
-
 
         var sampleEnvUniforms = function() {
 

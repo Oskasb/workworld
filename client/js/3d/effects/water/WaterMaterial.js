@@ -20,6 +20,8 @@ define([
 
         var samplingUniforms = false;
 
+        var tempVec = new THREE.Vector3();
+
         var applyUniformEnvironmentColor = function(uniform, worldProperty) {
             var color = ThreeAPI.readEnvironmentUniform(worldProperty, 'color');
             uniform.value.r = color.r;
@@ -28,10 +30,12 @@ define([
         };
 
         var applyUniformEnvironmentRotation = function(uniform, worldProperty) {
-            var rot = ThreeAPI.readEnvironmentUniform(worldProperty, 'rotation');
-            uniform.value.x = rot.x;
-            uniform.value.y = rot.y;
-            uniform.value.z = rot.z;
+            tempVec.set(0, 0, -1);
+            var rot = ThreeAPI.readEnvironmentUniform(worldProperty, 'quaternion');
+            tempVec.applyQuaternion(rot);
+            uniform.value.x = tempVec.x;
+            uniform.value.y = tempVec.y;
+            uniform.value.z = tempVec.z;
         };
 
 

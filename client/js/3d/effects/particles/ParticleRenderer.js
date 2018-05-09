@@ -25,6 +25,7 @@ define([
         var req;
         var i;
         var color;
+        var tempVec = new THREE.Vector3();
         var key;
 
         var ParticleRenderer = function(rendererConfig, rendererReady, idx) {
@@ -77,6 +78,7 @@ define([
 
             var particleMaterialData = function(src, data) {
     //            console.log("particleMaterialData", src, data);
+                if (this.particles.length) return;
                 this.applyRendererMaterialData(data, rendererReady)
             }.bind(this);
 
@@ -129,7 +131,8 @@ define([
 
         ParticleRenderer.prototype.createParticles = function(rendererReady) {
             if (this.particles.length) {
-                console.error("Replace added particles");
+                console.error("Replace added particles wantes... bailing");
+                return;
                 this.particles = [];
             }
 
@@ -277,6 +280,18 @@ define([
             uniform.value.b = color.b;
         };
 
+        var quat;
+
+        ParticleRenderer.prototype.applyUniformEnvironmentQuaternion = function(uniform, worldProperty) {
+            quat = ThreeAPI.readEnvironmentUniform(worldProperty, 'quaternion');
+            tempVec.set(0, 0, -1);
+            tempVec.applyQuaternion(quat);
+            uniform.value.x = tempVec.x;
+            uniform.value.y = tempVec.y;
+            uniform.value.z = tempVec.z;
+        };
+
+
         ParticleRenderer.prototype.notifyRendererCloneRequested = function(targetIndex) {
         //    console.log("notifyRendererCloneRequested ...", targetIndex);
             this.particleRendererState.setRequestRendererAtIndex(targetIndex);
@@ -358,6 +373,11 @@ define([
             if (this.material.uniforms.sunLightColor) {
                 this.applyUniformEnvironmentColor(this.material.uniforms.sunLightColor, 'sun');
             }
+
+            if (this.material.uniforms.sunLightDirection) {
+                this.applyUniformEnvironmentQuaternion(this.material.uniforms.sunLightDirection, 'sun');
+            }
+
         };
 
         ParticleRenderer.prototype.dispose = function() {
