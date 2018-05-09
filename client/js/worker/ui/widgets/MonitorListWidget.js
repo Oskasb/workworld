@@ -96,6 +96,13 @@ define([
             this.surfaceElement.disableSurfaceElement();
         };
 
+        MonitorListWidget.prototype.applyDynamicLayout = function(dynLayout) {
+            if (!dynLayout) return;
+            for (var key in dynLayout) {
+                this.getWidgetSurfaceLayout().setDynamicLayout(key, dynLayout[key])
+            }
+        };
+
         MonitorListWidget.prototype.getWidgetSurfaceLayout = function() {
             return this.surfaceElement.getSurfaceLayout();
         };
