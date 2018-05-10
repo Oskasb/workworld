@@ -19,12 +19,15 @@ define([
         GuiSurfaceLayout
     ) {
 
+        var count = 0;
         var i;
         var elem;
         var surfaceAvtive = false;
         var surfacePassive = false;
 
         var GuiSurfaceElement = function() {
+            count++;
+            var surfaceIndex = count;
 
             this.textElements = [];
 
@@ -55,6 +58,13 @@ define([
             this.bottom = new GuiEdgeElement();
 
             this.samplePointer = true;
+
+            var registerPressSource = function() {
+                WorldAPI.setCom(ENUMS.BufferChannels.UI_PRESS_SOURCE, surfaceIndex)
+            };
+
+            this.addSurfacePressCallback(registerPressSource);
+
         };
 
         GuiSurfaceElement.prototype.initSurfaceElement = function(onReadyCB) {
@@ -239,7 +249,6 @@ define([
         };
 
 
-
         GuiSurfaceElement.prototype.setSamplePointer = function(bool) {
             this.samplePointer = bool;
         };
@@ -285,15 +294,12 @@ define([
             for (i = 0; i < this.textElements.length; i++) {
                 this.textElements[i].disableTextElement()
             }
-
         };
 
         GuiSurfaceElement.prototype.callSurfaceCallbackList = function(callbacks, bool) {
-
             for (var i = 0; i < callbacks.length; i++) {
                 callbacks[i](bool);
             }
-
         };
 
         GuiSurfaceElement.prototype.getSurfaceLayout = function() {

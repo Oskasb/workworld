@@ -136,6 +136,7 @@ define([
             } else {
                 this.curorEffects.disableEffectList();
                 this.dragStartEffects.disableEffectList();
+                WorldAPI.setCom(ENUMS.BufferChannels.UI_PRESS_SOURCE, 0)
             }
 
             if (this.dragVector.lengthSq() > dragVecConf.range_min) {

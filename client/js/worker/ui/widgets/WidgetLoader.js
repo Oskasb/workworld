@@ -1,11 +1,13 @@
 "use strict";
 
 define([
+        'ui/functions/DragFunctions',
         'ui/widgets/WidgetBuilder',
         'ui/widgets/WidgetFunctions',
         'ui/functions/GuiUpdatable'
     ],
     function(
+        DragFunctions,
         WidgetBuilder,
         WidgetFunctions,
         GuiUpdatable
@@ -13,6 +15,8 @@ define([
 
         var widgets = [];
         var widgetBuilder;
+
+        var widgetProcessor;
 
         var topTabs = [];
         var devButtons = [];
@@ -49,16 +53,16 @@ define([
 
         var clearButtonStates = function(store) {
             for (var i = 0; i < store.length; i++) {
-                if (store[i].getBufferState() === store[i].getMatch()) {
+                if (store[i].getButtonIsActive()) {
                     store[i].callButtonClick(0);
                 }
-
             }
         };
 
         var WidgetLoader = function() {
 
             widgetBuilder = new WidgetBuilder();
+
             this.guiUpdatable = new GuiUpdatable();
 
             widgetBuilder.buildControls(controls);
@@ -101,8 +105,6 @@ define([
             }
         };
 
-
-
         var enableDevSubtabs = function(bool) {
 
             if (bool) {
@@ -127,6 +129,7 @@ define([
             }
         };
 
+
         var buttonFunctions = {
             monitorSystem:toggleMonitors,
             physicsPanel:enablePhysPanel,
@@ -139,6 +142,14 @@ define([
             for (var i = 0; i < widgets.length; i++) {
                 widgets[i].updateGuiWidget()
             }
+
+            if (WorldAPI.getCom(ENUMS.BufferChannels.UI_PRESS_SOURCE) === 0) {
+                DragFunctions.dragSourceCamera();
+            }
+
+            WorldAPI.getWorldCamera().setLookAtVec(WorldAPI.getWorldCursor().getCursorPosition());
+            WorldAPI.getWorldCamera().updateCameraLookAt();
+
         };
 
         WidgetLoader.prototype.enableDefaultGuiWidgets = function() {

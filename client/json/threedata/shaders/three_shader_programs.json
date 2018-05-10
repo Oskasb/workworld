@@ -406,25 +406,33 @@
 
         "vertexDirectionalVertexLight":[
 
-          "float intensity = 0.5 + dot(normal, sunLightDirection ) * 0.5;",
-          "sunDir = sunLightColor * intensity * (0.5+intensity*intensity*0.5);",
+          "float intensity = max( 0.2 + dot(normal, sunLightDirection ) * 0.8, 0.0);",
 
-          "vColor.r = ambientLightColor.r*1.0;",
-          "vColor.g = ambientLightColor.g*1.0;",
-          "vColor.b = ambientLightColor.b*1.0;"
+          "sunDir = sunLightColor * intensity * (1.0+intensity*intensity*0.3);",
+
+          "vec3 fromAbove = vec3(0.0, 1.0, 0.0);",
+
+          "float ambInt = 0.7 + dot(normal, fromAbove ) * 0.4;",
+
+          "vColor.r = ambientLightColor.r*ambInt;",
+          "vColor.g = ambientLightColor.g*ambInt;",
+          "vColor.b = ambientLightColor.b*ambInt;"
         ],
 
         "vertexGeometryDirectionalLight":[
 
           "vec3 faceNormal = normal + 2.0 * cross( orientation.xyz, cross( orientation.xyz, normal ) + orientation.w * normal );",
 
-          "float intensity = 0.5 + dot(faceNormal, sunLightDirection ) * 0.5;",
-          "sunDir = sunLightColor * intensity * (0.5+intensity*intensity*0.5);",
+          "float intensity = max( 0.2 + dot(faceNormal, sunLightDirection ) * 0.8, 0.0);",
+          "sunDir = sunLightColor * intensity * (1.0+intensity*intensity*0.2);",
 
+          "vec3 fromAbove = vec3(0.0, 1.0, 0.0);",
 
-          "vColor.r = sunDir.r + ambientLightColor.r*1.0;",
-          "vColor.g = sunDir.g + ambientLightColor.g*1.0;",
-          "vColor.b = sunDir.b + ambientLightColor.b*1.0;"
+          "float ambInt = 0.7 + dot(faceNormal, fromAbove ) * 0.4;",
+
+          "vColor.r = sunDir.r + ambientLightColor.r * ambInt;",
+          "vColor.g = sunDir.g + ambientLightColor.g * ambInt;",
+          "vColor.b = sunDir.b + ambientLightColor.b * ambInt;"
         ],
 
         "x":[

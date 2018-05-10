@@ -4,16 +4,16 @@ define([
         'GuiAPI',
         'ConfigObject',
         'ui/elements/GuiSurfaceElement',
+        'ui/functions/GuiClickable',
         'ui/functions/GuiUpdatable'
     ],
     function(
         GuiAPI,
         ConfigObject,
         GuiSurfaceElement,
+        GuiClickable,
         GuiUpdatable
     ) {
-
-        var i;
 
         var count = 0;
 
@@ -25,65 +25,11 @@ define([
             this.position = new THREE.Vector3();
             this.guiUpdatable = new GuiUpdatable();
             this.surfaceElement = new GuiSurfaceElement();
-
-            this.masterState = {buffer:[0], index:0, match:1};
-
-            var acceptClick = false;
-
-            var onButtonHover = function()  {
-                acceptClick = false;
-            };
-
-            var onButtonRelease = function(active)  {
-                console.log("Button Release", active);
-                if (acceptClick) {
-                    this.flipButtonState();
-                    if (this.getBufferState() === this.masterState.match) {
-                        this.surfaceElement.setOn(1);
-                    } else {
-                        this.surfaceElement.setOn(0);
-                    }
-                    this.callButtonClick(this.getBufferState())
-                }
-                acceptClick = false;
-            }.bind(this);
-
-            var onButtonPress = function(active)  {
-                if (active) {
-                    acceptClick = true;
-                }
-            };
-
-            this.surfaceElement.addSurfaceHoverCallback(onButtonHover);
-            this.surfaceElement.addSurfaceReleaseCallback(onButtonRelease);
-            this.surfaceElement.addSurfacePressCallback(onButtonPress);
-            this.clickCallbacks = []
+            this.guiClickable = new GuiClickable(this.surfaceElement);
         };
 
-        GuiButtonWidget.prototype.setMasterBuffer = function(buffer, index, matchValue) {
-            this.masterState.buffer = buffer;
-            this.masterState.index = index;
-            this.masterState.match = matchValue || 1;
-        };
-
-        GuiButtonWidget.prototype.getBufferState = function() {
-                return this.masterState.buffer[this.masterState.index];
-        };
-
-        GuiButtonWidget.prototype.flipButtonState = function() {
-            if (this.masterState.buffer[this.masterState.index] === this.masterState.match) {
-                this.setBufferState(0);
-            } else {
-                this.setBufferState(this.masterState.match);
-            }
-        };
-
-        GuiButtonWidget.prototype.setBufferState = function(value) {
-            this.masterState.buffer[this.masterState.index] = value;
-        };
-
-        GuiButtonWidget.prototype.setupTextElements = function() {
-            this.header = this.surfaceElement.addSurfaceTextElement(this.configRead('label_key'), this.label);
+        GuiButtonWidget.prototype.configRead = function(dataKey) {
+            return this.configObject.getConfigByDataKey(dataKey)
         };
 
         GuiButtonWidget.prototype.initGuiWidget = function(onReadyCB) {
@@ -91,7 +37,7 @@ define([
             var configLoaded = function() {
                 this.configObject.removeCallback(configLoaded);
 
-                if (this.getBufferState() === this.masterState.match) {
+                if (this.guiClickable.isBufferStateMatch()) {
                     this.callButtonClick(1);
                 }
 
@@ -106,13 +52,29 @@ define([
             this.surfaceElement.initSurfaceElement(surfaceReady);
         };
 
-        GuiButtonWidget.prototype.configRead = function(dataKey) {
-            return this.configObject.getConfigByDataKey(dataKey)
+        GuiButtonWidget.prototype.setupTextElements = function() {
+            this.header = this.surfaceElement.addSurfaceTextElement(this.configRead('label_key'), this.label);
+        };
+
+        GuiButtonWidget.prototype.setMasterBuffer = function(buffer, index, matchValue) {
+            this.guiClickable.setMasterBuffer(buffer, index, matchValue);
+        };
+
+        GuiButtonWidget.prototype.callButtonClick = function(bool) {
+            this.guiClickable.callClickableCallbacks(bool);
+        };
+
+        GuiButtonWidget.prototype.addButtonClickCallback = function(clickFunc) {
+            this.guiClickable.addClickableCallback(clickFunc);
+        };
+
+        GuiButtonWidget.prototype.getButtonIsActive = function() {
+            return this.guiClickable.isBufferStateMatch();
         };
 
         GuiButtonWidget.prototype.updateSurfaceState = function() {
 
-            if (this.getBufferState() === this.masterState.match) {
+            if (this.guiClickable.isBufferStateMatch()) {
 
                 if (this.surfaceElement.getOn() === 0) {
                     this.callButtonClick(1);
@@ -131,23 +93,10 @@ define([
             this.surfaceElement.updateSurfaceElement(this.position , this.configRead('surface'))
         };
 
-        GuiButtonWidget.prototype.getMatch = function() {
-            return this.masterState.match;
-        };
-
         GuiButtonWidget.prototype.updateGuiWidget = function() {
             this.updateSurfaceState();
         };
 
-        GuiButtonWidget.prototype.callButtonClick = function(bool) {
-            for (i = 0; i < this.clickCallbacks.length; i++) {
-                this.clickCallbacks[i](bool);
-            }
-        };
-
-        GuiButtonWidget.prototype.addButtonClickCallback = function(clickFunc) {
-            this.clickCallbacks.push(clickFunc);
-        };
 
         GuiButtonWidget.prototype.disableWidget = function() {
             this.surfaceElement.disableSurfaceElement();
@@ -171,7 +120,6 @@ define([
 
         GuiButtonWidget.prototype.enableWidget = function() {
             this.setupTextElements()
-
         };
 
         return GuiButtonWidget;

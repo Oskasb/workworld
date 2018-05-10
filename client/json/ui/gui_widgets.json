@@ -40,6 +40,45 @@
       }
     ],
 
+    "GUI_MESSAGEBOX_WIDGET":[
+      {
+        "id": "config",
+        "data": {
+          "surface":{
+
+            "layout":{
+              "anchor":"bottom_left",
+              "fixed_aspect":true,
+              "margin_x":0.05,
+              "margin_y":0.05,
+              "width": 0.37,
+              "height":0.31
+            },
+
+            "corners":{
+              "passive_fx":"corner_passive_effects",
+              "active_fx":"corner_active_effects"
+            },
+
+            "edges":{
+              "passive_fx":"edge_passive_effects",
+              "active_fx":"edge_active_effects",
+              "thickness":0.025
+            },
+
+            "backplate":{
+              "passive_fx":"plate_passive_effects",
+              "active_fx":"plate_active_effects"
+            }
+
+          },
+          "drag_vector_effects":[
+            "gui_arrow_top_left_additive_effect",
+            "gui_corner_top_left_normal_effect"
+          ]
+        }
+      }
+    ],
 
     "GUI_BUTTON_WIDGET":[
       {
@@ -57,7 +96,7 @@
               "width": 0.22,
               "height":0.03
             },
-            
+
             "corners":{
               "passive_fx":"corner_passive_effects",
               "active_fx":"corner_active_effects"
