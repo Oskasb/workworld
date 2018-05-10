@@ -14,6 +14,7 @@ define([
         var widgets = [];
         var widgetBuilder;
 
+        var topTabs = [];
         var devButtons = [];
         var statusMonitors = [];
         var physPanelButtons = [];
@@ -46,16 +47,23 @@ define([
             }
         };
 
+        var clearButtonStates = function(store) {
+            for (var i = 0; i < store.length; i++) {
+                if (store[i].getBufferState() === store[i].getMatch()) {
+                    store[i].callButtonClick(0);
+                }
+
+            }
+        };
+
         var WidgetLoader = function() {
 
             widgetBuilder = new WidgetBuilder();
             this.guiUpdatable = new GuiUpdatable();
 
             widgetBuilder.buildControls(controls);
-
-            widgetBuilder.buildDevButtonTabs(buttonFunctions, devButtons);
             widgetBuilder.buildStatusMonitors(statusMonitors);
-            initWidgetStore(devButtons);
+            widgetBuilder.buildButtonWidget('STATUS', controls, buttonFunctions.monitorSystem, {margin_y:0.07});
 
         };
 
@@ -76,15 +84,7 @@ define([
         var enablePhysPanel = function(bool) {
 
             if (bool) {
-                var ySep = 0.07;
-                var my = 0.12;
-                widgetBuilder.buildButtonWidget('BOX RAIN', physPanelButtons,null, {anchor:'top_left', margin_y:my,  margin_x:0.025}, WorldAPI.getWorldComBuffer(), ENUMS.BufferChannels.SPAWM_BOX_RAIN);
-                my += ySep;
-                widgetBuilder.buildButtonWidget('POKE ALL', physPanelButtons,null, {anchor:'top_left', margin_y:my,  margin_x:0.025}, WorldAPI.getWorldComBuffer(), ENUMS.BufferChannels.PUSH_ALL_DYNAMICS);
-                my += ySep;
-                widgetBuilder.buildButtonWidget('ATTRACT', physPanelButtons,null, {anchor:'top_left', margin_y:my,  margin_x:0.025}, WorldAPI.getWorldComBuffer(), ENUMS.BufferChannels.ATTRACT_DYNAMICS);
-                my += ySep;
-                widgetBuilder.buildButtonWidget('REPEL',  physPanelButtons,  null, {anchor:'top_left', margin_y:my,  margin_x:0.025}, WorldAPI.getWorldComBuffer(), ENUMS.BufferChannels.REPEL_DYNAMICS);
+                widgetBuilder.buildPhysicsButtons(physPanelButtons);
                 initWidgetStore(physPanelButtons)
             } else {
                 removePanelWidgets(physPanelButtons)
@@ -94,17 +94,7 @@ define([
         var enableEnvPanel = function(bool) {
 
             if (bool) {
-
-                var ySep = 0.07;
-                var my = 0.12;
-                var mx = 0.185;
-
-                var i = 0;
-                for (var key in ENUMS.Environments) {
-                    i++;
-                    widgetBuilder.buildButtonWidget(key, envPanelButtons, null, {anchor:'top_left', margin_y:my,  margin_x:mx}, WorldAPI.getWorldComBuffer(), ENUMS.BufferChannels.ENV_INDEX, i);
-                    my += ySep;
-                }
+                widgetBuilder.buildEnvPanel(envPanelButtons);
                 initWidgetStore(envPanelButtons)
             } else {
                 removePanelWidgets(envPanelButtons)
@@ -112,19 +102,37 @@ define([
         };
 
 
-        var buttonFunctions = {
-            monitorSystem:function(bool) {
-                console.log("Click!", bool);
-                toggleMonitors(bool);
-            },
 
-            physicsPanel:function(bool) {
-                enablePhysPanel(bool)
-            },
+        var enableDevSubtabs = function(bool) {
 
-            envPanel:function(bool) {
-                enableEnvPanel(bool);
+            if (bool) {
+                widgetBuilder.buildDevButtonTabs(buttonFunctions, devButtons);
+                initWidgetStore(devButtons)
+            } else {
+                clearButtonStates(devButtons);
+                removePanelWidgets(devButtons)
             }
+        };
+
+        var worldButtons = []
+
+        var enableWorldSubtabs = function(bool) {
+
+            if (bool) {
+                widgetBuilder.buildWorldButtonTabs(buttonFunctions, worldButtons);
+                initWidgetStore(worldButtons)
+            } else {
+                clearButtonStates(worldButtons);
+                removePanelWidgets(worldButtons)
+            }
+        };
+
+        var buttonFunctions = {
+            monitorSystem:toggleMonitors,
+            physicsPanel:enablePhysPanel,
+            envPanel:enableEnvPanel,
+            devSubtabs:enableDevSubtabs,
+            worldSubtabs:enableWorldSubtabs
         };
 
         var updateWidgets = function() {
@@ -135,6 +143,11 @@ define([
 
         WidgetLoader.prototype.enableDefaultGuiWidgets = function() {
             this.guiUpdatable.enableUpdates(updateWidgets);
+
+            widgetBuilder.addTopNavigationTab('DEV_PANEL', topTabs, buttonFunctions.devSubtabs);
+            widgetBuilder.addTopNavigationTab('STACI_WORLD', topTabs, buttonFunctions.worldSubtabs);
+            initWidgetStore(topTabs);
+
             initWidgetStore(controls);
         };
 

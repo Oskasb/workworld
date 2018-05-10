@@ -75,7 +75,15 @@ if(typeof(ENUMS) === "undefined"){
         PUSH_ALL_DYNAMICS:  43,
         ATTRACT_DYNAMICS:   44,
         REPEL_DYNAMICS:     45,
-        ENV_INDEX:          46
+        ENV_INDEX:          46,
+        UI_NAVIGATION_TOP:  47,
+        WORLD_ACTION_1:     48,
+        WORLD_ACTION_2:     49,
+        WORLD_ACTION_3:     50,
+        UI_NAVIGATION_DEV:  51,
+        DEV_ACTION_1:     52,
+        DEV_ACTION_2:     53,
+        DEV_ACTION_3:     54
 
     };
 

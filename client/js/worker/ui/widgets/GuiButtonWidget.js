@@ -89,6 +89,11 @@ define([
 
             var configLoaded = function() {
                 this.configObject.removeCallback(configLoaded);
+
+                if (this.getBufferState() === this.masterState.match) {
+                    this.callButtonClick(1);
+                }
+                
                 onReadyCB(this);
             }.bind(this);
 
@@ -107,12 +112,26 @@ define([
         GuiButtonWidget.prototype.updateSurfaceState = function() {
 
             if (this.getBufferState() === this.masterState.match) {
+
+                if (this.surfaceElement.getOn() === 0) {
+                    this.callButtonClick(1);
+                }
+
                 this.surfaceElement.setOn(1);
             } else {
+
+                if (this.surfaceElement.getOn() === 1) {
+                    this.callButtonClick(0);
+                }
+
                 this.surfaceElement.setOn(0);
             }
 
             this.surfaceElement.updateSurfaceElement(this.position ,this.configObject.getConfigByDataKey('surface'))
+        };
+
+        GuiButtonWidget.prototype.getMatch = function() {
+            return this.masterState.match;
         };
 
         GuiButtonWidget.prototype.updateGuiWidget = function() {
