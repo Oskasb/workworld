@@ -17,9 +17,10 @@ define([
 
         var count = 0;
 
-        var GuiButtonWidget = function(label) {
+        var GuiButtonWidget = function(label, configId) {
             count++;
             this.label = label;
+            this.configId = configId || 'default';
             this.id = 'button_'+label+'_'+count;
             this.position = new THREE.Vector3();
             this.guiUpdatable = new GuiUpdatable();
@@ -82,7 +83,7 @@ define([
         };
 
         GuiButtonWidget.prototype.setupTextElements = function() {
-            this.header = this.surfaceElement.addSurfaceTextElement('button_label', this.label);
+            this.header = this.surfaceElement.addSurfaceTextElement(this.configRead('label_key'), this.label);
         };
 
         GuiButtonWidget.prototype.initGuiWidget = function(onReadyCB) {
@@ -93,12 +94,12 @@ define([
                 if (this.getBufferState() === this.masterState.match) {
                     this.callButtonClick(1);
                 }
-                
+
                 onReadyCB(this);
             }.bind(this);
 
             var surfaceReady = function() {
-                this.configObject = new ConfigObject('GUI_WIDGETS', 'GUI_BUTTON_WIDGET', 'config');
+                this.configObject = new ConfigObject('GUI_WIDGETS', 'GUI_BUTTON_WIDGET', this.configId);
                 this.configObject.addCallback(configLoaded);
             }.bind(this);
 
@@ -127,7 +128,7 @@ define([
                 this.surfaceElement.setOn(0);
             }
 
-            this.surfaceElement.updateSurfaceElement(this.position ,this.configObject.getConfigByDataKey('surface'))
+            this.surfaceElement.updateSurfaceElement(this.position , this.configRead('surface'))
         };
 
         GuiButtonWidget.prototype.getMatch = function() {

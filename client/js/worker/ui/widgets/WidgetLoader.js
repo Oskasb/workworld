@@ -63,7 +63,7 @@ define([
 
             widgetBuilder.buildControls(controls);
             widgetBuilder.buildStatusMonitors(statusMonitors);
-            widgetBuilder.buildButtonWidget('STATUS', controls, buttonFunctions.monitorSystem, {margin_y:0.07});
+            widgetBuilder.buildButtonWidget('STATUS', 'default', controls, buttonFunctions.monitorSystem, {margin_y:0.07});
 
         };
 
@@ -144,8 +144,8 @@ define([
         WidgetLoader.prototype.enableDefaultGuiWidgets = function() {
             this.guiUpdatable.enableUpdates(updateWidgets);
 
-            widgetBuilder.addTopNavigationTab('DEV_PANEL', topTabs, buttonFunctions.devSubtabs);
-            widgetBuilder.addTopNavigationTab('STACI_WORLD', topTabs, buttonFunctions.worldSubtabs);
+            widgetBuilder.addTopNavigationTab('DEV', topTabs, buttonFunctions.devSubtabs);
+            widgetBuilder.addTopNavigationTab('WORLD', topTabs, buttonFunctions.worldSubtabs);
             initWidgetStore(topTabs);
 
             initWidgetStore(controls);

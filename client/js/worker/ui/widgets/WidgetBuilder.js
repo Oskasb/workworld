@@ -20,7 +20,8 @@ define([
             anchor:'top_left',
             margin_x:0.01,
             step_x:0.140,
-            margin_y:0.04
+            margin_y:0.04,
+            height:0.06
         };
 
         var WidgetBuilder = function() {
@@ -43,20 +44,20 @@ define([
                 margin_x:topTabsLayout.margin_x + topTabsLayout.step_x*tabIndex
             };
 
-            this.buildButtonWidget(label, topTabs, buttonCallback, customLayout, WorldAPI.getWorldComBuffer(), ENUMS.BufferChannels.UI_NAVIGATION_TOP, tabIndex+1);
+            this.buildButtonWidget(label, 'top_bar', topTabs, buttonCallback, customLayout, WorldAPI.getWorldComBuffer(), ENUMS.BufferChannels.UI_NAVIGATION_TOP, tabIndex+1);
 
         };
 
         WidgetBuilder.prototype.buildDevButtonTabs = function(buttonFunctions, devButtons) {
             var buffer = WorldAPI.getWorldComBuffer();
-            this.buildButtonWidget('PHYSICS', devButtons, buttonFunctions.physicsPanel, {anchor:'top_left', margin_y:0.1}, buffer, ENUMS.BufferChannels.DEV_ACTION_1, 1);
-            this.buildButtonWidget('ENVIRONMENT', devButtons, buttonFunctions.envPanel, {anchor:'top_left', margin_x:0.180, margin_y:0.1}, buffer, ENUMS.BufferChannels.DEV_ACTION_2, 1);
+            this.buildButtonWidget('PHYSICS', 'default',devButtons, buttonFunctions.physicsPanel, {anchor:'top_left', margin_y:0.1}, buffer, ENUMS.BufferChannels.DEV_ACTION_1, 1);
+            this.buildButtonWidget('ENVIRONMENT', 'default',devButtons, buttonFunctions.envPanel, {anchor:'top_left', margin_x:0.180, margin_y:0.1}, buffer, ENUMS.BufferChannels.DEV_ACTION_2, 1);
         };
 
         WidgetBuilder.prototype.buildWorldButtonTabs = function(buttonFunctions, worldButtons) {
-            this.buildButtonWidget('AUTO_WORLD',    worldButtons, null, {anchor:'top_left', margin_y:0.1},                      WorldAPI.getWorldComBuffer(), ENUMS.BufferChannels.WORLD_ACTION_1, 1);
-            this.buildButtonWidget('ADD_STUFF',     worldButtons, null, {anchor:'top_left', margin_x:0.150, margin_y:0.1},      WorldAPI.getWorldComBuffer(), ENUMS.BufferChannels.WORLD_ACTION_2, 1);
-            this.buildButtonWidget('REMOVE_STUFF',  worldButtons, null, {anchor:'top_left', margin_x:0.280, margin_y:0.1},      WorldAPI.getWorldComBuffer(), ENUMS.BufferChannels.WORLD_ACTION_3, 1);
+            this.buildButtonWidget('AUTO_WORLD',   'default', worldButtons, null, {anchor:'top_left', margin_y:0.1},                      WorldAPI.getWorldComBuffer(), ENUMS.BufferChannels.WORLD_ACTION_1, 1);
+            this.buildButtonWidget('ADD_STUFF',    'default', worldButtons, null, {anchor:'top_left', margin_x:0.150, margin_y:0.1},      WorldAPI.getWorldComBuffer(), ENUMS.BufferChannels.WORLD_ACTION_2, 1);
+            this.buildButtonWidget('REMOVE_STUFF', 'default', worldButtons, null, {anchor:'top_left', margin_x:0.280, margin_y:0.1},      WorldAPI.getWorldComBuffer(), ENUMS.BufferChannels.WORLD_ACTION_3, 1);
         };
 
         WidgetBuilder.prototype.buildStatusMonitors = function(statusMonitors) {
@@ -70,13 +71,13 @@ define([
             var ySep = 0.06;
             var my = 0.18;
             var buffer = WorldAPI.getWorldComBuffer();
-            this.buildButtonWidget('BOX RAIN', physPanelButtons,null, {anchor:'top_left', margin_y:my,  margin_x:0.025}, buffer, ENUMS.BufferChannels.SPAWM_BOX_RAIN);
+            this.buildButtonWidget('BOX RAIN', 'default', physPanelButtons,null, {anchor:'top_left', margin_y:my,  margin_x:0.025}, buffer, ENUMS.BufferChannels.SPAWM_BOX_RAIN);
             my += ySep;
-            this.buildButtonWidget('POKE ALL', physPanelButtons,null, {anchor:'top_left', margin_y:my,  margin_x:0.025}, buffer, ENUMS.BufferChannels.PUSH_ALL_DYNAMICS);
+            this.buildButtonWidget('POKE ALL', 'default', physPanelButtons,null, {anchor:'top_left', margin_y:my,  margin_x:0.025}, buffer, ENUMS.BufferChannels.PUSH_ALL_DYNAMICS);
             my += ySep;
-            this.buildButtonWidget('ATTRACT', physPanelButtons,null, {anchor:'top_left', margin_y:my,  margin_x:0.025}, buffer, ENUMS.BufferChannels.ATTRACT_DYNAMICS);
+            this.buildButtonWidget('ATTRACT', 'default',physPanelButtons,null, {anchor:'top_left', margin_y:my,  margin_x:0.025}, buffer, ENUMS.BufferChannels.ATTRACT_DYNAMICS);
             my += ySep;
-            this.buildButtonWidget('REPEL',  physPanelButtons,  null, {anchor:'top_left', margin_y:my,  margin_x:0.025}, buffer, ENUMS.BufferChannels.REPEL_DYNAMICS);
+            this.buildButtonWidget('REPEL', 'default', physPanelButtons,  null, {anchor:'top_left', margin_y:my,  margin_x:0.025}, buffer, ENUMS.BufferChannels.REPEL_DYNAMICS);
         };
 
         WidgetBuilder.prototype.buildEnvPanel = function(envPanelButtons) {
@@ -87,14 +88,14 @@ define([
             var i = 0;
             for (var key in ENUMS.Environments) {
                 i++;
-                this.buildButtonWidget(key, envPanelButtons, null, {anchor:'top_left', margin_y:my,  margin_x:mx}, WorldAPI.getWorldComBuffer(), ENUMS.BufferChannels.ENV_INDEX, i);
+                this.buildButtonWidget(key, 'default',envPanelButtons, null, {anchor:'top_left', margin_y:my,  margin_x:mx}, WorldAPI.getWorldComBuffer(), ENUMS.BufferChannels.ENV_INDEX, i);
                 my += ySep;
             }
         };
 
 
-        WidgetBuilder.prototype.buildButtonWidget = function(label, storeArray, callback, dynamicLayout, masterBuffer, masterIndex, matchValue) {
-            button = new GuiButtonWidget(label);
+        WidgetBuilder.prototype.buildButtonWidget = function(label, configId, storeArray, callback, dynamicLayout, masterBuffer, masterIndex, matchValue) {
+            button = new GuiButtonWidget(label, configId);
 
             if (callback) {
                 button.addButtonClickCallback(callback);

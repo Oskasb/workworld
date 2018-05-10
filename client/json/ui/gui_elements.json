@@ -31,6 +31,19 @@
             "alpha_map":"label_alpha_map"
           },
 
+          "top_tab_button_label":{
+            "font_size":16,
+            "letter_spacing":0.98,
+            "text_align_x":0.5,
+            "text_align_y":0.5,
+            "text_margin_x":1.6,
+            "text_margin_y":1.3,
+            "italic":true,
+            "font_effect":"gui_basic_normal_text_effect",
+            "color_map":"label_color_map",
+            "alpha_map":"label_alpha_map"
+          },
+
           "button_label":{
             "font_size":12,
             "letter_spacing":0.98,
