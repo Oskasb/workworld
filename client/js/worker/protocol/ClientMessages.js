@@ -3,61 +3,15 @@
 
 
 define([
+    'Events',
         'PipelineAPI',
         'ThreeAPI'
     ],
     function(
+        evt,
         PipelineAPI,
         ThreeAPI
     ) {
-
-        var terrainOpts = {
-            "type":"array",
-            "state":true,
-            "three_terrain":"plain_ground",
-            "vegetation_system":"basic_grassland",
-            "terrain_size":4000,
-            "terrain_segments":127,
-            "invert_hill":false,
-            "terrain_edge_size":750,
-            "edge_easing":"clampSin",
-            "max_height":275,
-            "min_height":-70,
-            "frequency":4,
-            "steps":6
-        };
-
-        var terrainOpts2 = {
-            "type":"array",
-            "state":true,
-            "three_terrain":"plain_ground",
-            "vegetation_system":"basic_grassland",
-            "terrain_size":1000,
-            "terrain_segments":127,
-            "invert_hill":false,
-            "terrain_edge_size":105,
-            "edge_easing":"clampSin",
-            "max_height":25,
-            "min_height":-12,
-            "frequency":3,
-            "steps":4
-        };
-
-        var terrainOpts3 = {
-            "type":"array",
-            "state":true,
-            "three_terrain":"plain_ground",
-            "vegetation_system":"basic_grassland",
-            "terrain_size":8000,
-            "terrain_segments":127,
-            "invert_hill":false,
-            "terrain_edge_size":305,
-            "edge_easing":"clampSin",
-            "max_height":120,
-            "min_height":-12,
-            "frequency":6,
-            "steps":5
-        };
 
         var ClientMessages = function() {
             this.messageHandlers = [];
@@ -87,12 +41,6 @@ define([
                     };
 
                     WorkerAPI.setWakeupFunction(wakeupFunc);
-
-                    //   WorkerAPI.callWorker(ENUMS.Worker.WORLD, WorkerAPI.buildMessage(ENUMS.Protocol.CREATE_WORLD,{posx:1500, posz:-1230, options:terrainOpts2}));
-                    //   WorkerAPI.callWorker(ENUMS.Worker.WORLD, WorkerAPI.buildMessage(ENUMS.Protocol.CREATE_WORLD,{posx:-1500, posz:-1200, options:terrainOpts}));
-                    //   WorkerAPI.callWorker(ENUMS.Worker.WORLD, WorkerAPI.buildMessage(ENUMS.Protocol.CREATE_WORLD,{posx:-400, posz:-350, options:terrainOpts}));
-                    //   WorkerAPI.callWorker(ENUMS.Worker.WORLD, WorkerAPI.buildMessage(ENUMS.Protocol.CREATE_WORLD,{posx:-200, posz:-1300, options:terrainOpts}));
-                    WorkerAPI.callWorker(ENUMS.Worker.WORLD, WorkerAPI.buildMessage(ENUMS.Protocol.CREATE_WORLD,{posx:-1000, posz:-1000, options:terrainOpts}));
                     WorkerAPI.callWorker(ENUMS.Worker.WORLD, WorkerAPI.buildMessage(ENUMS.Protocol.SET_INPUT_BUFFER, PipelineAPI.getCachedConfigs().POINTER_STATE.buffer));
                 }
             };
@@ -123,6 +71,17 @@ define([
                 rootObj.position.z = msg[1][0].posz;
 
                 ThreeAPI.addToScene(rootObj);
+
+            };
+
+
+            this.messageHandlers[ENUMS.Protocol.REGISTER_GEOMETRY] = function(msg) {
+
+                console.log("Handle (Client) REGISTER_GEOMETRY", msg[1]);
+
+                evt.fire(evt.list().DYNAMIC_MODEL, {msg:msg[1]});
+
+            //    PipelineAPI.setCategoryKeyValue('DYNAMIC_MODEL', 'STANDARD_GEOMETRY', msg[1]);
 
             };
 

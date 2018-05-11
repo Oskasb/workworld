@@ -25,7 +25,8 @@ if(typeof(ENUMS) === "undefined"){
         PHYSICS_BODY_ADD:       15,
         PHYSICS_CALL_UPDATE:    16,
         FETCH_GEOMETRY_BUFFER:  17,
-        SET_GEOMETRY_BUFFER:    18
+        SET_GEOMETRY_BUFFER:    18,
+        REGISTER_GEOMETRY:      19
     };
 
     ENUMS.BufferChannels = {

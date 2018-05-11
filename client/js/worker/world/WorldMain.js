@@ -64,7 +64,7 @@ define([
             var worldComReady = function(src, data) {
                 worldComBuffer = data;
                 EffectsAPI.initEffects(fxReady);
-                WorldAPI.setCom(ENUMS.BufferChannels.ENV_INDEX, 2);
+                WorldAPI.setCom(ENUMS.BufferChannels.ENV_INDEX, 4);
                 WorldAPI.callSharedWorker(ENUMS.Worker.PHYSICS_WORLD, ENUMS.Protocol.SET_WORLD_COM_BUFFER, worldComBuffer);
             };
 

@@ -96,6 +96,45 @@
             "alpha_map":"label_alpha_map"
           },
 
+          "message_header":{
+            "font_size":11,
+            "letter_spacing":0.96,
+            "text_align_x":0.0,
+            "text_align_y":0.0,
+            "text_margin_x":1.2,
+            "text_margin_y":0.3,
+            "italic":true,
+            "font_effect":"gui_basic_normal_text_effect",
+            "color_map":"header_color_map",
+            "alpha_map":"message_alpha_map"
+          },
+
+          "message_key":{
+            "font_size":9,
+            "letter_spacing":1,
+            "text_align_x":1.0,
+            "text_align_y":1.0,
+            "text_margin_x":2.0,
+            "text_margin_y":0.9,
+            "italic":false,
+            "font_effect":"gui_basic_normal_text_effect",
+            "color_map":"list_key_color_map",
+            "alpha_map":"message_alpha_map"
+          },
+
+          "message_value":{
+            "font_size":9,
+            "letter_spacing":1,
+            "text_align_x":0.1,
+            "text_align_y":1.0,
+            "text_margin_x":2.0,
+            "text_margin_y":0.9,
+            "italic":false,
+            "font_effect":"gui_basic_normal_text_effect",
+            "color_map":"list_value_color_map",
+            "alpha_map":"message_alpha_map"
+          },
+
           "header_color_map":{
             "color":"cyan_2",
             "disabled":"red_2",
@@ -128,7 +167,13 @@
             "on":"alpha_80"
           },
 
-
+          "message_alpha_map":{
+            "color":"alpha_40",
+            "disabled":"alpha_60",
+            "passive":"alpha_40",
+            "active":"alpha_60",
+            "on":"alpha_40"
+          },
 
           "list_key_color_map":{
             "color":"blue_2",

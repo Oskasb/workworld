@@ -17,7 +17,6 @@ define([
         PipelineAPI
     ) {
 
-
 		var frame = 0;
 
         var memory;
@@ -353,7 +352,7 @@ define([
         };
 
         ClientViewer.prototype.tickWorkerPing = function(msg) {
-
+            this.sceneController.tickDynamicScene();
             evt.fire(evt.list().CLIENT_TICK, tickEvent);
         };
 

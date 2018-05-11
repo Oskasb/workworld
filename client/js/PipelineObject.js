@@ -80,6 +80,9 @@ define([
             }
         };
 
+        PipelineObject.prototype.getConfigs = function() {
+            return this.configs;
+        };
 
         PipelineObject.prototype.readData = function() {
             return PipelineAPI.readCachedConfigKey(this.category, this.key);

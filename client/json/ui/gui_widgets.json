@@ -144,8 +144,8 @@
             "edges":{
               "passive_fx":"edge_passive_effects",
               "active_fx":"edge_active_effects",
-              "color_on":"orange_2",
-              "color":"orange_1",
+              "color_on":"orange_4",
+              "color":"orange_2",
               "thickness":0.025
             },
 
@@ -159,6 +159,42 @@
         }
       }
 
+    ],
+
+    "MESSAGE_BOX_WIDGET":[
+      {
+        "id": "config",
+        "data": {
+          "header":"message_header",
+          "surface":{
+
+            "layout":{
+              "anchor":"bottom_mid",
+              "fixed_aspect":false,
+              "margin_x":0.02,
+              "margin_y":0.0,
+              "width": 0.40,
+              "height":0.53
+            },
+
+            "edges":{
+              "passive_fx":"edge_passive_effects",
+              "active_fx":"edge_active_effects",
+              "color_on":"blue_1",
+              "color":"blue_1",
+              "thickness":0.014
+            },
+
+            "backplate":{
+              "passive_fx":"plate_passive_effects",
+              "active_fx":"plate_active_effects",
+              "color_on":"orange_1",
+              "color":"red_1"
+            }
+
+          }
+        }
+      }
     ],
 
     "MONITOR_LIST_WIDGET":[

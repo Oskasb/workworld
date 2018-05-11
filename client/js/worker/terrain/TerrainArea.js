@@ -3,19 +3,21 @@
 define([
         'worker/terrain/AreaFunctions',
         'worker/terrain/TerrainSection',
-        'worker/dynamic/DynamicSpatial'
+        'worker/dynamic/DynamicSpatial',
+        'ConfigObject'
     ],
     function(
         AreaFunctions,
         TerrainSection,
-        DynamicSpatial
+        DynamicSpatial,
+        ConfigObject
     ) {
 
         var tempVec1 = new THREE.Vector3();
         var tempVec2 = new THREE.Vector3();
         var tempObj3d = new THREE.Object3D();
 
-        var TerrainArea = function(terrainFunctions) {
+        var TerrainArea = function(terrainFunctions, configId, onReady) {
             this.dynamicSpatial = new DynamicSpatial();
             this.dynamicSpatial.setupSpatialBuffer();
             this.size = 0;
@@ -35,6 +37,19 @@ define([
             this.msg = null;
 
             this.dataRequested = false;
+
+            var configReady = function(data) {
+                this.configObject.removeCallback(configReady);
+                onReady(this)
+            }.bind(this);
+
+            this.configObject = new ConfigObject('GEOMETRY', 'TERRAIN_GEOMETRY', configId);
+            this.configObject.addCallback(configReady)
+
+        };
+
+        TerrainArea.prototype.configRead = function(dataKey) {
+            return this.configObject.getConfigByDataKey(dataKey)
         };
 
         TerrainArea.prototype.setTerrainOptions = function(options) {
@@ -137,12 +152,17 @@ define([
             this.generateTerrainSectons(0.002);
         };
 
-        TerrainArea.prototype.createAreaOfTerrain = function(msg) {
-            this.msg = msg;
+        TerrainArea.prototype.createAreaOfTerrain = function(posx, posz) {
+            this.msg = {};
 
-            this.setTerrainOptions(msg.options);
+            this.msg.options = this.configRead('options');
+            this.msg.posx = posx;
+            this.msg.posz = posz;
+
+
+            this.setTerrainOptions(this.msg.options);
             this.size = this.terrainOptions.terrain_size;
-            this.setTerrainPosXYZ(msg.posx, this.terrainOptions.min_height, msg.posz);
+            this.setTerrainPosXYZ(this.msg.posx, this.terrainOptions.min_height, this.msg.posz);
             this.setTerrainExtentsXYZ(this.size, this.terrainOptions.max_height - this.terrainOptions.min_height, this.size);
 
             this.boundingBox.min.copy(this.origin);

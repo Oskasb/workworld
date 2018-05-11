@@ -52,7 +52,6 @@ define([
             PipelineAPI.setCategoryKeyValue('STATUS', 'PHYSICS_MONITOR', physicsEntries);
         };
 
-
         var start;
         var gameTime = 0;
 
@@ -205,7 +204,6 @@ define([
 
 
         StatusMonitor.prototype.tick = function(timeStart) {
-
 
             frame++;
 

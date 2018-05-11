@@ -13,6 +13,7 @@ var premauteMessageQueue = [];
 importScripts(baseUrl+'client/js/ENUMS.js');
 importScripts(baseUrl+'client/js/MATH.js');
 importScripts(baseUrl+'client/js/lib/three.js');
+// importScripts(baseUrl+'client/js/lib/ammo/ammo.js');
 importScripts(baseUrl+'client/js/lib/ammo/ammo.wasm.js');
 importScripts(baseUrl+'client/js/lib/require.js');
 

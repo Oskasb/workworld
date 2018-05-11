@@ -579,6 +579,8 @@ define([
             }
         }
 
+
+
         AmmoFunctions.prototype.createRigidBody = function(body_config, dynamicSpatial, onReady) {
 
             var rigid_body = body_config;
@@ -608,15 +610,16 @@ define([
                 return;
             }
 
-            if (shapeKey === "primitive") {
 
-                var createFunc = function(physicsShape) {
-                    return createPrimitiveBody(physicsShape, rigid_body, scale);
-                };
+            if (shapeKey === "primitive") {
 
                 rigidBody = fetchPoolBody(dataKey);
 
                 if (!rigidBody) {
+
+                    var createFunc = function(physicsShape) {
+                        return createPrimitiveBody(physicsShape, rigid_body, scale);
+                    };
 
                     var shape = createPrimitiveShape(rigid_body);
                     shape.setLocalScaling(new Ammo.btVector3(scale.x, scale.y, scale.z));
@@ -687,6 +690,26 @@ define([
             return new Ammo.btCylinderShape(new Ammo.btVector3(w * 0.5, l * 0.5, h * 1));
         }
 
+
+        function ammoCompoundShape(args) {
+
+            var compoundShape = new Ammo.btCompoundShape();
+
+            for (var i = 0; i < args.length; i++) {
+                var subShape = createPrimitiveShape(args[i]);
+
+                var offset = args[i].offset;
+                var rot = args[i].rotation;
+
+                var rotation = new Ammo.btQuaternion(rot[0], rot[1], rot[2], 1);
+                var position = new Ammo.btVector3(offset[0], offset[1], offset[2]);
+                compoundShape.addChildShape(new Ammo.btTransform(rotation, position), subShape);
+
+            }
+
+            return compoundShape
+        }
+
         function createConvexHullFromBuffer(buffer, scale) {
             console.log("Create Convex Hull...", buffer, scale);
             var btConvexHullShape = new Ammo.btConvexHullShape();
@@ -710,6 +733,9 @@ define([
             }
 
             btConvexHullShape.setLocalScaling(new Ammo.btVector3(scale.x, scale.y, scale.z));
+
+            var compoundShape = new Ammo.btCompoundShape();
+
 
             return btConvexHullShape;
         }
@@ -798,12 +824,15 @@ define([
 
             if (bodyParams.shape === 'Cylinder') {
                 shape = ammoCylinderShape(args[0], args[1], args[2]);
-
             }
 
             if (bodyParams.shape === 'Box') {
                 shape = ammoBoxShape(args[0], args[1], args[2]);
                 //    shape = new CANNON[bodyParams.shape](new CANNON.Vec3(args[2],args[0],args[1]));
+            }
+
+            if (bodyParams.shape === 'Compound') {
+                shape = ammoCompoundShape(args);
             }
 
             shapes.push(shape);

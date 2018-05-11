@@ -1,6 +1,87 @@
 [{
   "GEOMETRY": {
     "DYNAMIC_RENDERABLE":[
+
+      {
+        "id": "dynamic_enterprize",
+        "data": {
+          "model_id":"model_enterprise",
+          "dynamic_feedback":"crate_feedback",
+          "visual_size":3,
+          "rigid_body":{
+            "body_key":"compound_enterprize",
+            "category":"primitive",
+            "state":"ACTIVE",
+            "shape":"Compound",
+            "args":[
+              {"shape":"Box", "args":[20,  10, 76],  "offset":[0,-5, 114],      "rotation":[0, 0, 0]},
+              {"shape":"Box", "args":[40,  10,170],  "offset":[0,-5, 0],        "rotation":[0, 0, 0]},
+              {"shape":"Box", "args":[35,  23, 70],  "offset":[0, 10, -115],    "rotation":[0, 0, 0]},
+              {"shape":"Box", "args":[20,  23, 76],  "offset":[0, 10, 114],     "rotation":[0, 0, 0]},
+              {"shape":"Box", "args":[40,  23,170],  "offset":[0, 10, 0],       "rotation":[0, 0, 0]},
+              {"shape":"Box", "args":[25,   2, 70],  "offset":[0, 21, 156],     "rotation":[0, 0, 0]},
+              {"shape":"Box", "args":[12.5, 2, 99],  "offset":[-10.5, 21, 113],  "rotation":[0, 0.1, 0]},
+              {"shape":"Box", "args":[12.5, 2, 99],  "offset":[10.5, 21, 113], "rotation":[0,-0.1, 0]},
+              {"shape":"Box", "args":[26, 2, 184],   "offset":[-22, 21, -25],    "rotation":[0, 0, 0]},
+              {"shape":"Box", "args":[48, 2, 177],   "offset":[25, 21, -25],   "rotation":[0, 0, 0]},
+              {"shape":"Box", "args":[18, 2, 25],    "offset":[-18, 21, -125],   "rotation":[0, 0, 0]},
+              {"shape":"Box", "args":[19, 11, 13],   "offset":[21, 26, -32],   "rotation":[0, 0, 0]},
+              {"shape":"Box", "args":[26,  20, 13],  "offset":[-22, 40, -26],    "rotation":[0, 0, 0]},
+              {"shape":"Box", "args":[16,  20, 13],  "offset":[-22, 40, -36],    "rotation":[0, 0, 0]},
+              {"shape":"Box", "args":[4,  22, 4],    "offset":[-26, 61, -28],    "rotation":[0, 0, 0]},
+              {"shape":"Box", "args":[20, 0.5,2],    "offset":[-26, 71, -28],    "rotation":[0, 0, 0]},
+              {"shape":"Box", "args":[22, 0.5,2],    "offset":[-26, 64, -28],    "rotation":[0, 0, 0]},
+              {"shape":"Box", "args":[5, 2.5, 8],    "offset":[6,  40, -26],    "rotation":[0, 0, 0]}
+            ],
+            "friction":1.5,
+            "restitution":0.75,
+            "damping":0.45,
+            "mass":80000000
+          }
+        }
+      },
+
+      {
+        "id": "dynamic_enterprize__",
+        "data": {
+          "model_id":"model_enterprise",
+          "dynamic_feedback":"crate_feedback",
+          "visual_size":3,
+          "rigid_body":{
+            "body_key":"compound_enterprize",
+            "category":"primitive",
+            "shape":"Box",
+            "args":[50, 30, 300],
+            "friction":1.5,
+            "restitution":0.75,
+            "damping":0.45,
+            "mass":20000
+          }
+        }
+      },
+
+      {
+        "id": "dynamic_enterprize_",
+        "data": {
+          "model_id":"model_enterprise",
+          "dynamic_feedback":"crate_feedback",
+          "visual_size":3,
+          "rigid_body":{
+            "body_key":"model_enterprize_hull_phys",
+            "category":"mesh",
+            "convex":true,
+            "model_id":"model_enterprize_hull_phys",
+            "state":"ACTIVE",
+            "angular_factor":[1, 1, 1],
+            "linear_factor":[1, 1, 1],
+            "friction":1.5,
+            "restitution":0.75,
+            "damping":0.45,
+            "mass":80000000
+          }
+        }
+      },
+
       {
         "id": "wooden_crate",
         "data": {
@@ -44,7 +125,7 @@
         "data": {
           "instance_id":"model_geometry_tree_3_combined_effect",
           "dynamic_feedback":"crate_feedback",
-          "visual_size":30,
+          "visual_size":10,
           "rigid_body":{
             "body_key":"mesh_cvx_tree_leafy_1",
             "category":"mesh",
@@ -63,7 +144,7 @@
         "data": {
           "instance_id":"model_geometry_tree_2_trunk_effect",
           "dynamic_feedback":"crate_feedback",
-          "visual_size":28,
+          "visual_size":18,
           "rigid_body":{
             "body_key":"tree_2_trunk",
             "category":"mesh",

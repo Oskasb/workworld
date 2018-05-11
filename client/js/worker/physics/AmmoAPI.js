@@ -25,13 +25,31 @@ define(['worker/physics/AmmoFunctions'],
             bodyCount:0
         };
 
+        var queSetup = function(onReady) {
+
+            setTimeout(function() {
+                initApi(onReady)
+            }, 1000)
+
+        }
+
+
+        var initApi = function(onReady) {
+            if (typeof(AMMO) !== 'undefined') {
+                AMMO().then(function(ammo) {
+                    console.log("Ammo Ready", ammo);
+                    ammoFunctions = new AmmoFunctions(ammo);
+                    onReady()
+                });
+            } else {
+                queSetup(onReady)
+            }
+        };
+
+
         var AmmoAPI = function(ammoReady) {
 
-            AMMO().then(function(ammo) {
-                console.log("Ammo Ready", ammo);
-                ammoFunctions = new AmmoFunctions(ammo);
-                ammoReady()
-            });
+            initApi(ammoReady);
 
         };
 

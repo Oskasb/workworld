@@ -12,7 +12,8 @@ define([
             top_left:        [0, 0],
             top_right:       [1, 0],
             bottom_left:     [0, 1],
-            bottom_right:   [1, 1],
+            bottom_right:    [1, 1],
+            bottom_mid:    [0.5, 1],
             center:      [0.5, 0.5]
         };
 

@@ -7,20 +7,12 @@ define([
         EffectsAPI
     ) {
 
-        var tempObj3d = new THREE.Object3D();
-
-        var GeometryInstance = function() {
+        var GeometryInstance = function(fxId) {
+            this.fxId = fxId;
             this.effect = null;
-            this.size = 1;
-            this.visualSize = 1;
-
-            this.pos = new THREE.Vector3();
-            this.quat = new THREE.Quaternion();
 
             this.lastPos = new THREE.Vector3();
             this.lastQuat = new THREE.Quaternion();
-            this.isVisible = false;
-            this.wasVisible = false;
         };
 
         GeometryInstance.prototype.setInstanceFxId = function(fxId) {
@@ -44,7 +36,7 @@ define([
             storeVec.copy(this.pos);
         };
 
-        GeometryInstance.prototype.setInstanceQuaternion = function(quat) {
+        GeometryInstance.prototype.setGeometryQuaternion = function(quat) {
             this.quat.copy(quat);
             if (this.effect) {
                 this.effect.updateEffectQuaternionSimulator(this.quat);
@@ -55,41 +47,25 @@ define([
             storeQuat.copy(this.quat);
         };
 
-        GeometryInstance.prototype.setInstanceSize = function(size) {
+        GeometryInstance.prototype.setGeometrySize = function(size) {
             this.size = size;
             if (this.effect) {
                 this.effect.updateEffectScaleSimulator(this.size);
             }
         };
 
-        GeometryInstance.prototype.setInstanceVisualSize = function(size) {
-            this.visualSize = size;
-        };
-
-        GeometryInstance.prototype.getInstanceSize = function() {
-            return this.size;
-        };
-
-        GeometryInstance.prototype.lookAt = function(vec3) {
-            tempObj3d.position.copy(this.pos);
-            tempObj3d.lookAt(vec3);
-            this.quat.copy(tempObj3d.quaternion);
-            if (this.effect) {
-                this.lastQuat.copy(this.quat);
-                this.effect.updateEffectQuaternionSimulator(this.quat);
-            }
-        };
 
         GeometryInstance.prototype.renderGeometryInstance = function() {
             if (!this.effect) {
                 this.effect = EffectsAPI.requestPassiveEffect(this.fxId, this.pos, null, null, this.quat);
-                this.setInstanceSize(this.size)
+                this.setGeometrySize(this.size);
                 this.lastQuat.copy(this.quat);
                 this.lastPos.copy(this.pos);
             }
         };
 
-        GeometryInstance.prototype.hideGeometryInstance = function() {
+
+        GeometryInstance.prototype.hideGeometryRenderable = function() {
             if (this.effect) {
                 EffectsAPI.returnPassiveEffect(this.effect)
             }
@@ -104,14 +80,7 @@ define([
             return WorldAPI.getWorldCamera().testPosRadiusVisible(this.pos, this.size*0.65*this.visualSize);
         };
 
-        GeometryInstance.prototype.applyVisibility = function(isVisible) {
-
-
-            if (isVisible) {
-                this.renderGeometryInstance();
-            } else {
-                this.hideGeometryInstance();
-            }
+        GeometryInstance.prototype.applyGeometryVisibility = function(isVisible) {
 
             if (isVisible) {
                 if (!this.lastPos.equals(this.pos)) {
@@ -124,17 +93,6 @@ define([
                     this.lastQuat.copy(this.quat);
                 }
             }
-
-            if (isVisible === this.wasVisible) {
-                return;
-            } else {
-                this.wasVisible = isVisible;
-            }
-
-        };
-
-        GeometryInstance.prototype.updateGeometryInstance = function() {
-            this.isVisible = this.testIsVisible();
         };
 
 

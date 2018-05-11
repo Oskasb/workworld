@@ -3,6 +3,20 @@
   {
     "MODELS": {
       "THREE": [
+
+        {
+          "id": "model_enterprise",
+          "material": "atlas_2k",
+          "format":"fbx",
+          "url": "./client/assets/models/boats/enterprise",
+          "pool": 1,
+          "transform": {
+            "pos": [0, 0, 0],
+            "rot": [0,  -1, 0],
+            "scale": [1, 1, 1]
+          }
+        },
+
         {
           "id": "model_bullet",
           "material": "main_atlas",

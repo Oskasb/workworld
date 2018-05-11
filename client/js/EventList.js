@@ -45,6 +45,8 @@ define(function() {
 
         SHARED_LOADED:{type:'SHARED_LOADED', args:{}},
 
+        DYNAMIC_MODEL:{type:'DYNAMIC_MODEL', args:{}},
+
         GAME_EFFECT:{type:'GAME_EFFECT', args:{effect:"string", pos:{data:[0, 0, 0]}, vel:{data:[0, 0, 0]}, callbacks:{}}},
 
         INPUT_PLAYER_CONTROL:{type:'INPUT_PLAYER_CONTROL', args:{data:{}}},

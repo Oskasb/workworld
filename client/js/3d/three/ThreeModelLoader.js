@@ -62,7 +62,6 @@ define([
             for (var i = 0; i < poolCount; i++) {
 
 
-
                 if (mesh.type === 'Group') {
 
                 //    var skinMesh = getGroupSkinnedMesh(mesh.children);
@@ -124,7 +123,10 @@ define([
                 clone.frustumCulled = false;
                 modelPool[id].push(clone);
 
-                PipelineAPI.setCategoryKeyValue("MESH_LIST", id, mesh);
+                if (PipelineAPI.readCachedConfigKey("MESH_LIST", id) !== mesh) {
+                    PipelineAPI.setCategoryKeyValue("MESH_LIST", id, mesh);
+                }
+
                 isLoading.splice(isLoading.indexOf(id), 1);
 
             }
@@ -355,16 +357,21 @@ define([
                 transformModel(modelList[modelId].transform, model);
 
                 if (model.mixer) {
-                    var action = model.mixer.clipAction( model.animations[ 0 ] );
-                    action.play();
 
-                    if (activeMixers.indexOf(model.mixer) === -1) {
-                        activeMixers.push(model.mixer);
-                    } else {
-                        console.log("Mixer already active... clean up needed!", model);
+                    if (model.animations.length) {
+                        var action = model.mixer.clipAction( model.animations[ 0 ] );
+                        action.play();
+
+                        if (activeMixers.indexOf(model.mixer) === -1) {
+                            activeMixers.push(model.mixer);
+                        } else {
+                            console.log("Mixer already active... clean up needed!", model);
+                        }
+
+                        console.log("Play Action", action);
                     }
 
-                    console.log("Play Action", action);
+
                 }
 
                 var attachMaterial = function(src, data) {
@@ -413,9 +420,8 @@ define([
                             rootObject.add(model);
                             return;
                         }
-
-                    //    attachMaterial(null, PipelineAPI.readCachedConfigKey('THREE_MATERIAL', modelList[modelId].material))
-
+                        //      attachMaterial(null, PipelineAPI.readCachedConfigKey('THREE_MATERIAL', modelList[modelId].material))
+                        rootObject.add(model);
                         new PipelineObject('THREE_MATERIAL', modelList[modelId].material, attachMaterial, modelList[modelId].material);
 
                     } else {
@@ -423,11 +429,9 @@ define([
                     //    var root = new THREE.Object3D();
                     //    root.add(model)
                     //    setup.addToScene(root);
-
                         for (var i = 0; i < model.children.length; i++) {
                             setup.addToScene(model.children[i])
                         }
-
                         rootObject.add(model);
                     }
 
@@ -444,7 +448,6 @@ define([
         ThreeModelLoader.loadThreeMeshModel = function(applies, rootObject, ThreeSetup) {
 
             setup = ThreeSetup;
-
 
             attachAsynchModel(applies, rootObject);
             return rootObject;
@@ -487,14 +490,13 @@ define([
                 }
 
                 mesh.pipeObj = pipeObj;
-
                 cb(mesh)
 
             };
 
-        //    applyModel(id, PipelineAPI.readCachedConfigKey('THREE_MODEL', id));
 
             var pipeObj = new PipelineObject('THREE_MODEL', id, applyModel, id, true);
+
 
         };
 

@@ -48,7 +48,7 @@ define([
                 }
             }
 
-            this.passiveRenderable.applyRenderableDataState(this.configRead(config.passive_fx), hover, on);
+            this.passiveRenderable.applyRenderableDataState(this.configRead(config.passive_fx), hover, on, colorKey);
             this.activeRenderable.applyRenderableDataState(this.configRead(config.active_fx), press, on, colorKey);
         };
 

@@ -48,7 +48,7 @@
 
           "vec2 waveTranslate = vec2(waveSpeed*0.02 + 0.1*cos(waveSpeed*2.5), waveSpeed + 0.02 * sin(waveSpeed*3.62));",
 
-          "float slope = sin(vUv0.y*(1.0+sin(vUv0.x*0.2+systemTime*0.3)*0.005)) + sin(vUv0.y*(1.0+cos(vUv0.x*0.2+systemTime*0.3)*0.005)) * 0.2 + sin(systemTime*2.0)*0.0025+cos(systemTime*2.0)*0.0025;",
+          "float slope = 1.0 - (0.45*sin(vUv0.y*(1.0+sin(vUv0.x*0.2+systemTime*0.2)*0.002)) + sin(vUv0.y*(1.0+cos(vUv0.x*0.3+systemTime*0.2)*0.009)) * 0.2 + sin(systemTime*0.5)*0.0025+cos(systemTime*2.0)*0.0025)*0.5;",
 
           "vec4 txColor0 = smoothstep(0.0, 0.95, slope)                                   * texture2D( tx0, vUv0 + (waveTranslate));",
 
@@ -63,11 +63,11 @@
           "vec4 txColor3 = (1.0 - smoothstep(-0.75, 0.0, slope*2.0))                          * texture2D( tx2, vUv2*0.13 + (waveTranslate*0.1));",
           "vec4 txColor4 = texture2D( tx0, vUv1*0.04 + (waveTranslate*0.02));",
 
-          "vec2 vUv3 = vec2(vUv1.x*0.7 , vUv1.y*0.7);",
+          "vec2 vUv3 = vec2(vUv1.x*0.3 , vUv1.y*0.3);",
 
           "vec4 txColor5 = texture2D( tx0, vUv3*0.03 + (waveTranslate*0.03));",
 
-          "vec4 txColor = (txColor0*2.0 + txColor1*1.0 + txColor2*1.0) * ((txColor3+0.2) ) * txColor4*(1.5+(1.0+slope)) + txColor5*0.2*(1.0-slope);"
+          "vec4 txColor = (txColor0*2.0 + txColor1*2.0 + txColor2*2.0) * ((txColor3+0.2) ) + (0.04 + txColor4*0.1*slope) + (0.04 + txColor5*0.1*slope) + txColor5*0.3;"
         ],
 
 

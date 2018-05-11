@@ -167,7 +167,6 @@ define([
             return ThreeSetup.cameraTestXYZRadius(vec3, radius);
         };
 
-
         ThreeAPI.distanceToCamera = function(vec3) {
             return ThreeSetup.calcDistanceToCamera(vec3);
         };        
@@ -269,6 +268,13 @@ define([
         ThreeAPI.showModel = function(obj3d) {
             ThreeSetup.addToScene(obj3d);
         };
+
+        ThreeAPI.bindDynamicStandardGeometry = function(modelId, dynamicBuffer) {
+
+            console.log("bindDynamicStandardGeometry", modelId, dynamicBuffer);
+
+        };
+
 
         ThreeAPI.hideModel = function(obj3d) {
             ThreeSetup.removeModelFromScene(obj3d);

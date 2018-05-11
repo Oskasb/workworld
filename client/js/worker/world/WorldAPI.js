@@ -68,9 +68,7 @@ define([
                 WorldAPI.sendWorldMessage(ENUMS.Protocol.FETCH_PIPELINE_DATA, [category, key]);
                 fetches[category].push(key);
             }
-
             //    console.log("FETCHES:", fetches);
-
         };
 
         WorldAPI.updateUiSystem = function(input, lastInput) {
@@ -87,6 +85,12 @@ define([
 
         WorldAPI.getWorldComBuffer = function() {
             return worldMain.worldComBuffer()
+        };
+
+        WorldAPI.addTextMessage = function(message) {
+
+            var channel = PipelineAPI.readCachedConfigKey('GUI_MESSAGES', 'CHANNEL_ONE');
+            channel.messages.unshift(message)
         };
 
         WorldAPI.setCom = function(index, value) {
@@ -132,8 +136,8 @@ define([
         };
 
 
-        WorldAPI.constructWorld = function(msg) {
-            terrainSystem.initTerrainSystem(msg)
+        WorldAPI.addWorldArea = function(configId) {
+            terrainSystem.initTerrainSystem(configId)
         };
 
         WorldAPI.applyStaticWorldData = function(msg) {

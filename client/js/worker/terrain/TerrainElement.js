@@ -1,22 +1,13 @@
 "use strict";
 
 define([
-        'EffectsAPI',
-        'worker/geometry/GeometryInstance'
+
     ],
     function(
-        EffectsAPI,
-        GeometryInstance
+
     ) {
 
-        var fxByFeature = [
-            "water_foam_particle_effect",
-            "creative_crate_geometry_effect",
-            "model_geometry_wall_rock_50_effect",
-            "model_geometry_tree_3_combined_effect",
-            "crate_wood_geometry_effect",
-            "model_geometry_tree_3_combined_effect"
-        ];
+
 
         var i;
         var elemMap = {};
@@ -28,7 +19,6 @@ define([
         var tempVec1 = new THREE.Vector3();
         var tempVec2 = new THREE.Vector3();
         var tempObj3D = new THREE.Object3D();
-        var fxArg = {effect:"firey_explosion_core", pos:tempVec1, vel:tempVec2};
 
         var TerrainElement = function(area, origin, sideSize) {
 
@@ -57,15 +47,6 @@ define([
             }
         };
 
-        TerrainElement.prototype.visualizeTerrainElement = function(pos, quat) {
-            this.fxId = fxByFeature[this.elementType];
-
-            this.geometryInstance = new GeometryInstance();
-            this.geometryInstance.setInstanceFxId(this.fxId);
-            this.geometryInstance.setInstancePosition(pos);
-            this.geometryInstance.setInstanceQuaternion(quat);
-            this.geometryInstance.setInstanceSize(this.scale);
-        };
 
         TerrainElement.prototype.determineTerrainElementType = function(otherElements) {
 

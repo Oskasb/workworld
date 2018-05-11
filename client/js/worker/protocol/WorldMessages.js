@@ -38,7 +38,7 @@ define([
             };
 
             this.messageHandlers[ENUMS.Protocol.CREATE_WORLD] = function(msg) {
-                WorldAPI.constructWorld(msg[1]);
+                WorldAPI.addWorldArea(msg[1]);
             };
 
             this.messageHandlers[ENUMS.Protocol.GENERATE_STATIC_AREA] = function(msg) {

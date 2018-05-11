@@ -292,7 +292,7 @@ define([
         DynamicSpatial.prototype.testSpatialMotion = function() {
             motion = this.testVectorByFirstIndex(ENUMS.BufferSpatial.VELOCITY_X)+this.testVectorByFirstIndex(ENUMS.BufferSpatial.ANGULAR_VEL_X);
 
-            if (motion < 0.1) {
+            if (motion < 0.0001) {
                 this.setSpatialStillFrames(this.getSpatialStillFrames()+1);
             } else {
                 this.setSpatialStillFrames(0);

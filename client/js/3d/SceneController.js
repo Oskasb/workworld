@@ -4,16 +4,18 @@
 define([
     '3d/ThreeController',
     'EffectsAPI',
-    '3d/effects/EffectListeners'
+    '3d/effects/EffectListeners',
+    '3d/DynamicMain'
 
 ], function(
     ThreeController,
     EffectsAPI,
-    EffectsListeners
+    EffectsListeners,
+    DynamicMain
 ) {
-    
-    var SceneController = function() {
 
+    var SceneController = function() {
+        this.dynamicMain = new DynamicMain()
     };
 
     SceneController.prototype.setup3dScene = function(ready) {
@@ -29,6 +31,12 @@ define([
     SceneController.prototype.tickEffectsAPI = function(systemTime) {
         EffectsAPI.tickEffectSimulation(systemTime);
     };
+
+
+    SceneController.prototype.tickDynamicScene = function() {
+        this.dynamicMain.tickDynamicMain();
+    };
+
 
     return SceneController;
 

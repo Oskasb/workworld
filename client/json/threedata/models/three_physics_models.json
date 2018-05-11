@@ -4,6 +4,18 @@
     "MODELS": {
       "THREE_PHYSICS": [
         {
+        "id": "model_enterprize_hull_phys",
+        "material": "main_atlas",
+        "format":"obj",
+        "url": "./client/assets/models/boats/enterprize_hull_phys",
+        "pool": 1,
+        "transform": {
+          "pos":   [0, 0, 0],
+          "rot":   [0, 0, 0],
+          "scale": [1, 1, 1]
+        }
+      },
+        {
           "id": "model_wall_section_rock_50_hull",
           "material": "main_atlas",
           "format":"obj",

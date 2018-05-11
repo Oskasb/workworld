@@ -4,6 +4,7 @@ define([
         'ui/functions/DragFunctions',
         'ui/widgets/WidgetProcessor',
         'ui/widgets/GuiThumbstickWidget',
+        'ui/widgets/MessageBoxWidget',
         'ui/widgets/MonitorListWidget',
         'ui/widgets/GuiButtonWidget'
     ],
@@ -11,6 +12,7 @@ define([
         DragFunctions,
         WidgetProcessor,
         GuiThumbstickWidget,
+        MessageBoxWidget,
         MonitorListWidget,
         GuiButtonWidget
     ) {
@@ -115,7 +117,7 @@ define([
             var buffer = WorldAPI.getWorldComBuffer();
 
             var panelConf = [
-                {label:'AUTO_WORLD',    configId:'default', layout:subTabLayout, onClick:null, buffer:buffer, channel:ENUMS.BufferChannels.WORLD_ACTION_1},
+                {label:'ADD AREA',      configId:'default', layout:subTabLayout, onClick:null, buffer:buffer,  channel:ENUMS.BufferChannels.WORLD_ACTION_1},
                 {label:'ADD_STUFF',     configId:'default',  layout:subTabLayout, onClick:null, buffer:buffer, channel:ENUMS.BufferChannels.WORLD_ACTION_2},
                 {label:'REMOVE_STUFF',  configId:'default',  layout:subTabLayout, onClick:null, buffer:buffer, channel:ENUMS.BufferChannels.WORLD_ACTION_3}
             ];
@@ -129,6 +131,10 @@ define([
             this.buildMonitorListWidget('EFFECTS', 'STATUS', 'EFFECT_MONITOR',  statusMonitors,    {margin_y:0.34});
             this.buildMonitorListWidget('SYSTEM',  'STATUS', 'TIME_MONITOR',    statusMonitors,    {margin_y:0.52});
             this.buildMonitorListWidget('PHYSICS', 'STATUS', 'PHYSICS_MONITOR', statusMonitors,    {margin_y:0.70});
+        };
+
+        WidgetBuilder.prototype.buildMessageBox = function(store) {
+            this.buildMessageBoxWidget('MESSAGES',  'GUI_MESSAGES', 'CHANNEL_ONE',  store,    {margin_y:0.0})
         };
 
         WidgetBuilder.prototype.buildPhysicsButtons = function(physPanelButtons) {
@@ -152,7 +158,7 @@ define([
 
             for (var key in ENUMS.Environments) {
                 panelConf.push(
-                    {label:key, configId:'default', layout:subTabListLayout, onClick:null, buffer:buffer, channel:ENUMS.BufferChannels.ENV_INDEX},
+                    {label:key, configId:'default', layout:subTabListLayout, onClick:null, buffer:buffer, channel:ENUMS.BufferChannels.ENV_INDEX}
                 );
             }
 
@@ -183,7 +189,12 @@ define([
             return widget;
         };
 
-
+        WidgetBuilder.prototype.buildMessageBoxWidget = function(uiLabel, category, key, storeArray, dynamicLayout) {
+            widget = new MessageBoxWidget(uiLabel, category, key);
+            widget.applyDynamicLayout(dynamicLayout);
+            storeArray.push(widget);
+            return widget;
+        };
 
 
         return WidgetBuilder;

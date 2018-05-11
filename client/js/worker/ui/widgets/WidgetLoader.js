@@ -59,17 +59,7 @@ define([
             }
         };
 
-        var WidgetLoader = function() {
 
-            widgetBuilder = new WidgetBuilder();
-
-            this.guiUpdatable = new GuiUpdatable();
-
-            widgetBuilder.buildControls(controls);
-            widgetBuilder.buildStatusMonitors(statusMonitors);
-            widgetBuilder.buildButtonWidget('STATUS', 'default', controls, buttonFunctions.monitorSystem, {margin_y:0.07});
-
-        };
 
         var toggleMonitors = function(bool) {
             if (bool) {
@@ -150,6 +140,18 @@ define([
             WorldAPI.getWorldCamera().setLookAtVec(WorldAPI.getWorldCursor().getCursorPosition());
             WorldAPI.getWorldCamera().updateCameraLookAt();
 
+        };
+
+        var WidgetLoader = function() {
+
+            widgetBuilder = new WidgetBuilder();
+
+            this.guiUpdatable = new GuiUpdatable();
+
+            widgetBuilder.buildControls(controls);
+            widgetBuilder.buildStatusMonitors(statusMonitors);
+            widgetBuilder.buildButtonWidget('STATUS', 'default', controls, buttonFunctions.monitorSystem, {margin_y:0.07});
+            widgetBuilder.buildMessageBox(controls);
         };
 
         WidgetLoader.prototype.enableDefaultGuiWidgets = function() {

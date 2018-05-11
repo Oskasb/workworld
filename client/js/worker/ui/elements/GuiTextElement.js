@@ -189,7 +189,7 @@ define([
             this.effectSize = this.config.font_size / 1000;
             this.textSpacingX = this.effectSize * this.config.letter_spacing;
             this.textSpacingY = this.effectSize * 2;
-            this.elementWidth = this.textSpacingX * (textString.length-1);
+            this.elementWidth = this.textSpacingX * (textString.length);
 
             if (this.config.italic) {
                 this.skewVec.set(0.24, 0, 0);

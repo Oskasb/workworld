@@ -1,28 +1,58 @@
 "use strict";
 
 define([
+
         'worker/terrain/TerrainFunctions',
         'worker/terrain/TerrainArea'
     ],
     function(
+
         TerrainFunctions,
         TerrainArea
     ) {
 
         var tempVec = new THREE.Vector3();
 
+
+        var scatter = 2000;
+
+        var gridSpacing = 8000;
+        var gridWidth = 3;
+        var minX = -3000;
+        var minZ = -3000;
+
+        var spawnCount = 0;
+        var row = 0;
+        var col = 0;
+
         var TerrainSystem = function(physicsApi) {
             this.terrainFunctions = new TerrainFunctions(physicsApi);
             this.terrainAreas = [];
+
         };
 
 
-        TerrainSystem.prototype.initTerrainSystem = function(msg) {
+var gridPosX = function() {
+    row = MATH.moduloPositive(spawnCount, gridWidth);
+    return minX + row*gridSpacing + Math.random()*scatter
+};
 
-            var terrainArea = new TerrainArea(this.terrainFunctions);
-            terrainArea.createAreaOfTerrain(msg);
-            this.terrainAreas.push(terrainArea)
+var gridPosZ = function() {
+    col = Math.floor(spawnCount / gridWidth);
+    return minZ + col*gridSpacing+ Math.random()*scatter
+};
 
+        TerrainSystem.prototype.initTerrainSystem = function(configId) {
+
+            var areaConfigReady = function(tArea) {
+
+                spawnCount++;
+                tArea.createAreaOfTerrain(gridPosX(), gridPosZ());
+                this.terrainAreas.push(tArea)
+
+            }.bind(this);
+
+            new TerrainArea(this.terrainFunctions, configId, areaConfigReady);
         };
 
         TerrainSystem.prototype.applyTerrainAreaData = function(msg) {

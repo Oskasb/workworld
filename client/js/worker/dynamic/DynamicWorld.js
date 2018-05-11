@@ -112,22 +112,56 @@ define([
         //    WorldAPI.setCom(ENUMS.BufferChannels.REPEL_DYNAMICS, 0);
         };
 
+        var rainBoxes = function() {
+            if (Math.random() < 0.5) {
+                tempVec1.copy(WorldAPI.getWorldCursor().getCursorPosition());
+                tempVec1.x += -40+Math.random()*80;
+                tempVec1.y +=  45+Math.random()*75;
+                tempVec1.z += -40+Math.random()*80;
+
+                tempQuat.copy(WorldAPI.getWorldCursor().getCursorQuaternion());
+
+                scale = 1+Math.floor(Math.random()*9);
+
+                newDynRen = WorldAPI.buildDynamicRenderable(geoms[Math.floor(Math.random()*geoms.length)], tempVec1, tempQuat, scale);
+                newDynRen.initRenderable(WorldAPI.attachDynamicRenderable);
+            }
+        };
+
+        var spawnCall = function() {
+            tempVec1.copy(WorldAPI.getWorldCursor().getCursorPosition());
+            tempQuat.copy(WorldAPI.getWorldCursor().getCursorQuaternion());
+            scale = 1;
+            newDynRen = WorldAPI.buildDynamicRenderable("dynamic_enterprize", tempVec1, tempQuat, scale);
+
+            newDynRen.initRenderable(WorldAPI.attachDynamicRenderable);
+        //    WorldAPI.attachDynamicRenderable(newDynRen);
+            WorldAPI.setCom(ENUMS.BufferChannels.WORLD_ACTION_2, 0)
+        };
+
+        var terrains = ['terrain_island_0','terrain_island_1', 'terrain_island_2', 'terrain_island_3'];
+    //    var terrains = ['terrain_island_2'];
+
+        var addArea = function() {
+
+            WorldAPI.addWorldArea(terrains[Math.floor(Math.random()*terrains.length)]);
+            WorldAPI.setCom(ENUMS.BufferChannels.WORLD_ACTION_1, 0)
+        };
+
+
+
         DynamicWorld.prototype.updateDynamicWorld = function() {
 
             if (WorldAPI.getCom(ENUMS.BufferChannels.SPAWM_BOX_RAIN)) {
-                if (Math.random() < 0.5) {
-                    tempVec1.copy(WorldAPI.getWorldCursor().getCursorPosition());
-                    tempVec1.x += -190+Math.random()*380;
-                    tempVec1.y += 15+Math.random()*165;
-                    tempVec1.z += -190+Math.random()*380;
+                rainBoxes()
+            }
 
-                    tempQuat.copy(WorldAPI.getWorldCursor().getCursorQuaternion());
+            if (WorldAPI.getCom(ENUMS.BufferChannels.WORLD_ACTION_1)) {
+                addArea();
+            }
 
-                    scale = 1+Math.floor(Math.random()*9);
-
-                    newDynRen = this.setupDynamicRenderable(geoms[Math.floor(Math.random()*geoms.length)], tempVec1, tempQuat, scale);
-                    newDynRen.initRenderable(addDynamicRenderable);
-                }
+            if (WorldAPI.getCom(ENUMS.BufferChannels.WORLD_ACTION_2)) {
+                spawnCall();
             }
 
             if (WorldAPI.getCom(ENUMS.BufferChannels.PUSH_ALL_DYNAMICS)) {
@@ -145,7 +179,6 @@ define([
             for (var i = 0; i < dynamics.length;i++) {
                 dynamics[i].tickRenderable();
             }
-
 
         };
 
