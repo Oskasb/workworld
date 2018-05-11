@@ -79,17 +79,16 @@ require(
 onconnect = function(e) {
 
     console.log("Physics Shared Worker connect:", e);
-    var port = e.ports[0];
+    PhysicsWorldWorkerPort = e.ports[0];
 
     postMessage = function(msg) {
-        port.postMessage(msg);
+        PhysicsWorldWorkerPort.postMessage(msg);
     };
 
-    port.onmessage = function(e) {
+    PhysicsWorldWorkerPort.onmessage = function(e) {
         console.log("Premature Physics Shared Worker message:", e);
         premauteMessageQueue.push(e);
 
     };
 
-    PhysicsWorldWorkerPort = port;
 };

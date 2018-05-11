@@ -734,9 +734,6 @@ define([
 
             btConvexHullShape.setLocalScaling(new Ammo.btVector3(scale.x, scale.y, scale.z));
 
-            var compoundShape = new Ammo.btCompoundShape();
-
-
             return btConvexHullShape;
         }
 

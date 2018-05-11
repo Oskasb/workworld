@@ -14,9 +14,9 @@ define([
         var tempVec = new THREE.Vector3();
 
 
-        var scatter = 2000;
+        var scatter = 100;
 
-        var gridSpacing = 8000;
+        var gridSpacing = 4000;
         var gridWidth = 3;
         var minX = -3000;
         var minZ = -3000;

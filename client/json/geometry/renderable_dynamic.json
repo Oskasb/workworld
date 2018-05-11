@@ -14,8 +14,23 @@
             "state":"ACTIVE",
             "shape":"Compound",
             "args":[
-              {"shape":"Box", "args":[20,  10, 76],  "offset":[0,-5, 114],      "rotation":[0, 0, 0]},
-              {"shape":"Box", "args":[40,  10,170],  "offset":[0,-5, 0],        "rotation":[0, 0, 0]},
+
+              {"shape":"Box", "args":[10,  12, 60],  "offset":[0, -6, 120],        "rotation":[0, 0, 0]},
+              {"shape":"Box", "args":[10,  12, 60],  "offset":[-10,-6, 60],        "rotation":[0, 0, 0]},
+              {"shape":"Box", "args":[10,  12, 60],  "offset":[0, -6, 60],         "rotation":[0, 0, 0]},
+              {"shape":"Box", "args":[10,  12, 60],  "offset":[10,-6, 60],         "rotation":[0, 0, 0]},
+              {"shape":"Box", "args":[10,  12, 60],  "offset":[-15,-6,   0],       "rotation":[0, 0, 0]},
+              {"shape":"Box", "args":[10,  12, 60],  "offset":[-5,  -6,  0],       "rotation":[0, 0, 0]},
+              {"shape":"Box", "args":[10,  12, 60],  "offset":[5,  -6,   0],       "rotation":[0, 0, 0]},
+              {"shape":"Box", "args":[10,  12, 60],  "offset":[15, -6,   0],       "rotation":[0, 0, 0]},
+              {"shape":"Box", "args":[10,  12, 60],  "offset":[-15,-6,   -60],     "rotation":[0, 0, 0]},
+              {"shape":"Box", "args":[10,  12, 60],  "offset":[-5,  -6,  -60],     "rotation":[0, 0, 0]},
+              {"shape":"Box", "args":[10,  12, 60],  "offset":[5,  -6,   -60],     "rotation":[0, 0, 0]},
+              {"shape":"Box", "args":[10,  12, 60],  "offset":[15, -6,   -60],     "rotation":[0, 0, 0]},
+              {"shape":"Box", "args":[10,  12, 60],  "offset":[-10,-6, -120],      "rotation":[0, 0, 0]},
+              {"shape":"Box", "args":[10,  12, 60],  "offset":[0, -6,  -120],      "rotation":[0, 0, 0]},
+              {"shape":"Box", "args":[10,  12, 60],  "offset":[10,-6,  -120],      "rotation":[0, 0, 0]},
+
               {"shape":"Box", "args":[35,  23, 70],  "offset":[0, 10, -115],    "rotation":[0, 0, 0]},
               {"shape":"Box", "args":[20,  23, 76],  "offset":[0, 10, 114],     "rotation":[0, 0, 0]},
               {"shape":"Box", "args":[40,  23,170],  "offset":[0, 10, 0],       "rotation":[0, 0, 0]},
@@ -125,7 +140,7 @@
         "data": {
           "instance_id":"model_geometry_tree_3_combined_effect",
           "dynamic_feedback":"crate_feedback",
-          "visual_size":10,
+          "visual_size":25,
           "rigid_body":{
             "body_key":"mesh_cvx_tree_leafy_1",
             "category":"mesh",
@@ -144,7 +159,7 @@
         "data": {
           "instance_id":"model_geometry_tree_2_trunk_effect",
           "dynamic_feedback":"crate_feedback",
-          "visual_size":18,
+          "visual_size":25,
           "rigid_body":{
             "body_key":"tree_2_trunk",
             "category":"mesh",

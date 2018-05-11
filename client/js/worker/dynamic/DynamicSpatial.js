@@ -8,6 +8,12 @@ define([
     ) {
 
 
+        var MechanicalSphere = function(ofVec, radius) {
+            this.offset = new THREE.Vector3();
+            this.offset.copy(ofVec);
+            this.radius = radius;
+        };
+
         var tempVec1 = new THREE.Vector3();
         var tempVec2 = new THREE.Vector3();
         var tempQuat = new THREE.Quaternion();
@@ -16,6 +22,9 @@ define([
         var VECTOR_AUX;
 
         var DynamicSpatial = function() {
+
+            this.mechanicalShapes = [];
+
             this.stillLimit = 5;
             this.visiblePingFrames = 200;
         };
@@ -38,9 +47,35 @@ define([
 
         };
 
+        //Used inside the physics worker
+        DynamicSpatial.prototype.setupMechanicalShape = function(body_config) {
+            console.log("Request Physics for spatial from here...", body_config);
+
+            if (body_config.shape === 'Compound') {
+
+                for (var i = 0; i < body_config.args.length; i++) {
+                    var offset = body_config.args[i].offset;
+                    var args = body_config.args[i].args;
+                    var radiusApprox = Math.pow(args[0]*args[1]*args[2] / (4/(3*3.14)), 0.333);
+                    tempVec1.set(offset[0], offset[1], offset[2]);
+                    this.mechanicalShapes.push(new MechanicalSphere(tempVec1, radiusApprox))
+                }
+
+            } else if (body_config.shape === 'Box') {
+                var args = body_config.args;
+                var radiusApprox = Math.pow(args[0]*args[1]*args[2] / (4/(3*3.14)), 0.333);
+                tempVec1.set(0, 0, 0);
+                this.mechanicalShapes.push(new MechanicalSphere(tempVec1, radiusApprox))
+            } else {
+                tempVec1.set(0, 0, 0);
+                this.mechanicalShapes.push(new MechanicalSphere(tempVec1, 2))
+            }
+
+        };
+
         //Used in the Dynamic World Worker
         DynamicSpatial.prototype.registerRigidBody = function(msg) {
-            console.log("Request Physics for spatial from here...");
+            console.log("Request Physics for spatial from here...", msg);
             WorldAPI.callSharedWorker(ENUMS.Worker.PHYSICS_WORLD, ENUMS.Protocol.PHYSICS_BODY_ADD, [msg, this.getSpatialBuffer()])// this.terrainBody = this.terrainFunctions.addTerrainToPhysics(this.terrainOptions, this.terrain.array1d, this.origin.x, this.origin.z);
         };
 
