@@ -200,7 +200,7 @@ define(['PipelineObject',
         dynamicFogColor.copy(fogColor);
 
         sunRedness = world.sun.color.r * 0.5;
-        sunFactor = (sunRedness - sunInTheBack * (1 - sunRedness)) * 0.15;
+        sunFactor = (sunRedness - sunInTheBack * (sunRedness-1)) * 0.15;
         dynamicFogColor.lerp(world.sun.color,   sunFactor);
         dynamicFogColor.lerp(ambientColor,      sunFactor);
         world.fog.color.copy(dynamicFogColor)

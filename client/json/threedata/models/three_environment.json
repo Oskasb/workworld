@@ -4,7 +4,6 @@
         "defaultEnvId":"sunny_day",
         "params":[
           {"id":"sun",      "THREE":"DirectionalLight"},
-          {"id":"moon",     "THREE":"DirectionalLight"},
           {"id":"ambient",  "THREE":"AmbientLight"    },
           {"id":"fog",      "THREE":"FogExp2"         }
         ]
@@ -27,7 +26,6 @@
           },
           "configs":[
             {"id":"sun",     "color":[0,  0,  0]},
-            {"id":"moon",    "color":[0,  0,  0]},
             {"id":"ambient", "color":[1,  1,  1]},
             {"id":"fog",     "color":[1,  1,  1], "density":0.0000001}
           ]
@@ -46,7 +44,6 @@
           },
           "configs":[
             {"id":"sun",     "color":[0,  0,  0]},
-            {"id":"moon",    "color":[0,  0,  0]},
             {"id":"ambient", "color":[0.2,  0.2,  0.2]},
             {"id":"fog",     "color":[1,  1,  1], "density":0.0000001}
           ]
@@ -65,7 +62,6 @@
           },
           "configs":[
             {"id":"sun",     "color":[0,  0,  0]},
-            {"id":"moon",    "color":[0,  0,  0]},
             {"id":"ambient", "color":[0,  0,  0]},
             {"id":"fog",     "color":[0,  0,  0],  "density":1.0}
           ]
@@ -85,9 +81,8 @@
             "distance":          10000
           },
           "configs":[
-            {"id":"sun",     "color":[0.75,   0.42,  0.12]},
-            {"id":"moon",    "color":[0.001,  0.03,  0.12]},
-            {"id":"ambient", "color":[0.55,   0.12,  0.31]},
+            {"id":"sun",     "color":[0.60,   0.45,    0.12]},
+            {"id":"ambient", "color":[0.35,   0.06,    0.71]},
             {"id":"fog",     "color":[0.032,  0.00001, 0.106], "density":0.0022}
           ]
         },
@@ -104,10 +99,9 @@
             "distance":          10000
           },
           "configs":[
-            {"id":"sun",     "color":[0.78,  0.71,  0.21]},
-            {"id":"moon",    "color":[0.25,  0.20,  0.42]},
-            {"id":"ambient", "color":[0.01,  0.32,  0.55]},
-            {"id":"fog",     "color":[0.15,  0.22,  0.51],  "density":0.0015}
+            {"id":"sun",     "color":[0.85,  0.65,  0.25]},
+            {"id":"ambient", "color":[0.21,  0.12,  0.55]},
+            {"id":"fog",     "color":[0.15,  0.02,  0.65],  "density":0.0015}
           ]
         },
         {
@@ -123,9 +117,8 @@
             "distance":        10000
           },
           "configs":[
-            {"id":"sun",     "color":[0.88, 0.77,  0.21]},
-            {"id":"moon",    "color":[0.01, 0.25,  0.25]},
-            {"id":"ambient", "color":[0.01, 0.11,  0.35]},
+            {"id":"sun",     "color":[0.98, 0.77,  0.41]},
+            {"id":"ambient", "color":[0.01, 0.11,  0.55]},
             {"id":"fog",     "color":[0.43, 0.63,  0.79], "density":0.0005}
           ]
         },
@@ -142,9 +135,8 @@
             "distance":          10000
           },
           "configs":[
-            {"id":"sun",     "color":[0.92,  0.71,  0.30]},
-            {"id":"moon",    "color":[0.12,  0.35,  0.42]},
-            {"id":"ambient", "color":[0.12,  0.26,  0.45]},
+            {"id":"sun",     "color":[0.95,  0.86,  0.40]},
+            {"id":"ambient", "color":[0.22,  0.16,  0.35]},
             {"id":"fog",     "color":[0.85,  0.95,  1], "density":0.0004}
           ]
         },
@@ -161,9 +153,8 @@
             "distance":          10000
           },
           "configs":[
-            {"id":"sun",     "color":[0.85,  0.62,  0.30]},
-            {"id":"moon",    "color":[0.24,  0.35,  0.42]},
-            {"id":"ambient", "color":[0.30,  0.39,  0.50]},
+            {"id":"sun",     "color":[0.95,  0.82,  0.50]},
+            {"id":"ambient", "color":[0.20,  0.29,  0.30]},
             {"id":"fog",     "color":[0.86,  0.97,  1.00], "density":0.0002}
           ]
         },
@@ -180,10 +171,9 @@
             "distance":          10000
           },
           "configs":[
-            {"id":"sun",     "color":[0.89,  0.72,  0.46]},
-            {"id":"moon",    "color":[0.25,  0.20,  0.42]},
-            {"id":"ambient", "color":[0.45,  0.24,  0.11]},
-            {"id":"fog",     "color":[0.001,  0.03, 0.16], "density":0.0018}
+            {"id":"sun",     "color":[0.89,  0.62,  0.46]},
+            {"id":"ambient", "color":[0.15,  0.04,  0.41]},
+            {"id":"fog",     "color":[0.121, 0.06,  0.16], "density":0.0018}
           ]
         },
         {
@@ -200,8 +190,7 @@
           },
           "configs":[
             {"id":"sun",     "color":[0.000, -0.10,  0.18]},
-            {"id":"moon",    "color":[0.021,  0.03,  0.22]},
-            {"id":"ambient", "color":[0.35,   0.20,  1.29]},
+            {"id":"ambient", "color":[0.25,   0.14,  0.59]},
             {"id":"fog",     "color":[0.009,  0.001, 0.12], "density":0.0019}
           ]
         }

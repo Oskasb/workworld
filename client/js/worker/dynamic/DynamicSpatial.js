@@ -50,7 +50,8 @@ define([
         //Used inside the physics worker
         DynamicSpatial.prototype.setupMechanicalShape = function(body_config) {
             console.log("Request Physics for spatial from here...", body_config);
-
+            this.bodyConfig = body_config;
+            this.baseDamping = body_config.damping;
             if (body_config.shape === 'Compound') {
 
                 for (var i = 0; i < body_config.args.length; i++) {
@@ -63,7 +64,10 @@ define([
 
             } else if (body_config.shape === 'Box') {
                 var args = body_config.args;
-                var radiusApprox = Math.pow(args[0]*args[1]*args[2] / (4/(3*3.14)), 0.333);
+
+                this.getSpatialScale(tempVec2);
+
+                var radiusApprox = Math.pow(tempVec2.x*tempVec2.y*tempVec2.z / (4/(3*3.14)), 0.333);
                 tempVec1.set(0, 0, 0);
                 this.mechanicalShapes.push(new MechanicalSphere(tempVec1, radiusApprox))
             } else {
@@ -282,6 +286,8 @@ define([
         DynamicSpatial.prototype.getSpatialStillFrames = function() {
             return this.spatialBuffer[ENUMS.BufferSpatial.STILL_FRAMES];
         };
+
+
 
         DynamicSpatial.prototype.isStatic = function() {
             return 1 - this.getSpatialDynamicFlag();

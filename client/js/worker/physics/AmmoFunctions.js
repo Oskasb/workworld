@@ -25,7 +25,7 @@ define([
         var TRANSFORM_AUX;
         var QUAT_AUX;
         var VECTOR_AUX;
-
+        var VECTOR_AUX2;
         var rayCallback;
         var rayFromVec;
         var rayToVec;
@@ -66,6 +66,7 @@ define([
 
             TRANSFORM_AUX = new Ammo.btTransform();
             VECTOR_AUX = new Ammo.btVector3();
+            VECTOR_AUX2 = new Ammo.btVector3();
 
             QUAT_AUX = new Ammo.btQuaternion();
 
@@ -162,6 +163,23 @@ define([
         }
 
 
+        AmmoFunctions.prototype.forceAtPointToBody = function(forceVec3, pointVec, body) {
+
+            body.activate();
+
+            VECTOR_AUX.setX(forceVec3.x);
+            VECTOR_AUX.setY(forceVec3.y);
+            VECTOR_AUX.setZ(forceVec3.z);
+
+
+            VECTOR_AUX2.setX(pointVec.x );
+            VECTOR_AUX2.setY(pointVec.y );
+            VECTOR_AUX2.setZ(pointVec.z );
+
+
+            body.applyImpulse(VECTOR_AUX, VECTOR_AUX2);
+
+        };
 
         AmmoFunctions.prototype.forceAndTorqueToBody = function(forceVec3, body, torqueVec) {
 
@@ -185,7 +203,6 @@ define([
             }
 
         };
-
 
         AmmoFunctions.prototype.applyForceToBodyWithMass = function(forceVec3, body, mass, randomize) {
             body.activate();
@@ -224,16 +241,16 @@ define([
 
 
         AmmoFunctions.prototype.relaxBodySimulation = function(body) {
-        //    body.deactivate();
+            //    body.deactivate();
 
             if (!this.getBodyActiveState(body)) {
-            //    this.disableBodySimulation(body);
+                //    this.disableBodySimulation(body);
                 return;
             }
 
             body.forceActivationState(STATE.WANTS_DEACTIVATION);
 
-        //    return;
+            //    return;
             body.getLinearVelocity(VECTOR_AUX);
 
             var speed = Math.abs(VECTOR_AUX.x()) + Math.abs(VECTOR_AUX.y()) + Math.abs(VECTOR_AUX.z());
@@ -293,7 +310,7 @@ define([
 
                 hit.ptr = rayCallback.get_m_collisionObject().a;
 
-            //    console.log(hitPoint, hit.ptr);
+                //    console.log(hitPoint, hit.ptr);
                 return hit;
             }
 
@@ -449,9 +466,9 @@ define([
 
             var ms = body.getMotionState();
 
-        //    ms.getWorldTransform(TRANSFORM_AUX);
+            //    ms.getWorldTransform(TRANSFORM_AUX);
 
-        //    body.clearForces();
+            //    body.clearForces();
 
             TRANSFORM_AUX.setIdentity();
 
@@ -460,7 +477,7 @@ define([
             TRANSFORM_AUX.getOrigin().setZ(position.z);
 
 
-        //    body.getWorldTransform(TRANSFORM_AUX);
+            //    body.getWorldTransform(TRANSFORM_AUX);
 
 
             QUAT_AUX.setX(quaternion.x);
@@ -468,23 +485,23 @@ define([
             QUAT_AUX.setZ(quaternion.z);
             QUAT_AUX.setW(quaternion.w);
 
- /*
-            TRANSFORM_AUX.getRotation().setX(quaternion.x);
-            TRANSFORM_AUX.getRotation().setY(quaternion.y);
-            TRANSFORM_AUX.getRotation().setZ(quaternion.z);
-            TRANSFORM_AUX.getRotation().setW(quaternion.w);
-        */
+            /*
+                       TRANSFORM_AUX.getRotation().setX(quaternion.x);
+                       TRANSFORM_AUX.getRotation().setY(quaternion.y);
+                       TRANSFORM_AUX.getRotation().setZ(quaternion.z);
+                       TRANSFORM_AUX.getRotation().setW(quaternion.w);
+                   */
 
 
             TRANSFORM_AUX.setRotation(QUAT_AUX);
 
-        //    body.setWorldTransform(TRANSFORM_AUX);
+            //    body.setWorldTransform(TRANSFORM_AUX);
 
-        //    ms.setWorldTransform(TRANSFORM_AUX);
+            //    ms.setWorldTransform(TRANSFORM_AUX);
 
-        body.setWorldTransform(TRANSFORM_AUX);
+            body.setWorldTransform(TRANSFORM_AUX);
 
-        body.getMotionState().setWorldTransform(TRANSFORM_AUX);
+            body.getMotionState().setWorldTransform(TRANSFORM_AUX);
 
 
             VECTOR_AUX.setX(0);
@@ -510,8 +527,8 @@ define([
             body.setAngularVelocity(VECTOR_AUX);
             */
 
-        //    body.setMassProps(conf.mass, VECTOR_AUX);
-        //    body.setDamping(conf.mass, VECTOR_AUX);
+            //    body.setMassProps(conf.mass, VECTOR_AUX);
+            //    body.setDamping(conf.mass, VECTOR_AUX);
 
             body.setRestitution(0);
             body.setFriction(9);
@@ -551,7 +568,7 @@ define([
         };
 
         function createMeshShape(dataKey, bodyParams, position, quaternion, mass, scale, onReady, dynamicSpatial, ammoFuncs) {
-            console.log("CreateMEshShape", dataKey, bodyParams, position, quaternion, mass, scale, onReady)
+    //        console.log("CreateMEshShape", dataKey, bodyParams, position, quaternion, mass, scale, onReady)
             if (geoShapes[dataKey]) {
                 configureMeshShape(geoShapes[dataKey], bodyParams, position, quaternion, mass, scale, onReady)
             } else {
@@ -630,7 +647,7 @@ define([
                     rigidBody.forceActivationState(STATE.ACTIVE);
                 }
 
-            //    position.y += args[2] / 2;
+                //    position.y += args[2] / 2;
                 setBodyTransform(rigid_body, rigidBody, position, quaternion);
             }
 
@@ -886,7 +903,7 @@ define([
                 body.forceActivationState(STATE[bodyParams.state]);
             }
 
-        //
+            //
             return body;
 
         };

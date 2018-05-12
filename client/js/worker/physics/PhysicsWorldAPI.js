@@ -79,6 +79,7 @@ define([
         };
 
         var start;
+
         var applyDynamicSpatials = function() {
             for (var i = 0; i < dynamicSpatials.length; i++) {
                 dynamicSpatials[i].tickPhysicsUpdate(ammoApi);
@@ -86,6 +87,11 @@ define([
         };
 
         var updateDynamicSpatials = function() {
+
+            activeBodies = 0;
+            passiveBodies = 0;
+            staticBodies = 0;
+
             for (var i = 0; i < dynamicSpatials.length; i++) {
                 waterPhysics.simulateDynamicSpatialInWater(dynamicSpatials[i]);
                 dynamicSpatials[i].sampleBodyState();
@@ -108,25 +114,22 @@ define([
             frameStart = getNow();
             frameIdle = frameStart - frameEnd;
 
-
-            activeBodies = 0;
-            passiveBodies = 0;
-            staticBodies = 0;
-
             applyDynamicSpatials();
-            stepStart = getNow();
+
+            comBuffer[ENUMS.BufferChannels.PHYS_ERRORS] = 0;
 
             if (comBuffer[ENUMS.BufferChannels.PHYSICS_LOAD] < 0.9) {
+
+                stepStart = getNow();
                 ammoApi.updatePhysicsSimulation(tpf);
+                stepEnd = getNow();
+                updateDynamicSpatials();
             } else {
                 skipFrame = true;
                 skipFrames++;
             }
 
-            stepEnd = getNow();
-            updateDynamicSpatials();
             frameEnd = getNow();
-
             PhysicsWorldAPI.updatePhysicsStats();
 
         };
@@ -169,6 +172,13 @@ define([
 
 
         var bodyReady = function(dynamicSpatial, rigidBody) {
+
+            if (dynamicSpatials.indexOf(dynamicSpatial) !== -1) {
+                console.log("Already registered...!")
+                return;
+
+            }
+
             dynamicSpatial.setPhysicsBody(rigidBody);
             dynamicSpatials.push(dynamicSpatial);
             ammoApi.includeBody(rigidBody);
@@ -198,6 +208,10 @@ define([
             protocolRequests.sendMessage(protocolKey, data)
         };
 
+        PhysicsWorldAPI.applyLocalForceToBodyPoint = function(force, body, point) {
+            ammoApi.applyForceAtPointToBody(force, point, body)
+        };
+
         var getTerrainsCount = function() {
             var count = 0;
             for (var key in terrainBodies) {
@@ -208,6 +222,10 @@ define([
 
         PhysicsWorldAPI.registerPhysError = function() {
             comBuffer[ENUMS.BufferChannels.PHYS_ERRORS]++;
+        };
+
+        PhysicsWorldAPI.getCom = function(index) {
+            return comBuffer[index];
         };
 
         PhysicsWorldAPI.updatePhysicsStats = function() {

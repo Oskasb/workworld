@@ -115,13 +115,13 @@ define([
         var rainBoxes = function() {
             if (Math.random() < 0.5) {
                 tempVec1.copy(WorldAPI.getWorldCursor().getCursorPosition());
-                tempVec1.x += -40+Math.random()*80;
-                tempVec1.y +=  45+Math.random()*75;
-                tempVec1.z += -40+Math.random()*80;
+                tempVec1.x += -20+Math.random()*40;
+                tempVec1.y +=  45+Math.random()*35;
+                tempVec1.z += -20+Math.random()*40;
 
                 tempQuat.copy(WorldAPI.getWorldCursor().getCursorQuaternion());
 
-                scale = 1+Math.floor(Math.random()*9);
+                scale = 1+Math.floor(Math.random()*2);
 
                 newDynRen = WorldAPI.buildDynamicRenderable(geoms[Math.floor(Math.random()*geoms.length)], tempVec1, tempQuat, scale);
                 newDynRen.initRenderable(WorldAPI.attachDynamicRenderable);

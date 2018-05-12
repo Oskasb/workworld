@@ -84,8 +84,6 @@ define(['worker/physics/AmmoFunctions'],
         AmmoAPI.prototype.setupRigidBody = function(bodyConf, dynamicSpatial, cb) {
 
             var onReady = function(body) {
-                bodies.push(body);
-                world.addRigidBody(body);
                 cb(dynamicSpatial, body);
             };
 
@@ -122,6 +120,7 @@ define(['worker/physics/AmmoFunctions'],
                 return;
             }
             if (bodies.indexOf(body) === -1) {
+                world.addRigidBody(body);
                 bodies.push(body);
             }
 
@@ -165,6 +164,11 @@ define(['worker/physics/AmmoFunctions'],
         AmmoAPI.prototype.applyForceAndTorqueToBody = function(forceVec3, body, torqueVec) {
             ammoFunctions.forceAndTorqueToBody(forceVec3, body, torqueVec)
         };
+
+        AmmoAPI.prototype.applyForceAtPointToBody = function(forceVec3, pointVec, body) {
+            ammoFunctions.forceAtPointToBody(forceVec3, pointVec, body)
+        };
+
 
 
         AmmoAPI.prototype.applyForceToActor = function(forceVec3, actor, randomize) {

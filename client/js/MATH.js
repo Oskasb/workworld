@@ -239,6 +239,13 @@ if(typeof(MATH) === "undefined") {
 		return Math.round(value*scale) / scale;
     };
 
+
+    MATH.sphereDisplacement = function(radius, depth) {
+    	if (depth < radius) return 0;
+        if (depth > radius*2) depth = radius*2;
+        return  1/3 * Math.PI * depth*depth * (3*radius-depth)
+    };
+
 	MATH.curveBlendArray = function(value, curve, from, to, store) {
 		blend = MATH.valueFromCurve(value, curve);
 		MATH.blendArray(from, to, blend, store);
