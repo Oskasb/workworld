@@ -84,7 +84,10 @@
           "id":"plate",
           "tiles":[[3, 2]]
         },
-
+        {
+          "id":"split_block",
+          "tiles":[[3, 3]]
+        },
         {
           "id":"arrow_top_left",
           "tiles":[[3, 1]]

@@ -321,6 +321,7 @@
         "data": {
 
           "label_key":"button_label",
+
           "surface":{
 
             "layout":{
@@ -350,6 +351,26 @@
               "active_fx":"plate_active_effects",
               "color_on":"blue_2",
               "color":"cyan_1"
+            }
+          },
+
+          "cross":{
+
+            "layout":{
+              "anchor":"center",
+              "fixed_aspect":true,
+              "margin_x":0.0,
+              "margin_y":0.0,
+              "width": 1.5,
+              "height":1.2
+            },
+
+            "edges":{
+              "passive_fx":"edge_passive_effects",
+              "active_fx":"edge_active_effects",
+              "color_on":"blue_2",
+              "color":"blue_3",
+              "thickness":0.02
             }
           }
         }

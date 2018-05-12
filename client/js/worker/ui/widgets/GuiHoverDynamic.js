@@ -3,12 +3,14 @@
 define([
     'GuiAPI',
         'ConfigObject',
-        'ui/elements/GuiSurfaceElement'
+        'ui/elements/GuiSurfaceElement',
+        'ui/elements/GuiCrossElement'
     ],
     function(
         GuiAPI,
         ConfigObject,
-        GuiSurfaceElement
+        GuiSurfaceElement,
+        GuiCrossElement
     ) {
 
         var GuiHoverDynamic = function(label, configId) {
@@ -28,6 +30,9 @@ define([
 
             this.position = new THREE.Vector3();
             this.surfaceElement = new GuiSurfaceElement();
+
+            this.crossElement = new GuiCrossElement();
+
         };
 
         GuiHoverDynamic.prototype.setupTextElements = function() {
@@ -53,11 +58,17 @@ define([
                 this.configObject.addCallback(configLoaded);
             }.bind(this);
 
-            this.surfaceElement.initSurfaceElement(surfaceReady);
+            var crossRdy = function() {
+                this.surfaceElement.initSurfaceElement(surfaceReady);
+            }.bind(this);
+
+            this.crossElement.initCrossElement(crossRdy);
+            this.samplePointer = false;
         };
 
         GuiHoverDynamic.prototype.updateSurfaceState = function() {
-            this.surfaceElement.updateSurfaceElement(this.position, this.configObject.getConfigByDataKey('surface'))
+            this.surfaceElement.updateSurfaceElement(this.position, this.configObject.getConfigByDataKey('surface'));
+            this.crossElement.updateCrossElement(this.position, this.configObject.getConfigByDataKey('cross'))
         };
 
         var timeNow;
@@ -70,6 +81,9 @@ define([
 
 
             if (this.currentHover) {
+
+                this.crossElement.setOn(1);
+                this.crossElement.hover = true;
 
                 timeNow = WorldAPI.getCom(ENUMS.BufferChannels.FRAME_RENDER_TIME);
 
@@ -103,6 +117,8 @@ define([
 
             } else {
 
+                this.crossElement.hover = false;
+
                 if (!this.surfaceElement.disabled) {
                     this.disableWidget();
                     this.isActive = false;
@@ -121,6 +137,7 @@ define([
 
         GuiHoverDynamic.prototype.disableWidget = function() {
             this.surfaceElement.disableSurfaceElement();
+            this.crossElement.disableCrossElement();
         };
 
         GuiHoverDynamic.prototype.getWidgetSurfaceLayout = function() {

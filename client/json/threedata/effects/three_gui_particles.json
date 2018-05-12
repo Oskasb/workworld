@@ -15,6 +15,18 @@
           }
         },
         {
+          "id":"gui_split_block_particle",
+          "sprite_key":"GUI",
+          "sprite_id":"split_block",
+          "config":{
+            "colorCurve":"darkBlue",
+            "alphaCurve":"flashGrey",
+            "diffusionCurve":"dampen",
+            "size":{"value":0.5},
+            "colorDiffusion":0.05
+          }
+        },
+        {
           "id":"gui_arrow_top_left_particle",
           "sprite_key":"GUI",
           "sprite_id":"arrow_top_left",

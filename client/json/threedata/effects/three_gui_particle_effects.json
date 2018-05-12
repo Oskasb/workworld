@@ -227,6 +227,26 @@
           }
         },
         {
+          "id":"gui_split_square_normal_effect",
+          "data":{
+            "system_key":"THREE",
+            "renderer_id":"gpu_normal_gui_renderer",
+            "particle_id":"gui_split_block_particle",
+            "count":1,
+            "simulation_id":"gpu_gui_simulation"
+          }
+        },
+        {
+          "id":"gui_split_square_additive_effect",
+          "data":{
+            "system_key":"THREE",
+            "renderer_id":"gpu_additive_gui_renderer",
+            "particle_id":"gui_split_block_particle",
+            "count":1,
+            "simulation_id":"gpu_gui_simulation"
+          }
+        },
+        {
           "id":"gui_edge_normal_effect",
           "data":{
             "system_key":"THREE",

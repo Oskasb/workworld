@@ -246,6 +246,7 @@
         }
       }
     ],
+
     "GUI_PLATE_ELEMENT":[
       {
         "id": "config",
@@ -257,6 +258,23 @@
 
           "plate_active_effects":[
             "gui_plate_highlight_effect"
+          ]
+        }
+      }
+    ],
+
+
+    "GUI_CROSS_ELEMENT":[
+      {
+        "id": "config",
+        "data": {
+
+          "cross_passive_effects":[
+            "gui_split_square_normal_effect"
+          ],
+
+          "cross_active_effects":[
+            "gui_split_square_additive_effect"
           ]
         }
       }
