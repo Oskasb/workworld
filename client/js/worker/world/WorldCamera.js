@@ -3,7 +3,10 @@
 
 
 define([
+
+    'GuiAPI'
 ], function(
+    GuiAPI
 ) {
 
     var scene, camera, renderer;
@@ -16,6 +19,11 @@ define([
     var postrenderCallbacks = [];
     var tpf, lastTime, idle, renderStart, renderEnd;
     var lookAt = new THREE.Vector3();
+    var tempVec1 = new THREE.Vector3();
+    var distance;
+
+    var minDistance = 10;
+    var maxDistance = 2000;
 
     var cameraForward = new THREE.Vector3();
 
@@ -35,9 +43,9 @@ define([
 
     WorldCamera.prototype.toScreenPosition = function(vec3, store) {
 
-        tempObj.position.copy(vec3);
+    //    tempObj.position.copy(vec3);
 
-        if (!frustum.containsPoint(tempObj.position)) {
+        if (!frustum.containsPoint(vec3)) {
 
             store.x = -1;
             store.y = -1;
@@ -47,12 +55,22 @@ define([
         }
 
         //    tempObj.updateMatrixWorld();
-        tempObj.getWorldPosition(vector)
+        //  tempObj.getWorldPosition(vector)
+
+        vector.copy(vec3);
         vector.project(camera);
 
-        store.x = vector.x * 0.5;
-        store.y = vector.y * 0.5;
-        store.z = vector.z * -1;
+    //    GuiAPI.scaleByWidth(this.currentHover.screenPos.x), GuiAPI.scaleByHeight(this.currentHover.screenPos.y)
+
+        store.x = GuiAPI.scaleByWidth(vector.x * 0.5);
+        store.y = GuiAPI.scaleByHeight(vector.y * 0.5);
+
+    //    store.x = vector.x * 0.5;
+    //    store.y = vector.y * 0.5;
+
+        store.z = 1;
+
+
 
         return store;
     };
@@ -74,7 +92,7 @@ define([
         }
 
 
-        if (distance > 150 + Math.sqrt(radius + 50) + 0.5 * radius * radius) {
+        if (distance > 150 + Math.sqrt(radius + 150) + 15 * radius * radius) {
             return false;
         }
 
@@ -84,11 +102,10 @@ define([
 
         var dot = vector.dot(cameraForward);
 
-        if (dot < 0.7-(radius*0.5/distance)) {
+        if (dot < 0.2) {
             return false;
         }
 
-        return true;
 
         isVisible = this.cameraFrustumContainsPoint(pos);
 
@@ -108,8 +125,7 @@ define([
     };
 
     WorldCamera.prototype.calcDistanceToCamera = function(vec3) {
-        vector.copy(vec3);
-        return vector.distanceTo(camera.position);
+        return vec3.distanceTo(camera.position);
     };
 
     var frustum = new THREE.Frustum();
@@ -139,6 +155,10 @@ define([
         camera.lookAt(lookAt)
     };
 
+    WorldCamera.prototype.distanceToLookTarget = function() {
+        return this.calcDistanceToCamera(this.getCameraLookAt());
+    };
+
     WorldCamera.prototype.updateCameraMatrix = function() {
 
         camera.updateMatrixWorld(true);
@@ -161,6 +181,36 @@ define([
         return camera;
     };
 
+    WorldCamera.prototype.updateCameraControlState = function() {
+
+        tempVec1.set(WorldAPI.getCom(ENUMS.BufferChannels.UI_CAM_DRAG_X), WorldAPI.getCom(ENUMS.BufferChannels.UI_CAM_DRAG_Y), WorldAPI.getCom(ENUMS.BufferChannels.UI_CAM_DRAG_Z));
+
+        distance = this.distanceToLookTarget();
+
+        if (distance < minDistance) {
+            if (tempVec1.z < 0) {
+                tempVec1.z = 0;
+            }
+        } else if (distance > maxDistance) {
+            if (tempVec1.z > 0) {
+                tempVec1.z = 0;
+            }
+        }
+
+        WorldAPI.setCom(ENUMS.BufferChannels.UI_CAM_DRAG_X, tempVec1.x * 0.95);
+        WorldAPI.setCom(ENUMS.BufferChannels.UI_CAM_DRAG_Y, tempVec1.y * 0.95);
+        WorldAPI.setCom(ENUMS.BufferChannels.UI_CAM_DRAG_Z, tempVec1.z * 0.95);
+
+        tempVec1.applyQuaternion(camera.quaternion);
+
+        camera.position.x += tempVec1.x * (0.2+distance*0.02);
+        camera.position.y += tempVec1.y * (0.2+distance*0.02);
+        camera.position.z += tempVec1.z * (0.2+distance*0.02);
+
+        WorldAPI.getWorldCamera().updateCameraLookAt();
+    };
+
+
     WorldCamera.prototype.relayCamera = function(comBuffer) {
 
         comBuffer[ENUMS.BufferChannels.CAM_POS_X]      = camera.position.x;
@@ -178,6 +228,7 @@ define([
     };
 
     WorldCamera.prototype.applyCameraComBuffer = function(comBuffer) {
+
         camera.position.x   = comBuffer[ENUMS.BufferChannels.CAM_POS_X] ;
         camera.position.y   = comBuffer[ENUMS.BufferChannels.CAM_POS_Y] ;
         camera.position.z   = comBuffer[ENUMS.BufferChannels.CAM_POS_Z] ;
@@ -189,6 +240,7 @@ define([
         camera.near         = comBuffer[ENUMS.BufferChannels.CAM_NEAR]  ;
         camera.far          = comBuffer[ENUMS.BufferChannels.CAM_FAR]   ;
         camera.aspect       = comBuffer[ENUMS.BufferChannels.CAM_ASPECT];
+        this.updateCameraControlState();
         this.updateCameraMatrix();
     };
 

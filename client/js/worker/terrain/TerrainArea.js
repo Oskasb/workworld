@@ -18,6 +18,7 @@ define([
         var tempObj3d = new THREE.Object3D();
 
         var TerrainArea = function(terrainFunctions, configId, onReady) {
+            this.configId =configId;
             this.dynamicSpatial = new DynamicSpatial();
             this.dynamicSpatial.setupSpatialBuffer();
             this.size = 0;
@@ -204,11 +205,11 @@ define([
             if (this.isVisible) {
 
                 if (!this.dataRequested) {
+                    WorldAPI.addTextMessage('Request TerrainArea Data: '+this.configId);
                     this.requestStaticTerrainData(this.msg);
                     this.dataRequested = true;
                     return;
                 }
-
             }
 
             if (!this.terrain) {
@@ -217,11 +218,15 @@ define([
 
             if (this.isVisible) {
 
+                if (!this.wasVisible) {
+                    WorldAPI.addTextMessage('Include Area: '+this.configId);
+                }
+
                 for (var i = 0; i < this.terrainSections.length; i++) {
                     this.terrainSections[i].updateTerrainSection(tpf)
                 }
             } else if (this.wasVisible) {
-                console.log("Hide area by box")
+                WorldAPI.addTextMessage('Hide Area: '+this.configId);
                 for (var i = 0; i < this.terrainSections.length; i++) {
                     this.terrainSections[i].applyTerrainSectionVisibility(tpf, false);
                 }

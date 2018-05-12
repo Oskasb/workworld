@@ -97,6 +97,7 @@ define([
 
         RenderableGeometry.prototype.updateGeometryRenderable = function() {
             this.isVisible = this.testIsVisible();
+            return this.isVisible;
         };
 
         return RenderableGeometry;

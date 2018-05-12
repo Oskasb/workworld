@@ -111,6 +111,19 @@ if(typeof(MATH) === "undefined") {
         return value > min && value < max
 	};
 
+	var half32BitInt = 1047483647;
+    var bigSafeValue = 5337203685;
+
+	MATH.safeInt = function(value) {
+	    if (isNaN(value)) return 0;
+	    return MATH.clamp(value, -bigSafeValue, bigSafeValue);
+    };
+
+    MATH.safeForceVector = function(vec) {
+        vec.x = MATH.safeInt(vec.x);
+        vec.y = MATH.safeInt(vec.y);
+        vec.z = MATH.safeInt(vec.z);
+    };
 
 	MATH.remainder = function(float) {
 		return float - (Math.floor(float)) 	

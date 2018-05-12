@@ -92,24 +92,14 @@ define(['worker/physics/AmmoFunctions'],
         };
 
 
-        AmmoAPI.prototype.setupPhysicalActor = function(actor) {
-
-            if (!world) {
-
-                console.log("No physical world yet..");
-                return;
-            }
-
-            if (actor.getPhysicsBody()) {
-                console.log("Actor already has a body...");
-                return actor;
-            }
-
-            ammoFunctions.addPhysicalActor(world, actor);
-            bodies.push(actor.getPhysicsBody());
-            world.addRigidBody(actor.getPhysicsBody());
-            return actor;
+        AmmoAPI.prototype.requestBodyDeactivation = function(body) {
+            ammoFunctions.relaxBodySimulation(body);
         };
+
+        AmmoAPI.prototype.requestBodyActivation = function(body) {
+            ammoFunctions.enableBodySimulation(body);
+        };
+
 
         AmmoAPI.prototype.includeBody = function(body) {
 
@@ -127,22 +117,11 @@ define(['worker/physics/AmmoFunctions'],
             ammoFunctions.enableBodySimulation(body);
         };
 
-        AmmoAPI.prototype.disableActorPhysics = function(actor) {
-        //    console.log("disableActorPhysics body", actor);
-            var body = actor.getPhysicsBody();
-
-            if (!body) {
-                console.log("No body", actor, body);
-                return;
-            }
-
-            var dataKey = actor.physicalPiece.dataKey;
-            this.excludeBody(body, dataKey);
-        };
 
         AmmoAPI.prototype.disableRigidBody = function(body) {
             this.excludeBody(body);
         };
+
 
         AmmoAPI.prototype.excludeBody = function(body) {
             var bi = bodies.indexOf(body);
@@ -169,7 +148,9 @@ define(['worker/physics/AmmoFunctions'],
             ammoFunctions.forceAtPointToBody(forceVec3, pointVec, body)
         };
 
-
+        AmmoAPI.prototype.applyForceAtPointToBody = function(forceVec3, pointVec, body) {
+            ammoFunctions.forceAtPointToBody(forceVec3, pointVec, body)
+        };
 
         AmmoAPI.prototype.applyForceToActor = function(forceVec3, actor, randomize) {
             ammoFunctions.applyForceToBodyWithMass(forceVec3, actor.getPhysicsBody(), actor.physicalPiece.getPhysicsPieceMass(), randomize)
@@ -178,6 +159,11 @@ define(['worker/physics/AmmoFunctions'],
         AmmoAPI.prototype.relaxSimulatingBody = function(body) {
             ammoFunctions.relaxBodySimulation(body);
         };
+
+        AmmoAPI.prototype.changeBodyDamping = function(body, dampingV, dampingA) {
+            ammoFunctions.applyBodyDamping(body, dampingV, dampingA);
+        };
+
 
 
         AmmoAPI.prototype.triggerPhysicallyActive = function(actor) {

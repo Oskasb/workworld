@@ -71,13 +71,15 @@ define([
             //    console.log("FETCHES:", fetches);
         };
 
-        WorldAPI.updateUiSystem = function(input, lastInput) {
-            GuiAPI.updateGui(input, lastInput)
+        WorldAPI.updateUiSystem = function() {
+
         };
 
         WorldAPI.fitView = function(frustumCoords) {
             worldControlState.frustumCoordsToView(frustumCoords)
         };
+
+
 
         WorldAPI.sampleInputBuffer = function(inputIndex) {
             return worldControlState.valueFromInputBuffer(inputIndex)
@@ -113,6 +115,10 @@ define([
             dynamicWorld.spliceDynamicRenderable(renderable)
         };
 
+        WorldAPI.getDynamicHover = function() {
+            return dynamicWorld.getCurrentProbeHover();
+        };
+
         WorldAPI.getWorldCamera = function() {
             return worldControlState.getWorldCamera()
         };
@@ -128,7 +134,8 @@ define([
         WorldAPI.notifyFrameInit = function() {
             frameStartTime = performance.now();
             worldMain.updateWorld();
-            worldMain.updateWorldEffects()
+
+
         };
 
         WorldAPI.updateStatusMonitor = function() {
@@ -194,12 +201,22 @@ define([
         };
 
         WorldAPI.updateWorldWorkerFrame = function(tpf, frame) {
-            WorldAPI.sendWorldMessage(ENUMS.Protocol.NOTIFY_FRAME, frame);
-            worldControlState.updateWorldControlState();
-            dynamicWorld.updateDynamicWorld();
-            terrainSystem.updateTerrainSystem(tpf);
-        };
+            WorldAPI.getWorldCamera().applyCameraComBuffer(WorldAPI.getWorldComBuffer());
 
+            worldControlState.updateWorldControlState();
+
+            WorldAPI.sendWorldMessage(ENUMS.Protocol.NOTIFY_FRAME, frame);
+
+            dynamicWorld.updateDynamicWorld();
+
+            terrainSystem.updateTerrainSystem(tpf);
+
+            GuiAPI.updateGui();
+
+            worldMain.updateWorldEffects();
+            WorldAPI.getWorldCamera().relayCamera(WorldAPI.getWorldComBuffer());
+
+        };
 
         WorldAPI.getWorldTime = function() {
             return worldMain.worldComBuffer()[ENUMS.BufferChannels.FRAME_RENDER_TIME]

@@ -2,10 +2,12 @@
 
 
 define([
-        'worker/dynamic/DynamicRenderable'
+        'worker/dynamic/DynamicRenderable',
+        'worker/dynamic/ScreenspaceProbe'
     ],
     function(
-        DynamicRenderable
+        DynamicRenderable,
+        ScreenspaceProbe
     ) {
 
         var dynamics = [];
@@ -15,16 +17,23 @@ define([
         var tempVec2 = new THREE.Vector3();
         var tempQuat = new THREE.Quaternion();
 
+        var screenSpaceProbe;
+
         var addDynamicRenderable = function(dynRen) {
             if (dynamics.indexOf(dynRen) !== -1) {
                 console.log("Dupe Add attempted... bailing");
+                WorldAPI.addTextMessage('Dupe Add attempted... bailing: '+dynRen.idKey);
                 return;
             }
+            var count = dynamics.length;
+
+            WorldAPI.addTextMessage('Count: '+count+' add: '+dynRen.idKey);
+
             dynamics.push(dynRen)
         };
 
         var DynamicWorld = function() {
-
+            screenSpaceProbe = new ScreenspaceProbe();
         };
 
         var scale;
@@ -85,7 +94,8 @@ define([
                 if (distance < maxRange) {
                     mass = dynamics[i].getDynamicMass();
                     tempVec1.normalize();
-                    tempVec1.multiplyScalar(500 * (mass+200) * Math.sqrt(1/distance));
+                    tempVec1.multiplyScalar(MATH.safeInt(200 * (mass) * Math.sqrt(1/(distance+1))));
+                    MATH.safeForceVector(tempVec1);
                     dynamics[i].applyForceVector(tempVec1);
                 }
             }
@@ -105,7 +115,8 @@ define([
                 if (distance < maxRange) {
                     mass = dynamics[i].getDynamicMass();
                     tempVec1.normalize();
-                    tempVec1.multiplyScalar(1500 * (mass + 500) / (maxRange/distance+1));
+                    tempVec1.multiplyScalar(MATH.safeInt(350 * (mass + 50) / (maxRange/distance+1)));
+                    MATH.safeForceVector(tempVec1);
                     dynamics[i].applyForceVector(tempVec1);
                 }
             }
@@ -132,7 +143,11 @@ define([
             tempVec1.copy(WorldAPI.getWorldCursor().getCursorPosition());
             tempQuat.copy(WorldAPI.getWorldCursor().getCursorQuaternion());
             scale = 1;
-            newDynRen = WorldAPI.buildDynamicRenderable("dynamic_enterprize", tempVec1, tempQuat, scale);
+
+            var dynamicId = "dynamic_enterprize";
+
+            WorldAPI.addTextMessage('SpawnCall: '+dynamicId);
+            newDynRen = WorldAPI.buildDynamicRenderable(dynamicId, tempVec1, tempQuat, scale);
 
             newDynRen.initRenderable(WorldAPI.attachDynamicRenderable);
         //    WorldAPI.attachDynamicRenderable(newDynRen);
@@ -148,9 +163,15 @@ define([
             WorldAPI.setCom(ENUMS.BufferChannels.WORLD_ACTION_1, 0)
         };
 
-
+        DynamicWorld.prototype.getCurrentProbeHover = function() {
+            return screenSpaceProbe.getCurrentDynamicHover();
+        };
 
         DynamicWorld.prototype.updateDynamicWorld = function() {
+
+            if (!WorldAPI.getCom(ENUMS.BufferChannels.UI_HOVER_SOURCE)) {
+                screenSpaceProbe.probeScreenDynamics(dynamics);
+            }
 
             if (WorldAPI.getCom(ENUMS.BufferChannels.SPAWM_BOX_RAIN)) {
                 rainBoxes()

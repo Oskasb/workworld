@@ -16,6 +16,7 @@ define([
             var acceptClick = false;
 
             this.masterState = {buffer:[0], index:0, match:1};
+
             var onButtonHover = function()  {
                 acceptClick = false;
             };

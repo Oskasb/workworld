@@ -234,6 +234,10 @@ define([
             return body.isActive()
         };
 
+        AmmoFunctions.prototype.applyBodyDamping = function(body, dampingV, dampingA) {
+            return body.setDamping(dampingV, dampingA);
+        };
+
         AmmoFunctions.prototype.enableBodySimulation = function(body) {
             body.activate();
             body.forceActivationState(STATE.ACTIVE);
@@ -416,7 +420,7 @@ define([
 
             var heightDiff = maxHeight-minHeight;
 
-            var restitution =  0.01;
+            var restitution =  0.1;
             var damping     =  8.0;
             var friction    =  2.0;
 

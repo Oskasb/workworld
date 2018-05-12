@@ -52,8 +52,11 @@ define([
         };
 
         GuiEdgeElement.prototype.setEdgeWidthAndHeight = function(width, height) {
-            this.passiveRenderable.setRenderableWidthAndHeight(width, height);
-            this.activeRenderable.setRenderableWidthAndHeight(width, height);
+
+            this.passiveRenderable.setRenderableScale(width);
+            this.passiveRenderable.setRenderableAspect(width, height);
+            this.activeRenderable.setRenderableScale(width);
+            this.activeRenderable.setRenderableAspect(width, height);
         };
 
         GuiEdgeElement.prototype.setEdgeXY = function(x, y) {

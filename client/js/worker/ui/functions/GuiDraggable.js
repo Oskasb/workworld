@@ -12,8 +12,9 @@ define([
         var GuiDraggable = function(surfaceElem) {
 
             this.surfaceElement = surfaceElem;
-            this.whileDragCallbacks = []
+            this.whileDragCallbacks = [];
 
+            this.masterState = {buffer:[0], index:0};
         };
 
         GuiDraggable.prototype.addDragCallback = function(callback) {
@@ -25,6 +26,16 @@ define([
                 this.whileDragCallbacks[i](value);
             }
         };
+
+        GuiDraggable.prototype.setMasterBuffer = function(buffer, index) {
+            this.masterState.buffer = buffer;
+            this.masterState.index = index
+        };
+
+        GuiDraggable.prototype.getBufferState = function() {
+            return this.masterState.buffer[this.masterState.index];
+        };
+
 
         GuiDraggable.prototype.updateDraggable = function() {
             if (this.surfaceElement.getPress()) {

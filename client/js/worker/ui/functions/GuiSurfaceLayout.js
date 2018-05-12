@@ -12,7 +12,9 @@ define([
             top_left:        [0, 0],
             top_right:       [1, 0],
             bottom_left:     [0, 1],
+            mid_left:      [0, 0.5],
             bottom_right:    [1, 1],
+            mid_right:     [1, 0.5],
             bottom_mid:    [0.5, 1],
             center:      [0.5, 0.5]
         };
@@ -132,6 +134,10 @@ define([
 
         GuiSurfaceLayout.prototype.setDynamicLayout = function(key, value) {
             this.dynamicLayout[key] = value;
+            this.layout[key] = value;
+            //if (this.layout[key]) {
+            //    this.parseLaoutConfig(this.layout)
+            // }
         };
 
         GuiSurfaceLayout.prototype.getCenterX = function() {

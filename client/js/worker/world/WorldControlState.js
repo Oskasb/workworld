@@ -23,19 +23,7 @@ define([
 
         WorldControlState.prototype.updateWorldControlState = function() {
 
-            for (var i = 0; i < inputBuffer.length; i++) {
-
-                if (inputBuffer[i] !== lastBuffer[i]) {
-                //    console.log("Input Update", ENUMS.Map.InputState[i], inputBuffer[i])
-                }
-            }
-
-            this.worldCamera.applyCameraComBuffer(WorldAPI.getWorldComBuffer());
-
-            WorldAPI.updateUiSystem(inputBuffer, lastBuffer);
-
-            this.worldCursor.updateWorldCursor()
-            this.worldCamera.relayCamera(WorldAPI.getWorldComBuffer());
+            this.worldCursor.updateWorldCursor();
             this.storeLastBuffer();
 
         };
@@ -56,9 +44,7 @@ define([
         };
 
         WorldControlState.prototype.enableDefaultGuiWidgets = function() {
-
             this.widgetLoader.enableDefaultGuiWidgets();
-
         };
 
         WorldControlState.prototype.setInputBuffer = function(buffer) {

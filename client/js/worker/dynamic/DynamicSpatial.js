@@ -170,6 +170,7 @@ define([
             storeVec.x = this.spatialBuffer[ENUMS.BufferSpatial.FORCE_X];
             storeVec.y = this.spatialBuffer[ENUMS.BufferSpatial.FORCE_Y];
             storeVec.z = this.spatialBuffer[ENUMS.BufferSpatial.FORCE_Z];
+            MATH.safeForceVector(storeVec);
         };
 
         DynamicSpatial.prototype.applySpatialImpulseVector = function(threeVec) {
@@ -183,6 +184,7 @@ define([
             storeVec.x = this.spatialBuffer[ENUMS.BufferSpatial.TORQUE_X];
             storeVec.y = this.spatialBuffer[ENUMS.BufferSpatial.TORQUE_Y];
             storeVec.z = this.spatialBuffer[ENUMS.BufferSpatial.TORQUE_Z];
+            MATH.safeForceVector(storeVec);
         };
 
         DynamicSpatial.prototype.applySpatialTorqueVector = function(threeVec) {
@@ -307,7 +309,7 @@ define([
 
             if (isVisible) {
                 if (this.getSpatialStillFrames() > this.visiblePingFrames) {
-                    this.setSpatialStillFrames(this.stillLimit-2);
+            //        this.setSpatialStillFrames(this.stillLimit-2);
                 }
             } else {
 
@@ -356,15 +358,22 @@ define([
             if (this.getSpatialSimulateFlag()) {
 
                 if (this.getSpatialDisabledFlag()) {
-                    ammoApi.includeBody(this.body);
+
+                //    ammoApi.includeBody(this.body);
+                    ammoApi.requestBodyActivation(this.body);
+
                     this.setSpatialDisabledFlag(0);
+
                 }
                 this.tickPhysicsForces(ammoApi);
 
             } else {
 
                 if (!this.getSpatialDisabledFlag()) {
-                    ammoApi.excludeBody(this.body);
+
+                //    ammoApi.excludeBody(this.body);
+                    ammoApi.requestBodyDeactivation(this.body);
+
                     this.setSpatialDisabledFlag(1);
                 }
             }
@@ -400,6 +409,19 @@ define([
                 if (isNaN(p.x())) {
 
                     PhysicsWorldAPI.registerPhysError();
+
+                    var tf = new Ammo.btTransform();
+
+                    tf.getOrigin().setX(this.spatialBuffer[ENUMS.BufferSpatial.POS_X]);
+                    tf.getOrigin().setY(this.spatialBuffer[ENUMS.BufferSpatial.POS_Y]);
+                    tf.getOrigin().setZ(this.spatialBuffer[ENUMS.BufferSpatial.POS_Z]);
+
+                    tf.getRotation().setX(this.spatialBuffer[ENUMS.BufferSpatial.QUAT_X]);
+                    tf.getRotation().setY(this.spatialBuffer[ENUMS.BufferSpatial.QUAT_Y]);
+                    tf.getRotation().setZ(this.spatialBuffer[ENUMS.BufferSpatial.QUAT_Z]);
+                    tf.getRotation().setW(this.spatialBuffer[ENUMS.BufferSpatial.QUAT_W]);
+
+                    ms.setWorldTransform(tf);
 
                     if (Math.random() < 0.1) {
                         console.log("Bad body transform", this.body)

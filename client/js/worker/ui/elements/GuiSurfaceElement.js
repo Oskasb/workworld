@@ -34,6 +34,7 @@ define([
             this.hover = false;
             this.press = false;
             this.on = false;
+            this.disabled = false;
 
             this.callbacks = {
                 hover   : [],
@@ -63,7 +64,18 @@ define([
                 WorldAPI.setCom(ENUMS.BufferChannels.UI_PRESS_SOURCE, surfaceIndex)
             };
 
+            var registerHoverSource = function(bool) {
+                if (bool) {
+                    WorldAPI.setCom(ENUMS.BufferChannels.UI_HOVER_SOURCE, surfaceIndex)
+                } else {
+                    if (WorldAPI.getCom(ENUMS.BufferChannels.UI_HOVER_SOURCE) === surfaceIndex) {
+                        WorldAPI.setCom(ENUMS.BufferChannels.UI_HOVER_SOURCE, 0)
+                    }
+                }
+            };
+
             this.addSurfacePressCallback(registerPressSource);
+            this.addSurfaceHoverCallback(registerHoverSource);
 
         };
 
@@ -242,6 +254,7 @@ define([
             }
 
             this.updateSurfaceVisuals(surfaceData)
+            this.disabled = false;
         };
 
         GuiSurfaceElement.prototype.addSurfaceHoverCallback = function(cb) {
@@ -294,6 +307,8 @@ define([
             for (i = 0; i < this.textElements.length; i++) {
                 this.textElements[i].disableTextElement()
             }
+
+            this.disabled = true;
         };
 
         GuiSurfaceElement.prototype.callSurfaceCallbackList = function(callbacks, bool) {

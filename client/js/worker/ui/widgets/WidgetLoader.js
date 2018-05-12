@@ -138,7 +138,6 @@ define([
             }
 
             WorldAPI.getWorldCamera().setLookAtVec(WorldAPI.getWorldCursor().getCursorPosition());
-            WorldAPI.getWorldCamera().updateCameraLookAt();
 
         };
 
@@ -150,17 +149,19 @@ define([
 
             widgetBuilder.buildControls(controls);
             widgetBuilder.buildStatusMonitors(statusMonitors);
-            widgetBuilder.buildButtonWidget('STATUS', 'default', controls, buttonFunctions.monitorSystem, {margin_y:0.07});
+            widgetBuilder.buildButtonWidget('STATUS', 'default', controls, buttonFunctions.monitorSystem, {margin_y:0.05});
             widgetBuilder.buildMessageBox(controls);
         };
 
         WidgetLoader.prototype.enableDefaultGuiWidgets = function() {
             this.guiUpdatable.enableUpdates(updateWidgets);
 
+            widgetBuilder.buildHoverDynamic(controls);
+            widgetBuilder.buildCamDragControls(controls);
             widgetBuilder.addTopNavigationTab('DEV', topTabs, buttonFunctions.devSubtabs);
             widgetBuilder.addTopNavigationTab('WORLD', topTabs, buttonFunctions.worldSubtabs);
-            initWidgetStore(topTabs);
 
+            initWidgetStore(topTabs);
             initWidgetStore(controls);
         };
 

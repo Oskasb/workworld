@@ -57,7 +57,19 @@ define([
         RenderableElement.prototype.setRenderableWidthAndHeight = function(width, height) {
             this.scale = width;
             this.aspect = height/width;
-            this.renderableEffects.setEffectListAspect(this.aspect);
+        //    this.renderableEffects.setEffectListScale(this.scale);
+            this.renderableEffects.setEffectListAspect(this.aspect)
+        };
+
+        RenderableElement.prototype.setRenderableScale = function(width, height) {
+            this.scale = width;
+            this.renderableEffects.setEffectListScale(this.scale);
+            //     this.renderableEffects.setEffectListAspect(this.aspect)
+        };
+
+        RenderableElement.prototype.setRenderableAspect = function(width, height) {
+            this.aspect = height/width;
+            //    this.renderableEffects.setEffectListScale(this.scale);
             this.renderableEffects.setEffectListAspect(this.aspect)
         };
 

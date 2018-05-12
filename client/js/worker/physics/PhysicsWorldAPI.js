@@ -86,14 +86,14 @@ define([
             }
         };
 
-        var updateDynamicSpatials = function() {
+        var updateDynamicSpatials = function(physTpf) {
 
             activeBodies = 0;
             passiveBodies = 0;
             staticBodies = 0;
 
             for (var i = 0; i < dynamicSpatials.length; i++) {
-                waterPhysics.simulateDynamicSpatialInWater(dynamicSpatials[i]);
+                waterPhysics.simulateDynamicSpatialInWater(dynamicSpatials[i], physTpf);
                 dynamicSpatials[i].sampleBodyState();
                 activeBodies += dynamicSpatials[i].getSpatialSimulateFlag();
                 passiveBodies += dynamicSpatials[i].getSpatialDisabledFlag();
@@ -105,25 +105,32 @@ define([
             return (performance.now() - start) / 1000
         };
 
+        var physTpf;
+
         PhysicsWorldAPI.callPhysicsSimulationUpdate = function() {
 
             if (!comBuffer) return;
 
             tpf = comBuffer[ENUMS.BufferChannels.TPF]/1000;
+
+
             skipFrame = false;
             frameStart = getNow();
             frameIdle = frameStart - frameEnd;
 
             applyDynamicSpatials();
 
-            comBuffer[ENUMS.BufferChannels.PHYS_ERRORS] = 0;
 
-            if (comBuffer[ENUMS.BufferChannels.PHYSICS_LOAD] < 0.9) {
+
+            if (comBuffer[ENUMS.BufferChannels.PHYSICS_LOAD] < 0.9 || tpf < 0.1) {
+
+                physTpf = Math.min(tpf, 0.03);
+
 
                 stepStart = getNow();
-                ammoApi.updatePhysicsSimulation(tpf);
+                ammoApi.updatePhysicsSimulation(Math.max(physTpf));
                 stepEnd = getNow();
-                updateDynamicSpatials();
+                updateDynamicSpatials(physTpf);
             } else {
                 skipFrame = true;
                 skipFrames++;
@@ -210,6 +217,10 @@ define([
 
         PhysicsWorldAPI.applyLocalForceToBodyPoint = function(force, body, point) {
             ammoApi.applyForceAtPointToBody(force, point, body)
+        };
+
+        PhysicsWorldAPI.setBodyDamping = function(body, dampingV, dampingA) {
+            ammoApi.changeBodyDamping(body, dampingV, dampingA)
         };
 
         var getTerrainsCount = function() {

@@ -27,6 +27,8 @@ define([
             this.typeLabel.setTextOffsetY(this.typeLabel.getTextEffectSize() * 0.2);
             this.typeLabel3 = this.surfaceElement.addSurfaceTextElement('type_label', 'Type Label');
             this.typeLabel3.setTextOffsetY(this.typeLabel.getTextEffectSize() * 0.4);
+            this.typeLabel4 = this.surfaceElement.addSurfaceTextElement('type_label', 'Type Label');
+            this.typeLabel4.setTextOffsetY(this.typeLabel.getTextEffectSize() * 0.6);
         };
 
 
@@ -63,6 +65,7 @@ define([
             this.typeLabel.setElementText('Drag X: '+ MATH.decimalify(WorldAPI.sampleInputBuffer(ENUMS.InputState.DRAG_DISTANCE_X), 100));
             this.typeLabel2.setElementText('Drag Y: '+ MATH.decimalify(WorldAPI.sampleInputBuffer(ENUMS.InputState.DRAG_DISTANCE_Y), 100));
             this.typeLabel3.setElementText('PressIdx: '+ WorldAPI.getCom(ENUMS.BufferChannels.UI_PRESS_SOURCE));
+            this.typeLabel4.setElementText('HoverIdx: '+ WorldAPI.getCom(ENUMS.BufferChannels.UI_HOVER_SOURCE));
 
             this.updateSurfaceState();
             this.guiDraggable.updateDraggable();

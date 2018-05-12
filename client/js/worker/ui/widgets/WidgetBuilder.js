@@ -4,6 +4,8 @@ define([
         'ui/functions/DragFunctions',
         'ui/widgets/WidgetProcessor',
         'ui/widgets/GuiThumbstickWidget',
+        'ui/widgets/GuiDragAxisWidget',
+        'ui/widgets/GuiHoverDynamic',
         'ui/widgets/MessageBoxWidget',
         'ui/widgets/MonitorListWidget',
         'ui/widgets/GuiButtonWidget'
@@ -12,6 +14,8 @@ define([
         DragFunctions,
         WidgetProcessor,
         GuiThumbstickWidget,
+        GuiDragAxisWidget,
+        GuiHoverDynamic,
         MessageBoxWidget,
         MonitorListWidget,
         GuiButtonWidget
@@ -28,7 +32,7 @@ define([
         var col;
 
 
-        var subtabMargX = 0.025;
+        var subtabMargX = 0.055;
         var subtabMargY = 0.11;
 
         var subtabStepX = 0.14;
@@ -59,12 +63,14 @@ define([
 
         var topTabsLayout = {
             anchor:'top_left',
-            margin_x:0.01,
+            margin_x:0.05,
             step_x:0.140,
             margin_y:0.04,
             height:0.06,
             row_col:[1, 0]
         };
+
+
 
         var WidgetBuilder = function() {
 
@@ -73,9 +79,53 @@ define([
         WidgetBuilder.prototype.buildControls = function(store) {
             widget = new GuiThumbstickWidget();
             widget.addDragCallback(DragFunctions.thumbstickDrag);
+
             store.push(widget);
         };
 
+
+        WidgetBuilder.prototype.buildDragAxisWidget = function(store, label, configId, callback, customLayout, buffer, bufferChannel) {
+            widget = new GuiDragAxisWidget(label, configId);
+
+
+            if (callback) {
+                widget.addDragCallback(callback);
+            }
+
+            if (buffer) {
+                widget.setMasterBuffer(buffer, bufferChannel);
+            }
+
+            widget.applyDynamicLayout(customLayout);
+
+
+            store.push(widget);
+        };
+
+        WidgetBuilder.prototype.buildDragAxisConfig = function(store, config) {
+            this.buildDragAxisWidget(store, config.label, config.configId, config.onDrag, config.layout, config.buffer, config.channel)
+        };
+
+        WidgetBuilder.prototype.buildHoverDynamic = function(store) {
+
+            store.push(new GuiHoverDynamic('hover', 'config'))
+
+        };
+
+
+        WidgetBuilder.prototype.buildCamDragControls = function(store) {
+            var buffer = WorldAPI.getWorldComBuffer();
+
+            var camDragConf = [
+                {label:'TURN',  configId:'drag_cam_x', layout:{}, onDrag:DragFunctions.dragCamX, buffer:buffer, channel:ENUMS.BufferChannels.UI_CAM_DRAG_X},
+                {label:'ELV',   configId:'drag_cam_y', layout:{}, onDrag:DragFunctions.dragCamY, buffer:buffer, channel:ENUMS.BufferChannels.UI_CAM_DRAG_Y},
+                {label:'DST',   configId:'drag_cam_z', layout:{}, onDrag:DragFunctions.dragCamZ, buffer:buffer, channel:ENUMS.BufferChannels.UI_CAM_DRAG_Z}
+            ];
+
+            for (var i = 0; i < camDragConf.length;i++) {
+                this.buildDragAxisConfig(store, camDragConf[i])
+            }
+        };
 
         WidgetBuilder.prototype.addTopNavigationTab = function(label, topTabs, buttonCallback) {
 
@@ -127,10 +177,10 @@ define([
         };
 
         WidgetBuilder.prototype.buildStatusMonitors = function(statusMonitors) {
-            this.buildMonitorListWidget('RENDER',  'STATUS', 'RENDER_MONITOR',  statusMonitors,    {margin_y:0.14});
-            this.buildMonitorListWidget('EFFECTS', 'STATUS', 'EFFECT_MONITOR',  statusMonitors,    {margin_y:0.34});
-            this.buildMonitorListWidget('SYSTEM',  'STATUS', 'TIME_MONITOR',    statusMonitors,    {margin_y:0.52});
-            this.buildMonitorListWidget('PHYSICS', 'STATUS', 'PHYSICS_MONITOR', statusMonitors,    {margin_y:0.70});
+            this.buildMonitorListWidget('RENDER',  'STATUS', 'RENDER_MONITOR',  statusMonitors,    {margin_y:0.10});
+            this.buildMonitorListWidget('EFFECTS', 'STATUS', 'EFFECT_MONITOR',  statusMonitors,    {margin_y:0.30});
+            this.buildMonitorListWidget('SYSTEM',  'STATUS', 'TIME_MONITOR',    statusMonitors,    {margin_y:0.48});
+            this.buildMonitorListWidget('PHYSICS', 'STATUS', 'PHYSICS_MONITOR', statusMonitors,    {margin_y:0.66});
         };
 
         WidgetBuilder.prototype.buildMessageBox = function(store) {

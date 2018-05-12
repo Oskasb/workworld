@@ -102,7 +102,7 @@ define([
             this.updateSurfaceState();
 
             if (Math.random() < 0.05) {
-                  WorldAPI.addTextMessage('msg. '+Math.random()+' .hellow... '+Math.random())
+        //          WorldAPI.addTextMessage('msg. '+Math.random()+' .hellow... '+Math.random())
             }
 
             this.guiMessageFunctions.updateMessageChannels();

@@ -40,7 +40,7 @@ define([
                 this.lastScale = scale;
             }
             for (i = 0; i < this.effects.length; i++) {
-                this.effects[i].setAliveParticlesSize(scale);
+                this.effects[i].setAliveParticlesSize(scale/2);
             }
         };
 

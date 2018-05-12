@@ -85,7 +85,21 @@ if(typeof(ENUMS) === "undefined"){
         DEV_ACTION_1:       52,
         DEV_ACTION_2:       53,
         DEV_ACTION_3:       54,
-        UI_PRESS_SOURCE:    55
+
+        UI_HOVER_SOURCE:    55,
+        UI_PRESS_SOURCE:    56,
+
+        UI_CAM_DRAG_X:      57,
+        UI_CAM_DRAG_Y:      58,
+        UI_CAM_DRAG_Z:      59,
+
+        UI_CURSOR_DRAG_X:   60,
+        UI_CURSOR_DRAG_Y:   61,
+        UI_CURSOR_DRAG_Z:   62,
+
+        DYNAMIC_HOVER:      63,
+        HOVER_DYNAIMC_X:    64,
+        HOVER_DYNAIMC_Y:    65
 
     };
 
