@@ -15,11 +15,14 @@ define([
 
     var s;
 
-
-
         var DynamicRenderable = function() {
             this.idKey = '';
             this.scale = 1;
+
+
+            this.cameraHome = new THREE.Vector3(0, 50, -200);
+            this.cameraLook = new THREE.Vector3(0, 50, -200);
+            this.controlPos = new THREE.Vector3();
             this.screenPos = new THREE.Vector3();
 
             this.selectSize = 8;
@@ -30,33 +33,10 @@ define([
             this.dynamicFeedback = new DynamicFeedback();
             this.isVisible = false;
             this.cameraDistance = 0;
+            this.dynamicGamePiece = null;
             this.renderableGeometry = new RenderableGeometry();
 
             this.dynamicSpatial.setupSpatialBuffer();
-        };
-
-        DynamicRenderable.prototype.setRenderableIdKey = function(id) {
-            this.idKey = id;
-        };
-
-        DynamicRenderable.prototype.setSelectAnchorOffset = function(x, y, z) {
-            this.selectAnchor = new THREE.Vector3(x, y, z);
-        };
-
-        DynamicRenderable.prototype.setSelectAnchorSize = function(size) {
-            this.selectSize = size;
-        };
-
-        DynamicRenderable.prototype.setRenderableScale = function(scl) {
-            this.renderableGeometry.setRenderableSize(scl);
-        };
-
-        DynamicRenderable.prototype.setRenderablePosition = function(pos) {
-            this.pos.copy(pos);
-        };
-
-        DynamicRenderable.prototype.setRenderableQuaternion = function(quat) {
-            this.quat.copy(quat);
         };
 
         DynamicRenderable.prototype.configRead = function(dataKey) {
@@ -102,11 +82,78 @@ define([
                     this.setSelectAnchorSize(this.dynamicSpatial.getVisualSize()*s);
                 }
 
+                if (data.camera_home) {
+                    this.setCameraHome(data.camera_home.offset[0], data.camera_home.offset[1], data.camera_home.offset[2]);
+                    this.setCameraLook(data.camera_home.lookat[0], data.camera_home.lookat[1], data.camera_home.lookat[2]);
+                } else {
+
+                }
+
             }.bind(this);
 
             this.configObject = new ConfigObject('GEOMETRY', 'DYNAMIC_RENDERABLE', this.idKey);
             this.configObject.addCallback(configLoaded);
 
+        };
+
+        DynamicRenderable.prototype.setIsControlled = function(bool) {
+            this.isControlled = bool;
+        };
+
+        DynamicRenderable.prototype.getIsControlled = function() {
+            return this.isControlled;
+        };
+
+        DynamicRenderable.prototype.setCameraLook = function(x, y, z) {
+            this.cameraLook.set(x, y, z);
+        };
+
+        DynamicRenderable.prototype.getCameraLook = function() {
+            return this.cameraLook;
+        };
+
+        DynamicRenderable.prototype.setCameraHome = function(x, y, z) {
+            this.cameraHome.set(x, y, z);
+        };
+
+        DynamicRenderable.prototype.getCameraHome = function() {
+            return this.cameraHome;
+        };
+
+        DynamicRenderable.prototype.setGamePiece = function(dynamicGamePiece) {
+            this.dynamicGamePiece = dynamicGamePiece;
+        };
+
+        DynamicRenderable.prototype.getGamePiece = function() {
+            return this.dynamicGamePiece;
+        };
+
+        DynamicRenderable.prototype.setRenderableIdKey = function(id) {
+            this.idKey = id;
+        };
+
+        DynamicRenderable.prototype.setSelectAnchorOffset = function(x, y, z) {
+            this.selectAnchor = new THREE.Vector3(x, y, z);
+        };
+
+        DynamicRenderable.prototype.setSelectAnchorSize = function(size) {
+            this.selectSize = size;
+        };
+
+        DynamicRenderable.prototype.setRenderableScale = function(scl) {
+            this.renderableGeometry.setRenderableSize(scl);
+        };
+
+        DynamicRenderable.prototype.setRenderablePosition = function(pos) {
+            this.pos.copy(pos);
+        };
+
+        DynamicRenderable.prototype.setRenderableQuaternion = function(quat) {
+            this.quat.copy(quat);
+        };
+
+        DynamicRenderable.prototype.getControlPosition = function() {
+            return this.controlPos;
         };
 
         DynamicRenderable.prototype.getDynamicPosition = function(vec3) {
@@ -125,23 +172,35 @@ define([
             this.dynamicSpatial.applySpatialTorqueVector(vec3)
         };
 
+        DynamicRenderable.prototype.calculateCameraHome = function(vec3) {
+            vec3.copy(this.getCameraHome());
+            this.localToWorld(vec3);
+        };
+
+        DynamicRenderable.prototype.calculateCameraLook = function(vec3) {
+            vec3.copy(this.getCameraLook());
+            this.localToWorld(vec3);
+        };
+
+        DynamicRenderable.prototype.localToWorld = function(vec3) {
+            vec3.applyQuaternion(this.renderableGeometry.quat);
+            vec3.x+=this.pos.x;
+            vec3.y+=this.pos.y;
+            vec3.z+=this.pos.z;
+        };
+
         DynamicRenderable.prototype.updateScreenSelectPosition = function() {
 
-
-
             if (this.selectAnchor) {
-                this.screenPos.copy(this.selectAnchor);
-                this.screenPos.applyQuaternion(this.renderableGeometry.quat);
-                this.screenPos.x+=this.pos.x;
-                this.screenPos.y+=this.pos.y;
-                this.screenPos.z+=this.pos.z;
-
-                this.cameraDistance = WorldAPI.getWorldCamera().calcDistanceToCamera(this.screenPos);
-                    WorldAPI.getWorldCamera().toScreenPosition(this.screenPos, this.screenPos);
+                this.controlPos.copy(this.selectAnchor);
+                this.localToWorld(this.controlPos);
+                this.cameraDistance = WorldAPI.getWorldCamera().calcDistanceToCamera(this.controlPos);
+                WorldAPI.getWorldCamera().toScreenPosition(this.controlPos, this.screenPos);
 
             } else {
-                this.cameraDistance = WorldAPI.getWorldCamera().calcDistanceToCamera(this.pos);
-                WorldAPI.getWorldCamera().toScreenPosition(this.pos, this.screenPos);
+                this.controlPos.copy(this.pos);
+                this.cameraDistance = WorldAPI.getWorldCamera().calcDistanceToCamera(this.controlPos);
+                WorldAPI.getWorldCamera().toScreenPosition(this.controlPos, this.screenPos);
             }
         };
 

@@ -24,6 +24,7 @@ define([
         var physPanelButtons = [];
         var envPanelButtons = [];
         var controls = [];
+        var widgetCalls = {};
 
         var widgetReady = function(widget) {
             widget.enableWidget();
@@ -58,8 +59,6 @@ define([
                 }
             }
         };
-
-
 
         var toggleMonitors = function(bool) {
             if (bool) {
@@ -137,7 +136,8 @@ define([
                 DragFunctions.dragSourceCamera();
             }
 
-            WorldAPI.getWorldCamera().setLookAtVec(WorldAPI.getWorldCursor().getCursorPosition());
+            WorldAPI.getContoledPiecePosAndQuat(WorldAPI.getWorldCamera().getCameraLookAt());
+
 
         };
 
@@ -145,9 +145,10 @@ define([
 
             widgetBuilder = new WidgetBuilder();
 
+            this.setupFunctions();
             this.guiUpdatable = new GuiUpdatable();
 
-            widgetBuilder.buildControls(controls);
+        //    widgetBuilder.buildThumbstick(null, controls);
             widgetBuilder.buildStatusMonitors(statusMonitors);
             widgetBuilder.buildButtonWidget('STATUS', 'default', controls, buttonFunctions.monitorSystem, {margin_y:0.05});
             widgetBuilder.buildMessageBox(controls);
@@ -156,14 +157,45 @@ define([
         WidgetLoader.prototype.enableDefaultGuiWidgets = function() {
             this.guiUpdatable.enableUpdates(updateWidgets);
 
-            widgetBuilder.buildHoverDynamic(controls);
-            widgetBuilder.buildCamDragControls(controls);
+        //    widgetBuilder.buildHoverDynamic(controls);
+
+            widgetBuilder.buildProgressWidgets(controls);
             widgetBuilder.addTopNavigationTab('DEV', topTabs, buttonFunctions.devSubtabs);
             widgetBuilder.addTopNavigationTab('WORLD', topTabs, buttonFunctions.worldSubtabs);
 
             initWidgetStore(topTabs);
             initWidgetStore(controls);
         };
+
+        WidgetLoader.prototype.setupFunctions = function() {
+            widgetCalls['DRAG_AXIS'] = widgetBuilder.buildDragAxis;
+            widgetCalls['HOVER_DYNAMIC'] = widgetBuilder.buildHoverDynamic;
+            widgetCalls['THUMBSTICK'] = widgetBuilder.buildThumbstick;
+        };
+
+
+        WidgetLoader.prototype.loadWidgetConfig = function(config, store) {
+            widgetCalls[config['widget']](config, store, widgetBuilder);
+        };
+
+
+
+        WidgetLoader.prototype.disableWidgetList = function(store) {
+
+            for (var i = 0; i < store.length; i++) {
+                while (store.length) {
+                    removeWidget(store.pop());
+                }
+            }
+        };
+
+        WidgetLoader.prototype.enableWidgetList = function(store) {
+
+            for (var i = 0; i < store.length; i++) {
+                initWidgetStore(store);
+            }
+        };
+
 
         return WidgetLoader;
 

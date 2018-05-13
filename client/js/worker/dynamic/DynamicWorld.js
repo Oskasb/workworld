@@ -2,15 +2,20 @@
 
 
 define([
+        'worker/dynamic/DynamicGamePiece',
         'worker/dynamic/DynamicRenderable',
+        'worker/dynamic/DynamicControlSelector',
         'worker/dynamic/ScreenspaceProbe'
     ],
     function(
+        DynamicGamePiece,
         DynamicRenderable,
+        DynamicControlSelector,
         ScreenspaceProbe
     ) {
 
         var dynamics = [];
+        var pieces = [];
 
         var newDynRen;
         var tempVec1 = new THREE.Vector3();
@@ -18,6 +23,7 @@ define([
         var tempQuat = new THREE.Quaternion();
 
         var screenSpaceProbe;
+        var dynamicControlSelector;
 
         var addDynamicRenderable = function(dynRen) {
             if (dynamics.indexOf(dynRen) !== -1) {
@@ -34,9 +40,19 @@ define([
 
         var DynamicWorld = function() {
             screenSpaceProbe = new ScreenspaceProbe();
+            dynamicControlSelector = new DynamicControlSelector();
         };
 
         var scale;
+
+        DynamicWorld.prototype.changeControlTarget = function(dynamicRenderable) {
+            screenSpaceProbe.clearProbeTarget();
+            dynamicControlSelector.initiateControlChange(dynamicRenderable)
+        };
+
+        DynamicWorld.prototype.controlChangeComplete = function() {
+            dynamicControlSelector.finishControlChange()
+        };
 
         DynamicWorld.prototype.includeDynamicRenderable = function(renderable) {
             addDynamicRenderable(renderable);
@@ -82,7 +98,7 @@ define([
 
         var attractAllDyn = function(maxRange) {
 
-            tempVec2.copy(WorldAPI.getWorldCursor().getCursorObj3d().position);
+            WorldAPI.getContoledPiecePosAndQuat(tempVec2);
             tempVec2.y+=20;
 
             for (var i = 0; i < dynamics.length;i++) {
@@ -103,7 +119,8 @@ define([
 
         var repelAllDyn = function(maxRange) {
 
-            tempVec2.copy(WorldAPI.getWorldCursor().getCursorObj3d().position);
+            WorldAPI.getContoledPiecePosAndQuat(tempVec2);
+
             tempVec2.y += 2;
 
             for (var i = 0; i < dynamics.length;i++) {
@@ -125,12 +142,10 @@ define([
 
         var rainBoxes = function() {
             if (Math.random() < 0.5) {
-                tempVec1.copy(WorldAPI.getWorldCursor().getCursorPosition());
+                WorldAPI.getContoledPiecePosAndQuat(tempVec1, tempQuat);
                 tempVec1.x += -20+Math.random()*40;
                 tempVec1.y +=  45+Math.random()*35;
                 tempVec1.z += -20+Math.random()*40;
-
-                tempQuat.copy(WorldAPI.getWorldCursor().getCursorQuaternion());
 
                 scale = 1+Math.floor(Math.random()*2);
 
@@ -140,18 +155,27 @@ define([
         };
 
         var spawnCall = function() {
-            tempVec1.copy(WorldAPI.getWorldCursor().getCursorPosition());
-            tempQuat.copy(WorldAPI.getWorldCursor().getCursorQuaternion());
+
+
+            WorldAPI.setCom(ENUMS.BufferChannels.WORLD_ACTION_2, 0)
             scale = 1;
 
-            var dynamicId = "dynamic_enterprize";
+            var pieceId = "PIECE_ENTERPRISE";
+            var confId = "command_tower";
 
-            WorldAPI.addTextMessage('SpawnCall: '+dynamicId);
-            newDynRen = WorldAPI.buildDynamicRenderable(dynamicId, tempVec1, tempQuat, scale);
+            WorldAPI.addTextMessage('SpawnCall: '+pieceId+' _ '+confId);
 
-            newDynRen.initRenderable(WorldAPI.attachDynamicRenderable);
-        //    WorldAPI.attachDynamicRenderable(newDynRen);
-            WorldAPI.setCom(ENUMS.BufferChannels.WORLD_ACTION_2, 0)
+            var piece = new DynamicGamePiece(pieceId, confId);
+
+            var onReady = function(dgp) {
+                WorldAPI.getContoledPiecePosAndQuat(tempVec1, tempQuat);
+                newDynRen = WorldAPI.buildDynamicRenderable(dgp.configRead('renderable'), tempVec1, tempQuat, scale);
+                newDynRen.initRenderable(WorldAPI.attachDynamicRenderable);
+                newDynRen.setGamePiece(dgp)
+            };
+
+            piece.initGamePiece(onReady);
+
         };
 
         var terrains = ['terrain_island_0','terrain_island_1', 'terrain_island_2', 'terrain_island_3'];
@@ -169,7 +193,10 @@ define([
 
         DynamicWorld.prototype.updateDynamicWorld = function() {
 
-            if (!WorldAPI.getCom(ENUMS.BufferChannels.UI_HOVER_SOURCE)) {
+            dynamicControlSelector.updateControlSelector();
+        //    WorldAPI.setCom(ENUMS.BufferChannels.SELECT_PROGRESS, 0.5 + 0.5 * Math.sin(WorldAPI.getCom(ENUMS.BufferChannels.FRAME_RENDER_TIME)));
+
+            if (!WorldAPI.getCom(ENUMS.BufferChannels.UI_HOVER_SOURCE) && !WorldAPI.sampleInputBuffer(ENUMS.InputState.ACTION_0)) {
                 screenSpaceProbe.probeScreenDynamics(dynamics);
             }
 

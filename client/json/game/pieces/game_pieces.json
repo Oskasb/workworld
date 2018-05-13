@@ -1,0 +1,18 @@
+[{
+  "GAME_PIECES":{
+
+    "PIECE_ENTERPRISE":[
+      {
+        "id":"command_tower",
+        "data":{
+          "controls":{"config_key":"GUI_ENTERPRISE_CONTROL", "config_id":"main_control"},
+          "renderable":"dynamic_enterprize",
+          "attachment_groups":[
+            {"config_key":"ENTERPRISE_ATTACHMENTS", "config_id":"propulsion_system"},
+            {"config_key":"ENTERPRISE_ATTACHMENTS", "config_id":"catapult_system"},
+          ]
+        }
+      }
+    ]
+  }
+}]

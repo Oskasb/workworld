@@ -99,7 +99,9 @@ if(typeof(ENUMS) === "undefined"){
 
         DYNAMIC_HOVER:      63,
         HOVER_DYNAIMC_X:    64,
-        HOVER_DYNAIMC_Y:    65
+        HOVER_DYNAIMC_Y:    65,
+        SELECT_PROGRESS:    66,
+        EVENT_PROGRESS:     67
 
     };
 

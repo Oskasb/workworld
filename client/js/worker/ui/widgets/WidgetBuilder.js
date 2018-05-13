@@ -1,20 +1,24 @@
 "use strict";
 
 define([
+        'ui/functions/OnUpdateFunctions',
         'ui/functions/DragFunctions',
         'ui/widgets/WidgetProcessor',
         'ui/widgets/GuiThumbstickWidget',
         'ui/widgets/GuiDragAxisWidget',
+        'ui/widgets/GuiProgressWidget',
         'ui/widgets/GuiHoverDynamic',
         'ui/widgets/MessageBoxWidget',
         'ui/widgets/MonitorListWidget',
         'ui/widgets/GuiButtonWidget'
     ],
     function(
+        OnUpdateFunctions,
         DragFunctions,
         WidgetProcessor,
         GuiThumbstickWidget,
         GuiDragAxisWidget,
+        GuiProgressWidget,
         GuiHoverDynamic,
         MessageBoxWidget,
         MonitorListWidget,
@@ -31,7 +35,6 @@ define([
         var row;
         var col;
 
-
         var subtabMargX = 0.055;
         var subtabMargY = 0.11;
 
@@ -40,7 +43,6 @@ define([
 
         var tabListMargY = 0.18;
         var tabListStepY = 0.06;
-
 
         var subTabListLayout = {
             anchor:'top_left',
@@ -71,34 +73,44 @@ define([
         };
 
 
-
         var WidgetBuilder = function() {
 
         };
 
-        WidgetBuilder.prototype.buildControls = function(store) {
-            widget = new GuiThumbstickWidget();
-            widget.addDragCallback(DragFunctions.thumbstickDrag);
+        WidgetBuilder.prototype.buildThumbstick = function(config, store) {
 
+            var conf = {
+                label:config.label,
+                configId:config.configId,
+                onDrag:DragFunctions[config.onDrag]
+            };
+
+            widget = new GuiThumbstickWidget();
+            widget.addDragCallback(conf.onDrag);
             store.push(widget);
         };
 
-
         WidgetBuilder.prototype.buildDragAxisWidget = function(store, label, configId, callback, customLayout, buffer, bufferChannel) {
             widget = new GuiDragAxisWidget(label, configId);
-
-
             if (callback) {
                 widget.addDragCallback(callback);
             }
-
             if (buffer) {
                 widget.setMasterBuffer(buffer, bufferChannel);
             }
-
             widget.applyDynamicLayout(customLayout);
+            store.push(widget);
+        };
 
-
+        WidgetBuilder.prototype.buildProgressWidget = function(store, label, configId, callback, customLayout, buffer, bufferChannel) {
+            widget = new GuiProgressWidget(label, configId);
+            if (callback) {
+                widget.addUpdateCallback(callback);
+            }
+            if (buffer) {
+                widget.setMasterBuffer(buffer, bufferChannel);
+            }
+            widget.applyDynamicLayout(customLayout);
             store.push(widget);
         };
 
@@ -106,24 +118,44 @@ define([
             this.buildDragAxisWidget(store, config.label, config.configId, config.onDrag, config.layout, config.buffer, config.channel)
         };
 
-        WidgetBuilder.prototype.buildHoverDynamic = function(store) {
+        WidgetBuilder.prototype.buildProgressConfig = function(store, config) {
+            this.buildProgressWidget(store, config.label, config.configId, config.onUpdate, config.layout, config.buffer, config.channel)
+        };
 
-            store.push(new GuiHoverDynamic('hover', 'config'))
+        WidgetBuilder.prototype.buildHoverDynamic = function(config, store) {
+            var conf = {
+                label:config.label,
+                configId:config.configId
+            };
+            store.push(new GuiHoverDynamic(conf.label, conf.configId))
+        };
 
+        WidgetBuilder.prototype.buildDragAxis = function(config, store, widgetBuilder) {
+            var buffer = WorldAPI.getWorldComBuffer();
+
+            var conf = {
+                label:config.label,
+                configId:config.configId,
+                layout:config.layout,
+                onDrag:DragFunctions[config.onDrag],
+                buffer:buffer,
+                channel:ENUMS.BufferChannels[config.channel]
+            };
+
+            widgetBuilder.buildDragAxisConfig(store, conf)
         };
 
 
-        WidgetBuilder.prototype.buildCamDragControls = function(store) {
+        WidgetBuilder.prototype.buildProgressWidgets = function(store) {
             var buffer = WorldAPI.getWorldComBuffer();
 
-            var camDragConf = [
-                {label:'TURN',  configId:'drag_cam_x', layout:{}, onDrag:DragFunctions.dragCamX, buffer:buffer, channel:ENUMS.BufferChannels.UI_CAM_DRAG_X},
-                {label:'ELV',   configId:'drag_cam_y', layout:{}, onDrag:DragFunctions.dragCamY, buffer:buffer, channel:ENUMS.BufferChannels.UI_CAM_DRAG_Y},
-                {label:'DST',   configId:'drag_cam_z', layout:{}, onDrag:DragFunctions.dragCamZ, buffer:buffer, channel:ENUMS.BufferChannels.UI_CAM_DRAG_Z}
+            var conf = [
+                {label:'SELECTING', configId:'select_progress',  onUpdate:OnUpdateFunctions.selectUpdate, layout:{}, buffer:buffer, channel:ENUMS.BufferChannels.SELECT_PROGRESS},
+                {label:'EVENT',     configId:'top_progress',     onUpdate:OnUpdateFunctions.eventUpdate,  layout:{}, buffer:buffer, channel:ENUMS.BufferChannels.EVENT_PROGRESS}
             ];
 
-            for (var i = 0; i < camDragConf.length;i++) {
-                this.buildDragAxisConfig(store, camDragConf[i])
+            for (var i = 0; i < conf.length;i++) {
+                this.buildProgressConfig(store, conf[i])
             }
         };
 

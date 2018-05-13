@@ -61,7 +61,7 @@ if(typeof(MATH) === "undefined") {
 		"zeroToOne":    [[0, 0], [1, 1]],
 		"oneToZero":    [[0, 1], [1, 0]],
 		"quickFadeOut": [[0, 1], [0.9,1], [1,   0]],
-		"quickFadeIn":  [[0, 0], [0.3,0.8], [1,   1]],
+		"quickFadeIn":  [[0, 0], [0.4,0.9], [1,   1]],
 		"attackIn":     [[0, 1], [0.1,0], [1,   0]],
 		"centerStep":   [[0, 0], [0.25,0],[0.75,1], [1, 1]],
 		"quickInOut":   [[0, 0], [0.15,1], [0.85, 1], [1, 0]],
@@ -75,6 +75,12 @@ if(typeof(MATH) === "undefined") {
 		"growShrink":   [[0, 1], [0.5,0], [1, -2]],
 		"shrink":   	[[0, -0.3], [0.3, -1]]
 	};
+
+
+    MATH.curveSigmoid = function(t) {
+        return 1 / (1 + Math.exp(6 - t*12));
+    };
+
 
 	MATH.CurveState = function(curve, amplitude) {
 		this.curve = curve || MATH.curves.oneToZero;

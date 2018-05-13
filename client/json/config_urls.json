@@ -22,56 +22,9 @@
       "geometry/dynamic_feedback.json",
       "geometry/terrain_configs.json",
 
-      "game/levels/level_data.json",
-      "game/levels/level_population_data.json",
-
-      "game/actors/actor_compounds_data.json",
-      "game/actors/enemy_actor_data.json",
-      "game/actors/player_actor_data.json",
-      "game/actors/prop_actor_data.json",
-      "game/actors/nature_actor_data.json",
-
-      "game/actors/prop_actor_static_data.json",
-      "game/actors/terrain_actor_data.json",
-
+      "game/attachments/attachment_groups.json",
       "game/controls/gui_control_data.json",
-
-      "game/pieces/control_piece_data.json",
-      "game/pieces/enemy_piece_data.json",
-      "game/pieces/nature_piece_data.json",
-      "game/pieces/player_piece_data.json",
-      "game/pieces/prop_piece_data.json",
-      "game/pieces/terrain_piece_data.json",
-
-      "game/physics/grid_data.json",
-      "game/physics/hovercraft_physics_data.json",
-      "game/physics/nature_physics_data.json",
-      "game/physics/prop_physics_data.json",
-      "game/physics/terrain_physics_data.json",
-      "game/physics/vehicle_physics_data.json",
-
-
-      "game/modules/combat_module_data.json",
-      "game/modules/nature_module_data.json",
-      "game/modules/prop_module_data.json",
-      "game/modules/terrain_module_data.json",
-      "game/modules/piece_module_data.json",
-      "game/modules/camera_data.json",
-      "game/modules/control_module_data.json",
-
-      "game/combat/piece_combat_data.json",
-      "game/weapons/piece_weapon_data.json",
-      "game/weapons/piece_turret_data.json",
-
-      "game/channels/channel_combat_targets.json",
-      "game/channels/channel_targets.json",
-      "game/channels/channel_weapon_targets.json",
-
-      "game/channels/combat_channels.json",
-      "game/channels/module_channels.json",
-      "game/channels/module_model_channels.json",
-      "game/channels/vehicle_channels.json",
-      "game/channels/weapon_channels.json",
+      "game/pieces/game_pieces.json",
 
       "threedata/models/three_materials.json",
       "threedata/models/three_models.json",

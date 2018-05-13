@@ -8,7 +8,8 @@
           "model_id":"model_enterprise",
           "dynamic_feedback":"crate_feedback",
           "visual_size":160,
-          "select_anchor":{"offset":[-22,   42, -32], "size":36},
+          "select_anchor":{"offset":[-22,   42, -32], "size":32},
+          "camera_home":{"offset":[60,   70, -230], "lookat":[0,   30, -12]},
           "rigid_body":{
             "body_key":"compound_enterprize",
             "category":"primitive",
@@ -120,7 +121,7 @@
         "data": {
           "instance_id":"crate_wood_geometry_effect",
           "dynamic_feedback":"crate_feedback",
-          "visual_size":2,
+          "visual_size":3,
           "rigid_body":{
             "body_key":"box_1x1x1_crate",
             "category":"primitive",
@@ -138,7 +139,7 @@
         "id": "creative_crate",
         "data": {
           "instance_id":"creative_crate_geometry_effect",
-          "visual_size":2,
+          "visual_size":3,
           "dynamic_feedback":"crate_feedback",
           "rigid_body":{
             "body_key":"box_1x1x1_creative_crate",

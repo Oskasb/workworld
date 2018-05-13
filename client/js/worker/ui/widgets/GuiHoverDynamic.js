@@ -23,6 +23,8 @@ define([
 
             this.currentHover = null;
 
+            this.pressTime = 0;
+
             this.dynamicLayout = {
                 width:0.1,
                 height:0.1
@@ -74,11 +76,14 @@ define([
         var timeNow;
         var timeScale;
         var elapsed;
+        var max;
+        var min;
+        var size;
+        var progress;
 
         GuiHoverDynamic.prototype.updateGuiWidget = function() {
 
             this.currentHover = WorldAPI.getDynamicHover();
-
 
             if (this.currentHover) {
 
@@ -87,9 +92,12 @@ define([
 
                 timeNow = WorldAPI.getCom(ENUMS.BufferChannels.FRAME_RENDER_TIME);
 
+                timeScale = 0;
+
                 if (this.surfaceElement.hover || this.surfaceElement.press) {
 
                     if (!this.isActive) {
+                        this.pressTime = 0;
                         this.hoverTimeStart = timeNow;
                         this.isActive = true;
                     }
@@ -103,30 +111,65 @@ define([
                 }
 
                 if (this.surfaceElement.press) {
-                    timeScale += 1;
+                    this.crossElement.press = true;
+                    timeScale += 0.2 + Math.sin(elapsed*10)*0.08;
+                    this.pressTime += WorldAPI.getCom(ENUMS.BufferChannels.TPF) * 0.001;
+                } else {
+                    this.crossElement.press = false;
+                    this.pressTime = 0;
                 }
 
+                progress = this.pressTime / this.configRead('activate_time')
+
+                WorldAPI.setCom(ENUMS.BufferChannels.SELECT_PROGRESS, Math.min(progress, 1));
+
+                if (progress >= 1) {
+
+                    if (this.currentHover.getGamePiece()) {
+                        WorldAPI.initControlChange(this.currentHover);
+                    } else {
+                        WorldAPI.addTextMessage('No game piece to control.. '+this.currentHover.idKey);
+                    }
+
+                    this.crossElement.hover = false;
+                    this.crossElement.setOn(0);
+                    if (!this.surfaceElement.disabled) {
+                        this.disableWidget();
+                        this.isActive = false;
+                    }
+                    return;
+                }
 
                 this.setWidgetPosXY(this.currentHover.screenPos.x, this.currentHover.screenPos.y);
 
-                this.dynamicLayout.height = (this.currentHover.selectSize * timeScale) / this.currentHover.cameraDistance;
-                this.dynamicLayout.width = (this.currentHover.selectSize * timeScale) / this.currentHover.cameraDistance;
+                max = this.configRead('max_size');
+                min = this.configRead('min_size');
+
+                size = MATH.clamp(this.currentHover.selectSize / this.currentHover.cameraDistance, min, max)*timeScale;
+
+
+                if (WorldAPI.sampleInputBuffer(ENUMS.InputState.ACTION_0)) {
+                    size *= 2;
+                }
+
+                this.dynamicLayout.height = size;
+                this.dynamicLayout.width = size;
 
                 this.applyDynamicLayout(this.dynamicLayout);
                 this.updateSurfaceState();
 
             } else {
 
-                this.crossElement.hover = false;
+                WorldAPI.setCom(ENUMS.BufferChannels.SELECT_PROGRESS, 0);
 
+                this.crossElement.hover = false;
+                this.crossElement.setOn(0);
                 if (!this.surfaceElement.disabled) {
                     this.disableWidget();
                     this.isActive = false;
                 }
             }
-
         };
-
 
         GuiHoverDynamic.prototype.applyDynamicLayout = function(dynLayout) {
             if (!dynLayout) return;

@@ -19,7 +19,8 @@ define([
             DragFunctions.dragCamY();
         };
 
-        DragFunctions.thumbstickDrag = function() {
+        DragFunctions.cursorDrag = function() {
+
             lookAt.x = MATH.clamp(WorldAPI.sampleInputBuffer(ENUMS.InputState.DRAG_DISTANCE_X) * 5, -2, 2);
             lookAt.y = 0;
             lookAt.z = MATH.clamp(-WorldAPI.sampleInputBuffer(ENUMS.InputState.DRAG_DISTANCE_Y) * 5, -2, 2);
@@ -27,7 +28,15 @@ define([
             lookAt.multiplyScalar(Math.sqrt(WorldAPI.getWorldCamera().distanceToLookTarget())*0.1);
 
             lookAt.applyQuaternion(WorldAPI.getWorldCamera().getCamera().quaternion);
-            WorldAPI.getWorldCursor().moveCursorPosition(lookAt);
+            WorldAPI.getContoledPiecePosAndQuat(sourceVec);
+            lookAt.addVectors(lookAt, sourceVec);
+            WorldAPI.setContolPosAndQuat(lookAt);
+        };
+
+        DragFunctions.thumbstickDrag = function() {
+
+            WorldAPI.addTextMessage('Drag... thumbstickDrag')
+
         };
 
         DragFunctions.dragCamX = function() {

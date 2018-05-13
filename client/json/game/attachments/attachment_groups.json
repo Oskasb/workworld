@@ -1,0 +1,24 @@
+[{
+  "ATTACHMENT_GROUPS":{
+
+    "ENTERPRISE_ATTACHMENTS":[
+      {
+        "id":"propulsion_system",
+        "data":{
+          "modules":[
+            {"config_key":"PROPULSION", "config_id":"propeller", "offset":[], "direction":[], "size":[]},
+            {"config_key":"PROPULSION", "config_id":"rudder",    "offset":[], "direction":[], "size":[]}
+          ]
+        }
+      },
+      {
+        "id":"catapult_system",
+        "data":{
+          "modules":[
+
+          ]
+        }
+      }
+    ]
+  }
+}]

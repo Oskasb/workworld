@@ -23,7 +23,7 @@
             "edges":{
               "passive_fx":"edge_passive_effects",
               "active_fx":"edge_active_effects",
-              "thickness":0.025
+              "thickness":0.012
             },
 
             "backplate":{
@@ -49,10 +49,10 @@
 
             "layout":{
               "anchor":"bottom_mid",
-              "fixed_aspect":true,
+              "fixed_aspect":false,
               "margin_x":0.00,
               "margin_y":0.00,
-              "width": 0.8,
+              "width": 0.45,
               "height":0.06
             },
 
@@ -64,7 +64,7 @@
             "edges":{
               "passive_fx":"edge_passive_effects",
               "active_fx":"edge_active_effects",
-              "thickness":0.025
+              "thickness":0.012
             },
 
             "backplate":{
@@ -91,7 +91,7 @@
               "margin_x":0.0,
               "margin_y":0.05,
               "width": 0.08,
-              "height":0.6
+              "height":0.8
             },
 
             "corners":{
@@ -102,7 +102,7 @@
             "edges":{
               "passive_fx":"edge_passive_effects",
               "active_fx":"edge_active_effects",
-              "thickness":0.025
+              "thickness":0.012
             },
 
             "backplate":{
@@ -128,7 +128,7 @@
               "margin_x":0.0,
               "margin_y":0.05,
               "width": 0.08,
-              "height":0.6
+              "height":0.8
             },
 
             "corners":{
@@ -139,7 +139,7 @@
             "edges":{
               "passive_fx":"edge_passive_effects",
               "active_fx":"edge_active_effects",
-              "thickness":0.025
+              "thickness":0.012
             },
 
             "backplate":{
@@ -181,7 +181,7 @@
             "edges":{
               "passive_fx":"edge_passive_effects",
               "active_fx":"edge_active_effects",
-              "thickness":0.025
+              "thickness":0.012
             },
 
             "backplate":{
@@ -225,7 +225,7 @@
               "active_fx":"edge_active_effects",
               "color_on":"blue_2",
               "color":"cyan_1",
-              "thickness":0.025
+              "thickness":0.012
             },
 
             "backplate":{
@@ -264,7 +264,7 @@
               "active_fx":"edge_active_effects",
               "color_on":"orange_4",
               "color":"orange_2",
-              "thickness":0.025
+              "thickness":0.012
             },
 
             "backplate":{
@@ -299,7 +299,7 @@
               "active_fx":"edge_active_effects",
               "color_on":"blue_1",
               "color":"blue_1",
-              "thickness":0.014
+              "thickness":0.008
             },
 
             "backplate":{
@@ -321,7 +321,9 @@
         "data": {
 
           "label_key":"button_label",
-
+          "max_size":0.15,
+          "min_size":0.08,
+          "activate_time":0.4,
           "surface":{
 
             "layout":{
@@ -335,22 +337,24 @@
 
             "corners":{
               "passive_fx":"corner_passive_effects",
-              "active_fx":"corner_active_effects"
+              "active_fx":"corner_active_effects",
+              "color_on":"orange_2",
+              "color":"orange_2"
             },
 
             "edges":{
               "passive_fx":"edge_passive_effects",
               "active_fx":"edge_active_effects",
               "color_on":"blue_2",
-              "color":"cyan_1",
-              "thickness":0.025
+              "color":"blue_3",
+              "thickness":0.011
             },
 
             "backplate":{
               "passive_fx":"plate_passive_effects",
               "active_fx":"plate_active_effects",
               "color_on":"blue_2",
-              "color":"cyan_1"
+              "color":"blue_2"
             }
           },
 
@@ -370,9 +374,133 @@
               "active_fx":"edge_active_effects",
               "color_on":"blue_2",
               "color":"blue_3",
-              "thickness":0.02
+              "thickness":0.01
             }
           }
+        }
+      }
+    ],
+
+    "GUI_PROGRESS_BAR":[
+      {
+        "id": "top_progress",
+        "data": {
+          "header_label":"progress_key",
+          "value_label":"progress_value",
+          "surface":{
+
+            "layout":{
+              "anchor":"top_left",
+              "fixed_aspect":false,
+              "margin_x":0.00,
+              "margin_y":0.00,
+              "width": 1.0,
+              "height":0.015
+            },
+
+
+            "edges":{
+              "passive_fx":"edge_passive_effects",
+              "active_fx":"edge_active_effects",
+              "thickness":0.02,
+              "color":"purple_2"
+            },
+
+            "backplate":{
+              "passive_fx":"plate_passive_effects",
+              "active_fx":"plate_active_effects",
+              "color":"red_1"
+            }
+          },
+          "progress":{
+            "layout":{
+              "anchor":"top_left",
+              "fixed_aspect":false,
+              "margin_x":0.00,
+              "margin_y":0.0025,
+              "width": 1.0,
+              "height":0.01
+            },
+
+            "corners":{
+              "passive_fx":"corner_active_effects",
+              "active_fx":"corner_active_effects"
+            },
+
+            "edges":{
+              "passive_fx":"edge_active_effects",
+              "active_fx":"edge_active_effects",
+              "thickness":0.02,
+              "color":"orange_3"
+            },
+
+            "backplate":{
+              "passive_fx":"plate_passive_effects",
+              "active_fx":"plate_active_effects",
+              "color":"orange_2"
+            }
+          }
+        }
+      },
+      {
+        "id": "select_progress",
+
+        "data": {
+          "header_label":"progress_key",
+          "value_label":"progress_value",
+
+          "surface":{
+            "layout":{
+              "anchor":"bottom_left",
+              "fixed_aspect":false,
+              "margin_x":0.00,
+              "margin_y":0.00,
+              "width": 0.25,
+              "height":0.015
+            },
+
+            "edges":{
+              "passive_fx":"edge_passive_effects",
+              "active_fx":"edge_active_effects",
+              "thickness":0.006,
+              "color":"purple_3"
+            },
+
+            "backplate":{
+              "passive_fx":"plate_passive_effects",
+              "active_fx":"plate_active_effects",
+              "color":"green_1"
+            }
+          },
+          "progress":{
+            "layout":{
+              "anchor":"bottom_left",
+              "fixed_aspect":false,
+              "margin_x":0.00,
+              "margin_y":0.00125,
+              "width": 0.25,
+              "height":0.0125
+            },
+
+            "corners":{
+              "passive_fx":"corner_active_effects",
+              "active_fx":"corner_active_effects"
+            },
+
+            "edges":{
+              "passive_fx":"edge_active_effects",
+              "active_fx":"edge_active_effects",
+              "thickness":0.015,
+              "color":"orange_2"
+            },
+
+            "backplate":{
+              "passive_fx":"plate_active_effects",
+              "active_fx":"plate_active_effects",
+              "color":"orange_2"
+            }
+          }
+
         }
       }
     ],
@@ -397,7 +525,7 @@
               "active_fx":"edge_active_effects",
               "color_on":"blue_1",
               "color":"blue_1",
-              "thickness":0.016
+              "thickness":0.008
             },
 
             "backplate":{

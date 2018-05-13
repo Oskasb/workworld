@@ -1,39 +1,31 @@
 [{
-  "CONTROL_DATA":{
-    "CONTROLS":[
+  "CONTROLS":{
+
+    "GUI_FREE_CURSOR":[
       {
-        "id":"gui_control_active",
+        "id":"movable_cursor",
         "data":{
-          "piece":"activated_control_piece_hidden",
-          "camera":"vehicle_look_camera"
+          "widgets":[
+            {"widget":"THUMBSTICK",     "label":"",     "configId":"config", "onDrag":"cursorDrag"},
+            {"widget":"HOVER_DYNAMIC",  "label":"",     "configId":"config"},
+            {"widget":"DRAG_AXIS",      "label":"TURN", "configId":"drag_cam_x", "layout":{}, "onDrag":"dragCamX", "channel":"UI_CAM_DRAG_X"},
+            {"widget":"DRAG_AXIS",      "label":"ELV",  "configId":"drag_cam_y", "layout":{}, "onDrag":"dragCamY", "channel":"UI_CAM_DRAG_Y"},
+            {"widget":"DRAG_AXIS",      "label":"DST",  "configId":"drag_cam_z", "layout":{}, "onDrag":"dragCamZ", "channel":"UI_CAM_DRAG_Z"}
+          ]
         }
-      },
+      }
+    ],
+    "GUI_ENTERPRISE_CONTROL":[
       {
-        "id":"gui_control_selector",
+        "id":"main_control",
         "data":{
-          "piece":"selector_control_piece_hidden",
-          "camera":"camera_default"
-        }
-      },
-      {
-        "id":"gui_control_cursor",
-        "data":{
-          "piece":"cursor_control_piece",
-          "camera":"camera_default"
-        }
-      },
-      {
-        "id":"gui_control_vehicle",
-        "data":{
-          "piece":"piece_control_vehicle",
-          "camera":"vehicle_control_camera"
-        }
-      },
-      {
-        "id":"ai_control_vehicle",
-        "data":{
-          "piece":"piece_control_vehicle",
-          "camera":"vehicle_control_camera"
+          "widgets":[
+            {"widget":"THUMBSTICK",     "label":"",       "configId":"config", "onDrag":"thumbstickDrag"},
+            {"widget":"HOVER_DYNAMIC",  "label":"",       "configId":"config"},
+            {"widget":"DRAG_AXIS",      "label":"RUDDER", "configId":"drag_cam_x", "layout":{}, "onDrag":"dragCamX", "channel":"UI_CAM_DRAG_X"},
+            {"widget":"DRAG_AXIS",      "label":"SPEED",  "configId":"drag_cam_y", "layout":{}, "onDrag":"dragCamY", "channel":"UI_CAM_DRAG_Y"},
+            {"widget":"DRAG_AXIS",      "label":"DST",    "configId":"drag_cam_z", "layout":{}, "onDrag":"dragCamZ", "channel":"UI_CAM_DRAG_Z"}
+          ]
         }
       }
     ]

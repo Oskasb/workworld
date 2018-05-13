@@ -79,8 +79,6 @@ define([
             worldControlState.frustumCoordsToView(frustumCoords)
         };
 
-
-
         WorldAPI.sampleInputBuffer = function(inputIndex) {
             return worldControlState.valueFromInputBuffer(inputIndex)
         };
@@ -123,8 +121,36 @@ define([
             return worldControlState.getWorldCamera()
         };
 
-        WorldAPI.getWorldCursor = function() {
-            return worldControlState.getWorldCursor()
+        WorldAPI.setControlledRenderable = function(ren) {
+            return worldControlState.setControlledRenderable(ren)
+        };
+
+        WorldAPI.getControlledRenderable = function() {
+            return worldControlState.getControlledRenderable()
+        };
+
+        WorldAPI.loadGuiWidgetConfig = function(config, store) {
+            return worldControlState.buildControlWidget(config, store)
+        };
+
+        WorldAPI.enableGuiWidgetStore = function(store) {
+            return worldControlState.enableWidgetList(store)
+        };
+
+        WorldAPI.removeGuiWidgets = function(store) {
+            return worldControlState.removeWidgetList(store)
+        };
+
+        WorldAPI.getContoledPiecePosition = function(vec3) {
+            return worldControlState.getActiveControlPosition(vec3)
+        };
+
+        WorldAPI.setContolPosAndQuat = function(vec3, quat) {
+            return worldControlState.setActiveControlPosQuat(vec3, quat)
+        };
+
+        WorldAPI.getContoledPiecePosAndQuat = function(vec3, quat) {
+            return worldControlState.getActiveControlPosQuat(vec3, quat)
         };
 
         WorldAPI.visibilityTest = function(pos, radius) {
@@ -134,14 +160,20 @@ define([
         WorldAPI.notifyFrameInit = function() {
             frameStartTime = performance.now();
             worldMain.updateWorld();
-
-
         };
 
         WorldAPI.updateStatusMonitor = function() {
             statusMonitor.tick(frameStartTime);
         };
 
+        WorldAPI.initControlChange = function(dynamicRenderable) {
+            worldControlState.disableActiveControls();
+            dynamicWorld.changeControlTarget(dynamicRenderable);
+        };
+
+        WorldAPI.completeControlChange = function() {
+            dynamicWorld.controlChangeComplete();
+        };
 
         WorldAPI.addWorldArea = function(configId) {
             terrainSystem.initTerrainSystem(configId)
@@ -201,21 +233,17 @@ define([
         };
 
         WorldAPI.updateWorldWorkerFrame = function(tpf, frame) {
+
             WorldAPI.getWorldCamera().applyCameraComBuffer(WorldAPI.getWorldComBuffer());
 
-            worldControlState.updateWorldControlState();
-
             WorldAPI.sendWorldMessage(ENUMS.Protocol.NOTIFY_FRAME, frame);
-
+            worldControlState.updateWorldControlState();
             dynamicWorld.updateDynamicWorld();
-
             terrainSystem.updateTerrainSystem(tpf);
 
             GuiAPI.updateGui();
-
-            worldMain.updateWorldEffects();
             WorldAPI.getWorldCamera().relayCamera(WorldAPI.getWorldComBuffer());
-
+            worldMain.updateWorldEffects();
         };
 
         WorldAPI.getWorldTime = function() {

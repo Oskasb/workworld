@@ -185,16 +185,16 @@ define([
 
         GuiSurfaceElement.prototype.updateSurfaceVisuals = function(surfaceData) {
 
-            if (surfaceData.corners) {
-                this.applyCornersStates(surfaceData.corners, this.hover, this.press, this.on);
+            if (surfaceData.backplate) {
+                this.applyBackplateStates(surfaceData.backplate, this.hover, this.press, this.on);
             }
 
             if (surfaceData.edges) {
                 this.applyEdgesStates(surfaceData.edges, this.hover, this.press, this.on);
             }
 
-            if (surfaceData.backplate) {
-                this.applyBackplateStates(surfaceData.backplate, this.hover, this.press, this.on);
+            if (surfaceData.corners) {
+                this.applyCornersStates(surfaceData.corners, this.hover, this.press, this.on);
             }
 
             for (i = 0; i < this.textElements.length; i++) {

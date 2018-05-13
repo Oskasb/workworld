@@ -1,0 +1,23 @@
+[{
+  "MODULES":{
+
+    "PROPULSION":[
+      {
+        "id":"propeller",
+        "data":{
+          "config":[
+
+          ]
+        }
+      },
+      {
+        "id":"rudder",
+        "data":{
+          "config":[
+
+          ]
+        }
+      }
+    ]
+  }
+}]

@@ -137,6 +137,14 @@ define([
         camera.position.z = pz;
     };
 
+    WorldCamera.prototype.setCameraPosVec = function(vec3) {
+        camera.position.copy(vec3);
+    };
+
+    WorldCamera.prototype.getCameraPosition = function(vec3) {
+        vec3.copy(camera.position);
+    };
+
     WorldCamera.prototype.getCameraLookAt = function() {
         return lookAt;
     };
