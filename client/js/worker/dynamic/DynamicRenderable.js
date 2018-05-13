@@ -3,12 +3,14 @@
 define([
         'worker/dynamic/DynamicSpatial',
         'worker/dynamic/DynamicFeedback',
+        'worker/dynamic/ModuleRenderer',
         'worker/geometry/RenderableGeometry',
         'ConfigObject'
     ],
     function(
         DynamicSpatial,
         DynamicFeedback,
+        ModuleRenderer,
         RenderableGeometry,
         ConfigObject
     ) {
@@ -35,6 +37,8 @@ define([
             this.cameraDistance = 0;
             this.dynamicGamePiece = null;
             this.renderableGeometry = new RenderableGeometry();
+
+            this.moduleRenderer = new ModuleRenderer();
 
             this.dynamicSpatial.setupSpatialBuffer();
         };
@@ -214,6 +218,10 @@ define([
                 this.isVisible = 1;
             } else {
                 this.isVisible = this.renderableGeometry.updateGeometryRenderable();
+            }
+
+            if (this.getGamePiece()) {
+                this.moduleRenderer.renderGamePieceModules(this.getGamePiece(), this)
             }
 
             this.applyRenderableVisibility(this.isVisible)

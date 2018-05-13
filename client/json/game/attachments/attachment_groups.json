@@ -6,8 +6,15 @@
         "id":"propulsion_system",
         "data":{
           "modules":[
-            {"config_key":"PROPULSION", "config_id":"propeller", "offset":[], "direction":[], "size":[]},
-            {"config_key":"PROPULSION", "config_id":"rudder",    "offset":[], "direction":[], "size":[]}
+            {"config_key":"PROPULSION", "config_id":"propeller", "group":[
+              {"offset":[-15, -4, -160], "direction":[0, 0, 1], "size":[5, 2, 5]},
+              {"offset":[ 15, -4, -160], "direction":[0, 0, 1], "size":[5, 2, 5]}
+            ]},
+
+            {"config_key":"PROPULSION", "config_id":"rudder",    "group":[
+              {"offset":[-15, -4, -170], "direction":[0, -1, 0], "size":[5, 2, 5]},
+              {"offset":[ 15, -4, -170], "direction":[0, -1, 0], "size":[5, 2, 5]}
+            ]}
           ]
         }
       },

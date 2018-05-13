@@ -23,8 +23,10 @@
       "geometry/terrain_configs.json",
 
       "game/attachments/attachment_groups.json",
+      "game/attachments/modules.json",
       "game/controls/gui_control_data.json",
       "game/pieces/game_pieces.json",
+
 
       "threedata/models/three_materials.json",
       "threedata/models/three_models.json",

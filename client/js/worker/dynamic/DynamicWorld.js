@@ -168,6 +168,7 @@ define([
             var piece = new DynamicGamePiece(pieceId, confId);
 
             var onReady = function(dgp) {
+                pieces.push(dgp);
                 WorldAPI.getContoledPiecePosAndQuat(tempVec1, tempQuat);
                 newDynRen = WorldAPI.buildDynamicRenderable(dgp.configRead('renderable'), tempVec1, tempQuat, scale);
                 newDynRen.initRenderable(WorldAPI.attachDynamicRenderable);
@@ -194,6 +195,9 @@ define([
         DynamicWorld.prototype.updateDynamicWorld = function() {
 
             dynamicControlSelector.updateControlSelector();
+
+
+
         //    WorldAPI.setCom(ENUMS.BufferChannels.SELECT_PROGRESS, 0.5 + 0.5 * Math.sin(WorldAPI.getCom(ENUMS.BufferChannels.FRAME_RENDER_TIME)));
 
             if (!WorldAPI.getCom(ENUMS.BufferChannels.UI_HOVER_SOURCE) && !WorldAPI.sampleInputBuffer(ENUMS.InputState.ACTION_0)) {
@@ -224,7 +228,11 @@ define([
                 repelAllDyn(35);
             }
 
-            for (var i = 0; i < dynamics.length;i++) {
+            for (var i = 0; i < pieces.length;i++) {
+                pieces[i].updateDynamicGamePiece(WorldAPI.getCom(ENUMS.BufferChannels.TPF));
+            }
+
+            for (i = 0; i < dynamics.length;i++) {
                 dynamics[i].tickRenderable();
             }
 

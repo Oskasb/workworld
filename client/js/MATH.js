@@ -118,7 +118,7 @@ if(typeof(MATH) === "undefined") {
 	};
 
 	var half32BitInt = 1047483647;
-    var bigSafeValue = 5337203685;
+    var bigSafeValue = 5337203685000;
 
 	MATH.safeInt = function(value) {
 	    if (isNaN(value)) return 0;

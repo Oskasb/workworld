@@ -7,6 +7,7 @@ define([
 
     ) {
 
+        var calcVec = new THREE.Vector3();
         var sourceVec = new THREE.Vector3();
         var lookAt = new THREE.Vector3();
 
@@ -33,9 +34,14 @@ define([
             WorldAPI.setContolPosAndQuat(lookAt);
         };
 
+        var piece;
+
         DragFunctions.thumbstickDrag = function() {
 
-            WorldAPI.addTextMessage('Drag... thumbstickDrag')
+            piece = WorldAPI.getControlledRenderable().getGamePiece();
+
+            piece.getControlStateById('engine').setPieceControlTargetState(WorldAPI.sampleInputBuffer(ENUMS.InputState.DRAG_DISTANCE_Y));
+            piece.getControlStateById('rudder').setPieceControlTargetState(WorldAPI.sampleInputBuffer(ENUMS.InputState.DRAG_DISTANCE_X));
 
         };
 
