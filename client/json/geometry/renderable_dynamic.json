@@ -17,35 +17,61 @@
             "shape":"Compound",
             "args":[
 
-              {"id":"sub_1",   "shape":"Box", "args":[12,  12,  60],  "offset":[0,   -6,  120],      "rotation":[0, 0, 0]},
-              {"id":"sub_2",   "shape":"Box", "args":[15,  12,  60],  "offset":[-12, -7,   60],      "rotation":[0, 0, 0]},
-              {"id":"sub_3",   "shape":"Box", "args":[15,  12,  80],  "offset":[0,   -6,   80],      "rotation":[0, 0, 0]},
-              {"id":"sub_4",   "shape":"Box", "args":[15,  12,  60],  "offset":[12,  -7,   60],      "rotation":[0, 0, 0]},
-              {"id":"sub_5",   "shape":"Box", "args":[16,  10,  50],  "offset":[-12,  0,   60],      "rotation":[0, 0, 0]},
-              {"id":"sub_6",   "shape":"Box", "args":[16,  10,  50],  "offset":[12,   0,   60],      "rotation":[0, 0, 0]},
-              {"id":"sub_7",   "shape":"Box", "args":[12,  11,  60],  "offset":[-21, -6,    0],      "rotation":[0, 0, 0]},
-              {"id":"sub_8",   "shape":"Box", "args":[12,  12,  60],  "offset":[-11, -7,    0],      "rotation":[0, 0, 0]},
-              {"id":"sub_9",   "shape":"Box", "args":[12,  12,  60],  "offset":[ 11, -7,    0],      "rotation":[0, 0, 0]},
-              {"id":"sub_10",  "shape":"Box", "args":[12,  11,  60],  "offset":[21,  -6,    0],      "rotation":[0, 0, 0]},
-              {"id":"sub_11",  "shape":"Box", "args":[10,  11,  60],  "offset":[-21, -6,  -60],      "rotation":[0, 0, 0]},
-              {"id":"sub_12",  "shape":"Box", "args":[12,  12,  60],  "offset":[-11, -7,  -60],      "rotation":[0, 0, 0]},
-              {"id":"sub_13",  "shape":"Box", "args":[12,  12,  60],  "offset":[ 11, -7,  -60],      "rotation":[0, 0, 0]},
-              {"id":"sub_14",  "shape":"Box", "args":[10,  11,  60],  "offset":[21,  -6,  -60],      "rotation":[0, 0, 0]},
-              {"id":"sub_15",  "shape":"Box", "args":[12,  10,  40],  "offset":[-15,  0,  -60],      "rotation":[0, 0, 0]},
-              {"id":"sub_16",  "shape":"Box", "args":[12,  10,  40],  "offset":[ 15,  0,  -60],      "rotation":[0, 0, 0]},
-              {"id":"sub_17",  "shape":"Box", "args":[10,  15,  20],  "offset":[0,    2, -100],      "rotation":[0, 0, 0]},
-              {"id":"sub_18",  "shape":"Box", "args":[10,   9,  50],  "offset":[-12, -4, -120],      "rotation":[0, 0, 0]},
-              {"id":"sub_19",  "shape":"Box", "args":[10,   9,  50],  "offset":[0,   -4, -120],      "rotation":[0, 0, 0]},
-              {"id":"sub_20",  "shape":"Box", "args":[10,   9,  50],  "offset":[12,  -4, -120],      "rotation":[0, 0, 0]},
-              {"id":"hull_21", "shape":"Box", "args":[35,   1,  70],  "offset":[0,    21.5, -115],   "rotation":[0, 0, 0]},
-              {"id":"hull_22", "shape":"Box", "args":[20,   1,  76],  "offset":[0,    21.5,  114],   "rotation":[0, 0, 0]},
-              {"id":"hull_23", "shape":"Box", "args":[40,   1,  70],  "offset":[0,    21.5,    0],   "rotation":[0, 0, 0]},
-              {"id":"hull_24", "shape":"Box", "args":[25,   1,  70],  "offset":[ 0,    21.5, 156],   "rotation":[0, 0, 0]},
-              {"id":"hull_25", "shape":"Box", "args":[12.5, 1,  99],  "offset":[-10.5, 21.5, 113],   "rotation":[0, 0.1, 0]},
-              {"id":"hull_26", "shape":"Box", "args":[12.5, 1,  99],  "offset":[ 10.5, 21.5, 113],   "rotation":[0,-0.1, 0]},
-              {"id":"hull_27", "shape":"Box", "args":[26,   1, 184],  "offset":[-22,   21.5, -25],   "rotation":[0, 0, 0]},
-              {"id":"hull_28", "shape":"Box", "args":[48,   1, 177],  "offset":[ 25,   21.5, -25],   "rotation":[0, 0, 0]},
-              {"id":"hull_29", "shape":"Box", "args":[18,   1,  25],  "offset":[-18,   21.5,-125],   "rotation":[0, 0, 0]},
+              {"id":"fore_1",  "shape":"Box", "args":[3,  29,   8],  "offset":[0,    4,  149],      "rotation":[0.2, 0, 0]},
+              {"id":"sub_1a",  "shape":"Box", "args":[6,  13,  40],  "offset":[ 0,   -5,  120],      "rotation":[0, 0, 0]},
+              {"id":"sub_1b",  "shape":"Box", "args":[3,  13,  60],  "offset":[ 5,   -5,  120],     "rotation":[0, -0.15, -0.1]},
+              {"id":"sub_1c",  "shape":"Box", "args":[3,  13,  60],  "offset":[-5,   -5,  120],      "rotation":[0,  0.15,  0.1]},
+
+
+              {"id":"sub_2",   "shape":"Box", "args":[17,  12,  65],   "offset":[6,   -5,   60],      "rotation":[0, -0.16, -0.1]},
+
+              {"id":"sub_3",   "shape":"Box", "args":[15,  12, 120],   "offset":[0,   -6,   40],      "rotation":[0, 0, 0]},
+
+              {"id":"sub_4",   "shape":"Box", "args":[17,  12,  65],   "offset":[-6,  -5,   60],      "rotation":[0, 0.16, 0.1]},
+
+
+              {"id":"big_float_1a",   "shape":"Box", "args":[16,  12,  50],  "offset":[-4,   0,   60],    "rotation":[0, 0.05, 0]},
+              {"id":"big_float_1b",   "shape":"Box", "args":[16,  12,  50],  "offset":[ 4,   0,   60],    "rotation":[0,-0.05, 0]},
+
+
+              {"id":"sub_7a",  "shape":"Box", "args":[15,  11,  60],  "offset":[-12, -6,    0],      "rotation":[0, 0, 0]},
+              {"id":"sub_7b",  "shape":"Box", "args":[15,  11,  60],  "offset":[ 12, -6,    0],      "rotation":[0, 0, 0]},
+
+
+              {"id":"big_float_2a",  "shape":"Box", "args":[16,  10,  50],  "offset":[-4,  0,  -60],      "rotation":[0, 0, 0]},
+              {"id":"big_float_2b",  "shape":"Box", "args":[16,  10,  50],  "offset":[ 4,  0,  -60],      "rotation":[0, 0, 0]},
+
+
+              {"id":"sub_8a",  "shape":"Box", "args":[15,  11,  60],  "offset":[-12,  -6,  -60],      "rotation":[0, 0, 0]},
+              {"id":"sub_8b",  "shape":"Box", "args":[15,  11,  60],  "offset":[ 12,  -6,  -60],      "rotation":[0, 0, 0]},
+
+
+              {"id":"sub_17",  "shape":"Box", "args":[10,   6,  90],  "offset":[0,   -9, -60],      "rotation":[0, 0, 0]},
+
+
+              {"id":"sub_18",  "shape":"Box", "args":[10,   9,  65],  "offset":[-10, -3, -120],      "rotation":[0.1, -0.1, 0]},
+              {"id":"sub_19",  "shape":"Box", "args":[10,   9,  65],  "offset":[0,   -3, -120],      "rotation":[0.1, 0, 0]},
+              {"id":"sub_20",  "shape":"Box", "args":[10,   9,  65],  "offset":[10,  -3, -120],      "rotation":[0.1, 0.1, 0]},
+
+              {"id":"rudder_1",  "shape":"Box", "args":[0.5,   6,  5],  "offset":[-8, -8, -145],      "rotation":[0, 0, 0]},
+              {"id":"rudder_2",  "shape":"Box", "args":[0.5,   6,  5],  "offset":[ 8,  -8, -145],      "rotation":[0, 0,0]},
+
+
+
+              {"id":"hull_21", "shape":"Box", "args":[35,   1,  70],  "offset":[0,     21.2, -115],   "rotation":[0, 0, 0]},
+              {"id":"hull_22", "shape":"Box", "args":[20,   1,  76],  "offset":[0,     21.2,  114],   "rotation":[0, 0, 0]},
+              {"id":"hull_23", "shape":"Box", "args":[40,   1,  70],  "offset":[0,     21.2,    0],   "rotation":[0, 0, 0]},
+              {"id":"hull_24", "shape":"Box", "args":[22,   1, 322],  "offset":[ 0,    21.2, 4],      "rotation":[0, 0, 0]},
+
+              {"id":"hull_25a", "shape":"Box", "args":[12.5, 1, 102],  "offset":[-10.5, 21.2, 113],   "rotation":[0, 0.09, 0]},
+              {"id":"hull_26a", "shape":"Box", "args":[12.5, 1, 102],  "offset":[ 10.5, 21.2, 113],   "rotation":[0,-0.09, 0]},
+
+              {"id":"hull_25b", "shape":"Box", "args":[2.5, 1, 102],  "offset":[-17.5, 20.0, 113],   "rotation":[0, 0.09, 0]},
+              {"id":"hull_26b", "shape":"Box", "args":[2.5, 1, 102],  "offset":[ 17.5, 20.0, 113],   "rotation":[0,-0.09, 0]},
+
+              {"id":"hull_27", "shape":"Box", "args":[26,   1, 184],  "offset":[-22,   21.2, -25],   "rotation":[0, 0, 0]},
+              {"id":"hull_28", "shape":"Box", "args":[48,   1, 177],  "offset":[ 25,   21.2, -25],   "rotation":[0, 0, 0]},
+              {"id":"hull_29", "shape":"Box", "args":[18,   1,  25],  "offset":[-18,   21.2,-125],   "rotation":[0, 0, 0]},
               {"id":"hull_30", "shape":"Box", "args":[19,   11, 13],  "offset":[-21,   26, -32],     "rotation":[0, 0, 0]},
               {"id":"hull_31", "shape":"Box", "args":[26,  20,  13],  "offset":[-22,   40, -26],     "rotation":[0, 0, 0]},
               {"id":"hull_32", "shape":"Box", "args":[16,  20,  13],  "offset":[-22,   40, -36],     "rotation":[0, 0, 0]},
@@ -54,8 +80,8 @@
               {"id":"hull_35", "shape":"Box", "args":[22, 0.5,   2],  "offset":[-26,   64, -28],     "rotation":[0, 0, 0]},
               {"id":"hull_36", "shape":"Box", "args":[5, 2.5,    8],  "offset":[ -6,   49, -26],     "rotation":[0, 0, 0]}
             ],
-            "friction":0.8,
-            "restitution":0.45,
+            "friction":2.8,
+            "restitution":0.25,
             "damping":0.01,
             "mass":80000000
           }
@@ -115,7 +141,7 @@
             "state":"WANTS_DEACTIVATION",
             "shape":"Box",
             "args":[1, 4.3, 1],
-            "friction":0.7,
+            "friction":1.7,
             "restitution":0.83,
             "damping":0.15,
             "mass":250
@@ -134,7 +160,7 @@
             "state":"WANTS_DEACTIVATION",
             "shape":"Box",
             "args":[1, 1, 1],
-            "friction":0.9,
+            "friction":1.2,
             "restitution":0.65,
             "damping":0.08,
             "mass":800

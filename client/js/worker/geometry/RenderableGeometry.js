@@ -131,7 +131,7 @@ define([
                 var shape = dynamicSpatial.dynamicShapes[i];
 
                 shape.calculateWorldPosition(tempVec, tempQuat, instance.pos);
-                instance.quat.multiplyQuaternions(instance.quat , shape.rotation);
+                instance.quat.multiplyQuaternions(tempQuat , shape.rotation);
                 instance.scale3d.copy(shape.size);
                 instance.renderGeometryInstance();
             }

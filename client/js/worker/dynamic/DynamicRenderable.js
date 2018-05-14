@@ -75,7 +75,7 @@ define([
                 this.dynamicSpatial.setSpatialFromPosAndQuat(this.pos, this.quat);
                 s = this.renderableGeometry.getRenderableSize();
 
-                if (data.rigid_body.args) {
+                if (data.rigid_body.shape === "Box") {
                     this.dynamicSpatial.applySpatialScaleXYZ(data.rigid_body.args[0] * s, data.rigid_body.args[1] * s , data.rigid_body.args[2] * s);
                 } else {
                     this.dynamicSpatial.applySpatialScaleXYZ(s, s, s);

@@ -199,6 +199,7 @@ define([
             dynamicSpatial.setupMechanicalShape(msg[0]);
             ammoApi.setupRigidBody(msg[0], dynamicSpatial, bodyReady);
 
+
          //   console.log("dynamicSpatials:", dynamicSpatials);
         };
 
