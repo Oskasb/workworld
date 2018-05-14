@@ -20,7 +20,6 @@ define([
 
             controlState = renderable.getGamePiece().getControlStateById(controlId);
             moduleState.setTargetState(controlState.getControlStateValue())
-
         };
 
         ModuleFunctions.applyForce = function(renderable, moduleState, module) {
@@ -28,14 +27,12 @@ define([
             calcVec.applyQuaternion(renderable.quat)
             calcVec.multiplyScalar(moduleState.getAppliedFactor());
             renderable.applyForceVector(calcVec);
-
         };
 
         ModuleFunctions.applyTorque = function(renderable, moduleState, module) {
             calcVec.copy(module.direction);
             calcVec.multiplyScalar(moduleState.getAppliedFactor());
             renderable.applyTorqueVector(calcVec);
-
         };
 
         return ModuleFunctions;

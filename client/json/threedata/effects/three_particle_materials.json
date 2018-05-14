@@ -164,6 +164,7 @@
             {"name":"texelRowSelect", "dimensions":4, "dynamic":false},
             {"name":"tileindex",   "dimensions":2},
             {"name":"diffusors",   "dimensions":4, "dynamic":false},
+            {"name":"scale3d",     "dimensions":4, "dynamic":false},
             {"name":"orientation", "dimensions":4, "dynamic":false}
           ],
           "particle_texture":"./client/assets/images/textures/main_diff.png",
@@ -194,6 +195,7 @@
             {"name":"texelRowSelect", "dimensions":4, "dynamic":false},
             {"name":"tileindex",   "dimensions":2},
             {"name":"diffusors",   "dimensions":4, "dynamic":false},
+            {"name":"scale3d",     "dimensions":4, "dynamic":false},
             {"name":"orientation", "dimensions":4, "dynamic":false}
           ],
           "particle_texture":"./client/assets/images/effects/particle_atlas_6x6.png",
@@ -225,6 +227,7 @@
             {"name":"texelRowSelect", "dimensions":4, "dynamic":false},
             {"name":"tileindex",   "dimensions":2},
             {"name":"diffusors",   "dimensions":4, "dynamic":false},
+            {"name":"scale3d",     "dimensions":4, "dynamic":false},
             {"name":"orientation", "dimensions":4, "dynamic":false}
           ],
           "particle_texture":"./client/assets/images/effects/particle_atlas_6x6.png",
@@ -254,6 +257,7 @@
             {"name":"texelRowSelect", "dimensions":4, "dynamic":false},
             {"name":"tileindex",   "dimensions":2},
             {"name":"diffusors",   "dimensions":4, "dynamic":false},
+            {"name":"scale3d",     "dimensions":4, "dynamic":false},
             {"name":"orientation", "dimensions":4, "dynamic":false}
           ],
           "particle_texture":"./client/assets/images/effects/particle_atlas_6x6.png",

@@ -31,6 +31,7 @@ define([
 
             this.pos = new THREE.Vector3();
             this.quat = new THREE.Quaternion();
+            this.scale3d = new THREE.Vector3();
             this.dynamicSpatial = new DynamicSpatial();
             this.dynamicFeedback = new DynamicFeedback();
             this.isVisible = false;
@@ -39,8 +40,8 @@ define([
             this.renderableGeometry = new RenderableGeometry();
 
             this.moduleRenderer = new ModuleRenderer();
-
             this.dynamicSpatial.setupSpatialBuffer();
+
         };
 
         DynamicRenderable.prototype.configRead = function(dataKey) {
@@ -57,9 +58,10 @@ define([
 
             var configLoaded = function(data) {
 
+                this.dynamicSpatial.registerRigidBody(data.rigid_body);
+
                 this.renderableGeometry.inheritPosAndQuat(this.pos, this.quat);
-
-
+                this.renderableGeometry.inheritScale3d(this.scale3d);
 
                 if (data.instance_id) {
                     this.renderableGeometry.setupInstanceFxId(data.instance_id);
@@ -71,12 +73,18 @@ define([
                 }
 
                 this.dynamicSpatial.setSpatialFromPosAndQuat(this.pos, this.quat);
-
                 s = this.renderableGeometry.getRenderableSize();
-                this.dynamicSpatial.applySpatialScaleXYZ(s, s, s);
+
+                if (data.rigid_body.args) {
+                    this.dynamicSpatial.applySpatialScaleXYZ(data.rigid_body.args[0] * s, data.rigid_body.args[1] * s , data.rigid_body.args[2] * s);
+                } else {
+                    this.dynamicSpatial.applySpatialScaleXYZ(s, s, s);
+                }
+
                 this.dynamicSpatial.setVisualSize(data.visual_size || 1);
+                this.dynamicSpatial.getSpatialScale(this.scale3d);
                 this.renderableGeometry.setRenderableVisualSize(this.dynamicSpatial.getVisualSize());
-                this.dynamicSpatial.registerRigidBody(data.rigid_body);
+
                 this.dynamicFeedback.initDynamicFeedback(data.dynamic_feedback, feedbackReady);
 
                 if (data.select_anchor) {
@@ -231,6 +239,16 @@ define([
             this.renderableGeometry.applyVisibility(isVisible);
             this.dynamicSpatial.notifyVisibility(isVisible);
             this.dynamicFeedback.tickDynamicFeedback(this.dynamicSpatial, isVisible);
+
+
+            if (WorldAPI.getCom(ENUMS.BufferChannels.DRAW_DYN_SHAPES)) {
+                this.renderableGeometry.drawDebugShapes(this.dynamicSpatial);
+                this.debug = true;
+            } else if (this.debug) {
+                this.renderableGeometry.clearDebugShapes();
+                this.debug = false;
+            }
+
         };
 
         return DynamicRenderable;

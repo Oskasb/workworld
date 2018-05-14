@@ -10,7 +10,12 @@ define([
         var GeometryInstance = function(fxId) {
             this.fxId = fxId;
             this.effect = null;
+            this.size = 1;
+            this.pos = new THREE.Vector3();
+            this.quat = new THREE.Quaternion();
+            this.scale3d = new THREE.Vector3();
 
+            this.lastScale3d = new THREE.Vector3();
             this.lastPos = new THREE.Vector3();
             this.lastQuat = new THREE.Quaternion();
         };
@@ -22,6 +27,10 @@ define([
         GeometryInstance.prototype.inheritPosAndQuat  = function(pos, quat) {
             this.pos = pos;
             this.quat = quat
+        };
+
+        GeometryInstance.prototype.inheritScale3d  = function(vec3) {
+            this.scale3d = vec3;
         };
 
         GeometryInstance.prototype.setInstancePosition = function(pos) {
@@ -54,6 +63,14 @@ define([
             }
         };
 
+        GeometryInstance.prototype.setGeometryScale3d = function(vec3) {
+            this.scale3d.copy(vec3);
+            if (this.effect) {
+                this.effect.updateEffectScale3d(this.scale3d);
+                this.lastScale3d.copy(this.scale3d);
+            }
+        };
+
 
         GeometryInstance.prototype.renderGeometryInstance = function() {
             if (!this.effect) {
@@ -61,6 +78,8 @@ define([
                 this.setGeometrySize(this.size);
                 this.lastQuat.copy(this.quat);
                 this.lastPos.copy(this.pos);
+            } else {
+                this.applyGeometryVisibility(true);
             }
         };
 
@@ -91,6 +110,10 @@ define([
                 if (!this.lastQuat.equals(this.quat)) {
                     this.effect.updateEffectQuaternionSimulator(this.quat);
                     this.lastQuat.copy(this.quat);
+                }
+
+                if (!this.lastScale3d.equals(this.scale3d)) {
+                    this.setGeometryScale3d(this.scale3d);
                 }
             }
         };

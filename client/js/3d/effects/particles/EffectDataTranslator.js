@@ -57,6 +57,7 @@ define([
             this.diffusors     = new ParamVec4("diffusors");
             this.positionSpread= new ParamVec4("positionSpread");
             this.velocitySpread= new ParamVec4("velocitySpread");
+            this.scale3d       = new ParamVec4("scale3d");
 
             this.init_params   = [
                 {param:"gpu_sim", flag:true},
@@ -67,7 +68,8 @@ define([
                 this.acceleration,
                 this.velocity,
                 this.texelRowSelect,
-                this.diffusors
+                this.diffusors,
+                this.scale3d
             ];
             this.setDefaults();
         };
@@ -87,6 +89,7 @@ define([
             this.diffusors.setValues(0.5, 0.3, 1, 1, tV, tV);
             this.positionSpread.setValues(tV, tV, tV, tV, tV, tV);
             this.velocitySpread.setValues(0.5, 0.5, 0.5, tV, tV, tV);
+            this.scale3d.setValues(1, 1, 1, tV, tV, tV);
         };
         
         var EffectDataTranslator = function() {

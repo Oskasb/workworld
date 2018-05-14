@@ -22,6 +22,9 @@
         "vertexPositionMain":[
           "vec3 vPosition = vertexPosition;"
         ],
+
+
+
         "vertexNormalMain":[
 
           "vec3 normal = vertexNormal;"
@@ -118,6 +121,13 @@
 
         "vertexSizeMain":[
           "vPosition = vPosition * size;"
+        ],
+
+        "vertexApplyScaleAttribToPosition":[
+
+          "vPosition.x = vPosition.x * (1.0 * scale3d.x);",
+          "vPosition.y = vPosition.y * (1.0 * scale3d.y);",
+          "vPosition.z = vPosition.z * (1.0 * scale3d.z);"
         ],
 
         "vertexSampledSizeMain":[

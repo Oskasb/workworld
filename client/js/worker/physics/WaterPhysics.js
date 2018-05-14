@@ -17,7 +17,6 @@ define([
         var tempAngVelVec = new THREE.Vector3();
 
         var tempVolumeVelVec = new THREE.Vector3();
-
         var tempVecGlobalPos = new THREE.Vector3();
 
         var velDot;
@@ -52,23 +51,18 @@ define([
             totalSubmergedVolume = 0;
             unsubmergedVolume = 0;
             totalVolForce = 0;
-            for (var i = 0; i < dynSpat.mechanicalShapes.length; i++) {
+            for (var i = 0; i < dynSpat.dynamicShapes.length; i++) {
 
-                tempVec2.copy(dynSpat.mechanicalShapes[i].offset);
+                dynSpat.dynamicShapes[i].calculateWorldPosition(tempVec, tempQuat, tempVecGlobalPos);
+                dynSpat.dynamicShapes[i].calculateVelocityFromAngularVelocity(tempAngVelVec, tempVolumeVelVec);
 
-                tempVolumeVelVec.crossVectors(tempVec2, tempAngVelVec);
-
-                tempVec2.applyQuaternion(tempQuat);
-
-                tempVecGlobalPos.addVectors(tempVec2, tempVec);
-
-                radius = dynSpat.mechanicalShapes[i].radius;
-
-                mecSubmergedDepth = tempVec.y + tempVec2.y - radius + waveHeight(tempVecGlobalPos);
-
+                radius = dynSpat.dynamicShapes[i].radius;
+                mecSubmergedDepth = tempVecGlobalPos.y - radius;
+                mecSubmergedDepth += waveHeight(tempVecGlobalPos);
                 unsubmergedVolume += MATH.sphereDisplacement(radius, radius*2);
 
                 if (mecSubmergedDepth < 0) {
+
                     var displacement = MATH.sphereDisplacement(radius, -mecSubmergedDepth);
 
                     unsubmergedVolume-=displacement;
@@ -79,7 +73,7 @@ define([
                 //    tempVolumeVelVec.copy(tempVelVec)
                     var vel = tempVolumeVelVec.lengthSq();
 
-                    shapeVolForce =  displacement * 1 * vel  * physTpf;
+                    shapeVolForce = Math.sqrt( displacement ) * 5 * vel  * physTpf;
                     totalVolForce += shapeVolForce;
 
                     tempVolumeVelVec.multiplyScalar(MATH.safeInt(shapeVolForce));
@@ -92,7 +86,7 @@ define([
 
                     MATH.safeForceVector(tempVec3);
 
-                    PhysicsWorldAPI.applyLocalForceToBodyPoint(tempVec3, dynSpat.body, tempVec2);
+                    dynSpat.dynamicShapes[i].addForceToDynamicShape(tempVec3);
 
                 }
             }

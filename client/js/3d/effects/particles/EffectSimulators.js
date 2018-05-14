@@ -52,7 +52,8 @@ define([],
             texelRowSelect: {process:"attrib4D",      source:"texelRowSelect"   ,target:"texelRowSelect"},
             diffusors:      {process:"attrib4D",      source:"diffusors"        ,target:"diffusors"    },
             acceleration:   {process:"attrib4D",      source:"acceleration"     ,target:"acceleration" },
-            velocity:       {process:"attrib4D",      source:"velocity"         ,target:"velocity"     }
+            velocity:       {process:"attrib4D",      source:"velocity"         ,target:"velocity"     },
+            scale3d:        {process:"attrib3D",      source:"scale3d"          ,target:"scale3d"}
 
         };
 

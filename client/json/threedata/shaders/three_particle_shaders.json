@@ -169,6 +169,7 @@
         "vertex": [
           {"source":"INSTANCING_CHUNKS", "chunk":"vx_view"},
           {"source":"INSTANCING_CHUNKS", "chunk":"vx_predictive_simulation"},
+          {"source":"INSTANCING_CHUNKS", "chunk":"vx_instancing_acceleration"},
           {"source":"INSTANCING_CHUNKS", "chunk":"vx_data_texture"},
           {"source":"INSTANCING_CHUNKS", "chunk":"vx_uv_tiles"},
           {"source":"INSTANCING_CHUNKS", "chunk":"vx_uv"},
@@ -218,6 +219,7 @@
         "vertex": [
           {"source":"INSTANCING_CHUNKS", "chunk":"vx_view"},
           {"source":"INSTANCING_CHUNKS", "chunk":"vx_predictive_simulation"},
+          {"source":"INSTANCING_CHUNKS", "chunk":"vx_instancing_acceleration"},
           {"source":"INSTANCING_CHUNKS", "chunk":"vx_data_texture"},
           {"source":"INSTANCING_CHUNKS", "chunk":"vx_uv_tiles"},
           {"source":"INSTANCING_CHUNKS", "chunk":"vx_uv"},
@@ -324,6 +326,7 @@
         "vertex": [
           {"source":"INSTANCING_CHUNKS", "chunk":"vx_view"},
           {"source":"INSTANCING_CHUNKS", "chunk":"vx_predictive_simulation"},
+          {"source":"INSTANCING_CHUNKS", "chunk":"vx_instancing_acceleration"},
           {"source":"INSTANCING_CHUNKS", "chunk":"vx_data_texture"},
           {"source":"INSTANCING_CHUNKS", "chunk":"vx_uv_tiles"},
           {"source":"INSTANCING_CHUNKS", "chunk":"vx_uv"},
@@ -388,6 +391,8 @@
           {"source":"INSTANCING_CHUNKS", "chunk":"vx_view"},
           {"source":"INSTANCING_CHUNKS", "chunk":"vx_predictive_simulation"},
           {"source":"INSTANCING_CHUNKS", "chunk":"vx_instancing_normal"},
+          {"source":"INSTANCING_CHUNKS", "chunk":"vx_instancing_scale3d"},
+
           {"source":"INSTANCING_CHUNKS", "chunk":"vx_data_texture"},
           {"source":"INSTANCING_CHUNKS", "chunk":"vx_uv_tiles"},
           {"source":"INSTANCING_CHUNKS", "chunk":"vx_uv"},
@@ -409,10 +414,14 @@
 
           {"source":"INSTANCING_PROGRAMS", "chunk":"vertexPositionMain"},
           {"source":"INSTANCING_PROGRAMS", "chunk":"vertexNormalMain"},
+          {"source":"INSTANCING_PROGRAMS", "chunk":"vertexApplyScaleAttribToPosition"},
+          {"source":"INSTANCING_PROGRAMS", "chunk":"vertexSizeMain"},
 
           {"source":"INSTANCING_PROGRAMS", "chunk":"vertexSpatialMain"},
+
           {"source":"INSTANCING_PROGRAMS", "chunk":"vertexUvTilesMain"},
-          {"source":"INSTANCING_PROGRAMS", "chunk":"vertexSizeMain"},
+
+
           {"source":"INSTANCING_PROGRAMS", "chunk":"vertexSpatialFinal"},
           {"source":"INSTANCING_PROGRAMS", "chunk":"vertexGeometryDirectionalLight"},
           {"source":"INSTANCING_PROGRAMS", "chunk":"vertexFogExp2Verts"},
@@ -496,6 +505,7 @@
         "vertex": [
           {"source":"INSTANCING_CHUNKS", "chunk":"vx_view"},
           {"source":"INSTANCING_CHUNKS", "chunk":"vx_predictive_simulation"},
+          {"source":"INSTANCING_CHUNKS", "chunk":"vx_instancing_acceleration"},
           {"source":"INSTANCING_CHUNKS", "chunk":"vx_data_texture"},
           {"source":"INSTANCING_CHUNKS", "chunk":"vx_uv_tiles"},
           {"source":"INSTANCING_CHUNKS", "chunk":"vx_uv"},

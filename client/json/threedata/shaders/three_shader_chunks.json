@@ -27,6 +27,15 @@
           "attribute vec3 vertexNormal;"
         ],
 
+        "vx_instancing_scale3d":[
+          "attribute vec3 scale3d;"
+        ],
+
+        "vx_instancing_acceleration":[
+          "attribute vec4 acceleration;"
+        ],
+
+
         "vx_predictive_simulation":[
           "varying vec3 velocityOffset;",
           "varying float velocityFactor;",
@@ -38,8 +47,7 @@
           "attribute float duration;",
           "attribute vec3 vertexPosition;",
           "attribute vec4 offsetSize;",
-          "attribute vec4 velocity;",
-          "attribute vec4 acceleration;"
+          "attribute vec4 velocity;"
         ],
 
         "vx_data_texture":[

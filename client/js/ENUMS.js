@@ -101,7 +101,8 @@ if(typeof(ENUMS) === "undefined"){
         HOVER_DYNAIMC_X:    64,
         HOVER_DYNAIMC_Y:    65,
         SELECT_PROGRESS:    66,
-        EVENT_PROGRESS:     67
+        EVENT_PROGRESS:     67,
+        DRAW_DYN_SHAPES:    68
 
     };
 
@@ -154,9 +155,25 @@ if(typeof(ENUMS) === "undefined"){
         ANGULAR_ACCEL_Y:    38,
         ANGULAR_ACCEL_Z:    39,
         VISUAL_SIZE:        40,
-        BUFFER_SIZE:        41
+        DYNAMIC_FIRST_INDEX:64,
+        BUFFER_SIZE:        1024
     };
 
+    ENUMS.DynamicShape = {
+        NEED_ME:            0,
+        HAS_FORCE:          1,
+        OFFSET_X:           2,
+        OFFSET_Y:           3,
+        OFFSET_Z:           4,
+        FORCE_APPLIED_X:    5,
+        FORCE_APPLIED_Y:    6,
+        FORCE_APPLIED_Z:    7,
+        QUAT_X:             8,
+        QUAT_Y:             9,
+        QUAT_Z:             10,
+        QUAT_W:             11,
+        STRIDE:             12
+    };
 
     ENUMS.Worker = {
         WORLD:              0,

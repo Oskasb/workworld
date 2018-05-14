@@ -1,18 +1,12 @@
 "use strict";
 
 define([
-
+        'worker/dynamic/DynamicShape'
     ],
     function(
-
+        DynamicShape
     ) {
 
-
-        var MechanicalSphere = function(ofVec, radius) {
-            this.offset = new THREE.Vector3();
-            this.offset.copy(ofVec);
-            this.radius = radius;
-        };
 
         var tempVec1 = new THREE.Vector3();
         var tempVec2 = new THREE.Vector3();
@@ -23,8 +17,8 @@ define([
 
         var DynamicSpatial = function() {
 
-            this.mechanicalShapes = [];
-
+            this.shapesMap = {};
+            this.dynamicShapes = [];
             this.stillLimit = 5;
             this.visiblePingFrames = 200;
         };
@@ -44,42 +38,36 @@ define([
         //Used inside the physics worker
         DynamicSpatial.prototype.setSpatialBuffer = function(buffer) {
             return this.spatialBuffer = buffer;
-
         };
 
-        //Used inside the physics worker
+        DynamicSpatial.prototype.attachDynamicShape = function(args, index, scale) {
+            var shape = new DynamicShape(args, index, this.getSpatialBuffer());
+            this.dynamicShapes.push(shape);
+            shape.scaleDynamicShape(scale);
+            this.shapesMap[shape.id] = shape;
+        };
+
+        //Used inside physics AND dynamic workers
         DynamicSpatial.prototype.setupMechanicalShape = function(body_config) {
             console.log("Request Physics for spatial from here...", body_config);
             this.bodyConfig = body_config;
             this.baseDamping = body_config.damping;
+
+            this.getSpatialScale(tempVec2);
+
             if (body_config.shape === 'Compound') {
-
                 for (var i = 0; i < body_config.args.length; i++) {
-                    var offset = body_config.args[i].offset;
-                    var args = body_config.args[i].args;
-                    var radiusApprox = Math.pow(args[0]*args[1]*args[2] / (4/(3*3.14)), 0.333);
-                    tempVec1.set(offset[0], offset[1], offset[2]);
-                    this.mechanicalShapes.push(new MechanicalSphere(tempVec1, radiusApprox))
+                    this.attachDynamicShape(body_config.args[i], i, tempVec2);
                 }
-
             } else if (body_config.shape === 'Box') {
-                var args = body_config.args;
-
-                this.getSpatialScale(tempVec2);
-
-                var radiusApprox = Math.pow(tempVec2.x*tempVec2.y*tempVec2.z / (4/(3*3.14)), 0.333);
-                tempVec1.set(0, 0, 0);
-                this.mechanicalShapes.push(new MechanicalSphere(tempVec1, radiusApprox))
-            } else {
-                tempVec1.set(0, 0, 0);
-                this.mechanicalShapes.push(new MechanicalSphere(tempVec1, 2))
+                this.attachDynamicShape(body_config, 0, tempVec2);
             }
-
         };
 
         //Used in the Dynamic World Worker
         DynamicSpatial.prototype.registerRigidBody = function(msg) {
             console.log("Request Physics for spatial from here...", msg);
+            this.setupMechanicalShape(msg);
             WorldAPI.callSharedWorker(ENUMS.Worker.PHYSICS_WORLD, ENUMS.Protocol.PHYSICS_BODY_ADD, [msg, this.getSpatialBuffer()])// this.terrainBody = this.terrainFunctions.addTerrainToPhysics(this.terrainOptions, this.terrain.array1d, this.origin.x, this.origin.z);
         };
 
@@ -289,8 +277,6 @@ define([
             return this.spatialBuffer[ENUMS.BufferSpatial.STILL_FRAMES];
         };
 
-
-
         DynamicSpatial.prototype.isStatic = function() {
             return 1 - this.getSpatialDynamicFlag();
         };
@@ -316,7 +302,13 @@ define([
             }
         };
 
+        var i;
+
         DynamicSpatial.prototype.tickPhysicsForces = function(ammoApi) {
+
+            for (i = 0; i < this.dynamicShapes.length; i++) {
+                this.dynamicShapes[i].applyDynamicShapeForceToBody(ammoApi, this.body);
+            }
 
             if (this.bufferContainsTorque() || this.bufferContainsForce()) {
                 console.log("Apply forces...");
@@ -346,7 +338,6 @@ define([
         DynamicSpatial.prototype.tickPhysicsUpdate = function(ammoApi) {
 
             this.testSpatialMotion();
-
 
 
             if (this.getSpatialStillFrames() < this.stillLimit) {
