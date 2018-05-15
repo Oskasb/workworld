@@ -67,7 +67,7 @@ define([
             this.scale3d.copy(vec3);
             if (this.effect) {
                 this.effect.updateEffectScale3d(this.scale3d);
-                this.lastScale3d.copy(this.scale3d);
+
             }
         };
 
@@ -76,8 +76,10 @@ define([
             if (!this.effect) {
                 this.effect = EffectsAPI.requestPassiveEffect(this.fxId, this.pos, null, null, this.quat);
                 this.setGeometrySize(this.size);
+                this.setGeometryScale3d(this.scale3d);
                 this.lastQuat.copy(this.quat);
                 this.lastPos.copy(this.pos);
+            //    this.lastScale3d.copy(this.scale3d);
             } else {
                 this.applyGeometryVisibility(true);
             }
@@ -113,7 +115,8 @@ define([
                 }
 
                 if (!this.lastScale3d.equals(this.scale3d)) {
-                    this.setGeometryScale3d(this.scale3d);
+                    this.effect.updateEffectScale3d(this.scale3d);
+                    this.lastScale3d.copy(this.scale3d);
                 }
             }
         };

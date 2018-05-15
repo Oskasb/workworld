@@ -58,21 +58,11 @@ define([
 
             var configLoaded = function(data) {
 
-                this.dynamicSpatial.registerRigidBody(data.rigid_body);
-
+                this.dynamicSpatial.setupMechanicalShape(data.rigid_body);
                 this.renderableGeometry.inheritPosAndQuat(this.pos, this.quat);
                 this.renderableGeometry.inheritScale3d(this.scale3d);
-
-                if (data.instance_id) {
-                    this.renderableGeometry.setupInstanceFxId(data.instance_id);
-                } else if (data.model_id) {
-                    this.renderableGeometry.setupStandardModelId(data.model_id, this.dynamicSpatial);
-                } else {
-                    console.log("No model_id or instance_id for dynamic renderable:", this.idKey);
-                    return;
-                }
-
                 this.dynamicSpatial.setSpatialFromPosAndQuat(this.pos, this.quat);
+
                 s = this.renderableGeometry.getRenderableSize();
 
                 if (data.rigid_body.shape === "Box") {
@@ -83,9 +73,20 @@ define([
 
                 this.dynamicSpatial.setVisualSize(data.visual_size || 1);
                 this.dynamicSpatial.getSpatialScale(this.scale3d);
-                this.renderableGeometry.setRenderableVisualSize(this.dynamicSpatial.getVisualSize());
 
+                this.renderableGeometry.setRenderableVisualSize(this.dynamicSpatial.getVisualSize());
                 this.dynamicFeedback.initDynamicFeedback(data.dynamic_feedback, feedbackReady);
+
+                this.dynamicSpatial.registerRigidBody(data.rigid_body);
+
+                if (data.instance_id) {
+                    this.renderableGeometry.setupInstanceFxId(data.instance_id);
+                } else if (data.model_id) {
+                    this.renderableGeometry.setupStandardModelId(data.model_id, this.dynamicSpatial);
+                } else {
+                    console.log("No model_id or instance_id for dynamic renderable:", this.idKey);
+                    return;
+                }
 
                 if (data.select_anchor) {
                     this.setSelectAnchorOffset(data.select_anchor.offset[0], data.select_anchor.offset[1], data.select_anchor.offset[2]);
@@ -152,6 +153,11 @@ define([
             this.selectSize = size;
         };
 
+        DynamicRenderable.prototype.scaleDynamicRenderable = function(scale) {
+            this.scale3d.multiplyScalar(scale);
+            this.dynamicSpatial.applySpatialScaleXYZ(this.scale3d.x, this.scale3d.y, this.scale3d.z);
+        };
+
         DynamicRenderable.prototype.setRenderableScale = function(scl) {
             this.renderableGeometry.setRenderableSize(scl);
         };
@@ -166,6 +172,10 @@ define([
 
         DynamicRenderable.prototype.getControlPosition = function() {
             return this.controlPos;
+        };
+
+        DynamicRenderable.prototype.getDynamicScale = function(vec3) {
+            return this.dynamicSpatial.getSpatialScale(vec3)
         };
 
         DynamicRenderable.prototype.getDynamicPosition = function(vec3) {
@@ -219,6 +229,7 @@ define([
         DynamicRenderable.prototype.tickRenderable = function() {
             this.dynamicSpatial.getSpatialPosition(this.renderableGeometry.pos);
             this.dynamicSpatial.getSpatialQuaternion(this.renderableGeometry.quat);
+            this.dynamicSpatial.getSpatialScale(this.renderableGeometry.scale3d);
 
             this.updateScreenSelectPosition();
 

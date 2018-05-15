@@ -65,7 +65,7 @@ define([
         DynamicWorld.prototype.setupDynamicRenderable = function(renderableId, pos, quat, scale) {
             newDynRen = new DynamicRenderable();
             newDynRen.setRenderableIdKey(renderableId);
-            newDynRen.setRenderableScale(scale);
+            newDynRen.scaleDynamicRenderable(scale);
             newDynRen.setRenderablePosition(pos);
             newDynRen.setRenderableQuaternion(quat);
             return newDynRen;
@@ -149,8 +149,10 @@ define([
 
                 scale = 1+Math.floor(Math.random()*2);
 
-                newDynRen = WorldAPI.buildDynamicRenderable(geoms[Math.floor(Math.random()*geoms.length)], tempVec1, tempQuat, scale);
+                newDynRen = WorldAPI.buildDynamicRenderable(geoms[Math.floor(Math.random()*geoms.length)], tempVec1, tempQuat, 1);
                 newDynRen.initRenderable(WorldAPI.attachDynamicRenderable);
+            //    newDynRen.scaleDynamicRenderable(scale);
+
             }
         };
 
@@ -171,6 +173,7 @@ define([
                 pieces.push(dgp);
                 WorldAPI.getContoledPiecePosAndQuat(tempVec1, tempQuat);
                 newDynRen = WorldAPI.buildDynamicRenderable(dgp.configRead('renderable'), tempVec1, tempQuat, scale);
+
                 newDynRen.initRenderable(WorldAPI.attachDynamicRenderable);
                 newDynRen.setGamePiece(dgp)
             };

@@ -52,6 +52,10 @@ define([
             this.scale3d = scale3d;
         };
 
+        RenderableGeometry.prototype.scaleRenderableGeometry = function(scale3d) {
+            this.scale3d.multiplyScalar(scale3d);
+        };
+
         RenderableGeometry.prototype.setRenderableSize = function(size) {
             this.size = size;
         };

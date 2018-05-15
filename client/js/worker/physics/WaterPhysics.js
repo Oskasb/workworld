@@ -37,12 +37,6 @@ define([
         };
 
 
-        var waveHeight = function(pos) {
-            currentTime = PhysicsWorldAPI.getCom(ENUMS.BufferChannels.FRAME_RENDER_TIME);
-            return 1.0 * (Math.sin(currentTime*0.33 + pos.x * 0.04) + Math.cos(currentTime * 0.28 + pos.z * 0.06));
-
-        };
-
         WaterPhysics.prototype.processWaterProximity = function(dynSpat, physTpf) {
             dynSpat.getSpatialQuaternion(tempQuat);
             dynSpat.getVectorByFirstIndex(ENUMS.BufferSpatial.VELOCITY_X, tempVelVec);
@@ -58,7 +52,7 @@ define([
 
                 radius = dynSpat.dynamicShapes[i].radius;
                 mecSubmergedDepth = tempVecGlobalPos.y - radius;
-                mecSubmergedDepth += waveHeight(tempVecGlobalPos);
+                mecSubmergedDepth += PhysicsWorldAPI.waveHeightAtPos(tempVecGlobalPos);
                 unsubmergedVolume += MATH.sphereDisplacement(radius, radius*2);
 
                 if (mecSubmergedDepth < 0) {

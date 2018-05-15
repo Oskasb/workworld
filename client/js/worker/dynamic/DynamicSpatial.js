@@ -67,7 +67,7 @@ define([
         //Used in the Dynamic World Worker
         DynamicSpatial.prototype.registerRigidBody = function(msg) {
             console.log("Request Physics for spatial from here...", msg);
-            this.setupMechanicalShape(msg);
+
             WorldAPI.callSharedWorker(ENUMS.Worker.PHYSICS_WORLD, ENUMS.Protocol.PHYSICS_BODY_ADD, [msg, this.getSpatialBuffer()])// this.terrainBody = this.terrainFunctions.addTerrainToPhysics(this.terrainOptions, this.terrain.array1d, this.origin.x, this.origin.z);
         };
 
