@@ -47,6 +47,11 @@ define([
             this.shapesMap[shape.id] = shape;
         };
 
+        DynamicSpatial.prototype.getDynamicShapeById = function(id) {
+           return this.shapesMap[id];
+        };
+
+
         //Used inside physics AND dynamic workers
         DynamicSpatial.prototype.setupMechanicalShape = function(body_config) {
 
@@ -57,14 +62,17 @@ define([
             this.bodyConfig = body_config;
             this.baseDamping = body_config.damping;
 
+            this.getSpatialScale(tempVec2);
             if (body_config.shape === 'Compound') {
-                this.getSpatialScale(tempVec2);
+
                 for (var i = 0; i < body_config.args.length; i++) {
                     this.attachDynamicShape(body_config.args[i], i, tempVec2);
                 }
             } else if (body_config.shape === 'Box') {
-                tempVec2.set(1, 1, 1);
+            //    tempVec2.set(1, 1, 1);
                 this.attachDynamicShape(body_config, 0, tempVec2);
+                this.dynamicShapes[0].size.copy(tempVec2);
+                this.dynamicShapes[0].updateRadius();
             }
         };
 

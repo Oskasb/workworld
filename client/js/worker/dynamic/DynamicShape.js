@@ -29,6 +29,7 @@ define([
             this.offset = new THREE.Vector3();
             this.size = new THREE.Vector3();
             this.rotation = new THREE.Quaternion();
+            this.quat = new THREE.Quaternion();
             this.direction = new THREE.Vector3();
             this.impulseVector = new THREE.Vector3();
             this.radius = 0;
@@ -52,7 +53,8 @@ define([
 
                 this.setDynamicShapeQuaternion(this.rotation);
                 this.direction.applyQuaternion(this.rotation);
-                this.radius = this.approximateRadius(this.size);
+                this.quat.copy(this.rotation);
+                this.updateRadius();
 
             } else {
                 console.log("Non Box Shape.. NOT SUPPORTED!");
@@ -63,6 +65,10 @@ define([
             return Math.pow( size.x*size.y*size.z / (4/(3*3.14)), 0.333);
         };
 
+        DynamicShape.prototype.updateRadius = function() {
+            this.radius = this.approximateRadius(this.size);
+        };
+
         DynamicShape.prototype.scaleDynamicShape = function(vec3) {
             this.offset.x *= vec3.x;
             this.offset.y *= vec3.y;
@@ -70,7 +76,7 @@ define([
             this.size.x *= vec3.x;
             this.size.y *= vec3.y;
             this.size.z *= vec3.z;
-            this.radius = this.approximateRadius(this.size);
+            this.updateRadius();
             this.setDynamicShapeOffset(this.offset);
         };
 
@@ -131,8 +137,18 @@ define([
             return this.getVectorByFirstIndex(this.bsi + ENUMS.DynamicShape.OFFSET_X, vec3);
         };
 
+
         DynamicShape.prototype.hasDynamicShapeForce = function() {
             return this.buffer[this.bsi + ENUMS.DynamicShape.HAS_FORCE];
+        };
+
+        DynamicShape.prototype.sampleBufferState = function() {
+            this.getDynamicShapeQuaternion(this.rotation);
+            this.getDynamicShapeOffset(this.offset);
+        };
+
+        DynamicShape.prototype.getOriginalRotation = function(quat) {
+            quat.copy(this.quat);
         };
 
         DynamicShape.prototype.calculateWorldPosition = function(parentPos, parentQuat, store) {

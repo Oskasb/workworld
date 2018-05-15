@@ -3,10 +3,11 @@
 
     "PROPULSION":[
       {
-        "id":"propeller",
+        "id":"propeller_1",
         "data":{
-          "state":{"value":0, "min":-1, "max":1, "speed":0.1, "factor":8000000000},
+          "state":{"value":0, "min":-1, "max":1, "speed":0.1, "factor":8000000},
           "source":"engine",
+          "target":"rudder_1",
           "sampleSource":"sampleControl",
           "applyState":"applyForce",
           "effectFunction":"propellerEffect"
@@ -14,13 +15,37 @@
         }
       },
       {
-        "id":"rudder",
+        "id":"propeller_2",
         "data":{
-            "state":{"value":0, "min":-1, "max":1, "speed":0.1, "factor":53372036850},
-            "source":"rudder",
-            "sampleSource":"sampleControl",
-            "applyState":"applyTorque",
-            "effectFunction":"propellerEffect"
+          "state":{"value":0, "min":-1, "max":1, "speed":0.1, "factor":8000000},
+          "source":"engine",
+          "target":"rudder_2",
+          "sampleSource":"sampleControl",
+          "applyState":"applyForce",
+          "effectFunction":"propellerEffect"
+
+        }
+      },
+      {
+        "id":"rudder_1",
+        "data":{
+          "state":{"value":0, "min":-1, "max":1, "speed":0.1, "factor":1.5},
+          "source":"rudder",
+          "target":"rudder_1",
+          "sampleSource":"sampleControl",
+          "applyState":"applyRotationY",
+          "effectFunction":"propellerEffect"
+        }
+      },
+      {
+        "id":"rudder_2",
+        "data":{
+          "state":{"value":0, "min":-1, "max":1, "speed":0.1, "factor":1.5},
+          "source":"rudder",
+          "target":"rudder_2",
+          "sampleSource":"sampleControl",
+          "applyState":"applyRotationY",
+          "effectFunction":"propellerEffect"
         }
       }
     ]

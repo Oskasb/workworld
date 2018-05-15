@@ -6,14 +6,20 @@
         "id":"propulsion_system",
         "data":{
           "modules":[
-            {"config_key":"PROPULSION", "config_id":"propeller", "group":[
-              {"offset":[-15, -8, -160], "direction":[0, 0, 1], "size":[5, 2, 5]},
-              {"offset":[ 15, -8, -160], "direction":[0, 0, 1], "size":[5, 2, 5]}
+            {"config_key":"PROPULSION", "config_id":"propeller_1", "group":[
+              {"offset":[-15, -8, -160], "direction":[0, 0, 1], "size":[5, 2, 5]}
             ]},
 
-            {"config_key":"PROPULSION", "config_id":"rudder",    "group":[
-              {"offset":[-15, -4, -170], "direction":[0, -1, 0], "size":[5, 2, 5]},
-              {"offset":[ 15, -4, -170], "direction":[0, -1, 0], "size":[5, 2, 5]}
+            {"config_key":"PROPULSION", "config_id":"propeller_2", "group":[
+              {"offset":[-15, -8, -160], "direction":[0, 0, 1], "size":[5, 2, 5]}
+            ]},
+
+            {"config_key":"PROPULSION", "config_id":"rudder_1",    "group":[
+              {"offset":[-15, -4, -170], "direction":[0, -1, 0], "size":[5, 2, 5]}
+            ]},
+
+            {"config_key":"PROPULSION", "config_id":"rudder_2",    "group":[
+              {"offset":[-15, -4, -170], "direction":[0, -1, 0], "size":[5, 2, 5]}
             ]}
           ]
         }

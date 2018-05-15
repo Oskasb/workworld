@@ -212,6 +212,10 @@ define([
             this.localToWorld(vec3);
         };
 
+        DynamicRenderable.prototype.getSpatialShapeById = function(id) {
+            return this.dynamicSpatial.getDynamicShapeById(id)
+        };
+
         DynamicRenderable.prototype.localToWorld = function(vec3) {
             vec3.applyQuaternion(this.renderableGeometry.quat);
             vec3.x+=this.pos.x;
