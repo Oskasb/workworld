@@ -58,9 +58,9 @@ define([
 
         GeometryInstance.prototype.setGeometrySize = function(size) {
             this.size = size;
-            if (this.effect) {
-                this.effect.updateEffectScaleSimulator(this.size);
-            }
+        ///    if (this.effect) {
+            //    this.effect.updateEffectScaleSimulator(this.size);
+        //    }
         };
 
         GeometryInstance.prototype.setGeometryScale3d = function(vec3) {

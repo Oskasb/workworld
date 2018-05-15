@@ -18,11 +18,10 @@ define([
 
         var RenderableGeometry = function() {
             this.renderable = null;
-            this.size = 1;
             this.visualSize = 1;
 
             this.pos = new THREE.Vector3();
-            this.scale3d = new THREE.Vector3();
+            this.scale3d = new THREE.Vector3(1, 1, 1);
             this.quat = new THREE.Quaternion();
 
             this.isVisible = false;
@@ -33,14 +32,13 @@ define([
 
         RenderableGeometry.prototype.setupStandardModelId = function(model_id, dynamicSpatial) {
             this.renderable = new StandardGeometry(model_id, dynamicSpatial);
-            this.renderable.setGeometrySize(this.size)
+        //    this.renderable.setGeometrySize(this.size)
         };
 
         RenderableGeometry.prototype.setupInstanceFxId = function(fxId) {
             this.renderable = new GeometryInstance(fxId);
             this.renderable.inheritPosAndQuat(this.pos, this.quat);
             this.renderable.inheritScale3d(this.scale3d);
-            this.renderable.setGeometrySize(this.size)
         };
 
         RenderableGeometry.prototype.inheritPosAndQuat  = function(pos, quat) {
@@ -52,20 +50,8 @@ define([
             this.scale3d = scale3d;
         };
 
-        RenderableGeometry.prototype.scaleRenderableGeometry = function(scale3d) {
-            this.scale3d.multiplyScalar(scale3d);
-        };
-
-        RenderableGeometry.prototype.setRenderableSize = function(size) {
-            this.size = size;
-        };
-
         RenderableGeometry.prototype.setRenderableVisualSize = function(size) {
             this.visualSize = size;
-        };
-
-        RenderableGeometry.prototype.getRenderableSize = function() {
-            return this.size;
         };
 
         RenderableGeometry.prototype.lookAt = function(vec3) {
@@ -94,8 +80,6 @@ define([
             return WorldAPI.getWorldCamera().testPosRadiusVisible(this.pos, this.size*0.65*this.visualSize);
         };
 
-
-
         RenderableGeometry.prototype.applyVisibility = function(isVisible) {
 
             if (isVisible) {
@@ -122,6 +106,9 @@ define([
                 this.clearDebugShapes();
                 for (var i = 0; i < dynamicSpatial.dynamicShapes.length; i++) {
                     this.debugShapes.push(new GeometryInstance("creative_crate_geometry_effect"));
+                    dynamicSpatial.getSpatialScale(tempVec);
+                //    tempVec.multiply(dynamicSpatial.dynamicShapes[i].size);
+                    this.debugShapes[i].setGeometryScale3d(dynamicSpatial.dynamicShapes[i].size);
                 }
                 console.log("DEBUG DRAW ENABLED")
             }
@@ -136,7 +123,7 @@ define([
 
                 shape.calculateWorldPosition(tempVec, tempQuat, instance.pos);
                 instance.quat.multiplyQuaternions(tempQuat , shape.rotation);
-                instance.scale3d.copy(shape.size);
+
                 instance.renderGeometryInstance();
             }
 

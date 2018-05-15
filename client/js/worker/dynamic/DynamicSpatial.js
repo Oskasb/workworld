@@ -53,13 +53,13 @@ define([
             this.bodyConfig = body_config;
             this.baseDamping = body_config.damping;
 
-            this.getSpatialScale(tempVec2);
-
             if (body_config.shape === 'Compound') {
+                this.getSpatialScale(tempVec2);
                 for (var i = 0; i < body_config.args.length; i++) {
                     this.attachDynamicShape(body_config.args[i], i, tempVec2);
                 }
             } else if (body_config.shape === 'Box') {
+                tempVec2.set(1, 1, 1)
                 this.attachDynamicShape(body_config, 0, tempVec2);
             }
         };
@@ -67,7 +67,6 @@ define([
         //Used in the Dynamic World Worker
         DynamicSpatial.prototype.registerRigidBody = function(msg) {
             console.log("Request Physics for spatial from here...", msg);
-
             WorldAPI.callSharedWorker(ENUMS.Worker.PHYSICS_WORLD, ENUMS.Protocol.PHYSICS_BODY_ADD, [msg, this.getSpatialBuffer()])// this.terrainBody = this.terrainFunctions.addTerrainToPhysics(this.terrainOptions, this.terrain.array1d, this.origin.x, this.origin.z);
         };
 
@@ -75,7 +74,6 @@ define([
         DynamicSpatial.prototype.setupSpatialBuffer = function() {
             var sab = new SharedArrayBuffer(Float32Array.BYTES_PER_ELEMENT * ENUMS.BufferSpatial.BUFFER_SIZE);
             this.spatialBuffer = new Float32Array(sab);
-            this.applySpatialScaleXYZ(1, 1, 1);
         };
 
         DynamicSpatial.prototype.getSpatialBuffer = function() {

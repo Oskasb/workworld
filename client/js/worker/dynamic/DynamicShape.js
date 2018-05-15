@@ -66,10 +66,10 @@ define([
         DynamicShape.prototype.scaleDynamicShape = function(vec3) {
             this.offset.x *= vec3.x;
             this.offset.y *= vec3.y;
-            this.offset.y *= vec3.z;
+            this.offset.z *= vec3.z;
             this.size.x *= vec3.x;
             this.size.y *= vec3.y;
-            this.size.y *= vec3.z;
+            this.size.z *= vec3.z;
             this.radius = this.approximateRadius(this.size);
             this.setDynamicShapeOffset(this.offset);
         };

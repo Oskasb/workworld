@@ -15,12 +15,9 @@ define([
         ConfigObject
     ) {
 
-    var s;
-
         var DynamicRenderable = function() {
             this.idKey = '';
             this.scale = 1;
-
 
             this.cameraHome = new THREE.Vector3(0, 50, -200);
             this.cameraLook = new THREE.Vector3(0, 50, -200);
@@ -58,21 +55,20 @@ define([
 
             var configLoaded = function(data) {
 
-                this.dynamicSpatial.setupMechanicalShape(data.rigid_body);
-                this.renderableGeometry.inheritPosAndQuat(this.pos, this.quat);
-                this.renderableGeometry.inheritScale3d(this.scale3d);
-                this.dynamicSpatial.setSpatialFromPosAndQuat(this.pos, this.quat);
-
-                s = this.renderableGeometry.getRenderableSize();
-
                 if (data.rigid_body.shape === "Box") {
-                    this.dynamicSpatial.applySpatialScaleXYZ(data.rigid_body.args[0] * s, data.rigid_body.args[1] * s , data.rigid_body.args[2] * s);
-                } else {
-                    this.dynamicSpatial.applySpatialScaleXYZ(s, s, s);
+                    this.scale3d.x *= data.rigid_body.args[0];
+                    this.scale3d.y *= data.rigid_body.args[1];
+                    this.scale3d.z *= data.rigid_body.args[2];
                 }
 
+                this.renderableGeometry.inheritScale3d(this.scale3d);
+                this.dynamicSpatial.applySpatialScaleXYZ(this.scale3d.x, this.scale3d.y, this.scale3d.z);
+                this.dynamicSpatial.setupMechanicalShape(data.rigid_body);
                 this.dynamicSpatial.setVisualSize(data.visual_size || 1);
-                this.dynamicSpatial.getSpatialScale(this.scale3d);
+
+                this.renderableGeometry.inheritPosAndQuat(this.pos, this.quat);
+
+                this.dynamicSpatial.setSpatialFromPosAndQuat(this.pos, this.quat);
 
                 this.renderableGeometry.setRenderableVisualSize(this.dynamicSpatial.getVisualSize());
                 this.dynamicFeedback.initDynamicFeedback(data.dynamic_feedback, feedbackReady);
@@ -92,7 +88,7 @@ define([
                     this.setSelectAnchorOffset(data.select_anchor.offset[0], data.select_anchor.offset[1], data.select_anchor.offset[2]);
                     this.setSelectAnchorSize(data.select_anchor.size);
                 } else {
-                    this.setSelectAnchorSize(this.dynamicSpatial.getVisualSize()*s);
+                    this.setSelectAnchorSize(this.dynamicSpatial.getVisualSize() * this.scale3d.manhattanLength()/3);
                 }
 
                 if (data.camera_home) {
@@ -153,14 +149,10 @@ define([
             this.selectSize = size;
         };
 
-        DynamicRenderable.prototype.scaleDynamicRenderable = function(scale) {
-            this.scale3d.multiplyScalar(scale);
-            this.dynamicSpatial.applySpatialScaleXYZ(this.scale3d.x, this.scale3d.y, this.scale3d.z);
-        };
 
-        DynamicRenderable.prototype.setRenderableScale = function(scl) {
-            this.renderableGeometry.setRenderableSize(scl);
-        };
+    //    DynamicRenderable.prototype.setRenderableScale = function(scl) {
+    //        this.renderableGeometry.setRenderableSize(scl);
+    //    };
 
         DynamicRenderable.prototype.setRenderablePosition = function(pos) {
             this.pos.copy(pos);
@@ -168,6 +160,10 @@ define([
 
         DynamicRenderable.prototype.setRenderableQuaternion = function(quat) {
             this.quat.copy(quat);
+        };
+
+        DynamicRenderable.prototype.setRenderableScaleXYZ = function(x, y, z) {
+            this.scale3d.set(x, y, z);
         };
 
         DynamicRenderable.prototype.getControlPosition = function() {

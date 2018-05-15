@@ -612,7 +612,7 @@ define([
             var position = dynamicSpatial.getSpatialPosition(threeVec);
             var quaternion = dynamicSpatial.getSpatialQuaternion(threeQuat);
 
-            var scale = dynamicSpatial.getSpatialScale(threeVec2);
+            var scale = dynamicSpatial.getSpatialScale(new THREE.Vector3());
 
 
             if (rigid_body.mass) {
@@ -643,7 +643,10 @@ define([
                     };
 
                     var shape = createPrimitiveShape(rigid_body);
-                    shape.setLocalScaling(new Ammo.btVector3(scale.x, scale.y, scale.z));
+
+                    if (rigid_body.shape === "Compound") {
+                        shape.setLocalScaling(new Ammo.btVector3(scale.x, scale.y, scale.z));
+                    };
 
                     bodyPools[dataKey] = new BodyPool(shape, createFunc);
                     rigidBody = fetchPoolBody(dataKey);
