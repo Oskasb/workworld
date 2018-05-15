@@ -49,7 +49,7 @@ define([
 
         //Used inside physics AND dynamic workers
         DynamicSpatial.prototype.setupMechanicalShape = function(body_config) {
-            console.log("Request Physics for spatial from here...", body_config);
+            this.dynamicShapes = [];
             this.bodyConfig = body_config;
             this.baseDamping = body_config.damping;
 
@@ -59,7 +59,7 @@ define([
                     this.attachDynamicShape(body_config.args[i], i, tempVec2);
                 }
             } else if (body_config.shape === 'Box') {
-                tempVec2.set(1, 1, 1)
+                tempVec2.set(1, 1, 1);
                 this.attachDynamicShape(body_config, 0, tempVec2);
             }
         };

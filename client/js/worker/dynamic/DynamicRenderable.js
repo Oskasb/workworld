@@ -53,27 +53,15 @@ define([
                 onReady(this);
             }.bind(this);
 
-            var configLoaded = function(data) {
+            var rbReady = false;
+            var confData;
 
-                if (data.rigid_body.shape === "Box") {
-                    this.scale3d.x *= data.rigid_body.args[0];
-                    this.scale3d.y *= data.rigid_body.args[1];
-                    this.scale3d.z *= data.rigid_body.args[2];
-                }
-
-                this.renderableGeometry.inheritScale3d(this.scale3d);
-                this.dynamicSpatial.applySpatialScaleXYZ(this.scale3d.x, this.scale3d.y, this.scale3d.z);
-                this.dynamicSpatial.setupMechanicalShape(data.rigid_body);
+            var shapesReady = function(data) {
                 this.dynamicSpatial.setVisualSize(data.visual_size || 1);
-
                 this.renderableGeometry.inheritPosAndQuat(this.pos, this.quat);
-
                 this.dynamicSpatial.setSpatialFromPosAndQuat(this.pos, this.quat);
-
                 this.renderableGeometry.setRenderableVisualSize(this.dynamicSpatial.getVisualSize());
                 this.dynamicFeedback.initDynamicFeedback(data.dynamic_feedback, feedbackReady);
-
-                this.dynamicSpatial.registerRigidBody(data.rigid_body);
 
                 if (data.instance_id) {
                     this.renderableGeometry.setupInstanceFxId(data.instance_id);
@@ -94,15 +82,38 @@ define([
                 if (data.camera_home) {
                     this.setCameraHome(data.camera_home.offset[0], data.camera_home.offset[1], data.camera_home.offset[2]);
                     this.setCameraLook(data.camera_home.lookat[0], data.camera_home.lookat[1], data.camera_home.lookat[2]);
-                } else {
-
                 }
+            }.bind(this);
+
+            var rbDataUpdated = function(rigid_body) {
+                if (rigid_body.shape === "Box") {
+                    this.scale3d.x *= rigid_body.args[0];
+                    this.scale3d.y *= rigid_body.args[1];
+                    this.scale3d.z *= rigid_body.args[2];
+                }
+
+                this.renderableGeometry.inheritScale3d(this.scale3d);
+                this.dynamicSpatial.applySpatialScaleXYZ(this.scale3d.x, this.scale3d.y, this.scale3d.z);
+                this.dynamicSpatial.setupMechanicalShape(rigid_body);
+
+                if (!rbReady) {
+                    this.dynamicSpatial.registerRigidBody(rigid_body);
+                    shapesReady(confData);
+                    rbReady = true;
+                }
+
+            }.bind(this);
+
+            var configLoaded = function(data) {
+
+                confData = data;
+                this.rbConf = new ConfigObject('RIGID_BODIES', data.rigid_body, 'rigid_body');
+                this.rbConf.addCallback(rbDataUpdated);
 
             }.bind(this);
 
             this.configObject = new ConfigObject('GEOMETRY', 'DYNAMIC_RENDERABLE', this.idKey);
             this.configObject.addCallback(configLoaded);
-
         };
 
         DynamicRenderable.prototype.setIsControlled = function(bool) {

@@ -20,6 +20,7 @@
 
       "geometry/renderable_dynamic.json",
       "geometry/dynamic_feedback.json",
+      "geometry/rigid_bodies.json",
       "geometry/terrain_configs.json",
 
       "game/attachments/attachment_groups.json",
