@@ -107,7 +107,6 @@ define([
                 for (var i = 0; i < dynamicSpatial.dynamicShapes.length; i++) {
                     this.debugShapes.push(new GeometryInstance("creative_crate_geometry_effect"));
                     dynamicSpatial.getSpatialScale(tempVec);
-                //    tempVec.multiply(dynamicSpatial.dynamicShapes[i].size);
                     this.debugShapes[i].setGeometryScale3d(dynamicSpatial.dynamicShapes[i].size);
                 }
                 console.log("DEBUG DRAW ENABLED")

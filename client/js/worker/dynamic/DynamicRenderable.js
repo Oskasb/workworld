@@ -94,6 +94,7 @@ define([
 
                 this.renderableGeometry.inheritScale3d(this.scale3d);
                 this.dynamicSpatial.applySpatialScaleXYZ(this.scale3d.x, this.scale3d.y, this.scale3d.z);
+                this.renderableGeometry.clearDebugShapes();
                 this.dynamicSpatial.setupMechanicalShape(rigid_body);
 
                 if (!rbReady) {

@@ -49,7 +49,11 @@ define([
 
         //Used inside physics AND dynamic workers
         DynamicSpatial.prototype.setupMechanicalShape = function(body_config) {
-            this.dynamicShapes = [];
+
+            while (this.dynamicShapes.length) {
+                this.dynamicShapes.pop()
+            }
+
             this.bodyConfig = body_config;
             this.baseDamping = body_config.damping;
 
