@@ -1,9 +1,10 @@
 "use strict";
 
 define([
+        'worker/physics/ShapePhysics'
     ],
     function(
-
+        ShapePhysics
     ) {
 
     var mecSubmergedDepth;
@@ -30,10 +31,13 @@ define([
 
         var radius;
 
+        var sphereVolume;
+
         var totalVolForce;
         var shapeVolForce;
 
         var WaterPhysics = function(physicsApi) {
+
         };
 
 
@@ -53,7 +57,8 @@ define([
                 radius = dynSpat.dynamicShapes[i].radius;
                 mecSubmergedDepth = tempVecGlobalPos.y - radius;
                 mecSubmergedDepth += PhysicsWorldAPI.waveHeightAtPos(tempVecGlobalPos);
-                unsubmergedVolume += MATH.sphereDisplacement(radius, radius*2);
+                sphereVolume = MATH.sphereDisplacement(radius, radius*2);
+                unsubmergedVolume += sphereVolume;
 
                 if (mecSubmergedDepth < 0) {
 
@@ -62,8 +67,10 @@ define([
                     unsubmergedVolume-=displacement;
                     totalSubmergedVolume += displacement;
 
-                    tempVolumeVelVec.subVectors(tempVelVec , tempVolumeVelVec );
+                    tempVolumeVelVec.addVectors(tempVelVec , tempVolumeVelVec );
 
+                    ShapePhysics.calculateShapeDynamicForce(dynSpat.dynamicShapes[i], tempVolumeVelVec, tempQuat, tempVec2);
+            /*
                 //    tempVolumeVelVec.copy(tempVelVec)
                     var vel = tempVolumeVelVec.lengthSq();
 
@@ -71,12 +78,14 @@ define([
                     totalVolForce += shapeVolForce;
 
                     tempVolumeVelVec.multiplyScalar(MATH.safeInt(shapeVolForce));
+*/
 
+                    tempVec2.multiplyScalar(MATH.calcFraction(0, sphereVolume, displacement) * 1.016);
                     tempVec3.set(0, displacement*1000 * physTpf, 0);
 
-                    tempVec3.x -= tempVolumeVelVec.x;
-                    tempVec3.y -= tempVolumeVelVec.y;
-                    tempVec3.z -= tempVolumeVelVec.z;
+                    tempVec3.x += tempVec2.x;
+                    tempVec3.y += tempVec2.y;
+                    tempVec3.z += tempVec2.z;
 
                     MATH.safeForceVector(tempVec3);
 
@@ -86,7 +95,7 @@ define([
             }
 
             submergedFraction = MATH.calcFraction(0, unsubmergedVolume+totalSubmergedVolume,  totalSubmergedVolume);
-            PhysicsWorldAPI.setBodyDamping(dynSpat.body, Math.min(dynSpat.baseDamping + Math.sqrt(submergedFraction*2)*0.8, 0.95),Math.min( dynSpat.baseDamping + Math.sqrt(submergedFraction*2) *0.7, 0.95)  )
+            PhysicsWorldAPI.setBodyDamping(dynSpat.body, Math.min(dynSpat.baseDamping + Math.sqrt(submergedFraction*2)*0.25, 0.75),Math.min( dynSpat.baseDamping + Math.sqrt(submergedFraction*2) *0.25, 0.55)  )
 
         };
 

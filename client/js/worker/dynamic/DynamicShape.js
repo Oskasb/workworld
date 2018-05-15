@@ -160,7 +160,7 @@ define([
         };
 
         DynamicShape.prototype.calculateVelocityFromAngularVelocity = function(angularVelocity, store) {
-            store.crossVectors(this.offset, angularVelocity);
+            store.crossVectors(angularVelocity , this.offset);
         };
 
         DynamicShape.prototype.applyDynamicShapeForceToBody = function(ammoApi, body) {

@@ -40,7 +40,7 @@ define([
             target.sampleBufferState();
             target.getOriginalRotation(calcObj.quaternion);
             calcObj.rotateY(moduleState.getAppliedFactor());
-            WorldAPI.addTextMessage(''+moduleState.getAppliedFactor());
+        //    WorldAPI.addTextMessage(''+moduleState.getAppliedFactor());
             target.setDynamicShapeQuaternion(calcObj.quaternion);
         };
 

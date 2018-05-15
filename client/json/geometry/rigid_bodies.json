@@ -23,29 +23,29 @@
 
 
             {"id":"sub_2",   "shape":"Box", "args":[17,  12,  65],   "offset":[-6, -5,   60],      "rotation":[0, 0.16, 0.1]},
-            {"id":"sub_3",   "shape":"Box", "args":[15,  12, 120],   "offset":[0,  -6,   40],      "rotation":[0, 0, 0]},
+            {"id":"sub_3",   "shape":"Box", "args":[15,  16, 120],   "offset":[0,  -4,   40],      "rotation":[0, 0, 0]},
             {"id":"sub_4",   "shape":"Box", "args":[17,  12,  65],   "offset":[6,  -5,   60],      "rotation":[0, -0.16, -0.1]},
 
-            {"id":"big_float_1a",   "shape":"Box", "args":[12,  14,  60],  "offset":[-10,   0,   60],    "rotation":[0,  0.16, 0]},
-            {"id":"big_float_1b",   "shape":"Box", "args":[12,  14,  60],  "offset":[ 10,   0,   60],    "rotation":[0, -0.16, 0]},
+            {"id":"big_float_1a",   "shape":"Box", "args":[12,  22,  60],  "offset":[-12,   0,   60],    "rotation":[0,  0.16, 0]},
+            {"id":"big_float_1b",   "shape":"Box", "args":[12,  22,  60],  "offset":[ 12,   0,   60],    "rotation":[0, -0.16, 0]},
 
-            {"id":"sub_7a",  "shape":"Box", "args":[15,  11,  60],  "offset":[-12, -6,    0],      "rotation":[0, 0, 0]},
-            {"id":"sub_7b",  "shape":"Box", "args":[15,  11,  60],  "offset":[ 12, -6,    0],      "rotation":[0, 0, 0]},
+            {"id":"sub_7a",  "shape":"Box", "args":[8,  16,  60],  "offset":[-16, -2,    0],      "rotation":[0, 0, 0]},
+            {"id":"sub_7b",  "shape":"Box", "args":[8,  16,  60],  "offset":[ 16, -2,    0],      "rotation":[0, 0, 0]},
 
-            {"id":"big_float_2a",  "shape":"Box", "args":[12,  14,  60],  "offset":[-10,  0,  -60],      "rotation":[0, 0, 0]},
-            {"id":"big_float_2b",  "shape":"Box", "args":[12,  14,  60],  "offset":[ 10,  0,  -60],      "rotation":[0, 0, 0]},
+            {"id":"big_float_2a",  "shape":"Box", "args":[12,  22,  60],  "offset":[-12,  0,  -60],      "rotation":[0, 0, 0]},
+            {"id":"big_float_2b",  "shape":"Box", "args":[12,  22,  60],  "offset":[ 12,  0,  -60],      "rotation":[0, 0, 0]},
 
-            {"id":"sub_8a",  "shape":"Box", "args":[15,  11,  60],  "offset":[-12,  -6,  -60],      "rotation":[0, 0, 0]},
-            {"id":"sub_8b",  "shape":"Box", "args":[15,  11,  60],  "offset":[ 12,  -6,  -60],      "rotation":[0, 0, 0]},
+            {"id":"sub_8a",  "shape":"Box", "args":[8,  16,  60],  "offset":[-16,  -2,  -60],      "rotation":[0, 0, 0]},
+            {"id":"sub_8b",  "shape":"Box", "args":[8,  16,  60],  "offset":[ 16,  -2,  -60],      "rotation":[0, 0, 0]},
 
-            {"id":"sub_17",  "shape":"Box", "args":[10,   6,  90],  "offset":[0,   -9, -60],      "rotation":[0, 0, 0]},
+            {"id":"sub_17",  "shape":"Box", "args":[10,  16,  120],  "offset":[0,   -4, -60],        "rotation":[0, 0, 0]},
 
-            {"id":"sub_18",  "shape":"Box", "args":[10,   9,  65],  "offset":[-10, -3, -120],      "rotation":[0.1, -0.1, 0]},
-            {"id":"sub_19",  "shape":"Box", "args":[10,   9,  65],  "offset":[0,   -3, -120],      "rotation":[0.1, 0, 0]},
-            {"id":"sub_20",  "shape":"Box", "args":[10,   9,  65],  "offset":[10,  -3, -120],      "rotation":[0.1, 0.1, 0]},
+            {"id":"sub_prop_1",  "shape":"Box", "args":[10,   9,  65],  "offset":[-10, -3, -120],   "rotation":[-0.0, -0.1, 0]},
+            {"id":"sub_19",      "shape":"Box", "args":[10,   9,  65],  "offset":[0,   -3, -120],       "rotation":[-0.0, 0, 0]},
+            {"id":"sub_prop_2",  "shape":"Box", "args":[10,   9,  65],  "offset":[10,  -3, -120],   "rotation":[-0.0, 0.1, 0]},
 
-            {"id":"rudder_1",  "shape":"Box", "args":[0.5,   6,  5],  "offset":[-8, -8, -145],      "rotation":[0, 0, 0]},
-            {"id":"rudder_2",  "shape":"Box", "args":[0.5,   6,  5],  "offset":[ 8,  -8, -145],      "rotation":[0, 0,0]},
+            {"id":"rudder_1",  "shape":"Box", "args":[0.5,   16,  18],  "offset":[-8,  -1, -145],      "rotation":[0, 0, 0]},
+            {"id":"rudder_2",  "shape":"Box", "args":[0.5,   16,  18],  "offset":[ 8,  -1, -145],     "rotation":[0, 0,0]},
 
 
             {"id":"deck_22",  "shape":"Box", "args":[49.5,   1,  18],  "offset":[-3,    21.2,   60],   "rotation":[0, 0, 0]},
