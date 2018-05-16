@@ -149,20 +149,23 @@ define([
 
             var ext = 0;
 
-            while (Math.abs(axisForce) > 100) {
-                tempVec2.multiplyScalar(2);
-                axisForce *= 0.01;
-                ext+= 20;
+
+
+
+            while (Math.abs(axisForce) > 10) {
+                tempVec2.multiplyScalar(1.002);
+                axisForce *= 0.99;
+                ext += 0.12;
             };
 
-            tempVec2[axis] = axisForce + ext;
+            tempVec2[axis] = axisForce + ext * Math.sign(axisForce);
 
 
             instance.scale3d.copy(tempVec2);
             tempVec2.multiplyScalar(0.5);
 
             if (tempVec2[axis] !== 0) {
-                WorldAPI.addTextMessage('ActingForce '+axis+' = '+tempVec2[axis])
+        //        WorldAPI.addTextMessage('ActingForce '+axis+' = '+tempVec2[axis])
             }
 
             tempVec2.applyQuaternion(instance.quat);
