@@ -155,7 +155,7 @@ define([
             while (Math.abs(axisForce) > 10) {
                 tempVec2.multiplyScalar(1.002);
                 axisForce *= 0.99;
-                ext += 0.12;
+                ext += 0.05;
             };
 
             tempVec2[axis] = axisForce + ext * Math.sign(axisForce);

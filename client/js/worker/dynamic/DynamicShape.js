@@ -178,9 +178,11 @@ define([
                 this.getDynamicShapeOffset(this.offset);
                 PhysicsWorldAPI.applyLocalForceToBodyPoint(this.impulseVector, body, this.offset);
                 this.clearDynamicShapeForce();
+            } else {
+                this.getDynamicShapeForce(this.impulseVector);
+                this.setVectorByFirstIndex(ENUMS.DynamicShape.ACTING_FORCE_X, this.impulseVector);
             }
         };
-
 
         return DynamicShape;
 

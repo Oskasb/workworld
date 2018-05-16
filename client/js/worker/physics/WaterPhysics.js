@@ -36,6 +36,9 @@ define([
         var totalVolForce;
         var shapeVolForce;
 
+        var submergedVolume;
+        var shape;
+
         var WaterPhysics = function(physicsApi) {
 
         };
@@ -51,25 +54,25 @@ define([
             totalVolForce = 0;
             for (var i = 0; i < dynSpat.dynamicShapes.length; i++) {
 
-                dynSpat.dynamicShapes[i].calculateWorldPosition(tempVec, tempQuat, tempVecGlobalPos);
-                dynSpat.dynamicShapes[i].calculateVelocityFromAngularVelocity(tempAngVelVec, tempVolumeVelVec);
+                shape = dynSpat.dynamicShapes[i]
 
-                radius = dynSpat.dynamicShapes[i].radius;
-                mecSubmergedDepth = tempVecGlobalPos.y - radius;
-                mecSubmergedDepth += PhysicsWorldAPI.waveHeightAtPos(tempVecGlobalPos);
-                sphereVolume = MATH.sphereDisplacement(radius, radius*2);
+                shape.calculateWorldPosition(tempVec, tempQuat, tempVecGlobalPos);
+                shape.calculateVelocityFromAngularVelocity(tempAngVelVec, tempVolumeVelVec);
+
+                submergedVolume = ShapePhysics.volumeBeneathSurface(shape, tempVec, tempQuat, PhysicsWorldAPI.waveHeightAtPos(tempVecGlobalPos));
+
+                sphereVolume = shape.size.x * shape.size.y * shape.size.z ;
+
                 unsubmergedVolume += sphereVolume;
 
-                if (mecSubmergedDepth < 0) {
+                if (submergedVolume > 0) {
 
-                    var displacement = MATH.sphereDisplacement(radius, -mecSubmergedDepth);
-
-                    unsubmergedVolume-=displacement;
-                    totalSubmergedVolume += displacement;
+                    unsubmergedVolume-=submergedVolume;
+                    totalSubmergedVolume += submergedVolume;
 
                     tempVolumeVelVec.addVectors(tempVelVec , tempVolumeVelVec );
 
-                    ShapePhysics.calculateShapeDynamicForce(dynSpat.dynamicShapes[i], tempVolumeVelVec, tempQuat, tempVec2);
+                    ShapePhysics.calculateShapeDynamicForce(shape, tempVolumeVelVec, tempQuat, tempVec2);
             /*
                 //    tempVolumeVelVec.copy(tempVelVec)
                     var vel = tempVolumeVelVec.lengthSq();
@@ -80,8 +83,8 @@ define([
                     tempVolumeVelVec.multiplyScalar(MATH.safeInt(shapeVolForce));
 */
 
-                    tempVec2.multiplyScalar(MATH.calcFraction(0, sphereVolume, displacement) * 1.016);
-                    tempVec3.set(0, displacement*1000 * physTpf, 0);
+                    tempVec2.multiplyScalar(MATH.calcFraction(0, sphereVolume, submergedVolume) * 1.016);
+                    tempVec3.set(0, submergedVolume*100, 0);
 
                     tempVec3.x += tempVec2.x;
                     tempVec3.y += tempVec2.y;
@@ -89,7 +92,7 @@ define([
 
                     MATH.safeForceVector(tempVec3);
 
-                    dynSpat.dynamicShapes[i].addForceToDynamicShape(tempVec3);
+                    shape.addForceToDynamicShape(tempVec3);
 
                 }
             }
