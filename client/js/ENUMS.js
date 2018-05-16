@@ -102,7 +102,8 @@ if(typeof(ENUMS) === "undefined"){
         HOVER_DYNAIMC_Y:    65,
         SELECT_PROGRESS:    66,
         EVENT_PROGRESS:     67,
-        DRAW_DYN_SHAPES:    68
+        DRAW_DYN_SHAPES:    68,
+        DRAW_SHAPE_FORCES:  69
 
     };
 
@@ -172,7 +173,10 @@ if(typeof(ENUMS) === "undefined"){
         QUAT_Y:             9,
         QUAT_Z:             10,
         QUAT_W:             11,
-        STRIDE:             12
+        ACTING_FORCE_X:     12,
+        ACTING_FORCE_Y:     13,
+        ACTING_FORCE_Z:     14,
+        STRIDE:             15
     };
 
     ENUMS.Worker = {
@@ -533,6 +537,10 @@ if(typeof(ENUMS) === "undefined"){
     }
 
     ENUMS.Map = map;
+
+    ENUMS.getKey = function(category, index) {
+        return ENUMS.Map[category][index];
+    }
 
     //  console.log("ENUMS", ENUMS);
 

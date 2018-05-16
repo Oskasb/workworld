@@ -67,7 +67,6 @@ define([
             this.scale3d.copy(vec3);
             if (this.effect) {
                 this.effect.updateEffectScale3d(this.scale3d);
-
             }
         };
 

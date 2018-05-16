@@ -272,6 +272,14 @@ define([
                 this.debug = false;
             }
 
+            if (WorldAPI.getCom(ENUMS.BufferChannels.DRAW_SHAPE_FORCES)) {
+                this.renderableGeometry.drawDebugForces(this.dynamicSpatial);
+                this.debugForces = true;
+            } else if (this.debugForces) {
+                this.renderableGeometry.clearDebugForces();
+                this.debugForces = false;
+            }
+
         };
 
         return DynamicRenderable;

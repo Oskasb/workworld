@@ -410,7 +410,7 @@
           {"source":"INSTANCING_CHUNKS", "chunk":"enterVoidMain"},
 
           {"source":"INSTANCING_PROGRAMS", "chunk":"vertexGeometryTextureData"},
-          {"source":"INSTANCING_PROGRAMS", "chunk":"vertexColorFromAttribColor4"},
+
 
           {"source":"INSTANCING_PROGRAMS", "chunk":"vertexPositionMain"},
           {"source":"INSTANCING_PROGRAMS", "chunk":"vertexNormalMain"},
@@ -421,9 +421,9 @@
 
           {"source":"INSTANCING_PROGRAMS", "chunk":"vertexUvTilesMain"},
 
-
           {"source":"INSTANCING_PROGRAMS", "chunk":"vertexSpatialFinal"},
           {"source":"INSTANCING_PROGRAMS", "chunk":"vertexGeometryDirectionalLight"},
+          {"source":"INSTANCING_PROGRAMS", "chunk":"vertexColorMultiplyFromAttribColor4"},
           {"source":"INSTANCING_PROGRAMS", "chunk":"vertexFogExp2Verts"},
 
           {"source":"INSTANCING_CHUNKS", "chunk":"exitVoidMain"}

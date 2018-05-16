@@ -32,6 +32,7 @@ define([
             this.quat = new THREE.Quaternion();
             this.direction = new THREE.Vector3();
             this.impulseVector = new THREE.Vector3();
+            this.actingForce = new THREE.Vector3();
             this.radius = 0;
             this.applyShapeConfig(shapeConfig);
         };
@@ -65,6 +66,11 @@ define([
             return Math.pow( size.x*size.y*size.z / (4/(3*3.14)), 0.333);
         };
 
+        DynamicShape.prototype.sampleActingForce = function() {
+            this.getVectorByFirstIndex(ENUMS.DynamicShape.ACTING_FORCE_X, this.actingForce);
+            return this.actingForce;
+        };
+
         DynamicShape.prototype.updateRadius = function() {
             this.radius = this.approximateRadius(this.size);
         };
@@ -81,22 +87,22 @@ define([
         };
 
         DynamicShape.prototype.getVectorByFirstIndex = function(indx, storeVec) {
-            storeVec.x = this.buffer[indx];
-            storeVec.y = this.buffer[indx+1];
-            storeVec.z = this.buffer[indx+2];
+            storeVec.x = this.buffer[this.bsi + indx];
+            storeVec.y = this.buffer[this.bsi + indx+1];
+            storeVec.z = this.buffer[this.bsi + indx+2];
             return storeVec;
         };
 
         DynamicShape.prototype.setVectorByFirstIndex = function(indx, vec3) {
-            this.buffer[indx]   =vec3.x;
-            this.buffer[indx+1] =vec3.y;
-            this.buffer[indx+2] =vec3.z
+            this.buffer[this.bsi + indx]   = vec3.x;
+            this.buffer[this.bsi + indx+1] = vec3.y;
+            this.buffer[this.bsi + indx+2] = vec3.z
         };
 
         DynamicShape.prototype.addVectorByFirstIndex = function(indx, vec3) {
-            this.buffer[indx]  +=vec3.x;
-            this.buffer[indx+1]+=vec3.y;
-            this.buffer[indx+2]+=vec3.z
+            this.buffer[this.bsi + indx]  +=vec3.x;
+            this.buffer[this.bsi + indx+1]+=vec3.y;
+            this.buffer[this.bsi + indx+2]+=vec3.z
         };
 
         DynamicShape.prototype.setDynamicShapeQuaternion = function(quat) {
@@ -114,6 +120,7 @@ define([
         };
 
         DynamicShape.prototype.clearDynamicShapeForce = function() {
+
             this.buffer[this.bsi + ENUMS.DynamicShape.HAS_FORCE] = 0;
             this.buffer[this.bsi + ENUMS.DynamicShape.FORCE_APPLIED_X] = 0;
             this.buffer[this.bsi + ENUMS.DynamicShape.FORCE_APPLIED_Y] = 0;
@@ -122,19 +129,20 @@ define([
 
         DynamicShape.prototype.addForceToDynamicShape = function(vec3) {
             this.buffer[this.bsi + ENUMS.DynamicShape.HAS_FORCE] = 1;
-            this.addVectorByFirstIndex(this.bsi + ENUMS.DynamicShape.FORCE_APPLIED_X, vec3);
+            this.addVectorByFirstIndex(ENUMS.DynamicShape.FORCE_APPLIED_X, vec3);
+        //    this.addVectorByFirstIndex(ENUMS.DynamicShape.ACTING_FORCE_X, vec3);
         };
 
         DynamicShape.prototype.getDynamicShapeForce = function(vec3) {
-            return this.getVectorByFirstIndex(this.bsi + ENUMS.DynamicShape.FORCE_APPLIED_X, vec3);
+            return this.getVectorByFirstIndex(ENUMS.DynamicShape.FORCE_APPLIED_X, vec3);
         };
 
         DynamicShape.prototype.setDynamicShapeOffset = function(vec3) {
-            this.setVectorByFirstIndex(this.bsi + ENUMS.DynamicShape.OFFSET_X, vec3);
+            this.setVectorByFirstIndex(ENUMS.DynamicShape.OFFSET_X, vec3);
         };
 
         DynamicShape.prototype.getDynamicShapeOffset = function(vec3) {
-            return this.getVectorByFirstIndex(this.bsi + ENUMS.DynamicShape.OFFSET_X, vec3);
+            return this.getVectorByFirstIndex(ENUMS.DynamicShape.OFFSET_X, vec3);
         };
 
 
@@ -166,6 +174,7 @@ define([
         DynamicShape.prototype.applyDynamicShapeForceToBody = function(ammoApi, body) {
             if (this.hasDynamicShapeForce()) {
                 this.getDynamicShapeForce(this.impulseVector);
+                this.setVectorByFirstIndex(ENUMS.DynamicShape.ACTING_FORCE_X, this.impulseVector);
                 this.getDynamicShapeOffset(this.offset);
                 PhysicsWorldAPI.applyLocalForceToBodyPoint(this.impulseVector, body, this.offset);
                 this.clearDynamicShapeForce();

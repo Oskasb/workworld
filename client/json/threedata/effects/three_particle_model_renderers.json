@@ -18,7 +18,7 @@
         {
           "id":"gpu_spatial_box_renderer",
           "material_id":"gpu_geometry_spatial_material",
-          "particle_pool":2000,
+          "particle_pool":3000,
           "particle_geometry":"box3d",
           "material_options":{
             "blending":"NoBlending",

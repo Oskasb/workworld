@@ -44,8 +44,8 @@
             {"id":"sub_19",      "shape":"Box", "args":[10,   9,  65],  "offset":[0,   -3, -120],       "rotation":[-0.0, 0, 0]},
             {"id":"sub_prop_2",  "shape":"Box", "args":[10,   9,  65],  "offset":[10,  -3, -120],   "rotation":[-0.0, 0.1, 0]},
 
-            {"id":"rudder_1",  "shape":"Box", "args":[0.5,   16,  18],  "offset":[-8,  -1, -145],      "rotation":[0, 0, 0]},
-            {"id":"rudder_2",  "shape":"Box", "args":[0.5,   16,  18],  "offset":[ 8,  -1, -145],     "rotation":[0, 0,0]},
+            {"id":"rudder_1",  "shape":"Box", "args":[0.5,   16,  18],  "offset":[-8,  -8, -145],      "rotation":[0, 0, 0]},
+            {"id":"rudder_2",  "shape":"Box", "args":[0.5,   16,  18],  "offset":[ 8,  -8, -145],     "rotation":[0, 0,0]},
 
 
             {"id":"deck_22",  "shape":"Box", "args":[49.5,   1,  18],  "offset":[-3,    21.2,   60],   "rotation":[0, 0, 0]},
