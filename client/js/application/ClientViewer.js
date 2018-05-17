@@ -337,8 +337,6 @@ define([
 
             ThreeAPI.updateCamera();
 
-            WorkerAPI.wakeWorldThread();
-
             if (PipelineAPI.getPipelineOptions('jsonPipe').polling.enabled) {
                 PipelineAPI.tickPipelineAPI(tpf);
             }
@@ -348,7 +346,7 @@ define([
 
             comBuffer[ENUMS.BufferChannels.WAKE_INDEX]++;
             PipelineAPI.setCategoryKeyValue('STATUS', 'TPF', tpf);
-
+            WorkerAPI.wakeWorldThread();
         };
 
         ClientViewer.prototype.tickWorkerPing = function(msg) {

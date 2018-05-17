@@ -171,6 +171,7 @@ define([
             widgetCalls['DRAG_AXIS'] = widgetBuilder.buildDragAxis;
             widgetCalls['HOVER_DYNAMIC'] = widgetBuilder.buildHoverDynamic;
             widgetCalls['THUMBSTICK'] = widgetBuilder.buildThumbstick;
+            widgetCalls['STATE_GAUGE'] = widgetBuilder.buildStateGauge;
         };
 
 

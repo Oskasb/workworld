@@ -21,6 +21,15 @@
         "data":{
           "widgets":[
             {"widget":"THUMBSTICK",     "label":"",       "configId":"config", "onDrag":"thumbstickDrag"},
+            {"widget":"STATE_GAUGE",    "label":"AoA X",  "configId":"angle_indicator",  "layout":{"margin_y":0.48}, "buffer":"currentDynamic", "channel":"ANGLE_OF_ATTACK_X"},
+            {"widget":"STATE_GAUGE",    "label":"AoA Y",  "configId":"angle_indicator",  "layout":{"margin_y":0.44}, "buffer":"currentDynamic", "channel":"ANGLE_OF_ATTACK_Y"},
+            {"widget":"STATE_GAUGE",    "label":"AoA Z",  "configId":"angle_indicator",  "layout":{"margin_y":0.40}, "buffer":"currentDynamic", "channel":"ANGLE_OF_ATTACK_Z"},
+
+            {"widget":"STATE_GAUGE",    "label":"ROLL",   "configId":"angle_indicator",  "layout":{"margin_y":0.54}, "buffer":"currentDynamic", "channel":"ROLL_ANGLE"},
+            {"widget":"STATE_GAUGE",    "label":"PITCH",  "configId":"angle_indicator",  "layout":{"margin_y":0.58}, "buffer":"currentDynamic", "channel":"PITCH_ANGLE"},
+            {"widget":"STATE_GAUGE",    "label":"YAW",    "configId":"angle_indicator",  "layout":{"margin_y":0.62}, "buffer":"currentDynamic", "channel":"YAW_ANGLE"},
+
+
             {"widget":"HOVER_DYNAMIC",  "label":"",       "configId":"config"},
             {"widget":"DRAG_AXIS",      "label":"RUDDER", "configId":"drag_cam_x", "layout":{}, "onDrag":"dragCamX", "channel":"UI_CAM_DRAG_X"},
             {"widget":"DRAG_AXIS",      "label":"SPEED",  "configId":"drag_cam_y", "layout":{}, "onDrag":"dragCamY", "channel":"UI_CAM_DRAG_Y"},

@@ -11,6 +11,7 @@ define([
         var tempVec1 = new THREE.Vector3();
         var tempVec2 = new THREE.Vector3();
         var tempQuat = new THREE.Quaternion();
+        var tempObj = new THREE.Object3D();
 
         var TRANSFORM_AUX;
         var VECTOR_AUX;
@@ -119,6 +120,12 @@ define([
             storeVec.y = this.spatialBuffer[indx+1];
             storeVec.z = this.spatialBuffer[indx+2];
             return storeVec;
+        };
+
+        DynamicSpatial.prototype.setVectorByFirstIndex = function(indx, vec3) {
+             this.spatialBuffer[indx]   = vec3.x;
+             this.spatialBuffer[indx+1] = vec3.y;
+             this.spatialBuffer[indx+2] = vec3.z;
         };
 
         DynamicSpatial.prototype.copyBufferAByFirstIndexToBufferB = function(indxA, indxB) {
@@ -345,6 +352,32 @@ define([
 
         };
 
+        DynamicSpatial.prototype.computeAngleOfAttack = function() {
+            this.getVectorByFirstIndex(ENUMS.BufferSpatial.VELOCITY_X, tempVec1);
+            this.getSpatialQuaternion(tempQuat);
+            tempVec2.set(0, 0, 1);
+            tempVec2.applyQuaternion(tempQuat);
+            tempVec1.normalize();
+            tempVec1.sub(tempVec2);
+            this.setVectorByFirstIndex(ENUMS.BufferSpatial.ANGLE_OF_ATTACK_X, tempVec1);
+        };
+
+        DynamicSpatial.prototype.computeAngles = function() {
+            this.getVectorByFirstIndex(ENUMS.BufferSpatial.VELOCITY_X, tempVec1);
+            this.getSpatialQuaternion(tempObj.quaternion);
+            tempVec2.set(0, 0, 1);
+            tempVec2.applyQuaternion(tempObj.quaternion);
+            tempVec1.normalize();
+            tempVec1.sub(tempVec2);
+            this.setVectorByFirstIndex(ENUMS.BufferSpatial.ANGLE_OF_ATTACK_X, tempVec1);
+
+            this.spatialBuffer[ENUMS.BufferSpatial.ROLL_ANGLE] = tempObj.rotation.z;
+            this.spatialBuffer[ENUMS.BufferSpatial.PITCH_ANGLE] = tempObj.rotation.x;
+            this.spatialBuffer[ENUMS.BufferSpatial.YAW_ANGLE] = tempObj.rotation.y;
+
+        };
+
+
         DynamicSpatial.prototype.tickPhysicsUpdate = function(ammoApi) {
 
             this.testSpatialMotion();
@@ -381,6 +414,7 @@ define([
 
             this.clearSpatialForce();
             this.clearSpatialTorque();
+            this.computeAngles();
 
         };
 
@@ -445,6 +479,8 @@ define([
 
             this.bufferAByFirstIndexSubBufferB(ENUMS.BufferSpatial.ACCELERATION_X, ENUMS.BufferSpatial.VELOCITY_X);
             this.bufferAByFirstIndexSubBufferB(ENUMS.BufferSpatial.ANGULAR_ACCEL_X, ENUMS.BufferSpatial.ANGULAR_VEL_X);
+
+
 
         };
 

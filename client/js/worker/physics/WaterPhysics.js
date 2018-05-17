@@ -40,7 +40,7 @@ define([
         var shape;
 
         var WaterPhysics = function(physicsApi) {
-
+        //    ShapePhysics.initData();
         };
 
 
@@ -72,7 +72,7 @@ define([
 
                     tempVolumeVelVec.addVectors(tempVelVec , tempVolumeVelVec );
 
-                    ShapePhysics.calculateShapeDynamicForce(shape, tempVolumeVelVec, tempQuat, tempVec2);
+                    ShapePhysics.calculateShapeDynamicForce(shape, tempVolumeVelVec, tempQuat, tempVec2, 1);
             /*
                 //    tempVolumeVelVec.copy(tempVelVec)
                     var vel = tempVolumeVelVec.lengthSq();

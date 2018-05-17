@@ -1,10 +1,10 @@
 "use strict";
 
 define([
-
+        'ConfigObject'
     ],
     function(
-
+        ConfigObject
     ) {
 
         var mecSubmergedDepth;
@@ -45,9 +45,31 @@ define([
         var dragCoeff = 0.1;
         var elevation;
 
+
+        var liftCurves = {};
+        var coefficients = {};
+
+
         var ShapePhysics = function() {
 
         };
+
+        ShapePhysics.initData = function() {
+
+            var liftCurveData = function(data) {
+                liftCurves = data;
+            };
+
+            PhysicsWorldAPI.fetchConfigData('PHYSICS', 'AERODYNAMICS', 'lift_curves', liftCurveData);
+
+            var coeffCurveData = function(data) {
+                coefficients = data;
+            };
+
+            PhysicsWorldAPI.fetchConfigData('PHYSICS', 'AERODYNAMICS', 'coefficients', coeffCurveData);
+        };
+
+
 
         ShapePhysics.volumeBeneathSurface = function(dynamicShape, pos, quat, surfaceElevation) {
 
@@ -67,11 +89,7 @@ define([
          return Math.abs(boxVec.x*boxVec.y * velVec.z * velVec.z) + Math.abs(boxVec.z*boxVec.y * velVec.x* velVec.x) + Math.abs(boxVec.x*boxVec.z * velVec.y * velVec.y);
         };
 
-        ShapePhysics.calculateSurfaceLiftForce = function(area, velocity, angleOfAttack) {
-            return area*velocity*Math.sin(angleOfAttack)
 
-            //    return Math.abs(boxVec.x*boxVec.y * velVec.z * velVec.z) + Math.abs(boxVec.z*boxVec.y * velVec.x* velVec.x) + Math.abs(boxVec.x*boxVec.z * velVec.y * velVec.y);
-        };
 
         ShapePhysics.calculateAngleOfAttack = function(area, velocity, angleOfAttack) {
             return area*velocity*Math.sin(angleOfAttack)
@@ -82,10 +100,23 @@ define([
         ShapePhysics.transformShapeTo = function(area, velocity, angleOfAttack) {
             return area*velocity*Math.sin(angleOfAttack * Math.PI)
 
+
             //    return Math.abs(boxVec.x*boxVec.y * velVec.z * velVec.z) + Math.abs(boxVec.z*boxVec.y * velVec.x* velVec.x) + Math.abs(boxVec.x*boxVec.z * velVec.y * velVec.y);
         };
 
-        ShapePhysics.calculateShapeDynamicForce = function(dynamicShape, velocity, rootQuat, forceStore) {
+
+        ShapePhysics.calculateSurfaceLiftForce = function(area, velocity, angleOfAttack, curveName) {
+            return area*velocity*MATH.valueFromCurve(angleOfAttack*Math.PI, liftCurves[curveName])
+        };
+
+        ShapePhysics.ccurveLift = function(angleOfAttack, curveName) {
+            return MATH.valueFromCurve(angleOfAttack*Math.PI, liftCurves[curveName])
+        };
+
+
+        var curveId;
+
+        ShapePhysics.calculateShapeDynamicForce = function(dynamicShape, velocity, rootQuat, forceStore, density) {
 
             tempVec.copy(dynamicShape.size);
             tempVec2.copy(velocity).normalize();
@@ -104,21 +135,30 @@ define([
             drag = ShapePhysics.calculateSurfaceDragForce(tempVec, velocity);
 
             forceStore.copy(velocity);
-            forceStore.multiplyScalar(-drag*dragCoeff);
+            forceStore.multiplyScalar(-drag*coefficients['water_drag']);
 
-            liftVec.y =  ShapePhysics.calculateSurfaceLiftForce(dynamicShape.size.x * dynamicShape.size.z, velocity.z, anglesOfAttack.z);
+            liftVec.set(0, 0, 0);
 
-            liftVec.x = ShapePhysics.calculateSurfaceLiftForce(dynamicShape.size.y * dynamicShape.size.z, velocity.z, anglesOfAttack.y);
+            curveId = dynamicShape.getAxisLiftCurve(0);
+            if (curveId) {
+                liftVec.x = ShapePhysics.calculateSurfaceLiftForce(dynamicShape.size.y * dynamicShape.size.z, velocity.z, anglesOfAttack.x, curveId);
+            }
 
-            liftVec.z =  ShapePhysics.calculateSurfaceLiftForce(dynamicShape.size.y * dynamicShape.size.x, velocity.x, anglesOfAttack.x);
+            curveId = dynamicShape.getAxisLiftCurve(1);
+            if (curveId) {
+                liftVec.y = ShapePhysics.calculateSurfaceLiftForce(dynamicShape.size.x * dynamicShape.size.z, velocity.z, anglesOfAttack.z, curveId);
+            }
 
+            curveId = dynamicShape.getAxisLiftCurve(2);
+            if (curveId) {
+                liftVec.z = ShapePhysics.calculateSurfaceLiftForce(dynamicShape.size.y * dynamicShape.size.x, velocity.x, anglesOfAttack.x, curveId);
+            }
 
-            liftVec.multiplyScalar(100);
+            liftVec.multiplyScalar(density * 10);
 
             forceStore.addVectors(liftVec, forceStore);
 
         };
-
 
         return ShapePhysics;
 

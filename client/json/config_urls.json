@@ -23,6 +23,8 @@
       "geometry/rigid_bodies.json",
       "geometry/terrain_configs.json",
 
+      "physics/physics_parameters.json",
+
       "game/attachments/attachment_groups.json",
       "game/attachments/modules.json",
       "game/controls/gui_control_data.json",

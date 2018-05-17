@@ -6,6 +6,7 @@ define([
         'ui/widgets/WidgetProcessor',
         'ui/widgets/GuiThumbstickWidget',
         'ui/widgets/GuiDragAxisWidget',
+        'ui/widgets/GuiGaugeWidget',
         'ui/widgets/GuiProgressWidget',
         'ui/widgets/GuiHoverDynamic',
         'ui/widgets/MessageBoxWidget',
@@ -18,6 +19,7 @@ define([
         WidgetProcessor,
         GuiThumbstickWidget,
         GuiDragAxisWidget,
+        GuiGaugeWidget,
         GuiProgressWidget,
         GuiHoverDynamic,
         MessageBoxWidget,
@@ -145,6 +147,43 @@ define([
             widgetBuilder.buildDragAxisConfig(store, conf)
         };
 
+
+        WidgetBuilder.prototype.buildStateGauge = function(config, store, widgetBuilder) {
+
+            var bufferFetcher = {
+                worldComBuffer:WorldAPI.getWorldComBuffer(),
+                currentDynamic:WorldAPI.getControlledRenderable().getDynamicSpatialBuffer()
+            };
+
+            var enumHandle = {
+                worldComBuffer:'BufferChannels',
+                currentDynamic:'BufferSpatial'
+            };
+
+            var conf = {
+                label:config.label,
+                configId:config.configId,
+                layout:config.layout,
+                buffer:bufferFetcher[config.buffer],
+                channel:ENUMS[enumHandle[config.buffer]][config.channel]
+            };
+
+            widgetBuilder.buildGaugeConfig(store, conf)
+        };
+
+        WidgetBuilder.prototype.buildGaugeWidget = function(store, label, configId, customLayout, buffer, bufferChannel) {
+            widget = new GuiGaugeWidget(label, configId);
+
+            if (buffer) {
+                widget.setMasterBuffer(buffer, bufferChannel);
+            }
+            widget.applyDynamicLayout(customLayout);
+            store.push(widget);
+        };
+
+        WidgetBuilder.prototype.buildGaugeConfig = function(store, config) {
+            this.buildGaugeWidget(store, config.label, config.configId, config.layout, config.buffer, config.channel)
+        };
 
         WidgetBuilder.prototype.buildProgressWidgets = function(store) {
             var buffer = WorldAPI.getWorldComBuffer();

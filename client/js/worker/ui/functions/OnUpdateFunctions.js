@@ -14,6 +14,13 @@ define([],
             WorldAPI.completeControlChange()
         };
 
+        OnUpdateFunctions.stateUpdate = function(value) {
+
+            if (value === 1) {
+
+            }
+        };
+
         OnUpdateFunctions.selectUpdate = function(value) {
 
             if (value === 1) {

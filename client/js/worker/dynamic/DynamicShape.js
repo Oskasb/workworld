@@ -34,6 +34,7 @@ define([
             this.impulseVector = new THREE.Vector3();
             this.actingForce = new THREE.Vector3();
             this.radius = 0;
+            this.lift = ["box",  "box",  "box"];
             this.applyShapeConfig(shapeConfig);
         };
 
@@ -45,6 +46,10 @@ define([
 
                 if (conf.offset) {
                     this.offset.set(conf.offset[0],conf.offset[1],conf.offset[2]);
+                }
+
+                if (conf.lift) {
+                    this.lift = conf.lift;
                 }
 
                 if (conf.rotation) {
@@ -60,6 +65,10 @@ define([
             } else {
                 console.log("Non Box Shape.. NOT SUPPORTED!");
             }
+        };
+
+        DynamicShape.prototype.getAxisLiftCurve = function(axisIndex) {
+            return this.lift[axisIndex];
         };
 
         DynamicShape.prototype.approximateRadius = function(size) {

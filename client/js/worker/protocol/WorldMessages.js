@@ -2,10 +2,12 @@
 
 define([
         'PipelineAPI',
+        'ConfigObject',
         '3d/three/ThreeModelLoader'
     ],
     function(
         PipelineAPI,
+        ConfigObject,
         ThreeModelLoader
     ) {
         var WorldAPI;
@@ -26,7 +28,7 @@ define([
             };
 
             this.messageHandlers[ENUMS.Protocol.NOTIFY_FRAME] = function(msg) {
-                WorldAPI.callSharedWorker(ENUMS.Worker.PHYSICS_WORLD, ENUMS.Protocol.PHYSICS_CALL_UPDATE, null);
+
 
                 WorldAPI.notifyFrameInit();
                 WorldAPI.updateStatusMonitor()
@@ -51,6 +53,22 @@ define([
 
             this.messageHandlers[ENUMS.Protocol.SEND_PIPELINE_DATA] = function(msg) {
                 PipelineAPI.setCategoryKeyValue(msg[1].category, msg[1].key, msg[1].value);
+            };
+
+
+            this.messageHandlers[ENUMS.Protocol.FETCH_CONFIG_DATA] = function(msg) {
+
+                var fetcher = new ConfigObject(msg[1][0], msg[1][1], msg[1][2]);
+
+                var dataUpdated = function(data) {
+                    WorldAPI.callSharedWorker(ENUMS.Worker.PHYSICS_WORLD, ENUMS.Protocol.SET_CONFIG_DATA, [msg[1], data]);
+                };
+
+                fetcher.addCallback(dataUpdated);
+
+            };
+            this.messageHandlers[ENUMS.Protocol.SET_CONFIG_DATA] = function(msg) {
+                PhysicsWorldAPI.setConfigData(msg[1])
             };
 
             this.messageHandlers[ENUMS.Protocol.PHYSICS_TERRAIN_ADD] = function(msg) {
@@ -79,6 +97,7 @@ define([
                 ThreeModelLoader.fetchPooledMeshModel(msg[1], cb);
 
             };
+
 
             this.messageHandlers[ENUMS.Protocol.SET_GEOMETRY_BUFFER] = function(msg) {
                 PhysicsWorldAPI.setPhysicsGeometryBuffer(msg[1])

@@ -11,7 +11,7 @@
           "url": "./client/assets/models/boats/enterprise",
           "pool": 1,
           "transform": {
-            "pos": [0, -10, 0],
+            "pos": [0,  -0, 0],
             "rot": [0,  -1, 0],
             "scale": [1, 1, 1]
           }

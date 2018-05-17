@@ -6,7 +6,8 @@ define([
         'worker/protocol/WorldMessages',
         'worker/physics/AmmoAPI',
         'worker/physics/WaterPhysics',
-        'worker/dynamic/DynamicSpatial'
+        'worker/dynamic/DynamicSpatial',
+        'worker/physics/ShapePhysics'
     ],
     function(
         PipelineAPI,
@@ -14,7 +15,8 @@ define([
         WorldMessages,
         AmmoAPI,
         WaterPhysics,
-        DynamicSpatial
+        DynamicSpatial,
+        ShapePhysics
     ) {
 
     var comBuffer;
@@ -53,6 +55,7 @@ define([
                 console.log("configs static world SharedWorker", PipelineAPI.getCachedConfigs(), fetches);
                 ammoApi.initPhysics();
                 onWorkerReady();
+                ShapePhysics.initData();
             };
 
             ammoApi = new AmmoAPI(ammoReady);
@@ -214,6 +217,29 @@ define([
 
         PhysicsWorldAPI.sendWorldMessage = function(protocolKey, data) {
             protocolRequests.sendMessage(protocolKey, data)
+        };
+
+        var fetchCallbacks = {};
+
+        PhysicsWorldAPI.fetchConfigData = function(category, key, dataId, callback) {
+            if (!fetchCallbacks[category]) {
+                fetchCallbacks[category] = {}
+            }
+            if (!fetchCallbacks[category][key]) {
+                fetchCallbacks[category][key] = {};
+            }
+            if (!fetchCallbacks[category][key][dataId]) {
+                fetchCallbacks[category][key][dataId] = [];
+            }
+
+            fetchCallbacks[category][key][dataId].push(callback);
+            protocolRequests.sendMessage(ENUMS.Protocol.FETCH_CONFIG_DATA, [category, key, dataId])
+        };
+
+        PhysicsWorldAPI.setConfigData = function(msg) {
+            for (var i = 0; i < fetchCallbacks[msg[0][0]][msg[0][1]][msg[0][2]].length; i++) {
+                fetchCallbacks[msg[0][0]][msg[0][1]][msg[0][2]][i](msg[1]);
+            }
         };
 
         PhysicsWorldAPI.applyLocalForceToBodyPoint = function(force, body, point) {

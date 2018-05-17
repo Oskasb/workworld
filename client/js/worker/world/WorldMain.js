@@ -48,7 +48,6 @@ define([
             WorldAPI = wApi;
         };
 
-
         WorldMain.prototype.initWorldSystems = function(onWorkerReady) {
             EffectsListeners.setupListeners();
 

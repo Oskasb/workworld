@@ -182,6 +182,10 @@ define([
             return this.controlPos;
         };
 
+        DynamicRenderable.prototype.getDynamicSpatialBuffer = function() {
+            return this.dynamicSpatial.getSpatialBuffer()
+        };
+
         DynamicRenderable.prototype.getDynamicScale = function(vec3) {
             return this.dynamicSpatial.getSpatialScale(vec3)
         };

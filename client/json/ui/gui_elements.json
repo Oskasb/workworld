@@ -157,11 +157,37 @@
           },
 
           "progress_value":{
-            "font_size":7,
+            "font_size":9,
             "letter_spacing":1,
             "text_align_x":0.5,
             "text_align_y":0.5,
             "text_margin_x":1.1,
+            "text_margin_y":0.0,
+            "italic":false,
+            "font_effect":"gui_basic_normal_text_effect",
+            "color_map":"list_value_color_map",
+            "alpha_map":"message_alpha_map"
+          },
+
+          "gauge_key":{
+            "font_size":9,
+            "letter_spacing":1,
+            "text_align_x":0.0,
+            "text_align_y":0.5,
+            "text_margin_x":1.4,
+            "text_margin_y":0.0,
+            "italic":true,
+            "font_effect":"gui_basic_normal_text_effect",
+            "color_map":"list_key_color_map",
+            "alpha_map":"message_alpha_map"
+          },
+
+          "gauge_value":{
+            "font_size":9,
+            "letter_spacing":1,
+            "text_align_x":1.0,
+            "text_align_y":0.5,
+            "text_margin_x":1.0,
             "text_margin_y":0.0,
             "italic":false,
             "font_effect":"gui_basic_normal_text_effect",

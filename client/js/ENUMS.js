@@ -26,7 +26,9 @@ if(typeof(ENUMS) === "undefined"){
         PHYSICS_CALL_UPDATE:    16,
         FETCH_GEOMETRY_BUFFER:  17,
         SET_GEOMETRY_BUFFER:    18,
-        REGISTER_GEOMETRY:      19
+        REGISTER_GEOMETRY:      19,
+        FETCH_CONFIG_DATA:      20,
+        SET_CONFIG_DATA:        21
     };
 
     ENUMS.BufferChannels = {
@@ -156,6 +158,12 @@ if(typeof(ENUMS) === "undefined"){
         ANGULAR_ACCEL_Y:    38,
         ANGULAR_ACCEL_Z:    39,
         VISUAL_SIZE:        40,
+        ANGLE_OF_ATTACK_X:  41,
+        ANGLE_OF_ATTACK_Y:  42,
+        ANGLE_OF_ATTACK_Z:  43,
+        ROLL_ANGLE:         44,
+        PITCH_ANGLE:        45,
+        YAW_ANGLE:          46,
         DYNAMIC_FIRST_INDEX:64,
         BUFFER_SIZE:        1024
     };

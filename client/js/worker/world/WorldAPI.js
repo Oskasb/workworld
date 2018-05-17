@@ -87,6 +87,12 @@ define([
             return worldMain.worldComBuffer()
         };
 
+        WorldAPI.getDynamnicSpatialBufferByRenderableId = function(id) {
+
+            return worldMain.worldComBuffer()
+
+        };
+
         WorldAPI.addTextMessage = function(message) {
 
             var channel = PipelineAPI.readCachedConfigKey('GUI_MESSAGES', 'CHANNEL_ONE');
@@ -160,6 +166,7 @@ define([
         WorldAPI.notifyFrameInit = function() {
             frameStartTime = performance.now();
             worldMain.updateWorld();
+
         };
 
         WorldAPI.updateStatusMonitor = function() {
@@ -244,6 +251,7 @@ define([
             GuiAPI.updateGui();
             WorldAPI.getWorldCamera().relayCamera(WorldAPI.getWorldComBuffer());
             worldMain.updateWorldEffects();
+            WorldAPI.callSharedWorker(ENUMS.Worker.PHYSICS_WORLD, ENUMS.Protocol.PHYSICS_CALL_UPDATE, null);
         };
 
         WorldAPI.getWorldTime = function() {
