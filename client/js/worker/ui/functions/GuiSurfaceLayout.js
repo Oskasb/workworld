@@ -110,11 +110,9 @@ define([
             bottom.setEdgeXY( this.getCenterX(),  this.yMax);
 
             top.setEdgeWidthAndHeight(this.getLayoutWidth(), thickness);
-
             left.setEdgeWidthAndHeight(this.getLayoutHeight() , thickness);
             right.setEdgeWidthAndHeight(this.getLayoutHeight() , thickness);
-
-            bottom.setEdgeWidthAndHeight(this.getLayoutWidth(), thickness)
+            bottom.setEdgeWidthAndHeight(this.getLayoutWidth(), thickness);
 
             left.setRotation(0, 0, -Math.PI*0.5);
             right.setRotation(0, 0, Math.PI*0.5);

@@ -3,60 +3,51 @@
 define([
         'ConfigObject',
         'ui/elements/GuiSurfaceElement',
-        'ui/functions/GuiDraggable'
+        'ui/functions/GuiDraggable',
+        'ui/widgets/BaseWidget'
     ],
     function(
         ConfigObject,
         GuiSurfaceElement,
-        GuiDraggable
+        GuiDraggable,
+        BaseWidget
     ) {
 
         var GuiThumbstickWidget = function() {
 
             this.position = new THREE.Vector3();
-            this.surfaceElement = new GuiSurfaceElement();
-            this.guiDraggable = new GuiDraggable(this.surfaceElement);
-
+            this.guiDraggable = new GuiDraggable();
+            this.baseWidget = new BaseWidget("STEER", "config");
         };
 
         GuiThumbstickWidget.prototype.setupTextElements = function() {
 
-            this.header = this.surfaceElement.addSurfaceTextElement('header', 'Header');
-            this.typeLabel = this.surfaceElement.addSurfaceTextElement('type_label', 'Type Label');
-            this.typeLabel2 = this.surfaceElement.addSurfaceTextElement('type_label', 'Type Label');
-            this.typeLabel.setTextOffsetY(this.typeLabel.getTextEffectSize() * 0.2);
-            this.typeLabel3 = this.surfaceElement.addSurfaceTextElement('type_label', 'Type Label');
-            this.typeLabel3.setTextOffsetY(this.typeLabel.getTextEffectSize() * 0.4);
-            this.typeLabel4 = this.surfaceElement.addSurfaceTextElement('type_label', 'Type Label');
-            this.typeLabel4.setTextOffsetY(this.typeLabel.getTextEffectSize() * 0.6);
+            this.baseWidget.typeLabel2 = this.baseWidget.surfaceElement.addSurfaceTextElement(this.configRead('value_label'), 'Type Label');
+            this.baseWidget.typeLabel.setTextOffsetY(this.baseWidget.typeLabel.getTextEffectSize() * 0.2);
+            this.baseWidget.typeLabel3 = this.baseWidget.surfaceElement.addSurfaceTextElement(this.configRead('value_label'), 'Type Label');
+            this.baseWidget.typeLabel3.setTextOffsetY(this.baseWidget.typeLabel.getTextEffectSize() * 0.4);
+            this.baseWidget.typeLabel4 = this.baseWidget.surfaceElement.addSurfaceTextElement(this.configRead('value_label'), 'Type Label');
+            this.baseWidget.typeLabel4.setTextOffsetY(this.baseWidget.typeLabel.getTextEffectSize() * 0.6);
         };
 
 
         GuiThumbstickWidget.prototype.initGuiWidget = function(onReadyCB) {
 
-            var configLoaded = function() {
-                this.configObject.removeCallback(configLoaded);
+            var baseLoaded = function() {
                 onReadyCB(this);
+                this.setupTextElements();
             }.bind(this);
 
-            var surfaceReady = function() {
-                this.configObject = new ConfigObject('GUI_WIDGETS', 'GUI_THUMBSTICK_WIDGET', 'config');
-                this.configObject.addCallback(configLoaded);
-            }.bind(this);
+            this.baseWidget.initBaseWidget('GUI_THUMBSTICK_WIDGET', baseLoaded);
 
-            this.surfaceElement.initSurfaceElement(surfaceReady);
         };
 
         GuiThumbstickWidget.prototype.configRead = function(dataKey) {
-            return this.configObject.getConfigByDataKey(dataKey)
+            return this.baseWidget.configRead(dataKey)
         };
 
         GuiThumbstickWidget.prototype.updateSurfaceState = function() {
-            if (!this.configObject.config) {
-                console.log("Bad Thumbstick init...", this);
-                return;
-            }
-            this.surfaceElement.updateSurfaceElement(this.position, this.configRead('surface'))
+            this.baseWidget.updateSurfaceState('surface', 'state');
         };
 
         GuiThumbstickWidget.prototype.addDragCallback = function(callback) {
@@ -65,40 +56,49 @@ define([
 
         GuiThumbstickWidget.prototype.updateGuiWidget = function() {
 
-            this.header.setElementText('STEER');
-            this.typeLabel.setElementText('Drag X: '+ MATH.decimalify(WorldAPI.sampleInputBuffer(ENUMS.InputState.DRAG_DISTANCE_X), 100));
-            this.typeLabel2.setElementText('Drag Y: '+ MATH.decimalify(WorldAPI.sampleInputBuffer(ENUMS.InputState.DRAG_DISTANCE_Y), 100));
-            this.typeLabel3.setElementText('PressIdx: '+ WorldAPI.getCom(ENUMS.BufferChannels.UI_PRESS_SOURCE));
-            this.typeLabel4.setElementText('HoverIdx: '+ WorldAPI.getCom(ENUMS.BufferChannels.UI_HOVER_SOURCE));
+            this.baseWidget.typeLabel.setElementText('Drag X: '+ MATH.decimalify(WorldAPI.sampleInputBuffer(ENUMS.InputState.DRAG_DISTANCE_X), 100));
+            this.baseWidget.typeLabel2.setElementText('Drag Y: '+ MATH.decimalify(WorldAPI.sampleInputBuffer(ENUMS.InputState.DRAG_DISTANCE_Y), 100));
+            this.baseWidget.typeLabel3.setElementText('PressIdx: '+ WorldAPI.getCom(ENUMS.BufferChannels.UI_PRESS_SOURCE));
+            this.baseWidget.typeLabel4.setElementText('HoverIdx: '+ WorldAPI.getCom(ENUMS.BufferChannels.UI_HOVER_SOURCE));
 
             this.updateSurfaceState();
-            this.guiDraggable.updateDraggable();
+            this.guiDraggable.updateDraggable(this.baseWidget.getSurfaceElement());
         };
 
-        GuiThumbstickWidget.prototype.setGuiWidgetPosition = function(posVec) {
-            this.position.copy(posVec);
-            this.updateSurfaceState();
+        GuiThumbstickWidget.prototype.applyDynamicLayout = function(dynLayout) {
+            if (!dynLayout) return;
+            for (var key in dynLayout) {
+                this.getWidgetSurfaceLayout().setDynamicLayout(key, dynLayout[key])
+            }
+            this.applyProgressDynLayout(dynLayout);
         };
 
-        GuiThumbstickWidget.prototype.addWidgetText = function(text) {
-            this.header = this.surfaceElement.addSurfaceTextElement('header' ,text);
+        GuiThumbstickWidget.prototype.applyDynamicLayout = function(dynLayout) {
+            this.baseWidget.applyDynamicLayout(dynLayout);
+        };
+
+        GuiThumbstickWidget.prototype.applyProgressDynLayout = function(dynLayout) {
+            this.baseWidget.applyProgressDynLayout(dynLayout);
         };
 
         GuiThumbstickWidget.prototype.disableWidget = function() {
-            this.surfaceElement.disableSurfaceElement();
+            this.baseWidget.disableWidget();
+        };
+
+        GuiThumbstickWidget.prototype.getWidgetProgressLayout = function() {
+            return this.baseWidget.indicatorElement.getSurfaceLayout();
         };
 
         GuiThumbstickWidget.prototype.getWidgetSurfaceLayout = function() {
-            return this.surfaceElement.getSurfaceLayout();
+            return this.baseWidget.surfaceElement.getSurfaceLayout();
         };
 
         GuiThumbstickWidget.prototype.setWidgetPosXY = function(x, y) {
-            this.position.x = x;
-            this.position.y = y;
+            this.baseWidget.setWidgetPosXY(x, y);
         };
 
         GuiThumbstickWidget.prototype.enableWidget = function() {
-            this.setupTextElements();
+
         };
 
 

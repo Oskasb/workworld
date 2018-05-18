@@ -15,10 +15,7 @@ define([
             this.label = label;
             this.configId = configId;
 
-            this.dynamicLayout = {
-                width:0.1,
-                left:0.5
-            };
+            this.dynamicLayout = {};
 
             this.position = new THREE.Vector3();
             this.surfaceElement = new GuiSurfaceElement();

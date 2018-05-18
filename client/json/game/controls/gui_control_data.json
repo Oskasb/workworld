@@ -31,8 +31,8 @@
             {"widget":"STATE_GAUGE",    "label":"PITCH",  "configId":"angle_indicator",  "layout":{"margin_y":0.58}, "buffer":"currentDynamic", "channel":"PITCH_ANGLE"},
             {"widget":"STATE_GAUGE",    "label":"YAW",    "configId":"angle_indicator",  "layout":{"margin_y":0.62}, "buffer":"currentDynamic", "channel":"YAW_ANGLE"},
 
-            {"widget":"ROLL_INDICATOR", "label":"ROLL",   "configId":"roll_indicator",   "layout":{"margin_y":0.35}, "buffer":"currentDynamic", "channel":"ROLL_ANGLE"},
-            {"widget":"PITCH_INDICATOR", "label":"PITCHR", "configId":"pitch_indicator",   "layout":{"margin_y":0.28}, "buffer":"currentDynamic", "channel":"PITCH_ANGLE"},
+            {"widget":"ROLL_INDICATOR", "label":"ROLL",   "configId":"roll_indicator",   "layout":{"margin_y":0.34}, "buffer":"currentDynamic", "channel":"ROLL_ANGLE"},
+            {"widget":"PITCH_INDICATOR","label":"PITCH",  "configId":"pitch_indicator",  "layout":{"margin_y":0.28}, "buffer":"currentDynamic", "channel":"PITCH_ANGLE"},
 
             {"widget":"DRAG_AXIS",      "label":"RUDDER", "configId":"drag_cam_x", "layout":{}, "onDrag":"dragCamX", "buffer":"worldComBuffer", "channel":"UI_CAM_DRAG_X"},
             {"widget":"DRAG_AXIS",      "label":"SPEED",  "configId":"drag_cam_y", "layout":{}, "onDrag":"dragCamY", "buffer":"worldComBuffer", "channel":"UI_CAM_DRAG_Y"},

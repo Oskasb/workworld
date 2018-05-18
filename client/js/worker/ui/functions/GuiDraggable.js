@@ -9,9 +9,8 @@ define([
 
     var i;
 
-        var GuiDraggable = function(surfaceElem) {
+        var GuiDraggable = function() {
 
-            this.surfaceElement = surfaceElem;
             this.whileDragCallbacks = [];
 
             this.masterState = {buffer:[0], index:0};
@@ -37,8 +36,8 @@ define([
         };
 
 
-        GuiDraggable.prototype.updateDraggable = function() {
-            if (this.surfaceElement.getPress()) {
+        GuiDraggable.prototype.updateDraggable = function(surfaceElement) {
+            if (surfaceElement.getPress()) {
                 this.callDragCallbacks();
             }
         };

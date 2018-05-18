@@ -15,12 +15,9 @@ define([
 
             this.obj3d = new THREE.Object3D();
 
-            this.dynamicLayout = {
-                width:0.1,
-                left:0.5
-            };
+            this.dynamicLayout = {};
 
-            this.baseWidget = new BaseWidget(label, configId);
+            this.baseWidget = new BaseWidget('', configId);
             this.guiProgress = new GuiProgress(this.indicatorElement);
         };
 
@@ -57,20 +54,12 @@ define([
 
                 this.guiProgress.updateProgress();
 
-                this.baseWidget.setLabelText(MATH.decimalify(this.guiProgress.getBufferState(), 100))
-
-
-
-            //    this.dynamicLayout.width = this.configRead('state').layout.width;
-
-            //    this.dynamicLayout.margin_x = this.guiProgress.getBufferState() * this.configRead('surface').layout.width * 0.5 + this.configRead('surface').layout.margin_x +  this.configRead('surface').layout.width * 0.5;
-
+            //    this.baseWidget.setLabelText(MATH.decimalify(this.guiProgress.getBufferState(), 100))
 
                 this.obj3d.quaternion.set(0, 0, 0, 1);
 
                 this.obj3d.rotateZ(-this.guiProgress.getBufferState());
                 this.baseWidget.setIndicatorQuaternion(this.obj3d.quaternion);
-
 
                 this.baseWidget.applyProgressDynLayout(this.dynamicLayout);
 
@@ -98,7 +87,7 @@ define([
         };
 
         GuiRollIndicator.prototype.getWidgetSurfaceLayout = function() {
-            return this.sbaseWidget.urfaceElement.getSurfaceLayout();
+            return this.baseWidget.surfaceElement.getSurfaceLayout();
         };
 
         GuiRollIndicator.prototype.setWidgetPosXY = function(x, y) {

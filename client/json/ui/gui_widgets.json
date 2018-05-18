@@ -4,6 +4,8 @@
       {
         "id": "config",
         "data": {
+          "header_label":"header",
+          "value_label":"type_label",
           "surface":{
 
             "layout":{
@@ -30,7 +32,20 @@
               "passive_fx":"plate_passive_effects",
               "active_fx":"plate_active_effects"
             }
-
+          },
+          "state": {
+            "layout": {
+              "anchor": "bottom_mid",
+              "fixed_aspect": false,
+              "margin_x": 0.00,
+              "margin_y": 0.00,
+              "width": 0.45,
+              "height": 0.06
+            },
+            "backplate": {
+              "passive_fx": "plate_passive_effects",
+              "active_fx": "plate_active_effects"
+            }
           },
           "drag_vector_effects":[
             "gui_arrow_top_left_additive_effect",
@@ -45,6 +60,8 @@
       {
         "id": "drag_cam_x",
         "data": {
+          "header_label":"message_header",
+          "value_label":"type_label",
           "surface":{
 
             "layout":{
@@ -73,6 +90,23 @@
             }
 
           },
+
+          "state":{
+            "layout":{
+              "anchor":"bottom_mid",
+              "fixed_aspect":false,
+              "margin_x":0.00,
+              "margin_y":0.00,
+              "width": 0.45,
+              "height":0.06
+            },
+            "backplate":{
+              "passive_fx":"plate_passive_effects",
+              "active_fx":"plate_active_effects"
+            }
+
+          },
+
           "drag_vector_effects":[
             "gui_arrow_top_left_additive_effect",
             "gui_corner_top_left_normal_effect"
@@ -82,7 +116,8 @@
       {
         "id": "drag_cam_y",
         "data": {
-
+          "header_label":"message_header",
+          "value_label":"type_label",
           "surface":{
 
             "layout":{
@@ -111,6 +146,21 @@
             }
 
           },
+          "state":{
+            "layout":{
+              "anchor":"mid_left",
+              "fixed_aspect":true,
+              "margin_x":0.0,
+              "margin_y":0.05,
+              "width": 0.08,
+              "height":0.8
+            },
+            "backplate":{
+              "passive_fx":"plate_passive_effects",
+              "active_fx":"plate_active_effects"
+            }
+
+          },
           "drag_vector_effects":[
             "gui_arrow_top_left_additive_effect",
             "gui_corner_top_left_normal_effect"
@@ -120,6 +170,8 @@
       {
         "id": "drag_cam_z",
         "data": {
+          "header_label":"message_header",
+          "value_label":"type_label",
           "surface":{
 
             "layout":{
@@ -142,6 +194,21 @@
               "thickness":0.012
             },
 
+            "backplate":{
+              "passive_fx":"plate_passive_effects",
+              "active_fx":"plate_active_effects"
+            }
+
+          },
+          "state":{
+            "layout":{
+              "anchor":"mid_right",
+              "fixed_aspect":true,
+              "margin_x":0.0,
+              "margin_y":0.05,
+              "width": 0.08,
+              "height":0.8
+            },
             "backplate":{
               "passive_fx":"plate_passive_effects",
               "active_fx":"plate_active_effects"
@@ -567,32 +634,25 @@
 
             "layout":{
               "anchor":"bottom_mid",
-              "fixed_aspect":false,
+              "fixed_aspect":true,
               "margin_x":0.08,
-              "margin_y":0.20,
+              "margin_y":0.16,
               "width": 0.12,
-              "height":0.015
-            },
-
-            "edges":{
-              "passive_fx":"edge_passive_effects",
-              "active_fx":"edge_active_effects",
-              "thickness":0.02,
-              "color":"blue_1"
+              "height":0.002
             },
 
             "backplate":{
               "passive_fx":"plate_passive_effects",
               "active_fx":"plate_active_effects",
-              "color":"blue_1"
+              "color":"blue_4"
             }
           },
           "state":{
             "layout":{
               "anchor":"bottom_mid",
-              "fixed_aspect":false,
+              "fixed_aspect":true,
               "margin_x":0.08,
-              "margin_y":0.20,
+              "margin_y":0.16,
               "width": 0.10,
               "height":0.006
             },
@@ -617,11 +677,11 @@
 
             "layout":{
               "anchor":"bottom_mid",
-              "fixed_aspect":false,
+              "fixed_aspect":true,
               "margin_x":0.08,
-              "margin_y":0.20,
+              "margin_y":0.22,
               "width": 0.12,
-              "height":0.15
+              "height":0.12
             },
 
             "edges":{
@@ -632,7 +692,7 @@
             },
 
             "backplate":{
-              "passive_fx":"plate_passive_effects",
+              "passive_fx":"plate_active_effects",
               "active_fx":"plate_active_effects",
               "color":"blue_1"
             }
@@ -640,11 +700,11 @@
           "state":{
             "layout":{
               "anchor":"bottom_mid",
-              "fixed_aspect":false,
+              "fixed_aspect":true,
               "margin_x":0.08,
-              "margin_y":0.20,
+              "margin_y":0.22,
               "width": 0.12,
-              "height":0.006
+              "height":0.06
             },
 
             "backplate":{

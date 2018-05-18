@@ -3,47 +3,37 @@
 define([
         'ConfigObject',
         'ui/elements/GuiSurfaceElement',
-        'ui/functions/GuiDraggable'
+        'ui/functions/GuiDraggable',
+        'ui/widgets/BaseWidget'
     ],
     function(
         ConfigObject,
         GuiSurfaceElement,
-        GuiDraggable
+        GuiDraggable,
+        BaseWidget
     ) {
 
         var GuiDragAxisWidget = function(label, configId) {
-            this.label = label;
-            this.configId = configId;
 
             this.position = new THREE.Vector3();
-            this.surfaceElement = new GuiSurfaceElement();
-            this.guiDraggable = new GuiDraggable(this.surfaceElement);
+            this.baseWidget = new BaseWidget(label, configId);
+            this.guiDraggable = new GuiDraggable();
 
         };
 
-        GuiDragAxisWidget.prototype.setupTextElements = function() {
-
-            this.header = this.surfaceElement.addSurfaceTextElement('message_header', this.label);
-            this.typeLabel = this.surfaceElement.addSurfaceTextElement('type_label', 'val..');
-        };
 
         GuiDragAxisWidget.prototype.configRead = function(dataKey) {
-            return this.configObject.getConfigByDataKey(dataKey)
+            return this.baseWidget.configRead(dataKey)
         };
 
         GuiDragAxisWidget.prototype.initGuiWidget = function(onReadyCB) {
 
-            var configLoaded = function() {
-                this.configObject.removeCallback(configLoaded);
+            var baseLoaded = function() {
                 onReadyCB(this);
             }.bind(this);
 
-            var surfaceReady = function() {
-                this.configObject = new ConfigObject('GUI_WIDGETS', 'GUI_DRAG_AXIS_WIDGET', this.configId);
-                this.configObject.addCallback(configLoaded);
-            }.bind(this);
+            this.baseWidget.initBaseWidget('GUI_DRAG_AXIS_WIDGET', baseLoaded);
 
-            this.surfaceElement.initSurfaceElement(surfaceReady);
         };
 
 
@@ -58,19 +48,15 @@ define([
 
 
         GuiDragAxisWidget.prototype.updateSurfaceState = function() {
-            if (!this.configObject.config) {
-                console.log("Bad GuiDragAxisWidget init...", this);
-                return;
-            }
+            this.baseWidget.updateSurfaceState('surface', 'state');
 
-            this.surfaceElement.updateSurfaceElement(this.position, this.configRead('surface'))
         };
 
 
         GuiDragAxisWidget.prototype.updateGuiWidget = function() {
 
-            this.guiDraggable.updateDraggable();
-            this.typeLabel.setElementText(MATH.decimalify(this.guiDraggable.getBufferState(), 100));
+            this.guiDraggable.updateDraggable(this.baseWidget.getSurfaceElement());
+            this.baseWidget.setLabelText(MATH.decimalify(this.guiDraggable.getBufferState(), 100));
             this.updateSurfaceState();
         };
 
@@ -80,23 +66,35 @@ define([
             for (var key in dynLayout) {
                 this.getWidgetSurfaceLayout().setDynamicLayout(key, dynLayout[key])
             }
+            this.applyProgressDynLayout(dynLayout);
+        };
+
+        GuiDragAxisWidget.prototype.applyDynamicLayout = function(dynLayout) {
+            this.baseWidget.applyDynamicLayout(dynLayout);
+        };
+
+        GuiDragAxisWidget.prototype.applyProgressDynLayout = function(dynLayout) {
+            this.baseWidget.applyProgressDynLayout(dynLayout);
         };
 
         GuiDragAxisWidget.prototype.disableWidget = function() {
-            this.surfaceElement.disableSurfaceElement();
+            this.baseWidget.disableWidget();
+        };
+
+        GuiDragAxisWidget.prototype.getWidgetProgressLayout = function() {
+            return this.baseWidget.indicatorElement.getSurfaceLayout();
         };
 
         GuiDragAxisWidget.prototype.getWidgetSurfaceLayout = function() {
-            return this.surfaceElement.getSurfaceLayout();
+            return this.baseWidget.surfaceElement.getSurfaceLayout();
         };
 
         GuiDragAxisWidget.prototype.setWidgetPosXY = function(x, y) {
-            this.position.x = x;
-            this.position.y = y;
+            this.baseWidget.setWidgetPosXY(x, y);
         };
 
         GuiDragAxisWidget.prototype.enableWidget = function() {
-            this.setupTextElements();
+
         };
 
 

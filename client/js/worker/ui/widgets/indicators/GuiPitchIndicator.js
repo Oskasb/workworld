@@ -17,12 +17,9 @@ define([
         var GuiPitchIndicator = function(label, configId) {
             this.obj3d = new THREE.Object3D();
 
-            this.dynamicLayout = {
-                width:0.1,
-                left:0.5
-            };
+            this.dynamicLayout = {};
 
-            this.baseWidget = new BaseWidget(label, configId);
+            this.baseWidget = new BaseWidget('', configId);
             this.guiProgress = new GuiProgress(this.indicatorElement);
 
         };
@@ -66,7 +63,7 @@ define([
 
                 this.guiProgress.updateProgress();
 
-                this.baseWidget.setLabelText(MATH.decimalify(state, 100))
+            //    this.baseWidget.setLabelText(MATH.decimalify(state, 100));
 
                 height = layout.height*0.5 + state * layout.height * 0.5;
 
@@ -108,7 +105,7 @@ define([
         };
 
         GuiPitchIndicator.prototype.getWidgetSurfaceLayout = function() {
-            return this.sbaseWidget.urfaceElement.getSurfaceLayout();
+            return this.baseWidget.surfaceElement.getSurfaceLayout();
         };
 
         GuiPitchIndicator.prototype.setWidgetPosXY = function(x, y) {

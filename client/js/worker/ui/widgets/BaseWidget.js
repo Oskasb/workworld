@@ -17,10 +17,11 @@ define([
             this.indicatorElement = new GuiSurfaceElement();
         };
 
+
         BaseWidget.prototype.setupTextElements = function() {
 
             this.header = this.surfaceElement.addSurfaceTextElement(this.configRead('header_label'), this.label);
-            this.typeLabel = this.surfaceElement.addSurfaceTextElement(this.configRead('value_label'), 'val..');
+            this.typeLabel = this.surfaceElement.addSurfaceTextElement(this.configRead('value_label'), '');
         };
 
         BaseWidget.prototype.configRead = function(dataKey) {
@@ -85,7 +86,9 @@ define([
             this.indicatorElement.setOn(bool);
         };
 
-
+        BaseWidget.prototype.getSurfaceElement = function() {
+            return this.surfaceElement;
+        };
         BaseWidget.prototype.disableWidget = function() {
             this.surfaceElement.disableSurfaceElement();
             this.indicatorElement.disableSurfaceElement();
