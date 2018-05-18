@@ -21,11 +21,11 @@ define([
 
             this.enabled = true;
 
-            var ctrlReady = function(freeCursorCtrl) {
-                WorldAPI.addTextMessage('Free Cursor Control Loaded');
+            var ctrlReady = function(ctrl) {
+                WorldAPI.addTextMessage('Piece Control Loaded');
 
                 if (this.enabled) {
-                    freeCursorCtrl.enableCursorGuiWidgets();
+                    ctrl.enableCursorGuiWidgets();
                     onReady(this);
                 }
 

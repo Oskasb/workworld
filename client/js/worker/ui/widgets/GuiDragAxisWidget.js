@@ -58,7 +58,7 @@ define([
 
 
         GuiDragAxisWidget.prototype.updateSurfaceState = function() {
-            if (!this.configObject) {
+            if (!this.configObject.config) {
                 console.log("Bad GuiDragAxisWidget init...", this);
                 return;
             }

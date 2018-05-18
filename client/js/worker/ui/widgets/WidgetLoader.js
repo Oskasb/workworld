@@ -141,19 +141,17 @@ define([
         };
 
         var WidgetLoader = function() {
+            widgetBuilder = new WidgetBuilder();
             this.guiUpdatable = new GuiUpdatable();
         };
 
         WidgetLoader.prototype.enableDefaultGuiWidgets = function() {
-            widgetBuilder = new WidgetBuilder();
-
+            widgetBuilder.setupHandles();
             this.setupFunctions();
 
             widgetBuilder.buildStatusMonitors(statusMonitors);
             widgetBuilder.buildButtonWidget('STATUS', 'default', controls, buttonFunctions.monitorSystem, {margin_y:0.05});
             widgetBuilder.buildMessageBox(controls);
-
-            this.guiUpdatable.enableUpdates(updateWidgets);
 
             widgetBuilder.buildProgressWidgets(controls);
             widgetBuilder.addTopNavigationTab('DEV', topTabs, buttonFunctions.devSubtabs);
@@ -161,6 +159,8 @@ define([
 
             initWidgetStore(topTabs);
             initWidgetStore(controls);
+
+            this.guiUpdatable.enableUpdates(updateWidgets);
         };
 
         WidgetLoader.prototype.setupFunctions = function() {

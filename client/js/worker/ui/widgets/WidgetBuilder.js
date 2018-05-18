@@ -111,6 +111,11 @@ define([
         };
 
         var WidgetBuilder = function() {
+
+        };
+
+        WidgetBuilder.prototype.setupHandles = function() {
+
             setupHandles()
         };
 
@@ -127,17 +132,6 @@ define([
             store.push(widget);
         };
 
-        WidgetBuilder.prototype.buildDragAxisWidget = function(store, label, configId, callback, customLayout, buffer, bufferChannel) {
-            widget = new GuiDragAxisWidget(label, configId);
-            if (callback) {
-                widget.addDragCallback(callback);
-            }
-            if (buffer) {
-                widget.setMasterBuffer(buffer, bufferChannel);
-            }
-            widget.applyDynamicLayout(customLayout);
-            store.push(widget);
-        };
 
         WidgetBuilder.prototype.buildProgressWidget = function(store, label, configId, callback, customLayout, buffer, bufferChannel) {
             widget = new GuiProgressWidget(label, configId);
@@ -151,9 +145,6 @@ define([
             store.push(widget);
         };
 
-        WidgetBuilder.prototype.buildDragAxisConfig = function(store, config) {
-            this.buildDragAxisWidget(store, config.label, config.configId, config.onDrag, config.layout, config.buffer, config.channel)
-        };
 
         WidgetBuilder.prototype.buildProgressConfig = function(store, config) {
             this.buildProgressWidget(store, config.label, config.configId, config.onUpdate, config.layout, config.buffer, config.channel)
@@ -171,7 +162,14 @@ define([
 
         WidgetBuilder.prototype.buildDragAxis = function(config, store, widgetBuilder) {
             var conf = buildWidgetConfig(config);
-            widgetBuilder.buildDragAxisConfig(store, conf)
+
+            widget = new GuiDragAxisWidget(conf.label, conf.configId);
+            widget.addDragCallback(conf.onDrag);
+            widget.setMasterBuffer(conf.buffer,  conf.channel);
+            widget.applyDynamicLayout(conf.layout);
+
+            store.push(widget);
+
         };
 
         WidgetBuilder.prototype.buildStateGauge = function(config, store, widgetBuilder) {

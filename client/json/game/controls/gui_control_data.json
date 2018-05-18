@@ -6,7 +6,7 @@
         "id":"movable_cursor",
         "data":{
           "widgets":[
-            {"widget":"THUMBSTICK",     "label":"",     "configId":"config", "onDrag":"cursorDrag"},
+            {"widget":"THUMBSTICK",     "label":"",     "configId":"config",     "onDrag":"cursorDrag"},
             {"widget":"HOVER_DYNAMIC",  "label":"",     "configId":"config"},
             {"widget":"DRAG_AXIS",      "label":"TURN", "configId":"drag_cam_x", "layout":{}, "onDrag":"dragCamX","buffer":"worldComBuffer",  "channel":"UI_CAM_DRAG_X"},
             {"widget":"DRAG_AXIS",      "label":"ELV",  "configId":"drag_cam_y", "layout":{}, "onDrag":"dragCamY","buffer":"worldComBuffer",  "channel":"UI_CAM_DRAG_Y"},
@@ -20,6 +20,8 @@
         "id":"main_control",
         "data":{
           "widgets":[
+
+            {"widget":"HOVER_DYNAMIC",  "label":"",       "configId":"config"},
             {"widget":"THUMBSTICK",     "label":"",       "configId":"config", "onDrag":"thumbstickDrag"},
             {"widget":"STATE_GAUGE",    "label":"AoA X",  "configId":"angle_indicator",  "layout":{"margin_y":0.48}, "buffer":"currentDynamic", "channel":"ANGLE_OF_ATTACK_X"},
             {"widget":"STATE_GAUGE",    "label":"AoA Y",  "configId":"angle_indicator",  "layout":{"margin_y":0.44}, "buffer":"currentDynamic", "channel":"ANGLE_OF_ATTACK_Y"},
@@ -29,11 +31,9 @@
             {"widget":"STATE_GAUGE",    "label":"PITCH",  "configId":"angle_indicator",  "layout":{"margin_y":0.58}, "buffer":"currentDynamic", "channel":"PITCH_ANGLE"},
             {"widget":"STATE_GAUGE",    "label":"YAW",    "configId":"angle_indicator",  "layout":{"margin_y":0.62}, "buffer":"currentDynamic", "channel":"YAW_ANGLE"},
 
-            {"widget":"ROLL_INDICATOR", "label":"ROLL", "configId":"roll_indicator",   "layout":{"margin_y":0.35}, "buffer":"currentDynamic", "channel":"ROLL_ANGLE"},
+            {"widget":"ROLL_INDICATOR", "label":"ROLL",   "configId":"roll_indicator",   "layout":{"margin_y":0.35}, "buffer":"currentDynamic", "channel":"ROLL_ANGLE"},
             {"widget":"PITCH_INDICATOR", "label":"PITCHR", "configId":"pitch_indicator",   "layout":{"margin_y":0.28}, "buffer":"currentDynamic", "channel":"PITCH_ANGLE"},
 
-
-            {"widget":"HOVER_DYNAMIC",  "label":"",       "configId":"config"},
             {"widget":"DRAG_AXIS",      "label":"RUDDER", "configId":"drag_cam_x", "layout":{}, "onDrag":"dragCamX", "buffer":"worldComBuffer", "channel":"UI_CAM_DRAG_X"},
             {"widget":"DRAG_AXIS",      "label":"SPEED",  "configId":"drag_cam_y", "layout":{}, "onDrag":"dragCamY", "buffer":"worldComBuffer", "channel":"UI_CAM_DRAG_Y"},
             {"widget":"DRAG_AXIS",      "label":"DST",    "configId":"drag_cam_z", "layout":{}, "onDrag":"dragCamZ", "buffer":"worldComBuffer", "channel":"UI_CAM_DRAG_Z"}
