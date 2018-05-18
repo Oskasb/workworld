@@ -11,7 +11,9 @@ define([
         'ui/widgets/GuiHoverDynamic',
         'ui/widgets/MessageBoxWidget',
         'ui/widgets/MonitorListWidget',
-        'ui/widgets/GuiButtonWidget'
+        'ui/widgets/GuiButtonWidget',
+        'ui/widgets/indicators/GuiRollIndicator',
+        'ui/widgets/indicators/GuiPitchIndicator'
     ],
     function(
         OnUpdateFunctions,
@@ -24,7 +26,9 @@ define([
         GuiHoverDynamic,
         MessageBoxWidget,
         MonitorListWidget,
-        GuiButtonWidget
+        GuiButtonWidget,
+        GuiRollIndicator,
+        GuiPitchIndicator
     ) {
 
 
@@ -74,9 +78,40 @@ define([
             row_col:[1, 0]
         };
 
+        var bufferFetcher;
+        var enumHandle;
+
+        var setupHandles = function() {
+            bufferFetcher = function(key) {
+                if (key === 'worldComBuffer') return WorldAPI.getWorldComBuffer();
+                if (key === 'currentDynamic') return WorldAPI.getControlledRenderable().getDynamicSpatialBuffer()
+            };
+
+            enumHandle = {
+                worldComBuffer:'BufferChannels',
+                currentDynamic:'BufferSpatial'
+            };
+        };
+
+        var buildWidgetConfig = function(config) {
+
+            var conf = {
+                label:config.label,
+                configId:config.configId,
+                layout:config.layout,
+                buffer:bufferFetcher(config.buffer),
+                channel:ENUMS[enumHandle[config.buffer]][config.channel]
+            };
+
+            if (config.onDrag) {
+                conf.onDrag = DragFunctions[config.onDrag]
+            }
+
+            return conf;
+        };
 
         var WidgetBuilder = function() {
-
+            setupHandles()
         };
 
         WidgetBuilder.prototype.buildThumbstick = function(config, store) {
@@ -132,58 +167,45 @@ define([
             store.push(new GuiHoverDynamic(conf.label, conf.configId))
         };
 
+
+
         WidgetBuilder.prototype.buildDragAxis = function(config, store, widgetBuilder) {
-            var buffer = WorldAPI.getWorldComBuffer();
-
-            var conf = {
-                label:config.label,
-                configId:config.configId,
-                layout:config.layout,
-                onDrag:DragFunctions[config.onDrag],
-                buffer:buffer,
-                channel:ENUMS.BufferChannels[config.channel]
-            };
-
+            var conf = buildWidgetConfig(config);
             widgetBuilder.buildDragAxisConfig(store, conf)
         };
 
-
         WidgetBuilder.prototype.buildStateGauge = function(config, store, widgetBuilder) {
-
-            var bufferFetcher = {
-                worldComBuffer:WorldAPI.getWorldComBuffer(),
-                currentDynamic:WorldAPI.getControlledRenderable().getDynamicSpatialBuffer()
-            };
-
-            var enumHandle = {
-                worldComBuffer:'BufferChannels',
-                currentDynamic:'BufferSpatial'
-            };
-
-            var conf = {
-                label:config.label,
-                configId:config.configId,
-                layout:config.layout,
-                buffer:bufferFetcher[config.buffer],
-                channel:ENUMS[enumHandle[config.buffer]][config.channel]
-            };
-
-            widgetBuilder.buildGaugeConfig(store, conf)
-        };
-
-        WidgetBuilder.prototype.buildGaugeWidget = function(store, label, configId, customLayout, buffer, bufferChannel) {
-            widget = new GuiGaugeWidget(label, configId);
-
-            if (buffer) {
-                widget.setMasterBuffer(buffer, bufferChannel);
-            }
-            widget.applyDynamicLayout(customLayout);
+            var conf = buildWidgetConfig(config);
+            widget = new GuiGaugeWidget(conf.label, conf.configId);
+            widget.setMasterBuffer(conf.buffer,  conf.channel);
+            widget.applyDynamicLayout(conf.layout);
             store.push(widget);
         };
 
-        WidgetBuilder.prototype.buildGaugeConfig = function(store, config) {
-            this.buildGaugeWidget(store, config.label, config.configId, config.layout, config.buffer, config.channel)
+        WidgetBuilder.prototype.buildRollIndicator = function(config, store, widgetBuilder) {
+            var conf = buildWidgetConfig(config);
+            widget = new GuiRollIndicator(conf.label, conf.configId);
+            widget.setMasterBuffer(conf.buffer,  conf.channel);
+            widget.applyDynamicLayout(conf.layout);
+            store.push(widget);
         };
+
+        WidgetBuilder.prototype.buildPitchIndicator = function(config, store, widgetBuilder) {
+            var conf = buildWidgetConfig(config);
+            widget = new GuiPitchIndicator(conf.label, conf.configId);
+            widget.setMasterBuffer(conf.buffer,  conf.channel);
+            widget.applyDynamicLayout(conf.layout);
+            store.push(widget);
+        };
+
+        WidgetBuilder.prototype.buildYawIndicator = function(config, store, widgetBuilder) {
+            var conf = buildWidgetConfig(config);
+            widget = new GuiPitchIndicator(conf.label, conf.configId);
+            widget.setMasterBuffer(conf.buffer,  conf.channel);
+            widget.applyDynamicLayout(conf.layout);
+            store.push(widget);
+        };
+
 
         WidgetBuilder.prototype.buildProgressWidgets = function(store) {
             var buffer = WorldAPI.getWorldComBuffer();

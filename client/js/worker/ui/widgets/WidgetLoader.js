@@ -138,26 +138,22 @@ define([
 
             WorldAPI.getContoledPiecePosAndQuat(WorldAPI.getWorldCamera().getCameraLookAt());
 
-
         };
 
         var WidgetLoader = function() {
-
-            widgetBuilder = new WidgetBuilder();
-
-            this.setupFunctions();
             this.guiUpdatable = new GuiUpdatable();
-
-        //    widgetBuilder.buildThumbstick(null, controls);
-            widgetBuilder.buildStatusMonitors(statusMonitors);
-            widgetBuilder.buildButtonWidget('STATUS', 'default', controls, buttonFunctions.monitorSystem, {margin_y:0.05});
-            widgetBuilder.buildMessageBox(controls);
         };
 
         WidgetLoader.prototype.enableDefaultGuiWidgets = function() {
-            this.guiUpdatable.enableUpdates(updateWidgets);
+            widgetBuilder = new WidgetBuilder();
 
-        //    widgetBuilder.buildHoverDynamic(controls);
+            this.setupFunctions();
+
+            widgetBuilder.buildStatusMonitors(statusMonitors);
+            widgetBuilder.buildButtonWidget('STATUS', 'default', controls, buttonFunctions.monitorSystem, {margin_y:0.05});
+            widgetBuilder.buildMessageBox(controls);
+
+            this.guiUpdatable.enableUpdates(updateWidgets);
 
             widgetBuilder.buildProgressWidgets(controls);
             widgetBuilder.addTopNavigationTab('DEV', topTabs, buttonFunctions.devSubtabs);
@@ -172,6 +168,9 @@ define([
             widgetCalls['HOVER_DYNAMIC'] = widgetBuilder.buildHoverDynamic;
             widgetCalls['THUMBSTICK'] = widgetBuilder.buildThumbstick;
             widgetCalls['STATE_GAUGE'] = widgetBuilder.buildStateGauge;
+            widgetCalls['ROLL_INDICATOR'] = widgetBuilder.buildRollIndicator;
+            widgetCalls['PITCH_INDICATOR'] = widgetBuilder.buildPitchIndicator;
+            widgetCalls['YAW_INDICATOR'] = widgetBuilder.buildYawIndicator;
         };
 
 

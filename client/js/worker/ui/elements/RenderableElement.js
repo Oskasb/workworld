@@ -34,6 +34,10 @@ define([
             this.renderableEffects.setEffectListPosition(this.obj3d.position)
         };
 
+        RenderableElement.prototype.updateRenderableQuaternion = function() {
+            this.renderableEffects.setEffectListQuaternion(this.obj3d.quaternion)
+        };
+
         RenderableElement.prototype.disableRenderableEffects = function() {
             this.renderableEffects.disableEffectList();
         };

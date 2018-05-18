@@ -52,7 +52,11 @@ define([
         };
 
         GuiThumbstickWidget.prototype.updateSurfaceState = function() {
-            this.surfaceElement.updateSurfaceElement(this.position, this.configObject.getConfigByDataKey('surface'))
+            if (!this.configObject.config) {
+                console.log("Bad Thumbstick init...", this);
+                return;
+            }
+            this.surfaceElement.updateSurfaceElement(this.position, this.configRead('surface'))
         };
 
         GuiThumbstickWidget.prototype.addDragCallback = function(callback) {

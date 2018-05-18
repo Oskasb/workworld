@@ -111,10 +111,14 @@ define([
 
             top.setEdgeWidthAndHeight(this.getLayoutWidth(), thickness);
 
-            left.setEdgeWidthAndHeight(thickness, this.getLayoutHeight());
-            right.setEdgeWidthAndHeight(thickness, this.getLayoutHeight());
+            left.setEdgeWidthAndHeight(this.getLayoutHeight() , thickness);
+            right.setEdgeWidthAndHeight(this.getLayoutHeight() , thickness);
 
             bottom.setEdgeWidthAndHeight(this.getLayoutWidth(), thickness)
+
+            left.setRotation(0, 0, -Math.PI*0.5);
+            right.setRotation(0, 0, Math.PI*0.5);
+            bottom.setRotation(0, 0, Math.PI);
 
         };
 
@@ -135,9 +139,6 @@ define([
         GuiSurfaceLayout.prototype.setDynamicLayout = function(key, value) {
             this.dynamicLayout[key] = value;
             this.layout[key] = value;
-            //if (this.layout[key]) {
-            //    this.parseLaoutConfig(this.layout)
-            // }
         };
 
         GuiSurfaceLayout.prototype.getCenterX = function() {
@@ -172,10 +173,8 @@ define([
             return this.yMax
         };
 
-
         GuiSurfaceLayout.prototype.isInsideXY = function(x, y) {
             // y flips when moving from screen space to world space (where the geometry resides)
-
             //      return Math.random() < 0.9 //  x > this.xMin && x < this.xMax && y < this.yMin && y > this.yMax
             return x > this.xMin && x < this.xMax && y < this.yMin && y > this.yMax
         };

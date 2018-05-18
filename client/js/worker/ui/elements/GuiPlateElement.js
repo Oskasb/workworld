@@ -84,12 +84,13 @@ define([
 
         GuiPlateElement.prototype.setPlateQuaternion = function(quat) {
             this.obj3d.quaternion.copy(quat);
+            this.passiveRenderable.updateRenderableQuaternion();
+            this.activeRenderable.updateRenderableQuaternion()
         };
 
         GuiPlateElement.prototype.getPlateQuaternion = function() {
             return this.obj3d.quaternion;
         };
-
 
         return GuiPlateElement;
 

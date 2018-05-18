@@ -154,14 +154,26 @@ define([
             this.guiSurfaceLayout.setRootPosition(posVec);
 
             this.guiSurfaceLayout.parseLaoutConfig(surfaceData.layout);
-            this.guiSurfaceLayout.applyLayoutToCorners(this.topLeft, this.topRight, this.bottomLeft, this.bottomRight);
-            this.guiSurfaceLayout.applyLayoutToEdges(this.top, this.left, this.right, this.bottom, surfaceData.edges.thickness);
+
+            if (surfaceData.corners) {
+                this.guiSurfaceLayout.applyLayoutToCorners(this.topLeft, this.topRight, this.bottomLeft, this.bottomRight);
+            }
+
+            if (surfaceData.edges) {
+                this.guiSurfaceLayout.applyLayoutToEdges(this.top, this.left, this.right, this.bottom, surfaceData.edges.thickness);
+            }
+
 
             this.guiSurfaceLayout.getLayoutCenter(this.centerPosition);
 
-            this.backplate.setPlatePosition(this.centerPosition);
+            if (surfaceData.backplate) {
+                this.backplate.setPlatePosition(this.centerPosition);
 
-            this.backplate.setPlateWidthAndHeight(this.guiSurfaceLayout.getLayoutWidth(), this.guiSurfaceLayout.getLayoutHeight())
+                this.backplate.setPlateWidthAndHeight(this.guiSurfaceLayout.getLayoutWidth(), this.guiSurfaceLayout.getLayoutHeight())
+            }
+
+            this.guiSurfaceLayout.getLayoutCenter(this.centerPosition);
+
         };
 
 
@@ -261,6 +273,13 @@ define([
             this.callbacks.hover.push(cb);
         };
 
+        GuiSurfaceElement.prototype.setSurfaceQuaternion = function(quat) {
+            this.backplate.setPlateQuaternion(quat);
+        };
+
+        GuiSurfaceElement.prototype.setSamplePointer = function(bool) {
+            this.samplePointer = bool;
+        };
 
         GuiSurfaceElement.prototype.setSamplePointer = function(bool) {
             this.samplePointer = bool;

@@ -51,6 +51,11 @@ define([
 
         };
 
+        GuiEdgeElement.prototype.rotateEdgeY = function(rotY) {
+            this.obj3d.rotateY(rotY);
+            this.updateRenderableQuaternion();
+        };
+
         GuiEdgeElement.prototype.setEdgeWidthAndHeight = function(width, height) {
 
             this.passiveRenderable.setRenderableScale(width);
@@ -82,7 +87,9 @@ define([
         };
 
         GuiEdgeElement.prototype.setRotation = function(x, y, z) {
-            return this.obj3d.rotation.set(x, y, z);
+            this.obj3d.rotation.set(x, y, z);
+            this.passiveRenderable.updateRenderableQuaternion();
+            this.activeRenderable.updateRenderableQuaternion();
         };
 
         return GuiEdgeElement;
