@@ -21,7 +21,6 @@ define([
             this.offset = new THREE.Vector3();
             this.direction = new THREE.Vector3();
             this.size = new THREE.Vector3();
-
         };
 
         ControlableModule.prototype.configRead = function(dataKey) {

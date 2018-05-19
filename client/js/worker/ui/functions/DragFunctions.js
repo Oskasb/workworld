@@ -7,10 +7,13 @@ define([
 
     ) {
 
+        var value;
+        var control;
+        var targetValue;
         var calcVec = new THREE.Vector3();
         var sourceVec = new THREE.Vector3();
         var lookAt = new THREE.Vector3();
-
+        var piece;
         var DragFunctions = function() {
 
         };
@@ -34,29 +37,45 @@ define([
             WorldAPI.setContolPosAndQuat(lookAt);
         };
 
-        var piece;
 
         DragFunctions.thumbstickDrag = function() {
-
             piece = WorldAPI.getControlledRenderable().getGamePiece();
-
             piece.getControlStateById('engine').setPieceControlTargetState(WorldAPI.sampleInputBuffer(ENUMS.InputState.DRAG_DISTANCE_Y));
             piece.getControlStateById('rudder').setPieceControlTargetState(WorldAPI.sampleInputBuffer(ENUMS.InputState.DRAG_DISTANCE_X));
-
         };
 
         DragFunctions.dragCamX = function() {
-            WorldAPI.setCom(ENUMS.BufferChannels.UI_CAM_DRAG_X, MATH.clamp(WorldAPI.getCom(ENUMS.BufferChannels.UI_CAM_DRAG_X) + WorldAPI.sampleInputBuffer(ENUMS.InputState.DRAG_DISTANCE_X), -1, 1));
+            value = MATH.clamp(WorldAPI.getCom(ENUMS.BufferChannels.UI_CAM_DRAG_X) + WorldAPI.sampleInputBuffer(ENUMS.InputState.DRAG_DISTANCE_X), -1, 1);
+            WorldAPI.setCom(ENUMS.BufferChannels.UI_CAM_DRAG_X, value);
+            return value;
         };
 
         DragFunctions.dragCamY = function() {
-            WorldAPI.setCom(ENUMS.BufferChannels.UI_CAM_DRAG_Y, MATH.clamp(WorldAPI.getCom(ENUMS.BufferChannels.UI_CAM_DRAG_Y) + WorldAPI.sampleInputBuffer(ENUMS.InputState.DRAG_DISTANCE_Y), -1, 1));
+            value = MATH.clamp(WorldAPI.getCom(ENUMS.BufferChannels.UI_CAM_DRAG_Y) + WorldAPI.sampleInputBuffer(ENUMS.InputState.DRAG_DISTANCE_Y), -1, 1)
+            WorldAPI.setCom(ENUMS.BufferChannels.UI_CAM_DRAG_Y, value);
+            return value;
         };
 
         DragFunctions.dragCamZ = function() {
-            WorldAPI.setCom(ENUMS.BufferChannels.UI_CAM_DRAG_Z, MATH.clamp(WorldAPI.getCom(ENUMS.BufferChannels.UI_CAM_DRAG_Z) - WorldAPI.sampleInputBuffer(ENUMS.InputState.DRAG_DISTANCE_Y), -1, 1));
+            value = MATH.clamp(WorldAPI.getCom(ENUMS.BufferChannels.UI_CAM_DRAG_Z) - WorldAPI.sampleInputBuffer(ENUMS.InputState.DRAG_DISTANCE_Y), -1, 1)
+            WorldAPI.setCom(ENUMS.BufferChannels.UI_CAM_DRAG_Z, value);
+            return value;
         };
 
+
+        DragFunctions.dragThrottle = function(value) {
+            piece = WorldAPI.getControlledRenderable().getGamePiece();
+            control = piece.getControlStateById('engine');
+            targetValue = control.getControlStateTargetValue();
+            control.setPieceControlTargetState(value+targetValue);
+        };
+
+        DragFunctions.dragRudder = function(value) {
+            piece = WorldAPI.getControlledRenderable().getGamePiece();
+            control = piece.getControlStateById('rudder');
+            targetValue = control.getControlStateTargetValue();
+            control.setPieceControlTargetState(value+targetValue);
+        };
 
         return DragFunctions;
 

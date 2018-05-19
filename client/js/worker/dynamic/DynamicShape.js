@@ -15,7 +15,6 @@ define([
 
         var DynamicShape = function(shapeConfig, shapeIndex, buffer) {
 
-
             this.id = shapeConfig.id;
             this.index = shapeIndex;
             this.buffer = buffer;
@@ -36,6 +35,7 @@ define([
             this.radius = 0;
             this.lift = ["box",  "box",  "box"];
             this.applyShapeConfig(shapeConfig);
+
         };
 
         DynamicShape.prototype.applyShapeConfig = function(conf) {

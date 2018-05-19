@@ -36,9 +36,9 @@ define([
         };
 
 
-        GuiDraggable.prototype.updateDraggable = function(surfaceElement) {
+        GuiDraggable.prototype.updateDraggable = function(surfaceElement, value) {
             if (surfaceElement.getPress()) {
-                this.callDragCallbacks();
+                this.callDragCallbacks(value);
             }
         };
 

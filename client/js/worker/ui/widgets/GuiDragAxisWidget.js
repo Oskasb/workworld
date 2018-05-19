@@ -33,9 +33,7 @@ define([
             }.bind(this);
 
             this.baseWidget.initBaseWidget('GUI_DRAG_AXIS_WIDGET', baseLoaded);
-
         };
-
 
         GuiDragAxisWidget.prototype.addDragCallback = function(callback) {
             this.guiDraggable.addDragCallback(callback);
@@ -46,20 +44,17 @@ define([
             this.guiDraggable.setMasterBuffer(buffer, index);
         };
 
-
-        GuiDragAxisWidget.prototype.updateSurfaceState = function() {
-            this.baseWidget.updateSurfaceState('surface', 'state');
-
-        };
-
+        var state;
 
         GuiDragAxisWidget.prototype.updateGuiWidget = function() {
 
-            this.guiDraggable.updateDraggable(this.baseWidget.getSurfaceElement());
-            this.baseWidget.setLabelText(MATH.decimalify(this.guiDraggable.getBufferState(), 100));
-            this.updateSurfaceState();
-        };
+            state = this.guiDraggable.getBufferState();
 
+            this.baseWidget.setLabelText(MATH.decimalify(state, 100));
+            this.baseWidget.indicateControlState(state, 'surface', 'state');
+
+            this.guiDraggable.updateDraggable(this.baseWidget.getSurfaceElement());
+        };
 
         GuiDragAxisWidget.prototype.applyDynamicLayout = function(dynLayout) {
             if (!dynLayout) return;
@@ -71,6 +66,7 @@ define([
 
         GuiDragAxisWidget.prototype.applyDynamicLayout = function(dynLayout) {
             this.baseWidget.applyDynamicLayout(dynLayout);
+
         };
 
         GuiDragAxisWidget.prototype.applyProgressDynLayout = function(dynLayout) {

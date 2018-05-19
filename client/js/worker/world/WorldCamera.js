@@ -197,17 +197,17 @@ define([
 
         if (distance < minDistance) {
             if (tempVec1.z < 0) {
-                tempVec1.z = 0;
+                tempVec1.z = 0.1;
             }
         } else if (distance > maxDistance) {
             if (tempVec1.z > 0) {
-                tempVec1.z = 0;
+                tempVec1.z = -0.1;
             }
         }
 
         WorldAPI.setCom(ENUMS.BufferChannels.UI_CAM_DRAG_X, tempVec1.x * 0.95);
         WorldAPI.setCom(ENUMS.BufferChannels.UI_CAM_DRAG_Y, tempVec1.y * 0.95);
-        WorldAPI.setCom(ENUMS.BufferChannels.UI_CAM_DRAG_Z, tempVec1.z * 0.95);
+        WorldAPI.setCom(ENUMS.BufferChannels.UI_CAM_DRAG_Z, tempVec1.z * 0.95 || 0);
 
         tempVec1.applyQuaternion(camera.quaternion);
 
@@ -248,7 +248,7 @@ define([
         camera.near         = comBuffer[ENUMS.BufferChannels.CAM_NEAR]  ;
         camera.far          = comBuffer[ENUMS.BufferChannels.CAM_FAR]   ;
         camera.aspect       = comBuffer[ENUMS.BufferChannels.CAM_ASPECT];
-        this.updateCameraControlState();
+
         this.updateCameraMatrix();
     };
 

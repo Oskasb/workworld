@@ -10,7 +10,7 @@
             {"widget":"HOVER_DYNAMIC",  "label":"",     "configId":"config"},
             {"widget":"DRAG_AXIS",      "label":"TURN", "configId":"drag_cam_x", "layout":{}, "onDrag":"dragCamX","buffer":"worldComBuffer",  "channel":"UI_CAM_DRAG_X"},
             {"widget":"DRAG_AXIS",      "label":"ELV",  "configId":"drag_cam_y", "layout":{}, "onDrag":"dragCamY","buffer":"worldComBuffer",  "channel":"UI_CAM_DRAG_Y"},
-            {"widget":"DRAG_AXIS",      "label":"DST",  "configId":"drag_cam_z", "layout":{}, "onDrag":"dragCamZ","buffer":"worldComBuffer",  "channel":"UI_CAM_DRAG_Z"}
+            {"widget":"DRAG_AXIS",      "label":"CAM Z",  "configId":"drag_cam_z", "layout":{}, "onDrag":"dragCamZ","buffer":"worldComBuffer",  "channel":"UI_CAM_DRAG_Z"}
           ]
         }
       }
@@ -31,12 +31,12 @@
             {"widget":"STATE_GAUGE",    "label":"PITCH",  "configId":"angle_indicator",  "layout":{"margin_y":0.58}, "buffer":"currentDynamic", "channel":"PITCH_ANGLE"},
             {"widget":"STATE_GAUGE",    "label":"YAW",    "configId":"angle_indicator",  "layout":{"margin_y":0.62}, "buffer":"currentDynamic", "channel":"YAW_ANGLE"},
 
-            {"widget":"ROLL_INDICATOR", "label":"ROLL",   "configId":"roll_indicator",   "layout":{"margin_y":0.34}, "buffer":"currentDynamic", "channel":"ROLL_ANGLE"},
-            {"widget":"PITCH_INDICATOR","label":"PITCH",  "configId":"pitch_indicator",  "layout":{"margin_y":0.28}, "buffer":"currentDynamic", "channel":"PITCH_ANGLE"},
+            {"widget":"ROLL_INDICATOR", "label":"ROLL",   "configId":"roll_indicator",   "layout":{"margin_y":0.30}, "buffer":"currentDynamic", "channel":"ROLL_ANGLE"},
+            {"widget":"PITCH_INDICATOR","label":"PITCH",  "configId":"pitch_indicator",  "layout":{"margin_y":0.24}, "buffer":"currentDynamic", "channel":"PITCH_ANGLE"},
 
-            {"widget":"DRAG_AXIS",      "label":"RUDDER", "configId":"drag_cam_x", "layout":{}, "onDrag":"dragCamX", "buffer":"worldComBuffer", "channel":"UI_CAM_DRAG_X"},
-            {"widget":"DRAG_AXIS",      "label":"SPEED",  "configId":"drag_cam_y", "layout":{}, "onDrag":"dragCamY", "buffer":"worldComBuffer", "channel":"UI_CAM_DRAG_Y"},
-            {"widget":"DRAG_AXIS",      "label":"DST",    "configId":"drag_cam_z", "layout":{}, "onDrag":"dragCamZ", "buffer":"worldComBuffer", "channel":"UI_CAM_DRAG_Z"}
+            {"widget":"DRAG_CONTROL",   "label":"RUDDER", "configId":"control_rudder",   "layout":{},"onUpdate":"sampleControl", "source":"rudder", "onDrag":"dragRudder",   "buffer":"inputState",     "channel":"DRAG_DISTANCE_X"},
+            {"widget":"DRAG_CONTROL",   "label":"THR",    "configId":"control_throttle", "layout":{},"onUpdate":"sampleControl", "source":"engine", "onDrag":"dragThrottle", "buffer":"inputState",     "channel":"DRAG_DISTANCE_Y"},
+            {"widget":"DRAG_AXIS",      "label":"CAM Z",  "configId":"drag_cam_z",       "layout":{}, "onDrag":"dragCamZ",     "buffer":"worldComBuffer", "channel":"UI_CAM_DRAG_Z"}
           ]
         }
       }

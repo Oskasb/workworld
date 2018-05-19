@@ -352,18 +352,10 @@ define([
 
         };
 
-        DynamicSpatial.prototype.computeAngleOfAttack = function() {
-            this.getVectorByFirstIndex(ENUMS.BufferSpatial.VELOCITY_X, tempVec1);
-            this.getSpatialQuaternion(tempQuat);
-            tempVec2.set(0, 0, 1);
-            tempVec2.applyQuaternion(tempQuat);
-            tempVec1.normalize();
-            tempVec1.sub(tempVec2);
-            this.setVectorByFirstIndex(ENUMS.BufferSpatial.ANGLE_OF_ATTACK_X, tempVec1);
-        };
 
-        DynamicSpatial.prototype.computeAngles = function() {
+        DynamicSpatial.prototype.computeState = function() {
             this.getVectorByFirstIndex(ENUMS.BufferSpatial.VELOCITY_X, tempVec1);
+            this.spatialBuffer[ENUMS.BufferSpatial.SPEED_MPS] = tempVec1.length();
             this.getSpatialQuaternion(tempObj.quaternion);
             tempVec2.set(0, 0, 1);
             tempVec2.applyQuaternion(tempObj.quaternion);
@@ -414,7 +406,7 @@ define([
 
             this.clearSpatialForce();
             this.clearSpatialTorque();
-            this.computeAngles();
+            this.computeState();
 
         };
 

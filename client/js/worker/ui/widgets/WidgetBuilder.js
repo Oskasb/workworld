@@ -13,7 +13,8 @@ define([
         'ui/widgets/MonitorListWidget',
         'ui/widgets/GuiButtonWidget',
         'ui/widgets/indicators/GuiRollIndicator',
-        'ui/widgets/indicators/GuiPitchIndicator'
+        'ui/widgets/indicators/GuiPitchIndicator',
+        'ui/widgets/controls/GuiDragControlWidget'
     ],
     function(
         OnUpdateFunctions,
@@ -28,7 +29,8 @@ define([
         MonitorListWidget,
         GuiButtonWidget,
         GuiRollIndicator,
-        GuiPitchIndicator
+        GuiPitchIndicator,
+        GuiDragControlWidget
     ) {
 
 
@@ -83,13 +85,15 @@ define([
 
         var setupHandles = function() {
             bufferFetcher = function(key) {
+                if (key === 'inputState') return WorldAPI.getInputBuffer();
                 if (key === 'worldComBuffer') return WorldAPI.getWorldComBuffer();
                 if (key === 'currentDynamic') return WorldAPI.getControlledRenderable().getDynamicSpatialBuffer()
             };
 
             enumHandle = {
                 worldComBuffer:'BufferChannels',
-                currentDynamic:'BufferSpatial'
+                currentDynamic:'BufferSpatial',
+                inputState:'InputState'
             };
         };
 
@@ -98,13 +102,21 @@ define([
             var conf = {
                 label:config.label,
                 configId:config.configId,
-                layout:config.layout,
-                buffer:bufferFetcher(config.buffer),
-                channel:ENUMS[enumHandle[config.buffer]][config.channel]
+                layout:config.layout
             };
+
+            if (config.buffer) {
+                conf.buffer = bufferFetcher(config.buffer);
+                conf.channel = ENUMS[enumHandle[config.buffer]][config.channel]
+            }
 
             if (config.onDrag) {
                 conf.onDrag = DragFunctions[config.onDrag]
+            }
+
+            if (config.onUpdate) {
+                conf.onUpdate = OnUpdateFunctions[config.onUpdate];
+                conf.source = config.source
             }
 
             return conf;
@@ -171,6 +183,22 @@ define([
             store.push(widget);
 
         };
+
+        WidgetBuilder.prototype.buildDragControl = function(config, store, widgetBuilder) {
+            var conf = buildWidgetConfig(config);
+
+            widget = new GuiDragControlWidget(conf.label, conf.configId);
+            widget.addDragCallback(conf.onDrag);
+            widget.setMasterBuffer(conf.buffer,  conf.channel);
+
+            widget.addUpdateCallback(conf.onUpdate, conf.source);
+
+            widget.applyDynamicLayout(conf.layout);
+
+            store.push(widget);
+
+        };
+
 
         WidgetBuilder.prototype.buildStateGauge = function(config, store, widgetBuilder) {
             var conf = buildWidgetConfig(config);

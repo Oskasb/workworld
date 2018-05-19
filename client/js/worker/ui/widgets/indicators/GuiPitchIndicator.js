@@ -55,22 +55,13 @@ define([
 
             if (this.guiProgress.getBufferState()) {
 
-                layout =  this.configRead('surface').layout;
-
-                state = this.guiProgress.getBufferState() / Math.PI;
+                state = this.guiProgress.getBufferState();
 
                 this.baseWidget.setWidgetOn(1);
 
                 this.guiProgress.updateProgress();
 
-            //    this.baseWidget.setLabelText(MATH.decimalify(state, 100));
-
-                height = layout.height*0.5 + state * layout.height * 0.5;
-
-                this.dynamicLayout.height = -height;
-                this.dynamicLayout.margin_y = layout.margin_y - this.dynamicLayout.height + layout.height * 0.5;
-
-                this.baseWidget.applyProgressDynLayout(this.dynamicLayout);
+                this.baseWidget.indicatePitchState(state, 'surface', 'state');
 
                 this.updateSurfaceState();
 

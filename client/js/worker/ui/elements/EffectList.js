@@ -12,6 +12,7 @@ define([
         var EffectList = function() {
             this.effects = [];
             this.lastScale = null;
+            this.lastAspect = null;
             this.lastPos = new THREE.Vector3();
             this.lastVel = new THREE.Vector3();
             this.lastQuat = new THREE.Quaternion();
@@ -77,9 +78,15 @@ define([
         };
 
         EffectList.prototype.setEffectListAspect = function(aspect) {
+
+            if (this.lastAspect === aspect) {
+                return;
+            }
+
             for (i = 0; i < this.effects.length; i++) {
                 this.effects[i].updateEffectScaleTexelRow(aspect);
             }
+            this.lastAspect = aspect
         };
 
         EffectList.prototype.setEffectListPosition = function(posVec) {

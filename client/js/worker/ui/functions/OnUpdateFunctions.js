@@ -47,6 +47,15 @@ define([],
             WorldAPI.setCom(ENUMS.BufferChannels.UI_CAM_DRAG_Z, MATH.clamp(WorldAPI.getCom(ENUMS.BufferChannels.UI_CAM_DRAG_Z) - WorldAPI.sampleInputBuffer(ENUMS.InputState.DRAG_DISTANCE_Y), -1, 1));
         };
 
+        var piece;
+
+        OnUpdateFunctions.sampleControl = function(source) {
+
+            piece = WorldAPI.getControlledRenderable().getGamePiece();
+            return piece.getControlStateById(source).getControlStateTargetValue();
+
+        };
+
         return OnUpdateFunctions;
 
     });

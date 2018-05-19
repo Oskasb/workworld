@@ -475,10 +475,11 @@
 
           {"source":"INSTANCING_PROGRAMS", "chunk":"vertexNormalMain"},
 
-
           {"source":"INSTANCING_PROGRAMS", "chunk":"vertexUvTilesMain"},
-          {"source":"INSTANCING_PROGRAMS", "chunk":"vertexSizeMain"},
+
           {"source":"INSTANCING_PROGRAMS", "chunk":"vertexAspectFromTexRowSelectZ"},
+
+          {"source":"INSTANCING_PROGRAMS", "chunk":"vertexSizeMain"},
 
           {"source":"INSTANCING_PROGRAMS", "chunk":"vertexSpatialMain"},
 

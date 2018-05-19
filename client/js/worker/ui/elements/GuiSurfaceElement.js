@@ -277,6 +277,10 @@ define([
             this.backplate.setPlateQuaternion(quat);
         };
 
+        GuiSurfaceElement.prototype.setBackplateRotation = function(x, y, z) {
+            this.backplate.setPlateRotation(x, y, z);
+        };
+
         GuiSurfaceElement.prototype.setSamplePointer = function(bool) {
             this.samplePointer = bool;
         };

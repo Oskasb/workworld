@@ -21,11 +21,15 @@ define([
         };
 
         PieceControlState.prototype.setPieceControlTargetState = function(value) {
-            this.state.target = value;
+            this.state.target = MATH.clamp(value, this.state.min, this.state.max);
         };
 
         PieceControlState.prototype.renderControlableModule = function(renderable) {
 
+        };
+
+        PieceControlState.prototype.getControlStateTargetValue = function() {
+            return this.state.target;
         };
 
         PieceControlState.prototype.getControlStateValue = function() {

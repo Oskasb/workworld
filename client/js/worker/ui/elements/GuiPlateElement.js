@@ -54,10 +54,10 @@ define([
 
         GuiPlateElement.prototype.setPlateWidthAndHeight = function(width, height) {
 
-            this.passiveRenderable.setRenderableScale(width);
             this.passiveRenderable.setRenderableAspect(width, height);
-            this.activeRenderable.setRenderableScale(width);
+            this.passiveRenderable.setRenderableScale(width);
             this.activeRenderable.setRenderableAspect(width, height);
+            this.activeRenderable.setRenderableScale(width);
 
         };
 
@@ -86,6 +86,12 @@ define([
             this.obj3d.quaternion.copy(quat);
             this.passiveRenderable.updateRenderableQuaternion();
             this.activeRenderable.updateRenderableQuaternion()
+        };
+
+        GuiPlateElement.prototype.setPlateRotation = function(x, y, z) {
+            this.obj3d.rotation.set(x, y, z);
+            this.passiveRenderable.updateRenderableQuaternion();
+            this.activeRenderable.updateRenderableQuaternion();
         };
 
         GuiPlateElement.prototype.getPlateQuaternion = function() {

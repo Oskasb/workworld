@@ -164,6 +164,7 @@ if(typeof(ENUMS) === "undefined"){
         ROLL_ANGLE:         44,
         PITCH_ANGLE:        45,
         YAW_ANGLE:          46,
+        SPEED_MPS:          47,
         DYNAMIC_FIRST_INDEX:64,
         BUFFER_SIZE:        1024
     };

@@ -165,6 +165,7 @@ define([
 
         WidgetLoader.prototype.setupFunctions = function() {
             widgetCalls['DRAG_AXIS'] = widgetBuilder.buildDragAxis;
+            widgetCalls['DRAG_CONTROL'] = widgetBuilder.buildDragControl;
             widgetCalls['HOVER_DYNAMIC'] = widgetBuilder.buildHoverDynamic;
             widgetCalls['THUMBSTICK'] = widgetBuilder.buildThumbstick;
             widgetCalls['STATE_GAUGE'] = widgetBuilder.buildStateGauge;

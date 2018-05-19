@@ -83,6 +83,10 @@ define([
             return worldControlState.valueFromInputBuffer(inputIndex)
         };
 
+        WorldAPI.getInputBuffer = function() {
+            return worldControlState.getControlInputBuffer()
+        };
+
         WorldAPI.getWorldComBuffer = function() {
             return worldMain.worldComBuffer()
         };
@@ -245,10 +249,14 @@ define([
 
             WorldAPI.sendWorldMessage(ENUMS.Protocol.NOTIFY_FRAME, frame);
             worldControlState.updateWorldControlState();
+
             dynamicWorld.updateDynamicWorld();
             terrainSystem.updateTerrainSystem(tpf);
 
             GuiAPI.updateGui();
+
+            WorldAPI.getWorldCamera().updateCameraControlState();
+
             WorldAPI.getWorldCamera().relayCamera(WorldAPI.getWorldComBuffer());
             worldMain.updateWorldEffects();
             WorldAPI.callSharedWorker(ENUMS.Worker.PHYSICS_WORLD, ENUMS.Protocol.PHYSICS_CALL_UPDATE, null);

@@ -56,7 +56,7 @@ define([
 
             //    this.baseWidget.setLabelText(MATH.decimalify(this.guiProgress.getBufferState(), 100))
 
-                this.obj3d.quaternion.set(0, 0, 0, 1);
+                this.obj3d.quaternion.set(0, 0, 1, 0);
 
                 this.obj3d.rotateZ(-this.guiProgress.getBufferState());
                 this.baseWidget.setIndicatorQuaternion(this.obj3d.quaternion);

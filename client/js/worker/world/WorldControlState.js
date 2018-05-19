@@ -68,6 +68,11 @@ define([
             coordsVector.y *= inputBuffer[ENUMS.InputState.FRUSTUM_FACTOR];
         };
 
+        WorldControlState.prototype.getControlInputBuffer = function() {
+            return inputBuffer;
+        };
+
+
         WorldControlState.prototype.valueFromInputBuffer = function(bufferIndex) {
             return inputBuffer[bufferIndex];
         };
