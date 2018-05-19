@@ -72,7 +72,7 @@ define([
                     this.startDragState = sourceState;
                     state = this.startDragState;
                 } else {
-                    state = this.guiDraggable.getBufferState();
+                    state = this.guiDraggable.getBufferState() * 0.1;
                     this.guiDraggable.updateDraggable(this.baseWidget.getSurfaceElement(), state);
                 }
             } else {
@@ -80,7 +80,7 @@ define([
                 this.startDragState = null;
             }
 
-            WorldAPI.addTextMessage("Source: "+this.update.source+" _ "+state);
+        //    WorldAPI.addTextMessage("Source: "+this.update.source+" _ "+state);
 
             this.baseWidget.setLabelText(MATH.decimalify(sourceState, 100));
             this.baseWidget.indicateControlState(sourceState, 'surface', 'state');

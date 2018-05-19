@@ -25,13 +25,12 @@ define([
         };
 
         ModuleFunctions.applyForce = function(renderable, moduleState, trgt) {
-
             target = renderable.getSpatialShapeById(trgt);
-        //    target.sampleBufferState();
             calcVec.copy(target.direction);
             target.getDynamicShapeQuaternion(calcQuat);
             calcVec.applyQuaternion(calcQuat);
-            calcVec.multiplyScalar(moduleState.getAppliedFactor());
+            calcVec.applyQuaternion(renderable.quat);
+            calcVec.multiplyScalar(moduleState.getAppliedFactor()/0.016);
             target.addForceToDynamicShape(calcVec);
         };
 

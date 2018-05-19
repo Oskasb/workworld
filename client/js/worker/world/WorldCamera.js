@@ -218,6 +218,16 @@ define([
         WorldAPI.getWorldCamera().updateCameraLookAt();
     };
 
+    WorldCamera.prototype.followActiveSelection = function(renderable) {
+
+        if (renderable) {
+            renderable.getDynamicSpatialVelocity(tempVec1);
+            tempVec1.multiplyScalar(WorldAPI.getCom(ENUMS.BufferChannels.TPF)/1000);
+            camera.position.add(tempVec1);
+        }
+
+    };
+
 
     WorldCamera.prototype.relayCamera = function(comBuffer) {
 

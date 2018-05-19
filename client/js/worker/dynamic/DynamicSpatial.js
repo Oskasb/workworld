@@ -1,10 +1,12 @@
 "use strict";
 
 define([
-        'worker/dynamic/DynamicShape'
+        'worker/dynamic/DynamicShape',
+        'worker/physics/ShapePhysics'
     ],
     function(
-        DynamicShape
+        DynamicShape,
+        ShapePhysics
     ) {
 
 
@@ -323,8 +325,14 @@ define([
 
         DynamicSpatial.prototype.tickPhysicsForces = function(ammoApi) {
 
+            this.getSpatialQuaternion(tempQuat);
+
             for (i = 0; i < this.dynamicShapes.length; i++) {
-                this.dynamicShapes[i].applyDynamicShapeForceToBody(ammoApi, this.body);
+                this.dynamicShapes[i].applyDynamicShapeForce(tempVec1);
+                tempVec1.applyQuaternion(tempQuat);
+                this.applySpatialImpulseVector(tempVec1);
+                tempVec1.multiplyScalar(-1);
+                this.applySpatialTorqueVector(ShapePhysics.torqueFromForcePoint(this.dynamicShapes[i].offset, tempVec1));
             }
 
             if (this.bufferContainsTorque() || this.bufferContainsForce()) {
@@ -352,9 +360,12 @@ define([
 
         };
 
+        DynamicSpatial.prototype.getSpatialVelocity = function(vec3) {
+            return this.getVectorByFirstIndex(ENUMS.BufferSpatial.VELOCITY_X, vec3);
+        };
 
         DynamicSpatial.prototype.computeState = function() {
-            this.getVectorByFirstIndex(ENUMS.BufferSpatial.VELOCITY_X, tempVec1);
+            this.getSpatialVelocity(tempVec1);
             this.spatialBuffer[ENUMS.BufferSpatial.SPEED_MPS] = tempVec1.length();
             this.getSpatialQuaternion(tempObj.quaternion);
             tempVec2.set(0, 0, 1);

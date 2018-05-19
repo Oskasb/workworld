@@ -255,6 +255,8 @@ define([
 
             GuiAPI.updateGui();
 
+            WorldAPI.getWorldCamera().followActiveSelection(WorldAPI.getControlledRenderable());
+
             WorldAPI.getWorldCamera().updateCameraControlState();
 
             WorldAPI.getWorldCamera().relayCamera(WorldAPI.getWorldComBuffer());

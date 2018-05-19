@@ -180,17 +180,19 @@ define([
             store.crossVectors(angularVelocity , this.offset);
         };
 
-        DynamicShape.prototype.applyDynamicShapeForceToBody = function(ammoApi, body) {
+        DynamicShape.prototype.applyDynamicShapeForce = function(storeImpulse) {
             if (this.hasDynamicShapeForce()) {
                 this.getDynamicShapeForce(this.impulseVector);
                 this.setVectorByFirstIndex(ENUMS.DynamicShape.ACTING_FORCE_X, this.impulseVector);
                 this.getDynamicShapeOffset(this.offset);
-                PhysicsWorldAPI.applyLocalForceToBodyPoint(this.impulseVector, body, this.offset);
+            //    PhysicsWorldAPI.applyLocalForceToBodyPoint(this.impulseVector, body, this.offset);
                 this.clearDynamicShapeForce();
             } else {
                 this.getDynamicShapeForce(this.impulseVector);
                 this.setVectorByFirstIndex(ENUMS.DynamicShape.ACTING_FORCE_X, this.impulseVector);
             }
+            storeImpulse.copy(this.impulseVector);
+            return storeImpulse;
         };
 
         return DynamicShape;

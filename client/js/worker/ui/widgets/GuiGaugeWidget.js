@@ -20,12 +20,11 @@ define([
             this.position = new THREE.Vector3();
             this.surfaceElement = new GuiSurfaceElement();
             this.progressElement = new GuiSurfaceElement();
-            this.guiProgress = new GuiProgress(this.progressElement);
+            this.guiProgress = new GuiProgress();
 
         };
 
         GuiGaugeWidget.prototype.setupTextElements = function() {
-
             this.header = this.surfaceElement.addSurfaceTextElement(this.configRead('header_label'), this.label);
             this.typeLabel = this.surfaceElement.addSurfaceTextElement(this.configRead('value_label'), 'val..');
         };
@@ -65,14 +64,12 @@ define([
 
         GuiGaugeWidget.prototype.updateSurfaceState = function() {
             this.surfaceElement.updateSurfaceElement(this.position, this.configRead('surface'));
-            this.progressElement.updateSurfaceElement(this.position, this.configRead('state'))
         };
 
         GuiGaugeWidget.prototype.updateGuiWidget = function() {
 
             if (this.guiProgress.getBufferState()) {
                 this.surfaceElement.setOn(1);
-                this.progressElement.setOn(1);
 
                 this.guiProgress.updateProgress();
 
@@ -81,10 +78,7 @@ define([
                 this.dynamicLayout.width = this.configRead('state').layout.width;
                 this.dynamicLayout.margin_x = this.guiProgress.getBufferState() * this.configRead('surface').layout.width * 0.5 + this.configRead('surface').layout.margin_x +  this.configRead('surface').layout.width * 0.5;
 
-                this.applyProgressDynLayout(this.dynamicLayout);
-
                 this.updateSurfaceState();
-
 
             } else if (!this.surfaceElement.disabled) {
                 this.disableWidget();
@@ -96,23 +90,12 @@ define([
             for (var key in dynLayout) {
                 this.getWidgetSurfaceLayout().setDynamicLayout(key, dynLayout[key])
             }
-            this.applyProgressDynLayout(dynLayout);
-        };
-
-        GuiGaugeWidget.prototype.applyProgressDynLayout = function(dynLayout) {
-            for (var key in dynLayout) {
-                this.getWidgetProgressLayout().setDynamicLayout(key, dynLayout[key])
-            }
         };
 
         GuiGaugeWidget.prototype.disableWidget = function() {
             this.surfaceElement.disableSurfaceElement();
-            this.progressElement.disableSurfaceElement();
         };
 
-        GuiGaugeWidget.prototype.getWidgetProgressLayout = function() {
-            return this.progressElement.getSurfaceLayout();
-        };
 
         GuiGaugeWidget.prototype.getWidgetSurfaceLayout = function() {
             return this.surfaceElement.getSurfaceLayout();

@@ -186,6 +186,10 @@ define([
             return this.dynamicSpatial.getSpatialBuffer()
         };
 
+        DynamicRenderable.prototype.getDynamicSpatialVelocity = function(vec3) {
+            return this.dynamicSpatial.getSpatialVelocity(vec3)
+        };
+
         DynamicRenderable.prototype.getDynamicScale = function(vec3) {
             return this.dynamicSpatial.getSpatialScale(vec3)
         };

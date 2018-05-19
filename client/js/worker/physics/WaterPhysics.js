@@ -16,9 +16,12 @@ define([
 
         var tempVelVec = new THREE.Vector3();
         var tempAngVelVec = new THREE.Vector3();
+        var AoAVec = new THREE.Vector3();
 
         var tempVolumeVelVec = new THREE.Vector3();
         var tempVecGlobalPos = new THREE.Vector3();
+
+        var speed;
 
         var velDot;
         var submergedFraction;
@@ -46,8 +49,11 @@ define([
 
         WaterPhysics.prototype.processWaterProximity = function(dynSpat, physTpf) {
             dynSpat.getSpatialQuaternion(tempQuat);
+            speed = dynSpat.spatialBuffer[ENUMS.BufferSpatial.SPEED_MPS];
             dynSpat.getVectorByFirstIndex(ENUMS.BufferSpatial.VELOCITY_X, tempVelVec);
             dynSpat.getVectorByFirstIndex(ENUMS.BufferSpatial.ANGULAR_VEL_X, tempAngVelVec);
+            dynSpat.getVectorByFirstIndex(ENUMS.BufferSpatial.ANGLE_OF_ATTACK_X, AoAVec);
+
 
             totalSubmergedVolume = 0;
             unsubmergedVolume = 0;
@@ -72,7 +78,7 @@ define([
 
                     tempVolumeVelVec.addVectors(tempVelVec , tempVolumeVelVec );
 
-                    ShapePhysics.calculateShapeDynamicForce(shape, tempVolumeVelVec, tempQuat, tempVec2, 1);
+                    ShapePhysics.calculateShapeDynamicForce(dynSpat, shape, tempVolumeVelVec, tempQuat, tempVec2, AoAVec,speed, 1);
             /*
                 //    tempVolumeVelVec.copy(tempVelVec)
                     var vel = tempVolumeVelVec.lengthSq();
@@ -84,7 +90,7 @@ define([
 */
 
                     tempVec2.multiplyScalar(MATH.calcFraction(0, sphereVolume, submergedVolume) * 1.016);
-                    tempVec3.set(0, submergedVolume*100, 0);
+                    tempVec3.set(0, submergedVolume*100/0.016, 0);
 
                     tempVec3.x += tempVec2.x;
                     tempVec3.y += tempVec2.y;
@@ -93,6 +99,8 @@ define([
                     MATH.safeForceVector(tempVec3);
 
                     shape.addForceToDynamicShape(tempVec3);
+
+                    //
 
                 }
             }
