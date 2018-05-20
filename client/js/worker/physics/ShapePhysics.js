@@ -88,9 +88,9 @@ define([
 
 
         ShapePhysics.calculateSurfaceDragForce = function(boxVec, velVec) {
-            //     return Math.abs(boxVec.x*boxVec.y * velVec.z ) + Math.abs(boxVec.z*boxVec.y * velVec.x) + Math.abs(boxVec.x*boxVec.z * velVec.y );
+            return Math.abs(boxVec.x * boxVec.y * boxVec.z* velVec.z * velVec.z) // + Math.abs(boxVec.z*boxVec.y * velVec.x* velVec.x) + Math.abs(boxVec.x*boxVec.z * velVec.y * velVec.y);
 
-         return Math.abs(boxVec.x*boxVec.y * velVec.z * velVec.z) + Math.abs(boxVec.z*boxVec.y * velVec.x* velVec.x) + Math.abs(boxVec.x*boxVec.z * velVec.y * velVec.y);
+            return Math.abs(boxVec.x*boxVec.y * velVec.z * velVec.z) + Math.abs(boxVec.z*boxVec.y * velVec.x* velVec.x) + Math.abs(boxVec.x*boxVec.z * velVec.y * velVec.y);
         };
 
 
@@ -129,74 +129,53 @@ var incidence;
 
         ShapePhysics.calculateShapeDynamicForce = function(dynSpat, dynamicShape, velocity, rootQuat, forceStore, AoAVec, speed, density) {
 
-
             tempVec.copy(dynamicShape.size);
-            pointOfApplication.copy(dynamicShape.offset);
 
 
-            tansformedVel.copy(velocity);
-
-            tansformedVel.applyQuaternion(rootQuat);
-            tansformedVel.multiplyScalar(-1);
+            tempVec.applyQuaternion(rootQuat);
 
             dynamicShape.getDynamicShapeQuaternion(tempQuat);
 
+            tempVec.applyQuaternion(tempQuat);
             tempObj.quaternion.copy(tempQuat);
-        //    tempObj.lookAt(tempVec1);AoAVec.z
+
             tempEuler.setFromQuaternion(tempObj.quaternion, 'YZX');
 
             anglesOfIncidence.x = MATH.addAngles(AoAVec.x , tempEuler.x  );
             anglesOfIncidence.y = MATH.addAngles(AoAVec.y , tempEuler.y  );
             anglesOfIncidence.z = MATH.addAngles(AoAVec.z , tempEuler.z  );
 
-            //    tempVec.applyQuaternion(rootQuat);add
-            tempVec.applyQuaternion(tempQuat);
+            drag = ShapePhysics.calculateSurfaceDragForce(tempVec, velocity);
 
-            tempVec3.set(0, 0, 3.14);
-            tempVec3.applyQuaternion(tempQuat);
-
-        //    anglesOfAttack.copy(tempVec3, tempVec2);
-
-
-        //    anglesOfIncidence.applyQuaternion(tempQuat);
-
-        //    anglesOfIncidence.subVectors(AoAVec, tempVec3);
-
-        //    drag = Math.abs(tempVec.x*tempVec.y * velocity.z * velocity.z) + Math.abs(tempVec.z*tempVec.y * velocity.x* velocity.x) + Math.abs(tempVec.x*tempVec.z * velocity.y * velocity.y);
-
-            drag = ShapePhysics.calculateSurfaceDragForce(tempVec, tansformedVel);
-
-            forceStore.set(0, 0, 0);
-            forceStore.copy(velocity);
-            forceStore.multiplyScalar(-drag*coefficients['water_drag']);
-
+            dragVec.copy(velocity);
+            dragVec.multiplyScalar(-drag*density*coefficients['base_drag']);
+        //    dragVec.applyQuaternion(rootQuat)
             liftVec.set(0, 0, 0);
 
             curveId = dynamicShape.getAxisLiftCurve(0);
+
             if (curveId) {
-                incidence =
                 liftVec.x = ShapePhysics.calculateSurfaceLiftForce(dynamicShape.size.y * dynamicShape.size.z, speed, anglesOfIncidence.y, curveId);
             }
 
             curveId = dynamicShape.getAxisLiftCurve(1);
             if (curveId) {
-        //        liftVec.y = ShapePhysics.calculateSurfaceLiftForce(dynamicShape.size.x * dynamicShape.size.z, tansformedVel.z, anglesOfIncidence.z, curveId);
+                liftVec.y = ShapePhysics.calculateSurfaceLiftForce(dynamicShape.size.x * dynamicShape.size.z, speed, anglesOfIncidence.x, curveId);
             }
 
             curveId = dynamicShape.getAxisLiftCurve(2);
             if (curveId) {
-        //        liftVec.z = ShapePhysics.calculateSurfaceLiftForce(dynamicShape.size.y * dynamicShape.size.x, tansformedVel.x, anglesOfIncidence.x, curveId);
+                liftVec.z = ShapePhysics.calculateSurfaceLiftForce(dynamicShape.size.y * dynamicShape.size.x, speed, anglesOfIncidence.z, curveId);
             }
 
-            liftVec.multiplyScalar(density * 100 / 0.016);
+            liftVec.multiplyScalar(density * coefficients['base_lift'] / 0.016);
 
-        //    tempQuat.copy(rootQuat)
-
-        //    liftVec.applyQuaternion(tempQuat);
-
-            //    dynSpat.applySpatialTorqueVector(ShapePhysics.torqueFromForcePoint(pointOfApplication, liftVec));
-
-           forceStore.addVectors(liftVec, forceStore);
+            dynSpat.applySpatialImpulseVector(dragVec);
+        //    dragVec.multiplyScalar(-1);
+        //    pointOfApplication.copy(dynamicShape.offset);
+        //    pointOfApplication.applyQuaternion(rootQuat);
+        //    dynSpat.applySpatialTorqueVector(ShapePhysics.torqueFromForcePoint(pointOfApplication, dragVec));
+        //    forceStore.addVectors(liftVec, dragVec);
             dynamicShape.addForceToDynamicShape(liftVec)
         };
 

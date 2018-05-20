@@ -42,6 +42,8 @@ define([
         var submergedVolume;
         var shape;
 
+        var density;
+
         var WaterPhysics = function(physicsApi) {
         //    ShapePhysics.initData();
         };
@@ -58,6 +60,7 @@ define([
             totalSubmergedVolume = 0;
             unsubmergedVolume = 0;
             totalVolForce = 0;
+            density = 100;
             for (var i = 0; i < dynSpat.dynamicShapes.length; i++) {
 
                 shape = dynSpat.dynamicShapes[i]
@@ -78,37 +81,17 @@ define([
 
                     tempVolumeVelVec.addVectors(tempVelVec , tempVolumeVelVec );
 
+                    ShapePhysics.calculateShapeDynamicForce(dynSpat, shape, tempVolumeVelVec, tempQuat, tempVec2, AoAVec,speed, density);
 
-
-                    ShapePhysics.calculateShapeDynamicForce(dynSpat, shape, tempVolumeVelVec, tempQuat, tempVec2, AoAVec,speed, 1);
-            /*
-                //    tempVolumeVelVec.copy(tempVelVec)
-                    var vel = tempVolumeVelVec.lengthSq();
-
-                    shapeVolForce = Math.sqrt( displacement ) * 5 * vel  * physTpf;
-                    totalVolForce += shapeVolForce;
-
-                    tempVolumeVelVec.multiplyScalar(MATH.safeInt(shapeVolForce));
-*/
-
-                //    tempVec2.multiplyScalar(MATH.calcFraction(0, sphereVolume, submergedVolume) * 1.016);
-                    tempVec3.set(0, submergedVolume*100/0.016, 0);
-
-                //    tempVec3.x += tempVec2.x;
-                //    tempVec3.y += tempVec2.y;
-                 //   tempVec3.z += tempVec2.z;
-
-                //    MATH.safeForceVector(tempVec3);
+                    tempVec3.set(0, submergedVolume*density/0.016, 0);
 
                     shape.addForceToDynamicShape(tempVec3);
-
-                    //
 
                 }
             }
 
             submergedFraction = MATH.calcFraction(0, unsubmergedVolume+totalSubmergedVolume,  totalSubmergedVolume);
-            PhysicsWorldAPI.setBodyDamping(dynSpat.body, Math.min(dynSpat.baseDamping + Math.sqrt(submergedFraction*2)*0.25, 0.75),Math.min( dynSpat.baseDamping + Math.sqrt(submergedFraction*2) *0.25, 0.55)  )
+            PhysicsWorldAPI.setBodyDamping(dynSpat.body, Math.min(dynSpat.baseDamping + Math.sqrt(submergedFraction*2)*0.05, 0.55),Math.min( dynSpat.baseDamping + Math.sqrt(submergedFraction*2) *0.10, 0.55)  )
 
         };
 
