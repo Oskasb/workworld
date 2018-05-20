@@ -521,6 +521,26 @@
           }
         },
         {
+          "id":"water_wake_particles",
+          "sprite_key":"ATLAS",
+          "sprite_id":"foam",
+          "config":{
+            "lifeTime":{"min":5.2,"max":9.1},
+            "positionSpread":{"x":8, "y":0.1, "z":8},
+            "gravity":-2.5,
+            "colorCurve":"randomBlue",
+            "alphaCurve":"zeroOneZero",
+            "diffusionCurve":"zeroOneZero",
+            "scaleCurve":"zeroOneZero",
+            "size":{"value":1.0, "min":1.5, "max":8.6},
+            "spin":{"value":3.001, "min": -6.1, "max": 6},
+            "velocityDiffusion":0.03,
+            "accelerationDiffusion":1,
+            "colorDiffusion":0.025,
+            "velocityFactor":32
+          }
+        },
+        {
           "id":"water_spray_particles",
           "sprite_key":"ATLAS",
           "sprite_id":"foam",

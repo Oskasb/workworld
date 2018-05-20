@@ -370,7 +370,16 @@
             "simulation_id":"gpu_predictive_simulation"
           }
         },
-
+        {
+          "id":"water_wake_particle_effect",
+          "data":{
+            "system_key":"THREE",
+            "renderer_id":"gpu_opaque_stamp_renderer",
+            "particle_id":"water_wake_particles",
+            "count":1,
+            "simulation_id":"gpu_stamp_simulation"
+          }
+        },
         {
           "id":"engine_near_smoke",
           "data":{

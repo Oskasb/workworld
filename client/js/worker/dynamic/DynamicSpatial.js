@@ -366,6 +366,10 @@ define([
             return this.getVectorByFirstIndex(ENUMS.BufferSpatial.VELOCITY_X, vec3);
         };
 
+        DynamicSpatial.prototype.getSpatialSpeedMps = function() {
+            return this.spatialBuffer[ENUMS.BufferSpatial.SPEED_MPS];
+        };
+
         DynamicSpatial.prototype.computeState = function() {
             this.getSpatialVelocity(tempVec1);
             this.spatialBuffer[ENUMS.BufferSpatial.SPEED_MPS] = tempVec1.length();

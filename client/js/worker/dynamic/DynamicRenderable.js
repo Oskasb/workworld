@@ -194,6 +194,10 @@ define([
             return this.dynamicSpatial.getSpatialScale(vec3)
         };
 
+        DynamicRenderable.prototype.getDynamicSpeed = function() {
+            return this.dynamicSpatial.getSpatialSpeedMps()
+        };
+
         DynamicRenderable.prototype.getDynamicPosition = function(vec3) {
             return this.dynamicSpatial.getSpatialPosition(vec3)
         };

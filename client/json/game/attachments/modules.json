@@ -105,6 +105,50 @@
           "applyState":"effectEmitter",
           "effectFunction":"bowEffect"
         }
+      },
+      {
+        "id":"bow_6",
+        "data":{
+          "state":{"value":0, "min":-1, "max":1, "speed":0.01, "factor":1},
+          "source":"engine",
+          "target":"sub_1bu",
+          "sampleSource":"effectEmitter",
+          "applyState":"effectEmitter",
+          "effectFunction":"wakeEffect"
+        }
+      },
+      {
+        "id":"bow_7",
+        "data":{
+          "state":{"value":0, "min":-1, "max":1, "speed":0.01, "factor":1},
+          "source":"engine",
+          "target":"sub_1cu",
+          "sampleSource":"effectEmitter",
+          "applyState":"effectEmitter",
+          "effectFunction":"wakeEffect"
+        }
+      },
+      {
+        "id":"bow_8",
+        "data":{
+          "state":{"value":0, "min":-1, "max":1, "speed":0.01, "factor":1},
+          "source":"engine",
+          "target":"sub_7a",
+          "sampleSource":"effectEmitter",
+          "applyState":"effectEmitter",
+          "effectFunction":"wakeEffect"
+        }
+      },
+      {
+        "id":"bow_9",
+        "data":{
+          "state":{"value":0, "min":-1, "max":1, "speed":0.01, "factor":1},
+          "source":"engine",
+          "target":"sub_7b",
+          "sampleSource":"effectEmitter",
+          "applyState":"effectEmitter",
+          "effectFunction":"wakeEffect"
+        }
       }
     ]
   }

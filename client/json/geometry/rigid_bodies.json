@@ -11,7 +11,7 @@
           "args":[
             {"id":"fore_1",       "lift":[0, "wing", 0],  "shape":"Box", "args":[3,  29,   8],    "offset":[0,       6,     149],      "rotation":[0.2, 0,       0]},
             {"id":"fore_2",       "lift":[0, "wing", 0],  "shape":"Box", "args":[20, 12,   1],    "offset":[0,       18,    158],      "rotation":[1.0, 0,       0]},
-            {"id":"fore_3",       "lift":[0,    0,   0],  "shape":"Box", "args":[4,   12,  4],    "offset":[0,      -4,     159],      "rotation":[0.0, 0,       0]},
+            {"id":"fore_3",       "lift":[0,    0,   0],  "shape":"Box", "args":[4,   12,  4],    "offset":[0,      -4,     152],      "rotation":[0.0, 0,       0]},
 
 
             {"id":"sub_1a",       "lift":[0,    0,   0],  "shape":"Box", "args":[6,  13,  40],    "offset":[ 0,     -5,     120],      "rotation":[0,   0,       0]},
@@ -27,15 +27,16 @@
             {"id":"sub_3",        "lift":["wing", 0, 0],  "shape":"Box", "args":[1,   15,  120],  "offset":[0,       -2,      5],      "rotation":[0.0,    0,    0]},
             {"id":"sub_4",        "lift":[0,    0,   0],  "shape":"Box", "args":[17,  15,  65],   "offset":[6,       -5,     60],      "rotation":[0,  -0.16, -0.1]},
 
+            {"id":"sub_7a",       "lift":[0,    0,   0],  "shape":"Box", "args":[4,   16,  40],   "offset":[-16,     -2,     60],      "rotation":[0,  0.15, 0]},
+            {"id":"sub_7b",       "lift":[0,    0,   0],  "shape":"Box", "args":[4,   16,  40],   "offset":[ 16,     -2,     60],      "rotation":[0, -0.15, 0]},
 
             {"id":"big_float_1a", "lift":[0,    0,   0],  "shape":"Box", "args":[12,  32,  90],   "offset":[-6,       5,     40],      "rotation":[0,  0.0, 0]},
             {"id":"big_float_1b", "lift":[0,    0,   0],  "shape":"Box", "args":[12,  32,  90],   "offset":[ 6,       5,     40],      "rotation":[0, -0.0, 0]},
-            {"id":"sub_7a",       "lift":[0,    0,   0],  "shape":"Box", "args":[8,  16,  60],    "offset":[-16,     -2,      0],      "rotation":[0, 0, 0]},
-            {"id":"sub_7b",       "lift":[0,    0,   0],  "shape":"Box", "args":[8,  16,  60],    "offset":[ 16,     -2,      0],      "rotation":[0, 0, 0]},
+
             {"id":"big_float_2a", "lift":[0,    0,   0],  "shape":"Box", "args":[12,  32,  60],   "offset":[-12,      5,    -80],      "rotation":[0, 0, 0]},
             {"id":"big_float_2b", "lift":[0,    0,   0],  "shape":"Box", "args":[12,  32,  60],   "offset":[ 12,      5,    -80],      "rotation":[0, 0, 0]},
-            {"id":"sub_8a",       "lift":[0,    0,   0],  "shape":"Box", "args":[18,  16,  60],   "offset":[-16,     -2,    -60],      "rotation":[0, 0, 0]},
-            {"id":"sub_8b",       "lift":[0,    0,   0],  "shape":"Box", "args":[18,  16,  60],   "offset":[ 16,     -2,    -60],      "rotation":[0, 0, 0]},
+            {"id":"sub_8a",       "lift":[0,    0,   0],  "shape":"Box", "args":[10,  16, 120],   "offset":[-16,     -2,    -20],      "rotation":[0, 0, 0]},
+            {"id":"sub_8b",       "lift":[0,    0,   0],  "shape":"Box", "args":[10,  16, 120],   "offset":[ 16,     -2,    -20],      "rotation":[0, 0, 0]},
             {"id":"sub_17",       "lift":[0,    0,   0],  "shape":"Box", "args":[2,   15,  220],  "offset":[0,       -5,     40],      "rotation":[0, 0, 0]},
             {"id":"sub_prop_1",   "lift":[0,    0,   0],  "shape":"Box", "args":[16,   16,  65],  "offset":[-8,      -0,   -120],      "rotation":[-0.0, -0.0, 0]},
             {"id":"sub_prop_2",   "lift":[0,    0,   0],  "shape":"Box", "args":[16,   16,  65],  "offset":[8,       -0,   -120],      "rotation":[-0.0,  0.0, 0]},

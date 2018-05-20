@@ -69,8 +69,8 @@ define([
 
             pool.push(effect);
 
-            if (pool.length > fxconf.pool) {
-                spliceIdx = Math.floor(Math.random()*pool.length*0.5);
+            while (pool.length > fxconf.pool) {
+                spliceIdx = Math.floor(Math.random()*pool.length*0.8);
                 effect = pool.splice(spliceIdx, 1)[0];
                 effect.disableEffectList();
                 effectPool.push(effect);

@@ -54,6 +54,20 @@
 
             {"config_key":"WAKE_EMITTERS", "config_id":"bow_5",    "group":[
               {"offset":[-15, -4, -170], "direction":[0, -1, 0], "size":[5, 2, 5]}
+            ]},
+
+            {"config_key":"WAKE_EMITTERS", "config_id":"bow_6",    "group":[
+              {"offset":[-15, -4, -170], "direction":[0, -1, 0], "size":[5, 2, 5]}
+            ]},
+
+            {"config_key":"WAKE_EMITTERS", "config_id":"bow_7",    "group":[
+              {"offset":[-15, -4, -170], "direction":[0, -1, 0], "size":[5, 2, 5]}
+            ]},
+            {"config_key":"WAKE_EMITTERS", "config_id":"bow_8",    "group":[
+              {"offset":[-15, -4, -170], "direction":[0, -1, 0], "size":[5, 2, 5]}
+            ]},
+            {"config_key":"WAKE_EMITTERS", "config_id":"bow_9",    "group":[
+              {"offset":[-15, -4, -170], "direction":[0, -1, 0], "size":[5, 2, 5]}
             ]}
           ]
         }
