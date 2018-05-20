@@ -384,7 +384,6 @@ define([
             tempVec1.z = MATH.subAngles(this.spatialBuffer[ENUMS.BufferSpatial.ROLL_ANGLE]  , tempEuler.z    );
 
             this.setVectorByFirstIndex(ENUMS.BufferSpatial.ANGLE_OF_ATTACK_X, tempVec1);
-
         };
 
 

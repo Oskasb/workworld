@@ -176,8 +176,6 @@ var incidence;
             if (curveId) {
                 incidence =
                 liftVec.x = ShapePhysics.calculateSurfaceLiftForce(dynamicShape.size.y * dynamicShape.size.z, speed, anglesOfIncidence.y, curveId);
-            //    liftVec.x += ShapePhysics.calculateSurfaceLiftForce(dynamicShape.size.y * dynamicShape.size.z, speed, anglesOfIncidence.z, curveId);
-             //   console.log( ' _ ' +anglesOfIncidence.x)
             }
 
             curveId = dynamicShape.getAxisLiftCurve(1);
@@ -190,7 +188,7 @@ var incidence;
         //        liftVec.z = ShapePhysics.calculateSurfaceLiftForce(dynamicShape.size.y * dynamicShape.size.x, tansformedVel.x, anglesOfIncidence.x, curveId);
             }
 
-            liftVec.multiplyScalar(density * 1000 / 0.016);
+            liftVec.multiplyScalar(density * 100 / 0.016);
 
         //    tempQuat.copy(rootQuat)
 
