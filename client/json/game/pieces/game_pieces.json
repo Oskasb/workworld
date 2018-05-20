@@ -14,7 +14,8 @@
           ],
           "attachment_groups":[
             {"config_key":"ENTERPRISE_ATTACHMENTS", "config_id":"propulsion_system"},
-            {"config_key":"ENTERPRISE_ATTACHMENTS", "config_id":"catapult_system"}
+            {"config_key":"ENTERPRISE_ATTACHMENTS", "config_id":"catapult_system"},
+            {"config_key":"ENTERPRISE_ATTACHMENTS", "config_id":"wake_emitters"}
           ]
         }
       }

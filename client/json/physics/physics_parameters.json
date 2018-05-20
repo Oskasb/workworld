@@ -14,7 +14,7 @@
       {
         "id":"coefficients",
         "data":{
-          "base_drag"  : 0.1,
+          "base_drag"  : 0.01,
           "base_lift"  : 1,
           "skid_stall" : 0.4,
           "base_stall" : 2,

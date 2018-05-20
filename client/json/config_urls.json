@@ -6,6 +6,7 @@
       "validation/shapes_validation.json",
 
       "effects/module_effects.json",
+      "effects/environment_effects.json",
 
       "ui/gui_elements.json",
       "ui/gui_particle_elements.json",

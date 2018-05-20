@@ -9,6 +9,7 @@ define([
         'worker/dynamic/DynamicWorld',
         'worker/terrain/TerrainSystem',
         'worker/world/WorldControlState',
+        'worker/world/WaterEffects',
         'worker/StatusMonitor'
     ],
     function(
@@ -20,6 +21,7 @@ define([
         DynamicWorld,
         TerrainSystem,
         WorldControlState,
+        WaterEffects,
         StatusMonitor
     ) {
 
@@ -30,6 +32,7 @@ define([
         var worldMessages;
         var worldControlState;
         var terrainSystem;
+        var waterEffects;
         var statusMonitor;
         var fetches = {};
 
@@ -46,7 +49,7 @@ define([
         WorldAPI.initWorld = function(onWorkerReady) {
 
             GuiAPI.initGuiApi();
-
+            waterEffects = new WaterEffects();
             worldControlState = new WorldControlState(WorldAPI);
             terrainSystem = new TerrainSystem();
             worldMain = new WorldMain(WorldAPI);

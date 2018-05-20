@@ -47,6 +47,10 @@ define([
             target.setDynamicShapeQuaternion(calcObj.quaternion);
         };
 
+        ModuleFunctions.effectEmitter = function(renderable, moduleState, source) {
+
+        };
+
         return ModuleFunctions;
 
     });

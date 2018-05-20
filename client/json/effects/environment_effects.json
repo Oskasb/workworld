@@ -1,0 +1,28 @@
+[{
+  "ENVIRONMENT_EFFECTS": {
+
+    "WATER":[
+      {
+        "id":"surface_effects",
+        "data":{
+          "prop_effect":{
+            "pool":2000,
+            "effects":["water_spray_particle_effect"]
+          },
+          "wake_effect":{
+            "pool":10000,
+            "effects":["water_foam_particle_effect"]
+          },
+          "bow_splash":{
+            "pool":10000,
+            "effects":["water_spray_particle_effect"]
+          },
+          "wave_splash":{
+            "pool":10000,
+            "effects":["water_foam_particle_effect"]
+          }
+        }
+      }
+    ]
+  }
+}]

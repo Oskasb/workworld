@@ -56,6 +56,13 @@ define([],
 
         };
 
+        OnUpdateFunctions.sampleSpeed = function(source) {
+
+            piece = WorldAPI.getControlledRenderable().getGamePiece();
+            return piece.getControlStateById(source).getControlStateTargetValue();
+
+        };
+
         return OnUpdateFunctions;
 
     });

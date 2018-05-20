@@ -49,6 +49,8 @@ define(function() {
 
         GAME_EFFECT:{type:'GAME_EFFECT', args:{effect:"string", pos:{data:[0, 0, 0]}, vel:{data:[0, 0, 0]}, callbacks:{}}},
 
+        WATER_EFFECT:{type:'WATER_EFFECT', args:{}},
+
         INPUT_PLAYER_CONTROL:{type:'INPUT_PLAYER_CONTROL', args:{data:{}}},
         CONTROLLED_PIECE_UPDATED:{type:'CONTROLLED_PIECE_UPDATED', args:{}},
 

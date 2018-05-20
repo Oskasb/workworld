@@ -359,6 +359,18 @@
             "simulation_id":"gpu_predictive_simulation"
           }
         },
+
+        {
+          "id":"water_spray_particle_effect",
+          "data":{
+            "system_key":"THREE",
+            "renderer_id":"gpu_normal_atlas_renderer",
+            "particle_id":"water_spray_particles",
+            "count":1,
+            "simulation_id":"gpu_predictive_simulation"
+          }
+        },
+
         {
           "id":"engine_near_smoke",
           "data":{

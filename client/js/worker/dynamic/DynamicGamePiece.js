@@ -4,7 +4,7 @@ define([
         'ConfigObject',
         'worker/controls/PieceControl',
         'worker/controlable/AttachmentGroup',
-    'worker/controlable/PieceControlState'
+        'worker/controlable/PieceControlState'
 
     ],
     function(
