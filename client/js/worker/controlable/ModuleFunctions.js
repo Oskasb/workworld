@@ -1,10 +1,10 @@
 "use strict";
 
 define([
-
+        'worker/physics/ShapePhysics'
     ],
     function(
-
+        ShapePhysics
     ) {
 
     var controlState;
@@ -29,9 +29,13 @@ define([
             calcVec.copy(target.direction);
             target.getDynamicShapeQuaternion(calcQuat);
             calcVec.applyQuaternion(calcQuat);
-            calcVec.applyQuaternion(renderable.quat);
             calcVec.multiplyScalar(moduleState.getAppliedFactor()/0.016);
-            target.addForceToDynamicShape(calcVec);
+
+            renderable.applyTorqueVector(ShapePhysics.torqueFromForcePoint(calcVec, target.offset))
+
+            calcVec.applyQuaternion(renderable.quat);
+            renderable.applyForceVector(calcVec);
+
         };
 
         ModuleFunctions.applyRotationY = function(renderable, moduleState, trgt) {

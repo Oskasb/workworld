@@ -78,6 +78,8 @@ define([
 
                     tempVolumeVelVec.addVectors(tempVelVec , tempVolumeVelVec );
 
+
+
                     ShapePhysics.calculateShapeDynamicForce(dynSpat, shape, tempVolumeVelVec, tempQuat, tempVec2, AoAVec,speed, 1);
             /*
                 //    tempVolumeVelVec.copy(tempVelVec)
@@ -89,14 +91,14 @@ define([
                     tempVolumeVelVec.multiplyScalar(MATH.safeInt(shapeVolForce));
 */
 
-                    tempVec2.multiplyScalar(MATH.calcFraction(0, sphereVolume, submergedVolume) * 1.016);
+                //    tempVec2.multiplyScalar(MATH.calcFraction(0, sphereVolume, submergedVolume) * 1.016);
                     tempVec3.set(0, submergedVolume*100/0.016, 0);
 
-                    tempVec3.x += tempVec2.x;
-                    tempVec3.y += tempVec2.y;
-                    tempVec3.z += tempVec2.z;
+                //    tempVec3.x += tempVec2.x;
+                //    tempVec3.y += tempVec2.y;
+                 //   tempVec3.z += tempVec2.z;
 
-                    MATH.safeForceVector(tempVec3);
+                //    MATH.safeForceVector(tempVec3);
 
                     shape.addForceToDynamicShape(tempVec3);
 

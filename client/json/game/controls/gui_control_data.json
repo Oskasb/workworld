@@ -23,9 +23,20 @@
 
             {"widget":"HOVER_DYNAMIC",  "label":"",       "configId":"config"},
             {"widget":"THUMBSTICK",     "label":"",       "configId":"config", "onDrag":"thumbstickDrag"},
+
+
+            {"widget":"STATE_GAUGE",    "label":"VEL_X",  "configId":"angle_indicator",  "layout":{"margin_y":0.16}, "buffer":"currentDynamic", "channel":"VELOCITY_X"},
+            {"widget":"STATE_GAUGE",    "label":"VEL_Y",  "configId":"angle_indicator",  "layout":{"margin_y":0.20}, "buffer":"currentDynamic", "channel":"VELOCITY_Y"},
+            {"widget":"STATE_GAUGE",    "label":"VEL_Z",  "configId":"angle_indicator",  "layout":{"margin_y":0.24}, "buffer":"currentDynamic", "channel":"VELOCITY_Z"},
+
+            {"widget":"STATE_GAUGE",    "label":"PITCH",  "configId":"angle_indicator",  "layout":{"margin_y":0.36}, "buffer":"currentDynamic", "channel":"PITCH_ANGLE"},
+            {"widget":"STATE_GAUGE",    "label":"ROLL",   "configId":"angle_indicator",  "layout":{"margin_y":0.32}, "buffer":"currentDynamic", "channel":"ROLL_ANGLE"},
+            {"widget":"STATE_GAUGE",    "label":"YAW",    "configId":"angle_indicator",  "layout":{"margin_y":0.28}, "buffer":"currentDynamic", "channel":"YAW_ANGLE"},
+
             {"widget":"STATE_GAUGE",    "label":"AoA X",  "configId":"angle_indicator",  "layout":{"margin_y":0.48}, "buffer":"currentDynamic", "channel":"ANGLE_OF_ATTACK_X"},
             {"widget":"STATE_GAUGE",    "label":"AoA Y",  "configId":"angle_indicator",  "layout":{"margin_y":0.44}, "buffer":"currentDynamic", "channel":"ANGLE_OF_ATTACK_Y"},
             {"widget":"STATE_GAUGE",    "label":"AoA Z",  "configId":"angle_indicator",  "layout":{"margin_y":0.40}, "buffer":"currentDynamic", "channel":"ANGLE_OF_ATTACK_Z"},
+
 
             {"widget":"STATE_GAUGE",    "label":"SPEED",  "configId":"angle_indicator",  "layout":{"margin_y":0.54}, "buffer":"currentDynamic", "channel":"SPEED_MPS"},
             {"widget":"STATE_GAUGE",    "label":"ALT"   , "configId":"angle_indicator",  "layout":{"margin_y":0.58}, "buffer":"currentDynamic", "channel":"POS_Y"},

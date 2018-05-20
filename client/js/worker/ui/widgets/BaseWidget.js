@@ -77,7 +77,7 @@ define([
             layout = this.configRead(parentId).layout;
             height = layout.height*0.5 + state * layout.height * 0.5 / Math.PI;
 
-            this.stateLayout.height = -height;
+            this.stateLayout.height = height;
             this.stateLayout.margin_y = layout.margin_y - this.stateLayout.height + layout.height * 0.5;
 
             this.applyProgressDynLayout(this.stateLayout);

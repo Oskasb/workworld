@@ -14,6 +14,7 @@ define([
         var tempVec2 = new THREE.Vector3();
         var tempQuat = new THREE.Quaternion();
         var tempObj = new THREE.Object3D();
+        var tempEuler = new THREE.Euler();
 
         var TRANSFORM_AUX;
         var VECTOR_AUX;
@@ -329,14 +330,15 @@ define([
 
             for (i = 0; i < this.dynamicShapes.length; i++) {
                 this.dynamicShapes[i].applyDynamicShapeForce(tempVec1);
-                tempVec1.applyQuaternion(tempQuat);
                 this.applySpatialImpulseVector(tempVec1);
                 tempVec1.multiplyScalar(-1);
                 this.applySpatialTorqueVector(ShapePhysics.torqueFromForcePoint(this.dynamicShapes[i].offset, tempVec1));
+
+            //    tempVec1.applyQuaternion(tempQuat);
+
             }
 
             if (this.bufferContainsTorque() || this.bufferContainsForce()) {
-                console.log("Apply forces...");
                 this.getSpatialForce(tempVec1);
                 this.getSpatialTorque(tempVec2);
                 ammoApi.applyForceAndTorqueToBody(tempVec1, this.body, tempVec2)
@@ -368,15 +370,20 @@ define([
             this.getSpatialVelocity(tempVec1);
             this.spatialBuffer[ENUMS.BufferSpatial.SPEED_MPS] = tempVec1.length();
             this.getSpatialQuaternion(tempObj.quaternion);
-            tempVec2.set(0, 0, 1);
-            tempVec2.applyQuaternion(tempObj.quaternion);
-            tempVec1.normalize();
-            tempVec1.sub(tempVec2);
-            this.setVectorByFirstIndex(ENUMS.BufferSpatial.ANGLE_OF_ATTACK_X, tempVec1);
 
-            this.spatialBuffer[ENUMS.BufferSpatial.ROLL_ANGLE] = tempObj.rotation.z;
-            this.spatialBuffer[ENUMS.BufferSpatial.PITCH_ANGLE] = tempObj.rotation.x;
-            this.spatialBuffer[ENUMS.BufferSpatial.YAW_ANGLE] = tempObj.rotation.y;
+            tempEuler.setFromQuaternion(tempObj.quaternion, 'YZX');
+            this.spatialBuffer[ENUMS.BufferSpatial.ROLL_ANGLE]  = tempEuler.z;
+            this.spatialBuffer[ENUMS.BufferSpatial.PITCH_ANGLE] = tempEuler.x;
+            this.spatialBuffer[ENUMS.BufferSpatial.YAW_ANGLE]   = tempEuler.y;
+
+            tempObj.lookAt(tempVec1);
+            tempEuler.setFromQuaternion(tempObj.quaternion, 'YZX');
+
+            tempVec1.x = MATH.subAngles(this.spatialBuffer[ENUMS.BufferSpatial.PITCH_ANGLE] , tempEuler.x    );
+            tempVec1.y = MATH.subAngles(this.spatialBuffer[ENUMS.BufferSpatial.YAW_ANGLE]   , tempEuler.y    );
+            tempVec1.z = MATH.subAngles(this.spatialBuffer[ENUMS.BufferSpatial.ROLL_ANGLE]  , tempEuler.z    );
+
+            this.setVectorByFirstIndex(ENUMS.BufferSpatial.ANGLE_OF_ATTACK_X, tempVec1);
 
         };
 
