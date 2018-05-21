@@ -124,7 +124,7 @@ define([
 
 
         ShapePhysics.calculateSurfaceLiftForce = function(area, velocity, angleOfAttack, curveName) {
-            return area*velocity*MATH.valueFromCurve(angleOfAttack*Math.PI, liftCurves[curveName])
+            return area*velocity*MATH.valueFromCurve(angleOfAttack, liftCurves[curveName])
         };
 
         ShapePhysics.curveLift = function(angleOfAttack, curveName) {
@@ -189,12 +189,14 @@ var incidence;
 
             liftVec.multiplyScalar(density * coefficients['base_lift'] / 0.016);
             dynSpat.applySpatialImpulseVector(dragVec);
-        //    pointOfApplication.copy(dynamicShape.offset);
-        //    pointOfApplication.applyQuaternion(rootQuat);
-        //    dynSpat.applySpatialTorqueVector(ShapePhysics.torqueFromForcePoint(pointOfApplication, dragVec));
+            pointOfApplication.copy(dynamicShape.offset);
+            //    pointOfApplication.applyQuaternion(rootQuat);
+            tempVec.set(0, 0, -drag);
+            //    tempVec.multiplyScalar(-drag*density*coefficients['base_drag']);
+            dynSpat.applySpatialTorqueVector(ShapePhysics.torqueFromForcePoint(pointOfApplication, tempVec));
 
-        //    dragVec.applyQuaternion(tempQuat);
-        //    dynamicShape.addForceToDynamicShape(dragVec);
+            //    dragVec.applyQuaternion(tempQuat);
+            //   dynamicShape.addForceToDynamicShape(tempVec);
             dynamicShape.addForceToDynamicShape(liftVec);
 
         };

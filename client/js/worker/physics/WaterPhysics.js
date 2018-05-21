@@ -17,6 +17,9 @@ define([
         var tempVelVec = new THREE.Vector3();
         var tempAngVelVec = new THREE.Vector3();
         var AoAVec = new THREE.Vector3();
+        var compoundAoAVec = new THREE.Vector3();
+
+
 
         var tempVolumeVelVec = new THREE.Vector3();
         var tempVecGlobalPos = new THREE.Vector3();
@@ -81,7 +84,16 @@ define([
 
                     tempVolumeVelVec.addVectors(tempVelVec , tempVolumeVelVec );
 
-                    ShapePhysics.calculateShapeDynamicForce(dynSpat, shape, tempVolumeVelVec, tempQuat, tempVec2, AoAVec,speed, density);
+                    compoundAoAVec.copy(AoAVec);
+                    compoundAoAVec.x -= tempAngVelVec.y*shape.offset.z/speed;
+                    compoundAoAVec.x += tempAngVelVec.x*shape.offset.z/speed;
+                    compoundAoAVec.y += tempAngVelVec.z*shape.offset.x/speed;
+                    compoundAoAVec.y -= tempAngVelVec.x*shape.offset.z/speed;
+                    compoundAoAVec.y += tempAngVelVec.y*shape.offset.x/speed; // yaw rotation...
+
+
+
+                    ShapePhysics.calculateShapeDynamicForce(dynSpat, shape, tempVolumeVelVec, tempQuat, tempVec2, compoundAoAVec, speed, density);
 
                     tempVec3.set(0, submergedVolume*density/0.016, 0);
 
