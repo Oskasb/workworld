@@ -330,12 +330,9 @@ define([
 
             for (i = 0; i < this.dynamicShapes.length; i++) {
                 this.dynamicShapes[i].applyDynamicShapeForce(tempVec1);
-                this.applySpatialImpulseVector(tempVec1);
-                tempVec1.multiplyScalar(-1);
                 this.applySpatialTorqueVector(ShapePhysics.torqueFromForcePoint(this.dynamicShapes[i].offset, tempVec1));
-
-            //    tempVec1.applyQuaternion(tempQuat);
-
+                tempVec1.applyQuaternion(tempQuat);
+                this.applySpatialImpulseVector(tempVec1);
             }
 
             if (this.bufferContainsTorque() || this.bufferContainsForce()) {

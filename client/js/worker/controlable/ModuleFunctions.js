@@ -27,14 +27,15 @@ define([
         ModuleFunctions.applyForce = function(renderable, moduleState, trgt) {
             target = renderable.getSpatialShapeById(trgt);
             calcVec.copy(target.direction);
-            target.getDynamicShapeQuaternion(calcQuat);
-            calcVec.applyQuaternion(calcQuat);
+            //     target.getDynamicShapeQuaternion(calcQuat);
+            //     calcVec.applyQuaternion(calcQuat);
             calcVec.multiplyScalar(moduleState.getAppliedFactor()/0.016);
 
-            renderable.applyTorqueVector(ShapePhysics.torqueFromForcePoint(calcVec, target.offset))
+            //    renderable.applyTorqueVector(ShapePhysics.torqueFromForcePoint(calcVec, target.offset))
 
-            calcVec.applyQuaternion(renderable.quat);
-            renderable.applyForceVector(calcVec);
+            //       calcVec.applyQuaternion(renderable.quat);
+            //    renderable.applyForceVector(calcVec);
+            target.addForceToDynamicShape(calcVec)
 
         };
 
