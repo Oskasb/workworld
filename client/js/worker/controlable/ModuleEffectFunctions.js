@@ -33,6 +33,12 @@ define([
         };
 
 
+        var randomPosAtShapeEdge = function(renderable, shape, store) {
+            store.set(shape.size.x + (Math.random()*0.01) + shape.size.x * MATH.sign(shape.offset.x) * 2,  shape.size.y * (Math.random()-0.5), shape.size.z * (Math.random()-0.5));
+            store.applyQuaternion(renderable.quat);
+            store.applyQuaternion(shape.rotation);
+        };
+
         var randomPosInShape = function(renderable, shape, store) {
             store.set(shape.size.x * (Math.random()-0.5),  shape.size.y * (Math.random()-0.5), shape.size.z * (Math.random()-0.5));
             store.applyQuaternion(renderable.quat);
@@ -112,7 +118,7 @@ define([
             tempVec1.multiplyScalar(Math.random()*0.5);
             fxArgs.pos.add(tempVec1);
 
-            randomPosInShape(renderable, target, tempVec2);
+            randomPosAtShapeEdge(renderable, target, tempVec2);
 
             fxArgs.pos.add(tempVec2);
 
@@ -142,19 +148,22 @@ define([
                 return;
             }
 
-
             target = renderable.getSpatialShapeById(trgt);
             renderable.getDynamicSpatialVelocity(tempVec1);
             target.calculateWorldPosition(renderable.pos, renderable.quat, fxArgs.pos);
 
-            fxArgs.vel.set(1*(Math.random()-0.5), 1, -1*(Math.random()+0.5));
-
-            randomPosInShape(renderable, target, tempVec2);
+            randomPosAtShapeEdge(renderable, target, tempVec2);
             if (fxArgs.pos.y > 2) return;
+
+            fxArgs.vel.copy(target.offset);
+            fxArgs.vel.z = 0;
+            fxArgs.vel.normalize();
+
             fxArgs.pos.add(tempVec2);
             fxArgs.pos.y = 1.5;
-            spawnTargetEffect(renderable, target, 'bow_splash');
             fxArgs.vel.applyQuaternion(renderable.quat);
+            spawnTargetEffect(renderable, target, 'bow_splash');
+
         };
 
         return ModuleEffectFunctions;

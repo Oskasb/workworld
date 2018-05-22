@@ -37,7 +37,7 @@
             {"id":"big_float_2b", "lift":[0,    0,   0],  "shape":"Box", "args":[12,  32,  60],   "offset":[ 12,      5,    -80],      "rotation":[0, 0, 0]},
             {"id":"sub_8a",       "lift":[0,    0,   0],  "shape":"Box", "args":[10,  16, 120],   "offset":[-16,     -2,    -20],      "rotation":[0, 0, 0]},
             {"id":"sub_8b",       "lift":[0,    0,   0],  "shape":"Box", "args":[10,  16, 120],   "offset":[ 16,     -2,    -20],      "rotation":[0, 0, 0]},
-            {"id":"sub_17",       "lift":["box", 0,  0],  "shape":"Box", "args":[2,     5,  50],   "offset":[0,      -0,    -80],      "rotation":[0, 0, 0]},
+            {"id":"sub_17",       "lift":["wing", 0,  0],  "shape":"Box", "args":[2,     5,  50],   "offset":[0,      -0,    -80],      "rotation":[0, 0, 0]},
             {"id":"sub_prop_1",   "lift":[0,    0,   0],  "shape":"Box", "args":[16,   16,  65],  "offset":[-8,      -0,   -120],      "rotation":[-0.0, -0.0, 0]},
             {"id":"sub_prop_2",   "lift":[0,    0,   0],  "shape":"Box", "args":[16,   16,  65],  "offset":[8,       -0,   -120],      "rotation":[-0.0,  0.0, 0]},
             {"id":"rudder_1",     "lift":["box", 0,  0],  "shape":"Box", "args":[0.2,  26,  12],  "offset":[-8,      -5,   -145],      "rotation":[0, 0, 0]},

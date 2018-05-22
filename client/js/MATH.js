@@ -27,6 +27,8 @@ if(typeof(MATH) === "undefined") {
 
 	MATH.TWO_PI = 2.0 * Math.PI;
 
+	MATH.sign = Math.sign;
+
 	function sinWave(time, speed, amplitude) {
 		return Math.sin(time * speed) * amplitude;
 	}
