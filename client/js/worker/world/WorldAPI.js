@@ -142,6 +142,10 @@ define([
             return worldControlState.getControlledRenderable()
         };
 
+        WorldAPI.positionToScreenCoords = function(posVec, store) {
+            return worldControlState.getWorldCamera().toScreenPosition(posVec, store)
+        };
+
         WorldAPI.loadGuiWidgetConfig = function(config, store) {
             return worldControlState.buildControlWidget(config, store)
         };
@@ -173,7 +177,6 @@ define([
         WorldAPI.notifyFrameInit = function() {
             frameStartTime = performance.now();
             worldMain.updateWorld();
-
         };
 
         WorldAPI.updateStatusMonitor = function() {

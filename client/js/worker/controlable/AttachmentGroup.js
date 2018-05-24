@@ -14,6 +14,7 @@ define([
             this.configKey = configKey;
             this.configId = configId;
             this.moduleConfigs = {};
+            this.modules = [];
         };
 
         AttachmentGroup.prototype.configRead = function(dataKey) {
@@ -23,6 +24,7 @@ define([
         AttachmentGroup.prototype.initAttachmentGroup = function(onReady) {
 
             var configLoaded = function() {
+                this.clearDebugDrawAttachments();
                 this.initModules();
                 onReady(this);
             }.bind(this);
@@ -32,6 +34,7 @@ define([
         };
 
         AttachmentGroup.prototype.initModules = function() {
+
             this.modules = [];
             this.moduleConfigs = this.configRead('modules');
 
@@ -65,6 +68,19 @@ define([
         AttachmentGroup.prototype.updateAttachmentGroup = function(tpf) {
             for (i = 0; i < this.modules.length; i++) {
                 this.modules[i].updateControlableModule(tpf);
+            }
+
+        };
+
+        AttachmentGroup.prototype.debugDrawAttachments = function(renderable) {
+            for (i = 0; i < this.modules.length; i++) {
+                this.modules[i].debugDrawModule(renderable);
+            }
+        };
+
+        AttachmentGroup.prototype.clearDebugDrawAttachments = function() {
+            for (i = 0; i < this.modules.length; i++) {
+                this.modules[i].clearDebugModule();
             }
         };
 

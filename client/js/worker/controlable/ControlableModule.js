@@ -4,13 +4,15 @@ define([
         'ConfigObject',
         'worker/controlable/ModuleFunctions',
         'worker/controlable/ModuleState',
-        'worker/controlable/ModuleEffectFunctions'
+        'worker/controlable/ModuleEffectFunctions',
+        'worker/ui/elements/DebugElement'
     ],
     function(
         ConfigObject,
         ModuleFunctions,
         ModuleState,
-        ModuleEffectFunctions
+        ModuleEffectFunctions,
+        DebugElement
     ) {
 
         var ControlableModule = function(configKey, configId) {
@@ -21,6 +23,9 @@ define([
             this.offset = new THREE.Vector3();
             this.direction = new THREE.Vector3();
             this.size = new THREE.Vector3();
+
+            this.debugElements = [];
+
         };
 
         ControlableModule.prototype.configRead = function(dataKey) {
@@ -29,14 +34,10 @@ define([
 
         ControlableModule.prototype.initModule = function(onReady) {
 
-            var ready = function(mod) {
-
-            };
-
             var configLoaded = function() {
-
+                this.clearDebugModule();
                 this.moduleState.applyConfig(this.configRead('state'));
-                onReady(this)
+                onReady(this);
 
                 WorldAPI.addTextMessage('Load Module '+this.configKey+' '+this.configId)
 
@@ -68,6 +69,24 @@ define([
             this.moduleState.updateModuleState(tpf);
         };
 
+        ControlableModule.prototype.debugDrawModule = function(renderable) {
+
+            if (!this.debugElements.length) {
+                this.debugElements.push(new DebugElement(renderable.pos))
+            }
+
+            for (var i = 0; i < this.debugElements.length; i++) {
+                this.debugElements[i].debugRenderableModule(renderable, this);
+            }
+        };
+
+        ControlableModule.prototype.clearDebugModule = function() {
+
+            while (this.debugElements.length) {
+                this.debugElements.pop().disableDebugElement();
+            }
+
+        };
 
         return ControlableModule;
 

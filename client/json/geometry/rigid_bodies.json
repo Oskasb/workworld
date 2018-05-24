@@ -13,15 +13,12 @@
             {"id":"fore_2",       "lift":[0, "wing", 0],  "shape":"Box", "args":[20, 12,   1],    "offset":[0,       18,    158],      "rotation":[1.0, 0,       0]},
             {"id":"fore_3",       "lift":[0,    0,   0],  "shape":"Box", "args":[4,   12,  4],    "offset":[0,      -4,     152],      "rotation":[0.0, 0,       0]},
 
-
             {"id":"sub_1a",       "lift":[0,    0,   0],  "shape":"Box", "args":[6,  13,  40],    "offset":[ 0,     -5,     120],      "rotation":[0,   0,       0]},
             {"id":"sub_1b",       "lift":[0,    0,   0],  "shape":"Box", "args":[3,  13,  60],    "offset":[-5,     -5,     120],      "rotation":[0,   0.15,  0.1]},
             {"id":"sub_1c",       "lift":[0,    0,   0],  "shape":"Box", "args":[3,  13,  60],    "offset":[ 5,     -5,     120],      "rotation":[0,  -0.15, -0.1]},
 
-
             {"id":"sub_1bu",      "lift":[0,    0,   0],  "shape":"Box", "args":[3,  23,  100],   "offset":[-11,     10,    100],      "rotation":[0,   0.15,  0.3]},
             {"id":"sub_1cu",      "lift":[0,    0,   0],  "shape":"Box", "args":[3,  23,  100],   "offset":[ 11,     10,    100],      "rotation":[0,  -0.15, -0.3]},
-
 
             {"id":"sub_2",        "lift":[0,    0,   0],  "shape":"Box", "args":[17,  15,  65],   "offset":[-6,      -5,     60],      "rotation":[0,   0.16,  0.1]},
             {"id":"sub_3",        "lift":["wing", 0, 0],  "shape":"Box", "args":[1,   15,  120],  "offset":[0,       -5,     10],      "rotation":[0.0,    0,    0]},
@@ -54,6 +51,7 @@
             {"id":"deck_24",      "lift":[0,    0,   0],  "shape":"Box", "args":[22,   1, 102],   "offset":[ 0,     21.2,   114],      "rotation":[0, 0, 0]},
             {"id":"deck_25a",     "lift":[0,    0,   0],  "shape":"Box", "args":[12.5, 1, 102],   "offset":[-10.5,  21.2,   113],      "rotation":[0, 0.09, 0]},
             {"id":"deck_26a",     "lift":[0,    0,   0],  "shape":"Box", "args":[12.5, 1, 102],   "offset":[ 10.5,  21.2,   113],      "rotation":[0,-0.09, 0]},
+
             {"id":"rail_27a",     "lift":[0,    0,   0],  "shape":"Box", "args":[9.5, 1, 32],     "offset":[-22.5,  21.2,    68],      "rotation":[0, 0.61, 0]},
             {"id":"rail_27b",     "lift":[0,    0,   0],  "shape":"Box", "args":[13.2, 1, 24],    "offset":[ 29.5,  21.2,    59],      "rotation":[0,-1.38, 0]},
             {"id":"rear_1",       "lift":[0,    0,   0],  "shape":"Box", "args":[35,   15,  2],   "offset":[0,       11.2, -135],      "rotation":[0, 0, 0]},
@@ -119,9 +117,14 @@
         "id": "rigid_body",
         "data": {
           "body_key":"mesh_cvx_tree_leafy_1",
-          "category":"mesh",
-          "convex":true,
-          "model_id":"model_tree_3_combined_hull",
+          "category":"primitive",
+          "shape":"Compound",
+          "args":[
+            {"id":"root",   "shape":"Box", "args":[8,   8,  8],    "offset":[0,  -9,   0],      "rotation":[0.9, 0.8, 0]},
+            {"id":"trunk",  "shape":"Box", "args":[2,   8,  2],    "offset":[0,  -3,   0],      "rotation":[0, 0, 0]},
+            {"id":"top_1",  "shape":"Box", "args":[6,   6,  6],    "offset":[0,   6,   0],      "rotation":[0, 0, 0]},
+            {"id":"top_2",  "shape":"Box", "args":[13,  4,  13],   "offset":[0,   3,   0],      "rotation":[0, 0, 0]}
+          ],
           "state":"WANTS_DEACTIVATION",
           "friction":0.25,
           "restitution":0.65,
@@ -135,9 +138,14 @@
         "id": "rigid_body",
         "data": {
           "body_key":"tree_2_trunk",
-          "category":"mesh",
-          "convex":true,
-          "model_id":"model_tree_2_rooted_hull",
+          "category":"primitive",
+          "shape":"Compound",
+          "args":[
+            {"id":"root",   "shape":"Box", "args":[8,   8,  8],    "offset":[0,  -9,   0],      "rotation":[0.9, 0.8, 0]},
+            {"id":"trunk",  "shape":"Box", "args":[2,   8,  2],    "offset":[0,  -3,   0],      "rotation":[0, 0, 0]},
+            {"id":"top_1",  "shape":"Box", "args":[6,   6,  6],    "offset":[0,   6,   0],      "rotation":[0, 0, 0]},
+            {"id":"top_2",  "shape":"Box", "args":[13,  4,  13],   "offset":[0,   3,   0],      "rotation":[0, 0, 0]}
+          ],
           "state":"WANTS_DEACTIVATION",
           "friction":0.25,
           "restitution":0.65,
@@ -153,8 +161,14 @@
           "body_key":"wall_rock_1",
           "category":"primitive",
           "state":"WANTS_DEACTIVATION",
-          "shape":"Box",
-          "args":[1, 1, 1],
+          "shape":"Compound",
+          "args":[
+
+            {"id":"1", "shape":"Box", "args":[35,   22,  35],    "offset":[0,   6,  0],      "rotation":[0, 0, 0]},
+            {"id":"1", "shape":"Box", "args":[65,   12,  35],    "offset":[0,   0,  0],      "rotation":[0, 0, 0]},
+            {"id":"1", "shape":"Box", "args":[35,   12,  55],    "offset":[0,   0,  0],      "rotation":[0, 0, 0]},
+            {"id":"2", "shape":"Box", "args":[13,  4,  13],   "offset":[0,   3,   0],      "rotation":[0, 0, 0]}
+          ],
           "friction":1.3,
           "restitution":0.85,
           "damping":0.15,

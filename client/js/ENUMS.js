@@ -105,7 +105,8 @@ if(typeof(ENUMS) === "undefined"){
         SELECT_PROGRESS:    66,
         EVENT_PROGRESS:     67,
         DRAW_DYN_SHAPES:    68,
-        DRAW_SHAPE_FORCES:  69
+        DRAW_SHAPE_FORCES:  69,
+        DRAW_ATTACHMENTS:   70
 
     };
 

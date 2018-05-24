@@ -273,8 +273,9 @@ define([
             var buffer = WorldAPI.getWorldComBuffer();
 
             var panelConf = [
-                {label:'PHYSICS',       configId:'default',  layout:subTabLayout, onClick:buttonFunctions.physicsPanel, buffer:buffer, channel:ENUMS.BufferChannels.DEV_ACTION_1},
-                {label:'ENVIRONMENT',   configId:'default',  layout:subTabLayout, onClick:buttonFunctions.envPanel,     buffer:buffer, channel:ENUMS.BufferChannels.DEV_ACTION_2}
+                {label:'PHYSICS',       configId:'default',  layout:subTabLayout, onClick:buttonFunctions.physicsPanel,   buffer:buffer, channel:ENUMS.BufferChannels.DEV_ACTION_1},
+                {label:'ENVIRONMENT',   configId:'default',  layout:subTabLayout, onClick:buttonFunctions.envPanel,       buffer:buffer, channel:ENUMS.BufferChannels.DEV_ACTION_2},
+                {label:'MECHANICS',     configId:'default',  layout:subTabLayout, onClick:buttonFunctions.mechanicsPanel, buffer:buffer, channel:ENUMS.BufferChannels.DEV_ACTION_3}
             ];
 
             this.buildCompoundPanel(panelConf, devButtons, 0);
@@ -306,23 +307,34 @@ define([
             this.buildMessageBoxWidget('MESSAGES',  'GUI_MESSAGES', 'CHANNEL_ONE',  store,    {margin_y:0.0})
         };
 
-        WidgetBuilder.prototype.buildPhysicsButtons = function(physPanelButtons) {
+        WidgetBuilder.prototype.buildPhysicsButtons = function(buttonStore) {
 
             var buffer = WorldAPI.getWorldComBuffer();
 
             var panelConf = [
-                {label:'BOX RAIN', configId:'default', layout:subTabListLayout, onClick:null, buffer:buffer, channel:ENUMS.BufferChannels.SPAWM_BOX_RAIN},
-                {label:'POKE ALL', configId:'default', layout:subTabListLayout, onClick:null, buffer:buffer, channel:ENUMS.BufferChannels.PUSH_ALL_DYNAMICS},
-                {label:'ATTRACT',  configId:'default', layout:subTabListLayout, onClick:null, buffer:buffer, channel:ENUMS.BufferChannels.ATTRACT_DYNAMICS},
-                {label:'REPEL',    configId:'default', layout:subTabListLayout, onClick:null, buffer:buffer, channel:ENUMS.BufferChannels.REPEL_DYNAMICS},
+                {label:'BOX RAIN',     configId:'default', layout:subTabListLayout, onClick:null, buffer:buffer, channel:ENUMS.BufferChannels.SPAWM_BOX_RAIN},
+                {label:'POKE ALL',     configId:'default', layout:subTabListLayout, onClick:null, buffer:buffer, channel:ENUMS.BufferChannels.PUSH_ALL_DYNAMICS},
+                {label:'ATTRACT',      configId:'default', layout:subTabListLayout, onClick:null, buffer:buffer, channel:ENUMS.BufferChannels.ATTRACT_DYNAMICS},
+                {label:'REPEL',        configId:'default', layout:subTabListLayout, onClick:null, buffer:buffer, channel:ENUMS.BufferChannels.REPEL_DYNAMICS},
                 {label:'DRAW SHAPES',  configId:'default', layout:subTabListLayout, onClick:null, buffer:buffer, channel:ENUMS.BufferChannels.DRAW_DYN_SHAPES},
-                {label:'SHAPE FORCES',  configId:'default', layout:subTabListLayout, onClick:null, buffer:buffer, channel:ENUMS.BufferChannels.DRAW_SHAPE_FORCES}
+                {label:'SHAPE FORCES', configId:'default', layout:subTabListLayout, onClick:null, buffer:buffer, channel:ENUMS.BufferChannels.DRAW_SHAPE_FORCES}
             ];
 
-            this.buildCompoundPanel(panelConf, physPanelButtons, 0);
+            this.buildCompoundPanel(panelConf, buttonStore, 0);
         };
 
-        WidgetBuilder.prototype.buildEnvPanel = function(envPanelButtons) {
+        WidgetBuilder.prototype.buildMechanicsButtons = function(buttonStore) {
+
+            var buffer = WorldAPI.getWorldComBuffer();
+
+            var panelConf = [
+                {label:'ATTACHMENTS', configId:'default', layout:subTabListLayout, onClick:null, buffer:buffer, channel:ENUMS.BufferChannels.DRAW_ATTACHMENTS}
+            ];
+
+            this.buildCompoundPanel(panelConf, buttonStore, 2);
+        };
+
+        WidgetBuilder.prototype.buildEnvPanel = function(buttonStore) {
 
             var buffer = WorldAPI.getWorldComBuffer();
             var panelConf = [];
@@ -333,7 +345,7 @@ define([
                 );
             }
 
-            this.buildCompoundPanel(panelConf, envPanelButtons, 1);
+            this.buildCompoundPanel(panelConf, buttonStore, 1);
         };
 
 

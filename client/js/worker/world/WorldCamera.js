@@ -68,9 +68,7 @@ define([
     //    store.x = vector.x * 0.5;
     //    store.y = vector.y * 0.5;
 
-        store.z = 1;
-
-
+        store.z = -1;
 
         return store;
     };

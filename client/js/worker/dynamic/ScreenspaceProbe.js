@@ -1,10 +1,10 @@
 "use strict";
 
 define([
-        'GuiAPI',
+
     ],
     function(
-        GuiAPI
+
     ) {
 
         var hoverDistance;
@@ -37,7 +37,7 @@ define([
 
             pointerPosVec.x = WorldAPI.sampleInputBuffer(ENUMS.InputState.MOUSE_X);
             pointerPosVec.y = WorldAPI.sampleInputBuffer(ENUMS.InputState.MOUSE_Y);
-            pointerPosVec.z = 1;
+            pointerPosVec.z = -1;
 
             closestDistance = 9999999;
             closestDynamic = null;

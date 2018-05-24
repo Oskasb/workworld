@@ -81,8 +81,8 @@
             "distance":          10000
           },
           "configs":[
-            {"id":"sun",     "color":[0.60,   0.45,    0.12]},
-            {"id":"ambient", "color":[0.35,   0.06,    0.71]},
+            {"id":"sun",     "color":[0.95,   0.75,    0.40]},
+            {"id":"ambient", "color":[0.35,   0.06,    0.31]},
             {"id":"fog",     "color":[0.032,  0.00001, 0.106], "density":0.0022}
           ]
         },
@@ -99,8 +99,8 @@
             "distance":          10000
           },
           "configs":[
-            {"id":"sun",     "color":[0.85,  0.65,  0.25]},
-            {"id":"ambient", "color":[0.21,  0.12,  0.55]},
+            {"id":"sun",     "color":[1.45,  0.95,  0.65]},
+            {"id":"ambient", "color":[0.21,  0.12,  0.45]},
             {"id":"fog",     "color":[0.15,  0.02,  0.65],  "density":0.0015}
           ]
         },
@@ -117,9 +117,9 @@
             "distance":        10000
           },
           "configs":[
-            {"id":"sun",     "color":[0.98, 0.77,  0.41]},
-            {"id":"ambient", "color":[0.01, 0.11,  0.55]},
-            {"id":"fog",     "color":[0.43, 0.63,  0.79], "density":0.0005}
+            {"id":"sun",     "color":[1.95, 1.85,  1.15]},
+            {"id":"ambient", "color":[0.00, 0.2,  0.6]},
+            {"id":"fog",     "color":[0.5, 0.6,  0.85], "density":0.0005}
           ]
         },
         {
@@ -135,8 +135,8 @@
             "distance":          10000
           },
           "configs":[
-            {"id":"sun",     "color":[0.95,  0.86,  0.50]},
-            {"id":"ambient", "color":[0.22,  0.16,  0.45]},
+            {"id":"sun",     "color":[1.99,  1.66,  1.20]},
+            {"id":"ambient", "color":[0.02,  0.16,  0.65]},
             {"id":"fog",     "color":[0.85,  0.95,  1], "density":0.0004}
           ]
         },
@@ -153,8 +153,8 @@
             "distance":          10000
           },
           "configs":[
-            {"id":"sun",     "color":[0.95,  0.82,  0.60]},
-            {"id":"ambient", "color":[0.24,  0.29,  0.60]},
+            {"id":"sun",     "color":[2.05,  1.79,  1.40]},
+            {"id":"ambient", "color":[0.00,  0.20,  0.70]},
             {"id":"fog",     "color":[0.86,  0.97,  1.00], "density":0.0002}
           ]
         },
@@ -171,7 +171,7 @@
             "distance":          10000
           },
           "configs":[
-            {"id":"sun",     "color":[0.89,  0.62,  0.46]},
+            {"id":"sun",     "color":[1.29,  0.82,  0.46]},
             {"id":"ambient", "color":[0.15,  0.04,  0.41]},
             {"id":"fog",     "color":[0.121, 0.06,  0.16], "density":0.0018}
           ]

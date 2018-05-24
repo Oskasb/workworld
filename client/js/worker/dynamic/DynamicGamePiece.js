@@ -81,6 +81,19 @@ define([
             for (i = 0; i < this.attachmentGroups.length; i++) {
                 this.attachmentGroups[i].renderAttachments(renderable);
             }
+
+            if (WorldAPI.getCom(ENUMS.BufferChannels.DRAW_ATTACHMENTS)) {
+                for (i = 0; i < this.attachmentGroups.length; i++) {
+                    this.attachmentGroups[i].debugDrawAttachments(renderable);
+                }
+                this.debug = true;
+            } else if (this.debug) {
+                for (i = 0; i < this.attachmentGroups.length; i++) {
+                    this.attachmentGroups[i].clearDebugDrawAttachments(renderable);
+                }
+                this.debug = false;
+            }
+
         };
 
         DynamicGamePiece.prototype.updateDynamicGamePiece = function(tpf) {
@@ -92,6 +105,10 @@ define([
             for (i = 0; i < this.attachmentGroups.length; i++) {
                 this.attachmentGroups[i].updateAttachmentGroup(tpf);
             }
+
+
+
+
         };
 
         return DynamicGamePiece;

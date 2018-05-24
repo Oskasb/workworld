@@ -210,7 +210,7 @@ define(['PipelineObject',
     var updateDynamigAmbient = function(sunInTheBack) {
 
         dynamicAmbientColor.copy(ambientColor);
-        dynamicAmbientColor.lerp(world.fog.color, 0.2 + sunInTheBack * 0.2);
+    //    dynamicAmbientColor.lerp(world.fog.color, 0.2 + sunInTheBack * 0.2);
         //    dynamicAmbientColor.lerp(ambientColor, 0.2 - sunInTheBack * 0.2);
         world.ambient.color.copy(dynamicAmbientColor)
     };

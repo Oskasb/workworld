@@ -23,6 +23,7 @@ define([
         var statusMonitors = [];
         var physPanelButtons = [];
         var envPanelButtons = [];
+        var mechPanelButtons = [];
         var controls = [];
         var widgetCalls = {};
 
@@ -94,6 +95,17 @@ define([
             }
         };
 
+        var enableMechPanel = function(bool) {
+
+            if (bool) {
+                widgetBuilder.buildMechanicsButtons(mechPanelButtons);
+                initWidgetStore(mechPanelButtons)
+            } else {
+                removePanelWidgets(mechPanelButtons)
+            }
+        };
+
+
         var enableDevSubtabs = function(bool) {
 
             if (bool) {
@@ -123,6 +135,7 @@ define([
             monitorSystem:toggleMonitors,
             physicsPanel:enablePhysPanel,
             envPanel:enableEnvPanel,
+            mechanicsPanel:enableMechPanel,
             devSubtabs:enableDevSubtabs,
             worldSubtabs:enableWorldSubtabs
         };

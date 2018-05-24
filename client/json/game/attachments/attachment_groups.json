@@ -7,19 +7,19 @@
         "data":{
           "modules":[
             {"config_key":"PROPULSION", "config_id":"propeller_1", "group":[
-              {"offset":[-15, -8, -160], "direction":[0, 0, 1], "size":[5, 2, 5]}
+              {"offset":[-8, -0,-120], "direction":[0, 0, 1], "size":[5, 2, 5]}
             ]},
 
             {"config_key":"PROPULSION", "config_id":"propeller_2", "group":[
-              {"offset":[-15, -8, -160], "direction":[0, 0, 1], "size":[5, 2, 5]}
+              {"offset":[8,  -0, -120], "direction":[0, 0, 1], "size":[5, 2, 5]}
             ]},
 
             {"config_key":"PROPULSION", "config_id":"rudder_1",    "group":[
-              {"offset":[-15, -4, -170], "direction":[0, -1, 0], "size":[5, 2, 5]}
+              {"offset":[-8, -5, -145], "direction":[0, -1, 0], "size":[5, 2, 5]}
             ]},
 
             {"config_key":"PROPULSION", "config_id":"rudder_2",    "group":[
-              {"offset":[-15, -4, -170], "direction":[0, -1, 0], "size":[5, 2, 5]}
+              {"offset":[ 8, -5, -145], "direction":[0, -1, 0], "size":[5, 2, 5]}
             ]}
           ]
         }
@@ -28,7 +28,21 @@
         "id":"catapult_system",
         "data":{
           "modules":[
+            {"config_key":"CATAPULTS", "config_id":"cat_1", "group":[
+              {"offset":[13.5, 22,  78], "direction":[0, 0, 1], "size":[5, 2, 5]}
+            ]},
 
+            {"config_key":"CATAPULTS", "config_id":"cat_2", "group":[
+              {"offset":[-13.5, 22, 78], "direction":[0, 0, 1], "size":[5, 2, 5]}
+            ]},
+
+            {"config_key":"CATAPULTS", "config_id":"cat_3",    "group":[
+              {"offset":[15, 22, -40], "direction":[0, -1, 0], "size":[5, 2, 5]}
+            ]},
+
+            {"config_key":"CATAPULTS", "config_id":"cat_4",    "group":[
+              {"offset":[34, 22, -50], "direction":[0, -1, 0], "size":[5, 2, 5]}
+            ]}
           ]
         }
       },
@@ -37,37 +51,37 @@
         "data":{
           "modules":[
             {"config_key":"WAKE_EMITTERS", "config_id":"bow_1", "group":[
-              {"offset":[-15, -8, -160], "direction":[0, 0, 1], "size":[5, 2, 5]}
+              {"offset":[0,      0,    158], "direction":[0, 0, 1], "size":[5, 2, 5]}
             ]},
 
             {"config_key":"WAKE_EMITTERS", "config_id":"bow_2", "group":[
-              {"offset":[-15, -8, -160], "direction":[0, 0, 1], "size":[5, 2, 5]}
+              {"offset":[0,      0,     152], "direction":[0, 0, 1], "size":[5, 2, 5]}
             ]},
 
             {"config_key":"WAKE_EMITTERS", "config_id":"bow_3",    "group":[
-              {"offset":[-15, -4, -170], "direction":[0, -1, 0], "size":[5, 2, 5]}
+              {"offset":[-5,     0,     120], "direction":[0, -1, 0], "size":[5, 2, 5]}
             ]},
 
             {"config_key":"WAKE_EMITTERS", "config_id":"bow_4",    "group":[
-              {"offset":[-15, -4, -170], "direction":[0, -1, 0], "size":[5, 2, 5]}
+              {"offset":[ 5,     0,     120], "direction":[0, -1, 0], "size":[5, 2, 5]}
             ]},
 
             {"config_key":"WAKE_EMITTERS", "config_id":"bow_5",    "group":[
-              {"offset":[-15, -4, -170], "direction":[0, -1, 0], "size":[5, 2, 5]}
+              {"offset":[0,     0,     152], "direction":[0, -1, 0], "size":[5, 2, 5]}
             ]},
 
             {"config_key":"WAKE_EMITTERS", "config_id":"bow_6",    "group":[
-              {"offset":[-15, -4, -170], "direction":[0, -1, 0], "size":[5, 2, 5]}
+              {"offset":[-11,     0,    100], "direction":[0, -1, 0], "size":[5, 2, 5]}
             ]},
 
             {"config_key":"WAKE_EMITTERS", "config_id":"bow_7",    "group":[
-              {"offset":[-15, -4, -170], "direction":[0, -1, 0], "size":[5, 2, 5]}
+              {"offset":[ 11,     0,    100], "direction":[0, -1, 0], "size":[5, 2, 5]}
             ]},
             {"config_key":"WAKE_EMITTERS", "config_id":"bow_8",    "group":[
-              {"offset":[-15, -4, -170], "direction":[0, -1, 0], "size":[5, 2, 5]}
+              {"offset":[-16,     0,     60], "direction":[0, -1, 0], "size":[5, 2, 5]}
             ]},
             {"config_key":"WAKE_EMITTERS", "config_id":"bow_9",    "group":[
-              {"offset":[-15, -4, -170], "direction":[0, -1, 0], "size":[5, 2, 5]}
+              {"offset":[16,     0,     60], "direction":[0, -1, 0], "size":[5, 2, 5]}
             ]}
           ]
         }
