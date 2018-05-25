@@ -12,7 +12,6 @@ define([],
             for (var key in ENUMS.Protocol) {
                 protocolMap[ENUMS.Protocol[key]] = key;
             }
-
         };
 
         ProtocolRequests.prototype.setMessageHandlers = function(handlers) {
@@ -66,8 +65,6 @@ define([],
         ProtocolRequests.prototype.callWorker = function(worker, msg) {
             worker.postMessage(msg)
         };
-
-
 
         return ProtocolRequests;
     });

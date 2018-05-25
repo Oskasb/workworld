@@ -4,7 +4,9 @@ define([
         'PipelineAPI',
         'PipelineObject',
         '3d/three/ThreeInstanceBufferModel',
-        '3d/three/ThreeTerrain'],
+        '3d/three/ThreeTerrain'
+
+    ],
     function(
         PipelineAPI,
         PipelineObject,
@@ -20,6 +22,11 @@ define([
         var activeModels = {};
 
         var activeMixers = [];
+
+        if (typeof(Worker) !== 'undefined') {
+            var fbxWorker = new Worker('./client/js/worker/FBXWorker.js');
+        }
+
 
         var contentUrl = function(url) {
             return 'content'+url.slice(1);
@@ -70,49 +77,45 @@ define([
                     clone.mixer = new THREE.AnimationMixer( clone );
                     clone.animations = mesh.animations;
                     /*
-                    var clone = mesh.clone();
+                                        var clone = mesh.clone();
 
-                                    if (mesh.animations.length) {
+                                                        if (mesh.animations.length) {
 
-                                        console.log("mesh Has Animations:", mesh);
+                                                          console.log("mesh Has Animations:", mesh);
+                    /*
+                                                                                 clone.animations = mesh.animations;
 
-                                                             clone.animations = mesh.animations;
+                                                                                 var bones = [];
 
-                                                             var bones = [];
+                                                                                 for (var j = 0; j < mesh.skeleton.bones.length; j++) {
+                                                                                     bones[j] = mesh.skeleton.bones[j].clone();
+                                                                                 }
 
-                                                             for (var j = 0; j < mesh.skeleton.bones.length; j++) {
-                                                                 bones[j] = mesh.skeleton.bones[j].clone();
-                                                             }
+                                                                                 clone.skeleton = new THREE.Skeleton(bones);
 
-                                                             clone.skeleton = new THREE.Skeleton(bones);
+                                                                                 var clonedSkinMesh = clone.children[1];
 
-                                                             var clonedSkinMesh = clone.children[1];
+                                                                                 clonedSkinMesh.bind(clone.skeleton)
+                                                                                 var geometryFromGlobal = globalAssets.getGeometry(this.characterType)
+                                                                                 var clonedGeometry = geometryFromGlobal.clone()
+                                                                                 var bones = JSON.parse(JSON.stringify(geometryFromGlobal.bones))
+                                                                                 var skinWeights = JSON.parse(JSON.stringify(geometryFromGlobal.skinWeights))
+                                                                                 var skinIndices = JSON.parse(JSON.stringify(geometryFromGlobal.skinIndices))
+                                                                                 skinWeights = skinWeights.map(x => { return new THREE.Vector4().copy(x) })
+                                                                                 skinIndices = skinIndices.map(x => { return new THREE.Vector4().copy(x) })
+                                                                                 Object.assign(clonedGeometry, {bones, skinWeights, skinIndices })
 
-                                                             clonedSkinMesh.bind(clone.skeleton);
-
-
-                                                             var geometryFromGlobal = globalAssets.getGeometry(this.characterType)
-                                                             var clonedGeometry = geometryFromGlobal.clone()
-                                                             var bones = JSON.parse(JSON.stringify(geometryFromGlobal.bones))
-                                                             var skinWeights = JSON.parse(JSON.stringify(geometryFromGlobal.skinWeights))
-                                                             var skinIndices = JSON.parse(JSON.stringify(geometryFromGlobal.skinIndices))
-                                                             skinWeights = skinWeights.map(x => { return new THREE.Vector4().copy(x) })
-                                                             skinIndices = skinIndices.map(x => { return new THREE.Vector4().copy(x) })
-                                                             Object.assign(clonedGeometry, {bones, skinWeights, skinIndices })
-
-                                                         //    var clonedMesh = new THREE.SkinnedMesh(clonedGeometry, globalAssets.getMaterial(this.characterType).clone())
+                                                                             //    var clonedMesh = new THREE.SkinnedMesh(clonedGeometry, globalAssets.getMaterial(this.characterType).clone())
 
 
 
+                                                        }
 
+                                                        if (clone.animations.length) {
+                                                            console.log("clone Has Animations:", clone)
+                                                        }
 
-                                    }
-
-                                    if (clone.animations.length) {
-                                        console.log("clone Has Animations:", clone)
-                                    }
-            */
-
+                                    */
 
 
                 } else {
@@ -148,20 +151,39 @@ define([
 
             var err = function(e, x) {
                 console.log("FBX ERROR:", e, x);
-            }
+            };
 
             var prog = function(p, x) {
                 console.log("FBX PROGRESS:", p, x);
-            }
+            };
 
-            var loader = new THREE.FBXLoader();
-            //   loader.options.convertUpAxis = true;
-            loader.load( modelList[modelId].url+'.FBX', function ( model ) {
-                console.log("FBX LOADED: ",model);
 
-                cacheMesh(modelId, model, pool);
-                console.log("Model Pool:", modelPool);
-            }, prog, err);
+            /*
+
+                      fbxWorker.onmessage = function(msg) {
+
+                          var jsonLoader = new THREE.ObjectLoader();
+
+                          var parsed = jsonLoader.parse(msg.data[1])
+
+                          console.log("FBX WORKER RESPONSE: ", msg.data[0], parsed, msg.data[1]);
+
+                          cacheMesh(modelId, parsed, pool);
+
+                      }.bind(this);
+
+                      fbxWorker.postMessage([modelId, modelList[modelId].url+'.FBX']);
+             /*
+           */
+                      var loader = new THREE.FBXLoader();
+                      //   loader.options.convertUpAxis = true;
+                      loader.load( modelList[modelId].url+'.FBX', function ( model ) {
+                          console.log("FBX LOADED: ",model);
+
+                          cacheMesh(modelId, model, pool);
+                          console.log("Model List & Pool:", modelList[modelId], modelPool);
+                      }, prog, err);
+
         };
 
         var loadCollada = function(modelId, pool) {
@@ -358,20 +380,23 @@ define([
 
                 if (model.mixer) {
 
-                    if (model.animations.length) {
-                        var action = model.mixer.clipAction( model.animations[ 0 ] );
-                        action.play();
+                    if (model.animations) {
 
-                        if (activeMixers.indexOf(model.mixer) === -1) {
-                            activeMixers.push(model.mixer);
-                        } else {
-                            console.log("Mixer already active... clean up needed!", model);
+                        if (model.animations.length) {
+
+                            var action = model.mixer.clipAction( model.animations[ 0 ] );
+                            action.play();
+
+                            if (activeMixers.indexOf(model.mixer) === -1) {
+                                activeMixers.push(model.mixer);
+                            } else {
+                                console.log("Mixer already active... clean up needed!", model);
+                            }
+
+                            console.log("Play Action", action);
+
                         }
-
-                        console.log("Play Action", action);
                     }
-
-
                 }
 
                 var attachMaterial = function(src, data) {
@@ -401,9 +426,15 @@ define([
                             for (var i = 0; i < model.children.length; i++) {
                                 var child = model.children[i];
                                 if (child.type === 'SkinnedMesh') {
+
+                                //    model.children[i] = child.clone();
+                                //    child = model.children[i];
+
                                     child.material = mat.clone();
                                     child.material.skinning = true;
                                     child.material.needsUpdate = true;
+                                } else {
+                                    child.material = mat;
                                 }
                             }
                         };
