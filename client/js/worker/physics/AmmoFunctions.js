@@ -601,6 +601,16 @@ define([
         }
 
 
+        AmmoFunctions.prototype.attachBodyBySLiderJoint = function(parentBody, childBody, posVec, directionVec) {
+
+            var sliderJoint = new Ammo.btSliderConstraint( this.entity.rigidbody.body, base.rigidbody.body, tDisk, tBase, true);
+
+        };
+
+
+
+
+
 
         AmmoFunctions.prototype.createRigidBody = function(body_config, dynamicSpatial, onReady) {
 
@@ -914,6 +924,7 @@ define([
             return body;
 
         };
+
 
 
 

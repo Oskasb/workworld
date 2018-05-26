@@ -63,7 +63,7 @@ define([
             totalSubmergedVolume = 0;
             unsubmergedVolume = 0;
             totalVolForce = 0;
-            density = 100;
+            density = 1000;
             for (var i = 0; i < dynSpat.dynamicShapes.length; i++) {
 
                 shape = dynSpat.dynamicShapes[i]
