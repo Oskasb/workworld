@@ -165,9 +165,10 @@ var incidence;
 
             drag = ShapePhysics.calculateSurfaceDragForce(dynamicShape.size, dynamicShape.direction, anglesOfIncidence, speed, dragVec);
 
-
             dragVec.copy(velocity);
             dragVec.multiplyScalar(-drag*density*coefficients['base_drag']);
+            dynSpat.applySpatialImpulseVector(dragVec);
+
         //    dragVec.applyQuaternion(rootQuat)
             liftVec.set(0, 0, 0);
 
@@ -188,10 +189,10 @@ var incidence;
             }
 
             liftVec.multiplyScalar(density * coefficients['base_lift'] / 0.016);
-            dynSpat.applySpatialImpulseVector(dragVec);
+
             pointOfApplication.copy(dynamicShape.offset);
             //    pointOfApplication.applyQuaternion(rootQuat);
-            tempVec.set(0, 0, -drag);
+            tempVec.set(drag * AoAVec.x, drag * AoAVec.y, -drag * Math.cos(AoAVec.z));
             //    tempVec.multiplyScalar(-drag*density*coefficients['base_drag']);
             dynSpat.applySpatialTorqueVector(ShapePhysics.torqueFromForcePoint(pointOfApplication, tempVec));
 

@@ -73,7 +73,7 @@
             {"id":"tower_35",     "lift":[0,    0,   0],  "shape":"Box", "args":[22, 0.5,   2],   "offset":[-26,      64,   -28],      "rotation":[0, 0, 0]},
             {"id":"tower_36",     "lift":[0,    0,   0],  "shape":"Box", "args":[5, 2.5,    8],   "offset":[ -6,      49,   -26],      "rotation":[0, 0, 0]}
           ],
-          "friction":2.8,
+          "friction":1.5,
           "restitution":0.25,
           "damping":0.01,
           "mass":80000000

@@ -35,6 +35,7 @@
 
             {"widget":"ROLL_INDICATOR", "label":"ROLL",   "configId":"roll_indicator",   "layout":{"margin_y":0.30}, "buffer":"currentDynamic", "channel":"ROLL_ANGLE"},
             {"widget":"PITCH_INDICATOR","label":"PITCH",  "configId":"pitch_indicator",  "layout":{"margin_y":0.24}, "buffer":"currentDynamic", "channel":"PITCH_ANGLE"},
+            {"widget":"ROLL_INDICATOR", "label":"AOA_Y",  "configId":"aoa_y_indicator",  "layout":{"margin_y":0.24}, "buffer":"currentDynamic", "channel":"ANGLE_OF_ATTACK_Y"},
 
             {"widget":"DRAG_CONTROL",   "label":"RUDDER", "configId":"control_rudder",   "layout":{},"onUpdate":"sampleControl", "source":"rudder", "onDrag":"dragRudder",   "buffer":"inputState",     "channel":"DRAG_DISTANCE_X"},
             {"widget":"DRAG_CONTROL",   "label":"THR",    "configId":"control_throttle", "layout":{},"onUpdate":"sampleControl", "source":"engine", "onDrag":"dragThrottle", "buffer":"inputState",     "channel":"DRAG_DISTANCE_Y"},

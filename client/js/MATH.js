@@ -296,8 +296,8 @@ if(typeof(MATH) === "undefined") {
 	};
 
 	MATH.angleInsideCircle = function(angle) {
-		if (angle < 0) angle+= MATH.TWO_PI;
-		if (angle > MATH.TWO_PI) angle-= MATH.TWO_PI;
+		if (angle < -Math.PI) angle+= MATH.TWO_PI;
+		if (angle > Math.PI) angle-= MATH.TWO_PI;
 		return angle;
 	};
 

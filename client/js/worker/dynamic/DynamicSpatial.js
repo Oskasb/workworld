@@ -12,8 +12,10 @@ define([
 
         var tempVec1 = new THREE.Vector3();
         var tempVec2 = new THREE.Vector3();
+        var tempVec3 = new THREE.Vector3();
         var tempQuat = new THREE.Quaternion();
         var tempObj = new THREE.Object3D();
+        var tempObj2 = new THREE.Object3D();
         var tempEuler = new THREE.Euler();
 
         var TRANSFORM_AUX;
@@ -370,19 +372,41 @@ define([
         DynamicSpatial.prototype.computeState = function() {
             this.getSpatialVelocity(tempVec1);
             this.spatialBuffer[ENUMS.BufferSpatial.SPEED_MPS] = tempVec1.length();
-            this.getSpatialQuaternion(tempObj.quaternion);
+            this.getSpatialQuaternion(tempObj2.quaternion);
 
-            tempEuler.setFromQuaternion(tempObj.quaternion, 'YZX');
-            this.spatialBuffer[ENUMS.BufferSpatial.ROLL_ANGLE]  = tempEuler.z;
+        //    tempVec2.set(0, 0, 1);
+
+        //    tempVec2.applyQuaternion(tempQuat);
+        //    tempObj2.lookAt(tempVec2);
+
+            tempEuler.setFromQuaternion(tempObj2.quaternion, 'YZX');
+
             this.spatialBuffer[ENUMS.BufferSpatial.PITCH_ANGLE] = tempEuler.x;
             this.spatialBuffer[ENUMS.BufferSpatial.YAW_ANGLE]   = tempEuler.y;
+            this.spatialBuffer[ENUMS.BufferSpatial.ROLL_ANGLE]  = tempEuler.z;
+
+
+       //     tempVec1.normalize();
+       //     tempVec1.sub(tempVec2);
 
             tempObj.lookAt(tempVec1);
-            tempEuler.setFromQuaternion(tempObj.quaternion, 'YZX');
 
-            tempVec1.x = MATH.subAngles(this.spatialBuffer[ENUMS.BufferSpatial.PITCH_ANGLE] , tempEuler.x    );
-            tempVec1.y = MATH.subAngles(this.spatialBuffer[ENUMS.BufferSpatial.YAW_ANGLE]   , tempEuler.y    );
-            tempVec1.z = MATH.subAngles(this.spatialBuffer[ENUMS.BufferSpatial.ROLL_ANGLE]  , tempEuler.z    );
+        //    tempObj.quaternion.inverse();
+        //    tempObj.quaternion.multiply(tempObj2.quaternion);
+
+        //    tempVec2.set(0, 0, 1);
+        //    tempVec2.applyQuaternion(tempObj.quaternion);
+        //    tempObj.rotation.subAngles(tempObj2.rotation);
+
+        //    tempEuler.setFromQuaternion(tempObj.quaternion, 'YZX');
+
+        //    tempObj2.rotateZ(- tempObj.rotation.z);
+        //    tempObj2.rotateY(- tempObj.rotation.y);
+        //    tempObj2.rotateX(- tempObj.rotation.x);
+
+            tempVec1.x = MATH.angleInsideCircle(tempObj2.rotation.x - tempObj.rotation.x ) ;
+            tempVec1.y = MATH.angleInsideCircle(tempObj2.rotation.y - tempObj.rotation.y ) ;
+            tempVec1.z = MATH.angleInsideCircle(tempObj2.rotation.z - tempObj.rotation.z ) ;
 
             this.setVectorByFirstIndex(ENUMS.BufferSpatial.ANGLE_OF_ATTACK_X, tempVec1);
         };

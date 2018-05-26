@@ -253,7 +253,7 @@ define([
 
         PhysicsWorldAPI.waveHeightAtPos = function(pos) {
             var currentTime = PhysicsWorldAPI.getCom(ENUMS.BufferChannels.FRAME_RENDER_TIME);
-            return 0.7 * (Math.sin(currentTime*0.35 + pos.x * 0.09) + Math.cos(currentTime * 0.17 + pos.z * 0.16));
+            return 2.01 * (Math.sin(currentTime*0.35 + pos.x * 0.09) + Math.cos(currentTime * 0.17 + pos.z * 0.16));
         };
 
         var getTerrainsCount = function() {

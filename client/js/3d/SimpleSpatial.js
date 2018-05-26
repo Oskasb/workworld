@@ -56,15 +56,15 @@ define([
             }
 
             if (this.bones['radar_mast_1']) {
-                this.bones['radar_mast_1'].rotateX(0.025)
+                this.bones['radar_mast_1'].rotateX(0.065)
             }
 
             if (this.bones['radar_mast_2']) {
-                this.bones['radar_mast_2'].rotateX(0.017)
+                this.bones['radar_mast_2'].rotateX(0.037)
             }
 
             if (this.bones['radar_mast_flat']) {
-                this.bones['radar_mast_flat'].rotateX(-0.06)
+                this.bones['radar_mast_flat'].rotateX(-0.08)
             }
 
             if (this.bones['radar_square']) {

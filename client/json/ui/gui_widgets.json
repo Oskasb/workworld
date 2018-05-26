@@ -723,10 +723,52 @@
             }
           }
         }
+      },
+      {
+        "id": "aoa_y_indicator",
+        "data": {
+          "header_label":"gauge_key",
+          "value_label":"gauge_value",
+          "surface":{
+
+            "layout":{
+              "anchor":"bottom_left",
+              "fixed_aspect":true,
+              "margin_x":0.335,
+              "margin_y":0.12,
+              "width": 0.004,
+              "height":0.12
+            },
+
+            "backplate":{
+              "passive_fx":"plate_active_effects",
+              "active_fx":"plate_active_effects",
+              "color":"blue_3"
+            }
+          },
+          "state":{
+            "axis":[1, 1],
+            "layout":{
+              "anchor":"bottom_left",
+              "fixed_aspect":true,
+              "margin_x":0.335,
+              "margin_y":0.12,
+              "width": 0.003,
+              "height":0.12
+            },
+
+            "backplate":{
+              "passive_fx":"plate_passive_effects",
+              "active_fx":"plate_active_effects",
+              "color":"cyan_3"
+            }
+          }
+        }
       }
     ],
 
     "GUI_PITCH_INDICATOR":[
+
       {
         "id": "pitch_indicator",
         "data": {
@@ -774,6 +816,7 @@
           }
         }
       }
+
     ],
 
     "MONITOR_LIST_WIDGET":[
