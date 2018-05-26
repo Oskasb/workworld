@@ -600,16 +600,130 @@ define([
             }
         }
 
+        var buildConf = function(jnt, bodyCfg) {
 
-        AmmoFunctions.prototype.attachBodyBySLiderJoint = function(parentBody, childBody, posVec, directionVec) {
-
-            var sliderJoint = new Ammo.btSliderConstraint( this.entity.rigidbody.body, base.rigidbody.body, tDisk, tBase, true);
+            return {
+                body_key:"box_"+jnt.args[0]+'_'+jnt.args[1]+'_'+jnt.args[2]+'_joint',
+                category:"primitive",
+                state:"DISABLE_DEACTIVATION",
+                shape:"Box",
+                args:jnt.args,
+                friction:bodyCfg.friction || 1,
+                restitution:bodyCfg.restitution || 1,
+                damping:bodyCfg.damping || 0.1,
+                mass:jnt.mass || 1000
+            }
 
         };
 
+        var tempObj = new THREE.Object3D();
+        var tempObj2 = new THREE.Object3D();
+        var tempVec = new THREE.Vector3();
+
+        var obj3DtobtTransform = function(objd, btTrx) {
+            btTrx.setIdentity();
+            btTrx.setOrigin(new Ammo.btVector3(objd.position.x, objd.position.y, objd.position.z));
+            btTrx.setRotation(new Ammo.btQuaternion(objd.quaternion.x, objd.quaternion.y, objd.quaternion.z, objd.quaternion.w));
+        };
+
+
+        var attachJoint = function(world, parentBody, jointConf, bodyConf) {
+
+            var rigid_body = buildConf(jointConf, bodyConf);
+            var trxP   = new Ammo.btTransform();
+
+            tempObj.rotation.set(jointConf.slide.rot[0], jointConf.slide.rot[1], jointConf.slide.rot[2]);
+            tempObj.position.set(jointConf.slide.pos[0], jointConf.slide.pos[1], jointConf.slide.pos[2]);
+
+            obj3DtobtTransform(tempObj, trxP);
+
+            var trxJnt = new Ammo.btTransform();
+
+            tempObj2.rotation.set(jointConf.rotation[0], jointConf.rotation[1], jointConf.rotation[2]);
+            tempObj2.position.set(jointConf.offset[0], jointConf.offset[1], jointConf.offset[2]);
+            obj3DtobtTransform(tempObj2, trxJnt);
+
+
+            var dataKey = rigid_body.body_key;
+
+            tempVec.set(1, 1, 1);
+            var rigidBody = fetchPoolBody(dataKey);
+
+            if (!rigidBody) {
+
+                var createFunc = function(physicsShape) {
+                    return createPrimitiveBody(physicsShape, rigid_body, tempVec);
+                };
+
+                var shape = createPrimitiveShape(rigid_body);
+
+                bodyPools[dataKey] = new BodyPool(shape, createFunc);
+                rigidBody = fetchPoolBody(dataKey);
+            }
+
+
+            rigidBody.forceActivationState(STATE.DISABLE_DEACTIVATION);
+
+            var sliderJoint = new Ammo.btGeneric6DofConstraint(rigidBody, parentBody, trxJnt,  trxP, true);
+
+            TRANSFORM_AUX.setIdentity();
+
+            TRANSFORM_AUX.getOrigin().setX(tempObj.position.x);
+            TRANSFORM_AUX.getOrigin().setY(tempObj.position.y);
+            TRANSFORM_AUX.getOrigin().setZ(tempObj.position.z);
+
+
+            //    body.getWorldTransform(TRANSFORM_AUX);
+
+
+            QUAT_AUX.setX(tempObj.quaternion.x);
+            QUAT_AUX.setY(tempObj.quaternion.y);
+            QUAT_AUX.setZ(tempObj.quaternion.z);
+            QUAT_AUX.setW(tempObj.quaternion.w);
+
+            /*
+                       TRANSFORM_AUX.getRotation().setX(quaternion.x);
+                       TRANSFORM_AUX.getRotation().setY(quaternion.y);
+                       TRANSFORM_AUX.getRotation().setZ(quaternion.z);
+                       TRANSFORM_AUX.getRotation().setW(quaternion.w);
+                   */
+
+
+            TRANSFORM_AUX.setRotation(QUAT_AUX);
+
+            //    body.setWorldTransform(TRANSFORM_AUX);
+
+            //    ms.setWorldTransform(TRANSFORM_AUX);
+
+            rigidBody.setWorldTransform(TRANSFORM_AUX);
+
+            rigidBody.getMotionState().setWorldTransform(TRANSFORM_AUX);
+
+
+            sliderJoint.setAngularUpperLimit(new Ammo.btVector3(0.0,  0.0, 0.0));
+            sliderJoint.setAngularLowerLimit(new Ammo.btVector3(0.0,  0.0, 0.0));
+
+            sliderJoint.setLinearUpperLimit(new Ammo.btVector3(0.0,   0.0,  0.0));
+            sliderJoint.setLinearLowerLimit(new Ammo.btVector3(0.0,  -12.1, 0.0));
 
 
 
+    //setTimeout(function() {
+
+                world.addConstraint(sliderJoint, true);
+                world.addRigidBody(rigidBody);
+
+      //      }, 10);
+
+        };
+
+        AmmoFunctions.prototype.attachBodyBySliderJoints = function(world, parentBody, bodyConf) {
+
+            for (var i = 0; i < bodyConf.joints.length; i++) {
+                attachJoint(world, parentBody, bodyConf.joints[i], bodyConf);
+            }
+
+        };
 
 
         AmmoFunctions.prototype.createRigidBody = function(body_config, dynamicSpatial, onReady) {
@@ -684,10 +798,12 @@ define([
                 actor.piece.hovercraft = ammoVehicle;
             }
 
+
+
             if (shapeKey === "mesh") {
                 createMeshBody(dataKey, rigid_body, position, quaternion, mass, scale, onReady, dynamicSpatial, this);
             } else {
-                onReady(rigidBody);
+                onReady(rigidBody, rigid_body);
             }
 
         };

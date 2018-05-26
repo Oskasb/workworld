@@ -83,7 +83,12 @@ define(['worker/physics/AmmoFunctions'],
 
         AmmoAPI.prototype.setupRigidBody = function(bodyConf, dynamicSpatial, cb) {
 
-            var onReady = function(body) {
+            var onReady = function(body, bdCfg) {
+
+                if (bdCfg.joints) {
+                    ammoFunctions.attachBodyBySliderJoints(world, body, bdCfg)
+                }
+
                 cb(dynamicSpatial, body);
             };
 
