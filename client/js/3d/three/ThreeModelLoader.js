@@ -385,7 +385,7 @@ define([
                         if (model.animations.length) {
 
                             var action = model.mixer.clipAction( model.animations[ 0 ] );
-                            action.play();
+                        //    action.play();
 
                             if (activeMixers.indexOf(model.mixer) === -1) {
                                 activeMixers.push(model.mixer);

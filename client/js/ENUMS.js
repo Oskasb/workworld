@@ -190,7 +190,7 @@ if(typeof(ENUMS) === "undefined"){
         ACTING_FORCE_X:     12,
         ACTING_FORCE_Y:     13,
         ACTING_FORCE_Z:     14,
-        STRIDE:             15
+        STRIDE:             16
     };
 
     ENUMS.DynamicBone = {
@@ -203,7 +203,7 @@ if(typeof(ENUMS) === "undefined"){
         QUAT_Y:             6,
         QUAT_Z:             7,
         QUAT_W:             8,
-        STRIDE:             9
+        STRIDE:             10
     };
 
     ENUMS.Worker = {

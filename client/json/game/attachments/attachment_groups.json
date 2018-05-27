@@ -68,7 +68,28 @@
           ]
         }
       },
+      {
+        "id":"door_system",
+        "data":{
+          "modules":[
+            {"config_key":"DOORS", "config_id":"door_1", "group":[
+              {"offset":[-20, 11,  32], "direction":[0, 0, 1], "size":[5, 2, 5]}
+            ]},
 
+            {"config_key":"DOORS", "config_id":"door_2", "group":[
+              {"offset":[-20, 11, -15], "direction":[0, 0, 1], "size":[5, 2, 5]}
+            ]},
+
+            {"config_key":"DOORS", "config_id":"door_3",    "group":[
+              {"offset":[-20, 11, -81], "direction":[0, -1, 0], "size":[5, 2, 5]}
+            ]},
+
+            {"config_key":"DOORS", "config_id":"door_4",    "group":[
+              {"offset":[ 20, 11,-92], "direction":[0, -1, 0], "size":[5, 2, 5]}
+            ]}
+          ]
+        }
+      },
       {
         "id":"radar_system",
         "data":{

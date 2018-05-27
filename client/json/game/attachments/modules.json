@@ -54,47 +54,47 @@
       {
         "id":"cat_1",
         "data":{
-          "state":{"value":0, "min":-0.5, "max":1, "speed":0.05, "factor":22000000},
+          "state":{"value":0, "min":1, "max":1, "speed":0.05, "factor":-1},
           "source":"engine",
           "target":"catapult_1",
           "sampleSource":"effectEmitter",
           "applyState":"effectEmitter",
-          "effectFunction":"rotateBoneX"
+          "effectFunction":"setBoneRotationX"
 
         }
       },
       {
         "id":"cat_2",
         "data":{
-          "state":{"value":0, "min":-0.5, "max":1, "speed":0.05, "factor":22000000},
+          "state":{"value":0, "min":-0.5, "max":1, "speed":0.05, "factor":1},
           "source":"engine",
           "target":"catapult_2",
           "sampleSource":"effectEmitter",
           "applyState":"effectEmitter",
-          "effectFunction":"rotateBoneX"
+          "effectFunction":"setBoneRotationX"
 
         }
       },
       {
         "id":"cat_3",
         "data":{
-          "state":{"value":0, "min":-1, "max":1, "speed":0.01, "factor":1.2},
+          "state":{"value":0, "min":-1, "max":1, "speed":0.01, "factor":1},
           "source":"engine",
           "target":"catapult_3",
           "sampleSource":"effectEmitter",
           "applyState":"effectEmitter",
-          "effectFunction":"rotateBoneX"
+          "effectFunction":"setBoneRotationX"
         }
       },
       {
         "id":"cat_4",
         "data":{
-          "state":{"value":0, "min":-1, "max":1, "speed":0.01, "factor":1.2},
+          "state":{"value":0, "min":-1, "max":1, "speed":0.01, "factor":1},
           "source":"engine",
           "target":"catapult_4",
           "sampleSource":"effectEmitter",
           "applyState":"effectEmitter",
-          "effectFunction":"rotateBoneX"
+          "effectFunction":"setBoneRotationX"
         }
       }
     ],
@@ -102,50 +102,100 @@
       {
         "id":"elevator_1",
         "data":{
-          "state":{"value":0, "min":-0.5, "max":1, "speed":0.05, "factor":22000000},
-          "source":"engine",
-          "target":"fore_2",
-          "sampleSource":"effectEmitter",
+          "state":{"value":0, "min":1, "max":1, "speed":0.05, "factor":-10.5},
+          "source":"rudder",
+          "target":"elevator_1",
+          "sampleSource":"sampleControl",
           "applyState":"effectEmitter",
-          "effectFunction":"translateBoneX"
+          "effectFunction":"setBoneTranslationZ"
 
         }
       },
       {
         "id":"elevator_2",
         "data":{
-          "state":{"value":0, "min":-0.5, "max":1, "speed":0.05, "factor":22000000},
-          "source":"engine",
-          "target":"fore_2",
+          "state":{"value":0, "min":1, "max":1, "speed":0.05, "factor":-10.5},
+          "source":"radar_1",
+          "target":"elevator_2",
           "sampleSource":"effectEmitter",
           "applyState":"effectEmitter",
-          "effectFunction":"translateBoneX"
+          "effectFunction":"setBoneTranslationZ"
 
         }
       },
       {
         "id":"elevator_3",
         "data":{
-          "state":{"value":0, "min":-1, "max":1, "speed":0.01, "factor":1.2},
-          "source":"engine",
-          "target":"fore_2",
+          "state":{"value":0, "min":1, "max":1, "speed":0.05, "factor":-10.5},
+          "source":"radar_1",
+          "target":"elevator_3",
           "sampleSource":"effectEmitter",
           "applyState":"effectEmitter",
-          "effectFunction":"translateBoneX"
+          "effectFunction":"setBoneTranslationZ"
         }
       },
       {
         "id":"elevator_4",
         "data":{
-          "state":{"value":0, "min":-1, "max":1, "speed":0.01, "factor":1.2},
-          "source":"engine",
-          "target":"fore_2",
+          "state":{"value":0, "min":1, "max":1, "speed":0.05, "factor":-10.5},
+          "source":"radar_1",
+          "target":"elevator_4",
           "sampleSource":"effectEmitter",
           "applyState":"effectEmitter",
-          "effectFunction":"translateBoneX"
+          "effectFunction":"setBoneTranslationZ"
         }
       }
     ],
+
+    "DOORS":[
+      {
+        "id":"door_1",
+        "data":{
+          "state":{"value":0, "min":1, "max":1, "speed":0.05, "factor":-21},
+          "source":"rudder",
+          "target":"door_1",
+          "sampleSource":"sampleControl",
+          "applyState":"effectEmitter",
+          "effectFunction":"setBoneTranslationY"
+
+        }
+      },
+      {
+        "id":"door_2",
+        "data":{
+          "state":{"value":0, "min":1, "max":1, "speed":0.05, "factor":-21},
+          "source":"radar_1",
+          "target":"door_2",
+          "sampleSource":"effectEmitter",
+          "applyState":"effectEmitter",
+          "effectFunction":"setBoneTranslationY"
+
+        }
+      },
+      {
+        "id":"door_3",
+        "data":{
+          "state":{"value":0, "min":1, "max":1, "speed":0.05, "factor":-21},
+          "source":"radar_1",
+          "target":"door_3",
+          "sampleSource":"effectEmitter",
+          "applyState":"effectEmitter",
+          "effectFunction":"setBoneTranslationY"
+        }
+      },
+      {
+        "id":"door_4",
+        "data":{
+          "state":{"value":0, "min":1, "max":1, "speed":0.05, "factor":20},
+          "source":"radar_1",
+          "target":"door_4",
+          "sampleSource":"effectEmitter",
+          "applyState":"effectEmitter",
+          "effectFunction":"setBoneTranslationY"
+        }
+      }
+    ],
+
     "RADARS":[
       {
         "id":"radar_1",

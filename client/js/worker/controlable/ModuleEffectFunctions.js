@@ -143,6 +143,21 @@ define([
 
         };
 
+        ModuleEffectFunctions.setBoneRotationX = function(renderable, moduleState, trgt) {
+
+            var dynBone = renderable.getRenderableBone(trgt);
+
+            if (!dynBone) {
+                console.log("No Dynamic Bone:", trgt, renderable, moduleState);
+                return;
+            }
+
+            tempObj.quaternion.copy(dynBone.originalQuat);
+            tempObj.rotateX(moduleState.getAppliedFactor());
+            dynBone.setDynamicBoneQuaternion(tempObj.quaternion);
+
+        };
+
         ModuleEffectFunctions.rotateBoneX = function(renderable, moduleState, trgt) {
 
             var dynBone = renderable.getRenderableBone(trgt);
@@ -155,6 +170,51 @@ define([
             dynBone.getDynamicBoneQuaternion(tempObj.quaternion);
             tempObj.rotateX(moduleState.getAppliedFactor());
             dynBone.setDynamicBoneQuaternion(tempObj.quaternion);
+
+        };
+
+        ModuleEffectFunctions.setBoneTranslationX = function(renderable, moduleState, trgt) {
+
+            var dynBone = renderable.getRenderableBone(trgt);
+
+            if (!dynBone) {
+                console.log("No Dynamic Bone:", trgt, renderable, moduleState);
+                return;
+            }
+
+            tempObj.position.copy(dynBone.originalPos);
+            tempObj.position.x += moduleState.getAppliedFactor();
+            dynBone.setDynamicBonePosition(tempObj.position);
+
+        };
+
+        ModuleEffectFunctions.setBoneTranslationY = function(renderable, moduleState, trgt) {
+
+            var dynBone = renderable.getRenderableBone(trgt);
+
+            if (!dynBone) {
+                console.log("No Dynamic Bone:", trgt, renderable, moduleState);
+                return;
+            }
+
+            tempObj.position.copy(dynBone.originalPos);
+            tempObj.position.y += moduleState.getAppliedFactor();
+            dynBone.setDynamicBonePosition(tempObj.position);
+
+        };
+
+        ModuleEffectFunctions.setBoneTranslationZ = function(renderable, moduleState, trgt) {
+
+            var dynBone = renderable.getRenderableBone(trgt);
+
+            if (!dynBone) {
+                console.log("No Dynamic Bone:", trgt, renderable, moduleState);
+                return;
+            }
+
+            tempObj.position.copy(dynBone.originalPos);
+            tempObj.position.z += moduleState.getAppliedFactor();
+            dynBone.setDynamicBonePosition(tempObj.position);
 
         };
 
