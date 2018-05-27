@@ -1,98 +1,86 @@
 "use strict";
 
 define([
-        'worker/dynamic/DynamicSpatial'
+        'worker/dynamic/DynamicSpatial',
+        'worker/dynamic/DynamicSkeleton'
     ],
     function(
-        DynamicSpatial
+        DynamicSpatial,
+        DynamicSkeleton
     ) {
 
-        var skel;
+
+        var buildBoneConfig = function(bone, boneIndex) {
+            return {
+                id:bone.name,
+                data:{
+                    name:bone.name,
+                    index:boneIndex,
+                    pos:[bone.position.x, bone.position.y, bone.position.z],
+                    quat:[bone.quaternion.x, bone.quaternion.y,bone.quaternion.z, bone.quaternion.w]
+                }
+            }
+        };
 
         var SimpleSpatial = function(modelId, spatialBuffer) {
+            this.ready = false;
             this.obj3d = new THREE.Object3D();
             this.modelId = modelId;
             this.dynamicSpatial = new DynamicSpatial();
+            this.dynamicSkeleton = new DynamicSkeleton(spatialBuffer);
             this.dynamicSpatial.setSpatialBuffer(spatialBuffer);
-            this.bones = null;
-
-        };
-
-
-        SimpleSpatial.prototype.setGeometryQuaternion = function(quat) {
-
-        };
-
-        SimpleSpatial.prototype.setGeometrySize = function(size) {
-            this.size = size;
         };
 
         SimpleSpatial.prototype.setupBones = function(skeleton) {
 
             var bones = skeleton.bones;
 
-            this.bones = {};
+            var boneIndex = 0;
+            var bonesConfig = [];
 
             for (var i = 0; i < bones.length; i++) {
-
                 if (bones[i].type === 'Bone') {
-                    this.bones[bones[i].name] = bones[i];
+                    bonesConfig.push(buildBoneConfig(bones[i], boneIndex));
+                    boneIndex++
                 }
-
             }
 
+            this.dynamicSkeleton.applyBonesConfig(bonesConfig);
+
+            for (i = 0; i < bones.length; i++) {
+                if (bones[i].type === 'Bone') {
+                    var dynBone = this.dynamicSkeleton.getBoneByName(bones[i].name);
+                    dynBone.inheritBonePosAndQuat(bones[i].position, bones[i].quaternion);
+                }
+            }
+
+            return bonesConfig;
         };
 
-        SimpleSpatial.prototype.applyAnimationState = function(group) {
+        SimpleSpatial.prototype.initDynamicSkeleton = function(group) {
 
             if (!group) return;
 
-            if (!this.bones) {
-                this.setupBones(group.skeleton);
+            if (!this.dynamicSkeleton.bones.length) {
+                var bonesConfig = this.setupBones(group.skeleton);
             }
 
-            if (this.bones['radar_main']) {
-                this.bones['radar_main'].rotateX(0.022)
-            }
-
-            if (this.bones['radar_mast_1']) {
-                this.bones['radar_mast_1'].rotateX(0.065)
-            }
-
-            if (this.bones['radar_mast_2']) {
-                this.bones['radar_mast_2'].rotateX(0.037)
-            }
-
-            if (this.bones['radar_mast_flat']) {
-                this.bones['radar_mast_flat'].rotateX(-0.08)
-            }
-
-            if (this.bones['radar_square']) {
-                this.bones['radar_square'].rotateX(0.046)
-            }
-
-            if (this.bones['radar_square_small']) {
-                this.bones['radar_square_small'].rotateX(0.035)
-            }
-
-
+            this.ready = true;
+            this.onReady(this, bonesConfig);
         };
-
 
         SimpleSpatial.prototype.updateSimpleSpatial = function() {
-            this.dynamicSpatial.getSpatialPosition(this.obj3d.position);
-            this.dynamicSpatial.getSpatialQuaternion(this.obj3d.quaternion);
-            this.applyAnimationState(this.obj3d.children[0])
-
-
-        };
-
-        SimpleSpatial.prototype.applyGeometryVisibility = function(isVisible) {
-
-            if (isVisible) {
-
+            if (!this.ready) {
+                this.initDynamicSkeleton(this.obj3d.children[0])
             }
 
+            this.dynamicSpatial.getSpatialPosition(this.obj3d.position);
+            this.dynamicSpatial.getSpatialQuaternion(this.obj3d.quaternion);
+            this.dynamicSkeleton.updateDynamicSkeleton()
+        };
+
+        SimpleSpatial.prototype.setReady = function(func) {
+            this.onReady = func;
         };
 
         return SimpleSpatial;

@@ -45,6 +45,14 @@ define([
             return this.configObject.getConfigByDataKey(dataKey)
         };
 
+        DynamicRenderable.prototype.getGeometryRenderable = function() {
+            return this.renderableGeometry.getGeometry();
+        };
+
+        DynamicRenderable.prototype.getRenderableBone = function(name) {
+            return this.getGeometryRenderable().getDynamicBone(name);
+        };
+
         DynamicRenderable.prototype.initRenderable = function(onReady) {
 
             var feedbackReady = function() {

@@ -32,6 +32,8 @@ define([
             this.debugForces = [];
         };
 
+
+
         RenderableGeometry.prototype.setupStandardModelId = function(model_id, dynamicSpatial) {
             this.renderable = new StandardGeometry(model_id, dynamicSpatial);
         //    this.renderable.setGeometrySize(this.size)
@@ -80,6 +82,10 @@ define([
 
         RenderableGeometry.prototype.testIsVisible = function() {
             return WorldAPI.getWorldCamera().testPosRadiusVisible(this.pos, this.size*0.65*this.visualSize);
+        };
+
+        RenderableGeometry.prototype.getGeometry = function() {
+            return this.renderable;
         };
 
         RenderableGeometry.prototype.applyVisibility = function(isVisible) {

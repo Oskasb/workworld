@@ -86,6 +86,9 @@ define([
             fxArgs.pos.add(tempVec2);
             if (fxArgs.pos.y > 2) return;
 
+            tempObj.quaternion.set(0, 0.72, 0.72, 0);
+            tempObj.rotateZ(Math.random()*5);
+
             fxArgs.quat.copy(tempObj.quaternion);
             fxArgs.pos.y = 1.5;
             fxArgs.vel.set(0, 0, 0);
@@ -138,6 +141,30 @@ define([
 
             spawnTargetEffect(renderable, target, 'bow_splash');
 
+        };
+
+        ModuleEffectFunctions.rotateBoneX = function(renderable, moduleState, trgt) {
+
+            var dynBone = renderable.getRenderableBone(trgt);
+
+            if (!dynBone) {
+                console.log("No Dynamic Bone:", trgt, renderable, moduleState);
+                return;
+            }
+
+            dynBone.getDynamicBoneQuaternion(tempObj.quaternion);
+            tempObj.rotateX(moduleState.getAppliedFactor());
+            dynBone.setDynamicBoneQuaternion(tempObj.quaternion);
+
+        };
+
+        ModuleEffectFunctions.translateBoneX = function(renderable, moduleState, trgt) {
+
+            speed = renderable.getDynamicSpeed();
+
+            if (Math.random() * 5 > speed-1) {
+                return;
+            }
 
         };
 

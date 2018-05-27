@@ -170,7 +170,8 @@ if(typeof(ENUMS) === "undefined"){
         DIRECTION_Y:        49,
         DIRECTION_Z:        50,
         DYNAMIC_FIRST_INDEX:64,
-        BUFFER_SIZE:        1024
+        BONE_FIRST_INDEX:   2048,
+        BUFFER_SIZE:        4096
     };
 
     ENUMS.DynamicShape = {
@@ -190,6 +191,19 @@ if(typeof(ENUMS) === "undefined"){
         ACTING_FORCE_Y:     13,
         ACTING_FORCE_Z:     14,
         STRIDE:             15
+    };
+
+    ENUMS.DynamicBone = {
+        BONE_INDEX:         0,
+        HAS_UPDATE:         1,
+        POS_X:              2,
+        POS_Y:              3,
+        POS_Z:              4,
+        QUAT_X:             5,
+        QUAT_Y:             6,
+        QUAT_Z:             7,
+        QUAT_W:             8,
+        STRIDE:             9
     };
 
     ENUMS.Worker = {

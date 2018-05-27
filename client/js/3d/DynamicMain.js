@@ -28,14 +28,19 @@ define([
             msg = evt.args(e).msg;
             console.log("Handle DYNAMIC_MODEL, STANDARD_GEOMETRY", msg);
             var simpSpat = new SimpleSpatial(msg[0], msg[1]);
+
+            var modelReady = function(sSpat, boneConf) {
+                console.log("SimpleSpatial ready: ", boneConf, sSpat);
+                PipelineAPI.setCategoryKeyValue('DYNAMIC_BONES', sSpat.modelId, boneConf);
+                ThreeAPI.addToScene(sSpat.obj3d);
+            };
+
             ThreeAPI.loadMeshModel(simpSpat.modelId, simpSpat.obj3d);
-            ThreeAPI.addToScene(simpSpat.obj3d);
+            simpSpat.setReady(modelReady);
             addSimpleSpatial(simpSpat)
         };
 
         evt.on(evt.list().DYNAMIC_MODEL, standardGeo);
-
-    //    PipelineAPI.subscribeToCategoryKey('DYNAMIC_MODEL', 'STANDARD_GEOMETRY', standardGeo)
     };
 
     DynamicMain.prototype.setup3dScene = function(ready) {

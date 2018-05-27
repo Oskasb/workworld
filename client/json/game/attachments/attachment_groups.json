@@ -47,6 +47,60 @@
         }
       },
       {
+        "id":"elevator_system",
+        "data":{
+          "modules":[
+            {"config_key":"ELEVATORS", "config_id":"elevator_1", "group":[
+              {"offset":[-29, 22,  42], "direction":[0, 0, 1], "size":[5, 2, 5]}
+            ]},
+
+            {"config_key":"ELEVATORS", "config_id":"elevator_2", "group":[
+              {"offset":[-29, 22, -5], "direction":[0, 0, 1], "size":[5, 2, 5]}
+            ]},
+
+            {"config_key":"ELEVATORS", "config_id":"elevator_3",    "group":[
+              {"offset":[-29, 22, -73], "direction":[0, -1, 0], "size":[5, 2, 5]}
+            ]},
+
+            {"config_key":"ELEVATORS", "config_id":"elevator_4",    "group":[
+              {"offset":[ 31, 22,-101], "direction":[0, -1, 0], "size":[5, 2, 5]}
+            ]}
+          ]
+        }
+      },
+
+      {
+        "id":"radar_system",
+        "data":{
+          "modules":[
+            {"config_key":"RADARS", "config_id":"radar_1", "group":[
+              {"offset":[-30, 54, -24], "direction":[0, 0, 1], "size":[1, 1, 1]}
+            ]},
+
+            {"config_key":"RADARS", "config_id":"radar_2", "group":[
+              {"offset":[-23, 55, -40], "direction":[0, 0, 1], "size":[1, 1, 1]}
+            ]},
+
+            {"config_key":"RADARS", "config_id":"radar_3",    "group":[
+              {"offset":[-6, 54, -26], "direction":[0, -1, 0], "size":[1, 1, 1]}
+            ]},
+
+            {"config_key":"RADARS", "config_id":"radar_4",    "group":[
+              {"offset":[-26, 65, -28], "direction":[0, -1, 0], "size":[1, 1, 1]}
+            ]},
+
+            {"config_key":"RADARS", "config_id":"radar_5",    "group":[
+              {"offset":[-22, 66, -38], "direction":[0, -1, 0], "size":[1, 1, 1]}
+            ]},
+
+            {"config_key":"RADARS", "config_id":"radar_6",    "group":[
+              {"offset":[-22, 74, -34], "direction":[0, -1, 0], "size":[1, 1, 1]}
+            ]}
+          ]
+        }
+      },
+
+      {
         "id":"wake_emitters",
         "data":{
           "modules":[

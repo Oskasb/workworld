@@ -56,10 +56,10 @@
         "data":{
           "state":{"value":0, "min":-0.5, "max":1, "speed":0.05, "factor":22000000},
           "source":"engine",
-          "target":"fore_2",
+          "target":"catapult_1",
           "sampleSource":"effectEmitter",
           "applyState":"effectEmitter",
-          "effectFunction":"bowEffect"
+          "effectFunction":"rotateBoneX"
 
         }
       },
@@ -68,10 +68,10 @@
         "data":{
           "state":{"value":0, "min":-0.5, "max":1, "speed":0.05, "factor":22000000},
           "source":"engine",
-          "target":"fore_2",
+          "target":"catapult_2",
           "sampleSource":"effectEmitter",
           "applyState":"effectEmitter",
-          "effectFunction":"bowEffect"
+          "effectFunction":"rotateBoneX"
 
         }
       },
@@ -80,10 +80,10 @@
         "data":{
           "state":{"value":0, "min":-1, "max":1, "speed":0.01, "factor":1.2},
           "source":"engine",
-          "target":"fore_2",
+          "target":"catapult_3",
           "sampleSource":"effectEmitter",
           "applyState":"effectEmitter",
-          "effectFunction":"bowEffect"
+          "effectFunction":"rotateBoneX"
         }
       },
       {
@@ -91,10 +91,126 @@
         "data":{
           "state":{"value":0, "min":-1, "max":1, "speed":0.01, "factor":1.2},
           "source":"engine",
+          "target":"catapult_4",
+          "sampleSource":"effectEmitter",
+          "applyState":"effectEmitter",
+          "effectFunction":"rotateBoneX"
+        }
+      }
+    ],
+    "ELEVATORS":[
+      {
+        "id":"elevator_1",
+        "data":{
+          "state":{"value":0, "min":-0.5, "max":1, "speed":0.05, "factor":22000000},
+          "source":"engine",
           "target":"fore_2",
           "sampleSource":"effectEmitter",
           "applyState":"effectEmitter",
-          "effectFunction":"bowEffect"
+          "effectFunction":"translateBoneX"
+
+        }
+      },
+      {
+        "id":"elevator_2",
+        "data":{
+          "state":{"value":0, "min":-0.5, "max":1, "speed":0.05, "factor":22000000},
+          "source":"engine",
+          "target":"fore_2",
+          "sampleSource":"effectEmitter",
+          "applyState":"effectEmitter",
+          "effectFunction":"translateBoneX"
+
+        }
+      },
+      {
+        "id":"elevator_3",
+        "data":{
+          "state":{"value":0, "min":-1, "max":1, "speed":0.01, "factor":1.2},
+          "source":"engine",
+          "target":"fore_2",
+          "sampleSource":"effectEmitter",
+          "applyState":"effectEmitter",
+          "effectFunction":"translateBoneX"
+        }
+      },
+      {
+        "id":"elevator_4",
+        "data":{
+          "state":{"value":0, "min":-1, "max":1, "speed":0.01, "factor":1.2},
+          "source":"engine",
+          "target":"fore_2",
+          "sampleSource":"effectEmitter",
+          "applyState":"effectEmitter",
+          "effectFunction":"translateBoneX"
+        }
+      }
+    ],
+    "RADARS":[
+      {
+        "id":"radar_1",
+        "data":{
+          "state":{"value":1, "min":0.1, "max":0.1, "speed":0.05, "factor":0.08},
+          "source":"radar_1",
+          "target":"radar_main",
+          "sampleSource":"effectEmitter",
+          "applyState":"effectEmitter",
+          "effectFunction":"rotateBoneX"
+        }
+      },
+      {
+        "id":"radar_2",
+        "data":{
+          "state":{"value":1, "min":0.1, "max":0.1, "speed":0.05, "factor":-0.22},
+          "source":"radar_1",
+          "target":"radar_square",
+          "sampleSource":"effectEmitter",
+          "applyState":"effectEmitter",
+          "effectFunction":"rotateBoneX"
+        }
+      },
+      {
+        "id":"radar_3",
+        "data":{
+          "state":{"value":1, "min":0.1, "max":0.1, "speed":0.05, "factor":-0.5},
+          "source":"radar_1",
+          "target":"radar_square_small",
+          "sampleSource":"effectEmitter",
+          "applyState":"effectEmitter",
+          "effectFunction":"rotateBoneX"
+        }
+      },
+      {
+        "id":"radar_4",
+        "data":{
+          "state":{"value":1, "min":0.1, "max":0.1, "speed":0.05, "factor":-0.4},
+          "source":"radar_1",
+          "target":"radar_mast_flat",
+          "sampleSource":"effectEmitter",
+          "applyState":"effectEmitter",
+          "effectFunction":"rotateBoneX"
+        }
+      },
+      {
+        "id":"radar_5",
+        "data":{
+          "state":{"value":1, "min":0.1, "max":0.1, "speed":0.05, "factor":0.3},
+          "source":"engine",
+          "target":"radar_mast_1",
+          "sampleSource":"effectEmitter",
+          "applyState":"effectEmitter",
+          "effectFunction":"rotateBoneX"
+        }
+      },
+      {
+        "id":"radar_6",
+        "data":{
+          "state":{"value":1, "min":0.1, "max":0.1, "speed":0.05, "factor":-0.23},
+          "source":"radar_1",
+          "target":"radar_mast_2",
+          "sampleSource":"effectEmitter",
+          "applyState":"effectEmitter",
+          "effectFunction":"rotateBoneX"
         }
       }
     ],

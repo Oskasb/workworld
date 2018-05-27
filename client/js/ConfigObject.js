@@ -33,7 +33,7 @@ define([
             this.callbacks.push(callback);
 
             if (this.config) {
-                callback(this.config);
+                callback(this.config, this.data);
             }
         };
 
@@ -43,7 +43,7 @@ define([
 
         ConfigObject.prototype.callCallbacks = function() {
             for (i = 0;i < this.callbacks.length; i++) {
-                this.callbacks[i](this.config);
+                this.callbacks[i](this.config, this.data);
             }
         };
 
