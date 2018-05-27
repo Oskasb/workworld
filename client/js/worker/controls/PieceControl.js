@@ -9,11 +9,15 @@ define([
         ControlsList
     ) {
 
-        var PieceControl = function(configKey, configId) {
+        var PieceControl = function(config) {
 
             this.pos = new THREE.Vector3();
             this.quat = new THREE.Quaternion();
-            this.controlsList = new ControlsList(configKey, configId)
+            this.controlsList = [];
+
+            for (var i = 0; i < config.length; i++) {
+                this.controlsList.push(new ControlsList(config[i].config_key, config[i].config_id))
+            }
 
         };
 
@@ -22,7 +26,6 @@ define([
             this.enabled = true;
 
             var ctrlReady = function(ctrl) {
-                WorldAPI.addTextMessage('Piece Control Loaded');
 
                 if (this.enabled) {
                     ctrl.enableCursorGuiWidgets();
@@ -31,11 +34,16 @@ define([
 
             }.bind(this);
 
-            this.controlsList.initControlsList(ctrlReady)
+            for (var i = 0; i < this.controlsList.length; i++) {
+                this.controlsList[i].initControlsList(ctrlReady);
+            }
         };
 
         PieceControl.prototype.disableControl = function() {
-            this.controlsList.disableControlsList();
+            for (var i = 0; i < this.controlsList.length; i++) {
+                this.controlsList[i].disableControlsList();
+            }
+
             this.enabled = false;
         };
 

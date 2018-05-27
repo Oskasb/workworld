@@ -64,7 +64,7 @@ define([
         GuiDragControlWidget.prototype.updateGuiWidget = function() {
 
             state = 0;
-            sourceState = this.update.callback(this.update.source);
+            sourceState = this.update.callback(this.update.source).getControlStateTargetValue();
 
             if (this.baseWidget.surfaceElement.getPress()) {
 
@@ -73,7 +73,7 @@ define([
                     state = this.startDragState;
                 } else {
                     state = this.guiDraggable.getBufferState() * 0.1;
-                    this.guiDraggable.updateDraggable(this.baseWidget.getSurfaceElement(), state);
+                    this.guiDraggable.updateDraggable(this.baseWidget.getSurfaceElement(), state, this.update.source);
                 }
             } else {
                 state = sourceState;
@@ -93,11 +93,6 @@ define([
                 this.getWidgetSurfaceLayout().setDynamicLayout(key, dynLayout[key])
             }
             this.applyProgressDynLayout(dynLayout);
-        };
-
-        GuiDragControlWidget.prototype.applyDynamicLayout = function(dynLayout) {
-            this.baseWidget.applyDynamicLayout(dynLayout);
-
         };
 
         GuiDragControlWidget.prototype.applyProgressDynLayout = function(dynLayout) {

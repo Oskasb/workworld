@@ -70,16 +70,9 @@ define([
             for (var key in dynLayout) {
                 this.getWidgetSurfaceLayout().setDynamicLayout(key, dynLayout[key])
             }
-            this.applyProgressDynLayout(dynLayout);
-        };
-
-        GuiThumbstickWidget.prototype.applyDynamicLayout = function(dynLayout) {
-            this.baseWidget.applyDynamicLayout(dynLayout);
-        };
-
-        GuiThumbstickWidget.prototype.applyProgressDynLayout = function(dynLayout) {
             this.baseWidget.applyProgressDynLayout(dynLayout);
         };
+
 
         GuiThumbstickWidget.prototype.disableWidget = function() {
             this.baseWidget.disableWidget();

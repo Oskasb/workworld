@@ -63,16 +63,16 @@ define([
         };
 
 
-        DragFunctions.dragThrottle = function(value) {
+        DragFunctions.onDragControl = function(value, source) {
             piece = WorldAPI.getControlledRenderable().getGamePiece();
-            control = piece.getControlStateById('engine');
+            control = piece.getControlStateById(source);
             targetValue = control.getControlStateTargetValue();
             control.setPieceControlTargetState(value+targetValue);
         };
 
-        DragFunctions.dragRudder = function(value) {
+        DragFunctions.toggleControl = function(value, source) {
             piece = WorldAPI.getControlledRenderable().getGamePiece();
-            control = piece.getControlStateById('rudder');
+            control = piece.getControlStateById(source);
             targetValue = control.getControlStateTargetValue();
             control.setPieceControlTargetState(value+targetValue);
         };

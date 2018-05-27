@@ -61,15 +61,6 @@ define([
             for (var key in dynLayout) {
                 this.getWidgetSurfaceLayout().setDynamicLayout(key, dynLayout[key])
             }
-            this.applyProgressDynLayout(dynLayout);
-        };
-
-        GuiDragAxisWidget.prototype.applyDynamicLayout = function(dynLayout) {
-            this.baseWidget.applyDynamicLayout(dynLayout);
-
-        };
-
-        GuiDragAxisWidget.prototype.applyProgressDynLayout = function(dynLayout) {
             this.baseWidget.applyProgressDynLayout(dynLayout);
         };
 

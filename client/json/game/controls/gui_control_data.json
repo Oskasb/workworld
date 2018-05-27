@@ -24,19 +24,9 @@
             {"widget":"HOVER_DYNAMIC",  "label":"",       "configId":"config"},
             {"widget":"THUMBSTICK",     "label":"",       "configId":"config", "onDrag":"thumbstickDrag"},
 
-            {"widget":"STATE_GAUGE",    "label":"AoA X",  "configId":"angle_indicator",  "layout":{"margin_y":0.48}, "buffer":"currentDynamic", "channel":"ANGLE_OF_ATTACK_X"},
-            {"widget":"STATE_GAUGE",    "label":"AoA Y",  "configId":"angle_indicator",  "layout":{"margin_y":0.44}, "buffer":"currentDynamic", "channel":"ANGLE_OF_ATTACK_Y"},
-            {"widget":"STATE_GAUGE",    "label":"AoA Z",  "configId":"angle_indicator",  "layout":{"margin_y":0.40}, "buffer":"currentDynamic", "channel":"ANGLE_OF_ATTACK_Z"},
-
-            {"widget":"STATE_GAUGE",    "label":"SPEED",  "configId":"angle_indicator",  "layout":{"margin_y":0.54}, "buffer":"currentDynamic", "channel":"SPEED_MPS"},
-            {"widget":"STATE_GAUGE",    "label":"ALT"   , "configId":"angle_indicator",  "layout":{"margin_y":0.58}, "buffer":"currentDynamic", "channel":"POS_Y"},
-            {"widget":"STATE_GAUGE",    "label":"POS X",  "configId":"angle_indicator",  "layout":{"margin_y":0.62}, "buffer":"currentDynamic", "channel":"POS_X"},
-            {"widget":"STATE_GAUGE",    "label":"POS Z",  "configId":"angle_indicator",  "layout":{"margin_y":0.66}, "buffer":"currentDynamic", "channel":"POS_Z"},
-
             {"widget":"ROLL_INDICATOR", "label":"ROLL",   "configId":"roll_indicator",   "layout":{"margin_y":0.30}, "buffer":"currentDynamic", "channel":"ROLL_ANGLE"},
             {"widget":"PITCH_INDICATOR","label":"PITCH",  "configId":"pitch_indicator",  "layout":{"margin_y":0.24}, "buffer":"currentDynamic", "channel":"PITCH_ANGLE"},
             {"widget":"ROLL_INDICATOR", "label":"AOA_Y",  "configId":"aoa_y_indicator",  "layout":{"margin_y":0.24}, "buffer":"currentDynamic", "channel":"ANGLE_OF_ATTACK_Y"},
-
 
             {"widget":"ROLL_INDICATOR", "label":"AOA_Y",  "configId":"aoa_y_indicator",  "layout":{"margin_y":0.37}, "buffer":"currentDynamic", "channel":"YAW_ANGLE"},
             {"widget":"ROLL_INDICATOR", "label":"AOA_Y",  "configId":"aoa_y_indicator",  "layout":{"margin_y":0.37}, "buffer":"currentDynamic", "channel":"DIRECTION_Y"},
@@ -48,31 +38,16 @@
             {"widget":"ROLL_INDICATOR", "label":"AOA_X",  "configId":"aoa_y_indicator",  "layout":{"margin_y":0.65}, "buffer":"currentDynamic", "channel":"ROLL_ANGLE"},
             {"widget":"ROLL_INDICATOR", "label":"AOA_X",  "configId":"aoa_y_indicator",  "layout":{"margin_y":0.65}, "buffer":"currentDynamic", "channel":"DIRECTION_Z"},
 
-            {"widget":"DRAG_CONTROL",   "label":"RUDDER", "configId":"control_rudder",   "layout":{},"onUpdate":"sampleControl", "source":"rudder", "onDrag":"dragRudder",   "buffer":"inputState",     "channel":"DRAG_DISTANCE_X"},
-            {"widget":"DRAG_CONTROL",   "label":"THR",    "configId":"control_throttle", "layout":{},"onUpdate":"sampleControl", "source":"engine", "onDrag":"dragThrottle", "buffer":"inputState",     "channel":"DRAG_DISTANCE_Y"},
-            {"widget":"DRAG_AXIS",      "label":"CAM Z",  "configId":"drag_cam_z",       "layout":{}, "onDrag":"dragCamZ",     "buffer":"worldComBuffer", "channel":"UI_CAM_DRAG_Z"}
+            {"widget":"DRAG_CONTROL",   "label":"RUDDER", "configId":"control_rudder",   "layout":{},"onUpdate":"sampleControl", "source":"rudder", "onDrag":"onDragControl",   "buffer":"inputState",     "channel":"DRAG_DISTANCE_X"},
+            {"widget":"DRAG_CONTROL",   "label":"THR",    "configId":"control_throttle", "layout":{},"onUpdate":"sampleControl", "source":"engine", "onDrag":"onDragControl",   "buffer":"inputState",     "channel":"DRAG_DISTANCE_Y"},
+            {"widget":"DRAG_AXIS",      "label":"CAM Z",  "configId":"drag_cam_z",       "layout":{},"onDrag":"dragCamZ",        "buffer":"worldComBuffer", "channel":"UI_CAM_DRAG_Z"}
           ]
         }
-      }
-    ],
-    "GUI_ENTERPRISE_CONTROL_":[
+      },
       {
-        "id":"main_control",
+        "id":"state_gauges",
         "data":{
           "widgets":[
-
-            {"widget":"HOVER_DYNAMIC",  "label":"",       "configId":"config"},
-            {"widget":"THUMBSTICK",     "label":"",       "configId":"config", "onDrag":"thumbstickDrag"},
-
-
-            {"widget":"STATE_GAUGE",    "label":"VEL_X",  "configId":"angle_indicator",  "layout":{"margin_y":0.16}, "buffer":"currentDynamic", "channel":"VELOCITY_X"},
-            {"widget":"STATE_GAUGE",    "label":"VEL_Y",  "configId":"angle_indicator",  "layout":{"margin_y":0.20}, "buffer":"currentDynamic", "channel":"VELOCITY_Y"},
-            {"widget":"STATE_GAUGE",    "label":"VEL_Z",  "configId":"angle_indicator",  "layout":{"margin_y":0.24}, "buffer":"currentDynamic", "channel":"VELOCITY_Z"},
-
-            {"widget":"STATE_GAUGE",    "label":"PITCH",  "configId":"angle_indicator",  "layout":{"margin_y":0.36}, "buffer":"currentDynamic", "channel":"PITCH_ANGLE"},
-            {"widget":"STATE_GAUGE",    "label":"ROLL",   "configId":"angle_indicator",  "layout":{"margin_y":0.32}, "buffer":"currentDynamic", "channel":"ROLL_ANGLE"},
-            {"widget":"STATE_GAUGE",    "label":"YAW",    "configId":"angle_indicator",  "layout":{"margin_y":0.28}, "buffer":"currentDynamic", "channel":"YAW_ANGLE"},
-
             {"widget":"STATE_GAUGE",    "label":"AoA X",  "configId":"angle_indicator",  "layout":{"margin_y":0.48}, "buffer":"currentDynamic", "channel":"ANGLE_OF_ATTACK_X"},
             {"widget":"STATE_GAUGE",    "label":"AoA Y",  "configId":"angle_indicator",  "layout":{"margin_y":0.44}, "buffer":"currentDynamic", "channel":"ANGLE_OF_ATTACK_Y"},
             {"widget":"STATE_GAUGE",    "label":"AoA Z",  "configId":"angle_indicator",  "layout":{"margin_y":0.40}, "buffer":"currentDynamic", "channel":"ANGLE_OF_ATTACK_Z"},
@@ -80,14 +55,30 @@
             {"widget":"STATE_GAUGE",    "label":"SPEED",  "configId":"angle_indicator",  "layout":{"margin_y":0.54}, "buffer":"currentDynamic", "channel":"SPEED_MPS"},
             {"widget":"STATE_GAUGE",    "label":"ALT"   , "configId":"angle_indicator",  "layout":{"margin_y":0.58}, "buffer":"currentDynamic", "channel":"POS_Y"},
             {"widget":"STATE_GAUGE",    "label":"POS X",  "configId":"angle_indicator",  "layout":{"margin_y":0.62}, "buffer":"currentDynamic", "channel":"POS_X"},
-            {"widget":"STATE_GAUGE",    "label":"POS Z",  "configId":"angle_indicator",  "layout":{"margin_y":0.66}, "buffer":"currentDynamic", "channel":"POS_Z"},
+            {"widget":"STATE_GAUGE",    "label":"POS Z",  "configId":"angle_indicator",  "layout":{"margin_y":0.66}, "buffer":"currentDynamic", "channel":"POS_Z"}
+          ]
+        }
+      },
+      {
+        "id":"elevator_control",
+        "data":{
+          "widgets":[
 
-            {"widget":"ROLL_INDICATOR", "label":"ROLL",   "configId":"roll_indicator",   "layout":{"margin_y":0.30}, "buffer":"currentDynamic", "channel":"ROLL_ANGLE"},
-            {"widget":"PITCH_INDICATOR","label":"PITCH",  "configId":"pitch_indicator",  "layout":{"margin_y":0.24}, "buffer":"currentDynamic", "channel":"PITCH_ANGLE"},
+            {"widget":"BUTTON_CONTROL", "label":"EV 1", "configId":"control_door", "layout":{"margin_y":0.20},"onUpdate":"sampleControl", "source":"elevator_1", "onClick":"toggleControl"},
+            {"widget":"BUTTON_CONTROL", "label":"EV 2", "configId":"control_door", "layout":{"margin_y":0.30},"onUpdate":"sampleControl", "source":"elevator_2", "onClick":"toggleControl"},
+            {"widget":"BUTTON_CONTROL", "label":"EV 3", "configId":"control_door", "layout":{"margin_y":0.40},"onUpdate":"sampleControl", "source":"elevator_3", "onClick":"toggleControl"},
+            {"widget":"BUTTON_CONTROL", "label":"EV 4", "configId":"control_door", "layout":{"margin_y":0.50},"onUpdate":"sampleControl", "source":"elevator_4", "onClick":"toggleControl"},
 
-            {"widget":"DRAG_CONTROL",   "label":"RUDDER", "configId":"control_rudder",   "layout":{},"onUpdate":"sampleControl", "source":"rudder", "onDrag":"dragRudder",   "buffer":"inputState",     "channel":"DRAG_DISTANCE_X"},
-            {"widget":"DRAG_CONTROL",   "label":"THR",    "configId":"control_throttle", "layout":{},"onUpdate":"sampleControl", "source":"engine", "onDrag":"dragThrottle", "buffer":"inputState",     "channel":"DRAG_DISTANCE_Y"},
-            {"widget":"DRAG_AXIS",      "label":"CAM Z",  "configId":"drag_cam_z",       "layout":{}, "onDrag":"dragCamZ",     "buffer":"worldComBuffer", "channel":"UI_CAM_DRAG_Z"}
+            {"widget":"BUTTON_CONTROL", "label":"DR 1", "configId":"control_door", "layout":{"margin_y":0.20, "margin_x":0.15},"onUpdate":"sampleControl", "source":"door_1", "onClick":"toggleControl"},
+            {"widget":"BUTTON_CONTROL", "label":"DR 2", "configId":"control_door", "layout":{"margin_y":0.30, "margin_x":0.15},"onUpdate":"sampleControl", "source":"door_2", "onClick":"toggleControl"},
+            {"widget":"BUTTON_CONTROL", "label":"DR 3", "configId":"control_door", "layout":{"margin_y":0.40, "margin_x":0.15},"onUpdate":"sampleControl", "source":"door_3", "onClick":"toggleControl"},
+            {"widget":"BUTTON_CONTROL", "label":"DR 4", "configId":"control_door", "layout":{"margin_y":0.50, "margin_x":0.15},"onUpdate":"sampleControl", "source":"door_4", "onClick":"toggleControl"},
+
+            {"widget":"BUTTON_CONTROL", "label":"CT 1", "configId":"control_door",  "layout":{"margin_y":0.20, "margin_x":0.22},"onUpdate":"sampleControl", "source":"catapult_1", "onClick":"toggleControl"},
+            {"widget":"BUTTON_CONTROL", "label":"CT 2", "configId":"control_door",  "layout":{"margin_y":0.30, "margin_x":0.22},"onUpdate":"sampleControl", "source":"catapult_2", "onClick":"toggleControl"},
+            {"widget":"BUTTON_CONTROL", "label":"CT 3", "configId":"control_door",  "layout":{"margin_y":0.40, "margin_x":0.22},"onUpdate":"sampleControl", "source":"catapult_3", "onClick":"toggleControl"},
+            {"widget":"BUTTON_CONTROL", "label":"CT 4", "configId":"control_door",  "layout":{"margin_y":0.50, "margin_x":0.22},"onUpdate":"sampleControl", "source":"catapult_4", "onClick":"toggleControl"}
+
           ]
         }
       }

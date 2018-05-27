@@ -3,6 +3,7 @@
 define([
         'ui/functions/OnUpdateFunctions',
         'ui/functions/DragFunctions',
+        'ui/functions/ButtonFunctions',
         'ui/widgets/WidgetProcessor',
         'ui/widgets/GuiThumbstickWidget',
         'ui/widgets/GuiDragAxisWidget',
@@ -14,11 +15,13 @@ define([
         'ui/widgets/GuiButtonWidget',
         'ui/widgets/indicators/GuiRollIndicator',
         'ui/widgets/indicators/GuiPitchIndicator',
-        'ui/widgets/controls/GuiDragControlWidget'
+        'ui/widgets/controls/GuiDragControlWidget',
+        'ui/widgets/controls/GuiToggleControlWidget'
     ],
     function(
         OnUpdateFunctions,
         DragFunctions,
+        ButtonFunctions,
         WidgetProcessor,
         GuiThumbstickWidget,
         GuiDragAxisWidget,
@@ -30,7 +33,8 @@ define([
         GuiButtonWidget,
         GuiRollIndicator,
         GuiPitchIndicator,
-        GuiDragControlWidget
+        GuiDragControlWidget,
+        GuiToggleControlWidget
     ) {
 
 
@@ -119,6 +123,11 @@ define([
                 conf.source = config.source
             }
 
+            if (config.onClick) {
+                conf.onClick = ButtonFunctions[config.onClick];
+                conf.source = config.source
+            }
+
             return conf;
         };
 
@@ -172,7 +181,7 @@ define([
 
 
 
-        WidgetBuilder.prototype.buildDragAxis = function(config, store, widgetBuilder) {
+        WidgetBuilder.prototype.buildDragAxis = function(config, store) {
             var conf = buildWidgetConfig(config);
 
             widget = new GuiDragAxisWidget(conf.label, conf.configId);
@@ -184,7 +193,7 @@ define([
 
         };
 
-        WidgetBuilder.prototype.buildDragControl = function(config, store, widgetBuilder) {
+        WidgetBuilder.prototype.buildDragControl = function(config, store) {
             var conf = buildWidgetConfig(config);
 
             widget = new GuiDragControlWidget(conf.label, conf.configId);
@@ -199,8 +208,21 @@ define([
 
         };
 
+        WidgetBuilder.prototype.buildButtonControl = function(config, store) {
+            var conf = buildWidgetConfig(config);
 
-        WidgetBuilder.prototype.buildStateGauge = function(config, store, widgetBuilder) {
+            widget = new GuiToggleControlWidget(conf.label, conf.configId);
+
+            widget.addButtonClickCallback(conf.onClick, conf.source);
+            widget.addUpdateCallback(conf.onUpdate, conf.source);
+
+        //    widget.setMasterBuffer(conf.buffer,  conf.channel, 1);
+
+            widget.applyDynamicLayout(conf.layout);
+            store.push(widget);
+        };
+
+        WidgetBuilder.prototype.buildStateGauge = function(config, store) {
             var conf = buildWidgetConfig(config);
             widget = new GuiGaugeWidget(conf.label, conf.configId);
             widget.setMasterBuffer(conf.buffer,  conf.channel);
@@ -208,7 +230,7 @@ define([
             store.push(widget);
         };
 
-        WidgetBuilder.prototype.buildRollIndicator = function(config, store, widgetBuilder) {
+        WidgetBuilder.prototype.buildRollIndicator = function(config, store) {
             var conf = buildWidgetConfig(config);
             widget = new GuiRollIndicator(conf.label, conf.configId);
             widget.setMasterBuffer(conf.buffer,  conf.channel);
@@ -216,7 +238,7 @@ define([
             store.push(widget);
         };
 
-        WidgetBuilder.prototype.buildPitchIndicator = function(config, store, widgetBuilder) {
+        WidgetBuilder.prototype.buildPitchIndicator = function(config, store) {
             var conf = buildWidgetConfig(config);
             widget = new GuiPitchIndicator(conf.label, conf.configId);
             widget.setMasterBuffer(conf.buffer,  conf.channel);
@@ -224,7 +246,7 @@ define([
             store.push(widget);
         };
 
-        WidgetBuilder.prototype.buildYawIndicator = function(config, store, widgetBuilder) {
+        WidgetBuilder.prototype.buildYawIndicator = function(config, store) {
             var conf = buildWidgetConfig(config);
             widget = new GuiPitchIndicator(conf.label, conf.configId);
             widget.setMasterBuffer(conf.buffer,  conf.channel);
@@ -287,7 +309,7 @@ define([
             var buffer = WorldAPI.getWorldComBuffer();
 
             var panelConf = [
-                {label:'ADD AREA',      configId:'default', layout:subTabLayout, onClick:null, buffer:buffer,  channel:ENUMS.BufferChannels.WORLD_ACTION_1},
+                {label:'ADD AREA',      configId:'default',  layout:subTabLayout, onClick:null, buffer:buffer, channel:ENUMS.BufferChannels.WORLD_ACTION_1},
                 {label:'ADD_STUFF',     configId:'default',  layout:subTabLayout, onClick:null, buffer:buffer, channel:ENUMS.BufferChannels.WORLD_ACTION_2},
                 {label:'REMOVE_STUFF',  configId:'default',  layout:subTabLayout, onClick:null, buffer:buffer, channel:ENUMS.BufferChannels.WORLD_ACTION_3}
             ];

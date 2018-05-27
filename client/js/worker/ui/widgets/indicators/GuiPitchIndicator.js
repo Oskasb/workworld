@@ -76,14 +76,6 @@ define([
             for (var key in dynLayout) {
                 this.getWidgetSurfaceLayout().setDynamicLayout(key, dynLayout[key])
             }
-            this.applyProgressDynLayout(dynLayout);
-        };
-
-        GuiPitchIndicator.prototype.applyDynamicLayout = function(dynLayout) {
-            this.baseWidget.applyDynamicLayout(dynLayout);
-        };
-
-        GuiPitchIndicator.prototype.applyProgressDynLayout = function(dynLayout) {
             this.baseWidget.applyProgressDynLayout(dynLayout);
         };
 

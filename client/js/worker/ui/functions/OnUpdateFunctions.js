@@ -52,7 +52,7 @@ define([],
         OnUpdateFunctions.sampleControl = function(source) {
 
             piece = WorldAPI.getControlledRenderable().getGamePiece();
-            return piece.getControlStateById(source).getControlStateTargetValue();
+            return piece.getControlStateById(source);
 
         };
 

@@ -20,9 +20,9 @@ define([
             this.whileDragCallbacks.push(callback)
         };
 
-        GuiDraggable.prototype.callDragCallbacks = function(value) {
+        GuiDraggable.prototype.callDragCallbacks = function(value, source) {
             for (i = 0; i < this.whileDragCallbacks.length; i++) {
-                this.whileDragCallbacks[i](value);
+                this.whileDragCallbacks[i](value, source);
             }
         };
 
@@ -36,9 +36,9 @@ define([
         };
 
 
-        GuiDraggable.prototype.updateDraggable = function(surfaceElement, value) {
+        GuiDraggable.prototype.updateDraggable = function(surfaceElement, value, source) {
             if (surfaceElement.getPress()) {
-                this.callDragCallbacks(value);
+                this.callDragCallbacks(value, source);
             }
         };
 

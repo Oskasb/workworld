@@ -20,6 +20,14 @@ define([
 
         };
 
+        PieceControlState.prototype.getControlMax = function() {
+            return this.state.max;
+        };
+
+        PieceControlState.prototype.getControlMin = function() {
+            return this.state.min;
+        };
+
         PieceControlState.prototype.setPieceControlTargetState = function(value) {
             this.state.target = MATH.clamp(value, this.state.min, this.state.max);
         };

@@ -325,6 +325,61 @@
       }
     ],
 
+    "GUI_TOGGLE_CONTROL_WIDGET":[
+      {
+        "id": "control_door",
+        "data": {
+          "header_label":"message_header",
+          "value_label":"type_label",
+          "surface":{
+
+            "layout":{
+              "anchor":"top_right",
+              "fixed_aspect":true,
+              "margin_x":0.08,
+              "margin_y":0.11,
+              "width": 0.08,
+              "height":0.08
+            },
+
+            "corners":{
+              "passive_fx":"corner_passive_effects",
+              "active_fx":"corner_active_effects"
+            },
+
+            "edges":{
+              "passive_fx":"edge_passive_effects",
+              "active_fx":"edge_active_effects",
+              "thickness":0.012
+            },
+
+            "backplate":{
+              "passive_fx":"plate_passive_effects",
+              "active_fx":"plate_active_effects"
+            }
+
+          },
+          "state":{
+            "axis":[0, 1],
+            "layout":{
+              "anchor":"top_right",
+              "fixed_aspect":true,
+              "margin_x":0.08,
+              "margin_y":0.11,
+              "width": 0.08,
+              "height":0.08
+            },
+            "backplate":{
+              "passive_fx":"plate_passive_effects",
+              "active_fx":"plate_active_effects",
+              "color":"cyan_4"
+            }
+
+          }
+        }
+      }
+    ],
+
     "GUI_BUTTON_WIDGET":[
       {
         "id": "default",
@@ -402,7 +457,46 @@
             }
           }
         }
+      },
+
+      {
+        "id": "control_button",
+        "data": {
+          "label_key":"message_header",
+          "surface":{
+
+            "layout":{
+              "anchor":"top_right",
+              "fixed_aspect":true,
+              "margin_x":0.1,
+              "margin_y":0.2,
+              "width": 0.12,
+              "height":0.04
+            },
+
+            "corners":{
+              "passive_fx":"corner_passive_effects",
+              "active_fx":"corner_active_effects"
+            },
+
+            "edges":{
+              "passive_fx":"edge_passive_effects",
+              "active_fx":"edge_active_effects",
+              "color_on":"orange_4",
+              "color":"orange_2",
+              "thickness":0.012
+            },
+
+            "backplate":{
+              "passive_fx":"plate_passive_effects",
+              "active_fx":"plate_active_effects",
+              "color_on":"orange_2",
+              "color":"orange_1"
+            }
+          }
+        }
       }
+
     ],
 
     "MESSAGE_BOX_WIDGET":[

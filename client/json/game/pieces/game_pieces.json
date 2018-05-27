@@ -5,13 +5,29 @@
       {
         "id":"command_tower",
         "data":{
-          "controls":{"config_key":"GUI_ENTERPRISE_CONTROL", "config_id":"main_control"},
+          "controls":[
+            {"config_key":"GUI_ENTERPRISE_CONTROL", "config_id":"main_control"},
+            {"config_key":"GUI_ENTERPRISE_CONTROL", "config_id":"state_gauges"},
+            {"config_key":"GUI_ENTERPRISE_CONTROL", "config_id":"elevator_control"}
+          ],
           "renderable":"dynamic_enterprize",
           "control_states":[
-            {"control_id":"engine",  "min":-1, "max":1, "speed":0.2, "factor":1},
-            {"control_id":"rudder",  "min":-1, "max":1, "speed":0.2, "factor":1},
-            {"control_id":"catapult","min":0,  "max":1, "speed":0.1, "factor":1},
-            {"control_id":"radar_1", "min":0,  "max":1, "speed":0.01,"factor":1}
+            {"control_id":"engine",    "min":-1, "max":1, "speed":0.2,   "factor":1},
+            {"control_id":"rudder",    "min":-1, "max":1, "speed":0.2,   "factor":1},
+            {"control_id":"catapult",  "min":0,  "max":1, "speed":0.1,   "factor":1},
+            {"control_id":"radar_1",   "min":0,  "max":1, "speed":0.003, "factor":1},
+            {"control_id":"elevator_1","min":0,  "max":1, "speed":0.005, "factor":1},
+            {"control_id":"elevator_2","min":0,  "max":1, "speed":0.005, "factor":1},
+            {"control_id":"elevator_3","min":0,  "max":1, "speed":0.005, "factor":1},
+            {"control_id":"elevator_4","min":0,  "max":1, "speed":0.005, "factor":1},
+            {"control_id":"door_1",    "min":0,  "max":1, "speed":0.003, "factor":1},
+            {"control_id":"door_2",    "min":0,  "max":1, "speed":0.003, "factor":1},
+            {"control_id":"door_3",    "min":0,  "max":1, "speed":0.003, "factor":1},
+            {"control_id":"door_4",    "min":0,  "max":1, "speed":0.003, "factor":1},
+            {"control_id":"catapult_1","min":0,  "max":1, "speed":0.02,  "factor":1},
+            {"control_id":"catapult_2","min":0,  "max":1, "speed":0.02,  "factor":1},
+            {"control_id":"catapult_3","min":0,  "max":1, "speed":0.02,  "factor":1},
+            {"control_id":"catapult_4","min":0,  "max":1, "speed":0.02,  "factor":1}
           ],
           "attachment_groups":[
             {"config_key":"ENTERPRISE_ATTACHMENTS", "config_id":"propulsion_system"},

@@ -72,6 +72,8 @@ define([
         var layout;
         var axis;
 
+        var surfaceLayout;
+
         BaseWidget.prototype.indicatePitchState = function(state, parentId, targetId) {
 
             layout = this.configRead(parentId).layout;
@@ -101,8 +103,6 @@ define([
                 this.stateLayout.margin_y = layout.margin_y+layout.height * 0.5;
             }
 
-
-
             this.applyProgressDynLayout(this.stateLayout);
         };
 
@@ -118,7 +118,9 @@ define([
 
             this.indicatorElement.setOn(1);
 
-            layout = this.configRead(parentId).layout;
+            surfaceLayout =  this.getWidgetSurfaceLayout().layout;
+
+            layout = surfaceLayout // this.configRead(parentId).layout;
 
             if (axis[0]) {
                 this.indicatorElement.setBackplateRotation(0, 0, Math.PI);
@@ -128,6 +130,37 @@ define([
             } else {
                 this.stateLayout.height = state * layout.height * 0.5  * axis[1];
                 this.stateLayout.margin_y = layout.margin_y+layout.height * 0.5;
+            }
+
+            this.applyProgressDynLayout(this.stateLayout);
+            this.updateSurfaceState(parentId, targetId);
+
+        };
+
+        BaseWidget.prototype.indicateToggleProgress = function(state, parentId, targetId) {
+            axis = this.configRead(targetId).axis;
+
+
+            if (!state) {
+                this.indicatorElement.setOn(0);
+                this.updateSurfaceState(parentId, targetId);
+                return;
+            }
+
+            this.indicatorElement.setOn(1);
+
+            surfaceLayout =  this.getWidgetSurfaceLayout().layout;
+
+            layout = surfaceLayout // this.configRead(parentId).layout;
+
+            if (axis[0]) {
+                this.indicatorElement.setBackplateRotation(0, 0, Math.PI);
+                //   this.stateLayout.width = layout.height*0.5
+                this.stateLayout.width = 0.004;
+                this.stateLayout.margin_x = layout.margin_x+layout.width - state * layout.width * axis[1] - 0.002;
+            } else {
+                this.stateLayout.height = state * layout.height * axis[1];
+                this.stateLayout.margin_y = layout.margin_y+layout.height * 0;
             }
 
             this.applyProgressDynLayout(this.stateLayout);

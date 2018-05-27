@@ -50,12 +50,12 @@ define([
 
         GuiClickable.prototype.callClickableCallbacks = function(value) {
             for (i = 0; i < this.clickCallbacks.length; i++) {
-                this.clickCallbacks[i](value);
+                this.clickCallbacks[i].call(value, this.clickCallbacks[i].source);
             }
         };
 
-        GuiClickable.prototype.addClickableCallback = function(clickFunc) {
-            this.clickCallbacks.push(clickFunc);
+        GuiClickable.prototype.addClickableCallback = function(clickFunc, source) {
+            this.clickCallbacks.push({call:clickFunc, source:source});
         };
 
         GuiClickable.prototype.setMasterBuffer = function(buffer, index, matchValue) {
@@ -81,6 +81,7 @@ define([
         };
 
         GuiClickable.prototype.getBufferMatch = function() {
+
             return this.masterState.match;
         };
 

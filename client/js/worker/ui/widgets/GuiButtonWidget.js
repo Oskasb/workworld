@@ -64,8 +64,8 @@ define([
             this.guiClickable.callClickableCallbacks(bool);
         };
 
-        GuiButtonWidget.prototype.addButtonClickCallback = function(clickFunc) {
-            this.guiClickable.addClickableCallback(clickFunc);
+        GuiButtonWidget.prototype.addButtonClickCallback = function(clickFunc, source) {
+            this.guiClickable.addClickableCallback(clickFunc, source);
         };
 
         GuiButtonWidget.prototype.getButtonIsActive = function() {

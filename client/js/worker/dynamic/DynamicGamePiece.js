@@ -32,7 +32,7 @@ define([
             var configLoaded = function() {
                 this.initAttachmentGroups();
                 this.initControlStates();
-                this.pieceControl = new PieceControl(this.configRead('controls').config_key, this.configRead('controls').config_id);
+                this.pieceControl = new PieceControl(this.configRead('controls'));
                 this.configObject.removeCallback(configLoaded);
                 onReady(this);
             }.bind(this);
