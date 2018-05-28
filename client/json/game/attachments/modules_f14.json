@@ -1,0 +1,227 @@
+[{
+  "MODULES":{
+
+    "PROPULSION_F14":[
+      {
+        "id":"jet_1",
+        "data":{
+          "state":{"value":0, "min":-0.5, "max":1, "speed":0.05, "factor":2000},
+          "source":"engine",
+          "target":"nozzle_1",
+          "sampleSource":"sampleControl",
+          "applyState":"applyForce",
+          "effectFunction":"propellerEffect"
+        }
+      },
+      {
+        "id":"jet_2",
+        "data":{
+          "state":{"value":0, "min":-0.5, "max":1, "speed":0.05, "factor":2000},
+          "source":"engine",
+          "target":"nozzle_2",
+          "sampleSource":"sampleControl",
+          "applyState":"applyForce",
+          "effectFunction":"propellerEffect"
+        }
+      }
+    ],
+
+    "SURFACES_F14":[
+      {
+        "id":"rudder_1",
+        "data":{
+          "state":{"value":0, "min":-1, "max":1, "speed":0.1, "factor":1},
+          "source":"rudder",
+          "target":"rudder_1",
+          "sampleSource":"sampleControl",
+          "applyState":"applyRotationY",
+          "effectFunction":"rudderEffect"
+        }
+      },
+      {
+        "id":"rudder_2",
+        "data":{
+          "state":{"value":0, "min":-1, "max":1, "speed":0.1, "factor":1},
+          "source":"rudder",
+          "target":"rudder_2",
+          "sampleSource":"sampleControl",
+          "applyState":"applyRotationY",
+          "effectFunction":"rudderEffect"
+        }
+      },
+      {
+        "id":"rudder_l",
+        "data":{
+          "state":{"value":0, "min":-1, "max":1, "speed":0.05, "factor":1},
+          "source":"rudder",
+          "target":"rudder_l",
+          "sampleSource":"sampleControl",
+          "applyState":"effectEmitter",
+          "effectFunction":"setBoneRotationX"
+        }
+      },
+      {
+        "id":"rudder_r",
+        "data":{
+          "state":{"value":0, "min":-1, "max":1, "speed":0.05, "factor":1},
+          "source":"rudder",
+          "target":"rudder_r",
+          "sampleSource":"sampleControl",
+          "applyState":"effectEmitter",
+          "effectFunction":"setBoneRotationX"
+        }
+      }
+    ],
+
+    "DOORS_F14":[
+      {
+        "id":"door_1",
+        "data":{
+          "state":{"value":0, "min":0, "max":1, "speed":0.05, "factor":-21},
+          "source":"door_1",
+          "target":"door_1",
+          "sampleSource":"sampleControl",
+          "applyState":"effectEmitter",
+          "effectFunction":"setBoneTranslationY"
+
+        }
+      },
+      {
+        "id":"door_2",
+        "data":{
+          "state":{"value":0, "min":0, "max":1, "speed":0.05, "factor":-21},
+          "source":"door_2",
+          "target":"door_2",
+          "sampleSource":"sampleControl",
+          "applyState":"effectEmitter",
+          "effectFunction":"setBoneTranslationY"
+
+        }
+      },
+      {
+        "id":"door_3",
+        "data":{
+          "state":{"value":0, "min":0, "max":1, "speed":0.05, "factor":-21},
+          "source":"door_3",
+          "target":"door_3",
+          "sampleSource":"sampleControl",
+          "applyState":"effectEmitter",
+          "effectFunction":"setBoneTranslationY"
+        }
+      },
+      {
+        "id":"door_4",
+        "data":{
+          "state":{"value":0, "min":0, "max":1, "speed":0.05, "factor":21},
+          "source":"door_4",
+          "target":"door_4",
+          "sampleSource":"sampleControl",
+          "applyState":"effectEmitter",
+          "effectFunction":"setBoneTranslationY"
+        }
+      }
+    ],
+
+    "WAKE_EMITTERS_F14":[
+      {
+        "id":"bow_1",
+        "data":{
+          "state":{"value":0, "min":-0.5, "max":1, "speed":0.05, "factor":1},
+          "source":"engine",
+          "target":"comp_1",
+          "sampleSource":"effectEmitter",
+          "applyState":"effectEmitter",
+          "effectFunction":"bowEffect"
+        }
+      },
+      {
+        "id":"bow_2",
+        "data":{
+          "state":{"value":0, "min":-0.5, "max":1, "speed":0.05, "factor":1},
+          "source":"engine",
+          "target":"nose_1",
+          "sampleSource":"effectEmitter",
+          "applyState":"effectEmitter",
+          "effectFunction":"bowEffect"
+        }
+      },
+      {
+        "id":"bow_3",
+        "data":{
+          "state":{"value":0, "min":-1, "max":1, "speed":0.01, "factor":1},
+          "source":"engine",
+          "target":"nacell_1",
+          "sampleSource":"effectEmitter",
+          "applyState":"effectEmitter",
+          "effectFunction":"bowEffect"
+        }
+      },
+      {
+        "id":"bow_4",
+        "data":{
+          "state":{"value":0, "min":-1, "max":1, "speed":0.01, "factor":1},
+          "source":"engine",
+          "target":"nacell_2",
+          "sampleSource":"effectEmitter",
+          "applyState":"effectEmitter",
+          "effectFunction":"bowEffect"
+        }
+      },
+      {
+        "id":"bow_5",
+        "data":{
+          "state":{"value":0, "min":-1, "max":1, "speed":0.01, "factor":1},
+          "source":"engine",
+          "target":"body_core",
+          "sampleSource":"effectEmitter",
+          "applyState":"effectEmitter",
+          "effectFunction":"bowEffect"
+        }
+      },
+      {
+        "id":"bow_6",
+        "data":{
+          "state":{"value":0, "min":-1, "max":1, "speed":0.01, "factor":1},
+          "source":"engine",
+          "target":"wing_1",
+          "sampleSource":"effectEmitter",
+          "applyState":"effectEmitter",
+          "effectFunction":"wakeEffect"
+        }
+      },
+      {
+        "id":"bow_7",
+        "data":{
+          "state":{"value":0, "min":-1, "max":1, "speed":0.01, "factor":1},
+          "source":"engine",
+          "target":"wing_2",
+          "sampleSource":"effectEmitter",
+          "applyState":"effectEmitter",
+          "effectFunction":"wakeEffect"
+        }
+      },
+      {
+        "id":"bow_8",
+        "data":{
+          "state":{"value":0, "min":-1, "max":1, "speed":0.01, "factor":1},
+          "source":"engine",
+          "target":"elev_1",
+          "sampleSource":"effectEmitter",
+          "applyState":"effectEmitter",
+          "effectFunction":"wakeEffect"
+        }
+      },
+      {
+        "id":"bow_9",
+        "data":{
+          "state":{"value":0, "min":-1, "max":1, "speed":0.01, "factor":1},
+          "source":"engine",
+          "target":"elev_2",
+          "sampleSource":"effectEmitter",
+          "applyState":"effectEmitter",
+          "effectFunction":"wakeEffect"
+        }
+      }
+    ]
+  }
+}]

@@ -28,6 +28,10 @@
 
       "game/attachments/attachment_groups.json",
       "game/attachments/modules.json",
+
+      "game/attachments/attachments_f14.json",
+      "game/attachments/modules_f14.json",
+
       "game/controls/gui_control_data.json",
       "game/pieces/game_pieces.json",
 

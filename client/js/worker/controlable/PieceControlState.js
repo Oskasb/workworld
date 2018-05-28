@@ -20,6 +20,10 @@ define([
 
         };
 
+        PieceControlState.prototype.getControlFactor = function() {
+            return this.state.factor;
+        };
+
         PieceControlState.prototype.getControlMax = function() {
             return this.state.max;
         };

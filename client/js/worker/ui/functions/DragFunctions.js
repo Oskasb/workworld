@@ -67,14 +67,14 @@ define([
             piece = WorldAPI.getControlledRenderable().getGamePiece();
             control = piece.getControlStateById(source);
             targetValue = control.getControlStateTargetValue();
-            control.setPieceControlTargetState(value+targetValue);
+            control.setPieceControlTargetState(value * control.getControlFactor() + targetValue);
         };
 
         DragFunctions.toggleControl = function(value, source) {
             piece = WorldAPI.getControlledRenderable().getGamePiece();
             control = piece.getControlStateById(source);
             targetValue = control.getControlStateTargetValue();
-            control.setPieceControlTargetState(value+targetValue);
+            control.setPieceControlTargetState(value * control.getControlFactor() + targetValue);
         };
 
         return DragFunctions;

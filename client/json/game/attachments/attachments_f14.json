@@ -1,0 +1,106 @@
+[{
+  "ATTACHMENT_GROUPS":{
+
+    "F14_ATTACHMENTS":[
+      {
+        "id":"propulsion_system",
+        "data":{
+          "modules":[
+            {"config_key":"PROPULSION_F14", "config_id":"jet_1", "group":[
+              {"offset":[-2, -0,-12], "direction":[0, 0.0, 1], "size":[1, 1, 5]}
+            ]},
+
+            {"config_key":"PROPULSION_F14", "config_id":"jet_2", "group":[
+              {"offset":[2,  -0, -12], "direction":[0,-0.0, 1], "size":[1, 1, 5]}
+            ]}
+          ]
+        }
+      },
+      {
+        "id":"surface_system",
+        "data":{
+          "modules":[
+            {"config_key":"SURFACES_F14", "config_id":"rudder_1", "group":[
+              {"offset":[13.5, 22,  78], "direction":[0, 0, 1], "size":[5, 2, 5]}
+            ]},
+
+            {"config_key":"SURFACES_F14", "config_id":"rudder_2", "group":[
+              {"offset":[-13.5, 22, 78], "direction":[0, 0, 1], "size":[5, 2, 5]}
+            ]},
+
+            {"config_key":"SURFACES_F14", "config_id":"rudder_l",    "group":[
+              {"offset":[15, 22, -40], "direction":[0, -1, 0], "size":[5, 2, 5]}
+            ]},
+
+            {"config_key":"SURFACES_F14", "config_id":"rudder_r",    "group":[
+              {"offset":[34, 22, -50], "direction":[0, -1, 0], "size":[5, 2, 5]}
+            ]}
+          ]
+        }
+      },
+      {
+        "id":"door_system",
+        "data":{
+          "modules":[
+            {"config_key":"DOORS", "config_id":"door_1", "group":[
+              {"offset":[-20, 11,  32], "direction":[0, 0, 1], "size":[5, 2, 5]}
+            ]},
+
+            {"config_key":"DOORS", "config_id":"door_2", "group":[
+              {"offset":[-20, 11, -15], "direction":[0, 0, 1], "size":[5, 2, 5]}
+            ]},
+
+            {"config_key":"DOORS", "config_id":"door_3",    "group":[
+              {"offset":[-20, 11, -81], "direction":[0, -1, 0], "size":[5, 2, 5]}
+            ]},
+
+            {"config_key":"DOORS", "config_id":"door_4",    "group":[
+              {"offset":[ 20, 11,-92], "direction":[0, -1, 0], "size":[5, 2, 5]}
+            ]}
+          ]
+        }
+      },
+
+      {
+        "id":"wake_emitters",
+        "data":{
+          "modules":[
+            {"config_key":"WAKE_EMITTERS_F14", "config_id":"bow_1", "group":[
+              {"offset":[0,      0,     8], "direction":[0, 0, 1], "size":[5, 2, 5]}
+            ]},
+
+            {"config_key":"WAKE_EMITTERS_F14", "config_id":"bow_2", "group":[
+              {"offset":[0,      0,     5], "direction":[0, 0, 1], "size":[5, 2, 5]}
+            ]},
+
+            {"config_key":"WAKE_EMITTERS_F14", "config_id":"bow_3",    "group":[
+              {"offset":[-2,     0,     2], "direction":[0, -1, 0], "size":[5, 2, 5]}
+            ]},
+
+            {"config_key":"WAKE_EMITTERS_F14", "config_id":"bow_4",    "group":[
+              {"offset":[ 2,     0,      2], "direction":[0, -1, 0], "size":[5, 2, 5]}
+            ]},
+
+            {"config_key":"WAKE_EMITTERS_F14", "config_id":"bow_5",    "group":[
+              {"offset":[0,     0,      2], "direction":[0, -1, 0], "size":[5, 2, 5]}
+            ]},
+
+            {"config_key":"WAKE_EMITTERS_F14", "config_id":"bow_6",    "group":[
+              {"offset":[-7,     0,     0], "direction":[0, -1, 0], "size":[5, 2, 5]}
+            ]},
+
+            {"config_key":"WAKE_EMITTERS_F14", "config_id":"bow_7",    "group":[
+              {"offset":[ 7,     0,     0], "direction":[0, -1, 0], "size":[5, 2, 5]}
+            ]},
+            {"config_key":"WAKE_EMITTERS_F14", "config_id":"bow_8",    "group":[
+              {"offset":[-6,     0,    -6], "direction":[0, -1, 0], "size":[5, 2, 5]}
+            ]},
+            {"config_key":"WAKE_EMITTERS_F14", "config_id":"bow_9",    "group":[
+              {"offset":[6,     0,     -6], "direction":[0, -1, 0], "size":[5, 2, 5]}
+            ]}
+          ]
+        }
+      }
+    ]
+  }
+}]

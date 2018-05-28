@@ -121,23 +121,22 @@
           "args":[
             {"id":"comp_1",       "lift":[0, "wing", 0],  "shape":"Box", "args":[1.5,   2,     6],    "offset":[0,       0.5,   5],      "rotation":[0.0,        0,     0]},
             {"id":"nose_1",       "lift":[0, "wing", 0],  "shape":"Box", "args":[0.8, 0.8,     2],    "offset":[0,       0.3,  10],      "rotation":[0.0,        0,     0]},
-
-            {"id":"nose_wheel",   "lift":[0, "wing", 0],  "shape":"Box", "args":[0.5, 0.5,   0.5],    "offset":[0,     -1.5,   6],      "rotation":[0.0,        0,     0]},
-            {"id":"wheel_main_1", "lift":[0, "wing", 0],  "shape":"Box", "args":[0.5, 0.5,   0.5],    "offset":[-3,    -1.5,   -2],      "rotation":[0.0,        0,     0]},
-            {"id":"wheel_main_2", "lift":[0, "wing", 0],  "shape":"Box", "args":[0.5, 0.5,   0.5],    "offset":[ 3,    -1.5,   -2],      "rotation":[0.0,        0,     0]},
-
-            {"id":"nacell_1",     "lift":[0,    0,   0],  "shape":"Box", "args":[1,   1.4,    10],    "offset":[-1.5,    0.2,  -3],      "rotation":[0.0,        0,     0]},
-            {"id":"nacell_2",     "lift":[0,    0,   0],  "shape":"Box", "args":[1,   1.4,    10],    "offset":[ 1.5,    0.2,  -3],      "rotation":[0.0,        0,     0]},
+            {"id":"nose_wheel",   "lift":[0, "wing", 0],  "shape":"Box", "args":[0.5, 0.5,   0.5],    "offset":[0,     -1.5,   6],       "rotation":[0.0,        0,     0]},
+            {"id":"wheel_main_1", "lift":[0, "wing", 0],  "shape":"Box", "args":[0.5, 0.5,   0.5],    "offset":[-3,    -1.5,   -1.4],    "rotation":[0.0,        0,     0]},
+            {"id":"wheel_main_2", "lift":[0, "wing", 0],  "shape":"Box", "args":[0.5, 0.5,   0.5],    "offset":[ 3,    -1.5,   -1.4],    "rotation":[0.0,        0,     0]},
+            {"id":"nacell_1",     "lift":[0,    0,   0],  "shape":"Box", "args":[1.4,   1.4,   4],    "offset":[-1.3,  0.2,  1],         "rotation":[0.0,        0,     0]},
+            {"id":"nacell_2",     "lift":[0,    0,   0],  "shape":"Box", "args":[1.4,   1.4,   4],    "offset":[ 1.3,  0.2,  1],         "rotation":[0.0,        0,     0]},
+            {"id":"nozzle_1",     "lift":[0,    0,   0],  "shape":"Box", "args":[1,   1.0,     8],    "offset":[-1.4,    0.25,  -4],      "rotation":[0.0,        0.02,     0]},
+            {"id":"nozzle_2",     "lift":[0,    0,   0],  "shape":"Box", "args":[1,   1.0,     8],    "offset":[ 1.4,    0.25,  -4],      "rotation":[0.0,       -0.02,     0]},
             {"id":"body_core",    "lift":[0,    0,   0],  "shape":"Box", "args":[4,   0.2,    10],    "offset":[ 0,      0.8,   0],      "rotation":[-0.05,      0,     0]},
-
-            {"id":"wing_1",       "lift":[0,    0,   0],  "shape":"Box", "args":[5,   0.2,    2],    "offset":[ -6,     0.8,  -1],      "rotation":[-0.05,      0,     0]},
-            {"id":"wing_2",       "lift":[0,    0,   0],  "shape":"Box", "args":[5,   0.2,    2],    "offset":[ 6,      0.8,  -1],      "rotation":[-0.05,      0,     0]},
-            {"id":"elev_1",       "lift":[0,    0,   0],  "shape":"Box", "args":[2,   0.2,    2],    "offset":[-3.5,     0.4,  -7],      "rotation":[-0.05,      0,     0]},
-            {"id":"elev_2",       "lift":[0,    0,   0],  "shape":"Box", "args":[2,   0.2,    2],    "offset":[ 3.5,      0.4,  -7],      "rotation":[-0.05,      0,     0]},
-
-
+            {"id":"wing_1",       "lift":[0,    0,   0],  "shape":"Box", "args":[5,   0.2,     2],    "offset":[ -6,     0.8,  -1],      "rotation":[-0.05,   -0.2,     0]},
+            {"id":"wing_2",       "lift":[0,    0,   0],  "shape":"Box", "args":[5,   0.2,     2],    "offset":[ 6,      0.8,  -1],      "rotation":[-0.05,    0.2,     0]},
+            {"id":"elev_1",       "lift":[0,    0,   0],  "shape":"Box", "args":[2.5,   0.2,   2],    "offset":[-3.5,     0.4,  -7],     "rotation":[-0.05,   -0.3,     0]},
+            {"id":"elev_2",       "lift":[0,    0,   0],  "shape":"Box", "args":[2.5,   0.2,   2],    "offset":[ 3.5,     0.4,  -7],     "rotation":[-0.05,    0.3,     0]},
             {"id":"stab_1",       "lift":[0,    0,   0],  "shape":"Box", "args":[0.1,   6.4,   1],    "offset":[-1.6,    1,  -5.3],      "rotation":[-0.76,   0.05,  0.06]},
-            {"id":"stab_2",       "lift":[0,    0,   0],  "shape":"Box", "args":[0.1,   6.4,   1],    "offset":[ 1.6,    1,  -5.3],      "rotation":[-0.76,  -0.05, -0.06]}
+            {"id":"stab_2",       "lift":[0,    0,   0],  "shape":"Box", "args":[0.1,   6.4,   1],    "offset":[ 1.6,    1,  -5.3],      "rotation":[-0.76,  -0.05, -0.06]},
+            {"id":"rudder_1",     "lift":[0,    0,   0],  "shape":"Box", "args":[0.1,   4.4,   1],    "offset":[-1.6,    1.5,  -7.3],    "rotation":[-0.26,   0.05,  0.06]},
+            {"id":"rudder_2",     "lift":[0,    0,   0],  "shape":"Box", "args":[0.1,   4.4,   1],    "offset":[ 1.6,    1.5,  -7.3],    "rotation":[-0.26,  -0.05, -0.06]}
           ],
 
           "friction":1.8,
