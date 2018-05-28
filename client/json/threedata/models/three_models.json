@@ -5,6 +5,18 @@
       "THREE": [
 
         {
+          "id": "model_f14",
+          "material": "atlas_2k",
+          "format":"fbx",
+          "url": "./client/assets/models/planes/f14_skinned",
+          "pool": 1,
+          "transform": {
+            "pos": [0,  -0, 0],
+            "rot": [0,  -1, 0],
+            "scale": [0.1, 0.1, 0.1]
+          }
+        },
+        {
           "id": "model_enterprise",
           "material": "atlas_2k",
           "format":"fbx",
@@ -16,7 +28,6 @@
             "scale": [1, 1, 1]
           }
         },
-
         {
           "id": "model_bullet",
           "material": "main_atlas",

@@ -12,6 +12,19 @@
           "rigid_body": "ENTERPRISE_COMPOUND"
         }
       },
+
+      {
+        "id": "dynamic_f14",
+        "data": {
+          "model_id":"model_f14",
+          "dynamic_feedback":"crate_feedback",
+          "visual_size":16,
+          "select_anchor":{"offset":[0,   1, 5], "size":5},
+          "camera_home":  {"offset":[0,   10, -40], "lookat":[0,   4, 5]},
+          "rigid_body": "TOMCAT_COMPOUND"
+        }
+      },
+
       {
         "id": "wooden_crate",
         "data": {

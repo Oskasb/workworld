@@ -329,8 +329,8 @@
       {
         "id": "control_door",
         "data": {
-          "header_label":"message_header",
-          "value_label":"type_label",
+          "header_label":"toggle_key",
+          "value_label":"toggle_value",
           "surface":{
 
             "layout":{
@@ -339,7 +339,7 @@
               "margin_x":0.08,
               "margin_y":0.11,
               "width": 0.08,
-              "height":0.08
+              "height":0.05
             },
 
             "corners":{
@@ -367,12 +367,12 @@
               "margin_x":0.08,
               "margin_y":0.11,
               "width": 0.08,
-              "height":0.08
+              "height":0.05
             },
             "backplate":{
               "passive_fx":"plate_passive_effects",
               "active_fx":"plate_active_effects",
-              "color":"cyan_4"
+              "color":"cyan_2"
             }
 
           }

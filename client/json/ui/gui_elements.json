@@ -96,6 +96,33 @@
             "alpha_map":"label_alpha_map"
           },
 
+          "toggle_key":{
+            "font_size":11,
+            "letter_spacing":1,
+            "text_align_x":0.5,
+            "text_align_y":0.0,
+            "text_margin_x":0.0,
+            "text_margin_y":0.2,
+            "italic":false,
+            "font_effect":"gui_basic_normal_text_effect",
+            "color_map":"label_color_map",
+            "alpha_map":"header_alpha_map"
+          },
+
+          "toggle_value":{
+            "font_size":9,
+            "letter_spacing":1,
+            "text_align_x":0.5,
+            "text_align_y":1.0,
+            "text_margin_x":0.0,
+            "text_margin_y":0.2,
+            "italic":false,
+            "font_effect":"gui_basic_normal_text_effect",
+            "color_map":"list_value_color_map",
+            "alpha_map":"label_alpha_map"
+          },
+
+
           "message_header":{
             "font_size":11,
             "letter_spacing":0.96,

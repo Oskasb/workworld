@@ -429,12 +429,12 @@ define([
 
                                 //    model.children[i] = child.clone();
                                 //    child = model.children[i];
-
+                                    mat = child.material
                                     child.material = mat.clone();
                                     child.material.skinning = true;
                                     child.material.needsUpdate = true;
                                 } else {
-                                    child.material = mat;
+                            //        child.material = mat;
                                 }
                             }
                         };

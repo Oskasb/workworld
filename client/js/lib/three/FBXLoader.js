@@ -296,7 +296,7 @@
 		 */
 		var textureMap = new Map();
 
-		if ( 'Texture_' in FBXTree.Objects.subNodes ) {
+		if ( 'Texture' in FBXTree.Objects.subNodes ) {
 
 			var textureNodes = FBXTree.Objects.subNodes.Texture;
 			for ( var nodeID in textureNodes ) {

@@ -156,14 +156,14 @@ define([
             }
         };
 
-        var spawnCall = function() {
 
 
+        var spawnCallBoat = function() {
             WorldAPI.setCom(ENUMS.BufferChannels.WORLD_ACTION_2, 0)
             scale = 1;
 
             var pieceId = "PIECE_ENTERPRISE";
-            var confId = "command_tower";
+            var confId = "command_piece";
 
             WorldAPI.addTextMessage('SpawnCall: '+pieceId+' _ '+confId);
 
@@ -179,7 +179,30 @@ define([
             };
 
             piece.initGamePiece(onReady);
+        };
 
+        var spawnCallPlane = function() {
+            WorldAPI.setCom(ENUMS.BufferChannels.WORLD_ACTION_3, 0)
+            scale = 1;
+
+            var pieceId = "PIECE_F14";
+            var confId = "command_piece";
+
+            WorldAPI.addTextMessage('SpawnCall: '+pieceId+' _ '+confId);
+
+            var piece = new DynamicGamePiece(pieceId, confId);
+
+            var onReady = function(dgp) {
+                pieces.push(dgp);
+                WorldAPI.getContoledPiecePosAndQuat(tempVec1, tempQuat);
+                tempVec1.y = 40;
+                newDynRen = WorldAPI.buildDynamicRenderable(dgp.configRead('renderable'), tempVec1, tempQuat, scale);
+
+                newDynRen.initRenderable(WorldAPI.attachDynamicRenderable);
+                newDynRen.setGamePiece(dgp)
+            };
+
+            piece.initGamePiece(onReady);
         };
 
         var terrains = ['terrain_island_0','terrain_island_1', 'terrain_island_2', 'terrain_island_3'];
@@ -216,7 +239,11 @@ define([
             }
 
             if (WorldAPI.getCom(ENUMS.BufferChannels.WORLD_ACTION_2)) {
-                spawnCall();
+                spawnCallBoat();
+            }
+
+            if (WorldAPI.getCom(ENUMS.BufferChannels.WORLD_ACTION_3)) {
+                spawnCallPlane();
             }
 
             if (WorldAPI.getCom(ENUMS.BufferChannels.PUSH_ALL_DYNAMICS)) {
