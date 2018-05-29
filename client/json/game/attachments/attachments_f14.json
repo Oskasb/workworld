@@ -34,6 +34,30 @@
 
             {"config_key":"SURFACES_F14", "config_id":"rudder_r",    "group":[
               {"offset":[34, 22, -50], "direction":[0, -1, 0], "size":[5, 2, 5]}
+            ]},
+
+            {"config_key":"SURFACES_F14", "config_id":"elev_1", "group":[
+              {"offset":[13.5, 22,  78], "direction":[0, 0, 1], "size":[5, 2, 5]}
+            ]},
+
+            {"config_key":"SURFACES_F14", "config_id":"elev_2", "group":[
+              {"offset":[-13.5, 22, 78], "direction":[0, 0, 1], "size":[5, 2, 5]}
+            ]},
+
+            {"config_key":"SURFACES_F14", "config_id":"elev_l",    "group":[
+              {"offset":[15, 22, -40], "direction":[0, -1, 0], "size":[5, 2, 5]}
+            ]},
+
+            {"config_key":"SURFACES_F14", "config_id":"elev_r",    "group":[
+              {"offset":[34, 22, -50], "direction":[0, -1, 0], "size":[5, 2, 5]}
+            ]},
+
+            {"config_key":"SURFACES_F14", "config_id":"pivot_l",    "group":[
+              {"offset":[15, 22, -40], "direction":[0, -1, 0], "size":[5, 2, 5]}
+            ]},
+
+            {"config_key":"SURFACES_F14", "config_id":"pivot_r",    "group":[
+              {"offset":[34, 22, -50], "direction":[0, -1, 0], "size":[5, 2, 5]}
             ]}
           ]
         }

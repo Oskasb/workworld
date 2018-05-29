@@ -129,14 +129,14 @@
             {"id":"nozzle_1",     "lift":[0,    0,   0],  "shape":"Box", "args":[1,   1.0,     8],    "offset":[-1.4,    0.25,  -4],      "rotation":[0.0,        0.02,     0]},
             {"id":"nozzle_2",     "lift":[0,    0,   0],  "shape":"Box", "args":[1,   1.0,     8],    "offset":[ 1.4,    0.25,  -4],      "rotation":[0.0,       -0.02,     0]},
             {"id":"body_core",    "lift":[0,    0,   0],  "shape":"Box", "args":[4,   0.2,    10],    "offset":[ 0,      0.8,   0],      "rotation":[-0.05,      0,     0]},
-            {"id":"wing_1",       "lift":[0,    0,   0],  "shape":"Box", "args":[5,   0.2,     2],    "offset":[ -6,     0.8,  -1],      "rotation":[-0.05,   -0.2,     0]},
-            {"id":"wing_2",       "lift":[0,    0,   0],  "shape":"Box", "args":[5,   0.2,     2],    "offset":[ 6,      0.8,  -1],      "rotation":[-0.05,    0.2,     0]},
+            {"id":"pivot_r",      "lift":[0,    0,   0],  "shape":"Box", "args":[10,   0.2,     2],   "offset":[ -4,     0.8,  -1],      "rotation":[-0.05,   -0.2,     0]},
+            {"id":"pivot_l",      "lift":[0,    0,   0],  "shape":"Box", "args":[10,   0.2,     2],   "offset":[ 4,      0.8,  -1],      "rotation":[-0.05,    0.2,     0]},
             {"id":"elev_1",       "lift":[0,    0,   0],  "shape":"Box", "args":[2.5,   0.2,   2],    "offset":[-3.5,     0.4,  -7],     "rotation":[-0.05,   -0.3,     0]},
             {"id":"elev_2",       "lift":[0,    0,   0],  "shape":"Box", "args":[2.5,   0.2,   2],    "offset":[ 3.5,     0.4,  -7],     "rotation":[-0.05,    0.3,     0]},
             {"id":"stab_1",       "lift":[0,    0,   0],  "shape":"Box", "args":[0.1,   6.4,   1],    "offset":[-1.6,    1,  -5.3],      "rotation":[-0.76,   0.05,  0.06]},
             {"id":"stab_2",       "lift":[0,    0,   0],  "shape":"Box", "args":[0.1,   6.4,   1],    "offset":[ 1.6,    1,  -5.3],      "rotation":[-0.76,  -0.05, -0.06]},
-            {"id":"rudder_1",     "lift":[0,    0,   0],  "shape":"Box", "args":[0.1,   4.4,   1],    "offset":[-1.6,    1.5,  -7.3],    "rotation":[-0.26,   0.05,  0.06]},
-            {"id":"rudder_2",     "lift":[0,    0,   0],  "shape":"Box", "args":[0.1,   4.4,   1],    "offset":[ 1.6,    1.5,  -7.3],    "rotation":[-0.26,  -0.05, -0.06]}
+            {"id":"rudder_r",     "lift":[0,    0,   0],  "shape":"Box", "args":[0.1,   4.4,   1],    "offset":[-1.6,    1.5,  -7.3],    "rotation":[-0.26,   0.05,  0.06]},
+            {"id":"rudder_l",     "lift":[0,    0,   0],  "shape":"Box", "args":[0.1,   4.4,   1],    "offset":[ 1.6,    1.5,  -7.3],    "rotation":[-0.26,  -0.05, -0.06]}
           ],
 
           "friction":1.8,

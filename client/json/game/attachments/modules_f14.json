@@ -28,25 +28,69 @@
 
     "SURFACES_F14":[
       {
-        "id":"rudder_1",
+        "id":"pivot_l",
+        "data":{
+          "state":{"value":0, "min":-1, "max":1, "speed":0.05, "factor":1},
+          "source":"rudder",
+          "target":"pivot_l",
+          "sampleSource":"sampleControl",
+          "applyState":"applyRotationY",
+          "effectFunction":"setBoneRotationX"
+        }
+      },
+      {
+        "id":"pivot_r",
+        "data":{
+          "state":{"value":0, "min":-1, "max":1, "speed":0.05, "factor":-1},
+          "source":"rudder",
+          "target":"pivot_r",
+          "sampleSource":"sampleControl",
+          "applyState":"applyRotationY",
+          "effectFunction":"setBoneRotationX"
+        }
+      },
+      {
+        "id":"elev_1",
         "data":{
           "state":{"value":0, "min":-1, "max":1, "speed":0.1, "factor":1},
           "source":"rudder",
-          "target":"rudder_1",
+          "target":"elev_1",
           "sampleSource":"sampleControl",
-          "applyState":"applyRotationY",
+          "applyState":"applyRotationX",
           "effectFunction":"rudderEffect"
         }
       },
       {
-        "id":"rudder_2",
+        "id":"elev_2",
         "data":{
           "state":{"value":0, "min":-1, "max":1, "speed":0.1, "factor":1},
           "source":"rudder",
-          "target":"rudder_2",
+          "target":"elev_2",
           "sampleSource":"sampleControl",
-          "applyState":"applyRotationY",
+          "applyState":"applyRotationX",
           "effectFunction":"rudderEffect"
+        }
+      },
+      {
+        "id":"elev_l",
+        "data":{
+          "state":{"value":0, "min":-1, "max":1, "speed":0.05, "factor":1},
+          "source":"rudder",
+          "target":"stab_roll_l",
+          "sampleSource":"sampleControl",
+          "applyState":"effectEmitter",
+          "effectFunction":"setBoneRotationX"
+        }
+      },
+      {
+        "id":"elev_r",
+        "data":{
+          "state":{"value":0, "min":-1, "max":1, "speed":0.05, "factor":-1},
+          "source":"rudder",
+          "target":"stab_roll_r",
+          "sampleSource":"sampleControl",
+          "applyState":"effectEmitter",
+          "effectFunction":"setBoneRotationX"
         }
       },
       {
@@ -56,7 +100,7 @@
           "source":"rudder",
           "target":"rudder_l",
           "sampleSource":"sampleControl",
-          "applyState":"effectEmitter",
+          "applyState":"applyRotationY",
           "effectFunction":"setBoneRotationX"
         }
       },
@@ -67,7 +111,7 @@
           "source":"rudder",
           "target":"rudder_r",
           "sampleSource":"sampleControl",
-          "applyState":"effectEmitter",
+          "applyState":"applyRotationY",
           "effectFunction":"setBoneRotationX"
         }
       }

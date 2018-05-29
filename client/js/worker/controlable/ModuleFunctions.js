@@ -44,7 +44,22 @@ define([
             target.sampleBufferState();
             target.getOriginalRotation(calcObj.quaternion);
             calcObj.rotateY(moduleState.getAppliedFactor());
-        //    WorldAPI.addTextMessage(''+moduleState.getAppliedFactor());
+            target.setDynamicShapeQuaternion(calcObj.quaternion);
+        };
+
+        ModuleFunctions.applyRotationX = function(renderable, moduleState, trgt) {
+            target = renderable.getSpatialShapeById(trgt);
+            target.sampleBufferState();
+            target.getOriginalRotation(calcObj.quaternion);
+            calcObj.rotateX(moduleState.getAppliedFactor());
+            target.setDynamicShapeQuaternion(calcObj.quaternion);
+        };
+
+        ModuleFunctions.applyRotationZ = function(renderable, moduleState, trgt) {
+            target = renderable.getSpatialShapeById(trgt);
+            target.sampleBufferState();
+            target.getOriginalRotation(calcObj.quaternion);
+            calcObj.rotateZ(moduleState.getAppliedFactor());
             target.setDynamicShapeQuaternion(calcObj.quaternion);
         };
 

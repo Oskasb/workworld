@@ -31,23 +31,58 @@ define([
             this.dynamicSpatial.setSpatialBuffer(spatialBuffer);
         };
 
+
+
         SimpleSpatial.prototype.setupBones = function(skeleton) {
 
-            var bones = skeleton.bones;
+            var group = skeleton.bones;
 
             var boneIndex = 0;
             var bonesConfig = [];
 
-            for (var i = 0; i < bones.length; i++) {
-                if (bones[i].type === 'Bone') {
-                    bonesConfig.push(buildBoneConfig(bones[i], boneIndex));
-                    boneIndex++
+            var bones = [];
+
+            var addBone = function(bone) {
+                bonesConfig.push(buildBoneConfig(bone, boneIndex));
+                boneIndex++;
+                bones.push(bone);
+            };
+
+
+            var parseChildGroup = function(obj) {
+                for (var j = 0; j < obj.length; j++) {
+
+                    if (obj[j].type === 'Bone') {
+                        addBone(obj[j])
+                    }
+
+                    if (obj[j].type === 'Group') {
+                        addBone(obj[j]);
+                        parseChildGroup(obj[j])
+                    }
                 }
-            }
+            };
+
+
+            var parseBoneGroup = function(obj) {
+                for (var i = 0; i < obj.length; i++) {
+
+                    if (obj[i].type === 'Bone') {
+                        addBone(obj[i])
+                    }
+
+                    if (obj[i].type === 'Group') {
+                        addBone(obj[i]);
+                        parseChildGroup(obj[i])
+                    }
+                }
+            };
+
+            parseBoneGroup(group);
 
             this.dynamicSkeleton.applyBonesConfig(bonesConfig);
 
-            for (i = 0; i < bones.length; i++) {
+            for (var i = 0; i < bones.length; i++) {
                 if (bones[i].type === 'Bone') {
                     var dynBone = this.dynamicSkeleton.getBoneByName(bones[i].name);
                     dynBone.inheritBonePosAndQuat(bones[i].position, bones[i].quaternion);
