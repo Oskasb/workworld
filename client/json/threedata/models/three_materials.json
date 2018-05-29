@@ -4,9 +4,117 @@
 
       "THREE":[
         {
+          "id":"tomcat_decals",
+          "shader":"MeshPhongMaterial",
+          "blending":"NoBlending",
+          "color":{"r":1, "g":1, "b":1},
+          "settings":{
+            "alphaTest": 0.2,
+            "shininess":5,
+            "skinning":true
+          },
+          "textures":[{
+            "map":"./client/assets/images/textures/tomcat_decals.png"
+          }]
+        },
+        {
+          "id":"tomcat_lights",
+          "shader":"MeshBasicMaterial",
+          "blending":"AdditiveBlending",
+          "color":{"r":1, "g":1, "b":1},
+          "settings":{
+            "transparent":true,
+            "depthTest":true,
+            "depthWrite":false,
+            "fog":false,
+            "opacity":1
+          },
+          "textures":[{
+            "map":"./client/assets/images/textures/tomcat_lights_emit.png"
+          }]
+        },
+        {
+          "id":"tomcat_atlas_cockpit",
+          "shader":"MeshStandardMaterial",
+          "blending":"NoBlending",
+          "color":{"r":1, "g":1, "b":1},
+          "settings":{
+            "roughness":1,
+            "metalness":1,
+            "envMapIntensity":2.0,
+            "skinning":true,
+            "aoMapIntensity":1.5
+          },
+          "textures":[{
+            "map":"./client/assets/images/textures/PlaneAtlas.png",
+            "envMap":"./client/assets/images/textures/ref_sphere.png",
+            "metalnessMap":"./client/assets/images/textures/PlaneAtlasMetalness.png",
+            "roughnessMap":"./client/assets/images/textures/PlaneAtlasRoughness.png",
+            "normalMap":"./client/assets/images/textures/PlaneAtlas_Normal.png",
+            "aoMap":"./client/assets/images/textures/tomcat_cockpit_AO.png"
+          }]
+        },
+        {
+          "id":"tomcat_atlas_fuselage",
+          "shader":"MeshStandardMaterial",
+          "blending":"NoBlending",
+          "color":{"r":1, "g":1, "b":1},
+          "normalScale":{"r":0.1, "g":0.1, "b":0.1},
+          "settings":{
+            "roughness":1,
+            "metalness":1,
+            "envMapIntensity":4.0,
+            "skinning":true,
+            "aoMapIntensity":1.5
+          },
+          "textures":[{
+            "map":"./client/assets/images/textures/PlaneAtlas.png",
+            "envMap":"./client/assets/images/textures/ref_sphere.png",
+            "metalnessMap":"./client/assets/images/textures/PlaneAtlasMetalness.png",
+            "roughnessMap":"./client/assets/images/textures/PlaneAtlasRoughness.png",
+            "normalMap":"./client/assets/images/textures/PlaneAtlas_Normal.png",
+            "aoMap":"./client/assets/images/textures/tomcat_main_AO.png"
+          }]
+        },
+        {
+          "id":"tomcat_atlas_main",
+          "shader":"MeshPhongMaterial",
+          "blending":"NoBlending",
+          "color":{"r":1, "g":1, "b":1},
+          "settings":{
+            "shininess":5,
+            "skinning":true
+          },
+          "textures":[{
+            "map":"./client/assets/images/textures/PlaneAtlas.png"
+          }]
+        },
+        {
+          "id":"glass_canopy",
+          "shader":"MeshStandardMaterial",
+          "blending":"AdditiveBlending",
+          "color":{"r":0.8, "g":0.8, "b":0.8},
+          "settings":{
+            "refractionRatio":0,
+            "roughness":0.3,
+            "metalness":2,
+            "envMapIntensity":3,
+            "skinning":true,
+            "transparent":true,
+            "depthTest":true,
+            "depthWrite":false,
+            "opacity":1.0
+          },
+          "textures":[{
+            "normalMap":"./client/assets/images/textures/canopy_normals.png",
+            "map":"./client/assets/images/textures/glass_surface.png",
+            "envMap":"./client/assets/images/textures/ref_sphere.png"
+          }]
+        },
+        {
           "id":"atlas_2k",
           "shader":"MeshPhongMaterial",
-          "color":{"r":1, "g":1, "b":1},
+          "color":{"r":1.2, "g":1.2, "b":1.2},
           "settings":{
             "blending":"NoBlending",
             "shininess":5,

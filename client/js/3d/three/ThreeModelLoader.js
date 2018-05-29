@@ -372,6 +372,39 @@ define([
 
         var setup;
 
+        var childMaterial = function(child, matId) {
+
+            var applyMaterial = function(src, mat) {
+                if (child.type === 'SkinnedMesh') {
+
+                    //    model.children[i] = child.clone();
+                    //    child = model.children[i];
+                    //    mat = child.material
+                    child.material = mat.clone();
+                    child.material.skinning = true;
+                    child.material.needsUpdate = true;
+                } else {
+                    child.material = mat;
+                }
+            }
+
+            new PipelineObject('THREE_MATERIAL', matId, applyMaterial, matId);
+        };
+
+        var applyGroupMaterials = function(model, groupMaterials) {
+
+            for (var i = 0; i < model.children.length; i++) {
+                var child = model.children[i];
+
+                if (typeof(groupMaterials[child.name]) === 'string') {
+                    childMaterial(child, groupMaterials[child.name])
+                }
+            }
+
+        //
+        };
+
+
         var attachAsynchModel = function(modelId, rootObject) {
 
             var attachModel = function(model) {
@@ -429,17 +462,21 @@ define([
 
                                 //    model.children[i] = child.clone();
                                 //    child = model.children[i];
-                                    mat = child.material
+                                //    mat = child.material
                                     child.material = mat.clone();
                                     child.material.skinning = true;
                                     child.material.needsUpdate = true;
                                 } else {
-                            //        child.material = mat;
+                                    child.material = mat;
                                 }
                             }
                         };
 
-                        new PipelineObject('THREE_MATERIAL', modelList[modelId].material, groupMaterial, modelList[modelId].material);
+                        if (modelList[modelId].group_materials) {
+                            applyGroupMaterials(model, modelList[modelId].group_materials)
+                        } else {
+                            new PipelineObject('THREE_MATERIAL', modelList[modelId].material, groupMaterial, modelList[modelId].material);
+                        }
 
                         rootObject.add(model);
                         return;

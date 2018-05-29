@@ -7,6 +7,16 @@
         {
           "id": "model_f14",
           "material": "atlas_2k",
+          "group_materials":{
+            "lights":"tomcat_lights",
+            "glass":"glass_canopy",
+            "decals":"tomcat_decals",
+            "instrument_glass":"glass_canopy",
+            "pylons":"tomcat_atlas_fuselage",
+            "fuselage":"tomcat_atlas_fuselage",
+            "surfaces":"tomcat_atlas_fuselage",
+            "cockpit":"tomcat_atlas_cockpit"
+          },
           "format":"fbx",
           "url": "./client/assets/models/planes/f14_skinned",
           "pool": 1,
@@ -21,7 +31,7 @@
           "material": "atlas_2k",
           "format":"fbx",
           "url": "./client/assets/models/boats/enterprise",
-          "pool": 1,
+          "pool": 3,
           "transform": {
             "pos": [0,  -0, 0],
             "rot": [0,  -1, 0],
