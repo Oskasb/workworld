@@ -74,7 +74,7 @@
       {
         "id":"elev_l",
         "data":{
-          "state":{"value":0, "min":-1, "max":1, "speed":0.05, "factor":0.5},
+          "state":{"value":0, "min":-1, "max":1, "speed":0.05, "factor":-0.5},
           "source":"elevator",
           "target":"stab_roll_l",
           "sampleSource":"sampleControl",
@@ -85,7 +85,7 @@
       {
         "id":"elev_r",
         "data":{
-          "state":{"value":0, "min":-1, "max":1, "speed":0.05, "factor":-0.5},
+          "state":{"value":0, "min":-1, "max":1, "speed":0.05, "factor":0.5},
           "source":"elevator",
           "target":"stab_roll_r",
           "sampleSource":"sampleControl",
@@ -232,51 +232,217 @@
       }
     ],
 
-    "DOORS_F14":[
+    "GEAR_F14":[
       {
-        "id":"door_1",
+        "id":"gear_r",
         "data":{
-          "state":{"value":0, "min":0, "max":1, "speed":0.05, "factor":-21},
-          "source":"door_1",
-          "target":"door_1",
+          "state":{"value":0, "min":0, "max":1, "speed":0.05, "factor":1.7},
+          "source":"gear",
+          "target":"gear_r",
           "sampleSource":"sampleControl",
           "applyState":"effectEmitter",
-          "effectFunction":"setBoneTranslationY"
+          "effectFunction":"setBoneRotationX"
 
         }
       },
       {
-        "id":"door_2",
+        "id":"susp_gear_r",
         "data":{
-          "state":{"value":0, "min":0, "max":1, "speed":0.05, "factor":-21},
-          "source":"door_2",
-          "target":"door_2",
+          "state":{"value":0, "min":0, "max":1, "speed":0.05, "factor":-2},
+          "source":"force",
+          "target":"susp_gear_r",
           "sampleSource":"sampleControl",
           "applyState":"effectEmitter",
-          "effectFunction":"setBoneTranslationY"
+          "effectFunction":"setBoneTranslationZ"
+        }
+      },
+      {
+        "id":"susp_gear_fit_r",
+        "data":{
+          "state":{"value":0, "min":0, "max":1, "speed":0.05, "factor":1.4},
+          "source":"gear",
+          "target":"susp_gear_r",
+          "sampleSource":"sampleControl",
+          "applyState":"effectEmitter",
+          "effectFunction":"setBoneRotationX"
+        }
+      },
+      {
+        "id":"wheel_r",
+        "data":{
+          "state":{"value":0, "min":0, "max":1, "speed":0.05, "factor":1},
+          "source":"force",
+          "target":"wheel_r",
+          "sampleSource":"sampleControl",
+          "applyState":"effectEmitter",
+          "effectFunction":"setBoneRotationZ"
+        }
+      },
+      {
+        "id":"gear_l",
+        "data":{
+          "state":{"value":0, "min":0, "max":1, "speed":0.05, "factor":1.7},
+          "source":"gear",
+          "target":"gear_l",
+          "sampleSource":"sampleControl",
+          "applyState":"effectEmitter",
+          "effectFunction":"setBoneRotationX"
+        }
+      },
+      {
+        "id":"susp_gear_l",
+        "data":{
+          "state":{"value":0, "min":0, "max":1, "speed":0.05, "factor":-2},
+          "source":"force",
+          "target":"susp_gear_l",
+          "sampleSource":"sampleControl",
+          "applyState":"effectEmitter",
+          "effectFunction":"setBoneTranslationZ"
 
         }
       },
       {
-        "id":"door_3",
+        "id":"susp_gear_fit_l",
         "data":{
-          "state":{"value":0, "min":0, "max":1, "speed":0.05, "factor":-21},
-          "source":"door_3",
-          "target":"door_3",
+          "state":{"value":0, "min":0, "max":1, "speed":0.05, "factor":-1.4},
+          "source":"gear",
+          "target":"susp_gear_l",
           "sampleSource":"sampleControl",
           "applyState":"effectEmitter",
-          "effectFunction":"setBoneTranslationY"
+          "effectFunction":"setBoneRotationX"
         }
       },
       {
-        "id":"door_4",
+        "id":"wheel_l",
         "data":{
-          "state":{"value":0, "min":0, "max":1, "speed":0.05, "factor":21},
-          "source":"door_4",
-          "target":"door_4",
+          "state":{"value":0, "min":0, "max":1, "speed":0.05, "factor":1},
+          "source":"force",
+          "target":"wheel_l",
           "sampleSource":"sampleControl",
           "applyState":"effectEmitter",
-          "effectFunction":"setBoneTranslationY"
+          "effectFunction":"setBoneRotationZ"
+        }
+      },
+      {
+        "id":"gear_nose",
+        "data":{
+          "state":{"value":0, "min":0, "max":1, "speed":0.05, "factor":1.80},
+          "source":"gear",
+          "target":"gear_nose",
+          "sampleSource":"sampleControl",
+          "applyState":"effectEmitter",
+          "effectFunction":"setBoneRotationX"
+        }
+      },
+      {
+        "id":"susp_nose",
+        "data":{
+          "state":{"value":0, "min":0, "max":1, "speed":0.05, "factor":-2},
+          "source":"force",
+          "target":"susp_nose",
+          "sampleSource":"sampleControl",
+          "applyState":"effectEmitter",
+          "effectFunction":"setBoneTranslationZ"
+
+        }
+      },
+      {
+        "id":"wheel_nose",
+        "data":{
+          "state":{"value":0, "min":0, "max":1, "speed":0.05, "factor":1},
+          "source":"force",
+          "target":"wheel_nose",
+          "sampleSource":"sampleControl",
+          "applyState":"effectEmitter",
+          "effectFunction":"setBoneRotationZ"
+        }
+      },
+      {
+        "id":"door_main_l",
+        "data":{
+          "state":{"value":0, "min":0, "max":1, "speed":0.05, "factor":1.6},
+          "source":"doors",
+          "target":"door_main_l",
+          "sampleSource":"sampleControl",
+          "applyState":"effectEmitter",
+          "effectFunction":"setBoneRotationX"
+        }
+      },
+      {
+        "id":"door_main_r",
+        "data":{
+          "state":{"value":0, "min":0, "max":1, "speed":0.05, "factor":-1.6},
+          "source":"doors",
+          "target":"door_main_r",
+          "sampleSource":"sampleControl",
+          "applyState":"effectEmitter",
+          "effectFunction":"setBoneRotationX"
+        }
+      },
+      {
+        "id":"door_rear_l",
+        "data":{
+          "state":{"value":0, "min":0, "max":1, "speed":0.05, "factor":1.5},
+          "source":"doors",
+          "target":"door_rear_l",
+          "sampleSource":"sampleControl",
+          "applyState":"effectEmitter",
+          "effectFunction":"setBoneRotationX"
+        }
+      },
+      {
+        "id":"door_rear_r",
+        "data":{
+          "state":{"value":0, "min":0, "max":1, "speed":0.05, "factor":-1.5},
+          "source":"doors",
+          "target":"door_rear_r",
+          "sampleSource":"sampleControl",
+          "applyState":"effectEmitter",
+          "effectFunction":"setBoneRotationX"
+        }
+      },
+      {
+        "id":"door_inner_l",
+        "data":{
+          "state":{"value":0, "min":0, "max":1, "speed":0.05, "factor":-1.6},
+          "source":"doors",
+          "target":"door_inner_l",
+          "sampleSource":"sampleControl",
+          "applyState":"effectEmitter",
+          "effectFunction":"setBoneRotationX"
+        }
+      },
+      {
+        "id":"door_inner_r",
+        "data":{
+          "state":{"value":0, "min":0, "max":1, "speed":0.05, "factor":1.6},
+          "source":"doors",
+          "target":"door_inner_r",
+          "sampleSource":"sampleControl",
+          "applyState":"effectEmitter",
+          "effectFunction":"setBoneRotationX"
+        }
+      },
+      {
+        "id":"door_nose_r",
+        "data":{
+          "state":{"value":0, "min":0, "max":1, "speed":0.05, "factor":-2.1},
+          "source":"doors",
+          "target":"door_nose_r",
+          "sampleSource":"sampleControl",
+          "applyState":"effectEmitter",
+          "effectFunction":"setBoneRotationX"
+        }
+      },
+      {
+        "id":"door_nose_l",
+        "data":{
+          "state":{"value":1, "min":0, "max":1, "speed":0.05, "factor":2.1},
+          "source":"doors",
+          "target":"door_nose_l",
+          "sampleSource":"sampleControl",
+          "applyState":"effectEmitter",
+          "effectFunction":"setBoneRotationX"
         }
       }
     ],
@@ -303,6 +469,28 @@
           "sampleSource":"sampleControl",
           "applyState":"effectEmitter",
           "effectFunction":"setBoneRotationX"
+        }
+      },
+      {
+        "id":"nozzle_r",
+        "data":{
+          "state":{"value":0, "min":0, "max":1, "speed":0.05, "factor":0.35},
+          "source":"reheat",
+          "target":"nozzle_r",
+          "sampleSource":"sampleControl",
+          "applyState":"effectEmitter",
+          "effectFunction":"setBoneScaleUniform"
+        }
+      },
+      {
+        "id":"nozzle_l",
+        "data":{
+          "state":{"value":0, "min":0, "max":1, "speed":0.05, "factor":0.35},
+          "source":"reheat",
+          "target":"nozzle_l",
+          "sampleSource":"sampleControl",
+          "applyState":"effectEmitter",
+          "effectFunction":"setBoneScaleUniform"
         }
       },
       {

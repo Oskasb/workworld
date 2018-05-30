@@ -103,24 +103,85 @@
         }
       },
       {
-        "id":"door_system",
+        "id":"gear_system",
         "data":{
           "modules":[
-            {"config_key":"DOORS_F14", "config_id":"door_1", "group":[
-              {"offset":[-20, 11,  32], "direction":[0, 0, 1], "size":[5, 2, 5]}
+            {"config_key":"GEAR_F14", "config_id":"gear_r", "group":[
+              {"offset":[0, 3,  7], "direction":[0, 0, 1], "size":[1, 1, 1]}
             ]},
 
-            {"config_key":"DOORS_F14", "config_id":"door_2", "group":[
-              {"offset":[-20, 11, -15], "direction":[0, 0, 1], "size":[5, 2, 5]}
+            {"config_key":"GEAR_F14", "config_id":"susp_gear_r", "group":[
+              {"offset":[0, 3,  7], "direction":[0, 0, 1], "size":[1, 1, 1]}
             ]},
 
-            {"config_key":"DOORS_F14", "config_id":"door_3",    "group":[
-              {"offset":[-20, 11, -81], "direction":[0, -1, 0], "size":[5, 2, 5]}
+            {"config_key":"GEAR_F14", "config_id":"susp_gear_fit_r", "group":[
+              {"offset":[0, 3,  7], "direction":[0, 0, 1], "size":[1, 1, 1]}
             ]},
 
-            {"config_key":"DOORS_F14", "config_id":"door_4",    "group":[
-              {"offset":[ 20, 11,-92], "direction":[0, -1, 0], "size":[5, 2, 5]}
+            {"config_key":"GEAR_F14", "config_id":"wheel_r", "group":[
+              {"offset":[0, 3,  7], "direction":[0, 0, 1], "size":[1, 1, 1]}
+            ]},
+
+            {"config_key":"GEAR_F14", "config_id":"gear_l", "group":[
+              {"offset":[0, 3,  7], "direction":[0, 0, 1], "size":[1, 1, 1]}
+            ]},
+
+            {"config_key":"GEAR_F14", "config_id":"susp_gear_l", "group":[
+              {"offset":[0, 3,  7], "direction":[0, 0, 1], "size":[1, 1, 1]}
+            ]},
+
+            {"config_key":"GEAR_F14", "config_id":"susp_gear_fit_l", "group":[
+              {"offset":[0, 3,  7], "direction":[0, 0, 1], "size":[1, 1, 1]}
+            ]},
+
+            {"config_key":"GEAR_F14", "config_id":"wheel_l", "group":[
+              {"offset":[0, 3,  7], "direction":[0, 0, 1], "size":[1, 1, 1]}
+            ]},
+
+            {"config_key":"GEAR_F14", "config_id":"gear_nose", "group":[
+              {"offset":[0, 3,  7], "direction":[0, 0, 1], "size":[1, 1, 1]}
+            ]},
+
+            {"config_key":"GEAR_F14", "config_id":"susp_nose", "group":[
+              {"offset":[0, 3,  7], "direction":[0, 0, 1], "size":[1, 1, 1]}
+            ]},
+
+            {"config_key":"GEAR_F14", "config_id":"wheel_nose", "group":[
+              {"offset":[0, 3,  7], "direction":[0, 0, 1], "size":[1, 1, 1]}
+            ]},
+
+            {"config_key":"GEAR_F14", "config_id":"door_main_l", "group":[
+              {"offset":[0, 3,  7], "direction":[0, 0, 1], "size":[1, 1, 1]}
+            ]},
+
+            {"config_key":"GEAR_F14", "config_id":"door_main_r", "group":[
+              {"offset":[0, 3,  7], "direction":[0, 0, 1], "size":[1, 1, 1]}
+            ]},
+
+            {"config_key":"GEAR_F14", "config_id":"door_rear_l", "group":[
+              {"offset":[0, 3,  7], "direction":[0, 0, 1], "size":[1, 1, 1]}
+            ]},
+
+            {"config_key":"GEAR_F14", "config_id":"door_rear_r", "group":[
+              {"offset":[0, 3,  7], "direction":[0, 0, 1], "size":[1, 1, 1]}
+            ]},
+
+            {"config_key":"GEAR_F14", "config_id":"door_inner_l", "group":[
+              {"offset":[0, 3,  7], "direction":[0, 0, 1], "size":[1, 1, 1]}
+            ]},
+
+            {"config_key":"GEAR_F14", "config_id":"door_inner_r", "group":[
+              {"offset":[0, 3,  7], "direction":[0, 0, 1], "size":[1, 1, 1]}
+            ]},
+
+            {"config_key":"GEAR_F14", "config_id":"door_nose_r", "group":[
+              {"offset":[0, 3,  7], "direction":[0, 0, 1], "size":[1, 1, 1]}
+            ]},
+
+            {"config_key":"GEAR_F14", "config_id":"door_nose_l", "group":[
+              {"offset":[0, 3,  7], "direction":[0, 0, 1], "size":[1, 1, 1]}
             ]}
+
           ]
         }
       },
@@ -133,6 +194,14 @@
             ]},
 
             {"config_key":"EXTERNAL_F14", "config_id":"hook", "group":[
+              {"offset":[0, -1, -6], "direction":[0, 0,-1], "size":[1, 1, 5]}
+            ]},
+
+            {"config_key":"EXTERNAL_F14", "config_id":"nozzle_r", "group":[
+              {"offset":[0, -1, -6], "direction":[0, 0,-1], "size":[1, 1, 5]}
+            ]},
+
+            {"config_key":"EXTERNAL_F14", "config_id":"nozzle_l", "group":[
               {"offset":[0, -1, -6], "direction":[0, 0,-1], "size":[1, 1, 5]}
             ]},
 

@@ -233,6 +233,8 @@ define([
 
         };
 
+
+
         ModuleEffectFunctions.setBoneTranslationZ = function(renderable, moduleState, trgt) {
 
             var dynBone = renderable.getRenderableBone(trgt);
@@ -255,6 +257,21 @@ define([
             if (Math.random() * 5 > speed-1) {
                 return;
             }
+
+        };
+
+        ModuleEffectFunctions.setBoneScaleUniform = function(renderable, moduleState, trgt) {
+
+            var dynBone = renderable.getRenderableBone(trgt);
+
+            if (!dynBone) {
+                console.log("No Dynamic Bone:", trgt, renderable, moduleState);
+                return;
+            }
+
+            tempObj.scale.copy(dynBone.originalScale);
+            tempObj.scale.multiplyScalar(1-moduleState.getAppliedFactor());
+            dynBone.setDynamicBoneScale(tempObj.scale);
 
         };
 

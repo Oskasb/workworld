@@ -85,7 +85,7 @@ define([
             for (var i = 0; i < bones.length; i++) {
                 if (bones[i].type === 'Bone') {
                     var dynBone = this.dynamicSkeleton.getBoneByName(bones[i].name);
-                    dynBone.inheritBonePosAndQuat(bones[i].position, bones[i].quaternion);
+                    dynBone.inheritBonePosQuatScale(bones[i].position, bones[i].quaternion, bones[i].scale);
                 }
             }
 

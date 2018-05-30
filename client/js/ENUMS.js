@@ -203,7 +203,10 @@ if(typeof(ENUMS) === "undefined"){
         QUAT_Y:             6,
         QUAT_Z:             7,
         QUAT_W:             8,
-        STRIDE:             10
+        SCALE_X:            9,
+        SCALE_Y:            10,
+        SCALE_Z:            11,
+        STRIDE:             12
     };
 
     ENUMS.Worker = {

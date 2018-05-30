@@ -134,8 +134,9 @@
             {"widget":"BUTTON_CONTROL", "label":"SWEEP","configId":"control_door", "layout":{"margin_y":0.20},"onUpdate":"sampleControl", "source":"sweep", "onClick":"toggleControl"},
             {"widget":"BUTTON_CONTROL", "label":"FLAP", "configId":"control_door", "layout":{"margin_y":0.30},"onUpdate":"sampleControl", "source":"flaps", "onClick":"toggleControl"},
             {"widget":"BUTTON_CONTROL", "label":"BRK",  "configId":"control_door", "layout":{"margin_y":0.40},"onUpdate":"sampleControl", "source":"brake", "onClick":"toggleControl"},
-            {"widget":"BUTTON_CONTROL", "label":"GEAR", "configId":"control_door", "layout":{"margin_y":0.50},"onUpdate":"sampleControl", "source":"gear",  "onClick":"toggleControl"},
-            {"widget":"BUTTON_CONTROL", "label":"CNP",  "configId":"control_door", "layout":{"margin_y":0.60},"onUpdate":"sampleControl", "source":"canopy","onClick":"toggleControl"},
+            {"widget":"BUTTON_CONTROL", "label":"DOORS","configId":"control_door", "layout":{"margin_y":0.50},"onUpdate":"sampleControl", "source":"doors", "onClick":"toggleControl"},
+            {"widget":"BUTTON_CONTROL", "label":"GEAR", "configId":"control_door", "layout":{"margin_y":0.60},"onUpdate":"sampleControl", "source":"gear",  "onClick":"toggleControl"},
+            {"widget":"BUTTON_CONTROL", "label":"CNP",  "configId":"control_door", "layout":{"margin_y":0.70},"onUpdate":"sampleControl", "source":"canopy","onClick":"toggleControl"},
             {"widget":"BUTTON_CONTROL", "label":"AB",   "configId":"control_door", "layout":{"margin_y":0.20, "margin_x":0.15},"onUpdate":"sampleControl", "source":"reheat", "onClick":"toggleControl"},
             {"widget":"BUTTON_CONTROL", "label":"HOOK", "configId":"control_door", "layout":{"margin_y":0.20, "margin_x":0.22},"onUpdate":"sampleControl", "source":"hook", "onClick":"toggleControl"},
             {"widget":"BUTTON_CONTROL", "label":"FORCE","configId":"control_door", "layout":{"margin_y":0.30, "margin_x":0.22},"onUpdate":"sampleControl", "source":"force", "onClick":"toggleControl"}
