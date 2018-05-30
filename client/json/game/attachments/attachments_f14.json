@@ -52,12 +52,52 @@
               {"offset":[34, 22, -50], "direction":[0, -1, 0], "size":[5, 2, 5]}
             ]},
 
+            {"config_key":"SURFACES_F14", "config_id":"roll_l",    "group":[
+              {"offset":[15, 22, -40], "direction":[0, -1, 0], "size":[5, 2, 5]}
+            ]},
+
+            {"config_key":"SURFACES_F14", "config_id":"roll_r",    "group":[
+              {"offset":[34, 22, -50], "direction":[0, -1, 0], "size":[5, 2, 5]}
+            ]},
+
+            {"config_key":"SURFACES_F14", "config_id":"spoiler_l",    "group":[
+              {"offset":[7, 1, -2], "direction":[0, -1, 0], "size":[5, 2, 5]}
+            ]},
+
+            {"config_key":"SURFACES_F14", "config_id":"spoiler_r",    "group":[
+              {"offset":[7, 1, -2], "direction":[0, -1, 0], "size":[5, 2, 5]}
+            ]},
+
             {"config_key":"SURFACES_F14", "config_id":"pivot_l",    "group":[
               {"offset":[15, 22, -40], "direction":[0, -1, 0], "size":[5, 2, 5]}
             ]},
 
             {"config_key":"SURFACES_F14", "config_id":"pivot_r",    "group":[
               {"offset":[34, 22, -50], "direction":[0, -1, 0], "size":[5, 2, 5]}
+            ]},
+            {"config_key":"SURFACES_F14", "config_id":"sweep_l",    "group":[
+              {"offset":[3, 1,  2], "direction":[0, -1, 0], "size":[1, 1, 1]}
+            ]},
+            {"config_key":"SURFACES_F14", "config_id":"sweep_r",    "group":[
+              {"offset":[-3, 1,  2], "direction":[0, -1, 0], "size":[1, 1, 1]}
+            ]},
+            {"config_key":"SURFACES_F14", "config_id":"flaps_l",    "group":[
+              {"offset":[6, 1, -4], "direction":[0, -1, 0], "size":[1, 1, 1]}
+            ]},
+            {"config_key":"SURFACES_F14", "config_id":"flaps_r",    "group":[
+              {"offset":[-6,1, -4], "direction":[0, -1, 0], "size":[1, 1, 1]}
+            ]},
+            {"config_key":"SURFACES_F14", "config_id":"slat_l",    "group":[
+              {"offset":[5, 1, -1], "direction":[0, -1, 0], "size":[1, 1, 1]}
+            ]},
+            {"config_key":"SURFACES_F14", "config_id":"slat_r",    "group":[
+              {"offset":[-5,1, -1], "direction":[0, -1, 0], "size":[1, 1, 1]}
+            ]},
+            {"config_key":"SURFACES_F14", "config_id":"brake_top", "group":[
+              {"offset":[0, 1, -8], "direction":[0, 1,  -7], "size":[1, 1, 1]}
+            ]},
+            {"config_key":"SURFACES_F14", "config_id":"brake_bottom","group":[
+              {"offset":[0, -1,-8], "direction":[0, -1, -7], "size":[1, 1, 1]}
             ]}
           ]
         }
@@ -66,25 +106,54 @@
         "id":"door_system",
         "data":{
           "modules":[
-            {"config_key":"DOORS", "config_id":"door_1", "group":[
+            {"config_key":"DOORS_F14", "config_id":"door_1", "group":[
               {"offset":[-20, 11,  32], "direction":[0, 0, 1], "size":[5, 2, 5]}
             ]},
 
-            {"config_key":"DOORS", "config_id":"door_2", "group":[
+            {"config_key":"DOORS_F14", "config_id":"door_2", "group":[
               {"offset":[-20, 11, -15], "direction":[0, 0, 1], "size":[5, 2, 5]}
             ]},
 
-            {"config_key":"DOORS", "config_id":"door_3",    "group":[
+            {"config_key":"DOORS_F14", "config_id":"door_3",    "group":[
               {"offset":[-20, 11, -81], "direction":[0, -1, 0], "size":[5, 2, 5]}
             ]},
 
-            {"config_key":"DOORS", "config_id":"door_4",    "group":[
+            {"config_key":"DOORS_F14", "config_id":"door_4",    "group":[
               {"offset":[ 20, 11,-92], "direction":[0, -1, 0], "size":[5, 2, 5]}
             ]}
           ]
         }
       },
+      {
+        "id":"external_system",
+        "data":{
+          "modules":[
+            {"config_key":"EXTERNAL_F14", "config_id":"canopy", "group":[
+              {"offset":[0, 2,  4], "direction":[0, 0, 1], "size":[1, 1, 5]}
+            ]},
 
+            {"config_key":"EXTERNAL_F14", "config_id":"hook", "group":[
+              {"offset":[0, -1, -6], "direction":[0, 0,-1], "size":[1, 1, 5]}
+            ]},
+
+            {"config_key":"EXTERNAL_F14", "config_id":"force_1", "group":[
+              {"offset":[0, -1, -6], "direction":[0, 0,-1], "size":[1, 1, 5]}
+            ]},
+
+            {"config_key":"EXTERNAL_F14", "config_id":"force_2", "group":[
+              {"offset":[0, -1, -6], "direction":[0, 0,-1], "size":[1, 1, 5]}
+            ]},
+
+            {"config_key":"EXTERNAL_F14", "config_id":"force_3", "group":[
+              {"offset":[0, -1, -6], "direction":[0, 0,-1], "size":[1, 1, 5]}
+            ]},
+
+            {"config_key":"EXTERNAL_F14", "config_id":"force_4", "group":[
+              {"offset":[0, -1, -6], "direction":[0, 0,-1], "size":[1, 1, 5]}
+            ]}
+          ]
+        }
+      },
       {
         "id":"wake_emitters",
         "data":{

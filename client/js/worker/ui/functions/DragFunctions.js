@@ -38,10 +38,10 @@ define([
         };
 
 
-        DragFunctions.thumbstickDrag = function() {
+        DragFunctions.thumbstickDrag = function(value, source) {
             piece = WorldAPI.getControlledRenderable().getGamePiece();
-            piece.getControlStateById('engine').setPieceControlTargetState(WorldAPI.sampleInputBuffer(ENUMS.InputState.DRAG_DISTANCE_Y));
-            piece.getControlStateById('rudder').setPieceControlTargetState(WorldAPI.sampleInputBuffer(ENUMS.InputState.DRAG_DISTANCE_X));
+            piece.getControlStateById('elevator').setPieceControlTargetState(WorldAPI.sampleInputBuffer(ENUMS.InputState.DRAG_DISTANCE_Y) * 5);
+            piece.getControlStateById('aeilron').setPieceControlTargetState(WorldAPI.sampleInputBuffer(ENUMS.InputState.DRAG_DISTANCE_X) * 5);
         };
 
         DragFunctions.dragCamX = function() {

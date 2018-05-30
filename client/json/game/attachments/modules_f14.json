@@ -28,10 +28,10 @@
 
     "SURFACES_F14":[
       {
-        "id":"pivot_l",
+        "id":"sweep_l",
         "data":{
-          "state":{"value":0, "min":-1, "max":1, "speed":0.05, "factor":1},
-          "source":"rudder",
+          "state":{"value":0, "min":-1, "max":1, "speed":0.05, "factor":0.85},
+          "source":"sweep",
           "target":"pivot_l",
           "sampleSource":"sampleControl",
           "applyState":"applyRotationY",
@@ -39,10 +39,10 @@
         }
       },
       {
-        "id":"pivot_r",
+        "id":"sweep_r",
         "data":{
-          "state":{"value":0, "min":-1, "max":1, "speed":0.05, "factor":-1},
-          "source":"rudder",
+          "state":{"value":0, "min":-1, "max":1, "speed":0.05, "factor":-0.85},
+          "source":"sweep",
           "target":"pivot_r",
           "sampleSource":"sampleControl",
           "applyState":"applyRotationY",
@@ -74,8 +74,8 @@
       {
         "id":"elev_l",
         "data":{
-          "state":{"value":0, "min":-1, "max":1, "speed":0.05, "factor":1},
-          "source":"rudder",
+          "state":{"value":0, "min":-1, "max":1, "speed":0.05, "factor":0.5},
+          "source":"elevator",
           "target":"stab_roll_l",
           "sampleSource":"sampleControl",
           "applyState":"effectEmitter",
@@ -85,14 +85,60 @@
       {
         "id":"elev_r",
         "data":{
-          "state":{"value":0, "min":-1, "max":1, "speed":0.05, "factor":-1},
-          "source":"rudder",
+          "state":{"value":0, "min":-1, "max":1, "speed":0.05, "factor":-0.5},
+          "source":"elevator",
           "target":"stab_roll_r",
           "sampleSource":"sampleControl",
           "applyState":"effectEmitter",
           "effectFunction":"setBoneRotationX"
         }
       },
+      {
+        "id":"roll_l",
+        "data":{
+          "state":{"value":0, "min":-1, "max":1, "speed":0.05, "factor":0.5},
+          "source":"aeilron",
+          "target":"stab_pitch_l",
+          "sampleSource":"sampleControl",
+          "applyState":"effectEmitter",
+          "effectFunction":"setBoneRotationX"
+        }
+      },
+      {
+        "id":"roll_r",
+        "data":{
+          "state":{"value":0, "min":-1, "max":1, "speed":0.05, "factor":0.5},
+          "source":"aeilron",
+          "target":"stab_pitch_r",
+          "sampleSource":"sampleControl",
+          "applyState":"effectEmitter",
+          "effectFunction":"setBoneRotationX"
+        }
+      },
+
+      {
+        "id":"spoiler_l",
+        "data":{
+          "state":{"value":0, "min":0, "max":1, "speed":0.05, "factor":1},
+          "source":"aeilron",
+          "target":"spoiler_l",
+          "sampleSource":"sampleControl",
+          "applyState":"effectEmitter",
+          "effectFunction":"setBoneRotationX"
+        }
+      },
+      {
+        "id":"spoiler_r",
+        "data":{
+          "state":{"value":0, "min":-1, "max":0, "speed":0.05, "factor":1},
+          "source":"aeilron",
+          "target":"spoiler_r",
+          "sampleSource":"sampleControl",
+          "applyState":"effectEmitter",
+          "effectFunction":"setBoneRotationX"
+        }
+      },
+
       {
         "id":"rudder_l",
         "data":{
@@ -112,6 +158,75 @@
           "target":"rudder_r",
           "sampleSource":"sampleControl",
           "applyState":"applyRotationY",
+          "effectFunction":"setBoneRotationX"
+        }
+      },
+
+      {
+        "id":"flaps_l",
+        "data":{
+          "state":{"value":0, "min":-1, "max":1, "speed":0.05, "factor":-0.8},
+          "source":"flaps",
+          "target":"flap_l",
+          "sampleSource":"sampleControl",
+          "applyState":"applyRotationY",
+          "effectFunction":"setBoneRotationX"
+        }
+      },
+      {
+        "id":"flaps_r",
+        "data":{
+          "state":{"value":0, "min":-1, "max":1, "speed":0.05, "factor":0.8},
+          "source":"flaps",
+          "target":"flap_r",
+          "sampleSource":"sampleControl",
+          "applyState":"applyRotationY",
+          "effectFunction":"setBoneRotationX"
+        }
+      },
+
+      {
+        "id":"slat_l",
+        "data":{
+          "state":{"value":0, "min":0, "max":1, "speed":0.05, "factor":0.45},
+          "source":"flaps",
+          "target":"slat_l",
+          "sampleSource":"sampleControl",
+          "applyState":"effectEmitter",
+          "effectFunction":"setBoneRotationX"
+        }
+      },
+      {
+        "id":"slat_r",
+        "data":{
+          "state":{"value":0, "min":0, "max":1, "speed":0.05, "factor":-0.45},
+          "source":"flaps",
+          "target":"slat_r",
+          "sampleSource":"sampleControl",
+          "applyState":"effectEmitter",
+          "effectFunction":"setBoneRotationX"
+        }
+      },
+
+      {
+        "id":"brake_top",
+        "data":{
+          "state":{"value":0, "min":0, "max":1, "speed":0.05, "factor":-0.95},
+          "source":"brake",
+          "target":"break_top",
+          "sampleSource":"sampleControl",
+          "applyState":"effectEmitter",
+          "effectFunction":"setBoneRotationX"
+        }
+      },
+      {
+        "id":"brake_bottom",
+        "data":{
+          "state":{"value":0, "min":0, "max":1, "speed":0.05, "factor":0.95},
+          "source":"brake",
+          "target":"break_bottom",
+          "sampleSource":"sampleControl",
+          "applyState":"effectEmitter",
           "effectFunction":"setBoneRotationX"
         }
       }
@@ -162,6 +277,76 @@
           "sampleSource":"sampleControl",
           "applyState":"effectEmitter",
           "effectFunction":"setBoneTranslationY"
+        }
+      }
+    ],
+
+    "EXTERNAL_F14":[
+      {
+        "id":"canopy",
+        "data":{
+          "state":{"value":0, "min":0, "max":1, "speed":0.05, "factor":0.6},
+          "source":"canopy",
+          "target":"canopy",
+          "sampleSource":"sampleControl",
+          "applyState":"effectEmitter",
+          "effectFunction":"setBoneRotationX"
+
+        }
+      },
+      {
+        "id":"hook",
+        "data":{
+          "state":{"value":0, "min":0, "max":1, "speed":0.05, "factor":0.65},
+          "source":"hook",
+          "target":"hook",
+          "sampleSource":"sampleControl",
+          "applyState":"effectEmitter",
+          "effectFunction":"setBoneRotationX"
+        }
+      },
+      {
+        "id":"force_1",
+        "data":{
+          "state":{"value":0, "min":-0.1, "max":1, "speed":0.05, "factor":-0.25},
+          "source":"force",
+          "target":"stab_flex_l",
+          "sampleSource":"sampleControl",
+          "applyState":"effectEmitter",
+          "effectFunction":"setBoneRotationY"
+        }
+      },
+      {
+        "id":"force_2",
+        "data":{
+          "state":{"value":0, "min":-0.1, "max":1, "speed":0.05, "factor":-0.25},
+          "source":"force",
+          "target":"stab_flex_r",
+          "sampleSource":"sampleControl",
+          "applyState":"effectEmitter",
+          "effectFunction":"setBoneRotationY"
+        }
+      },
+      {
+        "id":"force_3",
+        "data":{
+          "state":{"value":0, "min":-0.1, "max":1, "speed":0.05, "factor":-0.75},
+          "source":"force",
+          "target":"wing_flex_l",
+          "sampleSource":"sampleControl",
+          "applyState":"effectEmitter",
+          "effectFunction":"setBoneRotationY"
+        }
+      },
+      {
+        "id":"force_4",
+        "data":{
+          "state":{"value":0, "min":-0.1, "max":1, "speed":0.05, "factor":-0.75},
+          "source":"force",
+          "target":"wing_flex_r",
+          "sampleSource":"sampleControl",
+          "applyState":"effectEmitter",
+          "effectFunction":"setBoneRotationY"
         }
       }
     ],

@@ -22,7 +22,6 @@
           "widgets":[
 
             {"widget":"HOVER_DYNAMIC",  "label":"",       "configId":"config"},
-            {"widget":"THUMBSTICK",     "label":"",       "configId":"config", "onDrag":"thumbstickDrag"},
 
             {"widget":"ROLL_INDICATOR", "label":"ROLL",   "configId":"roll_indicator",   "layout":{"margin_y":0.30}, "buffer":"currentDynamic", "channel":"ROLL_ANGLE"},
             {"widget":"PITCH_INDICATOR","label":"PITCH",  "configId":"pitch_indicator",  "layout":{"margin_y":0.24}, "buffer":"currentDynamic", "channel":"PITCH_ANGLE"},
@@ -124,6 +123,22 @@
             {"widget":"STATE_GAUGE",    "label":"ALT"   , "configId":"angle_indicator",  "layout":{"margin_y":0.58}, "buffer":"currentDynamic", "channel":"POS_Y"},
             {"widget":"STATE_GAUGE",    "label":"POS X",  "configId":"angle_indicator",  "layout":{"margin_y":0.62}, "buffer":"currentDynamic", "channel":"POS_X"},
             {"widget":"STATE_GAUGE",    "label":"POS Z",  "configId":"angle_indicator",  "layout":{"margin_y":0.66}, "buffer":"currentDynamic", "channel":"POS_Z"}
+          ]
+        }
+      },
+      {
+        "id":"external_switches",
+        "data":{
+          "widgets":[
+
+            {"widget":"BUTTON_CONTROL", "label":"SWEEP","configId":"control_door", "layout":{"margin_y":0.20},"onUpdate":"sampleControl", "source":"sweep", "onClick":"toggleControl"},
+            {"widget":"BUTTON_CONTROL", "label":"FLAP", "configId":"control_door", "layout":{"margin_y":0.30},"onUpdate":"sampleControl", "source":"flaps", "onClick":"toggleControl"},
+            {"widget":"BUTTON_CONTROL", "label":"BRK",  "configId":"control_door", "layout":{"margin_y":0.40},"onUpdate":"sampleControl", "source":"brake", "onClick":"toggleControl"},
+            {"widget":"BUTTON_CONTROL", "label":"GEAR", "configId":"control_door", "layout":{"margin_y":0.50},"onUpdate":"sampleControl", "source":"gear",  "onClick":"toggleControl"},
+            {"widget":"BUTTON_CONTROL", "label":"CNP",  "configId":"control_door", "layout":{"margin_y":0.60},"onUpdate":"sampleControl", "source":"canopy","onClick":"toggleControl"},
+            {"widget":"BUTTON_CONTROL", "label":"AB",   "configId":"control_door", "layout":{"margin_y":0.20, "margin_x":0.15},"onUpdate":"sampleControl", "source":"reheat", "onClick":"toggleControl"},
+            {"widget":"BUTTON_CONTROL", "label":"HOOK", "configId":"control_door", "layout":{"margin_y":0.20, "margin_x":0.22},"onUpdate":"sampleControl", "source":"hook", "onClick":"toggleControl"},
+            {"widget":"BUTTON_CONTROL", "label":"FORCE","configId":"control_door", "layout":{"margin_y":0.30, "margin_x":0.22},"onUpdate":"sampleControl", "source":"force", "onClick":"toggleControl"}
           ]
         }
       }

@@ -158,6 +158,36 @@ define([
 
         };
 
+        ModuleEffectFunctions.setBoneRotationY = function(renderable, moduleState, trgt) {
+
+            var dynBone = renderable.getRenderableBone(trgt);
+
+            if (!dynBone) {
+                console.log("No Dynamic Bone:", trgt, renderable, moduleState);
+                return;
+            }
+
+            tempObj.quaternion.copy(dynBone.originalQuat);
+            tempObj.rotateY(moduleState.getAppliedFactor());
+            dynBone.setDynamicBoneQuaternion(tempObj.quaternion);
+
+        };
+
+        ModuleEffectFunctions.setBoneRotationZ = function(renderable, moduleState, trgt) {
+
+            var dynBone = renderable.getRenderableBone(trgt);
+
+            if (!dynBone) {
+                console.log("No Dynamic Bone:", trgt, renderable, moduleState);
+                return;
+            }
+
+            tempObj.quaternion.copy(dynBone.originalQuat);
+            tempObj.rotateZ(moduleState.getAppliedFactor());
+            dynBone.setDynamicBoneQuaternion(tempObj.quaternion);
+
+        };
+
         ModuleEffectFunctions.rotateBoneX = function(renderable, moduleState, trgt) {
 
             var dynBone = renderable.getRenderableBone(trgt);
