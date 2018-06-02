@@ -22,7 +22,7 @@ define([
     var tempVec1 = new THREE.Vector3();
     var distance;
 
-    var minDistance = 10;
+    var minDistance = 0.2;
     var maxDistance = 2000;
 
     var cameraForward = new THREE.Vector3();

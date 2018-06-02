@@ -265,7 +265,7 @@ define([
 
             this.updateScreenSelectPosition();
 
-            if (this.screenPos.z > -2) {
+            if (this.screenPos.z > -2 * this.renderableGeometry.visualSize) {
                 this.isVisible = 1;
             } else {
                 this.isVisible = this.renderableGeometry.updateGeometryRenderable();

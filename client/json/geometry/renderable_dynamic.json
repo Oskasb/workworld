@@ -18,9 +18,9 @@
         "data": {
           "model_id":"model_f14",
           "dynamic_feedback":"crate_feedback",
-          "visual_size":16,
-          "select_anchor":{"offset":[0,   1, 5], "size":5},
-          "camera_home":  {"offset":[0,   10, -40], "lookat":[0,   4, 5]},
+          "visual_size":36,
+          "select_anchor":{"offset":[0,   1.2, 6], "size":5},
+          "camera_home":  {"offset":[0,   10, -40], "lookat":[0,   1.6, 6.6]},
           "rigid_body": "TOMCAT_COMPOUND"
         }
       },

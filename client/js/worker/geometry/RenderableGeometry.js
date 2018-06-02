@@ -81,7 +81,7 @@ define([
         };
 
         RenderableGeometry.prototype.testIsVisible = function() {
-            return WorldAPI.getWorldCamera().testPosRadiusVisible(this.pos, this.size*0.65*this.visualSize);
+            return WorldAPI.getWorldCamera().testPosRadiusVisible(this.pos, 0.65*this.visualSize);
         };
 
         RenderableGeometry.prototype.getGeometry = function() {
