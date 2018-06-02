@@ -437,7 +437,7 @@
       {
         "id":"door_nose_l",
         "data":{
-          "state":{"value":1, "min":0, "max":1, "speed":0.05, "factor":2.1},
+          "state":{"value":0, "min":0, "max":1, "speed":0.05, "factor":2.1},
           "source":"doors",
           "target":"door_nose_l",
           "sampleSource":"sampleControl",

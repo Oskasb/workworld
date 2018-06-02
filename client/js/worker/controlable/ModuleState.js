@@ -23,6 +23,7 @@ define([
             for (var key in conf) {
                 this.state[key] = conf[key]
             }
+            this.setTargetState(this.state.value)
         };
 
         ModuleState.prototype.setTargetState = function(value) {

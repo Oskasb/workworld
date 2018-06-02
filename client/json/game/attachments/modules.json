@@ -200,7 +200,7 @@
       {
         "id":"radar_1",
         "data":{
-          "state":{"value":1, "min":0.1, "max":0.1, "speed":0.05, "factor":0.18},
+          "state":{"value":1, "min":0.1, "max":0.1, "speed":0.05, "factor":0.28},
           "source":"radar_1",
           "target":"radar_main",
           "sampleSource":"effectEmitter",
@@ -211,7 +211,7 @@
       {
         "id":"radar_2",
         "data":{
-          "state":{"value":1, "min":0.1, "max":0.1, "speed":0.05, "factor":-0.24},
+          "state":{"value":1, "min":0.1, "max":0.1, "speed":0.05, "factor":-0.34},
           "source":"radar_1",
           "target":"radar_square",
           "sampleSource":"effectEmitter",
@@ -222,7 +222,7 @@
       {
         "id":"radar_3",
         "data":{
-          "state":{"value":1, "min":0.1, "max":0.1, "speed":0.05, "factor":-0.5},
+          "state":{"value":1, "min":0.1, "max":0.1, "speed":0.05, "factor":-0.4},
           "source":"radar_1",
           "target":"radar_square_small",
           "sampleSource":"effectEmitter",

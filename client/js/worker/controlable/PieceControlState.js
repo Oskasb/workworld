@@ -10,8 +10,8 @@ define([
         var PieceControlState = function(config) {
 
             this.state = {
-                value :config.value || 1,
-                target :config.target || 0,
+                value :config.value || 0,
+                target :config.value || 0,
                 min :config.min || -Number.MAX_VALUE,
                 max : config.max || Number.MAX_VALUE,
                 speed : config.speed || 1,

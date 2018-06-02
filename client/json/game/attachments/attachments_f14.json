@@ -7,11 +7,11 @@
         "data":{
           "modules":[
             {"config_key":"PROPULSION_F14", "config_id":"jet_1", "group":[
-              {"offset":[-2, -0,-12], "direction":[0, 0.0, 1], "size":[1, 1, 5]}
+              {"offset":[-1.4, 0.3, -6], "direction":[0, 0.0, 1], "size":[1, 1, 5]}
             ]},
 
             {"config_key":"PROPULSION_F14", "config_id":"jet_2", "group":[
-              {"offset":[2,  -0, -12], "direction":[0,-0.0, 1], "size":[1, 1, 5]}
+              {"offset":[1.4,  0.3, -6], "direction":[0,-0.0, 1], "size":[1, 1, 5]}
             ]}
           ]
         }
@@ -21,83 +21,87 @@
         "data":{
           "modules":[
             {"config_key":"SURFACES_F14", "config_id":"rudder_1", "group":[
-              {"offset":[13.5, 22,  78], "direction":[0, 0, 1], "size":[5, 2, 5]}
+              {"offset":[-1.5,2, -7], "direction":[0, 0, 1], "size":[1, 2, 1]}
             ]},
 
             {"config_key":"SURFACES_F14", "config_id":"rudder_2", "group":[
-              {"offset":[-13.5, 22, 78], "direction":[0, 0, 1], "size":[5, 2, 5]}
+              {"offset":[1.5, 2, -7], "direction":[0, 0, 1], "size":[1, 2, 1]}
             ]},
 
             {"config_key":"SURFACES_F14", "config_id":"rudder_l",    "group":[
-              {"offset":[15, 22, -40], "direction":[0, -1, 0], "size":[5, 2, 5]}
+              {"offset":[-1.5, 3, -8], "direction":[0, 0, 1], "size":[1, 2, 1]}
             ]},
 
             {"config_key":"SURFACES_F14", "config_id":"rudder_r",    "group":[
-              {"offset":[34, 22, -50], "direction":[0, -1, 0], "size":[5, 2, 5]}
+              {"offset":[1.5,  3, -8], "direction":[0, 0, 1], "size":[1, 2, 1]}
             ]},
 
             {"config_key":"SURFACES_F14", "config_id":"elev_1", "group":[
-              {"offset":[13.5, 22,  78], "direction":[0, 0, 1], "size":[5, 2, 5]}
+              {"offset":[-2.0, 0.5,  -7], "direction":[0, 0, 1], "size":[3, 1, 3]}
             ]},
 
             {"config_key":"SURFACES_F14", "config_id":"elev_2", "group":[
-              {"offset":[-13.5, 22, 78], "direction":[0, 0, 1], "size":[5, 2, 5]}
+              {"offset":[2.0,  0.5, -7], "direction":[0, 0, 1], "size":[3, 1, 3]}
             ]},
 
             {"config_key":"SURFACES_F14", "config_id":"elev_l",    "group":[
-              {"offset":[15, 22, -40], "direction":[0, -1, 0], "size":[5, 2, 5]}
+              {"offset":[-3.5, 0.5, -7], "direction":[0, 0, 1], "size":[3, 1, 3]}
             ]},
 
             {"config_key":"SURFACES_F14", "config_id":"elev_r",    "group":[
-              {"offset":[34, 22, -50], "direction":[0, -1, 0], "size":[5, 2, 5]}
+              {"offset":[3.5, 0.5, -7], "direction":[0, 0, 1], "size":[3, 1, 3]}
             ]},
 
             {"config_key":"SURFACES_F14", "config_id":"roll_l",    "group":[
-              {"offset":[15, 22, -40], "direction":[0, -1, 0], "size":[5, 2, 5]}
+              {"offset":[-4.5, 0.5, -7], "direction":[0, 0, 1], "size":[3, 1, 3]}
             ]},
 
             {"config_key":"SURFACES_F14", "config_id":"roll_r",    "group":[
-              {"offset":[34, 22, -50], "direction":[0, -1, 0], "size":[5, 2, 5]}
+              {"offset":[4.5, 0.5, -7], "direction":[0, 0, 1], "size":[3, 1, 3]}
             ]},
 
             {"config_key":"SURFACES_F14", "config_id":"spoiler_l",    "group":[
-              {"offset":[7, 1, -2], "direction":[0, -1, 0], "size":[5, 2, 5]}
+              {"offset":[-7, -0, -2], "direction":[0, -1, 0], "size":[5, 2, 5]}
             ]},
 
             {"config_key":"SURFACES_F14", "config_id":"spoiler_r",    "group":[
-              {"offset":[7, 1, -2], "direction":[0, -1, 0], "size":[5, 2, 5]}
+              {"offset":[7, -0, -2], "direction":[0, -1, 0], "size":[5, 2, 5]}
             ]},
 
             {"config_key":"SURFACES_F14", "config_id":"pivot_l",    "group":[
-              {"offset":[15, 22, -40], "direction":[0, -1, 0], "size":[5, 2, 5]}
+              {"offset":[-2, 1, -1], "direction":[0, -1, 0], "size":[1, 1, 1]}
             ]},
 
             {"config_key":"SURFACES_F14", "config_id":"pivot_r",    "group":[
-              {"offset":[34, 22, -50], "direction":[0, -1, 0], "size":[5, 2, 5]}
+              {"offset":[2,  1, -1], "direction":[0, -1, 0], "size":[1, 1, 1]}
             ]},
+
             {"config_key":"SURFACES_F14", "config_id":"sweep_l",    "group":[
-              {"offset":[3, 1,  2], "direction":[0, -1, 0], "size":[1, 1, 1]}
+              {"offset":[-3.1, 1, -0.4], "direction":[0, -1, 0], "size":[1, 1, 1]}
             ]},
             {"config_key":"SURFACES_F14", "config_id":"sweep_r",    "group":[
-              {"offset":[-3, 1,  2], "direction":[0, -1, 0], "size":[1, 1, 1]}
+              {"offset":[3.1,  1, -0.4], "direction":[0, -1, 0], "size":[1, 1, 1]}
             ]},
+
             {"config_key":"SURFACES_F14", "config_id":"flaps_l",    "group":[
-              {"offset":[6, 1, -4], "direction":[0, -1, 0], "size":[1, 1, 1]}
+              {"offset":[6, 1, -3], "direction":[0, -1, 0], "size":[1, 1, 1]}
             ]},
+
             {"config_key":"SURFACES_F14", "config_id":"flaps_r",    "group":[
-              {"offset":[-6,1, -4], "direction":[0, -1, 0], "size":[1, 1, 1]}
+              {"offset":[-6,1, -3], "direction":[0, -1, 0], "size":[1, 1, 1]}
             ]},
+
             {"config_key":"SURFACES_F14", "config_id":"slat_l",    "group":[
-              {"offset":[5, 1, -1], "direction":[0, -1, 0], "size":[1, 1, 1]}
+              {"offset":[-5, 1, -1], "direction":[0, -1, 0], "size":[1, 1, 1]}
             ]},
             {"config_key":"SURFACES_F14", "config_id":"slat_r",    "group":[
-              {"offset":[-5,1, -1], "direction":[0, -1, 0], "size":[1, 1, 1]}
+              {"offset":[5,  1, -1], "direction":[0, -1, 0], "size":[1, 1, 1]}
             ]},
             {"config_key":"SURFACES_F14", "config_id":"brake_top", "group":[
-              {"offset":[0, 1, -8], "direction":[0, 1,  -7], "size":[1, 1, 1]}
+              {"offset":[0, 0.7, -6.8], "direction":[0, 1,  -7], "size":[1, 1, 1]}
             ]},
             {"config_key":"SURFACES_F14", "config_id":"brake_bottom","group":[
-              {"offset":[0, -1,-8], "direction":[0, -1, -7], "size":[1, 1, 1]}
+              {"offset":[0, 0.2,-6.8], "direction":[0, -1, -7], "size":[1, 1, 1]}
             ]}
           ]
         }
@@ -107,79 +111,79 @@
         "data":{
           "modules":[
             {"config_key":"GEAR_F14", "config_id":"gear_r", "group":[
-              {"offset":[0, 3,  7], "direction":[0, 0, 1], "size":[1, 1, 1]}
+              {"offset":[-2.3, -0, -1.4], "direction":[0, 0, 1], "size":[1, 1, 1]}
             ]},
 
             {"config_key":"GEAR_F14", "config_id":"susp_gear_r", "group":[
-              {"offset":[0, 3,  7], "direction":[0, 0, 1], "size":[1, 1, 1]}
+              {"offset":[-2.3, -1,-1.4], "direction":[0, 0, 1], "size":[1, 1, 1]}
             ]},
 
             {"config_key":"GEAR_F14", "config_id":"susp_gear_fit_r", "group":[
-              {"offset":[0, 3,  7], "direction":[0, 0, 1], "size":[1, 1, 1]}
+              {"offset":[-2.3, -0.6,-1.4], "direction":[0, 0, 1], "size":[1, 1, 1]}
             ]},
 
             {"config_key":"GEAR_F14", "config_id":"wheel_r", "group":[
-              {"offset":[0, 3,  7], "direction":[0, 0, 1], "size":[1, 1, 1]}
+              {"offset":[-2.5, -1.2, -1.4], "direction":[0, 0, 1], "size":[1, 1, 1]}
             ]},
 
             {"config_key":"GEAR_F14", "config_id":"gear_l", "group":[
-              {"offset":[0, 3,  7], "direction":[0, 0, 1], "size":[1, 1, 1]}
+              {"offset":[2.3, -0, -1.4], "direction":[0, 0, 1], "size":[1, 1, 1]}
             ]},
 
             {"config_key":"GEAR_F14", "config_id":"susp_gear_l", "group":[
-              {"offset":[0, 3,  7], "direction":[0, 0, 1], "size":[1, 1, 1]}
+              {"offset":[2.3, -1,-1.4], "direction":[0, 0, 1], "size":[1, 1, 1]}
             ]},
 
             {"config_key":"GEAR_F14", "config_id":"susp_gear_fit_l", "group":[
-              {"offset":[0, 3,  7], "direction":[0, 0, 1], "size":[1, 1, 1]}
+              {"offset":[2.3, -0.6,-1.4], "direction":[0, 0, 1], "size":[1, 1, 1]}
             ]},
 
             {"config_key":"GEAR_F14", "config_id":"wheel_l", "group":[
-              {"offset":[0, 3,  7], "direction":[0, 0, 1], "size":[1, 1, 1]}
+              {"offset":[2.5, -1.2, -1.4], "direction":[0, 0, 1], "size":[1, 1, 1]}
             ]},
 
             {"config_key":"GEAR_F14", "config_id":"gear_nose", "group":[
-              {"offset":[0, 3,  7], "direction":[0, 0, 1], "size":[1, 1, 1]}
+              {"offset":[0, -0.1,  6], "direction":[0, 0, 1], "size":[1, 1, 1]}
             ]},
 
             {"config_key":"GEAR_F14", "config_id":"susp_nose", "group":[
-              {"offset":[0, 3,  7], "direction":[0, 0, 1], "size":[1, 1, 1]}
+              {"offset":[0, -1,  6], "direction":[0, 0, 1], "size":[1, 1, 1]}
             ]},
 
             {"config_key":"GEAR_F14", "config_id":"wheel_nose", "group":[
-              {"offset":[0, 3,  7], "direction":[0, 0, 1], "size":[1, 1, 1]}
+              {"offset":[0, -1.4,  6], "direction":[0, 0, 1], "size":[1, 1, 1]}
             ]},
 
             {"config_key":"GEAR_F14", "config_id":"door_main_l", "group":[
-              {"offset":[0, 3,  7], "direction":[0, 0, 1], "size":[1, 1, 1]}
+              {"offset":[-2.5, 0.5,  0], "direction":[0, 0, 1], "size":[1, 1, 1]}
             ]},
 
             {"config_key":"GEAR_F14", "config_id":"door_main_r", "group":[
-              {"offset":[0, 3,  7], "direction":[0, 0, 1], "size":[1, 1, 1]}
+              {"offset":[2.5, 0.5,  0], "direction":[0, 0, 1], "size":[1, 1, 1]}
             ]},
 
             {"config_key":"GEAR_F14", "config_id":"door_rear_l", "group":[
-              {"offset":[0, 3,  7], "direction":[0, 0, 1], "size":[1, 1, 1]}
+              {"offset":[-2.5, 0.5, -1.5], "direction":[0, 0, 1], "size":[1, 1, 1]}
             ]},
 
             {"config_key":"GEAR_F14", "config_id":"door_rear_r", "group":[
-              {"offset":[0, 3,  7], "direction":[0, 0, 1], "size":[1, 1, 1]}
+              {"offset":[2.5, 0.5,  -1.5], "direction":[0, 0, 1], "size":[1, 1, 1]}
             ]},
 
             {"config_key":"GEAR_F14", "config_id":"door_inner_l", "group":[
-              {"offset":[0, 3,  7], "direction":[0, 0, 1], "size":[1, 1, 1]}
+              {"offset":[-2.2, 0.5,  -1], "direction":[0, 0, 1], "size":[1, 1, 1]}
             ]},
 
             {"config_key":"GEAR_F14", "config_id":"door_inner_r", "group":[
-              {"offset":[0, 3,  7], "direction":[0, 0, 1], "size":[1, 1, 1]}
+              {"offset":[2.2, 0.5,  -1], "direction":[0, 0, 1], "size":[1, 1, 1]}
             ]},
 
             {"config_key":"GEAR_F14", "config_id":"door_nose_r", "group":[
-              {"offset":[0, 3,  7], "direction":[0, 0, 1], "size":[1, 1, 1]}
+              {"offset":[-0.35, -0.32, 7], "direction":[0, 0, 1], "size":[1, 1, 1]}
             ]},
 
             {"config_key":"GEAR_F14", "config_id":"door_nose_l", "group":[
-              {"offset":[0, 3,  7], "direction":[0, 0, 1], "size":[1, 1, 1]}
+              {"offset":[0.35, -0.32,  7], "direction":[0, 0, 1], "size":[1, 1, 1]}
             ]}
 
           ]
@@ -190,35 +194,35 @@
         "data":{
           "modules":[
             {"config_key":"EXTERNAL_F14", "config_id":"canopy", "group":[
-              {"offset":[0, 2,  4], "direction":[0, 0, 1], "size":[1, 1, 5]}
+              {"offset":[0, 1.7, 3.4], "direction":[0, 0, 1], "size":[1, 1, 5]}
             ]},
 
             {"config_key":"EXTERNAL_F14", "config_id":"hook", "group":[
-              {"offset":[0, -1, -6], "direction":[0, 0,-1], "size":[1, 1, 5]}
+              {"offset":[0, -0.1, -5.5], "direction":[0, 0,-1], "size":[1, 1, 5]}
             ]},
 
             {"config_key":"EXTERNAL_F14", "config_id":"nozzle_r", "group":[
-              {"offset":[0, -1, -6], "direction":[0, 0,-1], "size":[1, 1, 5]}
+              {"offset":[-1.4, 0.2, -8.5], "direction":[0, 0,-1], "size":[1, 1, 5]}
             ]},
 
             {"config_key":"EXTERNAL_F14", "config_id":"nozzle_l", "group":[
-              {"offset":[0, -1, -6], "direction":[0, 0,-1], "size":[1, 1, 5]}
+              {"offset":[1.4, 0.2, -8.5], "direction":[0, 0,-1], "size":[1, 1, 5]}
             ]},
 
             {"config_key":"EXTERNAL_F14", "config_id":"force_1", "group":[
-              {"offset":[0, -1, -6], "direction":[0, 0,-1], "size":[1, 1, 5]}
+              {"offset":[-9, 0.5, -3], "direction":[0, 0,-1], "size":[1, 1, 5]}
             ]},
 
             {"config_key":"EXTERNAL_F14", "config_id":"force_2", "group":[
-              {"offset":[0, -1, -6], "direction":[0, 0,-1], "size":[1, 1, 5]}
+              {"offset":[9, 0.5, -3], "direction":[0, 0,-1], "size":[1, 1, 5]}
             ]},
 
             {"config_key":"EXTERNAL_F14", "config_id":"force_3", "group":[
-              {"offset":[0, -1, -6], "direction":[0, 0,-1], "size":[1, 1, 5]}
+              {"offset":[-5, 0.4, -8], "direction":[0, 0,-1], "size":[1, 1, 5]}
             ]},
 
             {"config_key":"EXTERNAL_F14", "config_id":"force_4", "group":[
-              {"offset":[0, -1, -6], "direction":[0, 0,-1], "size":[1, 1, 5]}
+              {"offset":[5,  0.4, -8], "direction":[0, 0,-1], "size":[1, 1, 5]}
             ]}
           ]
         }
@@ -228,37 +232,37 @@
         "data":{
           "modules":[
             {"config_key":"WAKE_EMITTERS_F14", "config_id":"bow_1", "group":[
-              {"offset":[0,      0,     8], "direction":[0, 0, 1], "size":[5, 2, 5]}
+              {"offset":[0,    0.3,  11], "direction":[0, 0, 1], "size":[1, 2, 3]}
             ]},
 
             {"config_key":"WAKE_EMITTERS_F14", "config_id":"bow_2", "group":[
-              {"offset":[0,      0,     5], "direction":[0, 0, 1], "size":[5, 2, 5]}
+              {"offset":[0,     0,     8], "direction":[0, 0, 1], "size":[2, 2, 3]}
             ]},
 
             {"config_key":"WAKE_EMITTERS_F14", "config_id":"bow_3",    "group":[
-              {"offset":[-2,     0,     2], "direction":[0, -1, 0], "size":[5, 2, 5]}
+              {"offset":[0,     0,     5], "direction":[0, -1, 0], "size":[2, 2, 3]}
             ]},
 
             {"config_key":"WAKE_EMITTERS_F14", "config_id":"bow_4",    "group":[
-              {"offset":[ 2,     0,      2], "direction":[0, -1, 0], "size":[5, 2, 5]}
+              {"offset":[-2,     0,    -1], "direction":[0, -1, 0], "size":[1, 2, 5]}
             ]},
 
             {"config_key":"WAKE_EMITTERS_F14", "config_id":"bow_5",    "group":[
-              {"offset":[0,     0,      2], "direction":[0, -1, 0], "size":[5, 2, 5]}
+              {"offset":[2,      0,    -1], "direction":[0, -1, 0], "size":[1, 2, 5]}
             ]},
 
             {"config_key":"WAKE_EMITTERS_F14", "config_id":"bow_6",    "group":[
-              {"offset":[-7,     0,     0], "direction":[0, -1, 0], "size":[5, 2, 5]}
+              {"offset":[-4,     0,     0], "direction":[0, -1, 0], "size":[3, 1, 2]}
             ]},
 
             {"config_key":"WAKE_EMITTERS_F14", "config_id":"bow_7",    "group":[
-              {"offset":[ 7,     0,     0], "direction":[0, -1, 0], "size":[5, 2, 5]}
+              {"offset":[ 4,     0,     0], "direction":[0, -1, 0], "size":[3, 1, 2]}
             ]},
             {"config_key":"WAKE_EMITTERS_F14", "config_id":"bow_8",    "group":[
-              {"offset":[-6,     0,    -6], "direction":[0, -1, 0], "size":[5, 2, 5]}
+              {"offset":[-2,     0,    -6], "direction":[0, -1, 0], "size":[2, 2, 4]}
             ]},
             {"config_key":"WAKE_EMITTERS_F14", "config_id":"bow_9",    "group":[
-              {"offset":[6,     0,     -6], "direction":[0, -1, 0], "size":[5, 2, 5]}
+              {"offset":[ 2,     0,    -6], "direction":[0, -1, 0], "size":[2, 2, 4]}
             ]}
           ]
         }
