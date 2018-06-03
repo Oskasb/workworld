@@ -1,15 +1,18 @@
 "use strict";
 
 define([
-        'Events'
+        'Events',
+        'ui/elements/EffectList'
     ],
     function(
-        evt
+        evt,
+        EffectList
     ) {
 
         var target;
 
         var speed;
+        var value;
 
         var tempVec1 = new THREE.Vector3();
         var tempVec2 = new THREE.Vector3();
@@ -69,6 +72,58 @@ define([
             fxArgs.vel.applyQuaternion(renderable.quat);
             fxArgs.vel.y +=0.1;
             spawnTargetEffect(renderable, target, 'prop_effect');
+        };
+
+        var min;
+
+        ModuleEffectFunctions.jetExhaustEffect = function(renderable, moduleState, trgt) {
+
+            target = renderable.getSpatialShapeById(trgt);
+
+            if (!target.effectList) {
+                target.effectList = new EffectList();
+            }
+
+        //    var effectList = target.effectList;
+
+            min = 0.5;
+            value = moduleState.getStateValue();
+
+            if (value < min) {
+
+                if (target.effectList.effectCount()) {
+                    target.effectList.disableEffectList();
+                }
+
+                return;
+            } else {
+
+                target.calculateWorldPosition(renderable.pos, renderable.quat, fxArgs.pos);
+
+                if (!target.effectList.effectCount()) {
+                    target.effectList.enableEffectList(['thruster_flame_effect'], fxArgs.pos)
+                } else {
+                    target.calculateWorldPosition(renderable.pos, renderable.quat, fxArgs.pos);
+                    target.effectList.setEffectListPosition(fxArgs.pos);
+                }
+
+            }
+
+            target.effectList.setEffectListScale((value - min) * 9);
+
+            fxArgs.vel.copy(target.direction);
+            fxArgs.vel.multiplyScalar(-moduleState.getStateValue());
+            fxArgs.vel.applyQuaternion(renderable.quat);
+
+            target.effectList.setEffectListVelocity(fxArgs.vel)
+
+        };
+
+        ModuleEffectFunctions.conTrailEffect = function(renderable, moduleState, trgt) {
+
+            target = renderable.getSpatialShapeById(trgt);
+            spawnTargetEffect(renderable, target, 'prop_effect');
+
         };
 
         ModuleEffectFunctions.rudderEffect = function(renderable, moduleState, trgt) {
@@ -283,6 +338,9 @@ define([
             }
 
             target = renderable.getSpatialShapeById(trgt);
+
+
+            if (!target) return;
             renderable.getDynamicSpatialVelocity(tempVec1);
             target.calculateWorldPosition(renderable.pos, renderable.quat, fxArgs.pos);
 

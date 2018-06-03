@@ -329,7 +329,7 @@ define([
         DynamicSpatial.prototype.tickPhysicsForces = function(ammoApi) {
 
             this.getSpatialQuaternion(tempQuat);
-
+            tempVec1.set(0, 0, 0);
             for (i = 0; i < this.dynamicShapes.length; i++) {
                 this.dynamicShapes[i].applyDynamicShapeForce(tempVec1);
                 this.applySpatialTorqueVector(ShapePhysics.torqueFromForcePoint(this.dynamicShapes[i].offset, tempVec1));
@@ -386,18 +386,18 @@ define([
 
             tempVec1.normalize();
 
-            tempEuler.setFromQuaternion(tempObj2.quaternion, 'YZX');
+        //    tempEuler.setFromQuaternion(tempObj2.quaternion, 'YZX');
 
-            this.spatialBuffer[ENUMS.BufferSpatial.PITCH_ANGLE] = tempEuler.x;
-            this.spatialBuffer[ENUMS.BufferSpatial.YAW_ANGLE]   = Math.atan2(tempVec2.z, tempVec2.x)  // tempEuler.y;
-            this.spatialBuffer[ENUMS.BufferSpatial.ROLL_ANGLE]  = tempEuler.z;
+            this.spatialBuffer[ENUMS.BufferSpatial.PITCH_ANGLE] = -Math.atan2(tempVec2.y, tempVec2.z);
+            this.spatialBuffer[ENUMS.BufferSpatial.YAW_ANGLE]   = Math.atan2(tempVec2.z, tempVec2.x);  // tempEuler.y;
+            this.spatialBuffer[ENUMS.BufferSpatial.ROLL_ANGLE]  = Math.atan2(tempVec2.x, tempVec2.y);
 
-            tempObj.lookAt(tempVec1);
-            tempEuler.setFromQuaternion(tempObj.quaternion, 'YZX');
+        //    tempObj.lookAt(tempVec1);
+        //    tempEuler.setFromQuaternion(tempObj.quaternion, 'YZX');
 
-            this.spatialBuffer[ENUMS.BufferSpatial.DIRECTION_X]  = tempEuler.x;
+            this.spatialBuffer[ENUMS.BufferSpatial.DIRECTION_X]  = -Math.atan2(tempVec1.y, tempVec1.z);
             this.spatialBuffer[ENUMS.BufferSpatial.DIRECTION_Y]  = Math.atan2(tempVec1.z, tempVec1.x);
-            this.spatialBuffer[ENUMS.BufferSpatial.DIRECTION_Z]  = tempEuler.z;
+            this.spatialBuffer[ENUMS.BufferSpatial.DIRECTION_Z]  = Math.atan2(tempVec1.y, tempVec1.x);
 
 
             tempObj.quaternion.set(0, 0, 0, 1);

@@ -45,6 +45,12 @@ define([
             return this.configObject.getConfigByDataKey(dataKey)
         };
 
+        DynamicRenderable.prototype.getDynamicEffect = function() {
+            return this.dynamicFeedback.getFeedbackDynamic()
+        };
+
+
+
         DynamicRenderable.prototype.getGeometryRenderable = function() {
             return this.renderableGeometry.getGeometry();
         };

@@ -6,6 +6,7 @@ define([
         'worker/protocol/WorldMessages',
         'worker/physics/AmmoAPI',
         'worker/physics/WaterPhysics',
+        'worker/physics/AirPhysics',
         'worker/dynamic/DynamicSpatial',
         'worker/physics/ShapePhysics'
     ],
@@ -15,6 +16,7 @@ define([
         WorldMessages,
         AmmoAPI,
         WaterPhysics,
+        AirPhysics,
         DynamicSpatial,
         ShapePhysics
     ) {
@@ -22,6 +24,7 @@ define([
     var comBuffer;
         var ammoApi;
         var waterPhysics;
+        var airPhysics;
         var protocolRequests;
         var worldMessages;
         var fetches = {};
@@ -49,6 +52,7 @@ define([
 
             var ammoReady = function() {
                 waterPhysics = new WaterPhysics();
+                airPhysics = new AirPhysics();
                 worldMessages = new WorldMessages();
                 protocolRequests = new ProtocolRequests();
                 protocolRequests.setMessageHandlers(worldMessages.getMessageHandlers());
@@ -97,6 +101,7 @@ define([
 
             for (var i = 0; i < dynamicSpatials.length; i++) {
                 waterPhysics.simulateDynamicSpatialInWater(dynamicSpatials[i], physTpf);
+                airPhysics.simulateDynamicSpatialInAir(dynamicSpatials[i], physTpf);
                 dynamicSpatials[i].sampleBodyState();
                 activeBodies += dynamicSpatials[i].getSpatialSimulateFlag();
                 passiveBodies += dynamicSpatials[i].getSpatialDisabledFlag();

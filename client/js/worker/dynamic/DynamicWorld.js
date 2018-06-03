@@ -195,11 +195,22 @@ define([
             var onReady = function(dgp) {
                 pieces.push(dgp);
                 WorldAPI.getContoledPiecePosAndQuat(tempVec1, tempQuat);
-                tempVec1.y = 40;
+                tempVec1.y = 20000;
                 newDynRen = WorldAPI.buildDynamicRenderable(dgp.configRead('renderable'), tempVec1, tempQuat, scale);
 
-                newDynRen.initRenderable(WorldAPI.attachDynamicRenderable);
+                var onRdy = function(dynRen) {
+                    WorldAPI.attachDynamicRenderable(dynRen);
+
+                    setTimeout(function() {
+                //        WorldAPI.initControlChange(dynRen)
+                    }, 500)
+
+                };
+
                 newDynRen.setGamePiece(dgp)
+                newDynRen.initRenderable(onRdy);
+            //
+
             };
 
             piece.initGamePiece(onReady);

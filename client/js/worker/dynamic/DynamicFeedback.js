@@ -20,12 +20,16 @@ define([
             this.torqueFeedback = new EffectList();
             this.velocityFeedback = new EffectList();
             this.angularVelocityFeedback = new EffectList();
-        };
 
+            this.dynamics = {};
+
+        };
 
         DynamicFeedback.prototype.configRead = function(dataKey) {
             return this.configObject.getConfigByDataKey(dataKey)
         };
+
+
 
         DynamicFeedback.prototype.initDynamicFeedback = function(feedbackId, onReady) {
 
@@ -45,6 +49,14 @@ define([
         DynamicFeedback.prototype.inheritQuaternion = function(quat) {
             this.quat = quat;
         };
+
+        DynamicFeedback.prototype.getFeedbackDynamic = function(effectId) {
+            if (!this.dynamics[effectId]) {
+                this.dynamics[effectId] = new EffectList();
+            }
+            return this.dynamics[effectId];
+        };
+
 
         DynamicFeedback.prototype.visualiseDynamicVector = function(dynaicSpatial, vidx, effectList, effectIds) {
 

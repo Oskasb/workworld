@@ -177,20 +177,45 @@ define([
         };
 
         DynamicShape.prototype.calculateVelocityFromAngularVelocity = function(angularVelocity, store) {
-            store.crossVectors(angularVelocity , this.offset);
+            store.crossVectors(this.offset , angularVelocity);
         };
 
+        var forceSmoothFactor = 0.5;
+
         DynamicShape.prototype.applyDynamicShapeForce = function(storeImpulse) {
+
             if (this.hasDynamicShapeForce()) {
+
+            //    tempVec2.copy(this.impulseVector);
+            //    tempVec2.multiplyScalar(forceSmoothFactor);
+
                 this.getDynamicShapeForce(this.impulseVector);
+
+            //
+            //    this.impulseVector.add(tempVec2);
+
+            //    this.impulseVector.copy(tempVec2);
+
+            //    this.impulseVector.multiplyScalar(forceSmoothFactor);
+
                 this.setVectorByFirstIndex(ENUMS.DynamicShape.ACTING_FORCE_X, this.impulseVector);
+
+
+            //    this.impulseVector.copy(tempVec2);
+            //    this.impulseVector.multiplyScalar(1-forceSmoothFactor);
+
                 this.getDynamicShapeOffset(this.offset);
-            //    PhysicsWorldAPI.applyLocalForceToBodyPoint(this.impulseVector, body, this.offset);
                 this.clearDynamicShapeForce();
+
+
             } else {
                 this.getDynamicShapeForce(this.impulseVector);
                 this.setVectorByFirstIndex(ENUMS.DynamicShape.ACTING_FORCE_X, this.impulseVector);
             }
+        //    this.impulseVector.multiplyScalar(1 - forceSmoothFactor);
+
+
+        //    this.addForceToDynamicShape(tempVec);
             storeImpulse.copy(this.impulseVector);
             return storeImpulse;
         };

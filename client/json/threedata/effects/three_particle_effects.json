@@ -245,7 +245,7 @@
             "system_key":"THREE",
             "renderer_id":"gpu_additive_atlas_renderer",
             "particle_id":"thruster_flame_particles",
-            "count":15,
+            "count":45,
             "simulation_id":"gpu_predictive_simulation"
           }
         },
@@ -359,7 +359,16 @@
             "simulation_id":"gpu_predictive_simulation"
           }
         },
-
+        {
+          "id":"condensation_trail",
+          "data":{
+            "system_key":"THREE",
+            "renderer_id":"gpu_normal_atlas_renderer",
+            "particle_id":"white_smoke",
+            "count":1,
+            "simulation_id":"gpu_predictive_simulation"
+          }
+        },
         {
           "id":"water_spray_particle_effect",
           "data":{

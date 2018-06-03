@@ -20,6 +20,10 @@
           "wave_splash":{
             "pool":2000,
             "effects":["water_foam_particle_effect"]
+          },
+          "condensation":{
+            "pool":1000,
+            "effects":["engine_throttle_smoke"]
           }
         }
       }

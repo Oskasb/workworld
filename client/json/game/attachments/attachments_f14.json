@@ -227,6 +227,38 @@
           ]
         }
       },
+
+      {
+        "id":"cockpit_system",
+        "data":{
+          "modules":[
+            {"config_key":"COCKPIT_F14", "config_id":"stick_pitch", "group":[
+              {"offset":[0, 0.6, 7.1], "direction":[0, 0, 1], "size":[1, 1, 1]}
+            ]},
+
+            {"config_key":"COCKPIT_F14", "config_id":"stick_roll", "group":[
+              {"offset":[0, 0.5, 7.1], "direction":[0, 0,-1], "size":[1, 1, 1]}
+            ]},
+
+            {"config_key":"COCKPIT_F14", "config_id":"throttle_l", "group":[
+              {"offset":[0.4, 1.0, 7.0], "direction":[0, 0,-1], "size":[1, 1, 1]}
+            ]},
+
+            {"config_key":"COCKPIT_F14", "config_id":"throttle_r", "group":[
+              {"offset":[0.45, 1.0, 7.0], "direction":[0, 0,-1], "size":[1, 1, 1]}
+            ]},
+
+            {"config_key":"COCKPIT_F14", "config_id":"pedal_l", "group":[
+              {"offset":[-0.25, 0.5, 7.7], "direction":[0, 0,-1], "size":[1, 1, 1]}
+            ]},
+
+            {"config_key":"COCKPIT_F14", "config_id":"pedal_r", "group":[
+              {"offset":[0.25, 0.5, 7.7], "direction":[0, 0,-1], "size":[1, 1, 1]}
+            ]}
+          ]
+        }
+      },
+
       {
         "id":"wake_emitters",
         "data":{
