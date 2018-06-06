@@ -5,13 +5,15 @@ define([
     'Events',
     '3d/SimpleSpatial',
     'PipelineAPI',
-    'ThreeAPI'
+    'ThreeAPI',
+    '3d/CanvasMain'
 
 ], function(
     evt,
     SimpleSpatial,
     PipelineAPI,
-    ThreeAPI
+    ThreeAPI,
+    CanvasMain
 ) {
 
     var i;
@@ -24,6 +26,8 @@ define([
 
     var DynamicMain = function() {
 
+        this.canvasMain = new CanvasMain();
+
         var standardGeo = function(e) {
             msg = evt.args(e).msg;
             console.log("Handle DYNAMIC_MODEL, STANDARD_GEOMETRY", msg);
@@ -33,6 +37,7 @@ define([
                 console.log("SimpleSpatial ready: ", boneConf, sSpat);
                 PipelineAPI.setCategoryKeyValue('DYNAMIC_BONES', sSpat.modelId, boneConf);
                 ThreeAPI.addToScene(sSpat.obj3d);
+                WorkerAPI.registerMainDynamicSpatial(sSpat.getDynamicSpatial());
             };
 
             ThreeAPI.loadMeshModel(simpSpat.modelId, simpSpat.obj3d);
@@ -43,23 +48,14 @@ define([
         evt.on(evt.list().DYNAMIC_MODEL, standardGeo);
     };
 
-    DynamicMain.prototype.setup3dScene = function(ready) {
-
-    };
-
-    DynamicMain.prototype.setupEffectPlayers = function(onReady) {
-
-    };
-
-    DynamicMain.prototype.updateSpatial = function(simpSpat) {
-
-    };
 
     DynamicMain.prototype.tickDynamicMain = function() {
 
         for (i = 0; i < spatials.length; i++) {
             spatials[i].updateSimpleSpatial();
         }
+
+        this.canvasMain.updateCanvasMain(spatials)
 
     };
 

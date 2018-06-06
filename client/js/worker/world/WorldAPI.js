@@ -250,7 +250,7 @@ define([
         };
 
         WorldAPI.updateWorldWorkerFrame = function(tpf, frame) {
-
+        //    WorldAPI.callSharedWorker(ENUMS.Worker.CANVAS_WORKER, ENUMS.Protocol.CANVAS_CALL_UPDATE, null);
             WorldAPI.getWorldCamera().applyCameraComBuffer(WorldAPI.getWorldComBuffer());
 
             WorldAPI.sendWorldMessage(ENUMS.Protocol.NOTIFY_FRAME, frame);

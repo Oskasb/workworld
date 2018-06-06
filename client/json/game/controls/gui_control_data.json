@@ -54,7 +54,11 @@
             {"widget":"STATE_GAUGE",    "label":"SPEED",  "configId":"angle_indicator",  "layout":{"margin_y":0.54}, "buffer":"currentDynamic", "channel":"SPEED_MPS"},
             {"widget":"STATE_GAUGE",    "label":"ALT"   , "configId":"angle_indicator",  "layout":{"margin_y":0.58}, "buffer":"currentDynamic", "channel":"POS_Y"},
             {"widget":"STATE_GAUGE",    "label":"POS X",  "configId":"angle_indicator",  "layout":{"margin_y":0.62}, "buffer":"currentDynamic", "channel":"POS_X"},
-            {"widget":"STATE_GAUGE",    "label":"POS Z",  "configId":"angle_indicator",  "layout":{"margin_y":0.66}, "buffer":"currentDynamic", "channel":"POS_Z"}
+            {"widget":"STATE_GAUGE",    "label":"POS Z",  "configId":"angle_indicator",  "layout":{"margin_y":0.66}, "buffer":"currentDynamic", "channel":"POS_Z"},
+
+            {"widget":"STATE_GAUGE",    "label":"AngVel X",  "configId":"angle_indicator",  "layout":{"margin_y":0.70}, "buffer":"currentDynamic", "channel":"ANGULAR_VEL_X"},
+            {"widget":"STATE_GAUGE",    "label":"AngVel Y",  "configId":"angle_indicator",  "layout":{"margin_y":0.75}, "buffer":"currentDynamic", "channel":"ANGULAR_VEL_Y"},
+            {"widget":"STATE_GAUGE",    "label":"AngVel Z",  "configId":"angle_indicator",  "layout":{"margin_y":0.80}, "buffer":"currentDynamic", "channel":"ANGULAR_VEL_Z"}
           ]
         }
       },
@@ -105,6 +109,13 @@
             {"widget":"ROLL_INDICATOR", "label":"AOA_X",  "configId":"aoa_y_indicator",  "layout":{"margin_y":0.65}, "buffer":"currentDynamic", "channel":"ROLL_ANGLE"},
             {"widget":"ROLL_INDICATOR", "label":"AOA_X",  "configId":"aoa_y_indicator",  "layout":{"margin_y":0.65}, "buffer":"currentDynamic", "channel":"DIRECTION_Z"},
 
+
+
+            {"widget":"ROLL_INDICATOR", "label":"AV_X",  "configId":"aoa_y_indicator",  "layout":{"margin_y":0.37, "margin_x":0.22}, "buffer":"currentDynamic", "channel":"ANGULAR_VEL_X"},
+            {"widget":"ROLL_INDICATOR", "label":"AV_Y",  "configId":"aoa_y_indicator",  "layout":{"margin_y":0.50, "margin_x":0.22}, "buffer":"currentDynamic", "channel":"ANGULAR_VEL_Y"},
+            {"widget":"ROLL_INDICATOR", "label":"AV_Z",  "configId":"aoa_y_indicator",  "layout":{"margin_y":0.65, "margin_x":0.22}, "buffer":"currentDynamic", "channel":"ANGULAR_VEL_Z"},
+
+
             {"widget":"DRAG_CONTROL",   "label":"RUDDER", "configId":"control_rudder",   "layout":{},"onUpdate":"sampleControl", "source":"rudder", "onDrag":"onDragControl",   "buffer":"inputState",     "channel":"DRAG_DISTANCE_X"},
             {"widget":"DRAG_CONTROL",   "label":"THR",    "configId":"control_throttle", "layout":{},"onUpdate":"sampleControl", "source":"engine", "onDrag":"onDragControl",   "buffer":"inputState",     "channel":"DRAG_DISTANCE_Y"},
             {"widget":"DRAG_AXIS",      "label":"CAM Z",  "configId":"drag_cam_z",       "layout":{},"onDrag":"dragCamZ",        "buffer":"worldComBuffer", "channel":"UI_CAM_DRAG_Z"}
@@ -122,7 +133,11 @@
             {"widget":"STATE_GAUGE",    "label":"SPEED",  "configId":"angle_indicator",  "layout":{"margin_y":0.54}, "buffer":"currentDynamic", "channel":"SPEED_MPS"},
             {"widget":"STATE_GAUGE",    "label":"ALT"   , "configId":"angle_indicator",  "layout":{"margin_y":0.58}, "buffer":"currentDynamic", "channel":"POS_Y"},
             {"widget":"STATE_GAUGE",    "label":"POS X",  "configId":"angle_indicator",  "layout":{"margin_y":0.62}, "buffer":"currentDynamic", "channel":"POS_X"},
-            {"widget":"STATE_GAUGE",    "label":"POS Z",  "configId":"angle_indicator",  "layout":{"margin_y":0.66}, "buffer":"currentDynamic", "channel":"POS_Z"}
+            {"widget":"STATE_GAUGE",    "label":"POS Z",  "configId":"angle_indicator",  "layout":{"margin_y":0.66}, "buffer":"currentDynamic", "channel":"POS_Z"},
+
+            {"widget":"STATE_GAUGE",    "label":"AngVel X",  "configId":"angle_indicator",  "layout":{"margin_y":0.70}, "buffer":"currentDynamic", "channel":"ANGULAR_VEL_X"},
+            {"widget":"STATE_GAUGE",    "label":"AngVel Y",  "configId":"angle_indicator",  "layout":{"margin_y":0.75}, "buffer":"currentDynamic", "channel":"ANGULAR_VEL_Y"},
+            {"widget":"STATE_GAUGE",    "label":"AngVel Z",  "configId":"angle_indicator",  "layout":{"margin_y":0.80}, "buffer":"currentDynamic", "channel":"ANGULAR_VEL_Z"}
           ]
         }
       },

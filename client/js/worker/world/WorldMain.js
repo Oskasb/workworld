@@ -64,7 +64,9 @@ define([
                 worldComBuffer = data;
                 EffectsAPI.initEffects(fxReady);
                 WorldAPI.setCom(ENUMS.BufferChannels.ENV_INDEX, 4);
+                console.log("PASS WORLDCOMBUFFER", data);
                 WorldAPI.callSharedWorker(ENUMS.Worker.PHYSICS_WORLD, ENUMS.Protocol.SET_WORLD_COM_BUFFER, worldComBuffer);
+            //    WorldAPI.callSharedWorker(ENUMS.Worker.CANVAS_WORKER, ENUMS.Protocol.SET_WORLD_COM_BUFFER, worldComBuffer);
             };
 
             new PipelineObject("SHARED_BUFFERS", ENUMS.Key.WORLD_COM_BUFFER, worldComReady)

@@ -86,6 +86,7 @@ define([
         DynamicSpatial.prototype.registerRigidBody = function(msg) {
             console.log("Request Physics for spatial from here...", msg);
             WorldAPI.callSharedWorker(ENUMS.Worker.PHYSICS_WORLD, ENUMS.Protocol.PHYSICS_BODY_ADD, [msg, this.getSpatialBuffer()])// this.terrainBody = this.terrainFunctions.addTerrainToPhysics(this.terrainOptions, this.terrain.array1d, this.origin.x, this.origin.z);
+        //    WorldAPI.callSharedWorker(ENUMS.Worker.CANVAS_WORKER, ENUMS.Protocol.CANVAS_DYNAMIC_ADD, [msg, this.getSpatialBuffer()])
         };
 
         //Used in the Dynamic World Worker
@@ -299,6 +300,14 @@ define([
             return this.spatialBuffer[ENUMS.BufferSpatial.STILL_FRAMES];
         };
 
+        DynamicSpatial.prototype.setSpatialPlayerControl = function(value) {
+            this.spatialBuffer[ENUMS.BufferSpatial.PLAYER_CONTROL] = value;
+        };
+
+        DynamicSpatial.prototype.getSpatialPlayerControl = function() {
+            return this.spatialBuffer[ENUMS.BufferSpatial.PLAYER_CONTROL];
+        };
+
         DynamicSpatial.prototype.isStatic = function() {
             return 1 - this.getSpatialDynamicFlag();
         };
@@ -376,28 +385,31 @@ define([
 
         //    tempVec3.set(0, 1, 0);
 
-            tempVec2.set(0, 0, 1);
-            tempVec2.applyQuaternion(tempObj2.quaternion);
+        //    tempVec2.set(0, 0, 1);
+        //    tempVec2.applyQuaternion(tempObj2.quaternion);
 
 
             //    tempVec3.applyQuaternion(tempObj2.quaternion);
         //    tempObj2.up.copy(tempVec3);
         //    tempObj.up.copy(tempVec3);
 
-            tempVec1.normalize();
+         //   tempVec1.normalize();
 
-        //    tempEuler.setFromQuaternion(tempObj2.quaternion, 'YZX');
+         //   tempObj.lookAt(tempVec2);
+            //   tempEuler.setFromQuaternion(tempObj.quaternion, 'YZX');
 
-            this.spatialBuffer[ENUMS.BufferSpatial.PITCH_ANGLE] = -Math.atan2(tempVec2.y, tempVec2.z);
-            this.spatialBuffer[ENUMS.BufferSpatial.YAW_ANGLE]   = Math.atan2(tempVec2.z, tempVec2.x);  // tempEuler.y;
-            this.spatialBuffer[ENUMS.BufferSpatial.ROLL_ANGLE]  = Math.atan2(tempVec2.x, tempVec2.y);
+            tempEuler.setFromQuaternion(tempObj2.quaternion, 'YZX');
 
-        //    tempObj.lookAt(tempVec1);
-        //    tempEuler.setFromQuaternion(tempObj.quaternion, 'YZX');
+            this.spatialBuffer[ENUMS.BufferSpatial.PITCH_ANGLE] = tempEuler.x  //  -Math.atan2(tempVec2.y, tempVec2.z);
+            this.spatialBuffer[ENUMS.BufferSpatial.YAW_ANGLE]   = tempEuler.y  //  Math.atan2(tempVec2.z, tempVec2.x);  // tempEuler.y;
+            this.spatialBuffer[ENUMS.BufferSpatial.ROLL_ANGLE]  = tempEuler.z  //  Math.atan2(tempVec2.x, tempVec2.y);
 
-            this.spatialBuffer[ENUMS.BufferSpatial.DIRECTION_X]  = -Math.atan2(tempVec1.y, tempVec1.z);
-            this.spatialBuffer[ENUMS.BufferSpatial.DIRECTION_Y]  = Math.atan2(tempVec1.z, tempVec1.x);
-            this.spatialBuffer[ENUMS.BufferSpatial.DIRECTION_Z]  = Math.atan2(tempVec1.y, tempVec1.x);
+            tempObj.lookAt(tempVec1);
+            tempEuler.setFromQuaternion(tempObj.quaternion, 'YZX');
+
+            this.spatialBuffer[ENUMS.BufferSpatial.DIRECTION_X]  = tempEuler.x  //  -Math.atan2(tempVec1.y, tempVec1.z);
+            this.spatialBuffer[ENUMS.BufferSpatial.DIRECTION_Y]  = tempEuler.y  //  Math.atan2(tempVec1.z, tempVec1.x);
+            this.spatialBuffer[ENUMS.BufferSpatial.DIRECTION_Z]  = tempEuler.z  //  Math.atan2(tempVec1.y, tempVec1.x);
 
 
             tempObj.quaternion.set(0, 0, 0, 1);
@@ -512,11 +524,20 @@ define([
                 this.applySpatialPositionXYZ(p.x(), p.y(), p.z());
                 this.applySpatialQuaternionXYZW(q.x(), q.y(), q.z(), q.w());
 
+
+
+
                 vel = this.body.getLinearVelocity();
+
                 this.applyVelocityXYZ(vel.x(), vel.y(), vel.z());
 
                 angVel = this.body.getAngularVelocity();
-                this.applyAngularVelocityXYZ(angVel.x(), angVel.y(), angVel.z());
+
+                tempVec1.set(angVel.x(), angVel.y(), angVel.z());
+                this.getSpatialQuaternion(tempQuat);
+                tempQuat.conjugate();
+                tempVec1.applyQuaternion(tempQuat);
+                this.applyAngularVelocityXYZ(tempVec1.x, tempVec1.y, tempVec1.z);
 
             } else {
                 PhysicsWorldAPI.registerPhysError();

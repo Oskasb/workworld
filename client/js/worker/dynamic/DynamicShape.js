@@ -32,6 +32,9 @@ define([
             this.direction = new THREE.Vector3();
             this.impulseVector = new THREE.Vector3();
             this.actingForce = new THREE.Vector3();
+
+            this.smoothForce = new THREE.Vector3();
+
             this.radius = 0;
             this.lift = ["box",  "box",  "box"];
             this.applyShapeConfig(shapeConfig);
@@ -154,6 +157,13 @@ define([
             return this.getVectorByFirstIndex(ENUMS.DynamicShape.OFFSET_X, vec3);
         };
 
+        DynamicShape.prototype.setDynamicIncidenceAngles = function(vec3) {
+            this.setVectorByFirstIndex(ENUMS.DynamicShape.INCIDENCE_X, vec3);
+        };
+
+        DynamicShape.prototype.getDynamicIncidenceAngles = function(vec3) {
+            return this.getVectorByFirstIndex(ENUMS.DynamicShape.INCIDENCE_X, vec3);
+        };
 
         DynamicShape.prototype.hasDynamicShapeForce = function() {
             return this.buffer[this.bsi + ENUMS.DynamicShape.HAS_FORCE];
@@ -180,7 +190,7 @@ define([
             store.crossVectors(this.offset , angularVelocity);
         };
 
-        var forceSmoothFactor = 0.5;
+        var forceSmoothFactor = 0.2;
 
         DynamicShape.prototype.applyDynamicShapeForce = function(storeImpulse) {
 
@@ -211,12 +221,22 @@ define([
             } else {
                 this.getDynamicShapeForce(this.impulseVector);
                 this.setVectorByFirstIndex(ENUMS.DynamicShape.ACTING_FORCE_X, this.impulseVector);
+                storeImpulse.copy(this.impulseVector);
+                return storeImpulse;
             }
         //    this.impulseVector.multiplyScalar(1 - forceSmoothFactor);
+            if (isNaN(this.impulseVector.x)) {
+                return storeImpulse
+            }
 
+            this.smoothForce.x += this.impulseVector.x * forceSmoothFactor;
+            this.smoothForce.y += this.impulseVector.y * forceSmoothFactor;
+            this.smoothForce.z += this.impulseVector.z * forceSmoothFactor;
 
+        //    this.smoothForce.addVectors(this.smoothForce, this.impulseVector);
+            this.smoothForce.multiplyScalar(1-forceSmoothFactor)
         //    this.addForceToDynamicShape(tempVec);
-            storeImpulse.copy(this.impulseVector);
+            storeImpulse.copy(this.smoothForce);
             return storeImpulse;
         };
 

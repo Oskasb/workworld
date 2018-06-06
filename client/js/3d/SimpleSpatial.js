@@ -114,6 +114,10 @@ define([
             this.dynamicSkeleton.updateDynamicSkeleton()
         };
 
+        SimpleSpatial.prototype.getDynamicSpatial = function() {
+            return this.dynamicSpatial
+        };
+
         SimpleSpatial.prototype.setReady = function(func) {
             this.onReady = func;
         };

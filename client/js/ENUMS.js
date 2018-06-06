@@ -28,7 +28,11 @@ if(typeof(ENUMS) === "undefined"){
         SET_GEOMETRY_BUFFER:    18,
         REGISTER_GEOMETRY:      19,
         FETCH_CONFIG_DATA:      20,
-        SET_CONFIG_DATA:        21
+        SET_CONFIG_DATA:        21,
+        CANVAS_DYNAMIC_ADD:     22,
+        CANVAS_CALL_UPDATE:     23,
+        REGISTER_CANVAS_BUFFER: 24,
+        OFFSCREEN_CANVAS:       25
     };
 
     ENUMS.BufferChannels = {
@@ -106,7 +110,9 @@ if(typeof(ENUMS) === "undefined"){
         EVENT_PROGRESS:     67,
         DRAW_DYN_SHAPES:    68,
         DRAW_SHAPE_FORCES:  69,
-        DRAW_ATTACHMENTS:   70
+        DRAW_ATTACHMENTS:   70,
+        DRAW_AERODYNAMICS:  71,
+        CONTROLLED_POINTER: 72
 
     };
 
@@ -169,6 +175,7 @@ if(typeof(ENUMS) === "undefined"){
         DIRECTION_X:        48,
         DIRECTION_Y:        49,
         DIRECTION_Z:        50,
+        PLAYER_CONTROL:     51,
         DYNAMIC_FIRST_INDEX:64,
         BONE_FIRST_INDEX:   2048,
         BUFFER_SIZE:        4096
@@ -190,7 +197,10 @@ if(typeof(ENUMS) === "undefined"){
         ACTING_FORCE_X:     12,
         ACTING_FORCE_Y:     13,
         ACTING_FORCE_Z:     14,
-        STRIDE:             16
+        INCIDENCE_X:        15,
+        INCIDENCE_Y:        16,
+        INCIDENCE_Z:        17,
+        STRIDE:             18
     };
 
     ENUMS.DynamicBone = {
@@ -213,7 +223,8 @@ if(typeof(ENUMS) === "undefined"){
         WORLD:              0,
         STATIC_WORLD:       1,
         PHYSICS_WORLD:      2,
-        DATA:               3
+        CANVAS_WORKER:      3,
+        DATA:               4
     };
 
     ENUMS.ClientStates = {

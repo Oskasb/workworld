@@ -11,10 +11,12 @@ define([
         ThreeModelLoader
     ) {
         var WorldAPI;
+
         var WorldMessages = function(wApi) {
             WorldAPI = wApi;
             this.messageHandlers = [];
             this.setupMessageHandlers()
+
         };
 
         WorldMessages.prototype.setupMessageHandlers = function() {
@@ -84,7 +86,17 @@ define([
             };
 
             this.messageHandlers[ENUMS.Protocol.SET_WORLD_COM_BUFFER] = function(msg) {
-                PhysicsWorldAPI.setWorldComBuffer(msg[1])
+
+                console.log("SET WORLD COM BUFFER", msg);
+
+                if (typeof(PhysicsWorldAPI) !== 'undefined') {
+                    PhysicsWorldAPI.setWorldComBuffer(msg[1])
+                }
+
+                if (typeof(CanvasWorkerAPI) !== 'undefined') {
+                    CanvasWorkerAPI.setWorldComBuffer(msg[1])
+                }
+
             };
 
             this.messageHandlers[ENUMS.Protocol.FETCH_GEOMETRY_BUFFER] = function(msg) {
@@ -102,6 +114,25 @@ define([
             this.messageHandlers[ENUMS.Protocol.SET_GEOMETRY_BUFFER] = function(msg) {
                 PhysicsWorldAPI.setPhysicsGeometryBuffer(msg[1])
             };
+
+            this.messageHandlers[ENUMS.Protocol.CANVAS_DYNAMIC_ADD] = function(msg) {
+                CanvasWorkerAPI.addSpatialToCanvasWorker(msg[1])
+            };
+            this.messageHandlers[ENUMS.Protocol.CANVAS_CALL_UPDATE] = function() {
+                CanvasWorkerAPI.callCanvasUpdate()
+            };
+
+            this.messageHandlers[ENUMS.Protocol.REGISTER_CANVAS_BUFFER] = function(msg) {
+
+                console.log("REG CANVAS SHARED BUFFER", msg);
+            };
+
+            this.messageHandlers[ENUMS.Protocol.OFFSCREEN_CANVAS] = function(msg) {
+
+                CanvasWorkerAPI.registerOffscreenCanvas(msg)
+
+            };
+
 
         };
 

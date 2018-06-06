@@ -27,7 +27,7 @@ define([],
             WorldAPI.getWorldCamera().getCameraPosition(this.camSourcePosition);
 
             if (this.source) {
-                this.source.setIsControlled(false);
+                this.source.setIsControlled(0);
             }
 
             WorldAPI.getContoledPiecePosAndQuat(this.sourcePosition);
@@ -62,7 +62,8 @@ define([],
 
             WorldAPI.setControlledRenderable(this.target);
             this.target.getGamePiece().activatePieceControls(onReady);
-            this.target.setIsControlled(true);
+            this.target.setIsControlled(1);
+            WorldAPI.addTextMessage("Control PTR:", WorldAPI.getCom(ENUMS.BufferChannels.CONTROLLED_POINTER));
             this.target = null;
         };
 

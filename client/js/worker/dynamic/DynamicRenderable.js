@@ -132,11 +132,18 @@ define([
         };
 
         DynamicRenderable.prototype.setIsControlled = function(bool) {
-            this.isControlled = bool;
+            this.dynamicSpatial.setSpatialPlayerControl(bool);
+            if (bool) {
+                WorldAPI.setCom(ENUMS.BufferChannels.CONTROLLED_POINTER, this.dynamicSpatial.getSpatialBodyPointer())
+            } else {
+               if (WorldAPI.getCom(ENUMS.BufferChannels.CONTROLLED_POINTER) === this.dynamicSpatial.getSpatialBodyPointer()) {
+                   WorldAPI.setCom(ENUMS.BufferChannels.CONTROLLED_POINTER, 0)
+               }
+            }
         };
 
         DynamicRenderable.prototype.getIsControlled = function() {
-            return this.isControlled;
+            return this.dynamicSpatial.getSpatialPlayerControl();
         };
 
         DynamicRenderable.prototype.setCameraLook = function(x, y, z) {

@@ -64,14 +64,14 @@ define([
             dynSpat.getVectorByFirstIndex(ENUMS.BufferSpatial.ANGULAR_VEL_X, tempAngVelVec);
             dynSpat.getVectorByFirstIndex(ENUMS.BufferSpatial.ANGLE_OF_ATTACK_X, AoAVec);
 
-            liftVec.set(0, AoAVec.x * speed * speed, 0);
+        //    liftVec.set(0, AoAVec.x * speed * speed, 0);
 
-            liftVec.applyQuaternion(tempQuat);
+        //    liftVec.applyQuaternion(tempQuat);
 
-            dynSpat.applySpatialImpulseVector(liftVec);
-            dragVec.copy(tempVelVec);
-            dragVec.multiplyScalar(-speed);
-            dynSpat.applySpatialImpulseVector(dragVec);
+        //    dynSpat.applySpatialImpulseVector(liftVec);
+        //    dragVec.copy(tempVelVec);
+        //    dragVec.multiplyScalar(-speed);
+        //    dynSpat.applySpatialImpulseVector(dragVec);
 
             totalSubmergedVolume = 0;
             unsubmergedVolume = 0;
@@ -85,13 +85,26 @@ define([
                 shape.calculateVelocityFromAngularVelocity(tempAngVelVec, tempVolumeVelVec);
 
                 tempVolumeVelVec.add(tempVelVec);
-
                 compoundAoAVec.copy(AoAVec);
-                compoundAoAVec.x -= tempAngVelVec.y * shape.offset.z / sqrtSpd;
-                compoundAoAVec.x += tempAngVelVec.x * shape.offset.z / sqrtSpd;
-                compoundAoAVec.y += tempAngVelVec.z * shape.offset.x / sqrtSpd;
-                compoundAoAVec.y -= tempAngVelVec.x * shape.offset.z / sqrtSpd;
-                compoundAoAVec.y += tempAngVelVec.y * shape.offset.x / sqrtSpd; // yaw rotation...
+
+            //    compoundAoAVec.x += -tempAngVelVec.y  * shape.offset.z // speed;
+                compoundAoAVec.x += tempAngVelVec.x  * shape.offset.z // speed;
+                compoundAoAVec.y += tempAngVelVec.y  * shape.offset.z // speed;
+
+            //    compoundAoAVec.y += tempAngVelVec.z * shape.offset.x / sqrtSpd;
+
+            //    compoundAoAVec.y -= tempAngVelVec.x * shape.offset.z / sqrtSpd;
+
+            //    compoundAoAVec.y += tempAngVelVec.y * shape.offset.x / sqrtSpd; // yaw rotation...
+
+            //    compoundAoAVec.x -= tempAngVelVec.y * shape.offset.z / sqrtSpd;
+            //    compoundAoAVec.x += tempAngVelVec.x * shape.offset.z / sqrtSpd;
+            //    compoundAoAVec.x += tempAngVelVec.z * shape.offset.x / sqrtSpd;
+
+            //    compoundAoAVec.y -= tempAngVelVec.y * shape.offset.z / sqrtSpd;
+            //    compoundAoAVec.y += tempAngVelVec.y * shape.offset.x / sqrtSpd;
+            //    compoundAoAVec.y -= tempAngVelVec.x * shape.offset.z / sqrtSpd;
+            //    compoundAoAVec.y += tempAngVelVec.y * shape.offset.x / sqrtSpd; // yaw rotation...
 
                 ShapePhysics.calculateShapeDynamicForce(dynSpat, shape, tempVolumeVelVec, tempQuat, tempVec2, compoundAoAVec, speed, density);
 

@@ -164,7 +164,6 @@ define([
         };
 
 
-
         ThreeTextureMaker.loadTextures = function() {
 
             var textureListLoaded = function(scr, data) {
@@ -189,8 +188,6 @@ define([
                     textureImages[data[i].particle_texture] = textureStore;
                     loadImage(textureStore);
                 }
-
-
             };
 
             new PipelineObject("MATERIALS", "THREE", textureListLoaded);
@@ -199,8 +196,6 @@ define([
 
 
         ThreeTextureMaker.createImageTexture = function(srcUrl) {
-
-
 
             var texture = new THREE.Texture(canvas);
 

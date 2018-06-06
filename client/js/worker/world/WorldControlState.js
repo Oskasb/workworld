@@ -114,7 +114,7 @@ define([
             }
 
             if (this.getControlledRenderable()) {
-                this.getControlledRenderable().setIsControlled(false);
+                this.getControlledRenderable().setIsControlled(0);
                 this.getControlledRenderable().getGamePiece().deactivatePieceControls();
             }
 

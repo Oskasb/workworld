@@ -350,7 +350,8 @@ define([
             var buffer = WorldAPI.getWorldComBuffer();
 
             var panelConf = [
-                {label:'ATTACHMENTS', configId:'default', layout:subTabListLayout, onClick:null, buffer:buffer, channel:ENUMS.BufferChannels.DRAW_ATTACHMENTS}
+                {label:'ATTACHMENTS', configId:'default', layout:subTabListLayout, onClick:null, buffer:buffer, channel:ENUMS.BufferChannels.DRAW_ATTACHMENTS},
+                {label:'AERODYNAMICS', configId:'default', layout:subTabListLayout, onClick:null, buffer:buffer, channel:ENUMS.BufferChannels.DRAW_AERODYNAMICS}
             ];
 
             this.buildCompoundPanel(panelConf, buttonStore, 2);

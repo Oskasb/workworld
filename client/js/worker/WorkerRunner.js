@@ -16,6 +16,7 @@ define([
         var worldCommBufferSize = 256;
         var staticWorldWorker;
         var physicsWorldWorker;
+        var canvasWorker;
 
         var WorkerRunner = function() {
             this.potocolRequests = new ProtocolRequests();
@@ -55,7 +56,6 @@ define([
 
             staticWorldWorker = new SharedWorker('./client/js/worker/StaticWorldWorker.js');
             staticWorldWorker.port.start();
-        //    staticWorldWorker.port.postMessage([ENUMS.Protocol.SET_WORLD_COM_BUFFER, worldComBuffer]);
             return staticWorldWorker;
         };
 
@@ -69,6 +69,18 @@ define([
             physicsWorldWorker = new SharedWorker('./client/js/worker/PhysicsWorldWorker.js');
             physicsWorldWorker.port.start();
             return physicsWorldWorker;
+        };
+
+        WorkerRunner.prototype.initSharedCanvasWorker = function() {
+
+            if (canvasWorker) {
+                console.log("canvasWorker already initiated... TERMINATING");
+                canvasWorker.terminate();
+            }
+
+            canvasWorker = new SharedWorker('./client/js/worker/CanvasWorker.js');
+            canvasWorker.port.start();
+            return canvasWorker;
         };
 
         WorkerRunner.prototype.registerWorkerHandlers = function(handlers) {

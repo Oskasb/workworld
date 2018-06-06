@@ -127,8 +127,8 @@ define([
         };
 
 
-        ShapePhysics.calculateSurfaceLiftForce = function(area, velocity, angleOfAttack, curveName) {
-            return area*velocity*MATH.valueFromCurve(MATH.angleInsideCircle(angleOfAttack*2), liftCurves[curveName])
+        ShapePhysics.calculateSurfaceLiftForce = function(area, velocity, anglesOfIncidence, curveName) {
+            return area*velocity*MATH.valueFromCurve(MATH.angleInsideCircle(anglesOfIncidence), liftCurves[curveName])
         };
 
         ShapePhysics.curveLift = function(angleOfAttack, curveName) {
@@ -175,15 +175,17 @@ define([
 
             tempEuler.setFromQuaternion(tempObj.quaternion, 'YZX');
 
-            anglesOfIncidence.x = MATH.addAngles(AoAVec.x , -tempEuler.x  );
-            anglesOfIncidence.y = MATH.addAngles(AoAVec.y , tempEuler.y  );
-            anglesOfIncidence.z = MATH.addAngles(AoAVec.z , tempEuler.z  );
+            anglesOfIncidence.x = MATH.addAngles(AoAVec.x , -tempEuler.x );
+            anglesOfIncidence.y = AoAVec.y // MATH.addAngles(AoAVec.y , tempEuler.y  );
+            anglesOfIncidence.z = AoAVec.z // MATH.addAngles(AoAVec.z , tempEuler.z  );
 
             vol = volumeOfVec(dynamicShape.size);
 
-            ShapePhysics.calculateSurfaceDragForce(tempVec, anglesOfIncidence, velocity, vol, dragVec);
+            dynamicShape.getDynamicShapeQuaternion(tempQuat);
 
-            dragVec.multiplyScalar( density * coefficients['base_drag']);
+            dynamicShape.setDynamicIncidenceAngles(anglesOfIncidence);
+
+            dragVec.multiplyScalar(speed * density * coefficients['base_drag']);
 
         //    dynSpat.applySpatialImpulseVector(dragVec);
         //    dragVec.multiplyScalar(0.01);
@@ -201,24 +203,24 @@ define([
         //    dragVec.applyQuaternion(tempRootQuat);
         //    dragVec.z *= -1;
 
-            dynamicShape.addForceToDynamicShape(dragVec);
+        //    dynamicShape.addForceToDynamicShape(dragVec);
 
             liftVec.set(0, 0, 0);
 
             curveId = dynamicShape.getAxisLiftCurve(0);
 
             if (curveId) {
-                liftVec.x = ShapePhysics.calculateSurfaceLiftForce(dynamicShape.size.y * dynamicShape.size.z, speed, anglesOfIncidence.y, curveId);
+            //    liftVec.x = ShapePhysics.calculateSurfaceLiftForce(dynamicShape.size.y * dynamicShape.size.z, speed, anglesOfIncidence.y, curveId);
             }
 
             curveId = dynamicShape.getAxisLiftCurve(1);
             if (curveId) {
-                liftVec.y =-ShapePhysics.calculateSurfaceLiftForce(dynamicShape.size.x * dynamicShape.size.z, speed, anglesOfIncidence.x, curveId);
+                liftVec.y = ShapePhysics.calculateSurfaceLiftForce(dynamicShape.size.x * dynamicShape.size.z, speed, anglesOfIncidence.x, curveId);
             }
 
             curveId = dynamicShape.getAxisLiftCurve(2);
             if (curveId) {
-                liftVec.z = ShapePhysics.calculateSurfaceLiftForce(dynamicShape.size.y * dynamicShape.size.x, speed, anglesOfIncidence.z, curveId);
+            //    liftVec.z = ShapePhysics.calculateSurfaceLiftForce(dynamicShape.size.y * dynamicShape.size.x, speed, anglesOfIncidence.z, curveId);
             }
 
             liftVec.multiplyScalar(speed * density * coefficients['base_lift'] ) // 0.016);

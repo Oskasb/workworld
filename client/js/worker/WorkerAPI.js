@@ -15,6 +15,8 @@ define([
         var clientMessages;
         var onWorkerFrameCallbacks = [];
 
+        var dynamicSpatialsMain = {};
+
         var comBuffer;
 
         var wakeupFunction = function() {};
@@ -46,6 +48,14 @@ define([
             return comBuffer[index]
         };
 
+        WorkerAPI.registerMainDynamicSpatial = function(dynSpat) {
+            dynamicSpatialsMain[dynSpat.getSpatialBodyPointer()] = dynSpat;
+        };
+
+        WorkerAPI.getDynamicByPointer = function(pointer) {
+            return dynamicSpatialsMain[pointer];
+        };
+
         WorkerAPI.addOnWorkerFrameCallback = function(cb) {
             onWorkerFrameCallbacks.push(cb);
         };
@@ -74,6 +84,11 @@ define([
             if (workerKey === ENUMS.Worker.STATIC_WORLD) {
                 return workerRunner.initSharedStaticWorldWorker();
             }
+
+            if (workerKey === ENUMS.Worker.CANVAS_WORKER) {
+        //        return workerRunner.initSharedCanvasWorker();
+            }
+
 
             console.log("No worker create call for workerKey", workerKey);
 

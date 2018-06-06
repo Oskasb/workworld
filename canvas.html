@@ -1,0 +1,41 @@
+<html>
+
+<head>
+
+    <title>canvas</title>
+
+    <link rel="stylesheet" type="text/css" href="./client/css/base.css" />
+    <script src="./client/js/ENUMS.js"></script>
+
+
+</head>
+
+<body id="canvas_window">
+    <canvas id="canvas"></canvas>
+</body>
+
+<script>
+
+    var canvasWorker = new SharedWorker('./client/js/worker/CanvasWorker.js');
+
+    canvasWorker.port.start();
+
+    canvasWorker.port.onmessage = function(e) {
+        console.log("Canvas message: ", e);
+    };
+
+
+    var world_canvas = document.getElementById("canvas");
+    world_canvas.height = 1024;
+    world_canvas.width = 1024;
+
+    var offscreen = world_canvas.transferControlToOffscreen();
+
+
+    canvasWorker.port.postMessage([ENUMS.Protocol.OFFSCREEN_CANVAS, offscreen], [offscreen]);
+    // ... some drawing for the first canvas using the gl context ...
+
+
+</script>
+
+</html>

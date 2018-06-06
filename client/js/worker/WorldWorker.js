@@ -56,6 +56,7 @@ require(
 
         WorldAPI.sendWorldMessage(ENUMS.Protocol.REQUEST_SHARED_WORKER, ENUMS.Worker.STATIC_WORLD);
         WorldAPI.sendWorldMessage(ENUMS.Protocol.REQUEST_SHARED_WORKER, ENUMS.Worker.PHYSICS_WORLD);
+    //    WorldAPI.sendWorldMessage(ENUMS.Protocol.REQUEST_SHARED_WORKER, ENUMS.Worker.CANVAS_WORKER);
 
         setTimeout(function() {
             WorldAPI.initWorld(onWorkerReady);
