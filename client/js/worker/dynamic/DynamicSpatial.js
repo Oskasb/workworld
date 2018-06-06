@@ -378,38 +378,68 @@ define([
             return this.spatialBuffer[ENUMS.BufferSpatial.SPEED_MPS];
         };
 
+        var q;
+
         DynamicSpatial.prototype.computeState = function() {
             this.getSpatialVelocity(tempVec1);
             this.spatialBuffer[ENUMS.BufferSpatial.SPEED_MPS] = tempVec1.length();
             this.getSpatialQuaternion(tempObj2.quaternion);
 
-        //    tempVec3.set(0, 1, 0);
-
         //    tempVec2.set(0, 0, 1);
-        //    tempVec2.applyQuaternion(tempObj2.quaternion);
+            tempVec3.set(0, 1, 0);
+        //    tempObj2.up.copy(tempVec3)
+            //
+            tempVec3.applyQuaternion(tempObj2.quaternion);
+        //    tempObj2.up.copy(tempVec3);
+
+            tempVec2.set(0, 0, 1);
+            tempVec2.applyQuaternion(tempObj2.quaternion);
 
 
             //    tempVec3.applyQuaternion(tempObj2.quaternion);
         //    tempObj2.up.copy(tempVec3);
         //    tempObj.up.copy(tempVec3);
 
-         //   tempVec1.normalize();
+            tempObj.up.copy(tempVec3);
+            tempObj.lookAt(tempVec2);
+        //    tempEuler.setFromQuaternion(tempObj.quaternion, 'YZX');
 
-         //   tempObj.lookAt(tempVec2);
-            //   tempEuler.setFromQuaternion(tempObj.quaternion, 'YZX');
+            MATH.setCalcVec(tempVec3);
+            tempQuat.copy(tempObj.quaternion);
+            this.spatialBuffer[ENUMS.BufferSpatial.PITCH_ANGLE] = MATH.pitchFromQuaternion(tempObj.quaternion);
 
-            tempEuler.setFromQuaternion(tempObj2.quaternion, 'YZX');
+            tempObj.quaternion.set(0, 0, 0, 1);
+            tempObj.rotateY(tempObj2.rotation.y);
+            this.spatialBuffer[ENUMS.BufferSpatial.YAW_ANGLE]   = MATH.yawFromQuaternion(tempObj.quaternion);
 
-            this.spatialBuffer[ENUMS.BufferSpatial.PITCH_ANGLE] = tempEuler.x  //  -Math.atan2(tempVec2.y, tempVec2.z);
-            this.spatialBuffer[ENUMS.BufferSpatial.YAW_ANGLE]   = tempEuler.y  //  Math.atan2(tempVec2.z, tempVec2.x);  // tempEuler.y;
-            this.spatialBuffer[ENUMS.BufferSpatial.ROLL_ANGLE]  = tempEuler.z  //  Math.atan2(tempVec2.x, tempVec2.y);
+            tempObj.quaternion.set(0, 0, 0, 1);
+            tempObj.rotateZ(tempObj2.rotation.z);
+            this.spatialBuffer[ENUMS.BufferSpatial.ROLL_ANGLE]  = MATH.rollFromQuaternion(tempObj.quaternion);
+
+
 
             tempObj.lookAt(tempVec1);
-            tempEuler.setFromQuaternion(tempObj.quaternion, 'YZX');
+        //    tempObj.rotateX(-Math.PI/2);
+        //    tempEuler.setFromQuaternion(tempObj.quaternion, 'YZX');
 
-            this.spatialBuffer[ENUMS.BufferSpatial.DIRECTION_X]  = tempEuler.x  //  -Math.atan2(tempVec1.y, tempVec1.z);
-            this.spatialBuffer[ENUMS.BufferSpatial.DIRECTION_Y]  = tempEuler.y  //  Math.atan2(tempVec1.z, tempVec1.x);
-            this.spatialBuffer[ENUMS.BufferSpatial.DIRECTION_Z]  = tempEuler.z  //  Math.atan2(tempVec1.y, tempVec1.x);
+            this.spatialBuffer[ENUMS.BufferSpatial.DIRECTION_X]  = MATH.pitchFromQuaternion(tempObj.quaternion);
+            this.spatialBuffer[ENUMS.BufferSpatial.DIRECTION_Y]  = MATH.yawFromQuaternion(tempObj.quaternion);
+            this.spatialBuffer[ENUMS.BufferSpatial.DIRECTION_Z]  = MATH.rollFromQuaternion(tempObj.quaternion);
+
+            tempQuat.conjugate();
+            tempQuat.multiply(tempObj.quaternion);
+
+            tempVec3.set(0, 0, -Math.PI);
+            tempVec3.applyQuaternion(tempQuat);
+            this.setVectorByFirstIndex(ENUMS.BufferSpatial.ANGLE_OF_ATTACK_X, tempVec3);
+            return;
+
+            tempObj.quaternion.set(0, 0, 0, 1);
+            //    tempObj2.quaternion.set(0, 0, 0, 1);
+            tempObj.rotateX(this.spatialBuffer[ENUMS.BufferSpatial.DIRECTION_X]);
+            tempObj.rotateX(-this.spatialBuffer[ENUMS.BufferSpatial.PITCH_ANGLE]);
+        //    tempObj.rotateX(+Math.PI)
+            tempVec3.x = tempObj.rotation.x;
 
 
             tempObj.quaternion.set(0, 0, 0, 1);
@@ -418,11 +448,6 @@ define([
             tempObj.rotateY(-this.spatialBuffer[ENUMS.BufferSpatial.YAW_ANGLE]);
             tempVec3.y = tempObj.rotation.y;
 
-            tempObj.quaternion.set(0, 0, 0, 1);
-            //    tempObj2.quaternion.set(0, 0, 0, 1);
-            tempObj.rotateX(this.spatialBuffer[ENUMS.BufferSpatial.DIRECTION_X]);
-            tempObj.rotateX(-this.spatialBuffer[ENUMS.BufferSpatial.PITCH_ANGLE]);
-            tempVec3.x = tempObj.rotation.x;
 
             tempObj.quaternion.set(0, 0, 0, 1);
             //    tempObj2.quaternion.set(0, 0, 0, 1);

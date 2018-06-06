@@ -88,8 +88,8 @@ define([
                 compoundAoAVec.copy(AoAVec);
 
             //    compoundAoAVec.x += -tempAngVelVec.y  * shape.offset.z // speed;
-                compoundAoAVec.x += tempAngVelVec.x  * shape.offset.z // speed;
-                compoundAoAVec.y += tempAngVelVec.y  * shape.offset.z // speed;
+                compoundAoAVec.x += tempAngVelVec.x  * shape.offset.z / sqrtSpd;
+                compoundAoAVec.y -= tempAngVelVec.y  * shape.offset.z / sqrtSpd;
 
             //    compoundAoAVec.y += tempAngVelVec.z * shape.offset.x / sqrtSpd;
 

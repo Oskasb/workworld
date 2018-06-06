@@ -122,6 +122,10 @@ if(typeof(MATH) === "undefined") {
 	var half32BitInt = 1047483647;
     var bigSafeValue = 53372036850;
 
+    MATH.bigSafeValue = function() {
+        return bigSafeValue;
+    };
+
 	MATH.safeInt = function(value) {
 	    if (isNaN(value)) return 0;
 	    return MATH.clamp(value, -bigSafeValue, bigSafeValue);
@@ -371,7 +375,37 @@ if(typeof(MATH) === "undefined") {
 		return value;
 	};
 
+	var calcVec;
+    MATH.setCalcVec = function(v) {
+        calcVec = v;
+    };
 
+    MATH.rollFromQuaternion = function(q) {
+
+
+        calcVec.set(0, 1, 0);
+        calcVec.applyQuaternion(q);
+
+        return Math.atan2(calcVec.x, -calcVec.y);
+
+    };
+
+    MATH.yawFromQuaternion = function(q) {
+        calcVec.set(0, 0, 1);
+        calcVec.applyQuaternion(q);
+        return Math.atan2(calcVec.z, calcVec.x)
+    };
+
+    MATH.pitchFromQuaternion = function(q) {
+
+        calcVec.set(0, 0, 1);
+        calcVec.applyQuaternion(q);
+        // calcVec.y = 0;
+        // calcVec.normalize();
+        return calcVec.y * Math.PI // Math.atan2(calcVec.x, calcVec.y);
+
+        return Math.atan2(2*q.x*q.w - 2*q.y*q.z, 1 - 2*q.x*q.x - 2*q.z*q.z);
+    };
 	
 	MATH.Vec3 = function(x,y,z){
 		this.data = new Float32Array([x,y,z]);

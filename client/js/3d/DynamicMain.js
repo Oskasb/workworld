@@ -37,6 +37,7 @@ define([
                 console.log("SimpleSpatial ready: ", boneConf, sSpat);
                 PipelineAPI.setCategoryKeyValue('DYNAMIC_BONES', sSpat.modelId, boneConf);
                 ThreeAPI.addToScene(sSpat.obj3d);
+                sSpat.dynamicSpatial.setupMechanicalShape(msg[2])
                 WorkerAPI.registerMainDynamicSpatial(sSpat.getDynamicSpatial());
             };
 

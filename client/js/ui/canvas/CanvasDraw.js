@@ -1,12 +1,15 @@
 "use strict";
 
 define([
-        'ui/canvas/CustomGraphCallbacks'
+        'ui/canvas/CustomGraphCallbacks',
+        'PipelineAPI'
     ],
     function(
-        CustomGraphCallbacks
+        CustomGraphCallbacks,
+        PipelineAPI
     ) {
 
+        var liftCurves;
         var path = [];
         var size = {};
         var ctx;
@@ -14,6 +17,7 @@ define([
         var CanvasDraw = function() {
 
         };
+
 
         var rgbaData = [0, 0, 0, 0];
 
@@ -426,14 +430,27 @@ define([
         };
 
 
-
+        var shapesIdx;
+        var count;
+        var visualSize;
+        var shape;
+        var top;
+        var left;
+        var offsety;
+        var liftCurves;
+        var liftCurve;
+        var graphWidth;
+        var rowHeight;
+        var tempVec = new THREE.Vector3();
 
         CanvasDraw.drawAerodynamicDebug = function(dynamicSpatial, cnvGuiThree) {
 
             size.width = cnvGuiThree.resolution;
             size.height = cnvGuiThree.resolution;
-
+            visualSize = dynamicSpatial.getVisualSize();
             ctx = cnvGuiThree.ctx;
+
+            liftCurves = PipelineAPI.readCachedConfigKey('PHYSICS', 'AERODYNAMICS')[0].data;
 
             var color = CanvasDraw.toRgba([0.4+Math.random()*0.3, 0.7+Math.random()*0.3, 0.4+Math.random()*0.3, 0.2+Math.random()*0.3]);
 
@@ -445,6 +462,134 @@ define([
                 15,
                 15
             );
+
+            count = dynamicSpatial.dynamicShapes.length
+            ctx.fillText(
+                "VISUAL SIZE:"+visualSize+"  SHAPES:"+count+"",
+                15,
+                45
+            );
+
+            top = 45;
+            left = 15;
+
+            offsety = 8;
+
+            ctx.strokeStyle = CanvasDraw.toRgba([0.99,0.8, 0.6, 0.9]);
+
+
+
+            for (shapesIdx = 0; shapesIdx < count; shapesIdx++) {
+                ctx.font = "12px Russo One";
+
+                shape = dynamicSpatial.dynamicShapes[shapesIdx];
+
+                rowHeight = (size.height - 65) / count;
+                top += rowHeight;
+                left = 15;
+
+                graphWidth = 160;
+
+                ctx.lineWidth = 1;
+
+                ctx.strokeStyle = CanvasDraw.toRgba([0.29,0.6, 0.8, 0.4]);
+
+                ctx.beginPath();
+
+                CustomGraphCallbacks.addPointToGraph(ctx, left     , top-rowHeight*0.6);
+                CustomGraphCallbacks.addPointToGraph(ctx, left + size.width - left*2     , top-rowHeight*0.6);
+
+                ctx.stroke();
+
+                ctx.lineWidth = 3;
+
+                ctx.fillText(
+                    shape.id,
+                    left,
+                    top
+                );
+                left += 200;
+
+                shape.getDynamicIncidenceAngles(tempVec);
+
+                ctx.fillText(
+                    "ICD X: "+MATH.decimalify(tempVec.x, 100),
+                    left-graphWidth/2,
+                    top-offsety
+                );
+
+                //    left += 30;
+
+                ctx.strokeStyle = CanvasDraw.toRgba([0.99,0.76, 0.2, 0.9]);
+                ctx.beginPath();
+
+                CustomGraphCallbacks.addPointToGraph(ctx, left+graphWidth/2     , top);
+                CustomGraphCallbacks.addPointToGraph(ctx, left+graphWidth/2 + tempVec.x*rowHeight     , top);
+
+                ctx.stroke();
+
+                if (shape.lift[0]) {
+                    ctx.strokeStyle = CanvasDraw.toRgba([0.29,0.76, 0.82, 0.4]);
+                    ctx.lineWidth = 1;
+                    liftCurve = liftCurves[shape.lift[0]];
+                    CustomGraphCallbacks.drawGraph(liftCurve, ctx, left, top-rowHeight*0.6, graphWidth, rowHeight*0.9);
+                    ctx.lineWidth = 3;
+                    ctx.strokeStyle = CanvasDraw.toRgba([0.99,0.76, 0.2, 0.9]);
+                }
+
+
+
+                left += 250;
+
+                ctx.fillText(
+                    "ICD Y: "+MATH.decimalify(tempVec.y, 100),
+                    left-graphWidth/2,
+                    top-offsety
+                );
+
+            //    left += 30;
+
+                ctx.beginPath();
+
+                CustomGraphCallbacks.addPointToGraph(ctx, left+graphWidth/2     , top);
+                CustomGraphCallbacks.addPointToGraph(ctx, left+graphWidth/2 + tempVec.y*rowHeight     , top);
+
+                ctx.stroke();
+
+                if (shape.lift[1]) {
+                    liftCurve = liftCurves[shape.lift[1]];
+                    ctx.strokeStyle = CanvasDraw.toRgba([0.29,0.76, 0.82, 0.4]);
+                    ctx.lineWidth = 1;
+                    CustomGraphCallbacks.drawGraph(liftCurve, ctx, left, top-rowHeight*0.6, graphWidth, rowHeight*0.9);
+                    ctx.lineWidth = 3;
+                    ctx.strokeStyle = CanvasDraw.toRgba([0.99,0.76, 0.2, 0.9]);
+                }
+
+                left += 250;
+
+                ctx.fillText(
+                    "ICD Z: "+MATH.decimalify(tempVec.z, 100),
+                    left-graphWidth/2,
+                    top-offsety
+                );
+            //    left += 30;
+                ctx.beginPath();
+
+                CustomGraphCallbacks.addPointToGraph(ctx, left+graphWidth/2     , top);
+                CustomGraphCallbacks.addPointToGraph(ctx, left+graphWidth/2 + tempVec.z*rowHeight     , top);
+
+                ctx.stroke();
+
+                if (shape.lift[2]) {
+                    ctx.lineWidth = 1;
+                    liftCurve = liftCurves[shape.lift[2]];
+                    ctx.strokeStyle = CanvasDraw.toRgba([0.29,0.76, 0.82, 0.4]);
+                    CustomGraphCallbacks.drawGraph(liftCurve, ctx, left, top-rowHeight*0.6, graphWidth, rowHeight*0.9);
+                    ctx.lineWidth = 3;
+                    ctx.strokeStyle = CanvasDraw.toRgba([0.99,0.76, 0.2, 0.9]);
+                }
+
+            }
 
 
 

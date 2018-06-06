@@ -190,7 +190,7 @@ define([
             store.crossVectors(this.offset , angularVelocity);
         };
 
-        var forceSmoothFactor = 0.2;
+        var forceSmoothFactor = 0.5;
 
         DynamicShape.prototype.applyDynamicShapeForce = function(storeImpulse) {
 

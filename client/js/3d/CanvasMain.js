@@ -25,7 +25,7 @@ define([
 
     var aerodynId = 'aerodynamics';
 
-    var attenuateColor = 'rgba(0.5, 0.25, 0, 0.2)';
+    var attenuateColor = 'rgba(15, 05, 0, 0.2)';
 
     var drawRandomlyOnContext = function(w, h, ctx) {
         ctx.fillStyle = 'green';
@@ -80,7 +80,7 @@ define([
         if (controlSpat) {
             attenuateContext(cnvGuiThree.resolution, cnvGuiThree.resolution, cnvGuiThree.ctx);
             CanvasDraw.drawAerodynamicDebug(controlSpat, cnvGuiThree);
-            drawRandomlyOnContext(cnvGuiThree.resolution, cnvGuiThree.resolution, cnvGuiThree.ctx)
+        //    drawRandomlyOnContext(cnvGuiThree.resolution, cnvGuiThree.resolution, cnvGuiThree.ctx)
         }
 
     };

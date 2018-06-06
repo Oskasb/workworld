@@ -104,7 +104,6 @@ define([
         ShapePhysics.calculateSurfaceDragForce = function(boxVec, anglesOfIncidence, velocity, volume, dragVec) {
 
 
-
             xDrag = -velocity.x * (volume + ShapePhysics.surfaceCrossSection(boxVec.z, boxVec.y , anglesOfIncidence.z , anglesOfIncidence.y ));
             yDrag = -velocity.y * (volume + ShapePhysics.surfaceCrossSection(boxVec.z, boxVec.x , anglesOfIncidence.z , anglesOfIncidence.x ));
             zDrag = -velocity.z * (volume + ShapePhysics.surfaceCrossSection(boxVec.x, boxVec.y , anglesOfIncidence.x , anglesOfIncidence.y ));
@@ -173,11 +172,15 @@ define([
         //    transformedVel.copy(velocity);
         //    transformedVel.applyQuaternion(tempQuat);
 
-            tempEuler.setFromQuaternion(tempObj.quaternion, 'YZX');
+        //    tempObj.rotateX(-Math.PI/2);
+            tempVec3.set(0, 0, 1);
+            tempVec3.applyQuaternion(tempObj.quaternion);
 
-            anglesOfIncidence.x = MATH.addAngles(AoAVec.x , -tempEuler.x );
-            anglesOfIncidence.y = AoAVec.y // MATH.addAngles(AoAVec.y , tempEuler.y  );
-            anglesOfIncidence.z = AoAVec.z // MATH.addAngles(AoAVec.z , tempEuler.z  );
+        //    tempEuler.setFromQuaternion(tempObj.quaternion, 'YZX');
+
+            anglesOfIncidence.x = MATH.addAngles(AoAVec.x , -Math.atan2(tempVec3.y, tempVec3.z) );
+            anglesOfIncidence.y = MATH.addAngles(AoAVec.y , -Math.atan2(tempVec3.x, tempVec3.z) );
+            anglesOfIncidence.z = MATH.addAngles(AoAVec.z , tempEuler.z );
 
             vol = volumeOfVec(dynamicShape.size);
 
@@ -198,22 +201,22 @@ define([
         //    dragVec.multiplyScalar(speed);
 
             tempRootQuat.conjugate();
-            dragVec.applyQuaternion(tempRootQuat);
+        //    dragVec.applyQuaternion(tempRootQuat);
 
         //    dragVec.applyQuaternion(tempRootQuat);
         //    dragVec.z *= -1;
 
-        //    dynamicShape.addForceToDynamicShape(dragVec);
+            dynamicShape.addForceToDynamicShape(dragVec);
 
             liftVec.set(0, 0, 0);
 
-            curveId = dynamicShape.getAxisLiftCurve(0);
+            curveId = dynamicShape.getAxisLiftCurve(1);
 
             if (curveId) {
-            //    liftVec.x = ShapePhysics.calculateSurfaceLiftForce(dynamicShape.size.y * dynamicShape.size.z, speed, anglesOfIncidence.y, curveId);
+                liftVec.x = ShapePhysics.calculateSurfaceLiftForce(dynamicShape.size.y * dynamicShape.size.z, speed, anglesOfIncidence.y, curveId);
             }
 
-            curveId = dynamicShape.getAxisLiftCurve(1);
+            curveId = dynamicShape.getAxisLiftCurve(0);
             if (curveId) {
                 liftVec.y = ShapePhysics.calculateSurfaceLiftForce(dynamicShape.size.x * dynamicShape.size.z, speed, anglesOfIncidence.x, curveId);
             }

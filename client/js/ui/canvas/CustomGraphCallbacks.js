@@ -201,33 +201,58 @@ define([],
 			);
 			
 		};
-		
 
 
-		CustomUiGraphs.renderGraph = function(valueArray, pos, size, offset, topValue,  ctx, element) {
-			var count = valueArray.length;
-			if (count == 0) count = 1;
-			var pxPerPoint = size.width/count;
+        var pxPerPointX;
+        var pxPerPointY;
+        var count;
+		CustomUiGraphs.renderGraph = function(valueArray, ctx, left, top, width, height,  spanX, spanY) {
+			count = valueArray.length;
+			if (count === 0) count = 1;
+			pxPerPointX = width/spanX;
+			pxPerPointY = height/spanY;
 
 			var drawGraph = function() {
-				CustomUiGraphs.startGraph(ctx, pos.left, pos.top+size.height-(size.height*topValue/valueArray[0]));
-				for (var i = 0; i < count; i++) {
-					CustomUiGraphs.addPointToGraph(ctx, pos.left+i*pxPerPoint, pos.top+size.height-(size.height*topValue/valueArray[i]));
+				CustomUiGraphs.startGraph(ctx, left + width * 0.5 - ( pxPerPointX * valueArray[0][0]) , top + height * 0.5 + ( pxPerPointY * valueArray[0][1] ) );
+				for (i = 0; i < count; i++) {
+					CustomUiGraphs.addPointToGraph(ctx, left + width * 0.5 - ( pxPerPointX * valueArray[i][0]) , top + height * 0.5 + ( pxPerPointY * valueArray[i][1] ) );
 				}
 			};
 
-			ctx.strokeStyle = toRgba(element.callbackData.color);
-			ctx.lineWidth = element.callbackData.line_width;
 			ctx.beginPath();
 			drawGraph();
 			ctx.stroke();
 		};
 
-		CustomUiGraphs.drawGraph = function(valueArray, ctx, element, topValue) {
-			var pos = element.pos.final;
-			var size = element.size;
-			var offset = 0;
-			CustomUiGraphs.renderGraph(valueArray, pos, size, offset, topValue,  ctx, element)
+		var i;
+		var minX;
+		var maxX;
+		var minY;
+		var maxY;
+
+
+		CustomUiGraphs.drawGraph = function(valueArray, ctx, left, top, width, height) {
+            minX = MATH.bigSafeValue();
+            maxX = -minX;
+            minY = minX;
+            maxY = maxX;
+
+			for (var i = 0; i < valueArray.length; i++) {
+				if (valueArray[i][0] < minX) {
+                    minX = valueArray[i][0];
+                }
+                if (valueArray[i][0] > maxX) {
+                    maxX = valueArray[i][0];
+                }
+                if (valueArray[i][1] < minY) {
+                    minY = valueArray[i][1];
+                }
+                if (valueArray[i][1] > maxY) {
+                    maxY = valueArray[i][1];
+                }
+			}
+
+			CustomUiGraphs.renderGraph(valueArray, ctx, left, top, width, height,  maxX-minX, maxY-minY)
 
 
 		};
