@@ -380,23 +380,25 @@ if(typeof(MATH) === "undefined") {
         calcVec = v;
     };
 
-    MATH.rollFromQuaternion = function(q) {
+    var mag;
 
-
-        calcVec.set(0, 1, 0);
-        calcVec.applyQuaternion(q);
-
-        return Math.atan2(calcVec.x, -calcVec.y);
-
+    MATH.pitchFromQuaternion = function(q) {
+        mag = Math.sqrt(q.w*q.w + q.x*q.x);
+        return 2*Math.acos(q.x / mag);
     };
 
     MATH.yawFromQuaternion = function(q) {
-        calcVec.set(0, 0, 1);
-        calcVec.applyQuaternion(q);
-        return Math.atan2(calcVec.z, calcVec.x)
+        mag = Math.sqrt(q.w*q.w + q.y*q.y);
+        return 2*Math.acos(q.y / mag);
     };
 
-    MATH.pitchFromQuaternion = function(q) {
+    MATH.rollFromQuaternion = function(q) {
+        mag = Math.sqrt(q.w*q.w + q.z*q.z);
+        return -(2*Math.acos(q.z / mag)-Math.PI);
+    };
+
+
+    MATH.horizonAttitudeFromQuaternion = function(q) {
 
         calcVec.set(0, 0, 1);
         calcVec.applyQuaternion(q);
@@ -406,7 +408,24 @@ if(typeof(MATH) === "undefined") {
 
         return Math.atan2(2*q.x*q.w - 2*q.y*q.z, 1 - 2*q.x*q.x - 2*q.z*q.z);
     };
-	
+
+    MATH.compassAttitudeFromQuaternion = function(q) {
+
+        calcVec.set(0, 0, 1);
+        calcVec.applyQuaternion(q);
+        // calcVec.y = 0;
+        // calcVec.normalize();
+        return calcVec.y * Math.PI // Math.atan2(calcVec.x, calcVec.y);
+
+        return Math.atan2(2*q.x*q.w - 2*q.y*q.z, 1 - 2*q.x*q.x - 2*q.z*q.z);
+    };
+
+    MATH.rollAttitudeFromQuaternion = function(q) {
+        var mag = Math.sqrt(q.w*q.w + q.z*q.z);
+        return 2*Math.acos(-q.z / mag) - Math.PI;
+
+    };
+
 	MATH.Vec3 = function(x,y,z){
 		this.data = new Float32Array([x,y,z]);
 	};

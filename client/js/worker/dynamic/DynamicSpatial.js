@@ -16,6 +16,10 @@ define([
         var tempQuat = new THREE.Quaternion();
         var tempObj = new THREE.Object3D();
         var tempObj2 = new THREE.Object3D();
+
+        tempObj2.rotation.reorder('YXZ');
+        tempObj.rotation.reorder('YXZ');
+
         var tempEuler = new THREE.Euler();
         var tempEuler2 = new THREE.Euler();
         var TRANSFORM_AUX;
@@ -37,6 +41,11 @@ define([
                 VECTOR_AUX = new Ammo.btVector3()
             }
 
+            MATH.setCalcVec(new THREE.Vector3());
+
+            this.applyBodyTransform(body);
+            this.getSpatialQuaternion(tempQuat);
+            this.setOriginalQuaternion(tempQuat);
             this.setSpatialBodyPointer(body.a);
             return this.body = body;
         };
@@ -111,6 +120,21 @@ define([
             storeQuat.y = this.spatialBuffer[ENUMS.BufferSpatial.QUAT_Y];
             storeQuat.z = this.spatialBuffer[ENUMS.BufferSpatial.QUAT_Z];
             storeQuat.w = this.spatialBuffer[ENUMS.BufferSpatial.QUAT_W];
+            return storeQuat;
+        };
+
+        DynamicSpatial.prototype.setOriginalQuaternion = function(quat) {
+            this.spatialBuffer[ENUMS.BufferSpatial.ORIGINAL_QUAT_X] = quat.x;
+            this.spatialBuffer[ENUMS.BufferSpatial.ORIGINAL_QUAT_Y] = quat.y;
+            this.spatialBuffer[ENUMS.BufferSpatial.ORIGINAL_QUAT_Z] = quat.z;
+            this.spatialBuffer[ENUMS.BufferSpatial.ORIGINAL_QUAT_W] = quat.w;
+        };
+
+        DynamicSpatial.prototype.getOriginalQuaternion = function(storeQuat) {
+            storeQuat.x = this.spatialBuffer[ENUMS.BufferSpatial.ORIGINAL_QUAT_X];
+            storeQuat.y = this.spatialBuffer[ENUMS.BufferSpatial.ORIGINAL_QUAT_Y];
+            storeQuat.z = this.spatialBuffer[ENUMS.BufferSpatial.ORIGINAL_QUAT_Z];
+            storeQuat.w = this.spatialBuffer[ENUMS.BufferSpatial.ORIGINAL_QUAT_W];
             return storeQuat;
         };
 
@@ -385,76 +409,41 @@ define([
             this.spatialBuffer[ENUMS.BufferSpatial.SPEED_MPS] = tempVec1.length();
             this.getSpatialQuaternion(tempObj2.quaternion);
 
-        //    tempVec2.set(0, 0, 1);
-            tempVec3.set(0, 1, 0);
-        //    tempObj2.up.copy(tempVec3)
-            //
-            tempVec3.applyQuaternion(tempObj2.quaternion);
-        //    tempObj2.up.copy(tempVec3);
+            this.spatialBuffer[ENUMS.BufferSpatial.HORIZON_ATTITUDE] = MATH.horizonAttitudeFromQuaternion(tempObj2.quaternion);
+            this.spatialBuffer[ENUMS.BufferSpatial.COMPASS_ATTITUDE] = tempObj2.rotation.y;
+            this.spatialBuffer[ENUMS.BufferSpatial.ROLL_ATTITUDE]    = tempObj2.rotation.z;
 
-            tempVec2.set(0, 0, 1);
-            tempVec2.applyQuaternion(tempObj2.quaternion);
+            this.getSpatialQuaternion(tempObj.quaternion);
 
-
-            //    tempVec3.applyQuaternion(tempObj2.quaternion);
-        //    tempObj2.up.copy(tempVec3);
-        //    tempObj.up.copy(tempVec3);
-
-            tempObj.up.copy(tempVec3);
-            tempObj.lookAt(tempVec2);
-        //    tempEuler.setFromQuaternion(tempObj.quaternion, 'YZX');
-
-            MATH.setCalcVec(tempVec3);
-            tempQuat.copy(tempObj.quaternion);
-            this.spatialBuffer[ENUMS.BufferSpatial.PITCH_ANGLE] = MATH.pitchFromQuaternion(tempObj.quaternion);
-
-            tempObj.quaternion.set(0, 0, 0, 1);
-            tempObj.rotateY(tempObj2.rotation.y);
-            this.spatialBuffer[ENUMS.BufferSpatial.YAW_ANGLE]   = MATH.yawFromQuaternion(tempObj.quaternion);
-
-            tempObj.quaternion.set(0, 0, 0, 1);
-            tempObj.rotateZ(tempObj2.rotation.z);
-            this.spatialBuffer[ENUMS.BufferSpatial.ROLL_ANGLE]  = MATH.rollFromQuaternion(tempObj.quaternion);
-
-
+            this.spatialBuffer[ENUMS.BufferSpatial.PITCH_ANGLE] = tempObj.rotation.x ;
+            this.spatialBuffer[ENUMS.BufferSpatial.YAW_ANGLE]   = tempObj.rotation.y ;
+            this.spatialBuffer[ENUMS.BufferSpatial.ROLL_ANGLE]  = tempObj.rotation.z;
 
             tempObj.lookAt(tempVec1);
-        //    tempObj.rotateX(-Math.PI/2);
-        //    tempEuler.setFromQuaternion(tempObj.quaternion, 'YZX');
 
-            this.spatialBuffer[ENUMS.BufferSpatial.DIRECTION_X]  = MATH.pitchFromQuaternion(tempObj.quaternion);
-            this.spatialBuffer[ENUMS.BufferSpatial.DIRECTION_Y]  = MATH.yawFromQuaternion(tempObj.quaternion);
-            this.spatialBuffer[ENUMS.BufferSpatial.DIRECTION_Z]  = MATH.rollFromQuaternion(tempObj.quaternion);
+            this.spatialBuffer[ENUMS.BufferSpatial.DIRECTION_X]  = tempObj.rotation.x;
+            this.spatialBuffer[ENUMS.BufferSpatial.DIRECTION_Y]  = tempObj.rotation.y;
+            this.spatialBuffer[ENUMS.BufferSpatial.DIRECTION_Z]  = tempObj.rotation.z;
 
-            tempQuat.conjugate();
-            tempQuat.multiply(tempObj.quaternion);
-
-            tempVec3.set(0, 0, -Math.PI);
-            tempVec3.applyQuaternion(tempQuat);
-            this.setVectorByFirstIndex(ENUMS.BufferSpatial.ANGLE_OF_ATTACK_X, tempVec3);
-            return;
-
-            tempObj.quaternion.set(0, 0, 0, 1);
-            //    tempObj2.quaternion.set(0, 0, 0, 1);
-            tempObj.rotateX(this.spatialBuffer[ENUMS.BufferSpatial.DIRECTION_X]);
-            tempObj.rotateX(-this.spatialBuffer[ENUMS.BufferSpatial.PITCH_ANGLE]);
-        //    tempObj.rotateX(+Math.PI)
-            tempVec3.x = tempObj.rotation.x;
+            this.getSpatialQuaternion(tempQuat);
 
 
-            tempObj.quaternion.set(0, 0, 0, 1);
-        //    tempObj2.quaternion.set(0, 0, 0, 1);
-            tempObj.rotateY(this.spatialBuffer[ENUMS.BufferSpatial.DIRECTION_Y]);
-            tempObj.rotateY(-this.spatialBuffer[ENUMS.BufferSpatial.YAW_ANGLE]);
-            tempVec3.y = tempObj.rotation.y;
+            tempVec1.normalize();
 
+            tempObj2.quaternion.conjugate();
 
-            tempObj.quaternion.set(0, 0, 0, 1);
-            //    tempObj2.quaternion.set(0, 0, 0, 1);
-            tempObj.rotateZ(this.spatialBuffer[ENUMS.BufferSpatial.DIRECTION_Z]);
-            tempObj.rotateZ(-this.spatialBuffer[ENUMS.BufferSpatial.ROLL_ANGLE]);
-            tempVec3.z = tempObj.rotation.z;
+            tempObj2.quaternion.multiply(tempObj.quaternion)
 
+            tempVec2.set(0, 0, -Math.PI);
+
+            tempVec2.applyQuaternion(tempObj2.quaternion);
+
+            tempVec3.x = tempVec2.y;
+            tempVec3.y = 0 // tempObj2.rotation.y;
+            tempVec3.z = 0;
+            //    tempVec3.sub(tempVec1);
+            //    tempVec3.multiplyScalar(Math.PI);
+            //    tempVec3.applyQuaternion(tempQuat);
             this.setVectorByFirstIndex(ENUMS.BufferSpatial.ANGLE_OF_ATTACK_X, tempVec3);
 
         };
@@ -503,23 +492,9 @@ define([
         var vel;
         var angVel;
 
-        DynamicSpatial.prototype.sampleBodyState = function() {
+        DynamicSpatial.prototype.applyBodyTransform = function(body) {
+            var ms = body.getMotionState();
 
-            if (this.getSpatialDisabledFlag()) {
-                return;
-            }
-
-            this.copyBufferAByFirstIndexToBufferB(ENUMS.BufferSpatial.VELOCITY_X, ENUMS.BufferSpatial.ACCELERATION_X);
-            this.copyBufferAByFirstIndexToBufferB(ENUMS.BufferSpatial.ANGULAR_VEL_X, ENUMS.BufferSpatial.ANGULAR_ACCEL_X);
-
-            if (!this.body.getMotionState) {
-                PhysicsWorldAPI.registerPhysError();
-                console.log("Bad physics body", this.body);
-                return;
-            }
-
-            var ms = this.body.getMotionState();
-            if (ms) {
                 ms.getWorldTransform(TRANSFORM_AUX);
                 var p = TRANSFORM_AUX.getOrigin();
                 var q = TRANSFORM_AUX.getRotation();
@@ -540,17 +515,34 @@ define([
 
                     ms.setWorldTransform(tf);
 
-                    if (Math.random() < 0.1) {
+                //    if (Math.random() < 0.1) {
                         console.log("Bad body transform", this.body)
-                    }
+                //    }
                     return;
                 }
 
                 this.applySpatialPositionXYZ(p.x(), p.y(), p.z());
                 this.applySpatialQuaternionXYZW(q.x(), q.y(), q.z(), q.w());
 
+        }
 
 
+        DynamicSpatial.prototype.sampleBodyState = function() {
+
+            if (this.getSpatialDisabledFlag()) {
+                return;
+            }
+
+            this.copyBufferAByFirstIndexToBufferB(ENUMS.BufferSpatial.VELOCITY_X, ENUMS.BufferSpatial.ACCELERATION_X);
+            this.copyBufferAByFirstIndexToBufferB(ENUMS.BufferSpatial.ANGULAR_VEL_X, ENUMS.BufferSpatial.ANGULAR_ACCEL_X);
+
+            if (!this.body.getMotionState) {
+                PhysicsWorldAPI.registerPhysError();
+                console.log("Bad physics body", this.body);
+                return;
+            }
+
+            this.applyBodyTransform(this.body);
 
                 vel = this.body.getLinearVelocity();
 
@@ -564,9 +556,6 @@ define([
                 tempVec1.applyQuaternion(tempQuat);
                 this.applyAngularVelocityXYZ(tempVec1.x, tempVec1.y, tempVec1.z);
 
-            } else {
-                PhysicsWorldAPI.registerPhysError();
-            }
 
             this.bufferAByFirstIndexSubBufferB(ENUMS.BufferSpatial.ACCELERATION_X, ENUMS.BufferSpatial.VELOCITY_X);
             this.bufferAByFirstIndexSubBufferB(ENUMS.BufferSpatial.ANGULAR_ACCEL_X, ENUMS.BufferSpatial.ANGULAR_VEL_X);

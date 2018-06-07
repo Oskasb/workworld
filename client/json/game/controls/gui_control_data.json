@@ -24,8 +24,8 @@
             {"widget":"HOVER_DYNAMIC",  "label":"",       "configId":"config"},
 
             {"widget":"ROLL_INDICATOR", "label":"ROLL",   "configId":"roll_indicator",   "layout":{"margin_y":0.30}, "buffer":"currentDynamic", "channel":"ROLL_ANGLE"},
-            {"widget":"PITCH_INDICATOR","label":"PITCH",  "configId":"pitch_indicator",  "layout":{"margin_y":0.24}, "buffer":"currentDynamic", "channel":"PITCH_ANGLE"},
-            {"widget":"ROLL_INDICATOR", "label":"AOA_Y",  "configId":"aoa_y_indicator",  "layout":{"margin_y":0.24}, "buffer":"currentDynamic", "channel":"ANGLE_OF_ATTACK_Y"},
+            {"widget":"PITCH_INDICATOR","label":"HORIZON",  "configId":"pitch_indicator",  "layout":{"margin_y":0.24}, "buffer":"currentDynamic", "channel":"HORIZON_ATTITUDE"},
+            {"widget":"ROLL_INDICATOR", "label":"YAW",  "configId":"aoa_y_indicator",  "layout":{"margin_y":0.24}, "buffer":"currentDynamic", "channel":"YAW_ANGLE"},
 
             {"widget":"ROLL_INDICATOR", "label":"YAW",    "configId":"aoa_y_indicator",  "layout":{"margin_y":0.37}, "buffer":"currentDynamic", "channel":"YAW_ANGLE"},
             {"widget":"ROLL_INDICATOR", "label":"DIR_Y",  "configId":"aoa_y_indicator",  "layout":{"margin_y":0.37}, "buffer":"currentDynamic", "channel":"DIRECTION_Y"},
@@ -49,8 +49,9 @@
           "widgets":[
 
             {"widget":"STATE_GAUGE",    "label":"PITCH",  "configId":"angle_indicator",  "layout":{"margin_y":0.37}, "buffer":"currentDynamic", "channel":"PITCH_ANGLE"},
-            {"widget":"STATE_GAUGE",    "label":"ROLL",   "configId":"angle_indicator",  "layout":{"margin_y":0.34}, "buffer":"currentDynamic", "channel":"ROLL_ANGLE"},
-            {"widget":"STATE_GAUGE",    "label":"YAW",    "configId":"angle_indicator",  "layout":{"margin_y":0.31}, "buffer":"currentDynamic", "channel":"YAW_ANGLE"},
+            {"widget":"STATE_GAUGE",    "label":"YAW",    "configId":"angle_indicator",  "layout":{"margin_y":0.34}, "buffer":"currentDynamic", "channel":"YAW_ANGLE"},
+            {"widget":"STATE_GAUGE",    "label":"ROLL",   "configId":"angle_indicator",  "layout":{"margin_y":0.31}, "buffer":"currentDynamic", "channel":"ROLL_ANGLE"},
+
 
             {"widget":"STATE_GAUGE",    "label":"AoA X",  "configId":"angle_indicator",  "layout":{"margin_y":0.47}, "buffer":"currentDynamic", "channel":"ANGLE_OF_ATTACK_X"},
             {"widget":"STATE_GAUGE",    "label":"AoA Y",  "configId":"angle_indicator",  "layout":{"margin_y":0.44}, "buffer":"currentDynamic", "channel":"ANGLE_OF_ATTACK_Y"},
@@ -61,9 +62,16 @@
             {"widget":"STATE_GAUGE",    "label":"POS X",  "configId":"angle_indicator",  "layout":{"margin_y":0.62}, "buffer":"currentDynamic", "channel":"POS_X"},
             {"widget":"STATE_GAUGE",    "label":"POS Z",  "configId":"angle_indicator",  "layout":{"margin_y":0.66}, "buffer":"currentDynamic", "channel":"POS_Z"},
 
+
             {"widget":"STATE_GAUGE",    "label":"AngVel X",  "configId":"angle_indicator",  "layout":{"margin_y":0.70}, "buffer":"currentDynamic", "channel":"ANGULAR_VEL_X"},
             {"widget":"STATE_GAUGE",    "label":"AngVel Y",  "configId":"angle_indicator",  "layout":{"margin_y":0.73}, "buffer":"currentDynamic", "channel":"ANGULAR_VEL_Y"},
-            {"widget":"STATE_GAUGE",    "label":"AngVel Z",  "configId":"angle_indicator",  "layout":{"margin_y":0.76}, "buffer":"currentDynamic", "channel":"ANGULAR_VEL_Z"}
+            {"widget":"STATE_GAUGE",    "label":"AngVel Z",  "configId":"angle_indicator",  "layout":{"margin_y":0.76}, "buffer":"currentDynamic", "channel":"ANGULAR_VEL_Z"},
+
+
+            {"widget":"STATE_GAUGE",    "label":"HorizonR", "configId":"angle_indicator",  "layout":{"margin_y":0.80}, "buffer":"currentDynamic", "channel":"ROLL_ATTITUDE"},
+            {"widget":"STATE_GAUGE",    "label":"Compass",  "configId":"angle_indicator",  "layout":{"margin_y":0.83}, "buffer":"currentDynamic", "channel":"COMPASS_ATTITUDE"},
+            {"widget":"STATE_GAUGE",    "label":"HorizonP", "configId":"angle_indicator",  "layout":{"margin_y":0.86}, "buffer":"currentDynamic", "channel":"HORIZON_ATTITUDE"}
+
           ]
         }
       },
@@ -101,8 +109,8 @@
             {"widget":"THUMBSTICK",     "label":"",       "configId":"config", "onDrag":"thumbstickDrag"},
 
             {"widget":"ROLL_INDICATOR", "label":"ROLL",   "configId":"roll_indicator",   "layout":{"margin_y":0.30}, "buffer":"currentDynamic", "channel":"ROLL_ANGLE"},
-            {"widget":"PITCH_INDICATOR","label":"PITCH",  "configId":"pitch_indicator",  "layout":{"margin_y":0.24}, "buffer":"currentDynamic", "channel":"PITCH_ANGLE"},
-            {"widget":"ROLL_INDICATOR", "label":"AOA_Y",  "configId":"aoa_y_indicator",  "layout":{"margin_y":0.24}, "buffer":"currentDynamic", "channel":"ANGLE_OF_ATTACK_Y"},
+            {"widget":"PITCH_INDICATOR","label":"PITCH",  "configId":"pitch_indicator",  "layout":{"margin_y":0.24}, "buffer":"currentDynamic", "channel":"HORIZON_ATTITUDE"},
+            {"widget":"ROLL_INDICATOR", "label":"AOA_Y",  "configId":"aoa_y_indicator",  "layout":{"margin_y":0.24}, "buffer":"currentDynamic", "channel":"YAW_ANGLE"},
 
             {"widget":"ROLL_INDICATOR", "label":"AOA_Y",  "configId":"aoa_y_indicator",  "layout":{"margin_y":0.37}, "buffer":"currentDynamic", "channel":"YAW_ANGLE"},
             {"widget":"ROLL_INDICATOR", "label":"AOA_Y",  "configId":"aoa_y_indicator",  "layout":{"margin_y":0.37}, "buffer":"currentDynamic", "channel":"DIRECTION_Y"},

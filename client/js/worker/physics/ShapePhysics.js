@@ -173,14 +173,14 @@ define([
         //    transformedVel.applyQuaternion(tempQuat);
 
         //    tempObj.rotateX(-Math.PI/2);
-            tempVec3.set(0, 0, 1);
+            tempVec3.set(0, 0, Math.PI);
             tempVec3.applyQuaternion(tempObj.quaternion);
 
         //    tempEuler.setFromQuaternion(tempObj.quaternion, 'YZX');
 
-            anglesOfIncidence.x = MATH.addAngles(AoAVec.x , -Math.atan2(tempVec3.y, tempVec3.z) );
-            anglesOfIncidence.y = MATH.addAngles(AoAVec.y , -Math.atan2(tempVec3.x, tempVec3.z) );
-            anglesOfIncidence.z = MATH.addAngles(AoAVec.z , tempEuler.z );
+            anglesOfIncidence.x = AoAVec.x - tempObj.rotation.x;
+            anglesOfIncidence.y = AoAVec.y - tempObj.rotation.y;
+            anglesOfIncidence.z = AoAVec.z - tempObj.rotation.z;
 
             vol = volumeOfVec(dynamicShape.size);
 
@@ -188,7 +188,11 @@ define([
 
             dynamicShape.setDynamicIncidenceAngles(anglesOfIncidence);
 
+            ShapePhysics.calculateSurfaceDragForce(tempVec, anglesOfIncidence, velocity, vol, dragVec)
+
             dragVec.multiplyScalar(speed * density * coefficients['base_drag']);
+
+
 
         //    dynSpat.applySpatialImpulseVector(dragVec);
         //    dragVec.multiplyScalar(0.01);
@@ -200,13 +204,13 @@ define([
 
         //    dragVec.multiplyScalar(speed);
 
-            tempRootQuat.conjugate();
+        //    tempRootQuat.conjugate();
         //    dragVec.applyQuaternion(tempRootQuat);
 
         //    dragVec.applyQuaternion(tempRootQuat);
         //    dragVec.z *= -1;
 
-            dynamicShape.addForceToDynamicShape(dragVec);
+        //    dynamicShape.addForceToDynamicShape(dragVec);
 
             liftVec.set(0, 0, 0);
 

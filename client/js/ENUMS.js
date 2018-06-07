@@ -176,6 +176,13 @@ if(typeof(ENUMS) === "undefined"){
         DIRECTION_Y:        49,
         DIRECTION_Z:        50,
         PLAYER_CONTROL:     51,
+        HORIZON_ATTITUDE:   52,
+        ORIGINAL_QUAT_X:    53,
+        ORIGINAL_QUAT_Y:    54,
+        ORIGINAL_QUAT_Z:    55,
+        ORIGINAL_QUAT_W:    56,
+        COMPASS_ATTITUDE:   57,
+        ROLL_ATTITUDE:      58,
         DYNAMIC_FIRST_INDEX:64,
         BONE_FIRST_INDEX:   2048,
         BUFFER_SIZE:        4096
