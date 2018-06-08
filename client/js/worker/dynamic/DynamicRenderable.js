@@ -211,6 +211,10 @@ define([
             return this.dynamicSpatial.getSpatialVelocity(vec3)
         };
 
+        DynamicRenderable.prototype.getSpatialShapeById = function(id) {
+            return this.dynamicSpatial.getDynamicShapeById(id)
+        };
+
         DynamicRenderable.prototype.getDynamicScale = function(vec3) {
             return this.dynamicSpatial.getSpatialScale(vec3)
         };
@@ -271,7 +275,12 @@ define([
             }
         };
 
+        DynamicRenderable.prototype.resetRenderableFrame = function() {
+            this.dynamicSpatial.clearFrameRotation();
+        };
+
         DynamicRenderable.prototype.tickRenderable = function() {
+            this.resetRenderableFrame();
             this.dynamicSpatial.getSpatialPosition(this.renderableGeometry.pos);
             this.dynamicSpatial.getSpatialQuaternion(this.renderableGeometry.quat);
             this.dynamicSpatial.getSpatialScale(this.renderableGeometry.scale3d);

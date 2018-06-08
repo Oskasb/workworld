@@ -44,14 +44,6 @@
               {"offset":[2.0,  0.5, -7], "direction":[0, 0, 1], "size":[3, 1, 3]}
             ]},
 
-            {"config_key":"SURFACES_F14", "config_id":"elev_l",    "group":[
-              {"offset":[-3.5, 0.5, -7], "direction":[0, 0, 1], "size":[3, 1, 3]}
-            ]},
-
-            {"config_key":"SURFACES_F14", "config_id":"elev_r",    "group":[
-              {"offset":[3.5, 0.5, -7], "direction":[0, 0, 1], "size":[3, 1, 3]}
-            ]},
-
             {"config_key":"SURFACES_F14", "config_id":"roll_l",    "group":[
               {"offset":[-4.5, 0.5, -7], "direction":[0, 0, 1], "size":[3, 1, 3]}
             ]},

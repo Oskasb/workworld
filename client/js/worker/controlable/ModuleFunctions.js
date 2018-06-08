@@ -8,6 +8,7 @@ define([
     ) {
 
     var controlState;
+    var shape;
     var target;
 
     var calcVec = new THREE.Vector3();
@@ -18,47 +19,71 @@ define([
 
         };
 
-        ModuleFunctions.sampleControl = function(renderable, moduleState, source) {
+        var frameTest = function(dynShape) {
+            if (dynShape.checkFrameUpdate() === 1) {
+                dynShape.sampleBufferState();
+                dynShape.setFrameUpdate(0);
+                dynShape.resetDynamicShapeQuaternion();
+            }
+        };
 
+        ModuleFunctions.sampleControl = function(renderable, moduleState, source) {
             controlState = renderable.getGamePiece().getControlStateById(source);
             moduleState.setTargetState(controlState.getControlStateValue())
+        };
+
+        ModuleFunctions.sampleShape = function(renderable, moduleState, source) {
+            shape = renderable.getSpatialShapeById(source.id);
+            moduleState.setTargetState(shape.getValueByIndex(ENUMS.DynamicShape[source.key]) * source.factor)
         };
 
         ModuleFunctions.applyForce = function(renderable, moduleState, trgt) {
             target = renderable.getSpatialShapeById(trgt);
             calcVec.copy(target.direction);
-            //     target.getDynamicShapeQuaternion(calcQuat);
-            //     calcVec.applyQuaternion(calcQuat);
             calcVec.multiplyScalar(moduleState.getAppliedFactor()/0.016);
-
-            //    renderable.applyTorqueVector(ShapePhysics.torqueFromForcePoint(calcVec, target.offset))
-
-            //       calcVec.applyQuaternion(renderable.quat);
-            //    renderable.applyForceVector(calcVec);
             target.addForceToDynamicShape(calcVec)
-
         };
+
+        ModuleFunctions.rotateShape = function(renderable, moduleState, trgt) {
+            target = renderable.getSpatialShapeById(trgt.id);
+
+
+            frameTest(target);
+
+            target.getDynamicShapeQuaternion(calcObj.quaternion);
+
+            calcObj[trgt.rot](moduleState.getAppliedFactor() * trgt.factor);
+
+            target.setDynamicShapeQuaternion(calcObj.quaternion);
+        };
+
 
         ModuleFunctions.applyRotationY = function(renderable, moduleState, trgt) {
             target = renderable.getSpatialShapeById(trgt);
-            target.sampleBufferState();
-            target.getOriginalRotation(calcObj.quaternion);
+
+            frameTest(target);
+
+            target.getDynamicShapeQuaternion(calcObj.quaternion);
             calcObj.rotateY(moduleState.getAppliedFactor());
             target.setDynamicShapeQuaternion(calcObj.quaternion);
         };
 
         ModuleFunctions.applyRotationX = function(renderable, moduleState, trgt) {
             target = renderable.getSpatialShapeById(trgt);
-            target.sampleBufferState();
-            target.getOriginalRotation(calcObj.quaternion);
+
+            frameTest(target);
+
+            target.getDynamicShapeQuaternion(calcObj.quaternion);
             calcObj.rotateX(moduleState.getAppliedFactor());
             target.setDynamicShapeQuaternion(calcObj.quaternion);
         };
 
         ModuleFunctions.applyRotationZ = function(renderable, moduleState, trgt) {
             target = renderable.getSpatialShapeById(trgt);
-            target.sampleBufferState();
-            target.getOriginalRotation(calcObj.quaternion);
+
+            frameTest(target);
+
+            target.getDynamicShapeQuaternion(calcObj.quaternion);
             calcObj.rotateZ(moduleState.getAppliedFactor());
             target.setDynamicShapeQuaternion(calcObj.quaternion);
         };

@@ -8,6 +8,7 @@
           "state":{"value":0, "min":-0.5, "max":1, "speed":0.05, "factor":22000000},
           "source":"engine",
           "target":"sub_prop_1",
+          "feedback":"sub_prop_1",
           "sampleSource":"sampleControl",
           "applyState":"applyForce",
           "effectFunction":"propellerEffect"
@@ -20,6 +21,7 @@
           "state":{"value":0, "min":-0.5, "max":1, "speed":0.05, "factor":22000000},
           "source":"engine",
           "target":"sub_prop_2",
+          "feedback":"sub_prop_2",
           "sampleSource":"sampleControl",
           "applyState":"applyForce",
           "effectFunction":"propellerEffect"
@@ -32,6 +34,7 @@
           "state":{"value":0, "min":-1, "max":1, "speed":0.01, "factor":1.2},
           "source":"rudder",
           "target":"rudder_1",
+          "feedback":"rudder_1",
           "sampleSource":"sampleControl",
           "applyState":"applyRotationY",
           "effectFunction":"rudderEffect"
@@ -43,6 +46,7 @@
           "state":{"value":0, "min":-1, "max":1, "speed":0.01, "factor":1.2},
           "source":"rudder",
           "target":"rudder_2",
+          "feedback":"rudder_2",
           "sampleSource":"sampleControl",
           "applyState":"applyRotationY",
           "effectFunction":"rudderEffect"
@@ -57,6 +61,7 @@
           "state":{"value":0, "min":0, "max":1, "speed":0.05, "factor":-1},
           "source":"catapult_1",
           "target":"catapult_1",
+          "feedback":"catapult_1",
           "sampleSource":"sampleControl",
           "applyState":"effectEmitter",
           "effectFunction":"setBoneRotationX"
@@ -69,6 +74,7 @@
           "state":{"value":0, "min":0, "max":1, "speed":0.05, "factor":-1},
           "source":"catapult_2",
           "target":"catapult_2",
+          "feedback":"catapult_2",
           "sampleSource":"sampleControl",
           "applyState":"effectEmitter",
           "effectFunction":"setBoneRotationX"
@@ -81,6 +87,7 @@
           "state":{"value":0, "min":0, "max":1, "speed":0.05, "factor":-1},
           "source":"catapult_3",
           "target":"catapult_3",
+          "feedback":"catapult_3",
           "sampleSource":"sampleControl",
           "applyState":"effectEmitter",
           "effectFunction":"setBoneRotationX"
@@ -92,6 +99,7 @@
           "state":{"value":0, "min":0, "max":1, "speed":0.05, "factor":-1},
           "source":"catapult_4",
           "target":"catapult_4",
+          "feedback":"catapult_4",
           "sampleSource":"sampleControl",
           "applyState":"effectEmitter",
           "effectFunction":"setBoneRotationX"
@@ -105,6 +113,7 @@
           "state":{"value":0, "min":0, "max":1, "speed":0.05, "factor":-10.5},
           "source":"elevator_1",
           "target":"elevator_1",
+          "feedback":"elevator_1",
           "sampleSource":"sampleControl",
           "applyState":"effectEmitter",
           "effectFunction":"setBoneTranslationZ"
@@ -117,6 +126,7 @@
           "state":{"value":0, "min":0, "max":1, "speed":0.05, "factor":-10.5},
           "source":"elevator_2",
           "target":"elevator_2",
+          "feedback":"elevator_2",
           "sampleSource":"sampleControl",
           "applyState":"effectEmitter",
           "effectFunction":"setBoneTranslationZ"
@@ -129,6 +139,7 @@
           "state":{"value":0, "min":0, "max":1, "speed":0.05, "factor":-10.5},
           "source":"elevator_3",
           "target":"elevator_3",
+          "feedback":"elevator_3",
           "sampleSource":"sampleControl",
           "applyState":"effectEmitter",
           "effectFunction":"setBoneTranslationZ"
@@ -140,6 +151,7 @@
           "state":{"value":0, "min":0, "max":1, "speed":0.05, "factor":-10.5},
           "source":"elevator_4",
           "target":"elevator_4",
+          "feedback":"elevator_4",
           "sampleSource":"sampleControl",
           "applyState":"effectEmitter",
           "effectFunction":"setBoneTranslationZ"
@@ -154,6 +166,7 @@
           "state":{"value":0, "min":0, "max":1, "speed":0.05, "factor":-21},
           "source":"door_1",
           "target":"door_1",
+          "feedback":"door_1",
           "sampleSource":"sampleControl",
           "applyState":"effectEmitter",
           "effectFunction":"setBoneTranslationY"
@@ -166,6 +179,7 @@
           "state":{"value":0, "min":0, "max":1, "speed":0.05, "factor":-21},
           "source":"door_2",
           "target":"door_2",
+          "feedback":"door_2",
           "sampleSource":"sampleControl",
           "applyState":"effectEmitter",
           "effectFunction":"setBoneTranslationY"
@@ -178,6 +192,7 @@
           "state":{"value":0, "min":0, "max":1, "speed":0.05, "factor":-21},
           "source":"door_3",
           "target":"door_3",
+          "feedback":"door_3",
           "sampleSource":"sampleControl",
           "applyState":"effectEmitter",
           "effectFunction":"setBoneTranslationY"
@@ -189,6 +204,7 @@
           "state":{"value":0, "min":0, "max":1, "speed":0.05, "factor":21},
           "source":"door_4",
           "target":"door_4",
+          "feedback":"door_4",
           "sampleSource":"sampleControl",
           "applyState":"effectEmitter",
           "effectFunction":"setBoneTranslationY"
@@ -203,6 +219,7 @@
           "state":{"value":1, "min":0.1, "max":0.1, "speed":0.05, "factor":0.28},
           "source":"radar_1",
           "target":"radar_main",
+          "feedback":"radar_main",
           "sampleSource":"effectEmitter",
           "applyState":"effectEmitter",
           "effectFunction":"rotateBoneX"
@@ -214,6 +231,7 @@
           "state":{"value":1, "min":0.1, "max":0.1, "speed":0.05, "factor":-0.34},
           "source":"radar_1",
           "target":"radar_square",
+          "feedback":"radar_square",
           "sampleSource":"effectEmitter",
           "applyState":"effectEmitter",
           "effectFunction":"rotateBoneX"
@@ -225,6 +243,7 @@
           "state":{"value":1, "min":0.1, "max":0.1, "speed":0.05, "factor":-0.4},
           "source":"radar_1",
           "target":"radar_square_small",
+          "feedback":"radar_square_small",
           "sampleSource":"effectEmitter",
           "applyState":"effectEmitter",
           "effectFunction":"rotateBoneX"
@@ -236,6 +255,7 @@
           "state":{"value":1, "min":0.1, "max":0.1, "speed":0.05, "factor":-0.4},
           "source":"radar_1",
           "target":"radar_mast_flat",
+          "feedback":"radar_mast_flat",
           "sampleSource":"effectEmitter",
           "applyState":"effectEmitter",
           "effectFunction":"rotateBoneX"
@@ -247,6 +267,7 @@
           "state":{"value":1, "min":0.1, "max":0.1, "speed":0.05, "factor":0.3},
           "source":"engine",
           "target":"radar_mast_1",
+          "feedback":"radar_mast_1",
           "sampleSource":"effectEmitter",
           "applyState":"effectEmitter",
           "effectFunction":"rotateBoneX"
@@ -258,6 +279,7 @@
           "state":{"value":1, "min":0.1, "max":0.1, "speed":0.05, "factor":-0.23},
           "source":"radar_1",
           "target":"radar_mast_2",
+          "feedback":"radar_mast_2",
           "sampleSource":"effectEmitter",
           "applyState":"effectEmitter",
           "effectFunction":"rotateBoneX"
@@ -272,6 +294,7 @@
           "state":{"value":0, "min":-0.5, "max":1, "speed":0.05, "factor":1},
           "source":"engine",
           "target":"fore_2",
+          "feedback":"fore_2",
           "sampleSource":"effectEmitter",
           "applyState":"effectEmitter",
           "effectFunction":"bowEffect"
@@ -283,6 +306,7 @@
           "state":{"value":0, "min":-0.5, "max":1, "speed":0.05, "factor":1},
           "source":"engine",
           "target":"fore_3",
+          "feedback":"fore_3",
           "sampleSource":"effectEmitter",
           "applyState":"effectEmitter",
           "effectFunction":"bowEffect"
@@ -295,6 +319,7 @@
           "state":{"value":0, "min":-1, "max":1, "speed":0.01, "factor":1},
           "source":"engine",
           "target":"sub_1b",
+          "feedback":"sub_1b",
           "sampleSource":"effectEmitter",
           "applyState":"effectEmitter",
           "effectFunction":"bowEffect"
@@ -306,6 +331,7 @@
           "state":{"value":0, "min":-1, "max":1, "speed":0.01, "factor":1},
           "source":"engine",
           "target":"sub_1c",
+          "feedback":"sub_1c",
           "sampleSource":"effectEmitter",
           "applyState":"effectEmitter",
           "effectFunction":"bowEffect"
@@ -317,6 +343,7 @@
           "state":{"value":0, "min":-1, "max":1, "speed":0.01, "factor":1},
           "source":"engine",
           "target":"fore_3",
+          "feedback":"fore_3",
           "sampleSource":"effectEmitter",
           "applyState":"effectEmitter",
           "effectFunction":"bowEffect"
@@ -328,6 +355,7 @@
           "state":{"value":0, "min":-1, "max":1, "speed":0.01, "factor":1},
           "source":"engine",
           "target":"sub_1bu",
+          "feedback":"sub_1bu",
           "sampleSource":"effectEmitter",
           "applyState":"effectEmitter",
           "effectFunction":"wakeEffect"
@@ -339,6 +367,7 @@
           "state":{"value":0, "min":-1, "max":1, "speed":0.01, "factor":1},
           "source":"engine",
           "target":"sub_1cu",
+          "feedback":"sub_1cu",
           "sampleSource":"effectEmitter",
           "applyState":"effectEmitter",
           "effectFunction":"wakeEffect"
@@ -350,6 +379,7 @@
           "state":{"value":0, "min":-1, "max":1, "speed":0.01, "factor":1},
           "source":"engine",
           "target":"sub_7a",
+          "feedback":"sub_7a",
           "sampleSource":"effectEmitter",
           "applyState":"effectEmitter",
           "effectFunction":"wakeEffect"
@@ -361,6 +391,7 @@
           "state":{"value":0, "min":-1, "max":1, "speed":0.01, "factor":1},
           "source":"engine",
           "target":"sub_7b",
+          "feedback":"sub_7b",
           "sampleSource":"effectEmitter",
           "applyState":"effectEmitter",
           "effectFunction":"wakeEffect"

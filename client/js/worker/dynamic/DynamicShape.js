@@ -98,6 +98,14 @@ define([
             this.setDynamicShapeOffset(this.offset);
         };
 
+        DynamicShape.prototype.setValueByIndex = function(val, indx) {
+            this.buffer[this.bsi + indx] = val;
+        };
+
+        DynamicShape.prototype.getValueByIndex = function(indx) {
+            return this.buffer[this.bsi + indx];
+        };
+
         DynamicShape.prototype.getVectorByFirstIndex = function(indx, storeVec) {
             storeVec.x = this.buffer[this.bsi + indx];
             storeVec.y = this.buffer[this.bsi + indx+1];
@@ -129,6 +137,10 @@ define([
             quat.y = this.buffer[this.bsi + ENUMS.DynamicShape.QUAT_Y];
             quat.z = this.buffer[this.bsi + ENUMS.DynamicShape.QUAT_Z];
             quat.w = this.buffer[this.bsi + ENUMS.DynamicShape.QUAT_W]
+        };
+
+        DynamicShape.prototype.resetDynamicShapeQuaternion = function() {
+            this.setDynamicShapeQuaternion(this.quat)
         };
 
         DynamicShape.prototype.clearDynamicShapeForce = function() {
@@ -169,6 +181,14 @@ define([
             return this.buffer[this.bsi + ENUMS.DynamicShape.HAS_FORCE];
         };
 
+        DynamicShape.prototype.setFrameUpdate = function(bool) {
+            this.buffer[this.bsi + ENUMS.DynamicShape.UPDATE_FRAME] = bool;
+        };
+
+        DynamicShape.prototype.checkFrameUpdate = function() {
+            return this.buffer[this.bsi + ENUMS.DynamicShape.UPDATE_FRAME];
+        };
+
         DynamicShape.prototype.sampleBufferState = function() {
             this.getDynamicShapeQuaternion(this.rotation);
             this.getDynamicShapeOffset(this.offset);
@@ -190,33 +210,17 @@ define([
             store.crossVectors(this.offset , angularVelocity);
         };
 
-        var forceSmoothFactor = 0.5;
+        var forceSmoothFactor = 0.35;
 
         DynamicShape.prototype.applyDynamicShapeForce = function(storeImpulse) {
 
             if (this.hasDynamicShapeForce()) {
 
-            //    tempVec2.copy(this.impulseVector);
-            //    tempVec2.multiplyScalar(forceSmoothFactor);
-
                 this.getDynamicShapeForce(this.impulseVector);
-
-            //
-            //    this.impulseVector.add(tempVec2);
-
-            //    this.impulseVector.copy(tempVec2);
-
-            //    this.impulseVector.multiplyScalar(forceSmoothFactor);
-
                 this.setVectorByFirstIndex(ENUMS.DynamicShape.ACTING_FORCE_X, this.impulseVector);
-
-
-            //    this.impulseVector.copy(tempVec2);
-            //    this.impulseVector.multiplyScalar(1-forceSmoothFactor);
 
                 this.getDynamicShapeOffset(this.offset);
                 this.clearDynamicShapeForce();
-
 
             } else {
                 this.getDynamicShapeForce(this.impulseVector);
@@ -224,7 +228,7 @@ define([
                 storeImpulse.copy(this.impulseVector);
                 return storeImpulse;
             }
-        //    this.impulseVector.multiplyScalar(1 - forceSmoothFactor);
+
             if (isNaN(this.impulseVector.x)) {
                 return storeImpulse
             }
@@ -233,10 +237,11 @@ define([
             this.smoothForce.y += this.impulseVector.y * forceSmoothFactor;
             this.smoothForce.z += this.impulseVector.z * forceSmoothFactor;
 
-        //    this.smoothForce.addVectors(this.smoothForce, this.impulseVector);
-            this.smoothForce.multiplyScalar(1-forceSmoothFactor)
-        //    this.addForceToDynamicShape(tempVec);
+
+            this.smoothForce.multiplyScalar(1-forceSmoothFactor);
+
             storeImpulse.copy(this.smoothForce);
+
             return storeImpulse;
         };
 

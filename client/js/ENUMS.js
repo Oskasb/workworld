@@ -183,6 +183,7 @@ if(typeof(ENUMS) === "undefined"){
         ORIGINAL_QUAT_W:    56,
         COMPASS_ATTITUDE:   57,
         ROLL_ATTITUDE:      58,
+        FRAME_COUNT:        59,
         DYNAMIC_FIRST_INDEX:64,
         BONE_FIRST_INDEX:   2048,
         BUFFER_SIZE:        4096
@@ -207,7 +208,10 @@ if(typeof(ENUMS) === "undefined"){
         INCIDENCE_X:        15,
         INCIDENCE_Y:        16,
         INCIDENCE_Z:        17,
-        STRIDE:             18
+        LIFT_FORCE:         18,
+        DRAG_FORCE:         19,
+        UPDATE_FRAME:       20,
+        STRIDE:             21
     };
 
     ENUMS.DynamicBone = {

@@ -198,6 +198,21 @@ define([
 
         };
 
+        ModuleEffectFunctions.applyBoneRotation = function(renderable, moduleState, trgt) {
+
+            var dynBone = renderable.getRenderableBone(trgt);
+
+            if (!dynBone) {
+                console.log("No Dynamic Bone:", trgt, renderable, moduleState);
+                return;
+            }
+
+            tempObj.quaternion.copy(dynBone.originalQuat);
+            tempObj.rotateX(moduleState.getAppliedFactor());
+            dynBone.setDynamicBoneQuaternion(tempObj.quaternion);
+
+        };
+
         ModuleEffectFunctions.setBoneRotationX = function(renderable, moduleState, trgt) {
 
             var dynBone = renderable.getRenderableBone(trgt);

@@ -179,7 +179,7 @@ define([
         //    tempEuler.setFromQuaternion(tempObj.quaternion, 'YZX');
 
             anglesOfIncidence.x = AoAVec.x - tempObj.rotation.x;
-            anglesOfIncidence.y = AoAVec.y - tempObj.rotation.y;
+            anglesOfIncidence.y = AoAVec.y + tempObj.rotation.y;
             anglesOfIncidence.z = AoAVec.z - tempObj.rotation.z;
 
             vol = volumeOfVec(dynamicShape.size);
@@ -190,7 +190,7 @@ define([
 
             ShapePhysics.calculateSurfaceDragForce(tempVec, anglesOfIncidence, velocity, vol, dragVec)
 
-            dragVec.multiplyScalar(speed * density * coefficients['base_drag']);
+            dragVec.multiplyScalar(- speed * density * coefficients['base_drag']);
 
 
 
@@ -224,6 +224,8 @@ define([
             if (curveId) {
                 liftVec.y = ShapePhysics.calculateSurfaceLiftForce(dynamicShape.size.x * dynamicShape.size.z, speed, anglesOfIncidence.x, curveId);
             }
+
+            dynamicShape.setValueByIndex(liftVec.y, ENUMS.DynamicShape.LIFT_FORCE);
 
             curveId = dynamicShape.getAxisLiftCurve(2);
             if (curveId) {

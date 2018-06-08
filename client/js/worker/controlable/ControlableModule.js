@@ -62,7 +62,7 @@ define([
         ControlableModule.prototype.renderControlableModule = function(renderable) {
             ModuleFunctions[this.configRead('sampleSource')](renderable, this.moduleState, this.configRead('source'));
             ModuleFunctions[this.configRead('applyState')](renderable, this.moduleState, this.configRead('target'));
-            ModuleEffectFunctions[this.configRead('effectFunction')](renderable, this.moduleState, this.configRead('target'));
+            ModuleEffectFunctions[this.configRead('effectFunction')](renderable, this.moduleState, this.configRead('feedback'));
         };
 
         ControlableModule.prototype.updateControlableModule = function(tpf) {

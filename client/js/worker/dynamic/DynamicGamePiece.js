@@ -76,6 +76,7 @@ define([
             return this.controlStates[controlId];
         };
 
+
         DynamicGamePiece.prototype.applyModuleRenderable = function(renderable) {
 
             for (i = 0; i < this.attachmentGroups.length; i++) {

@@ -269,6 +269,10 @@ define([
                 repelAllDyn(35);
             }
 
+            for (i = 0; i < dynamics.length;i++) {
+        //        dynamics[i].resetRenderableFrame();
+            }
+
             for (var i = 0; i < pieces.length;i++) {
                 pieces[i].updateDynamicGamePiece(WorldAPI.getCom(ENUMS.BufferChannels.TPF));
             }

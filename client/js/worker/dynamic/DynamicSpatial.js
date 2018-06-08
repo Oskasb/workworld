@@ -346,9 +346,18 @@ define([
             return '_scale_'+this.spatialBuffer[ENUMS.BufferSpatial.SCALE_X]+this.spatialBuffer[ENUMS.BufferSpatial.SCALE_Y]+this.spatialBuffer[ENUMS.BufferSpatial.SCALE_Z]
         };
 
+        DynamicSpatial.prototype.clearFrameRotation = function() {
+            for (i = 0; i < this.dynamicShapes.length; i++) {
+                this.dynamicShapes[i].setFrameUpdate(1);
+            }
+        };
+
         DynamicSpatial.prototype.notifyVisibility = function(isVisible) {
 
             if (isVisible) {
+
+
+
                 if (this.getSpatialStillFrames() > this.visiblePingFrames) {
             //        this.setSpatialStillFrames(this.stillLimit-2);
                 }
@@ -405,6 +414,7 @@ define([
         var q;
 
         DynamicSpatial.prototype.computeState = function() {
+            this.spatialBuffer[ENUMS.BufferSpatial.FRAME_COUNT]++;
             this.getSpatialVelocity(tempVec1);
             this.spatialBuffer[ENUMS.BufferSpatial.SPEED_MPS] = tempVec1.length();
             this.getSpatialQuaternion(tempObj2.quaternion);
@@ -439,7 +449,7 @@ define([
             tempVec2.applyQuaternion(tempObj2.quaternion);
 
             tempVec3.x = tempVec2.y;
-            tempVec3.y = 0 // tempObj2.rotation.y;
+            tempVec3.y = tempVec2.x;
             tempVec3.z = 0;
             //    tempVec3.sub(tempVec1);
             //    tempVec3.multiplyScalar(Math.PI);
