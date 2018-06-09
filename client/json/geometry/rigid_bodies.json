@@ -119,25 +119,32 @@
           "state":"DISABLE_DEACTIVATION",
           "shape":"Compound",
           "args":[
-            {"id":"comp_1",       "lift":[0, 0, 0],  "shape":"Box", "args":[0,  0,  0],    "offset":[0,       0.5,   5],    "rotation":[0.0,        0,     0]},
-            {"id":"nose_1",       "lift":[0, 0, 0],  "shape":"Box", "args":[0,  0,  0],    "offset":[0,       0.3,  10],    "rotation":[0.0,        0,     0]},
+            {"id":"comp_1",       "lift":[0, 0, 0],  "shape":"Box", "args":[0.5, 0.5, 5],  "offset":[0,       0.5,   9],    "rotation":[0.0,        0,     0]},
+            {"id":"nose_1",       "lift":["box", "box", 0],  "shape":"Box", "args":[1.5,  2.2, 5],    "offset":[0,       0.8,  5],    "rotation":[0.0,        0,     0]},
             {"id":"nose_wheel",   "lift":[0, 0, 0],  "shape":"Box", "args":[0,  0,  0],    "offset":[0,      -1.5,   6],    "rotation":[0.0,        0,     0]},
             {"id":"wheel_main_1", "lift":[0, 0, 0],  "shape":"Box", "args":[0,  0,  0],    "offset":[-3,  -1.5,   -1.4],    "rotation":[0.0,        0,     0]},
             {"id":"wheel_main_2", "lift":[0, 0, 0],  "shape":"Box", "args":[0,  0,  0],    "offset":[ 3,  -1.5,   -1.4],    "rotation":[0.0,        0,     0]},
-            {"id":"nacell_1",     "lift":["wing", 0, 0],  "shape":"Box", "args":[1.3,  1.5,  6],    "offset":[-1.3, 0.2, -1],    "rotation":[0.0,        0,     0]},
-            {"id":"nacell_2",     "lift":["wing", 0, 0],  "shape":"Box", "args":[1.3,  1.5,  6],    "offset":[ 1.3, 0.2, -1],    "rotation":[0.0,        0,     0]},
-            {"id":"nozzle_1",     "lift":["wing", 0, 0],  "shape":"Box", "args":[1.5,   1.5,     3],    "offset":[-1.4,  0.25, -6.5], "rotation":[0.03,        0.045,     0]},
-            {"id":"nozzle_2",     "lift":["wing", 0, 0],  "shape":"Box", "args":[1.5,   1.5,     3],    "offset":[ 1.4,  0.25, -6.5], "rotation":[0.03,       -0.045,     0]},
-            {"id":"body_core",    "lift":["wing", "wing", 0], "shape":"Box", "args":[3,   1,  7], "offset":[ 0, 0, 0],     "rotation":[0.0,       0,     0]},
-            {"id":"pivot_r",      "lift":["wing", 0, 0], "shape":"Box", "args":[11, 0.2, 2], "offset":[-3.5,   0.8,  -1.5],     "rotation":[0.0,    -0.3,    0]},
-            {"id":"pivot_l",      "lift":["wing", 0, 0], "shape":"Box", "args":[11, 0.2, 2], "offset":[ 3.5,   0.8,  -1.5],     "rotation":[0.0,     0.3,    0]},
-            {"id":"flap_r",       "lift":["wing", 0, 0],  "shape":"Box", "args":[0,  0,  0],     "offset":[ -4,     0.8,  -2],    "rotation":[0.05,   -0.2,      0]},
-            {"id":"flap_l",       "lift":["wing", 0, 0],  "shape":"Box", "args":[0,  0,  0],     "offset":[ 4,      0.8,  -2],    "rotation":[0.05,    0.2,      0]},
+            {"id":"nacell_1",     "lift":["box", "wing", 0],  "shape":"Box", "args":[1.1,  1.5,  6],    "offset":[-1.5, 0.2, -1],    "rotation":[0.0,        0,     0]},
+            {"id":"nacell_2",     "lift":["box", "wing", 0],  "shape":"Box", "args":[1.1,  1.5,  6],    "offset":[ 1.5, 0.2, -1],    "rotation":[0.0,        0,     0]},
+            {"id":"nozzle_1",     "lift":[0, "wing", 0],  "shape":"Box", "args":[1.5,   1.5,     3],    "offset":[-1.4,  0.25, -6.5], "rotation":[0.05,     0.05,     0]},
+            {"id":"nozzle_2",     "lift":[0, "wing", 0],  "shape":"Box", "args":[1.5,   1.5,     3],    "offset":[ 1.4,  0.25, -6.5], "rotation":[0.05,    -0.05,     0]},
+
+            {"id":"body_core",    "lift":["wing", 0, 0], "shape":"Box", "args":[4,   0.3,  4], "offset":[ 0, 0.8, 3],     "rotation":[-0.0,       0,     0]},
+
+            {"id":"body_core_2",  "lift":["wing", 0, 0], "shape":"Box", "args":[1.0, 0.7,  5], "offset":[-2.0, 0.5, -5],     "rotation":[-0.0,       0,     0]},
+            {"id":"body_core_3",  "lift":["wing", 0, 0], "shape":"Box", "args":[1.0, 0.7,  5], "offset":[ 2.0, 0.5, -5],     "rotation":[-0.0,       0,     0]},
+
+            {"id":"glove_1",      "lift":["wing", 0, 0], "shape":"Box", "args":[2,   0.3,  5], "offset":[-1.7, 0.8, 2],     "rotation":[-0.0,     0.3,  -0.00]},
+            {"id":"glove_2",      "lift":["wing", 0, 0], "shape":"Box", "args":[2,   0.3,  5], "offset":[ 1.7, 0.8, 2],     "rotation":[-0.0,    -0.3,   0.00]},
+
+
+            {"id":"pivot_r",      "lift":["wing", 0, 0], "shape":"Box", "args":[11, 0.2, 2], "offset":[-3.7,   0.8,  -1.5],     "rotation":[0.0,    -0.3,    0]},
+            {"id":"pivot_l",      "lift":["wing", 0, 0], "shape":"Box", "args":[11, 0.2, 2], "offset":[ 3.7,   0.8,  -1.5],     "rotation":[0.0,     0.3,    0]},
 
             {"id":"elev_1",       "lift":["wing", 0, 0],  "shape":"Box", "args":[5, 0.1, 2],    "offset":[ 3,    0.3,  -7],    "rotation":[0,      0.8,     0]},
             {"id":"elev_2",       "lift":["wing", 0, 0],  "shape":"Box", "args":[5, 0.1, 2],    "offset":[-3,    0.3,  -7],    "rotation":[0.0,   -0.8,     0]},
-            {"id":"break_top",    "lift":["wing", 0, 0],  "shape":"Box", "args":[3, 0.4, 3],    "offset":[-0,      0.3,  -7],    "rotation":[0,        0,   0]},
-            {"id":"break_bottom", "lift":["wing", 0, 0],  "shape":"Box", "args":[3, 0.4, 3],    "offset":[-0,      0.2,  -7],    "rotation":[0,        0,   0]},
+            {"id":"break_top",    "lift":["box", 0, 0],  "shape":"Box", "args":[3, 0.5, 2.15],   "offset":[-0,    0.5,  -19],    "rotation":[-0.00,       0,   0]},
+            {"id":"break_bottom", "lift":["box", 0, 0],  "shape":"Box", "args":[3, 0.5, 2.5],    "offset":[-0,    0.5,  -17],    "rotation":[0.00,       0,   0]},
             {"id":"stab_1",       "lift":[0, "wing", 0],  "shape":"Box", "args":[0.1,  5.5, 1.2],    "offset":[-1.6,    1,  -5.7],   "rotation":[-0.75,   0.0,  0.0]},
             {"id":"stab_2",       "lift":[0, "wing", 0],  "shape":"Box", "args":[0.1,  5.5, 1.2],    "offset":[ 1.6,    1,  -5.7],   "rotation":[-0.75,  -0.0, -0.0]},
             {"id":"rudder_r",     "lift":[0, "wing", 0],  "shape":"Box", "args":[0.2,  4,  1.5],    "offset":[-1.6,   1.7, -7.3],   "rotation":[-0.35,   0.0,  0.0]},
@@ -146,8 +153,8 @@
 
           "friction":1.8,
           "restitution":0.25,
-          "damping":0.1,
-          "mass":10000
+          "damping":0.01,
+          "mass":15000
         }
       }
     ],

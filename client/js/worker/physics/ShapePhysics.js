@@ -104,9 +104,9 @@ define([
         ShapePhysics.calculateSurfaceDragForce = function(boxVec, anglesOfIncidence, velocity, volume, dragVec) {
 
 
-            xDrag = -velocity.x * (volume + ShapePhysics.surfaceCrossSection(boxVec.z, boxVec.y , anglesOfIncidence.z , anglesOfIncidence.y ));
-            yDrag = -velocity.y * (volume + ShapePhysics.surfaceCrossSection(boxVec.z, boxVec.x , anglesOfIncidence.z , anglesOfIncidence.x ));
-            zDrag = -velocity.z * (volume + ShapePhysics.surfaceCrossSection(boxVec.x, boxVec.y , anglesOfIncidence.x , anglesOfIncidence.y ));
+            xDrag = -velocity.x * (volume*0.01 + ShapePhysics.surfaceCrossSection(boxVec.z, boxVec.y , anglesOfIncidence.z , anglesOfIncidence.y ));
+            yDrag = -velocity.y * (volume*0.01 + ShapePhysics.surfaceCrossSection(boxVec.z, boxVec.x , anglesOfIncidence.z , anglesOfIncidence.x ));
+            zDrag = -velocity.z * (volume*0.01 + ShapePhysics.surfaceCrossSection(boxVec.x, boxVec.y , anglesOfIncidence.x , anglesOfIncidence.y ));
 
             dragVec.set(xDrag, yDrag, zDrag);
 
@@ -190,27 +190,13 @@ define([
 
             ShapePhysics.calculateSurfaceDragForce(tempVec, anglesOfIncidence, velocity, vol, dragVec)
 
-            dragVec.multiplyScalar(- speed * density * coefficients['base_drag']);
 
+            dragVec.multiplyScalar(speed * density * coefficients['base_drag']);
 
+            tempRootQuat.conjugate();
+            dragVec.applyQuaternion(tempRootQuat);
+            dynamicShape.addForceToDynamicShape(dragVec);
 
-        //    dynSpat.applySpatialImpulseVector(dragVec);
-        //    dragVec.multiplyScalar(0.01);
-
-
-        //    dragVec.x = velocity.x;
-        //    dragVec.y = velocity.y;
-        //    dragVec.z = velocity.z;
-
-        //    dragVec.multiplyScalar(speed);
-
-        //    tempRootQuat.conjugate();
-        //    dragVec.applyQuaternion(tempRootQuat);
-
-        //    dragVec.applyQuaternion(tempRootQuat);
-        //    dragVec.z *= -1;
-
-        //    dynamicShape.addForceToDynamicShape(dragVec);
 
             liftVec.set(0, 0, 0);
 
@@ -234,14 +220,9 @@ define([
 
             liftVec.multiplyScalar(speed * density * coefficients['base_lift'] ) // 0.016);
 
-        //    pointOfApplication.copy(dynamicShape.offset);
-            //    pointOfApplication.applyQuaternion(tempRootQuat);
-        //    tempVec.set(drag * AoAVec.x, drag * AoAVec.y, -drag * Math.cos(AoAVec.z));
-            //    tempVec.multiplyScalar(-drag*density*coefficients['base_drag']);
-        //    dynSpat.applySpatialTorqueVector(ShapePhysics.torqueFromForcePoint(pointOfApplication, tempVec));
-
-            //    dragVec.applyQuaternion(tempQuat);
-            //   dynamicShape.addForceToDynamicShape(tempVec);
+            dragVec.normalize();
+            dragVec.multiplyScalar(liftVec.length() * 0.0001);
+            dynamicShape.addForceToDynamicShape(dragVec);
             dynamicShape.addForceToDynamicShape(liftVec);
 
         };

@@ -210,13 +210,40 @@ define([
             store.crossVectors(this.offset , angularVelocity);
         };
 
-        var forceSmoothFactor = 0.35;
+
+        var forceSmoothFactor = 0.75;
+        var diff;
+        var amp;
+        var lamp;
+
+
+        var dampenForceAxis = function(actingAx, impulseAx) {
+            amp = Math.abs(impulseAx);
+            lamp = Math.abs(actingAx);
+
+            if (lamp < amp) {
+            //    diff = amp - lamp;
+                return impulseAx*0.85 + actingAx*0.15;
+            }
+            return impulseAx;
+        };
+
+
+        DynamicShape.prototype.dampenFrameForceDelta = function(acting, impulse) {
+            impulse.x = dampenForceAxis(acting.x, impulse.x);
+            impulse.y = dampenForceAxis(acting.y, impulse.y);
+            impulse.z = dampenForceAxis(acting.z, impulse.z)
+        };
 
         DynamicShape.prototype.applyDynamicShapeForce = function(storeImpulse) {
 
             if (this.hasDynamicShapeForce()) {
 
                 this.getDynamicShapeForce(this.impulseVector);
+                this.getVectorByFirstIndex(ENUMS.DynamicShape.ACTING_FORCE_X, tempVec2);
+
+                this.dampenFrameForceDelta(tempVec2, this.impulseVector);
+
                 this.setVectorByFirstIndex(ENUMS.DynamicShape.ACTING_FORCE_X, this.impulseVector);
 
                 this.getDynamicShapeOffset(this.offset);

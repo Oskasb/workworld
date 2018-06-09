@@ -56,7 +56,7 @@
       {
         "id":"elev_1",
         "data":{
-          "state":{"value":0, "min":-1, "max":1, "speed":0.1, "factor":-0.35},
+          "state":{"value":0, "min":-1, "max":1, "speed":0.01, "factor":-0.35},
 
           "sampleSource":"sampleControl",
           "source":"elevator",
@@ -72,7 +72,7 @@
       {
         "id":"elev_2",
         "data":{
-          "state":{"value":0, "min":-1, "max":1, "speed":0.1, "factor":-0.35},
+          "state":{"value":0, "min":-1, "max":1, "speed":0.01, "factor":-0.35},
           "sampleSource":"sampleControl",
           "source":"elevator",
 
@@ -167,7 +167,7 @@
       {
         "id":"flaps_l",
         "data":{
-          "state":{"value":0, "min":-1, "max":1, "speed":0.05, "factor":-0.8},
+          "state":{"value":0, "min":-1, "max":1, "speed":0.03, "factor":-0.8},
 
           "sampleSource":"sampleControl",
           "source":"flaps",
@@ -183,7 +183,7 @@
       {
         "id":"flaps_r",
         "data":{
-          "state":{"value":0, "min":-1, "max":1, "speed":0.05, "factor":-0.8},
+          "state":{"value":0, "min":-1, "max":1, "speed":0.03, "factor":-0.8},
 
           "sampleSource":"sampleControl",
           "source":"flaps",
@@ -225,7 +225,7 @@
       {
         "id":"brake_top",
         "data":{
-          "state":{"value":0, "min":0, "max":1, "speed":0.05, "factor":-0.95},
+          "state":{"value":0, "min":0, "max":1, "speed":0.05, "factor":1.12},
           "source":"brake",
           "target":"break_top",
           "feedback":"break_top",
@@ -237,7 +237,7 @@
       {
         "id":"brake_bottom",
         "data":{
-          "state":{"value":0, "min":0, "max":1, "speed":0.05, "factor":0.95},
+          "state":{"value":0, "min":0, "max":1, "speed":0.05, "factor":-0.92},
           "source":"brake",
           "target":"break_bottom",
           "feedback":"break_bottom",
@@ -252,7 +252,7 @@
       {
         "id":"gear_r",
         "data":{
-          "state":{"value":0, "min":0, "max":1, "speed":0.05, "factor":1.7},
+          "state":{"value":0, "min":0, "max":1, "speed":0.05, "factor":1.65},
           "source":"gear",
           "target":"gear_r",
           "feedback":"gear_r",
@@ -301,7 +301,7 @@
       {
         "id":"gear_l",
         "data":{
-          "state":{"value":0, "min":0, "max":1, "speed":0.05, "factor":1.7},
+          "state":{"value":0, "min":0, "max":1, "speed":0.05, "factor":1.65},
           "source":"gear",
           "target":"gear_l",
           "feedback":"gear_l",
@@ -612,8 +612,8 @@
       {
         "id":"force_1",
         "data":{
-          "state":{"value":0, "min":-10000, "max":10000, "speed":0.5, "factor":0.00002},
-          "source":{"id":"elev_1", "key":"ACTING_FORCE_Y", "factor":0.1},
+          "state":{"value":0, "min":-10000, "max":10000, "speed":0.5, "factor":1.0},
+          "source":{"id":"elev_1", "key":"ACTING_FORCE_Y", "factor":0.00000001},
           "target":"stab_flex_l",
           "feedback":"stab_flex_l",
           "sampleSource":"sampleShape",
@@ -624,8 +624,8 @@
       {
         "id":"force_2",
         "data":{
-          "state":{"value":0, "min":-10000, "max":10000, "speed":0.5, "factor":0.00002},
-          "source":{"id":"elev_2", "key":"ACTING_FORCE_Y", "factor":0.1},
+          "state":{"value":0, "min":-10000, "max":10000, "speed":0.5, "factor":1.0},
+          "source":{"id":"elev_2", "key":"ACTING_FORCE_Y", "factor":0.00000001},
           "target":"stab_flex_r",
           "feedback":"stab_flex_r",
           "sampleSource":"sampleShape",
@@ -636,8 +636,8 @@
       {
         "id":"force_3",
         "data":{
-          "state":{"value":0, "min":-10000, "max":10000, "speed":0.5, "factor":0.00005},
-          "source":{"id":"pivot_l", "key":"ACTING_FORCE_Y", "factor":-0.1},
+          "state":{"value":0, "min":-10000, "max":10000, "speed":0.5, "factor":1.0},
+          "source":{"id":"pivot_l", "key":"ACTING_FORCE_Y", "factor":-0.00000005},
           "target":"wing_flex_l",
           "feedback":"wing_flex_l",
           "sampleSource":"sampleShape",
@@ -648,8 +648,8 @@
       {
         "id":"force_4",
         "data":{
-          "state":{"value":0, "min":-10000, "max":10000, "speed":0.5, "factor":0.00005},
-          "source":{"id":"pivot_r", "key":"ACTING_FORCE_Y", "factor":-0.1},
+          "state":{"value":0, "min":-10000, "max":10000, "speed":0.5, "factor":1.0},
+          "source":{"id":"pivot_r", "key":"ACTING_FORCE_Y", "factor":-0.00000005},
           "target":"wing_flex_r",
           "feedback":"wing_flex_r",
           "sampleSource":"sampleShape",
