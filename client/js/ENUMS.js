@@ -186,6 +186,7 @@ if(typeof(ENUMS) === "undefined"){
         FRAME_COUNT:        59,
         DYNAMIC_FIRST_INDEX:64,
         BONE_FIRST_INDEX:   2048,
+        LIGHT_FIRST_INDEX:  2048,
         BUFFER_SIZE:        4096
     };
 

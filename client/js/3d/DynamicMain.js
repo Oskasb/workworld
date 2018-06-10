@@ -31,7 +31,8 @@ define([
         var standardGeo = function(e) {
             msg = evt.args(e).msg;
             console.log("Handle DYNAMIC_MODEL, STANDARD_GEOMETRY", msg);
-            var simpSpat = new SimpleSpatial(msg[0], msg[1]);
+            var simpSpat = new SimpleSpatial(msg[0], msg[1], msg[3], msg[4]);
+
 
             var modelReady = function(sSpat, boneConf) {
                 console.log("SimpleSpatial ready: ", boneConf, sSpat);

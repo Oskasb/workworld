@@ -422,6 +422,8 @@ define([
                                 //    cnvTx.wrapT = THREE.RepeatWrapping;
                                 //    cnvTx.generateMipmaps = false;
 
+                                    cnvTx.sourceImage = tx.image;
+
                                     cnvTx.bufferImgId = tx.bufferImgId;
                                     cnvTx.imgUrl = tx.bufferImgId;
                                     model.userData.canvasTextures[child.name].push(cnvTx);

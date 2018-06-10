@@ -1,11 +1,9 @@
 "use strict";
 
 define([
-        'ui/elements/EffectList',
         'worker/controls/ControlsList'
     ],
     function(
-        EffectList,
         ControlsList
     ) {
 

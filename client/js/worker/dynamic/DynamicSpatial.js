@@ -27,6 +27,9 @@ define([
 
         var DynamicSpatial = function() {
 
+            this.pieceConfKey = "";
+            this.pieceConfId = "";
+
             this.shapesMap = {};
             this.dynamicShapes = [];
             this.stillLimit = 5;

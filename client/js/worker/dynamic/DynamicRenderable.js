@@ -164,6 +164,8 @@ define([
 
         DynamicRenderable.prototype.setGamePiece = function(dynamicGamePiece) {
             this.dynamicGamePiece = dynamicGamePiece;
+            this.dynamicSpatial.pieceConfKey = dynamicGamePiece.configKey;
+            this.dynamicSpatial.pieceConfId = dynamicGamePiece.configId;
         };
 
         DynamicRenderable.prototype.getGamePiece = function() {

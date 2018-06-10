@@ -12,7 +12,7 @@ define([
         var StandardGeometry = function(modelId, dynamicSpatial) {
             this.modelId = modelId;
             this.dynamicSpatial = dynamicSpatial;
-            WorldAPI.sendWorldMessage(ENUMS.Protocol.REGISTER_GEOMETRY, [this.modelId, this.dynamicSpatial.getSpatialBuffer(), this.dynamicSpatial.bodyConfig]);
+            WorldAPI.sendWorldMessage(ENUMS.Protocol.REGISTER_GEOMETRY, [this.modelId, this.dynamicSpatial.getSpatialBuffer(), this.dynamicSpatial.bodyConfig, this.dynamicSpatial.pieceConfKey, this.dynamicSpatial.pieceConfId]);
 
             this.dynamicSkeleton = new DynamicSkeleton(this.dynamicSpatial.getSpatialBuffer());
 

@@ -3,11 +3,13 @@
 define([
         'worker/dynamic/DynamicSpatial',
         'worker/dynamic/DynamicSkeleton',
+        'worker/dynamic/DynamicLights',
         'worker/dynamic/DynamicCanvas'
     ],
     function(
         DynamicSpatial,
         DynamicSkeleton,
+        DynamicLights,
         DynamicCanvas
     ) {
 
@@ -24,7 +26,7 @@ define([
             }
         };
 
-        var SimpleSpatial = function(modelId, spatialBuffer) {
+        var SimpleSpatial = function(modelId, spatialBuffer, pieceConfKey, pieceConfId) {
             this.ready = false;
             this.obj3d = new THREE.Object3D();
             this.modelId = modelId;

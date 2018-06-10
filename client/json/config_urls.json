@@ -43,6 +43,7 @@
       "threedata/models/three_prop_models.json",
       "threedata/models/three_nature_models.json",
       "threedata/models/three_control_models.json",
+      "threedata/models/three_dynamic_textures.json",
       "threedata/models/three_building_models.json",
       "threedata/models/three_environment.json",
 
