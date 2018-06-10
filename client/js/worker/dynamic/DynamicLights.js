@@ -1,47 +1,94 @@
 "use strict";
 
 define([
-        'worker/dynamic/DynamicLight'
+        'worker/dynamic/DynamicLight',
+        'ConfigObject',
+    'PipelineAPI'
     ],
     function(
-        DynamicLight
+        DynamicLight,
+        ConfigObject,
+        PipelineAPI
     ) {
 
+    var ci;
     var i;
 
         var DynamicLights = function(spatialBuffer) {
             this.buffer = spatialBuffer;
             this.lights = [];
             this.lightMap = {};
+            this.dynamicCanvases = []
         };
 
-        DynamicLights.prototype.addDynamicLight = function(boneConfig) {
-            var light = new DynamicLight(boneConfig.id,  boneConfig.index, this.buffer);
+        DynamicLights.prototype.addDynamicCanvas = function(dynCnv) {
 
+            for (i = 0; i < this.lights.length; i++) {
+                this.lights[i].setDynamicLightSourceCanvas(dynCnv.sourceImage);
+            }
 
-            this.lightMap[boneConfig.name] = boneConfig.index;
-            this.lights[boneConfig.index] = light;
+            this.dynamicCanvases.push(dynCnv);
+        };
+
+        DynamicLights.prototype.addDynamicLight = function(conf, idx) {
+            var light = new DynamicLight(conf,  idx, this.buffer);
+
+            this.lightMap[light.id] = light.index;
+            this.lights[light.index] = light;
+
+            for (ci = 0; ci < this.dynamicCanvases.length; ci++) {
+                light.setDynamicLightSourceCanvas(this.dynamicCanvases[ci].sourceImage);
+            }
         };
 
         DynamicLights.prototype.applyLightsConfig = function(config) {
             for (i = 0; i < config.length; i++) {
-                this.addDynamicLight(config[i].data);
+                this.addDynamicLight(config[i], i);
             }
         };
 
-        DynamicLights.prototype.attachModelBone = function(bone, boneConfig) {
+        DynamicLights.prototype.initDynamicLights = function(confId) {
 
-            // this.bones[boneConfig.index].inheritBonePosAndQuat(bone.position, bone.quaternion);
+            var lightConf = function(data) {
+                var lights = data.lights;
+                this.applyLightsConfig(lights)
+            }.bind(this);
+
+            this.configObject = new ConfigObject('DYNAMIC_TEXTURES', 'THREE', confId);
+            this.configObject.addCallback(lightConf);
+        };
+
+
+        DynamicLights.prototype.attachModelConfig = function(modelId) {
+
+            var modelConf = function() {
+
+                var data = this.modelConfigObject.data;
+
+                for (var i = 0; i < data.length; i++) {
+                    if (data[i].id === modelId) {
+
+                        if (data[i].dynamic_texture) {
+                            this.initDynamicLights(data[i].dynamic_texture)
+                        }
+                    }
+                }
+
+            }.bind(this);
+
+            this.modelConfigObject = new ConfigObject('MODELS', 'THREE', 'data');
+            this.modelConfigObject.addCallback(modelConf);
 
         };
+
 
         DynamicLights.prototype.getLightById = function(id) {
             return this.lights[this.lightMap[id]];
         };
 
         DynamicLights.prototype.updateDynamicLights = function() {
-            for (i = 0; i < this.lights.length; i++) {
-                this.lights[i].updateDynamicLight();
+            for (ci = 0; ci < this.dynamicCanvases.length; ci++) {
+                this.dynamicCanvases[ci].updateDynamicCanvase(this.lights)
             }
         };
 

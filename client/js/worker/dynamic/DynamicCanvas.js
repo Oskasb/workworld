@@ -1,17 +1,22 @@
 "use strict";
 
 define([
-        'ui/canvas/CanvasDraw',
-    'PipelineAPI'
+        'ui/canvas/CanvasDraw'
     ],
     function(
-        CanvasDraw,
-        PipelineAPI
+        CanvasDraw
     ) {
 
     var i;
 
         var rgbaData = [0, 0, 0, 0];
+
+        var intensity;
+
+        var x;
+        var y;
+        var w;
+        var h;
 
         var DynamicCanvas = function(cnvTx, id) {
             this.id = id;
@@ -24,30 +29,42 @@ define([
             this.height = this.texture.canvas.height;
         };
 
+        DynamicCanvas.prototype.updateCanvasLight = function(light) {
 
-        DynamicCanvas.prototype.updateDynamicCanvase = function() {
+            if (light.dynamicLightUpdated()) {
 
-            rgbaData[0] = Math.random()*0.0;
-            rgbaData[1] = Math.random()*0.0;
-            rgbaData[2] = Math.random()*0.0;
-            rgbaData[3] = Math.random()*0.5;
-     //   CanvasDraw.fillWithImage(this.width, this.height, this.ctx, this.sourceImage);
+                intensity = light.getDynamicLightIntensity();
 
-            this.ctx.drawImage(this.sourceImage, 0, 0, this.width, this.height, 0, 0, this.width, this.height);
+                if (intensity !== 0) {
+                    x = light.getCoordX();
+                    y = light.getCoordY();
+                    w = light.getCoordW();
+                    h = light.getCoordH();
+                    this.ctx.drawImage(light.getSourceCanvas(), x, y, w, h);
+                }
 
-            CanvasDraw.attenuateContext(this.width, this.height, this.ctx, CanvasDraw.toRgba(rgbaData));
+                if (intensity !== 1) {
+                    rgbaData[0] = 0;
+                    rgbaData[1] = 0;
+                    rgbaData[2] = 0;
+                    rgbaData[3] = 1 - intensity;
+                    CanvasDraw.attenuateContextRect(x, y, w, h, this.ctx, CanvasDraw.toRgba(rgbaData));
+                }
+            }
+        };
 
-        //    this.ctx.globalCompositeOperation = 'source-over';
-        //
-        //    this.ctx.drawImage(this.sourceCanvas, 0, 0, this.width, this.height, 0, 0, this.width, this.height);
+        DynamicCanvas.prototype.updateCanvasLights = function(lights) {
+            for (i = 0; i < lights.length; i++) {
+                this.updateCanvasLight(lights[i])
+            }
+        };
 
+        DynamicCanvas.prototype.updateDynamicCanvase = function(lights) {
+
+            this.updateCanvasLights(lights);
             this.texture.needsUpdate = true;
-
-        //   this.texture.needsUpdate = true;
-
         };
 
         return DynamicCanvas;
 
     });
-

@@ -39,6 +39,15 @@ define([
             );
         };
 
+        CanvasDraw.attenuateContextRect = function(x, y, w, h, ctx, attenuateColor) {
+            ctx.fillStyle = attenuateColor;
+            ctx.fillRect(
+                x,
+                y,
+                w,
+                h
+            );
+        };
 
 
         CanvasDraw.fillWithImage = function(w, h, ctx, img) {

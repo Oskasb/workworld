@@ -13,7 +13,6 @@ define([
         DynamicCanvas
     ) {
 
-
         var buildBoneConfig = function(bone, boneIndex) {
             return {
                 id:bone.name,
@@ -31,12 +30,10 @@ define([
             this.obj3d = new THREE.Object3D();
             this.modelId = modelId;
             this.dynamicSpatial = new DynamicSpatial();
+            this.dynamicLights = new DynamicLights(spatialBuffer);
             this.dynamicSkeleton = new DynamicSkeleton(spatialBuffer);
-            this.dynamicSpatial.setSpatialBuffer(spatialBuffer);
-            this.canvases = []
+            this.dynamicSpatial.setSpatialBuffer(spatialBuffer)
         };
-
-
 
         SimpleSpatial.prototype.setupBones = function(skeleton) {
 
@@ -52,7 +49,6 @@ define([
                 boneIndex++;
                 bones.push(bone);
             };
-
 
             var parseChildGroup = function(obj) {
                 for (var j = 0; j < obj.length; j++) {
@@ -107,25 +103,18 @@ define([
 
             if (group.userData.canvasTextures) {
 
-                for (var key in group.userData.canvasTextures) {
+                this.dynamicLights.initDynamicLights(group.userData.dynamicTexture);
 
+                for (var key in group.userData.canvasTextures) {
                     for (var i = 0; i < group.userData.canvasTextures[key].length; i++) {
-                        group.userData.canvasTextures[key][i];
-                        this.canvases.push(new DynamicCanvas(group.userData.canvasTextures[key][i]))
+                        this.dynamicLights.addDynamicCanvas(new DynamicCanvas(group.userData.canvasTextures[key][i]))
                     }
                 }
+
             }
 
             this.ready = true;
             this.onReady(this, bonesConfig);
-        };
-
-        var ci;
-
-        SimpleSpatial.prototype.updateDynamicCanvases = function() {
-           for (ci = 0; ci < this.canvases.length; ci++) {
-               this.canvases[ci].updateDynamicCanvase()
-           }
         };
 
         SimpleSpatial.prototype.updateSimpleSpatial = function() {
@@ -137,7 +126,7 @@ define([
             this.dynamicSpatial.getSpatialPosition(this.obj3d.position);
             this.dynamicSpatial.getSpatialQuaternion(this.obj3d.quaternion);
             this.dynamicSkeleton.updateDynamicSkeleton();
-            this.updateDynamicCanvases();
+            this.dynamicLights.updateDynamicLights();
         };
 
         SimpleSpatial.prototype.getDynamicSpatial = function() {
@@ -151,4 +140,3 @@ define([
         return SimpleSpatial;
 
     });
-

@@ -9,6 +9,7 @@
           "canvas_textures":{"lights":["map"]},
           "group_materials":{
             "lights":"tomcat_lights",
+            "lights_unlit":"tomcat_decals",
             "glass":"glass_canopy",
             "decals":"tomcat_decals",
             "instrument_glass":"glass_canopy",
@@ -26,7 +27,7 @@
             "scale": [0.1, 0.1, 0.1]
           },
 
-          "dynamic_textures":"lights_f14"
+          "dynamic_texture":"lights_f14"
         },
 
         {

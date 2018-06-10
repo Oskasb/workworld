@@ -59,6 +59,10 @@ define([
             return this.getGeometryRenderable().getDynamicBone(name);
         };
 
+        DynamicRenderable.prototype.getRenderableLight = function(id) {
+            return this.getGeometryRenderable().getDynamicLight(id);
+        };
+
         DynamicRenderable.prototype.initRenderable = function(onReady) {
 
             var feedbackReady = function() {

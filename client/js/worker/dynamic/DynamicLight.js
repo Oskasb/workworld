@@ -7,109 +7,82 @@ define([
 
     ) {
 
-        var DynamicLight = function(id, idx, buffer) {
-            this.id = id;
+        var DynamicLight = function(conf, idx, buffer) {
+
+            this.id = conf.id;
+            this.txcoords = conf.txcoords;
             this.index = idx;
             this.buffer = buffer;
 
-            this.bsi = ENUMS.BufferSpatial.BONE_FIRST_INDEX + ENUMS.DynamicBone.STRIDE * this.index;
+            this.lastIntensity = 0;
 
-            if (this.bsi > ENUMS.BufferSpatial.BUFFER_SIZE + ENUMS.DynamicBone.STRIDE) {
-                console.log("BONE BUFFER OVERFLOW..");
+            this.bsi = ENUMS.BufferSpatial.LIGHT_FIRST_INDEX + ENUMS.DynamicLight.STRIDE * this.index;
+
+            if (this.bsi > ENUMS.BufferSpatial.BUFFER_SIZE + ENUMS.DynamicLight.STRIDE) {
+                console.log("LIGHT BUFFER OVERFLOW..", this.bsi);
             }
+
         };
 
-
-        DynamicBone.prototype.inheritBonePosQuatScale = function(pos, quat, scale) {
-            this.pos = pos;
-            this.quat = quat;
-            this.scale = scale;
-            this.setDynamicBonePosition(pos);
-            this.setDynamicBoneQuaternion(quat);
-            this.setDynamicBoneScale(scale)
+        DynamicLight.prototype.setDynamicLightSourceCanvas = function(sourceCanvas) {
+            this.sourceCanvas = document.createElement('canvas');
+            this.sourceCtx = this.sourceCanvas.getContext('2d');
+            this.sourceCanvas.width = this.getCoordW();
+            this.sourceCanvas.height = this.getCoordH();
+            this.sourceCtx.drawImage(sourceCanvas, this.getCoordX(), this.getCoordY(), this.getCoordW(), this.getCoordH(), 0, 0, this.getCoordW(), this.getCoordH())
         };
 
-        DynamicBone.prototype.setDynamicBoneUpdate = function(bool) {
-            this.buffer[this.bsi + ENUMS.DynamicBone.HAS_UPDATE] = bool;
+        DynamicLight.prototype.setDynamicLightIntensity = function(value) {
+            this.buffer[this.bsi + ENUMS.DynamicLight.LIGHT_INTENSITY] = Math.clamp(value, 0, 1);
+        };
+
+        DynamicLight.prototype.setDynamicLightUpdate = function(bool) {
+            this.buffer[this.bsi + ENUMS.DynamicLight.HAS_UPDATE] = bool;
             if (bool === 0) {
-                this.posUpdate = 0;
-                this.scaleUpdate = 0;
-                this.quatUpdate = 0;
             }
         };
 
-        DynamicBone.prototype.getDynamicBoneUpdate = function() {
-            return this.buffer[this.bsi + ENUMS.DynamicBone.HAS_UPDATE];
+        DynamicLight.prototype.getDynamicLightUpdate = function() {
+            return this.buffer[this.bsi + ENUMS.DynamicLight.HAS_UPDATE];
         };
 
-        DynamicBone.prototype.getDynamicBoneScale = function(store) {
-            store.x = this.buffer[this.bsi + ENUMS.DynamicBone.SCALE_X];
-            store.y = this.buffer[this.bsi + ENUMS.DynamicBone.SCALE_Y];
-            store.z = this.buffer[this.bsi + ENUMS.DynamicBone.SCALE_Z]
+        DynamicLight.prototype.getDynamicLightIntensity = function() {
+            this.lastIntensity = this.buffer[this.bsi + ENUMS.DynamicLight.LIGHT_INTENSITY];
+            return this.lastIntensity;
         };
 
-
-        DynamicBone.prototype.getDynamicBonePosition = function(store) {
-            store.x = this.buffer[this.bsi + ENUMS.DynamicBone.POS_X];
-            store.y = this.buffer[this.bsi + ENUMS.DynamicBone.POS_Y];
-            store.z = this.buffer[this.bsi + ENUMS.DynamicBone.POS_Z]
+        DynamicLight.prototype.dynamicLightUpdated = function() {
+            return this.buffer[this.bsi + ENUMS.DynamicLight.LIGHT_INTENSITY] !== this.lastIntensity;
         };
 
-        DynamicBone.prototype.getDynamicBoneQuaternion = function(store) {
-            store.x = this.buffer[this.bsi + ENUMS.DynamicBone.QUAT_X];
-            store.y = this.buffer[this.bsi + ENUMS.DynamicBone.QUAT_Y];
-            store.z = this.buffer[this.bsi + ENUMS.DynamicBone.QUAT_Z];
-            store.w = this.buffer[this.bsi + ENUMS.DynamicBone.QUAT_W];
+        DynamicLight.prototype.setDynamicLightIntensity = function(value) {
+            this.buffer[this.bsi + ENUMS.DynamicLight.LIGHT_INTENSITY] = Math.round(value * 100) / 100;
         };
 
-        DynamicBone.prototype.setDynamicBonePosition = function(pos) {
-            this.buffer[this.bsi + ENUMS.DynamicBone.POS_X] = pos.x;
-            this.buffer[this.bsi + ENUMS.DynamicBone.POS_Y] = pos.y;
-            this.buffer[this.bsi + ENUMS.DynamicBone.POS_Z] = pos.z;
-            this.posUpdate = 1;
-            this.setDynamicBoneUpdate(1);
+        DynamicLight.prototype.getCoordX = function() {
+            return this.txcoords[0];
         };
 
-        DynamicBone.prototype.setDynamicBoneScale = function(scale) {
-            this.buffer[this.bsi + ENUMS.DynamicBone.SCALE_X] = scale.x;
-            this.buffer[this.bsi + ENUMS.DynamicBone.SCALE_Y] = scale.y;
-            this.buffer[this.bsi + ENUMS.DynamicBone.SCALE_Z] = scale.z;
-            this.scaleUpdate = 1;
-            this.setDynamicBoneUpdate(1);
+        DynamicLight.prototype.getCoordY = function() {
+            return this.txcoords[1];
         };
 
-        DynamicLight.prototype.setDynamicBoneQuaternion = function(quat) {
-            this.buffer[this.bsi + ENUMS.DynamicBone.QUAT_X] = quat.x;
-            this.buffer[this.bsi + ENUMS.DynamicBone.QUAT_Y] = quat.y;
-            this.buffer[this.bsi + ENUMS.DynamicBone.QUAT_Z] = quat.z;
-            this.buffer[this.bsi + ENUMS.DynamicBone.QUAT_W] = quat.w;
-            this.quatUpdate = 1;
-            this.setDynamicBoneUpdate(1);
+        DynamicLight.prototype.getCoordW = function() {
+            return this.txcoords[2];
         };
 
-        DynamicLight.prototype.applyDynamicBoneUpdate = function() {
-            this.getDynamicBonePosition(this.pos);
-            this.getDynamicBoneQuaternion(this.quat);
-            this.getDynamicBoneScale(this.scale);
+        DynamicLight.prototype.getCoordH = function() {
+            return this.txcoords[3];
         };
 
-        DynamicLight.prototype.resetDynamicBoneQuat = function() {
-            this.setDynamicBoneQuaternion(this.originalQuat)
-        };
-
-        DynamicLight.prototype.resetDynamicBonePos = function() {
-            this.setDynamicBonePosition(this.originalPos)
-        };
-
-        DynamicLight.prototype.resetDynamicBoneScale = function() {
-            this.setDynamicBoneScale(this.originalScale)
+        DynamicLight.prototype.getSourceCanvas = function() {
+            return this.sourceCanvas;
         };
 
         DynamicLight.prototype.updateDynamicBone = function() {
 
-            if (this.getDynamicBoneUpdate()) {
-                this.applyDynamicBoneUpdate();
-                this.setDynamicBoneUpdate(0);
+            if (this.getDynamicLightUpdate()) {
+
             }
 
         };

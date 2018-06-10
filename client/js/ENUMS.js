@@ -185,8 +185,8 @@ if(typeof(ENUMS) === "undefined"){
         ROLL_ATTITUDE:      58,
         FRAME_COUNT:        59,
         DYNAMIC_FIRST_INDEX:64,
-        BONE_FIRST_INDEX:   2048,
-        LIGHT_FIRST_INDEX:  2048,
+        BONE_FIRST_INDEX:   2096,
+        LIGHT_FIRST_INDEX:  3500,
         BUFFER_SIZE:        4096
     };
 
@@ -229,6 +229,13 @@ if(typeof(ENUMS) === "undefined"){
         SCALE_Y:            10,
         SCALE_Z:            11,
         STRIDE:             12
+    };
+
+    ENUMS.DynamicLight = {
+        LIGHT_INDEX:        0,
+        HAS_UPDATE:         1,
+        LIGHT_INTENSITY:    2,
+        STRIDE:             3
     };
 
     ENUMS.Worker = {

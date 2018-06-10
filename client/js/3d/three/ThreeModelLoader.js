@@ -392,7 +392,11 @@ define([
                             child.material = mat;
                         }
 
+
                         if (modelConf.canvas_textures) {
+
+                            model.userData.dynamicTexture = modelConf.dynamic_texture;
+
                             if (modelConf.canvas_textures[child.name]) {
 
                                 if (!model.userData.canvasTextures) {

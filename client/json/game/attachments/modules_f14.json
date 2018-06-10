@@ -8,10 +8,11 @@
           "state":{"value":0, "min":-0.2, "max":1, "speed":0.05, "factor":4000},
           "source":"engine",
           "target":"nozzle_1",
-          "feedback":"nozzle_1",
           "sampleSource":"sampleControl",
           "applyState":"applyForce",
-          "effectFunction":"jetExhaustEffect"
+
+          "effectFunction":"jetExhaustEffect",
+          "feedback":{"id":"nozzle_1", "effects":["thruster_flame_effect"], "scale":9, "factor":1,  "light":{"id":"engine_l", "gain":1}}
         }
       },
       {
@@ -20,10 +21,12 @@
           "state":{"value":0, "min":-0.2, "max":1, "speed":0.05, "factor":4000},
           "source":"engine",
           "target":"nozzle_2",
-          "feedback":"nozzle_2",
+
           "sampleSource":"sampleControl",
           "applyState":"applyForce",
-          "effectFunction":"jetExhaustEffect"
+
+          "effectFunction":"jetExhaustEffect",
+          "feedback":{"id":"nozzle_2", "effects":["thruster_flame_effect"], "scale":9, "factor":1, "light":{"id":"engine_r", "gain":1}}
         }
       }
     ],
@@ -32,19 +35,19 @@
       {
         "id":"sweep_l",
         "data":{
-          "state":{"value":0, "min":-1, "max":1, "speed":0.05, "factor":0.85},
+          "state":{"value":0, "min":0, "max":1, "speed":0.05, "factor":0.85},
           "source":"sweep",
           "target":"pivot_l",
-          "feedback":"pivot_l",
           "sampleSource":"sampleControl",
           "applyState":"applyRotationY",
-          "effectFunction":"setBoneRotationX"
+          "effectFunction":"applyBoneRotation",
+          "feedback":{"id":"pivot_l", "rot":"rotateX", "factor":1, "light":{"id":"wing_sweep", "gain":1}}
         }
       },
       {
         "id":"sweep_r",
         "data":{
-          "state":{"value":0, "min":-1, "max":1, "speed":0.05, "factor":-0.85},
+          "state":{"value":0, "min":0, "max":1, "speed":0.05, "factor":-0.85},
           "source":"sweep",
           "target":"pivot_r",
           "feedback":"pivot_r",
@@ -66,7 +69,7 @@
 
 
           "effectFunction":"applyBoneRotation",
-          "feedback":{"id":"stab_pitch_l", "rot":"rotateX", "factor":1}
+          "feedback":{"id":"stab_pitch_l", "rot":"rotateX", "factor":1, "light":{"id":"pitch_1", "gain":4}}
 
         }
       },
@@ -82,7 +85,7 @@
 
 
           "effectFunction":"applyBoneRotation",
-          "feedback":{"id":"stab_pitch_r", "rot":"rotateX", "factor":-1}
+          "feedback":{"id":"stab_pitch_r", "rot":"rotateX", "factor":-1, "light":{"id":"pitch_2", "gain":-4}}
 
         }
       },
@@ -98,7 +101,7 @@
           "target":{"id":"elev_1", "rot":"rotateX", "factor":1},
 
           "effectFunction":"applyBoneRotation",
-          "feedback":{"id":"stab_roll_l", "rot":"rotateX", "factor":1}
+          "feedback":{"id":"stab_roll_l", "rot":"rotateX", "factor":1, "light":{"id":"roll_1", "gain":-4}}
 
         }
       },
@@ -113,7 +116,7 @@
           "target":{"id":"elev_2", "rot":"rotateX", "factor":1},
 
           "effectFunction":"applyBoneRotation",
-          "feedback":{"id":"stab_roll_r", "rot":"rotateX", "factor":-1}
+          "feedback":{"id":"stab_roll_r", "rot":"rotateX", "factor":-1, "light":{"id":"roll_2", "gain":4}}
         }
       },
 
@@ -148,10 +151,12 @@
           "state":{"value":0, "min":-1, "max":1, "speed":0.15, "factor":1},
           "source":"rudder",
           "target":"rudder_l",
-          "feedback":"rudder_l",
+
           "sampleSource":"sampleControl",
           "applyState":"applyRotationY",
-          "effectFunction":"setBoneRotationX"
+
+          "effectFunction":"applyBoneRotation",
+          "feedback":{"id":"rudder_l", "rot":"rotateX", "factor":-1, "light":{"id":"yaw_op", "gain":2}}
         }
       },
       {
@@ -160,10 +165,11 @@
           "state":{"value":0, "min":-1, "max":1, "speed":0.15, "factor":1},
           "source":"rudder",
           "target":"rudder_r",
-          "feedback":"rudder_r",
+
           "sampleSource":"sampleControl",
           "applyState":"applyRotationY",
-          "effectFunction":"setBoneRotationX"
+          "effectFunction":"applyBoneRotation",
+          "feedback":{"id":"rudder_r", "rot":"rotateX", "factor":-1, "light":{"id":"yaw_out", "gain":-2}}
         }
       },
 
@@ -180,7 +186,7 @@
 
 
           "effectFunction":"applyBoneRotation",
-          "feedback":{"id":"flap_l", "rot":"rotateX", "factor":1}
+          "feedback":{"id":"flap_l", "rot":"rotateX", "factor":1, "light":{"id":"flap_l", "gain":2}}
 
 
         }
@@ -197,7 +203,7 @@
           "target":{"id":"pivot_r", "rot":"rotateX", "factor":0.13},
 
           "effectFunction":"applyBoneRotation",
-          "feedback":{"id":"flap_r", "rot":"rotateX", "factor":-1}
+          "feedback":{"id":"flap_r", "rot":"rotateX", "factor":-1, "light":{"id":"flap_r", "gain":2}}
 
         }
       },
@@ -240,7 +246,7 @@
           "applyState":"applyRotationX",
 
           "effectFunction":"applyBoneRotation",
-          "feedback":{"id":"break_top", "rot":"rotateX", "factor":-1}
+          "feedback":{"id":"break_top", "rot":"rotateX", "factor":-1, "light":{"id":"brakes", "gain":1}}
 
         }
       },
@@ -268,10 +274,11 @@
           "state":{"value":0, "min":0, "max":1, "speed":0.05, "factor":1.65},
           "source":"gear",
           "target":"gear_r",
-          "feedback":"gear_r",
           "sampleSource":"sampleControl",
           "applyState":"effectEmitter",
-          "effectFunction":"setBoneRotationX"
+
+          "effectFunction":"applyBoneRotation",
+          "feedback":{"id":"gear_r", "rot":"rotateX", "factor":-1, "light":{"id":"wheels", "gain":1}}
 
         }
       },
@@ -487,15 +494,78 @@
           "state":{"value":0, "min":0, "max":1, "speed":0.05, "factor":2.1},
           "source":"doors",
           "target":"door_nose_l",
-          "feedback":"door_nose_l",
           "sampleSource":"sampleControl",
           "applyState":"effectEmitter",
-          "effectFunction":"setBoneRotationX"
+          "effectFunction":"applyLightState",
+          "feedback":{"id":"door_nose_l", "rot":"rotateX", "factor":-1, "light":{"id":"yx_99", "gain":1}}
         }
       }
     ],
 
     "COCKPIT_F14":[
+      {
+        "id":"master_light",
+        "data":{
+          "state":{"value":0, "min":0, "max":1, "speed":0.15, "factor":1.0},
+          "source":"master_light",
+          "target":"master_light",
+          "sampleSource":"sampleControl",
+          "applyState":"effectEmitter",
+          "effectFunction":"applyLightState",
+          "feedback":{"light":{"id":"zz_99", "gain":1}}
+
+        }
+      },
+      {
+        "id":"formation_lights",
+        "data":{
+          "state":{"value":0, "min":0, "max":1, "speed":0.15, "factor":1.0},
+          "source":"formation_lights",
+          "target":"formation_lights",
+          "sampleSource":"sampleControl",
+          "applyState":"effectEmitter",
+          "effectFunction":"applyLightState",
+          "feedback":{"light":{"id":"yy_99", "gain":1}}
+
+        }
+      },
+      {
+        "id":"collision_lights",
+        "data":{
+          "state":{"value":0, "min":0, "max":1, "speed":0.15, "factor":1.0},
+          "source":"collision_lights",
+          "target":"collision_lights",
+          "sampleSource":"sampleControl",
+          "applyState":"effectEmitter",
+          "effectFunction":"applyLightState",
+          "feedback":{"light":{"id":"xx_99", "gain":1}}
+
+        }
+      },
+      {
+        "id":"landing_lights",
+        "data":{
+          "state":{"value":0, "min":0, "max":1, "speed":0.15, "factor":1.0},
+          "source":"landing_lights",
+          "target":"landing_lights",
+          "sampleSource":"sampleControl",
+          "applyState":"effectEmitter",
+          "effectFunction":"applyLightState",
+          "feedback":{"light":{"id":"yx_88", "gain":1}}
+        }
+      },
+      {
+        "id":"navigation_lights",
+        "data":{
+          "state":{"value":0, "min":0, "max":1, "speed":0.15, "factor":1.0},
+          "source":"navigation_lights",
+          "target":"navigation_lights",
+          "sampleSource":"sampleControl",
+          "applyState":"effectEmitter",
+          "effectFunction":"applyLightState",
+          "feedback":{"light":{"id":"zz_88", "gain":1}}
+        }
+      },
       {
         "id":"stick_pitch",
         "data":{
@@ -570,6 +640,147 @@
           "effectFunction":"setBoneRotationX"
         }
       }
+    ],
+
+    "EXTERNA_LIGHTS_F14":[
+
+      {
+        "id":"formation_lights_ext",
+        "data":{
+          "state":{"value":0, "min":0, "max":1, "speed":0.15, "factor":1.0},
+          "source":"formation_lights",
+          "target":"formation_lights",
+          "sampleSource":"sampleControl",
+          "applyState":"effectEmitter",
+          "effectFunction":"applyLightState",
+          "feedback":{"light":{"id":"formation", "gain":1}}
+
+        }
+      },
+      {
+        "id":"collision_lights_ext_1",
+        "data":{
+          "state":{"value":0, "min":0, "max":1, "speed":0.15, "factor":1.0},
+          "source":"collision_lights",
+          "target":"collision_lights",
+          "sampleSource":"sampleControl",
+          "applyState":"effectEmitter",
+          "effectFunction":"applyLightState",
+          "feedback":{"light":{"id":"collision_l", "gain":1}}
+
+        }
+      },
+      {
+        "id":"collision_lights_ext_2",
+        "data":{
+          "state":{"value":0, "min":0, "max":1, "speed":0.15, "factor":1.0},
+          "source":"collision_lights",
+          "target":"collision_lights",
+          "sampleSource":"sampleControl",
+          "applyState":"effectEmitter",
+          "effectFunction":"applyLightState",
+          "feedback":{"light":{"id":"coll_low_r", "gain":1}}
+
+        }
+      },
+      {
+        "id":"collision_lights_ext_3",
+        "data":{
+          "state":{"value":0, "min":0, "max":1, "speed":0.15, "factor":1.0},
+          "source":"collision_lights",
+          "target":"collision_lights",
+          "sampleSource":"sampleControl",
+          "applyState":"effectEmitter",
+          "effectFunction":"applyLightState",
+          "feedback":{"light":{"id":"coll_low_l", "gain":1}}
+
+        }
+      },
+      {
+        "id":"landing_lights_ext_1",
+        "data":{
+          "state":{"value":0, "min":0, "max":1, "speed":0.15, "factor":1.0},
+          "source":"landing_lights",
+          "target":"landing_lights",
+          "sampleSource":"sampleControl",
+          "applyState":"effectEmitter",
+          "effectFunction":"applyLightState",
+          "feedback":{"light":{"id":"nose", "gain":1}}
+        }
+      },
+      {
+        "id":"landing_lights_ext_2",
+        "data":{
+          "state":{"value":0, "min":0, "max":1, "speed":0.15, "factor":1.0},
+          "source":"landing_lights",
+          "target":"landing_lights",
+          "sampleSource":"sampleControl",
+          "applyState":"effectEmitter",
+          "effectFunction":"applyLightState",
+          "feedback":{"light":{"id":"rear_l", "gain":1}}
+        }
+      },
+      {
+        "id":"landing_lights_ext_3",
+        "data":{
+          "state":{"value":0, "min":0, "max":1, "speed":0.15, "factor":1.0},
+          "source":"landing_lights",
+          "target":"landing_lights",
+          "sampleSource":"sampleControl",
+          "applyState":"effectEmitter",
+          "effectFunction":"applyLightState",
+          "feedback":{"light":{"id":"rear_r", "gain":1}}
+        }
+      },
+
+      {
+        "id":"navigation_lights_ext_1",
+        "data":{
+          "state":{"value":0, "min":0, "max":1, "speed":0.15, "factor":1.0},
+          "source":"navigation_lights",
+          "target":"navigation_lights",
+          "sampleSource":"sampleControl",
+          "applyState":"effectEmitter",
+          "effectFunction":"applyLightState",
+          "feedback":{"light":{"id":"wing_r", "gain":1}}
+        }
+      },
+      {
+        "id":"navigation_lights_ext_2",
+        "data":{
+          "state":{"value":0, "min":0, "max":1, "speed":0.15, "factor":1.0},
+          "source":"navigation_lights",
+          "target":"navigation_lights",
+          "sampleSource":"sampleControl",
+          "applyState":"effectEmitter",
+          "effectFunction":"applyLightState",
+          "feedback":{"light":{"id":"glove_l", "gain":1}}
+        }
+      },
+      {
+        "id":"navigation_lights_ext_3",
+        "data":{
+          "state":{"value":0, "min":0, "max":1, "speed":0.15, "factor":1.0},
+          "source":"navigation_lights",
+          "target":"navigation_lights",
+          "sampleSource":"sampleControl",
+          "applyState":"effectEmitter",
+          "effectFunction":"applyLightState",
+          "feedback":{"light":{"id":"wing_l", "gain":1}}
+        }
+      },
+      {
+        "id":"navigation_lights_ext_4",
+        "data":{
+          "state":{"value":0, "min":0, "max":1, "speed":0.15, "factor":1.0},
+          "source":"navigation_lights",
+          "target":"navigation_lights",
+          "sampleSource":"sampleControl",
+          "applyState":"effectEmitter",
+          "effectFunction":"applyLightState",
+          "feedback":{"light":{"id":"glove_r", "gain":1}}
+        }  }
+
     ],
 
     "EXTERNAL_F14":[

@@ -34,6 +34,20 @@
           }]
         },
         {
+          "id":"tomcat_lights_unlit",
+          "shader":"MeshPhongMaterial",
+          "blending":"NoBlending",
+          "color":{"r":1, "g":1, "b":1},
+          "settings":{
+            "alphaTest": 0.2,
+            "shininess":5,
+            "skinning":true
+          },
+          "textures":[{
+            "map":"./client/assets/images/textures/tomcat_decals.png"
+          }]
+        },
+        {
           "id":"tomcat_atlas_cockpit",
           "shader":"MeshStandardMaterial",
           "blending":"NoBlending",

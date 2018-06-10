@@ -11,6 +11,8 @@ define([
 
         var target;
 
+        var light;
+
         var speed;
         var value;
 
@@ -51,6 +53,16 @@ define([
             }
         };
 
+        var applyLightFeedback = function(renderable, moduleState, trgt) {
+
+            if (trgt.light) {
+
+                light = renderable.getRenderableLight(trgt.light.id);
+                light.setDynamicLightIntensity(moduleState.getStateValue() * trgt.light.gain);
+
+            }
+
+        };
 
         var spawnTargetEffect = function(renderable, target, fxId) {
             fxArgs.effect = fxId;
@@ -100,7 +112,9 @@ define([
 
         ModuleEffectFunctions.jetExhaustEffect = function(renderable, moduleState, trgt) {
 
-            target = renderable.getSpatialShapeById(trgt);
+            applyLightFeedback(renderable, moduleState, trgt);
+
+            target = renderable.getSpatialShapeById(trgt.id);
 
             if (!target.effectList) {
                 target.effectList = new EffectList();
@@ -123,21 +137,23 @@ define([
                 target.calculateWorldPosition(renderable.pos, renderable.quat, fxArgs.pos);
 
                 if (!target.effectList.effectCount()) {
-                    target.effectList.enableEffectList(['thruster_flame_effect'], fxArgs.pos)
+                    target.effectList.enableEffectList(trgt.effects, fxArgs.pos)
                 } else {
                     target.calculateWorldPosition(renderable.pos, renderable.quat, fxArgs.pos);
                     target.effectList.setEffectListPosition(fxArgs.pos);
                 }
 
+
             }
 
-            target.effectList.setEffectListScale((value - min) * 9);
+            target.effectList.setEffectListScale((value - min) * trgt.scale);
 
             fxArgs.vel.copy(target.direction);
             fxArgs.vel.multiplyScalar(-moduleState.getStateValue());
             fxArgs.vel.applyQuaternion(renderable.quat);
 
             target.effectList.setEffectListVelocity(fxArgs.vel)
+
 
         };
 
@@ -220,9 +236,16 @@ define([
 
         };
 
+        ModuleEffectFunctions.applyLightState = function(renderable, moduleState, trgt) {
+            applyLightFeedback(renderable, moduleState, trgt);
+        };
+
+
         ModuleEffectFunctions.applyBoneRotation = function(renderable, moduleState, trgt) {
 
             var dynBone = renderable.getRenderableBone(trgt.id);
+
+            applyLightFeedback(renderable, moduleState, trgt);
 
             if (!dynBone) {
                 console.log("No Dynamic Bone:", trgt, renderable, moduleState);
@@ -234,6 +257,7 @@ define([
             tempObj.quaternion.copy(dynBone.originalQuat);
             tempObj[trgt.rot](moduleState.getAppliedFactor() * trgt.factor);
             dynBone.setDynamicBoneQuaternion(tempObj.quaternion);
+
 
         };
 

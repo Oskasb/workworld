@@ -96,7 +96,9 @@ define([
                 new THREE.TextureLoader().load(url, onLoad);
             };
 
-            new PipelineObject('BUFFER_IMAGE', url, originalImageUpdated);
+            originalImageUpdated(url)
+
+            // new PipelineObject('BUFFER_IMAGE', url, originalImageUpdated);
             return;
 
             if (PipelineAPI.getPipelineOptions('imagePipe').polling.enabled) {

@@ -1,12 +1,14 @@
 "use strict";
 
 define([
-'ConfigObject',
-        'worker/dynamic/DynamicSkeleton'
+        'ConfigObject',
+        'worker/dynamic/DynamicSkeleton',
+        'worker/dynamic/DynamicLights'
     ],
     function(
         ConfigObject,
-        DynamicSkeleton
+        DynamicSkeleton,
+        DynamicLights
     ) {
 
         var StandardGeometry = function(modelId, dynamicSpatial) {
@@ -16,9 +18,13 @@ define([
 
             this.dynamicSkeleton = new DynamicSkeleton(this.dynamicSpatial.getSpatialBuffer());
 
+            this.dynamicLights = new DynamicLights(this.dynamicSpatial.getSpatialBuffer());
+            this.dynamicLights.attachModelConfig(modelId);
+
             var bonesData = function(x, data) {
                 console.log("Get Bone Data", x, data, this.configObject);
                 this.dynamicSkeleton.applyBonesConfig(data);
+
             }.bind(this);
 
             this.configObject = new ConfigObject('DYNAMIC_BONES', this.modelId, 'bones');
@@ -43,6 +49,10 @@ define([
 
         StandardGeometry.prototype.getDynamicBone = function(name) {
             return this.dynamicSkeleton.getBoneByName(name);
+        };
+
+        StandardGeometry.prototype.getDynamicLight = function(id) {
+            return this.dynamicLights.getLightById(id);
         };
 
         StandardGeometry.prototype.hideGeometryRenderable = function() {
