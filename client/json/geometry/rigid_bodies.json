@@ -9,37 +9,35 @@
           "state":"DISABLE_DEACTIVATION",
           "shape":"Compound",
           "args":[
-            {"id":"fore_1",       "lift":[0, "wing", 0],  "shape":"Box", "args":[3,  29,   8],    "offset":[0,       6,     149],      "rotation":[0.2, 0,       0]},
-            {"id":"fore_2",       "lift":[0, "wing", 0],  "shape":"Box", "args":[20, 12,   1],    "offset":[0,       18,    158],      "rotation":[1.0, 0,       0]},
+            {"id":"fore_1",       "lift":[0,    0,   0],  "shape":"Box", "args":[3,  29,   8],    "offset":[0,       6,     149],      "rotation":[0.2, 0,       0]},
+            {"id":"fore_2",       "lift":[0,    0,   0],  "shape":"Box", "args":[20, 12,   1],    "offset":[0,       18,    158],      "rotation":[1.0, 0,       0]},
             {"id":"fore_3",       "lift":[0,    0,   0],  "shape":"Box", "args":[4,   12,  4],    "offset":[0,      -4,     152],      "rotation":[0.0, 0,       0]},
 
-            {"id":"sub_1a",       "lift":[0,    0,   0],  "shape":"Box", "args":[8,  15,  40],    "offset":[ 0,     -4,     120],      "rotation":[0,   0,       0]},
-            {"id":"sub_1b",       "lift":[0,    0,   0],  "shape":"Box", "args":[3,  13,  60],    "offset":[-5,     -5,     120],      "rotation":[0,   0.15,  0.1]},
-            {"id":"sub_1c",       "lift":[0,    0,   0],  "shape":"Box", "args":[3,  13,  60],    "offset":[ 5,     -5,     120],      "rotation":[0,  -0.15, -0.1]},
+            {"id":"sub_1a",       "lift":[0,  "box",   0],  "shape":"Box", "args":[8,  15,  40],    "offset":[ 0,     -4,     120],      "rotation":[0,   0,       0]},
+            {"id":"sub_1b",       "lift":[0,    0,   0],  "shape":"Box", "args":[3,  13,  60],    "offset":[-5,     -4,     120],      "rotation":[0,   0.15,  0.1]},
+            {"id":"sub_1c",       "lift":[0,    0,   0],  "shape":"Box", "args":[3,  13,  60],    "offset":[ 5,     -4,     120],      "rotation":[0,  -0.15, -0.1]},
 
             {"id":"sub_1bu",      "lift":[0,    0,   0],  "shape":"Box", "args":[3,  23,  100],   "offset":[-11,     10,    100],      "rotation":[0,   0.15,  0.3]},
             {"id":"sub_1cu",      "lift":[0,    0,   0],  "shape":"Box", "args":[3,  23,  100],   "offset":[ 11,     10,    100],      "rotation":[0,  -0.15, -0.3]},
 
-            {"id":"sub_2",        "lift":[0,    0,   0],  "shape":"Box", "args":[17,  15,  65],   "offset":[-6,      -5,     60],      "rotation":[0,   0.16,  0.1]},
-            {"id":"sub_3",        "lift":["wing", 0, 0],  "shape":"Box", "args":[1,    5,  40],  "offset":[0,       -5,     10],      "rotation":[0.0,    0,    0]},
-            {"id":"sub_4",        "lift":[0,    0,   0],  "shape":"Box", "args":[17,  15,  65],   "offset":[6,       -5,     60],      "rotation":[0,  -0.16, -0.1]},
+            {"id":"sub_2",        "lift":[0,  0,   0],  "shape":"Box", "args":[12,  10,  65],   "offset":[-10,      -4,     60],      "rotation":[0,   0.16,  0.1]},
+            {"id":"sub_4",        "lift":[0,  0,   0],  "shape":"Box", "args":[12,  10,  65],   "offset":[ 10,      -4,     60],      "rotation":[0,  -0.16, -0.1]},
 
-            {"id":"sub_7a",       "lift":[0,    0,   0],  "shape":"Box", "args":[4,   16,  40],   "offset":[-16,     -2,     60],      "rotation":[0,  0.15, 0]},
-            {"id":"sub_7b",       "lift":[0,    0,   0],  "shape":"Box", "args":[4,   16,  40],   "offset":[ 16,     -2,     60],      "rotation":[0, -0.15, 0]},
+            {"id":"sub_7a",       "lift":[0,    0,   0],  "shape":"Box", "args":[10,   14,  40],   "offset":[-11,     -1,     60],      "rotation":[0,  0.15, 0]},
+            {"id":"sub_7b",       "lift":[0,    0,   0],  "shape":"Box", "args":[10,   14,  40],   "offset":[ 11,     -1,     60],      "rotation":[0, -0.15, 0]},
 
-            {"id":"big_float_1a", "lift":[0,    0,   0],  "shape":"Box", "args":[22,  14, 95],   "offset":[-5,      4.2,     55],      "rotation":[0,  0.09, 0]},
-            {"id":"big_float_1b", "lift":[0,    0,   0],  "shape":"Box", "args":[22,  14, 95],   "offset":[ 5,      4.2,     55],      "rotation":[0, -0.09, 0]},
-            {"id":"big_float_2a", "lift":[0,    0,   0],  "shape":"Box", "args":[20,  12, 150],   "offset":[-9,      5.2,    -65],      "rotation":[0, 0, 0]},
-            {"id":"big_float_2b", "lift":[0,    0,   0],  "shape":"Box", "args":[20,  12, 150],   "offset":[ 9,      5.2,    -65],      "rotation":[0, 0, 0]},
+            {"id":"hangar_floor_1a", "lift":[0,    0,   0],  "shape":"Box", "args":[19,  5, 95],    "offset":[-5,      8.2,     55],      "rotation":[0,  0.09, 0]},
+            {"id":"hangar_floor_1b", "lift":[0,    0,   0],  "shape":"Box", "args":[19,  5, 95],    "offset":[ 5,      8.2,     55],      "rotation":[0, -0.09, 0]},
+            {"id":"hangar_floor_2a", "lift":[0,    0,   0],  "shape":"Box", "args":[20,  5, 150],   "offset":[-9,      8.2,    -65],      "rotation":[0, 0, 0]},
+            {"id":"hangar_floor_2b", "lift":[0,    0,   0],  "shape":"Box", "args":[20,  5, 150],   "offset":[ 9,      8.2,    -65],      "rotation":[0, 0, 0]},
 
+            {"id":"sub_8a",       "lift":[0, "box",   0],  "shape":"Box", "args":[17,   14, 140],  "offset":[-12,     -1,    -40],      "rotation":[0, 0, 0]},
+            {"id":"sub_8b",       "lift":[0, "box",   0],  "shape":"Box", "args":[17,   14, 140],  "offset":[ 12,     -1,    -40],      "rotation":[0, 0, 0]},
 
-            {"id":"sub_8a",       "lift":[0,    0,   0],  "shape":"Box", "args":[10,   16, 120],  "offset":[-16,     -2,    -20],      "rotation":[0, 0, 0]},
-            {"id":"sub_8b",       "lift":[0,    0,   0],  "shape":"Box", "args":[10,   16, 120],  "offset":[ 16,     -2,    -20],      "rotation":[0, 0, 0]},
-            {"id":"sub_17",       "lift":["wing", 0, 0],  "shape":"Box", "args":[1,    10,  50],  "offset":[0,       -0,    -40],      "rotation":[0, 0, 0]},
-            {"id":"sub_prop_1",   "lift":[0,    0,   0],  "shape":"Box", "args":[16,   16,  65],  "offset":[-8,      -0,   -120],      "rotation":[-0.0, -0.0, 0]},
-            {"id":"sub_prop_2",   "lift":[0,    0,   0],  "shape":"Box", "args":[16,   16,  65],  "offset":[8,       -0,   -120],      "rotation":[-0.0,  0.0, 0]},
-            {"id":"rudder_1",     "lift":["box", 0,  0],  "shape":"Box", "args":[0.2,  26,  12],  "offset":[-8,      -5,   -145],      "rotation":[0, 0, 0]},
-            {"id":"rudder_2",     "lift":["box", 0,  0],  "shape":"Box", "args":[0.2,  26,  12],  "offset":[ 8,      -5,   -145],      "rotation":[0, 0, 0]},
+            {"id":"sub_prop_1",   "lift":[0,    0,   0],  "shape":"Box", "args":[14,   10,  40],  "offset":[-7,      -1,   -130],      "rotation":[-0.0, -0.0, 0]},
+            {"id":"sub_prop_2",   "lift":[0,    0,   0],  "shape":"Box", "args":[14,   10,  40],  "offset":[7,       -1,   -130],      "rotation":[-0.0,  0.0, 0]},
+            {"id":"rudder_1",     "lift":[0, "box",  0],  "shape":"Box", "args":[0.2,  26,  12],  "offset":[-8,      -5,   -145],      "rotation":[0, 0, 0]},
+            {"id":"rudder_2",     "lift":[0, "box",  0],  "shape":"Box", "args":[0.2,  26,  12],  "offset":[ 8,      -5,   -145],      "rotation":[0, 0, 0]},
             {"id":"deck_22",      "lift":[0,    0,   0],  "shape":"Box", "args":[49.5,   1,  18], "offset":[-3,     21.2,    60],      "rotation":[0, 0, 0]},
             {"id":"deck_23",      "lift":[0,    0,   0],  "shape":"Box", "args":[18,   1,  22],   "offset":[-27,    21.2,    19],      "rotation":[0, 0, 0]},
             {"id":"deck_23a",     "lift":[0,    0,   0],  "shape":"Box", "args":[18,   1,  41],   "offset":[-27,    21.2, -37.5],      "rotation":[0, 0, 0]},
@@ -121,9 +119,9 @@
           "args":[
             {"id":"comp_1",       "lift":[0, 0, 0],  "shape":"Box", "args":[0.5, 0.5, 5],  "offset":[0,       0.5,   9],    "rotation":[0.0,        0,     0]},
             {"id":"nose_1",       "lift":["box", "box", 0],  "shape":"Box", "args":[1.5,  2.2, 5],    "offset":[0,       0.8,  5],    "rotation":[0.0,        0,     0]},
-            {"id":"nose_wheel",   "lift":[0, 0, 0],  "shape":"Box", "args":[0,  0,  0],    "offset":[0,      -1.5,   6],    "rotation":[0.0,        0,     0]},
-            {"id":"wheel_main_1", "lift":[0, 0, 0],  "shape":"Box", "args":[0,  0,  0],    "offset":[-3,  -1.5,   -1.4],    "rotation":[0.0,        0,     0]},
-            {"id":"wheel_main_2", "lift":[0, 0, 0],  "shape":"Box", "args":[0,  0,  0],    "offset":[ 3,  -1.5,   -1.4],    "rotation":[0.0,        0,     0]},
+            {"id":"nose_wheel",   "lift":[0, 0, 0],  "shape":"Box", "args":[0.5, 0.5,   0.3],    "offset":[0,     -1.5,   6],       "rotation":[0.0,        0,     0]},
+            {"id":"wheel_main_1", "lift":[0, 0, 0],  "shape":"Box", "args":[0.3, 0.5,   0.3],    "offset":[-2.55,    -1.5,   -1.2],    "rotation":[0.0,        0,     0]},
+            {"id":"wheel_main_2", "lift":[0, 0, 0],  "shape":"Box", "args":[0.3, 0.5,   0.3],    "offset":[ 2.55,    -1.5,   -1.2],    "rotation":[0.0,        0,     0]},
             {"id":"nacell_1",     "lift":["box", "wing", 0],  "shape":"Box", "args":[1.1,  1.5,  6],    "offset":[-1.5, 0.2, -1],    "rotation":[0.0,        0,     0]},
             {"id":"nacell_2",     "lift":["box", "wing", 0],  "shape":"Box", "args":[1.1,  1.5,  6],    "offset":[ 1.5, 0.2, -1],    "rotation":[0.0,        0,     0]},
             {"id":"nozzle_1",     "lift":[0, "wing", 0],  "shape":"Box", "args":[1.5,   1.5,     3],    "offset":[-1.4,  0.25, -6.5], "rotation":[0.05,     0.05,     0]},
@@ -155,54 +153,6 @@
           "restitution":0.25,
           "damping":0.01,
           "mass":15000
-        }
-      }
-    ],
-
-    "TOMCAT_COMPOUND_":[
-      {
-        "id": "rigid_body",
-        "data": {
-          "body_key":"compound_tomcat",
-          "category":"primitive",
-          "state":"DISABLE_DEACTIVATION",
-          "shape":"Compound",
-          "args":[
-            {"id":"comp_1",       "lift":["box", "box", 0],  "shape":"Box", "args":[1.5,   2,     6],    "offset":[0,       0.5,   5],      "rotation":[0.0,        0,     0]},
-            {"id":"nose_1",       "lift":["box", "box", 0],  "shape":"Box", "args":[0.8, 0.8,     2],    "offset":[0,       0.3,  10],      "rotation":[0.0,        0,     0]},
-            {"id":"nose_wheel",   "lift":[0, 0, 0],  "shape":"Box", "args":[0.5, 0.5,   0.5],    "offset":[0,     -1.5,   6],       "rotation":[0.0,        0,     0]},
-            {"id":"wheel_main_1", "lift":[0, 0, 0],  "shape":"Box", "args":[0.5, 0.5,   0.5],    "offset":[-3,    -1.5,   -1.4],    "rotation":[0.0,        0,     0]},
-            {"id":"wheel_main_2", "lift":[0, 0, 0],  "shape":"Box", "args":[0.5, 0.5,   0.5],    "offset":[ 3,    -1.5,   -1.4],    "rotation":[0.0,        0,     0]},
-            {"id":"nacell_1",     "lift":["box", "box", 0],  "shape":"Box", "args":[1.4,   1.4,   8],    "offset":[-1.3,  0.2,  1],         "rotation":[0.0,        0,     0]},
-            {"id":"nacell_2",     "lift":["box", "box", 0],  "shape":"Box", "args":[1.4,   1.4,   8],    "offset":[ 1.3,  0.2,  1],         "rotation":[0.0,        0,     0]},
-            {"id":"nozzle_1",     "lift":["wing", 0,   0],  "shape":"Box", "args":[1,   1.0,     3],    "offset":[-1.4,    0.25, -6.5],    "rotation":[0.0,        0.045,     0]},
-            {"id":"nozzle_2",     "lift":["wing", 0,   0],  "shape":"Box", "args":[1,   1.0,     3],    "offset":[ 1.4,    0.25, -6.5],    "rotation":[0.0,       -0.045,     0]},
-            {"id":"body_core",    "lift":["box", "wing",   0],  "shape":"Box", "args":[4,   0.2,    10],    "offset":[ 0,      0.8,   0],      "rotation":[-0.05,      0,     0]},
-            {"id":"pivot_r",      "lift":["box", "wing",   0],  "shape":"Box", "args":[10,   0.2,     2],   "offset":[ -4,     0.8,  -1],      "rotation":[-0.05,   -0.2,     0]},
-            {"id":"pivot_l",      "lift":["box", "wing",   0],  "shape":"Box", "args":[10,   0.2,     2],   "offset":[ 4,      0.8,  -1],      "rotation":[-0.05,    0.2,     0]},
-
-            {"id":"flap_r",      "lift":["wing", "wing",   0],  "shape":"Box", "args":[3,   0.2,     2],     "offset":[ -4,     0.8,  -2],      "rotation":[0.05,   -0.2,     0]},
-            {"id":"flap_l",      "lift":["wing", "wing",   0],  "shape":"Box", "args":[3,   0.2,     2],     "offset":[ 4,      0.8,  -2],      "rotation":[0.05,    0.2,     0]},
-
-            {"id":"elev_1",       "lift":["wing", "wing",   0],  "shape":"Box", "args":[5.5,   0.2,   6],    "offset":[-1.5,     0.4,  -7],     "rotation":[-0.05,   -0.3,     0]},
-            {"id":"elev_2",       "lift":["wing", "wing",   0],  "shape":"Box", "args":[5.5,   0.2,   6],    "offset":[ 1.5,     0.4,  -7],     "rotation":[-0.05,    0.3,     0]},
-
-            {"id":"stab_roll_l",  "lift":["wing", "wing",   0],  "shape":"Box", "args":[2.5,   0.2,   2],    "offset":[-3.5,     0.4,  -7],     "rotation":[-0.05,   -0.3,     0]},
-            {"id":"stab_roll_r",  "lift":["wing", "wing",   0],  "shape":"Box", "args":[2.5,   0.2,   2],    "offset":[ 3.5,     0.4,  -7],     "rotation":[-0.05,    0.3,     0]},
-
-            {"id":"break_top",    "lift":["wing", "wing",   0],  "shape":"Box", "args":[2.5, 0.1, 4],    "offset":[0,     0.2, -5],           "rotation":[0, 1.73, -1.73]},
-            {"id":"break_bottom", "lift":["wing", "wing",   0],  "shape":"Box", "args":[2.5, 0.1, 4],    "offset":[0,    -0.2, -5],           "rotation":[0, 0, 0]},
-
-            {"id":"stab_1",       "lift":["wing", "wing",   0],  "shape":"Box", "args":[0.1,   6.4,   5],    "offset":[-1.6,    1,  -5.3],      "rotation":[-0.76,   0.05,  0.06]},
-            {"id":"stab_2",       "lift":["wing", "wing",   0],  "shape":"Box", "args":[0.1,   6.4,   5],    "offset":[ 1.6,    1,  -5.3],      "rotation":[-0.76,  -0.05, -0.06]},
-            {"id":"rudder_r",     "lift":["wing", "wing",   0],  "shape":"Box", "args":[0.1,   4.4,   1],    "offset":[-1.6,    1.5,  -7.3],    "rotation":[-0.26,   0.05,  0.06]},
-            {"id":"rudder_l",     "lift":["wing", "wing",   0],  "shape":"Box", "args":[0.1,   4.4,   1],    "offset":[ 1.6,    1.5,  -7.3],    "rotation":[-0.26,  -0.05, -0.06]}
-          ],
-
-          "friction":1.8,
-          "restitution":0.25,
-          "damping":0.01,
-          "mass":10000
         }
       }
     ],

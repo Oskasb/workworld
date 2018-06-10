@@ -62,6 +62,7 @@ define([
                         tx.wrapT = THREE.RepeatWrapping;
                     }
 
+                    tx.sourceUrl = url;
                     textures[txType][url] = tx;
                     PipelineAPI.setCategoryKeyValue('THREE_TEXTURE', txType+'_'+url, tx);
                 }
@@ -197,7 +198,7 @@ define([
 
         ThreeTextureMaker.createImageTexture = function(srcUrl) {
 
-            var texture = new THREE.Texture(canvas);
+            var texture = new THREE.Texture(srcUrl);
 
             return texture;
         };

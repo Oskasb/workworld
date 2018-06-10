@@ -195,7 +195,7 @@ define([
             var onReady = function(dgp) {
                 pieces.push(dgp);
                 WorldAPI.getContoledPiecePosAndQuat(tempVec1, tempQuat);
-                tempVec1.y = 20000;
+                tempVec1.y = 40;
                 newDynRen = WorldAPI.buildDynamicRenderable(dgp.configRead('renderable'), tempVec1, tempQuat, scale);
 
                 var onRdy = function(dynRen) {

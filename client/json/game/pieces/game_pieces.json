@@ -6,8 +6,10 @@
         "id":"command_piece",
         "data":{
           "controls":[
+            {"config_key":"GUI_GENERIC_UI", "config_id":"vehicle_camera"},
+            {"config_key":"GUI_GENERIC_UI", "config_id":"vehicle_rotation"},
+            {"config_key":"GUI_GENERIC_UI", "config_id":"state_gauges"},
             {"config_key":"GUI_ENTERPRISE_CONTROL", "config_id":"main_control"},
-            {"config_key":"GUI_ENTERPRISE_CONTROL", "config_id":"state_gauges"},
             {"config_key":"GUI_ENTERPRISE_CONTROL", "config_id":"elevator_control"}
           ],
           "renderable":"dynamic_enterprize",
@@ -45,8 +47,10 @@
         "id":"command_piece",
         "data":{
           "controls":[
+            {"config_key":"GUI_GENERIC_UI", "config_id":"vehicle_camera"},
+            {"config_key":"GUI_GENERIC_UI", "config_id":"vehicle_rotation"},
+            {"config_key":"GUI_GENERIC_UI", "config_id":"state_gauges"},
             {"config_key":"GUI_TOMCAT_CONTROL", "config_id":"main_control"},
-            {"config_key":"GUI_ENTERPRISE_CONTROL", "config_id":"state_gauges"},
             {"config_key":"GUI_TOMCAT_CONTROL", "config_id":"external_switches"}
           ],
           "renderable":"dynamic_f14",

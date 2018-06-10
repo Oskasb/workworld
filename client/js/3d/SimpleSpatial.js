@@ -2,11 +2,13 @@
 
 define([
         'worker/dynamic/DynamicSpatial',
-        'worker/dynamic/DynamicSkeleton'
+        'worker/dynamic/DynamicSkeleton',
+        'worker/dynamic/DynamicCanvas'
     ],
     function(
         DynamicSpatial,
-        DynamicSkeleton
+        DynamicSkeleton,
+        DynamicCanvas
     ) {
 
 
@@ -29,6 +31,7 @@ define([
             this.dynamicSpatial = new DynamicSpatial();
             this.dynamicSkeleton = new DynamicSkeleton(spatialBuffer);
             this.dynamicSpatial.setSpatialBuffer(spatialBuffer);
+            this.canvases = []
         };
 
 
@@ -92,7 +95,7 @@ define([
             return bonesConfig;
         };
 
-        SimpleSpatial.prototype.initDynamicSkeleton = function(group) {
+        SimpleSpatial.prototype.initDynamicModel = function(group) {
 
             if (!group) return;
 
@@ -100,18 +103,39 @@ define([
                 var bonesConfig = this.setupBones(group.skeleton);
             }
 
+            if (group.userData.canvasTextures) {
+
+                for (var key in group.userData.canvasTextures) {
+
+                    for (var i = 0; i < group.userData.canvasTextures[key].length; i++) {
+                        group.userData.canvasTextures[key][i];
+                        this.canvases.push(new DynamicCanvas(group.userData.canvasTextures[key][i]))
+                    }
+                }
+            }
+
             this.ready = true;
             this.onReady(this, bonesConfig);
         };
 
+        var ci;
+
+        SimpleSpatial.prototype.updateDynamicCanvases = function() {
+           for (ci = 0; ci < this.canvases.length; ci++) {
+               this.canvases[ci].updateDynamicCanvase()
+           }
+        };
+
         SimpleSpatial.prototype.updateSimpleSpatial = function() {
+
             if (!this.ready) {
-                this.initDynamicSkeleton(this.obj3d.children[0])
+                this.initDynamicModel(this.obj3d.children[0])
             }
 
             this.dynamicSpatial.getSpatialPosition(this.obj3d.position);
             this.dynamicSpatial.getSpatialQuaternion(this.obj3d.quaternion);
-            this.dynamicSkeleton.updateDynamicSkeleton()
+            this.dynamicSkeleton.updateDynamicSkeleton();
+            this.updateDynamicCanvases();
         };
 
         SimpleSpatial.prototype.getDynamicSpatial = function() {

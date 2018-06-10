@@ -5,7 +5,6 @@ define([
         'PipelineObject',
         '3d/three/ThreeInstanceBufferModel',
         '3d/three/ThreeTerrain'
-
     ],
     function(
         PipelineAPI,
@@ -372,42 +371,99 @@ define([
 
         var setup;
 
-        var childMaterial = function(child, matId) {
-
-            var applyMaterial = function(src, mat) {
-                if (child.type === 'SkinnedMesh') {
-
-                    //    model.children[i] = child.clone();
-                    //    child = model.children[i];
-                    //    mat = child.material
-                    child.material = mat.clone();
-                    child.material.skinning = true;
-                    child.material.needsUpdate = true;
-                } else {
-                    child.material = mat;
-                }
-            }
-
-            new PipelineObject('THREE_MATERIAL', matId, applyMaterial, matId);
-        };
-
-        var applyGroupMaterials = function(model, groupMaterials) {
-
-            for (var i = 0; i < model.children.length; i++) {
-                var child = model.children[i];
-
-                if (typeof(groupMaterials[child.name]) === 'string') {
-                    childMaterial(child, groupMaterials[child.name])
-                }
-            }
-
-        //
-        };
 
 
         var attachAsynchModel = function(modelId, rootObject) {
 
             var attachModel = function(model) {
+
+                var childMaterial = function(child, matId, modelConf) {
+
+                    var applyMaterial = function(src, mat) {
+                        if (child.type === 'SkinnedMesh') {
+
+                            //    model.children[i] = child.clone();
+                            //    child = model.children[i];
+                            //    mat = child.material
+                            child.material = mat.clone();
+                            child.material.skinning = true;
+                            child.material.needsUpdate = true;
+                        } else {
+                            child.material = mat;
+                        }
+
+                        if (modelConf.canvas_textures) {
+                            if (modelConf.canvas_textures[child.name]) {
+
+                                if (!model.userData.canvasTextures) {
+                                    model.userData.canvasTextures = {}
+                                }
+
+                                if (!model.userData.canvasTextures[child.name]) {
+                                    model.userData.canvasTextures[child.name] = []
+                                }
+
+                                var cnvMaps = modelConf.canvas_textures[child.name];
+
+                                for (var i = 0; i < cnvMaps.length; i++) {
+                                    var txName = modelConf.canvas_textures[child.name][i];
+                                    var tx = child.material[txName];
+
+                                    var canvas = document.createElement("canvas");
+
+                                    canvas.width = tx.image.width;
+                                    canvas.height = tx.image.height;
+
+                                    var ctx = canvas.getContext('2d');
+
+                                    var cnvTx = new THREE.Texture(canvas);
+
+                                //    cnvTx.wrapS = THREE.RepeatWrapping;
+                                //    cnvTx.wrapT = THREE.RepeatWrapping;
+                                //    cnvTx.generateMipmaps = false;
+
+                                    cnvTx.bufferImgId = tx.bufferImgId;
+                                    cnvTx.imgUrl = tx.bufferImgId;
+                                    model.userData.canvasTextures[child.name].push(cnvTx);
+                                    cnvTx.ctx = ctx;
+
+                                    cnvTx.canvas = canvas;
+                                    child.material[txName] = cnvTx;
+                                    console.log("Apply Canvas TX to model child: ", model);
+                                }
+                            }
+                        }
+
+                        model.userData.loadCount--;
+
+                        if (model.userData.loadCount === 0) {
+                            rootObject.add(model);
+                        }
+
+                    };
+
+                    new PipelineObject('THREE_MATERIAL', matId, applyMaterial, matId);
+                };
+
+                var applyGroupMaterials = function(model, modelId) {
+
+
+                    model.userData.loadCount = 0;
+                    var modelConf = modelList[modelId];
+
+                    var groupMaterials = modelConf.group_materials;
+
+                    for (var i = 0; i < model.children.length; i++) {
+                        var child = model.children[i];
+
+                        if (typeof(groupMaterials[child.name]) === 'string') {
+                            model.userData.loadCount++;
+                            childMaterial(child, groupMaterials[child.name], modelConf)
+                        }
+                    }
+
+                    //
+                };
 
                 transformModel(modelList[modelId].transform, model);
 
@@ -470,15 +526,15 @@ define([
                                     child.material = mat;
                                 }
                             }
+                            rootObject.add(model);
                         };
 
                         if (modelList[modelId].group_materials) {
-                            applyGroupMaterials(model, modelList[modelId].group_materials)
+                            applyGroupMaterials(model, modelId)
                         } else {
                             new PipelineObject('THREE_MATERIAL', modelList[modelId].material, groupMaterial, modelList[modelId].material);
                         }
 
-                        rootObject.add(model);
                         return;
                     }
 

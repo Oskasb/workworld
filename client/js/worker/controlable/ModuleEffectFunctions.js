@@ -30,6 +30,28 @@ define([
 
         };
 
+        var frameTestBoneRot = function(dynBone) {
+            if (dynBone.quatUpdate === 0) {
+                dynBone.quatUpdate = 1;
+                dynBone.resetDynamicBoneQuat();
+            }
+        };
+
+        var frameTestBonePos = function(dynBone) {
+            if (dynBone.posUpdate === 0) {
+                dynBone.posUpdate = 1;
+                dynBone.resetDynamicBonePos();
+            }
+        };
+
+        var frameTestBoneScale = function(dynBone) {
+            if (dynBone.scaleUpdate === 0) {
+                dynBone.scaleUpdate = 1;
+                dynBone.resetDynamicBoneScale();
+            }
+        };
+
+
         var spawnTargetEffect = function(renderable, target, fxId) {
             fxArgs.effect = fxId;
             evt.fire(evt.list().WATER_EFFECT, fxArgs);
@@ -200,15 +222,17 @@ define([
 
         ModuleEffectFunctions.applyBoneRotation = function(renderable, moduleState, trgt) {
 
-            var dynBone = renderable.getRenderableBone(trgt);
+            var dynBone = renderable.getRenderableBone(trgt.id);
 
             if (!dynBone) {
                 console.log("No Dynamic Bone:", trgt, renderable, moduleState);
                 return;
             }
 
+            frameTestBoneRot(dynBone);
+            dynBone.getDynamicBoneQuaternion(tempObj.quaternion);
             tempObj.quaternion.copy(dynBone.originalQuat);
-            tempObj.rotateX(moduleState.getAppliedFactor());
+            tempObj[trgt.rot](moduleState.getAppliedFactor() * trgt.factor);
             dynBone.setDynamicBoneQuaternion(tempObj.quaternion);
 
         };

@@ -913,6 +913,58 @@
 
     ],
 
+    "GUI_COMPASS":[
+
+      {
+        "id": "compass_indicator",
+        "data": {
+          "header_label":"compass_key",
+          "value_label":"gauge_value",
+          "surface":{
+
+            "layout":{
+              "anchor":"bottom_left",
+              "fixed_aspect":true,
+              "margin_x":0.30,
+              "margin_y":0.14,
+              "width": 0.12,
+              "height":0.03
+            },
+
+            "edges":{
+              "passive_fx":"edge_active_effects",
+              "active_fx":"edge_active_effects",
+              "thickness":0.01,
+              "color":"blue_1"
+            },
+
+            "backplate":{
+              "passive_fx":"plate_active_effects",
+              "active_fx":"plate_active_effects",
+              "color":"blue_1"
+            }
+          },
+          "state":{
+            "layout":{
+              "anchor":"bottom_left",
+              "fixed_aspect":true,
+              "margin_x":0.28,
+              "margin_y":0.18,
+              "width": 0.004,
+              "height":0.008
+            },
+
+            "backplate":{
+              "passive_fx":"plate_passive_effects",
+              "active_fx":"plate_active_effects",
+              "color":"blue_3"
+            }
+          }
+        }
+      }
+
+    ],
+
     "MONITOR_LIST_WIDGET":[
       {
         "id": "config",

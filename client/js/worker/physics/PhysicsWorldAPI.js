@@ -134,7 +134,6 @@ define([
 
                 physTpf = Math.min(tpf, 0.03);
 
-
                 stepStart = getNow();
                 ammoApi.updatePhysicsSimulation(Math.max(physTpf));
                 stepEnd = getNow();

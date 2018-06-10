@@ -15,6 +15,7 @@ define([
         'ui/widgets/GuiButtonWidget',
         'ui/widgets/indicators/GuiRollIndicator',
         'ui/widgets/indicators/GuiPitchIndicator',
+        'ui/widgets/indicators/GuiCompassIndicator',
         'ui/widgets/controls/GuiDragControlWidget',
         'ui/widgets/controls/GuiToggleControlWidget'
     ],
@@ -33,6 +34,7 @@ define([
         GuiButtonWidget,
         GuiRollIndicator,
         GuiPitchIndicator,
+        GuiCompassIndicator,
         GuiDragControlWidget,
         GuiToggleControlWidget
     ) {
@@ -248,7 +250,7 @@ define([
 
         WidgetBuilder.prototype.buildYawIndicator = function(config, store) {
             var conf = buildWidgetConfig(config);
-            widget = new GuiPitchIndicator(conf.label, conf.configId);
+            widget = new GuiCompassIndicator(conf.label, conf.configId);
             widget.setMasterBuffer(conf.buffer,  conf.channel);
             widget.applyDynamicLayout(conf.layout);
             store.push(widget);

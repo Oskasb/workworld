@@ -30,7 +30,7 @@ define([
             this.shapesMap = {};
             this.dynamicShapes = [];
             this.stillLimit = 5;
-            this.visiblePingFrames = 200;
+            this.visiblePingFrames = 2000;
         };
 
         //Used inside the physics worker
@@ -356,10 +356,8 @@ define([
 
             if (isVisible) {
 
-
-
                 if (this.getSpatialStillFrames() > this.visiblePingFrames) {
-            //        this.setSpatialStillFrames(this.stillLimit-2);
+                //    this.setSpatialStillFrames(this.stillLimit-1);
                 }
             } else {
 
@@ -481,7 +479,9 @@ define([
 
                 }
                 this.tickPhysicsForces(ammoApi);
-
+                this.clearSpatialForce();
+                this.clearSpatialTorque();
+                this.computeState();
             } else {
 
                 if (!this.getSpatialDisabledFlag()) {
@@ -490,12 +490,11 @@ define([
                     ammoApi.requestBodyDeactivation(this.body);
 
                     this.setSpatialDisabledFlag(1);
+                    this.computeState();
+                    this.clearSpatialForce();
+                    this.clearSpatialTorque();
                 }
             }
-
-            this.clearSpatialForce();
-            this.clearSpatialTorque();
-            this.computeState();
 
         };
 
@@ -534,12 +533,16 @@ define([
                 this.applySpatialPositionXYZ(p.x(), p.y(), p.z());
                 this.applySpatialQuaternionXYZW(q.x(), q.y(), q.z(), q.w());
 
-        }
+        };
 
 
         DynamicSpatial.prototype.sampleBodyState = function() {
 
             if (this.getSpatialDisabledFlag()) {
+                return;
+            }
+
+            if (this.isStatic()) {
                 return;
             }
 
@@ -570,6 +573,10 @@ define([
             this.bufferAByFirstIndexSubBufferB(ENUMS.BufferSpatial.ACCELERATION_X, ENUMS.BufferSpatial.VELOCITY_X);
             this.bufferAByFirstIndexSubBufferB(ENUMS.BufferSpatial.ANGULAR_ACCEL_X, ENUMS.BufferSpatial.ANGULAR_VEL_X);
 
+
+            if (this.isStatic()) {
+                this.setSpatialDisabledFlag(1);
+            }
 
 
         };

@@ -85,17 +85,14 @@ define([
                     tempVolumeVelVec.addVectors(tempVelVec , tempVolumeVelVec );
 
                     compoundAoAVec.copy(AoAVec);
-                    compoundAoAVec.x -= tempAngVelVec.y*shape.offset.z/speed;
-                    compoundAoAVec.x += tempAngVelVec.x*shape.offset.z/speed;
-                    compoundAoAVec.y += tempAngVelVec.z*shape.offset.x/speed;
-                    compoundAoAVec.y -= tempAngVelVec.x*shape.offset.z/speed;
-                    compoundAoAVec.y += tempAngVelVec.y*shape.offset.x/speed; // yaw rotation...
 
-
+                    compoundAoAVec.x += tempAngVelVec.x  * shape.offset.z / (speed * 10);
+                    compoundAoAVec.y -= tempAngVelVec.y  * shape.offset.z / (speed * 10);
+                    compoundAoAVec.x -= tempAngVelVec.z  * shape.offset.x / (speed * 10);
 
                     ShapePhysics.calculateShapeDynamicForce(dynSpat, shape, tempVolumeVelVec, tempQuat, tempVec2, compoundAoAVec, speed, density);
 
-                    tempVec3.set(0, submergedVolume*density/0.016, 0);
+                    tempVec3.set(0, submergedVolume*density/0.026, 0);
 
                     shape.addForceToDynamicShape(tempVec3);
 
@@ -103,7 +100,7 @@ define([
             }
 
             submergedFraction = MATH.calcFraction(0, unsubmergedVolume+totalSubmergedVolume,  totalSubmergedVolume);
-            PhysicsWorldAPI.setBodyDamping(dynSpat.body, Math.min(dynSpat.baseDamping + Math.sqrt(submergedFraction*2)*0.05, 0.55),Math.min( dynSpat.baseDamping + Math.sqrt(submergedFraction*2) *0.10, 0.55)  )
+            PhysicsWorldAPI.setBodyDamping(dynSpat.body, Math.min(dynSpat.baseDamping + Math.sqrt(submergedFraction*2)*0.1, 0.75),Math.min( dynSpat.baseDamping + Math.sqrt(submergedFraction*2) *0.1, 0.75)  )
 
         };
 

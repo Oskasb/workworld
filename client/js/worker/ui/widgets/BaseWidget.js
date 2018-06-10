@@ -69,10 +69,27 @@ define([
         };
 
         var height;
+        var width;
         var layout;
         var axis;
+        var posx;
 
         var surfaceLayout;
+
+        BaseWidget.prototype.indicateYawState = function(state, parentId, targetId) {
+
+            layout = this.getWidgetSurfaceLayout().layout;
+
+            posx = 0.9*state/MATH.TWO_PI + 0.5;
+            //    var state =Math.abs( Math.sin(new Date().getTime() * 0.01) )// * Math.PI;
+        //    posx =Math.abs( Math.sin(new Date().getTime() * 0.003) )// * Math.PI;
+            width = layout.width // this.getWidgetSurfaceWidth();
+            this.stateLayout.margin_x = layout.margin_x + width * posx / WorldAPI.sampleInputBuffer(ENUMS.InputState.ASPECT) - 0.0005;
+
+            this.header.setTextOffsetX(this.getWidgetSurfaceWidth() * posx);
+
+            this.applyProgressDynLayout(this.stateLayout);
+        };
 
         BaseWidget.prototype.indicatePitchState = function(state, parentId, targetId) {
 
@@ -201,6 +218,10 @@ define([
 
         BaseWidget.prototype.getWidgetSurfaceLayout = function() {
             return this.surfaceElement.getSurfaceLayout();
+        };
+
+        BaseWidget.prototype.getWidgetSurfaceWidth = function() {
+            return this.surfaceElement.getSurfaceLayout().getLayoutWidth();
         };
 
         BaseWidget.prototype.setIndicatorQuaternion = function(quat) {

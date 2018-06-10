@@ -6,7 +6,7 @@
 
         {
           "id": "model_f14",
-          "material": "atlas_2k",
+          "canvas_textures":{"lights":["map"]},
           "group_materials":{
             "lights":"tomcat_lights",
             "glass":"glass_canopy",

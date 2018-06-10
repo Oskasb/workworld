@@ -29,6 +29,23 @@ define([
             return 'rgba('+rgbaData+')';
         };
 
+        CanvasDraw.attenuateContext = function(w, h, ctx, attenuateColor) {
+            ctx.fillStyle = attenuateColor;
+            ctx.fillRect(
+                0,
+                0,
+                w,
+                h
+            );
+        };
+
+
+
+        CanvasDraw.fillWithImage = function(w, h, ctx, img) {
+            ctx.drawImage(img, 0, 0, w, h);
+        };
+
+
         CanvasDraw.vectorToX = function(vec, size) {
 
             if (vec.z) {

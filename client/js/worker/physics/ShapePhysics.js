@@ -77,11 +77,14 @@ define([
         ShapePhysics.volumeBeneathSurface = function(dynamicShape, pos, quat, surfaceElevation) {
 
             dynamicShape.calculateWorldPosition(pos, quat, tempVec);
-            elevation = tempVec.y - surfaceElevation;
+            depth = tempVec.y - dynamicShape.size.y*0.5 - surfaceElevation;
 
-            depth = Math.max(dynamicShape.size.y*0.5- elevation, 0);
+            if (depth < 0) {
+                depth = Math.max(-dynamicShape.size.y , depth);
 
-            return Math.abs(dynamicShape.size.x * depth * dynamicShape.size.z);
+                return Math.abs(dynamicShape.size.x * depth * dynamicShape.size.z);
+            }
+            return 0;
 
         };
 

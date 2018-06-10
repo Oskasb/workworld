@@ -18,6 +18,10 @@ define([
                 console.log("BONE BUFFER OVERFLOW..");
             }
 
+            this.quatUpdate = false;
+            this.scaleupdate = false;
+            this.posUpdate = false;
+
             this.originalPos = new THREE.Vector3();
             this.originalScale = new THREE.Vector3(1, 1, 1);
             this.originalQuat = new THREE.Quaternion();
@@ -42,6 +46,11 @@ define([
 
         DynamicBone.prototype.setDynamicBoneUpdate = function(bool) {
             this.buffer[this.bsi + ENUMS.DynamicBone.HAS_UPDATE] = bool;
+            if (bool === 0) {
+                this.posUpdate = 0;
+                this.scaleUpdate = 0;
+                this.quatUpdate = 0;
+            }
         };
 
         DynamicBone.prototype.getDynamicBoneUpdate = function() {
@@ -72,6 +81,7 @@ define([
             this.buffer[this.bsi + ENUMS.DynamicBone.POS_X] = pos.x;
             this.buffer[this.bsi + ENUMS.DynamicBone.POS_Y] = pos.y;
             this.buffer[this.bsi + ENUMS.DynamicBone.POS_Z] = pos.z;
+            this.posUpdate = 1;
             this.setDynamicBoneUpdate(1);
         };
 
@@ -79,6 +89,7 @@ define([
             this.buffer[this.bsi + ENUMS.DynamicBone.SCALE_X] = scale.x;
             this.buffer[this.bsi + ENUMS.DynamicBone.SCALE_Y] = scale.y;
             this.buffer[this.bsi + ENUMS.DynamicBone.SCALE_Z] = scale.z;
+            this.scaleUpdate = 1;
             this.setDynamicBoneUpdate(1);
         };
 
@@ -87,6 +98,7 @@ define([
             this.buffer[this.bsi + ENUMS.DynamicBone.QUAT_Y] = quat.y;
             this.buffer[this.bsi + ENUMS.DynamicBone.QUAT_Z] = quat.z;
             this.buffer[this.bsi + ENUMS.DynamicBone.QUAT_W] = quat.w;
+            this.quatUpdate = 1;
             this.setDynamicBoneUpdate(1);
         };
 
@@ -94,6 +106,18 @@ define([
             this.getDynamicBonePosition(this.pos);
             this.getDynamicBoneQuaternion(this.quat);
             this.getDynamicBoneScale(this.scale);
+        };
+
+        DynamicBone.prototype.resetDynamicBoneQuat = function() {
+            this.setDynamicBoneQuaternion(this.originalQuat)
+        };
+
+        DynamicBone.prototype.resetDynamicBonePos = function() {
+            this.setDynamicBonePosition(this.originalPos)
+        };
+
+        DynamicBone.prototype.resetDynamicBoneScale = function() {
+            this.setDynamicBoneScale(this.originalScale)
         };
 
         DynamicBone.prototype.updateDynamicBone = function() {

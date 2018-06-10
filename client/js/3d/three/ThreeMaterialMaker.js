@@ -44,6 +44,7 @@ define([
                     }, 500);
                     return;
                 }
+
                 loaded++
             }
 
@@ -88,6 +89,7 @@ define([
                         loadedTextures[txType+'_'+imgUrl] = {};
                     }
                     loadedTextures[txType+'_'+imgUrl][id] = data;
+                    data.bufferImgId = imgUrl;
                     data.needsUpdate=true;
                     onReadyCB(matId, txSettings);
                 };
