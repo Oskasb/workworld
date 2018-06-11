@@ -224,11 +224,11 @@
         "id":"cockpit_system",
         "data":{
           "modules":[
-            {"config_key":"COCKPIT_F14", "config_id":"master_light", "group":[
+            {"config_key":"COCKPIT_F14", "config_id":"mst_light", "group":[
               {"offset":[0.4, 0.9, 7.2], "direction":[0, 0, 1], "size":[1, 1, 1]}
             ]},
 
-            {"config_key":"COCKPIT_F14", "config_id":"formation_lights", "group":[
+            {"config_key":"COCKPIT_F14", "config_id":"form_lights", "group":[
               {"offset":[0.4, 0.9, 7.1], "direction":[0, 0, 1], "size":[1, 1, 1]}
             ]},
 
@@ -275,50 +275,6 @@
         "id":"external_lights",
         "data":{
           "modules":[
-
-            {"config_key":"EXTERNA_LIGHTS_F14", "config_id":"formation_lights_ext", "group":[
-              {"offset":[0.4, 0.9, 7.1], "direction":[0, 0, 1], "size":[1, 1, 1]}
-            ]},
-
-            {"config_key":"EXTERNA_LIGHTS_F14", "config_id":"collision_lights_ext_1", "group":[
-              {"offset":[0.4, 0.9, 7.0], "direction":[0, 0, 1], "size":[1, 1, 1]}
-            ]},
-
-            {"config_key":"EXTERNA_LIGHTS_F14", "config_id":"collision_lights_ext_2", "group":[
-              {"offset":[0.4, 0.9, 7.0], "direction":[0, 0, 1], "size":[1, 1, 1]}
-            ]},
-
-            {"config_key":"EXTERNA_LIGHTS_F14", "config_id":"collision_lights_ext_3", "group":[
-              {"offset":[0.4, 0.9, 7.0], "direction":[0, 0, 1], "size":[1, 1, 1]}
-            ]},
-
-            {"config_key":"EXTERNA_LIGHTS_F14", "config_id":"landing_lights_ext_1", "group":[
-              {"offset":[0.4, 0.9, 6.9], "direction":[0, 0, 1], "size":[1, 1, 1]}
-            ]},
-
-            {"config_key":"EXTERNA_LIGHTS_F14", "config_id":"landing_lights_ext_2", "group":[
-              {"offset":[0.4, 0.9, 6.9], "direction":[0, 0, 1], "size":[1, 1, 1]}
-            ]},
-
-            {"config_key":"EXTERNA_LIGHTS_F14", "config_id":"landing_lights_ext_3", "group":[
-              {"offset":[0.4, 0.9, 6.9], "direction":[0, 0, 1], "size":[1, 1, 1]}
-            ]},
-
-            {"config_key":"EXTERNA_LIGHTS_F14", "config_id":"navigation_lights_ext_1", "group":[
-              {"offset":[0.4, 0.9, 6.9], "direction":[0, 0, 1], "size":[1, 1, 1]}
-            ]},
-
-            {"config_key":"EXTERNA_LIGHTS_F14", "config_id":"navigation_lights_ext_2", "group":[
-              {"offset":[0.4, 0.9, 6.9], "direction":[0, 0, 1], "size":[1, 1, 1]}
-            ]},
-
-            {"config_key":"EXTERNA_LIGHTS_F14", "config_id":"navigation_lights_ext_3", "group":[
-              {"offset":[0.4, 0.9, 6.9], "direction":[0, 0, 1], "size":[1, 1, 1]}
-            ]},
-
-            {"config_key":"EXTERNA_LIGHTS_F14", "config_id":"navigation_lights_ext_4", "group":[
-              {"offset":[0.4, 0.9, 6.9], "direction":[0, 0, 1], "size":[1, 1, 1]}
-            ]}
 
           ]
         }

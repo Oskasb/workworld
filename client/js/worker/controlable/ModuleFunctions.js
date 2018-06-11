@@ -7,13 +7,21 @@ define([
         ShapePhysics
     ) {
 
-    var controlState;
-    var shape;
-    var target;
+        var controlState;
+        var shape;
+        var target;
+        var light;
 
-    var calcVec = new THREE.Vector3();
-    var calcQuat = new THREE.Quaternion();
-    var calcObj = new THREE.Object3D();
+        var worldTime;
+        var currentTime;
+        var timeProgress;
+
+        var value;
+        var i;
+
+        var calcVec = new THREE.Vector3();
+        var calcQuat = new THREE.Quaternion();
+        var calcObj = new THREE.Object3D();
 
         var ModuleFunctions = function() {
 
@@ -88,8 +96,36 @@ define([
             target.setDynamicShapeQuaternion(calcObj.quaternion);
         };
 
-        ModuleFunctions.effectEmitter = function(renderable, moduleState, source) {
+        ModuleFunctions.effectEmitter = function(renderable, moduleState, trgt) {
 
+        };
+
+        ModuleFunctions.flightComputerMasterSystem = function(renderable, moduleState, trgt) {
+
+        };
+
+
+
+        ModuleFunctions.lightMasterSystem = function(renderable, moduleState, trgt) {
+
+            value = 0;
+
+            worldTime = WorldAPI.getWorldTime();
+
+            for (i = 0; i < trgt.lights.length; i++) {
+
+                light = renderable.getRenderableLight(trgt.lights[i].id);
+
+                if (moduleState.getStateValue() > 0) {
+
+                    currentTime = worldTime + trgt.cycle_time * trgt.lights[i].offset;
+                    timeProgress = MATH.modulo(currentTime  / trgt.cycle_time, 1);
+                    value = MATH.valueFromCurve(timeProgress, MATH.curves[trgt.curve]) * trgt.lights[i].gain * moduleState.getStateValue();
+
+                }
+
+                light.setDynamicLightIntensity( value );
+            }
         };
 
         return ModuleFunctions;

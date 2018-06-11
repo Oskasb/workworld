@@ -59,7 +59,7 @@ if(typeof(MATH) === "undefined") {
     };
 
     MATH.curves = {
-		"constantOne":  [[0, 1], [1, 1]],
+		"constantOne":  [[-10, 1], [10, 1]],
 		"zeroToOne":    [[0, 0], [1, 1]],
 		"oneToZero":    [[0, 1], [1, 0]],
 		"quickFadeOut": [[0, 1], [0.9,1], [1,   0]],
@@ -71,7 +71,12 @@ if(typeof(MATH) === "undefined") {
 		"negToPos":     [[0,-1], [1, 1]],
 		"zeroOneZero":  [[0, 0], [0.5,1], [1,  0]],
         "lateFadeIn":   [[0, 0], [0.4,0.15], [0.7,0.33],  [0.9,0.7], [1,  1]],
-        "centerPeak":   [[0, 0], [0.35,0.25], [0.5,1],    [0.65,0.25], [1,  0]],
+        "centerPeak":   [[-1, 0], [0.35,0.25], [0.5,1],    [0.65,0.25], [1,  0]],
+
+        "centerBlipp":  [[-1, 0], [0.30,0.0], [0.47,0.05],  [0.49,1],   [0.53,1],    [0.57,0.05],[0.7, 0], [1, 0]],
+
+        "doubleBlipp":  [[-1, 0], [0.12, 0], [0.17, 1], [0.21, 1],   [0.25,0.1],  [0.35,0],  [0.45,0.1], [0.48,1], [0.52,1],   [0.58,0.0], [1,  0]],
+
         "centerHump":   [[0, 0], [0.1,0.5],   [0.2,0.75], [0.5,1],     [0.8,0.75], [0.9,0.5], [1,  0]],
 		"oneZeroOne":   [[0, 1], [0.5,0], [1,  1]],
 		"growShrink":   [[0, 1], [0.5,0], [1, -2]],
@@ -246,9 +251,8 @@ if(typeof(MATH) === "undefined") {
 			if (!curve[i+1]) {
 			//	console.log("Curve out end value", value, curve.length-1, curve[curve.length-1][1]);
 				return curve[curve.length-1][1];
-
 			}
-			if (curve[i+1][0] > value) return MATH.getInterpolatedInCurveAboveIndex(value, curve, i)
+			if (curve[i+1][0] >= value) return MATH.getInterpolatedInCurveAboveIndex(value, curve, i)
 		}
 		console.log("Curve out of bounds", curve.length-1 , value);
 		return curve[curve.length-1][1];
@@ -281,6 +285,10 @@ if(typeof(MATH) === "undefined") {
 		wrappedValue += wrappedValue < 0 ? size : 0;
 		return wrappedValue;
 	};
+
+    MATH.modulo = function (value, limit) {
+        return value % limit;
+    };
 
     MATH.nearestAngle = function(angle) {
         if (angle > Math.PI) {

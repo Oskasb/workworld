@@ -504,26 +504,35 @@
 
     "COCKPIT_F14":[
       {
-        "id":"master_light",
+        "id":"mst_light",
         "data":{
           "state":{"value":0, "min":0, "max":1, "speed":0.15, "factor":1.0},
           "source":"master_light",
           "target":"master_light",
           "sampleSource":"sampleControl",
-          "applyState":"effectEmitter",
+          "applyState":"flightComputerMasterSystem",
           "effectFunction":"applyLightState",
           "feedback":{"light":{"id":"zz_99", "gain":1}}
 
         }
       },
       {
-        "id":"formation_lights",
+        "id":"form_lights",
         "data":{
-          "state":{"value":0, "min":0, "max":1, "speed":0.15, "factor":1.0},
+          "state":{"value":0, "min":0, "max":1, "speed":0.25, "factor":1.0},
           "source":"formation_lights",
-          "target":"formation_lights",
+
           "sampleSource":"sampleControl",
-          "applyState":"effectEmitter",
+          "applyState":"lightMasterSystem",
+
+          "target":{
+            "lights":[
+              {"id":"formation" ,   "gain":1, "offset":0}
+            ],
+            "curve":"constantOne",
+            "cycle_time":1.2
+          },
+
           "effectFunction":"applyLightState",
           "feedback":{"light":{"id":"yy_99", "gain":1}}
 
@@ -533,10 +542,21 @@
         "id":"collision_lights",
         "data":{
           "state":{"value":0, "min":0, "max":1, "speed":0.15, "factor":1.0},
+
           "source":"collision_lights",
-          "target":"collision_lights",
           "sampleSource":"sampleControl",
-          "applyState":"effectEmitter",
+
+          "applyState":"lightMasterSystem",
+          "target":{
+            "lights":[
+              {"id":"collision_l" ,   "gain":1, "offset":0.5},
+              {"id":"coll_low_l"  ,   "gain":1, "offset":0.0},
+              {"id":"coll_low_r"  ,   "gain":1, "offset":0.0}
+            ],
+            "curve":"zeroOneZero",
+            "cycle_time":1.0
+          },
+
           "effectFunction":"applyLightState",
           "feedback":{"light":{"id":"xx_99", "gain":1}}
 
@@ -546,10 +566,21 @@
         "id":"landing_lights",
         "data":{
           "state":{"value":0, "min":0, "max":1, "speed":0.15, "factor":1.0},
+
           "source":"landing_lights",
-          "target":"landing_lights",
           "sampleSource":"sampleControl",
-          "applyState":"effectEmitter",
+
+          "applyState":"lightMasterSystem",
+          "target":{
+            "lights":[
+              {"id":"nose"   ,  "gain":1, "offset":0.0},
+              {"id":"rear_l" ,  "gain":1, "offset":0.25}
+            ],
+            "curve":"centerBlipp",
+            "cycle_time":2.0
+          },
+
+
           "effectFunction":"applyLightState",
           "feedback":{"light":{"id":"yx_88", "gain":1}}
         }
@@ -558,10 +589,25 @@
         "id":"navigation_lights",
         "data":{
           "state":{"value":0, "min":0, "max":1, "speed":0.15, "factor":1.0},
+
           "source":"navigation_lights",
-          "target":"navigation_lights",
           "sampleSource":"sampleControl",
-          "applyState":"effectEmitter",
+
+          "applyState":"lightMasterSystem",
+          "target":{
+            "lights":[
+
+              {"id":"wing_r"  ,   "gain":1, "offset":0},
+              {"id":"glove_l" ,   "gain":1, "offset":0.2},
+              {"id":"wing_l"  ,   "gain":1, "offset":0.4},
+              {"id":"glove_r" ,   "gain":1, "offset":0.6},
+              {"id":"rear_r"  ,   "gain":1, "offset":0.8}
+
+            ],
+            "curve":"doubleBlipp",
+            "cycle_time":1.2
+          },
+
           "effectFunction":"applyLightState",
           "feedback":{"light":{"id":"zz_88", "gain":1}}
         }
@@ -643,143 +689,6 @@
     ],
 
     "EXTERNA_LIGHTS_F14":[
-
-      {
-        "id":"formation_lights_ext",
-        "data":{
-          "state":{"value":0, "min":0, "max":1, "speed":0.15, "factor":1.0},
-          "source":"formation_lights",
-          "target":"formation_lights",
-          "sampleSource":"sampleControl",
-          "applyState":"effectEmitter",
-          "effectFunction":"applyLightState",
-          "feedback":{"light":{"id":"formation", "gain":1}}
-
-        }
-      },
-      {
-        "id":"collision_lights_ext_1",
-        "data":{
-          "state":{"value":0, "min":0, "max":1, "speed":0.15, "factor":1.0},
-          "source":"collision_lights",
-          "target":"collision_lights",
-          "sampleSource":"sampleControl",
-          "applyState":"effectEmitter",
-          "effectFunction":"applyLightState",
-          "feedback":{"light":{"id":"collision_l", "gain":1}}
-
-        }
-      },
-      {
-        "id":"collision_lights_ext_2",
-        "data":{
-          "state":{"value":0, "min":0, "max":1, "speed":0.15, "factor":1.0},
-          "source":"collision_lights",
-          "target":"collision_lights",
-          "sampleSource":"sampleControl",
-          "applyState":"effectEmitter",
-          "effectFunction":"applyLightState",
-          "feedback":{"light":{"id":"coll_low_r", "gain":1}}
-
-        }
-      },
-      {
-        "id":"collision_lights_ext_3",
-        "data":{
-          "state":{"value":0, "min":0, "max":1, "speed":0.15, "factor":1.0},
-          "source":"collision_lights",
-          "target":"collision_lights",
-          "sampleSource":"sampleControl",
-          "applyState":"effectEmitter",
-          "effectFunction":"applyLightState",
-          "feedback":{"light":{"id":"coll_low_l", "gain":1}}
-
-        }
-      },
-      {
-        "id":"landing_lights_ext_1",
-        "data":{
-          "state":{"value":0, "min":0, "max":1, "speed":0.15, "factor":1.0},
-          "source":"landing_lights",
-          "target":"landing_lights",
-          "sampleSource":"sampleControl",
-          "applyState":"effectEmitter",
-          "effectFunction":"applyLightState",
-          "feedback":{"light":{"id":"nose", "gain":1}}
-        }
-      },
-      {
-        "id":"landing_lights_ext_2",
-        "data":{
-          "state":{"value":0, "min":0, "max":1, "speed":0.15, "factor":1.0},
-          "source":"landing_lights",
-          "target":"landing_lights",
-          "sampleSource":"sampleControl",
-          "applyState":"effectEmitter",
-          "effectFunction":"applyLightState",
-          "feedback":{"light":{"id":"rear_l", "gain":1}}
-        }
-      },
-      {
-        "id":"landing_lights_ext_3",
-        "data":{
-          "state":{"value":0, "min":0, "max":1, "speed":0.15, "factor":1.0},
-          "source":"landing_lights",
-          "target":"landing_lights",
-          "sampleSource":"sampleControl",
-          "applyState":"effectEmitter",
-          "effectFunction":"applyLightState",
-          "feedback":{"light":{"id":"rear_r", "gain":1}}
-        }
-      },
-
-      {
-        "id":"navigation_lights_ext_1",
-        "data":{
-          "state":{"value":0, "min":0, "max":1, "speed":0.15, "factor":1.0},
-          "source":"navigation_lights",
-          "target":"navigation_lights",
-          "sampleSource":"sampleControl",
-          "applyState":"effectEmitter",
-          "effectFunction":"applyLightState",
-          "feedback":{"light":{"id":"wing_r", "gain":1}}
-        }
-      },
-      {
-        "id":"navigation_lights_ext_2",
-        "data":{
-          "state":{"value":0, "min":0, "max":1, "speed":0.15, "factor":1.0},
-          "source":"navigation_lights",
-          "target":"navigation_lights",
-          "sampleSource":"sampleControl",
-          "applyState":"effectEmitter",
-          "effectFunction":"applyLightState",
-          "feedback":{"light":{"id":"glove_l", "gain":1}}
-        }
-      },
-      {
-        "id":"navigation_lights_ext_3",
-        "data":{
-          "state":{"value":0, "min":0, "max":1, "speed":0.15, "factor":1.0},
-          "source":"navigation_lights",
-          "target":"navigation_lights",
-          "sampleSource":"sampleControl",
-          "applyState":"effectEmitter",
-          "effectFunction":"applyLightState",
-          "feedback":{"light":{"id":"wing_l", "gain":1}}
-        }
-      },
-      {
-        "id":"navigation_lights_ext_4",
-        "data":{
-          "state":{"value":0, "min":0, "max":1, "speed":0.15, "factor":1.0},
-          "source":"navigation_lights",
-          "target":"navigation_lights",
-          "sampleSource":"sampleControl",
-          "applyState":"effectEmitter",
-          "effectFunction":"applyLightState",
-          "feedback":{"light":{"id":"glove_r", "gain":1}}
-        }  }
 
     ],
 

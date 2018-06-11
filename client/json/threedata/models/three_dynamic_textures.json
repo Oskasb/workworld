@@ -12,10 +12,13 @@
                   {  "id":   "glove_l"    ,   "txcoords":  [15,    310,    9,   8]},
                   {  "id":   "wing_l"     ,   "txcoords":  [25,    310,    9,   8]},
                   {  "id":   "glove_r"	  ,   "txcoords":  [15,    301,    9,   8]},
+
                   {  "id":   "rear_l"	  ,   "txcoords":  [45,    301,    9,   8]},
+                  {  "id":   "rear_r",        "txcoords":  [65,    301,    9,   8]},
+
                   {  "id":   "collision_l",   "txcoords":  [35,    310,    9,   8]},
                   {  "id":   "coll_low_r",    "txcoords":  [ 5,    301,    9,   8]},
-                  {  "id":   "rear_r",        "txcoords":  [65,    301,    9,   8]},
+
                   {  "id":   "coll_low_l",    "txcoords":  [ 5,    310,    9,   8]},
                   {  "id":   "nose" ,         "txcoords":  [45,    310,    9,   8]},
                   {  "id":   "seam_lock",	  "txcoords":  [0,     0,      82, 15]},

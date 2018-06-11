@@ -110,8 +110,8 @@
           "color":{"r":0.8, "g":0.8, "b":0.8},
           "settings":{
             "refractionRatio":0,
-            "roughness":0.3,
-            "metalness":2,
+            "roughness":0.35,
+            "metalness":0.0,
             "envMapIntensity":3,
             "skinning":true,
             "transparent":true,

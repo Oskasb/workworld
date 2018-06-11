@@ -7,10 +7,15 @@ define([
 
     ) {
 
+    var val;
+
         var DynamicLight = function(conf, idx, buffer) {
 
             this.id = conf.id;
-            this.txcoords = conf.txcoords;
+            this.tx = conf.txcoords[0];
+            this.ty = conf.txcoords[1];
+            this.tw = conf.txcoords[2];
+            this.th = conf.txcoords[3];
             this.index = idx;
             this.buffer = buffer;
 
@@ -32,9 +37,6 @@ define([
             this.sourceCtx.drawImage(sourceCanvas, this.getCoordX(), this.getCoordY(), this.getCoordW(), this.getCoordH(), 0, 0, this.getCoordW(), this.getCoordH())
         };
 
-        DynamicLight.prototype.setDynamicLightIntensity = function(value) {
-            this.buffer[this.bsi + ENUMS.DynamicLight.LIGHT_INTENSITY] = Math.clamp(value, 0, 1);
-        };
 
         DynamicLight.prototype.setDynamicLightUpdate = function(bool) {
             this.buffer[this.bsi + ENUMS.DynamicLight.HAS_UPDATE] = bool;
@@ -47,32 +49,38 @@ define([
         };
 
         DynamicLight.prototype.getDynamicLightIntensity = function() {
-            this.lastIntensity = this.buffer[this.bsi + ENUMS.DynamicLight.LIGHT_INTENSITY];
-            return this.lastIntensity;
+            return this.buffer[this.bsi + ENUMS.DynamicLight.LIGHT_INTENSITY];
         };
 
         DynamicLight.prototype.dynamicLightUpdated = function() {
-            return this.buffer[this.bsi + ENUMS.DynamicLight.LIGHT_INTENSITY] !== this.lastIntensity;
+            return this.getDynamicLightUpdate();
         };
 
         DynamicLight.prototype.setDynamicLightIntensity = function(value) {
-            this.buffer[this.bsi + ENUMS.DynamicLight.LIGHT_INTENSITY] = Math.round(value * 100) / 100;
+
+            val = Math.clamp(Math.round(value * 25) / 25, 0, 1);
+            if (val !== this.lastIntensity) {
+                this.lastIntensity = val;
+                this.buffer[this.bsi + ENUMS.DynamicLight.LIGHT_INTENSITY] = this.lastIntensity;
+                this.setDynamicLightUpdate(1);
+            }
+
         };
 
         DynamicLight.prototype.getCoordX = function() {
-            return this.txcoords[0];
+            return this.tx;
         };
 
         DynamicLight.prototype.getCoordY = function() {
-            return this.txcoords[1];
+            return this.ty;
         };
 
         DynamicLight.prototype.getCoordW = function() {
-            return this.txcoords[2];
+            return this.tw;
         };
 
         DynamicLight.prototype.getCoordH = function() {
-            return this.txcoords[3];
+            return this.th;
         };
 
         DynamicLight.prototype.getSourceCanvas = function() {

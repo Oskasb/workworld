@@ -32,15 +32,17 @@ define([
         DynamicCanvas.prototype.updateCanvasLight = function(light) {
 
             if (light.dynamicLightUpdated()) {
-
+                light.setDynamicLightUpdate(0);
                 intensity = light.getDynamicLightIntensity();
 
+                x = light.getCoordX();
+                y = light.getCoordY();
+                w = light.getCoordW();
+                h = light.getCoordH();
+
                 if (intensity !== 0) {
-                    x = light.getCoordX();
-                    y = light.getCoordY();
-                    w = light.getCoordW();
-                    h = light.getCoordH();
                     this.ctx.drawImage(light.getSourceCanvas(), x, y, w, h);
+                    this.texture.needsUpdate = true;
                 }
 
                 if (intensity !== 1) {
@@ -49,6 +51,7 @@ define([
                     rgbaData[2] = 0;
                     rgbaData[3] = 1 - intensity;
                     CanvasDraw.attenuateContextRect(x, y, w, h, this.ctx, CanvasDraw.toRgba(rgbaData));
+                    this.texture.needsUpdate = true;
                 }
             }
         };
@@ -62,7 +65,7 @@ define([
         DynamicCanvas.prototype.updateDynamicCanvase = function(lights) {
 
             this.updateCanvasLights(lights);
-            this.texture.needsUpdate = true;
+
         };
 
         return DynamicCanvas;
