@@ -10,6 +10,7 @@ define([
         var PieceControlState = function(config) {
 
             this.state = {
+                trim_state:0,
                 value :config.value || 0,
                 target :config.value || 0,
                 min :config.min || -Number.MAX_VALUE,
@@ -36,12 +37,16 @@ define([
             this.state.target = MATH.clamp(value, this.state.min, this.state.max);
         };
 
+        PieceControlState.prototype.setPieceControlTrimState = function(value) {
+            this.state.trim_state = value;
+        };
+
         PieceControlState.prototype.renderControlableModule = function(renderable) {
 
         };
 
         PieceControlState.prototype.getControlStateTargetValue = function() {
-            return this.state.target;
+            return this.state.target ;
         };
 
         PieceControlState.prototype.getControlStateValue = function() {

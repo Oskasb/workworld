@@ -228,6 +228,10 @@
               {"offset":[0.4, 0.9, 7.2], "direction":[0, 0, 1], "size":[1, 1, 1]}
             ]},
 
+            {"config_key":"COCKPIT_F14", "config_id":"mst_light", "group":[
+              {"offset":[0.4, 0.9, 7.2], "direction":[0, 0, 1], "size":[1, 1, 1]}
+            ]},
+
             {"config_key":"COCKPIT_F14", "config_id":"form_lights", "group":[
               {"offset":[0.4, 0.9, 7.1], "direction":[0, 0, 1], "size":[1, 1, 1]}
             ]},
@@ -266,7 +270,20 @@
 
             {"config_key":"COCKPIT_F14", "config_id":"pedal_r", "group":[
               {"offset":[0.25, 0.5, 7.7], "direction":[0, 0,-1], "size":[1, 1, 1]}
+            ]},
+
+            {"config_key":"COCKPIT_F14", "config_id":"trim_yaw", "group":[
+              {"offset":[0.35, 1.0, 7.0], "direction":[0, 0,-1], "size":[1, 1, 1]}
+            ]},
+
+            {"config_key":"COCKPIT_F14", "config_id":"trim_yaw", "group":[
+              {"offset":[-0.35, 0.5, 7.7], "direction":[0, 0,-1], "size":[1, 1, 1]}
+            ]},
+
+            {"config_key":"COCKPIT_F14", "config_id":"trim_yaw", "group":[
+              {"offset":[0.35, 0.5, 7.7], "direction":[0, 0,-1], "size":[1, 1, 1]}
             ]}
+
           ]
         }
       },

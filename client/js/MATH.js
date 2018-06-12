@@ -58,6 +58,22 @@ if(typeof(MATH) === "undefined") {
         return buffer[enm];
     };
 
+    MATH.mpsToKnots = function(mps) {
+        return 0.514444 * mps;
+    };
+
+    MATH.mpsToMachAtSeaLevel = function(mps) {
+        return mps/340.3;
+    };
+
+    MATH.mpsAtAltToMach = function(mps, alt) {
+        return MATH.valueFromCurve(MATH.curves.machByAlt, alt) * MATH.mpsToMachAtSeaLevel(mps)
+    };
+
+    MATH.airDensityAtAlt = function(alt) {
+        return MATH.valueFromCurve(MATH.curves.densityByAlt, alt);
+    };
+
     MATH.curves = {
 		"constantOne":  [[-10, 1], [10, 1]],
 		"zeroToOne":    [[0, 0], [1, 1]],
@@ -80,12 +96,18 @@ if(typeof(MATH) === "undefined") {
         "centerHump":   [[0, 0], [0.1,0.5],   [0.2,0.75], [0.5,1],     [0.8,0.75], [0.9,0.5], [1,  0]],
 		"oneZeroOne":   [[0, 1], [0.5,0], [1,  1]],
 		"growShrink":   [[0, 1], [0.5,0], [1, -2]],
-		"shrink":   	[[0, -0.3], [0.3, -1]]
+		"shrink":   	[[0, -0.3], [0.3, -1]],
+        "machByAlt":    [[0, 1], [12200, 0.867], [12200, 0.867], [20000, 0.867], [32000, 0.88]],
+        "densityByAlt": [[0, 1], [4000, 0.6], [12000, 0.2], [16000, 0.1], [20000, 0.05], [40000, 0.025], [80000, 0.01], [120000, 0]]
 	};
 
 
     MATH.curveSigmoid = function(t) {
         return 1 / (1 + Math.exp(6 - t*12));
+    };
+
+    MATH.curveSqrt = function(value) {
+        return Math.sqrt(value) * MATH.sign(value)
     };
 
 

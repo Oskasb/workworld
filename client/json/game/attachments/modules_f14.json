@@ -62,7 +62,7 @@
           "state":{"value":0, "min":-1, "max":1, "speed":0.1, "factor":-0.35},
 
           "sampleSource":"sampleControl",
-          "source":"elevator",
+          "source":"aeilron",
 
           "applyState":"rotateShape",
           "target":{"id":"elev_1", "rot":"rotateX", "factor":1.1},
@@ -78,14 +78,14 @@
         "data":{
           "state":{"value":0, "min":-1, "max":1, "speed":0.1, "factor":-0.35},
           "sampleSource":"sampleControl",
-          "source":"elevator",
+          "source":"aeilron",
 
           "applyState":"rotateShape",
           "target":{"id":"elev_2", "rot":"rotateX", "factor":1.1},
 
 
           "effectFunction":"applyBoneRotation",
-          "feedback":{"id":"stab_pitch_r", "rot":"rotateX", "factor":-1, "light":{"id":"pitch_2", "gain":-4}}
+          "feedback":{"id":"stab_roll_r", "rot":"rotateX", "factor":-1, "light":{"id":"pitch_2", "gain":-4}}
 
         }
       },
@@ -98,10 +98,10 @@
           "source":"aeilron",
 
           "applyState":"rotateShape",
-          "target":{"id":"elev_1", "rot":"rotateX", "factor":1},
+          "target":{"id":"elev_2", "rot":"rotateX", "factor":1},
 
           "effectFunction":"applyBoneRotation",
-          "feedback":{"id":"stab_roll_l", "rot":"rotateX", "factor":1, "light":{"id":"roll_1", "gain":-4}}
+          "feedback":{"id":"stab_roll_r", "rot":"rotateX", "factor":1, "light":{"id":"roll_1", "gain":-4}}
 
         }
       },
@@ -496,8 +496,8 @@
           "target":"door_nose_l",
           "sampleSource":"sampleControl",
           "applyState":"effectEmitter",
-          "effectFunction":"applyLightState",
-          "feedback":{"id":"door_nose_l", "rot":"rotateX", "factor":-1, "light":{"id":"yx_99", "gain":1}}
+          "effectFunction":"applyBoneRotation",
+          "feedback":{"id":"door_nose_l", "rot":"rotateX", "factor":1, "light":{"id":"yx_99", "gain":1}}
         }
       }
     ],
@@ -513,7 +513,6 @@
           "applyState":"flightComputerMasterSystem",
           "effectFunction":"applyLightState",
           "feedback":{"light":{"id":"zz_99", "gain":1}}
-
         }
       },
       {
@@ -553,7 +552,7 @@
               {"id":"coll_low_l"  ,   "gain":1, "offset":0.0},
               {"id":"coll_low_r"  ,   "gain":1, "offset":0.0}
             ],
-            "curve":"zeroOneZero",
+            "curve":"constantOne",
             "cycle_time":1.0
           },
 
@@ -618,11 +617,12 @@
           "state":{"value":0, "min":-1, "max":1, "speed":0.05, "factor":-0.3},
           "source":"elevator",
           "target":"stick_pitch",
-          "feedback":"stick_pitch",
+
           "sampleSource":"sampleControl",
           "applyState":"effectEmitter",
-          "effectFunction":"setBoneRotationX"
 
+          "effectFunction":"applyBoneRotation",
+          "feedback":{"id":"stick_pitch", "rot":"rotateX", "factor":1}
         }
       },
       {
@@ -631,12 +631,62 @@
           "state":{"value":0, "min":-1, "max":1, "speed":0.05, "factor":0.3},
           "source":"aeilron",
           "target":"stick_roll",
-          "feedback":"stick_roll",
           "sampleSource":"sampleControl",
           "applyState":"effectEmitter",
-          "effectFunction":"setBoneRotationX"
+
+
+          "effectFunction":"applyBoneRotation",
+          "feedback":{"id":"stick_roll", "rot":"rotateX", "factor":1}
         }
       },
+
+      {
+        "id":"trim_pitch",
+        "data":{
+          "state":{"value":0, "min":-1, "max":1, "speed":0.05, "factor":-0.1},
+          "source":"trim_elevator",
+
+          "sampleSource":"sampleControl",
+
+          "applyState":"trimControl",
+          "target":{"id":"elevator", "factor":1},
+
+          "effectFunction":"applyLightState",
+          "feedback":{"light":{"id":"x_2", "gain":4}}
+        }
+      },
+
+      {
+        "id":"trim_roll",
+        "data":{
+          "state":{"value":0, "min":-1, "max":1, "speed":0.05, "factor":0.1},
+          "source":"trim_aeilron",
+          "sampleSource":"sampleControl",
+
+          "applyState":"trimControl",
+          "target":{"id":"aeilron", "factor":1},
+
+          "effectFunction":"applyLightState",
+          "feedback":{"light":{"id":"y_2", "gain":4}}
+        }
+      },
+
+      {
+        "id":"trim_yaw",
+        "data":{
+          "state":{"value":0, "min":-1, "max":1, "speed":0.05, "factor":0.1},
+          "source":"trim_rudder",
+          "sampleSource":"sampleControl",
+
+          "applyState":"trimControl",
+          "target":{"id":"rudder", "factor":1},
+
+          "effectFunction":"applyLightState",
+          "feedback":{"light":{"id":"z_2", "gain":4}}
+        }
+      },
+
+
       {
         "id":"throttle_l",
         "data":{

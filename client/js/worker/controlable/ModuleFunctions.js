@@ -40,6 +40,8 @@ define([
             moduleState.setTargetState(controlState.getControlStateValue())
         };
 
+
+
         ModuleFunctions.sampleShape = function(renderable, moduleState, source) {
             shape = renderable.getSpatialShapeById(source.id);
             moduleState.setTargetState(shape.getValueByIndex(ENUMS.DynamicShape[source.key]) * source.factor)
@@ -105,7 +107,6 @@ define([
         };
 
 
-
         ModuleFunctions.lightMasterSystem = function(renderable, moduleState, trgt) {
 
             value = 0;
@@ -127,6 +128,12 @@ define([
                 light.setDynamicLightIntensity( value );
             }
         };
+
+        ModuleFunctions.trimControl = function(renderable, moduleState, trgt) {
+        //    controlState = renderable.getGamePiece().getControlStateById(trgt.id);
+        //    controlState.setPieceControlTrimState(moduleState.getStateValue())
+        };
+
 
         return ModuleFunctions;
 
