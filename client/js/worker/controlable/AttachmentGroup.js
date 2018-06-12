@@ -21,11 +21,11 @@ define([
             return this.configObject.getConfigByDataKey(dataKey)
         };
 
-        AttachmentGroup.prototype.initAttachmentGroup = function(onReady) {
+        AttachmentGroup.prototype.initAttachmentGroup = function(onReady, moduleStore) {
 
             var configLoaded = function() {
                 this.clearDebugDrawAttachments();
-                this.initModules();
+                this.initModules(moduleStore);
                 onReady(this);
             }.bind(this);
 
@@ -33,13 +33,14 @@ define([
             this.configObject.addCallback(configLoaded);
         };
 
-        AttachmentGroup.prototype.initModules = function() {
+        AttachmentGroup.prototype.initModules = function(moduleStore) {
 
             this.modules = [];
             this.moduleConfigs = this.configRead('modules');
 
             var onready = function(mod) {
                 this.modules.push(mod);
+                moduleStore[mod.id] = mod;
             }.bind(this);
 
             for (i = 0; i < this.moduleConfigs.length; i++) {

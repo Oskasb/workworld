@@ -50,7 +50,7 @@ define([
         };
 
         PieceControlState.prototype.getControlStateValue = function() {
-            return this.state.value;
+            return this.state.value + this.state.trim_state;
         };
 
         PieceControlState.prototype.updatePieceControlState = function() {

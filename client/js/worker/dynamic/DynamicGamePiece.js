@@ -21,6 +21,7 @@ define([
             this.configId = configId;
             this.attachmentGroups = [];
             this.controlStates = {};
+            this.modules = {};
         };
 
         DynamicGamePiece.prototype.configRead = function(dataKey) {
@@ -50,7 +51,7 @@ define([
 
             for (var i = 0; i < attachmentConfig.length; i++) {
                 var group = new AttachmentGroup(attachmentConfig[i].config_key,attachmentConfig[i].config_id);
-                group.initAttachmentGroup(groupReady)
+                group.initAttachmentGroup(groupReady, this.modules)
             }
         };
 
@@ -74,6 +75,14 @@ define([
 
         DynamicGamePiece.prototype.getControlStateById = function(controlId) {
             return this.controlStates[controlId];
+        };
+
+        DynamicGamePiece.prototype.getControlableModuleById = function(moduleId) {
+            return this.modules[moduleId];
+        };
+
+        DynamicGamePiece.prototype.getModuleStateValueById = function(moduleId) {
+            return this.getControlableModuleById(moduleId).moduleState.getStateValue();
         };
 
 

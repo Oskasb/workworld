@@ -106,6 +106,10 @@ if(typeof(MATH) === "undefined") {
         return 1 / (1 + Math.exp(6 - t*12));
     };
 
+    MATH.curveSigmoidMirrored = function(value) {
+        return MATH.curveSigmoid(Math.abs(value)) * MATH.sign(value)
+    };
+
     MATH.curveSqrt = function(value) {
         return Math.sqrt(Math.abs(value)) * MATH.sign(value)
     };

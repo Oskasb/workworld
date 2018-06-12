@@ -19,6 +19,8 @@ define([
             this.configKey = configKey;
             this.configId = configId;
 
+            this.id = configId;
+
             this.moduleState = new ModuleState();
             this.offset = new THREE.Vector3();
             this.direction = new THREE.Vector3();

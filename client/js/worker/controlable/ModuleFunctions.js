@@ -35,17 +35,42 @@ define([
             }
         };
 
+        var limitByModuleByValue = function(value, moduleState, limiter) {
+            if (MATH.valueIsBetween(value, limiter.min, limiter.max)) {
+                moduleState.setTargetState(value * limiter.factor );
+            }
+        };
+
+
+        var limitByTargetModuleState = function(renderable, moduleState, limiter) {
+            value = renderable.getGamePiece().getModuleStateValueById(limiter.id);
+            limitByModuleByValue(value, moduleState, limiter);
+        };
+
+        var limitByTargetControlState = function(renderable, moduleState, limiter) {
+            controlState = renderable.getGamePiece().getControlStateById(limiter.id);
+            limitByModuleByValue(controlState.getControlStateValue(), moduleState, limiter);
+        };
+
+        var applyLimiters = function(renderable, moduleState, trgt) {
+            if (trgt.limiters) {
+                for (i = 0; i < trgt.limiters.length; i++) {
+                    limitByTargetControlState(renderable, moduleState, trgt.limiters[i])
+                }
+            }
+        };
+
         ModuleFunctions.sampleControl = function(renderable, moduleState, source) {
             controlState = renderable.getGamePiece().getControlStateById(source);
             moduleState.setTargetState(controlState.getControlStateValue())
         };
 
 
-
         ModuleFunctions.sampleShape = function(renderable, moduleState, source) {
             shape = renderable.getSpatialShapeById(source.id);
             moduleState.setTargetState(shape.getValueByIndex(ENUMS.DynamicShape[source.key]) * source.factor)
         };
+
 
         ModuleFunctions.applyForce = function(renderable, moduleState, trgt) {
             target = renderable.getSpatialShapeById(trgt);
@@ -59,6 +84,7 @@ define([
 
 
             frameTest(target);
+            applyLimiters(renderable, moduleState, trgt)
 
             target.getDynamicShapeQuaternion(calcObj.quaternion);
 
@@ -106,6 +132,14 @@ define([
 
         };
 
+        ModuleFunctions.limitByTargetControlState = function(renderable, moduleState, trgt) {
+            limitByTargetControlState(renderable, moduleState, trgt);
+        };
+
+        ModuleFunctions.limitByTargetModuleState = function(renderable, moduleState, trgt) {
+            limitByTargetModuleState(renderable, moduleState, trgt);
+        };
+
 
         ModuleFunctions.lightMasterSystem = function(renderable, moduleState, trgt) {
 
@@ -131,8 +165,11 @@ define([
 
         ModuleFunctions.trimControl = function(renderable, moduleState, trgt) {
             controlState = renderable.getGamePiece().getControlStateById(trgt.id);
-            controlState.setPieceControlTrimState(moduleState.getStateValue())
+            value = moduleState.getStateValue();
+
+            controlState.setPieceControlTrimState((MATH.curveSigmoidMirrored(value*0.7) + value * 0.2) * trgt.factor)
         };
+
 
 
         return ModuleFunctions;

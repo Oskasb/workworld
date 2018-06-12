@@ -35,7 +35,7 @@
       {
         "id":"sweep_l",
         "data":{
-          "state":{"value":0, "min":0, "max":1, "speed":0.05, "factor":0.85},
+          "state":{"value":0, "min":0, "max":1, "speed":0.01, "factor":0.85},
           "source":"sweep",
           "target":"pivot_l",
           "sampleSource":"sampleControl",
@@ -47,7 +47,7 @@
       {
         "id":"sweep_r",
         "data":{
-          "state":{"value":0, "min":0, "max":1, "speed":0.05, "factor":-0.85},
+          "state":{"value":0, "min":0, "max":1, "speed":0.01, "factor":-0.85},
           "source":"sweep",
           "target":"pivot_r",
           "feedback":"pivot_r",
@@ -124,11 +124,13 @@
         "id":"spoiler_l",
         "data":{
           "state":{"value":0, "min":-1, "max":0, "speed":0.05, "factor":-1},
-          "source":"aeilron",
-          "target":"spoiler_l",
-          "feedback":"spoiler_l",
           "sampleSource":"sampleControl",
-          "applyState":"effectEmitter",
+          "source":"aeilron",
+          "feedback":"spoiler_l",
+
+          "applyState":"limitByTargetControlState",
+          "target":{"id":"sweep", "min":0.45, "max":2, "factor":0},
+
           "effectFunction":"setBoneRotationX"
         }
       },
@@ -136,11 +138,13 @@
         "id":"spoiler_r",
         "data":{
           "state":{"value":0, "min":0, "max":1, "speed":0.05, "factor":-1},
-          "source":"aeilron",
-          "target":"spoiler_r",
-          "feedback":"spoiler_r",
           "sampleSource":"sampleControl",
-          "applyState":"effectEmitter",
+          "source":"aeilron",
+          "feedback":"spoiler_r",
+
+          "applyState":"limitByTargetControlState",
+          "target":{"id":"sweep", "min":0.45, "max":2, "factor":0},
+
           "effectFunction":"setBoneRotationX"
         }
       },
@@ -176,60 +180,67 @@
       {
         "id":"flaps_l",
         "data":{
-          "state":{"value":0, "min":-1, "max":1, "speed":0.03, "factor":-0.8},
+          "state":{"value":0, "min":-1, "max":1, "speed":0.07, "factor":-0.8},
 
           "sampleSource":"sampleControl",
           "source":"flaps",
 
           "applyState":"rotateShape",
-          "target":{"id":"pivot_l", "rot":"rotateX", "factor":0.13},
+          "target":{"id":"pivot_l", "rot":"rotateX", "factor":0.13, "limiters":[{"id":"sweep", "min":0.02, "max":2, "factor":0}]},
 
 
           "effectFunction":"applyBoneRotation",
           "feedback":{"id":"flap_l", "rot":"rotateX", "factor":1, "light":{"id":"flap_l", "gain":2}}
-
 
         }
       },
       {
         "id":"flaps_r",
         "data":{
-          "state":{"value":0, "min":-1, "max":1, "speed":0.03, "factor":-0.8},
+          "state":{"value":0, "min":-1, "max":1, "speed":0.07, "factor":-0.8},
 
           "sampleSource":"sampleControl",
           "source":"flaps",
 
           "applyState":"rotateShape",
-          "target":{"id":"pivot_r", "rot":"rotateX", "factor":0.13},
+          "target":{"id":"pivot_r", "rot":"rotateX", "factor":0.13, "limiters":[{"id":"sweep", "min":0.02, "max":2, "factor":0}]},
 
           "effectFunction":"applyBoneRotation",
           "feedback":{"id":"flap_r", "rot":"rotateX", "factor":-1, "light":{"id":"flap_r", "gain":2}}
-
         }
       },
 
       {
         "id":"slat_l",
         "data":{
-          "state":{"value":0, "min":0, "max":1, "speed":0.05, "factor":0.45},
+          "state":{"value":0, "min":0, "max":1, "speed":0.05, "factor":1},
+
           "source":"flaps",
-          "target":"slat_l",
-          "feedback":"slat_l",
           "sampleSource":"sampleControl",
-          "applyState":"effectEmitter",
-          "effectFunction":"setBoneRotationX"
+
+          "applyState":"limitByTargetControlState",
+          "target":{"id":"sweep", "min":0.05, "max":2, "factor":0},
+
+
+          "effectFunction":"applyBoneRotation",
+          "feedback":{"id":"slat_l", "rot":"rotateX", "factor":0.45}
+
         }
       },
       {
         "id":"slat_r",
         "data":{
-          "state":{"value":0, "min":0, "max":1, "speed":0.05, "factor":-0.45},
+          "state":{"value":0, "min":0, "max":1, "speed":0.05, "factor":1},
           "source":"flaps",
-          "target":"slat_r",
-          "feedback":"slat_r",
           "sampleSource":"sampleControl",
-          "applyState":"effectEmitter",
-          "effectFunction":"setBoneRotationX"
+
+          "applyState":"limitByTargetControlState",
+          "target":{"id":"sweep", "min":0.05, "max":2, "factor":0},
+
+
+          "effectFunction":"applyBoneRotation",
+          "feedback":{"id":"slat_r", "rot":"rotateX", "factor":-0.45}
+
         }
       },
 
@@ -271,21 +282,21 @@
       {
         "id":"gear_r",
         "data":{
-          "state":{"value":0, "min":0, "max":1, "speed":0.05, "factor":1.65},
+          "state":{"value":0, "min":0, "max":1, "speed":0.01, "factor":1.65},
           "source":"gear",
           "target":"gear_r",
           "sampleSource":"sampleControl",
           "applyState":"effectEmitter",
 
           "effectFunction":"applyBoneRotation",
-          "feedback":{"id":"gear_r", "rot":"rotateX", "factor":-1, "light":{"id":"wheels", "gain":1}}
+          "feedback":{"id":"gear_r", "rot":"rotateX", "factor":1, "light":{"id":"wheels", "gain":1}}
 
         }
       },
       {
         "id":"susp_gear_r",
         "data":{
-          "state":{"value":0, "min":0, "max":1, "speed":0.05, "factor":-2},
+          "state":{"value":0, "min":0, "max":1, "speed":1, "factor":1},
           "source":"force",
           "target":"susp_gear_r",
           "feedback":"susp_gear_r",
@@ -297,19 +308,20 @@
       {
         "id":"susp_gear_fit_r",
         "data":{
-          "state":{"value":0, "min":0, "max":1, "speed":0.05, "factor":1.4},
+          "state":{"value":0, "min":0, "max":1, "speed":0.02, "factor":1.4},
           "source":"gear",
           "target":"susp_gear_r",
           "feedback":"susp_gear_r",
           "sampleSource":"sampleControl",
-          "applyState":"effectEmitter",
+          "applyState":"limitByTargetModuleState",
+          "target":{"id":"gear_r", "min":-0.15, "max":0.7, "factor":0},
           "effectFunction":"setBoneRotationX"
         }
       },
       {
         "id":"wheel_r",
         "data":{
-          "state":{"value":0, "min":0, "max":1, "speed":0.05, "factor":1},
+          "state":{"value":0, "min":0, "max":1, "speed":1, "factor":1},
           "source":"force",
           "target":"wheel_r",
           "feedback":"wheel_r",
@@ -321,7 +333,7 @@
       {
         "id":"gear_l",
         "data":{
-          "state":{"value":0, "min":0, "max":1, "speed":0.05, "factor":1.65},
+          "state":{"value":0, "min":0, "max":1, "speed":0.01, "factor":1.65},
           "source":"gear",
           "target":"gear_l",
           "feedback":"gear_l",
@@ -333,7 +345,7 @@
       {
         "id":"susp_gear_l",
         "data":{
-          "state":{"value":0, "min":0, "max":1, "speed":0.05, "factor":-2},
+          "state":{"value":0, "min":0, "max":1, "speed":1, "factor":1},
           "source":"force",
           "target":"susp_gear_l",
           "feedback":"susp_gear_l",
@@ -346,19 +358,20 @@
       {
         "id":"susp_gear_fit_l",
         "data":{
-          "state":{"value":0, "min":0, "max":1, "speed":0.05, "factor":-1.4},
+          "state":{"value":0, "min":0, "max":1, "speed":0.02, "factor":-1.4},
           "source":"gear",
           "target":"susp_gear_l",
           "feedback":"susp_gear_l",
           "sampleSource":"sampleControl",
-          "applyState":"effectEmitter",
+          "applyState":"limitByTargetModuleState",
+          "target":{"id":"gear_l", "min":-0.15, "max":0.7, "factor":0.5},
           "effectFunction":"setBoneRotationX"
         }
       },
       {
         "id":"wheel_l",
         "data":{
-          "state":{"value":0, "min":0, "max":1, "speed":0.05, "factor":1},
+          "state":{"value":0, "min":0, "max":1, "speed":1, "factor":1},
           "source":"force",
           "target":"wheel_l",
           "feedback":"wheel_l",
@@ -370,19 +383,22 @@
       {
         "id":"gear_nose",
         "data":{
-          "state":{"value":0, "min":0, "max":1, "speed":0.05, "factor":1.80},
+          "state":{"value":0, "min":0, "max":1, "speed":0.01, "factor":1.80},
           "source":"gear",
-          "target":"gear_nose",
+
           "feedback":"gear_nose",
           "sampleSource":"sampleControl",
-          "applyState":"effectEmitter",
+
+          "applyState":"limitByTargetControlState",
+          "target":{"id":"doors", "min":-0.15, "max":-0.2, "factor":0.5},
+
           "effectFunction":"setBoneRotationX"
         }
       },
       {
         "id":"susp_nose",
         "data":{
-          "state":{"value":0, "min":0, "max":1, "speed":0.05, "factor":-2},
+          "state":{"value":0, "min":0, "max":1, "speed":1, "factor":-2},
           "source":"force",
           "target":"susp_nose",
           "feedback":"susp_nose",
@@ -395,72 +411,85 @@
       {
         "id":"wheel_nose",
         "data":{
-          "state":{"value":0, "min":0, "max":1, "speed":0.05, "factor":1},
+          "state":{"value":0, "min":0, "max":1, "speed":1, "factor":1},
           "source":"force",
           "target":"wheel_nose",
           "feedback":"wheel_nose",
           "sampleSource":"sampleControl",
+
           "applyState":"effectEmitter",
+
           "effectFunction":"setBoneRotationZ"
         }
       },
       {
         "id":"door_main_l",
         "data":{
-          "state":{"value":0, "min":0, "max":1, "speed":0.05, "factor":1.6},
+          "state":{"value":0, "min":0, "max":1, "speed":0.02, "factor":1.6},
           "source":"doors",
           "target":"door_main_l",
           "feedback":"door_main_l",
           "sampleSource":"sampleControl",
-          "applyState":"effectEmitter",
+
+          "applyState":"limitByTargetModuleState",
+          "target":{"id":"gear_l", "min":0.99, "max":1.9, "factor":0},
+
           "effectFunction":"setBoneRotationX"
         }
       },
       {
         "id":"door_main_r",
         "data":{
-          "state":{"value":0, "min":0, "max":1, "speed":0.05, "factor":-1.6},
+          "state":{"value":0, "min":0, "max":1, "speed":0.02, "factor":-1.6},
           "source":"doors",
           "target":"door_main_r",
           "feedback":"door_main_r",
           "sampleSource":"sampleControl",
-          "applyState":"effectEmitter",
+          "applyState":"limitByTargetModuleState",
+          "target":{"id":"gear_r", "min":0.99, "max":1.9, "factor":0},
           "effectFunction":"setBoneRotationX"
         }
       },
       {
         "id":"door_rear_l",
         "data":{
-          "state":{"value":0, "min":0, "max":1, "speed":0.05, "factor":1.5},
+          "state":{"value":0, "min":0, "max":1, "speed":0.02, "factor":1.5},
           "source":"doors",
-          "target":"door_rear_l",
+
           "feedback":"door_rear_l",
           "sampleSource":"sampleControl",
-          "applyState":"effectEmitter",
+
+          "applyState":"limitByTargetModuleState",
+          "target":{"id":"gear_l", "min":0.75, "max":1.9, "factor":0},
+
           "effectFunction":"setBoneRotationX"
         }
       },
       {
         "id":"door_rear_r",
         "data":{
-          "state":{"value":0, "min":0, "max":1, "speed":0.05, "factor":-1.5},
+          "state":{"value":0, "min":0, "max":1, "speed":0.02, "factor":-1.5},
           "source":"doors",
-          "target":"door_rear_r",
+
           "feedback":"door_rear_r",
           "sampleSource":"sampleControl",
-          "applyState":"effectEmitter",
+          "applyState":"limitByTargetModuleState",
+          "target":{"id":"gear_r", "min":0.75, "max":1.9, "factor":0},
           "effectFunction":"setBoneRotationX"
         }
       },
       {
         "id":"door_inner_l",
         "data":{
-          "state":{"value":0, "min":0, "max":1, "speed":0.05, "factor":-1.6},
+          "state":{"value":0, "min":0, "max":1, "speed":0.02, "factor":-1.6},
           "source":"doors",
-          "target":"door_inner_l",
+
           "feedback":"door_inner_l",
           "sampleSource":"sampleControl",
-          "applyState":"effectEmitter",
+
+          "applyState":"limitByTargetModuleState",
+          "target":{"id":"gear_l", "min":0.95, "max":1.9, "factor":0},
+
           "effectFunction":"setBoneRotationX"
         }
       },
@@ -469,33 +498,40 @@
         "data":{
           "state":{"value":0, "min":0, "max":1, "speed":0.05, "factor":1.6},
           "source":"doors",
-          "target":"door_inner_r",
+
           "feedback":"door_inner_r",
           "sampleSource":"sampleControl",
-          "applyState":"effectEmitter",
+          "applyState":"limitByTargetModuleState",
+          "target":{"id":"gear_r", "min":0.95, "max":1.9, "factor":0},
           "effectFunction":"setBoneRotationX"
         }
       },
       {
         "id":"door_nose_r",
         "data":{
-          "state":{"value":0, "min":0, "max":1, "speed":0.05, "factor":-2.1},
+          "state":{"value":0, "min":0, "max":1, "speed":0.01, "factor":-2.1},
           "source":"doors",
-          "target":"door_nose_r",
+
           "feedback":"door_nose_r",
           "sampleSource":"sampleControl",
-          "applyState":"effectEmitter",
+
+          "applyState":"limitByTargetModuleState",
+          "target":{"id":"gear_nose", "min":0.99, "max":1.9, "factor":0},
+
           "effectFunction":"setBoneRotationX"
         }
       },
       {
         "id":"door_nose_l",
         "data":{
-          "state":{"value":0, "min":0, "max":1, "speed":0.05, "factor":2.1},
+          "state":{"value":0, "min":0, "max":1, "speed":0.01, "factor":2.1},
           "source":"doors",
-          "target":"door_nose_l",
+
           "sampleSource":"sampleControl",
-          "applyState":"effectEmitter",
+
+          "applyState":"limitByTargetModuleState",
+          "target":{"id":"gear_nose", "min":0.99, "max":1.9, "factor":0},
+
           "effectFunction":"applyBoneRotation",
           "feedback":{"id":"door_nose_l", "rot":"rotateX", "factor":1, "light":{"id":"yx_99", "gain":1}}
         }
@@ -643,13 +679,13 @@
       {
         "id":"trim_pitch",
         "data":{
-          "state":{"value":0, "min":-1, "max":1, "speed":0.05, "factor":-0.1},
+          "state":{"value":0, "min":-1, "max":1, "speed":0.05, "factor":-1},
           "source":"trim_elevator",
 
           "sampleSource":"sampleControl",
 
           "applyState":"trimControl",
-          "target":{"id":"elevator", "factor":1},
+          "target":{"id":"elevator", "factor":0.5},
 
           "effectFunction":"applyLightState",
           "feedback":{"light":{"id":"x_2", "gain":4}}
@@ -659,12 +695,12 @@
       {
         "id":"trim_roll",
         "data":{
-          "state":{"value":0, "min":-1, "max":1, "speed":0.05, "factor":0.1},
+          "state":{"value":0, "min":-1, "max":1, "speed":0.05, "factor":1},
           "source":"trim_aeilron",
           "sampleSource":"sampleControl",
 
           "applyState":"trimControl",
-          "target":{"id":"aeilron", "factor":1},
+          "target":{"id":"aeilron", "factor":0.5},
 
           "effectFunction":"applyLightState",
           "feedback":{"light":{"id":"y_2", "gain":4}}
@@ -674,12 +710,12 @@
       {
         "id":"trim_yaw",
         "data":{
-          "state":{"value":0, "min":-1, "max":1, "speed":0.05, "factor":0.1},
+          "state":{"value":0, "min":-1, "max":1, "speed":0.05, "factor":1},
           "source":"trim_rudder",
           "sampleSource":"sampleControl",
 
           "applyState":"trimControl",
-          "target":{"id":"rudder", "factor":1},
+          "target":{"id":"rudder", "factor":0.5},
 
           "effectFunction":"applyLightState",
           "feedback":{"light":{"id":"z_2", "gain":4}}
