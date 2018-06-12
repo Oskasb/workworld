@@ -107,7 +107,7 @@ if(typeof(MATH) === "undefined") {
     };
 
     MATH.curveSqrt = function(value) {
-        return Math.sqrt(value) * MATH.sign(value)
+        return Math.sqrt(Math.abs(value)) * MATH.sign(value)
     };
 
 

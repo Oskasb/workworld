@@ -130,8 +130,8 @@ define([
         };
 
         ModuleFunctions.trimControl = function(renderable, moduleState, trgt) {
-        //    controlState = renderable.getGamePiece().getControlStateById(trgt.id);
-        //    controlState.setPieceControlTrimState(moduleState.getStateValue())
+            controlState = renderable.getGamePiece().getControlStateById(trgt.id);
+            controlState.setPieceControlTrimState(moduleState.getStateValue())
         };
 
 

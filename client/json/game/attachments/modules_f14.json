@@ -62,7 +62,7 @@
           "state":{"value":0, "min":-1, "max":1, "speed":0.1, "factor":-0.35},
 
           "sampleSource":"sampleControl",
-          "source":"aeilron",
+          "source":"elevator",
 
           "applyState":"rotateShape",
           "target":{"id":"elev_1", "rot":"rotateX", "factor":1.1},
@@ -78,14 +78,14 @@
         "data":{
           "state":{"value":0, "min":-1, "max":1, "speed":0.1, "factor":-0.35},
           "sampleSource":"sampleControl",
-          "source":"aeilron",
+          "source":"elevator",
 
           "applyState":"rotateShape",
           "target":{"id":"elev_2", "rot":"rotateX", "factor":1.1},
 
 
           "effectFunction":"applyBoneRotation",
-          "feedback":{"id":"stab_roll_r", "rot":"rotateX", "factor":-1, "light":{"id":"pitch_2", "gain":-4}}
+          "feedback":{"id":"stab_pitch_r", "rot":"rotateX", "factor":-1, "light":{"id":"pitch_2", "gain":-4}}
 
         }
       },
@@ -101,7 +101,7 @@
           "target":{"id":"elev_2", "rot":"rotateX", "factor":1},
 
           "effectFunction":"applyBoneRotation",
-          "feedback":{"id":"stab_roll_r", "rot":"rotateX", "factor":1, "light":{"id":"roll_1", "gain":-4}}
+          "feedback":{"id":"stab_roll_l", "rot":"rotateX", "factor":1, "light":{"id":"roll_1", "gain":-4}}
 
         }
       },
