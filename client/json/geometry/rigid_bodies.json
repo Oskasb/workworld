@@ -141,8 +141,8 @@
 
             {"id":"elev_1",       "lift":["wing", 0, 0],  "shape":"Box", "args":[5, 0.1, 2],    "offset":[ 3,    0.3,  -7],    "rotation":[0,      0.8,     0]},
             {"id":"elev_2",       "lift":["wing", 0, 0],  "shape":"Box", "args":[5, 0.1, 2],    "offset":[-3,    0.3,  -7],    "rotation":[0.0,   -0.8,     0]},
-            {"id":"break_top",    "lift":["box", 0, 0],  "shape":"Box", "args":[3, 0.5, 2.15],   "offset":[-0,    0.5,  -19],    "rotation":[-0.00,       0,   0]},
-            {"id":"break_bottom", "lift":["box", 0, 0],  "shape":"Box", "args":[3, 0.5, 2.5],    "offset":[-0,    0.5,  -17],    "rotation":[0.00,       0,   0]},
+            {"id":"break_top",    "lift":["box", 0, 0],  "shape":"Box", "args":[3, 0.5, 2.15],   "offset":[-0,    0.5,  -6],    "rotation":[-0.00,       0,   0]},
+            {"id":"break_bottom", "lift":["box", 0, 0],  "shape":"Box", "args":[3, 0.5, 2.5],    "offset":[-0,    0.5,  -6],    "rotation":[0.00,       0,   0]},
             {"id":"stab_1",       "lift":[0, "wing", 0],  "shape":"Box", "args":[0.1,  5.5, 1.2],    "offset":[-1.6,    1,  -5.7],   "rotation":[-0.75,   0.0,  0.0]},
             {"id":"stab_2",       "lift":[0, "wing", 0],  "shape":"Box", "args":[0.1,  5.5, 1.2],    "offset":[ 1.6,    1,  -5.7],   "rotation":[-0.75,  -0.0, -0.0]},
             {"id":"rudder_r",     "lift":[0, "wing", 0],  "shape":"Box", "args":[0.2,  4,  1.5],    "offset":[-1.6,   1.7, -7.3],   "rotation":[-0.35,   0.0,  0.0]},

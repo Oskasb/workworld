@@ -283,12 +283,13 @@ define([
 
         DynamicRenderable.prototype.resetRenderableFrame = function() {
             this.renderableGeometry.notifyFrameUpdated();
-            this.renderableGeometry.setRenderableVisualSize();
-            this.dynamicSpatial.clearFrameRotation();
+        //   this.renderableGeometry.setRenderableVisualSize();
+
         };
 
         DynamicRenderable.prototype.tickRenderable = function() {
         //    this.resetRenderableFrame();
+
             this.dynamicSpatial.getSpatialPosition(this.renderableGeometry.pos);
             this.dynamicSpatial.getSpatialQuaternion(this.renderableGeometry.quat);
             this.dynamicSpatial.getSpatialScale(this.renderableGeometry.scale3d);
@@ -305,7 +306,8 @@ define([
                 this.moduleRenderer.renderGamePieceModules(this.getGamePiece(), this)
             }
 
-            this.applyRenderableVisibility(this.isVisible)
+            this.applyRenderableVisibility(this.isVisible);
+            this.dynamicSpatial.clearFrameRotation();
         };
 
         DynamicRenderable.prototype.applyRenderableVisibility = function(isVisible) {

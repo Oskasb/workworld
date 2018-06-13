@@ -98,7 +98,7 @@
           "source":"aeilron",
 
           "applyState":"rotateShape",
-          "target":{"id":"elev_2", "rot":"rotateX", "factor":1},
+          "target":{"id":"elev_1", "rot":"rotateX", "factor":1},
 
           "effectFunction":"applyBoneRotation",
           "feedback":{"id":"stab_roll_l", "rot":"rotateX", "factor":1, "light":{"id":"roll_1", "gain":-4}}
@@ -160,7 +160,7 @@
           "applyState":"applyRotationY",
 
           "effectFunction":"applyBoneRotation",
-          "feedback":{"id":"rudder_l", "rot":"rotateX", "factor":-1, "light":{"id":"yaw_op", "gain":2}}
+          "feedback":{"id":"rudder_l", "rot":"rotateX", "factor":1, "light":{"id":"yaw_op", "gain":2}}
         }
       },
       {
@@ -173,7 +173,7 @@
           "sampleSource":"sampleControl",
           "applyState":"applyRotationY",
           "effectFunction":"applyBoneRotation",
-          "feedback":{"id":"rudder_r", "rot":"rotateX", "factor":-1, "light":{"id":"yaw_out", "gain":-2}}
+          "feedback":{"id":"rudder_r", "rot":"rotateX", "factor":1, "light":{"id":"yaw_out", "gain":-2}}
         }
       },
 
