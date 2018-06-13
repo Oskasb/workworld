@@ -282,11 +282,13 @@ define([
         };
 
         DynamicRenderable.prototype.resetRenderableFrame = function() {
+            this.renderableGeometry.notifyFrameUpdated();
+            this.renderableGeometry.setRenderableVisualSize();
             this.dynamicSpatial.clearFrameRotation();
         };
 
         DynamicRenderable.prototype.tickRenderable = function() {
-            this.resetRenderableFrame();
+        //    this.resetRenderableFrame();
             this.dynamicSpatial.getSpatialPosition(this.renderableGeometry.pos);
             this.dynamicSpatial.getSpatialQuaternion(this.renderableGeometry.quat);
             this.dynamicSpatial.getSpatialScale(this.renderableGeometry.scale3d);

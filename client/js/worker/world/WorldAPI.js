@@ -253,10 +253,12 @@ define([
         //    WorldAPI.callSharedWorker(ENUMS.Worker.CANVAS_WORKER, ENUMS.Protocol.CANVAS_CALL_UPDATE, null);
             WorldAPI.getWorldCamera().applyCameraComBuffer(WorldAPI.getWorldComBuffer());
 
+            dynamicWorld.initDynamicFrame();
+            dynamicWorld.updateDynamicWorld();
+
             WorldAPI.sendWorldMessage(ENUMS.Protocol.NOTIFY_FRAME, frame);
             worldControlState.updateWorldControlState();
 
-            dynamicWorld.updateDynamicWorld();
             terrainSystem.updateTerrainSystem(tpf);
 
             GuiAPI.updateGui();
@@ -268,6 +270,7 @@ define([
             WorldAPI.getWorldCamera().relayCamera(WorldAPI.getWorldComBuffer());
             worldMain.updateWorldEffects();
             WorldAPI.callSharedWorker(ENUMS.Worker.PHYSICS_WORLD, ENUMS.Protocol.PHYSICS_CALL_UPDATE, null);
+
         };
 
         WorldAPI.getWorldTime = function() {

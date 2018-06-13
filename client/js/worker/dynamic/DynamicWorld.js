@@ -229,6 +229,15 @@ define([
             return screenSpaceProbe.getCurrentDynamicHover();
         };
 
+
+        DynamicWorld.prototype.initDynamicFrame = function() {
+
+            for (var i = 0; i < dynamics.length;i++) {
+                dynamics[i].resetRenderableFrame();
+            }
+
+        };
+
         DynamicWorld.prototype.updateDynamicWorld = function() {
 
             dynamicControlSelector.updateControlSelector();
@@ -269,9 +278,7 @@ define([
                 repelAllDyn(35);
             }
 
-            for (i = 0; i < dynamics.length;i++) {
-        //        dynamics[i].resetRenderableFrame();
-            }
+
 
             for (var i = 0; i < pieces.length;i++) {
                 pieces[i].updateDynamicGamePiece(WorldAPI.getCom(ENUMS.BufferChannels.TPF));

@@ -39,8 +39,10 @@ define([
             this.moduleConfigs = this.configRead('modules');
 
             var onready = function(mod) {
-                this.modules.push(mod);
-                moduleStore[mod.id] = mod;
+                if (this.modules.indexOf(mod) === -1) {
+                    this.modules.push(mod);
+                    moduleStore[mod.id] = mod;
+                }
             }.bind(this);
 
             for (i = 0; i < this.moduleConfigs.length; i++) {

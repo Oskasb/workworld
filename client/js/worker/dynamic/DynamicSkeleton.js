@@ -42,6 +42,14 @@ define([
             }
         };
 
+        DynamicSkeleton.prototype.notifyDynamicSkeletonFrame = function() {
+            for (i = 0; i < this.bones.length; i++) {
+                this.bones[i].notifyDynamicBoneFrame();
+            }
+        };
+
+
+
         return DynamicSkeleton;
 
     });

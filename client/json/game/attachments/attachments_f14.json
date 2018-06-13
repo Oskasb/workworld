@@ -185,6 +185,11 @@
         "id":"external_system",
         "data":{
           "modules":[
+
+            {"config_key":"EXTERNAL_F14", "config_id":"offset_one", "group":[
+              {"offset":[0, 0, 0], "direction":[0, 0, 1], "size":[1, 1, 1]}
+            ]},
+
             {"config_key":"EXTERNAL_F14", "config_id":"canopy", "group":[
               {"offset":[0, 1.7, 3.4], "direction":[0, 0, 1], "size":[1, 1, 5]}
             ]},

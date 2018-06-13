@@ -225,10 +225,13 @@ if(typeof(ENUMS) === "undefined"){
         QUAT_Y:             6,
         QUAT_Z:             7,
         QUAT_W:             8,
-        SCALE_X:            9,
-        SCALE_Y:            10,
-        SCALE_Z:            11,
-        STRIDE:             12
+        QUAT_UDATE:         9,
+        SCALE_X:            10,
+        SCALE_Y:            11,
+        SCALE_Z:            12,
+        SCALE_UDATE:        13,
+        POS_UDATE:          14,
+        STRIDE:             15
     };
 
     ENUMS.DynamicLight = {

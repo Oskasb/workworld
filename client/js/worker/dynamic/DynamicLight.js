@@ -87,14 +87,6 @@ define([
             return this.sourceCanvas;
         };
 
-        DynamicLight.prototype.updateDynamicBone = function() {
-
-            if (this.getDynamicLightUpdate()) {
-
-            }
-
-        };
-
         return DynamicLight;
 
     });

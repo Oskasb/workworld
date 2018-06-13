@@ -10,6 +10,7 @@ define([
         var ModuleState = function() {
 
             this.state = {
+                offset:0,
                 value :0,
                 target : 0,
                 min : -Number.MAX_VALUE,
@@ -31,13 +32,12 @@ define([
         };
 
         ModuleState.prototype.getStateValue = function() {
-            return this.state.value;
+            return this.state.value + this.state.offset;
         };
 
         ModuleState.prototype.getAppliedFactor = function() {
-            return this.state.value * this.state.factor;
+            return this.getStateValue() * this.state.factor;
         };
-
 
         ModuleState.prototype.renderControlableModule = function(renderable) {
 

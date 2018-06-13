@@ -10,11 +10,14 @@ define([
     ) {
 
         var target;
-
+        var i;
         var light;
 
         var speed;
         var value;
+        var dynBone;
+
+        var conf;
 
         var tempVec1 = new THREE.Vector3();
         var tempVec2 = new THREE.Vector3();
@@ -28,30 +31,21 @@ define([
         tempObj.lookAt(up);
         var fxArgs = {effect:'', pos:fxPos, vel:fxVel, quat:fxQuat};
 
+
+
         var ModuleEffectFunctions = function() {
 
         };
 
-        var frameTestBoneRot = function(dynBone) {
-            if (dynBone.quatUpdate === 0) {
-                dynBone.quatUpdate = 1;
-                dynBone.resetDynamicBoneQuat();
-            }
+        var rotateBone = function(dynBone, rotFunc, value) {
+        //    frameTestBoneRot(dynBone);
+            if (!dynBone) return;
+
+            dynBone.getDynamicBoneQuaternion(tempObj.quaternion);
+            tempObj[rotFunc](value);
+            dynBone.setDynamicBoneQuaternion(tempObj.quaternion);
         };
 
-        var frameTestBonePos = function(dynBone) {
-            if (dynBone.posUpdate === 0) {
-                dynBone.posUpdate = 1;
-                dynBone.resetDynamicBonePos();
-            }
-        };
-
-        var frameTestBoneScale = function(dynBone) {
-            if (dynBone.scaleUpdate === 0) {
-                dynBone.scaleUpdate = 1;
-                dynBone.resetDynamicBoneScale();
-            }
-        };
 
         var applyLightFeedback = function(renderable, moduleState, trgt) {
 
@@ -243,7 +237,7 @@ define([
 
         ModuleEffectFunctions.applyBoneRotation = function(renderable, moduleState, trgt) {
 
-            var dynBone = renderable.getRenderableBone(trgt.id);
+            dynBone = renderable.getRenderableBone(trgt.id);
 
             applyLightFeedback(renderable, moduleState, trgt);
 
@@ -252,18 +246,26 @@ define([
                 return;
             }
 
-            frameTestBoneRot(dynBone);
-            dynBone.getDynamicBoneQuaternion(tempObj.quaternion);
-            tempObj.quaternion.copy(dynBone.originalQuat);
-            tempObj[trgt.rot](moduleState.getAppliedFactor() * trgt.factor);
-            dynBone.setDynamicBoneQuaternion(tempObj.quaternion);
+            rotateBone(dynBone, trgt.rot, moduleState.getAppliedFactor() * trgt.factor)
 
+        };
+
+
+        ModuleEffectFunctions.applyFeedbackOffsets = function(renderable, moduleState, trgt) {
+
+            if (trgt.rotate_bones) {
+                for (i = 0; i < trgt.rotate_bones.length; i++) {
+                    conf = trgt.rotate_bones[i];
+                    dynBone = renderable.getRenderableBone(conf.id);
+                    rotateBone(dynBone, conf.rot, conf.offset)
+                }
+            }
 
         };
 
         ModuleEffectFunctions.setBoneRotationX = function(renderable, moduleState, trgt) {
 
-            var dynBone = renderable.getRenderableBone(trgt);
+            dynBone = renderable.getRenderableBone(trgt);
 
             if (!dynBone) {
                 console.log("No Dynamic Bone:", trgt, renderable, moduleState);
@@ -278,7 +280,7 @@ define([
 
         ModuleEffectFunctions.setBoneRotationY = function(renderable, moduleState, trgt) {
 
-            var dynBone = renderable.getRenderableBone(trgt);
+            dynBone = renderable.getRenderableBone(trgt);
 
             if (!dynBone) {
                 console.log("No Dynamic Bone:", trgt, renderable, moduleState);
@@ -293,7 +295,7 @@ define([
 
         ModuleEffectFunctions.setBoneRotationZ = function(renderable, moduleState, trgt) {
 
-            var dynBone = renderable.getRenderableBone(trgt);
+            dynBone = renderable.getRenderableBone(trgt);
 
             if (!dynBone) {
                 console.log("No Dynamic Bone:", trgt, renderable, moduleState);
@@ -308,22 +310,20 @@ define([
 
         ModuleEffectFunctions.rotateBoneX = function(renderable, moduleState, trgt) {
 
-            var dynBone = renderable.getRenderableBone(trgt);
+            dynBone = renderable.getRenderableBone(trgt);
 
             if (!dynBone) {
                 console.log("No Dynamic Bone:", trgt, renderable, moduleState);
                 return;
             }
 
-            dynBone.getDynamicBoneQuaternion(tempObj.quaternion);
-            tempObj.rotateX(moduleState.getAppliedFactor());
-            dynBone.setDynamicBoneQuaternion(tempObj.quaternion);
+            dynBone.addRotationX(moduleState.getAppliedFactor());
 
         };
 
         ModuleEffectFunctions.setBoneTranslationX = function(renderable, moduleState, trgt) {
 
-            var dynBone = renderable.getRenderableBone(trgt);
+            dynBone = renderable.getRenderableBone(trgt);
 
             if (!dynBone) {
                 console.log("No Dynamic Bone:", trgt, renderable, moduleState);
@@ -338,7 +338,7 @@ define([
 
         ModuleEffectFunctions.setBoneTranslationY = function(renderable, moduleState, trgt) {
 
-            var dynBone = renderable.getRenderableBone(trgt);
+            dynBone = renderable.getRenderableBone(trgt);
 
             if (!dynBone) {
                 console.log("No Dynamic Bone:", trgt, renderable, moduleState);
@@ -355,7 +355,7 @@ define([
 
         ModuleEffectFunctions.setBoneTranslationZ = function(renderable, moduleState, trgt) {
 
-            var dynBone = renderable.getRenderableBone(trgt);
+            dynBone = renderable.getRenderableBone(trgt);
 
             if (!dynBone) {
                 console.log("No Dynamic Bone:", trgt, renderable, moduleState);
@@ -370,17 +370,14 @@ define([
 
         ModuleEffectFunctions.translateBoneX = function(renderable, moduleState, trgt) {
 
-            speed = renderable.getDynamicSpeed();
 
-            if (Math.random() * 5 > speed-1) {
-                return;
-            }
+
 
         };
 
         ModuleEffectFunctions.setBoneScaleUniform = function(renderable, moduleState, trgt) {
 
-            var dynBone = renderable.getRenderableBone(trgt);
+            dynBone = renderable.getRenderableBone(trgt);
 
             if (!dynBone) {
                 console.log("No Dynamic Bone:", trgt, renderable, moduleState);

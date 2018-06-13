@@ -39,8 +39,8 @@ define([
             var configLoaded = function() {
                 this.clearDebugModule();
                 this.moduleState.applyConfig(this.configRead('state'));
-                onReady(this);
 
+                onReady(this);
                 WorldAPI.addTextMessage('Load Module '+this.configKey+' '+this.configId)
 
             }.bind(this);

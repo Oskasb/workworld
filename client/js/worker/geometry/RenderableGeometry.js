@@ -67,8 +67,8 @@ define([
             }
         };
 
-        RenderableGeometry.prototype.renderGeometryRenderable = function() {
-            this.renderable.renderGeometryInstance();  //  = EffectsAPI.requestPassiveEffect(this.fxId, this.pos, null, null, this.quat);
+        RenderableGeometry.prototype.renderGeometryRenderable = function(isVisible) {
+            this.renderable.renderGeometryInstance(isVisible);  //  = EffectsAPI.requestPassiveEffect(this.fxId, this.pos, null, null, this.quat);
 
         };
 
@@ -91,7 +91,7 @@ define([
         RenderableGeometry.prototype.applyVisibility = function(isVisible) {
 
             if (isVisible) {
-                this.renderGeometryRenderable();
+                this.renderGeometryRenderable(isVisible);
             } else {
                 this.hideGeometryRenderable();
             }
@@ -135,6 +135,14 @@ define([
             }
 
         };
+
+        RenderableGeometry.prototype.notifyFrameUpdated  = function() {
+            if (this.renderable.dynamicSkeleton) {
+                this.renderable.dynamicSkeleton.notifyDynamicSkeletonFrame();
+            }
+
+        };
+
 
         RenderableGeometry.prototype.clearDebugShapes = function() {
             while (this.debugShapes.length) {

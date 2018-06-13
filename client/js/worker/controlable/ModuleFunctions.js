@@ -65,6 +65,10 @@ define([
             moduleState.setTargetState(controlState.getControlStateValue())
         };
 
+        ModuleFunctions.sampleModule = function(renderable, moduleState, source) {
+            value = renderable.getGamePiece().getModuleStateValueById(source);
+            moduleState.setTargetState(value)
+        };
 
         ModuleFunctions.sampleShape = function(renderable, moduleState, source) {
             shape = renderable.getSpatialShapeById(source.id);

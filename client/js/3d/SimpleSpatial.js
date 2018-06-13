@@ -121,6 +121,7 @@ define([
 
             if (!this.ready) {
                 this.initDynamicModel(this.obj3d.children[0])
+                return;
             }
 
             this.dynamicSpatial.getSpatialPosition(this.obj3d.position);

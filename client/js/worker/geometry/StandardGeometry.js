@@ -43,8 +43,9 @@ define([
             this.size = size;
         };
 
-        StandardGeometry.prototype.renderGeometryInstance = function() {
-
+        StandardGeometry.prototype.renderGeometryInstance = function(isVisible) {
+            if (isVisible) {
+            }
         };
 
         StandardGeometry.prototype.getDynamicBone = function(name) {
