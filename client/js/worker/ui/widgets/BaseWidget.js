@@ -102,30 +102,22 @@ define([
             this.applyProgressDynLayout(this.stateLayout);
         };
 
+        var stateConfig;
+        var progressconfig;
+        var min;
+        var max;
+        var offset;
+        var anchor;
+
+        var span;
+        var factor;
+        var value;
+
+        var calcSpan = function(value, offset, total) {
+            return value * total + total*0.0// * value // (((value*(1-offset))+offset) + total*offset)
+        }
+
         BaseWidget.prototype.indicateStateProgress = function(state, parentId, targetId) {
-
-            axis = this.configRead(targetId).axis;
-
-            this.indicatorElement.setOn(1);
-
-            layout = this.configRead(parentId).layout;
-
-            if (axis[0]) {
-                this.stateLayout.width = state * layout.width * 0.5 * axis[1];
-                this.stateLayout.margin_x = layout.margin_x+layout.width * 0.5;
-                this.stateLayout.height = layout.height;
-                this.stateLayout.margin_y = layout.margin_y;
-            } else {
-                this.stateLayout.height = state * layout.height * 0.5  * axis[1];
-                this.stateLayout.margin_y = layout.margin_y+layout.height * 0.5;
-            }
-
-            this.applyProgressDynLayout(this.stateLayout);
-        };
-
-        BaseWidget.prototype.indicateControlState = function(state, parentId, targetId) {
-            axis = this.configRead(targetId).axis;
-
 
             if (!state) {
                 this.indicatorElement.setOn(0);
@@ -133,6 +125,66 @@ define([
                 return;
             }
 
+           // state = Math.abs(Math.sin( new Date().getTime() * 0.005 ))
+
+            stateConfig = this.configRead(targetId);
+            progressconfig = stateConfig.progress;
+            axis = progressconfig.axis;
+
+            min = progressconfig.min;
+            max = progressconfig.max;
+            offset = progressconfig.offset;
+            anchor = progressconfig.anchor;
+            factor = progressconfig.factor;
+
+            this.indicatorElement.setOn(1);
+
+            value = MATH.clamp( factor*state / (max-min) , min, max) ;
+
+            if (axis[0]) {
+
+                layout =  this.getWidgetSurfaceLayout().layout;
+                span = - value * layout.width * 1;
+
+                if (anchor) {
+
+                    this.stateLayout.width = span * 2 / WorldAPI.sampleInputBuffer(ENUMS.InputState.ASPECT)// + layout.height * offset  ;
+                    this.stateLayout.margin_x = layout.margin_x + layout.width * offset / WorldAPI.sampleInputBuffer(ENUMS.InputState.ASPECT)
+
+                } else {
+
+                    this.stateLayout.width = -this.configRead(targetId).layout.width // + layout.height * offset  ;
+                    this.stateLayout.margin_x = layout.margin_x + layout.width * offset / WorldAPI.sampleInputBuffer(ENUMS.InputState.ASPECT) + span / WorldAPI.sampleInputBuffer(ENUMS.InputState.ASPECT) //  - this.stateLayout.width *0.5 + layout.width * (offset);// * (1-offset);
+
+                }
+
+
+            } else {
+                layout = this.configRead(parentId).layout;
+                span = - value * layout.height;
+
+                if (anchor) {
+                    this.stateLayout.height = span // + layout.height * offset  ;
+                    this.stateLayout.margin_y = layout.margin_y - span + layout.height * 0.5 + layout.height * (offset);
+                } else {
+                    this.stateLayout.height = -this.configRead(targetId).layout.height // + layout.height * offset  ;
+                    this.stateLayout.margin_y = layout.margin_y + layout.height * 0.5 - span - this.stateLayout.height *0.5 + layout.height * (offset);// * (1-offset);
+                }
+
+            }
+
+            this.applyProgressDynLayout(this.stateLayout);
+        };
+
+        BaseWidget.prototype.indicateControlState = function(state, parentId, targetId) {
+
+
+            if (!state) {
+                this.indicatorElement.setOn(0);
+                this.updateSurfaceState(parentId, targetId);
+                return;
+            }
+            axis = this.configRead(targetId).axis;
             this.indicatorElement.setOn(1);
 
             surfaceLayout =  this.getWidgetSurfaceLayout().layout;

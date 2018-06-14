@@ -13,9 +13,12 @@ define([
         'ui/widgets/MessageBoxWidget',
         'ui/widgets/MonitorListWidget',
         'ui/widgets/GuiButtonWidget',
+
         'ui/widgets/indicators/GuiRollIndicator',
         'ui/widgets/indicators/GuiPitchIndicator',
+        'ui/widgets/indicators/GuiStateIndicator',
         'ui/widgets/indicators/GuiCompassIndicator',
+
         'ui/widgets/controls/GuiDragControlWidget',
         'ui/widgets/controls/GuiToggleControlWidget'
     ],
@@ -32,9 +35,12 @@ define([
         MessageBoxWidget,
         MonitorListWidget,
         GuiButtonWidget,
+
         GuiRollIndicator,
         GuiPitchIndicator,
+        GuiStateIndicator,
         GuiCompassIndicator,
+
         GuiDragControlWidget,
         GuiToggleControlWidget
     ) {
@@ -243,6 +249,14 @@ define([
         WidgetBuilder.prototype.buildPitchIndicator = function(config, store) {
             var conf = buildWidgetConfig(config);
             widget = new GuiPitchIndicator(conf.label, conf.configId);
+            widget.setMasterBuffer(conf.buffer,  conf.channel);
+            widget.applyDynamicLayout(conf.layout);
+            store.push(widget);
+        };
+
+        WidgetBuilder.prototype.buildStateIndicator = function(config, store) {
+            var conf = buildWidgetConfig(config);
+            widget = new GuiStateIndicator(conf.label, conf.configId);
             widget.setMasterBuffer(conf.buffer,  conf.channel);
             widget.applyDynamicLayout(conf.layout);
             store.push(widget);

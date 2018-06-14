@@ -186,6 +186,7 @@ define([
             widgetCalls['ROLL_INDICATOR'] = widgetBuilder.buildRollIndicator;
             widgetCalls['PITCH_INDICATOR'] = widgetBuilder.buildPitchIndicator;
             widgetCalls['YAW_INDICATOR'] = widgetBuilder.buildYawIndicator;
+            widgetCalls['STATE_INDICATOR'] = widgetBuilder.buildStateIndicator;
         };
 
 

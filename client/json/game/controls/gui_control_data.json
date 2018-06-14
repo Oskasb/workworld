@@ -79,9 +79,14 @@
         "id":"vehicle_rotation",
         "data":{
           "widgets":[
-            {"widget":"ROLL_INDICATOR", "label":"ROLL",   "configId":"roll_indicator",   "layout":{"margin_y":0.30}, "buffer":"currentDynamic", "channel":"ROLL_ANGLE"},
-            {"widget":"PITCH_INDICATOR","label":"PITCH",  "configId":"pitch_indicator",  "layout":{"margin_y":0.24}, "buffer":"currentDynamic", "channel":"HORIZON_ATTITUDE"},
-            {"widget":"YAW_INDICATOR", "label":"AOA_Y",   "configId":"compass_indicator",  "layout":{"margin_y":0.20}, "buffer":"currentDynamic", "channel":"YAW_ANGLE"}
+            {"widget":"ROLL_INDICATOR", "label":"ROLL",   "configId":"roll_indicator",    "layout":{"margin_y":0.30}, "buffer":"currentDynamic", "channel":"ROLL_ANGLE"},
+            {"widget":"PITCH_INDICATOR","label":"PITCH",  "configId":"pitch_indicator",   "layout":{"margin_y":0.24}, "buffer":"currentDynamic", "channel":"HORIZON_ATTITUDE"},
+            {"widget":"YAW_INDICATOR", "label":"YAW",     "configId":"compass_indicator", "layout":{"margin_y":0.20}, "buffer":"currentDynamic", "channel":"YAW_ANGLE"},
+
+            {"widget":"STATE_INDICATOR","label":"RT YW",  "configId":"ind_angle_x", "layout":{"margin_y":0.244, "margin_x":0.30,   "width":0.12, "height":0.005}, "buffer":"currentDynamic", "channel":"ANGULAR_VEL_Y"},
+
+            {"widget":"STATE_INDICATOR","label":"AOA",    "configId":"state_indicator_y", "layout":{"margin_y":0.24, "margin_x":0.297, "width":-0.006}, "buffer":"currentDynamic", "channel":"ANGLE_OF_ATTACK_X"},
+            {"widget":"STATE_INDICATOR","label":"RT PT",  "configId":"ind_angle_y", "layout":{"margin_y":0.24, "margin_x":0.301,   "width":-0.022}, "buffer":"currentDynamic", "channel":"ANGULAR_VEL_X"}
           ]
         }
       }
@@ -142,19 +147,23 @@
         "data":{
           "widgets":[
 
-            {"widget":"BUTTON_CONTROL", "label":"SWEEP","configId":"control_door", "layout":{"margin_y":0.20},"onUpdate":"sampleControl", "source":"sweep", "onClick":"toggleControl"},
-            {"widget":"BUTTON_CONTROL", "label":"FLAP", "configId":"control_door", "layout":{"margin_y":0.30},"onUpdate":"sampleControl", "source":"flaps", "onClick":"toggleControl"},
-            {"widget":"BUTTON_CONTROL", "label":"BRK",  "configId":"control_door", "layout":{"margin_y":0.40},"onUpdate":"sampleControl", "source":"brake", "onClick":"toggleControl"},
+            {"widget":"BUTTON_CONTROL", "label":"SWEEP","configId":"control_door", "layout":{"margin_y":0.03, "margin_x":0.21},"onUpdate":"sampleControl", "source":"sweep", "onClick":"toggleControl"},
+            {"widget":"BUTTON_CONTROL", "label":"FLAP", "configId":"control_door", "layout":{"margin_y":0.17, "margin_x":0.21},"onUpdate":"sampleControl", "source":"flaps", "onClick":"toggleControl"},
+            {"widget":"BUTTON_CONTROL", "label":"BRK",  "configId":"control_door", "layout":{"margin_y":0.10, "margin_x":0.21},"onUpdate":"sampleControl", "source":"brake", "onClick":"toggleControl"},
+
             {"widget":"BUTTON_CONTROL", "label":"DOORS","configId":"control_door", "layout":{"margin_y":0.50},"onUpdate":"sampleControl", "source":"doors", "onClick":"toggleControl"},
-            {"widget":"BUTTON_CONTROL", "label":"GEAR", "configId":"control_door", "layout":{"margin_y":0.60},"onUpdate":"sampleControl", "source":"gear",  "onClick":"toggleControl"},
-            {"widget":"BUTTON_CONTROL", "label":"CNP",  "configId":"control_door", "layout":{"margin_y":0.70},"onUpdate":"sampleControl", "source":"canopy","onClick":"toggleControl"},
-            {"widget":"BUTTON_CONTROL", "label":"AB",   "configId":"control_door", "layout":{"margin_y":0.20, "margin_x":0.15},"onUpdate":"sampleControl", "source":"reheat", "onClick":"toggleControl"},
-            {"widget":"BUTTON_CONTROL", "label":"HOOK", "configId":"control_door", "layout":{"margin_y":0.20, "margin_x":0.22},"onUpdate":"sampleControl", "source":"hook", "onClick":"toggleControl"},
-            {"widget":"BUTTON_CONTROL", "label":"MSTR", "configId":"control_door", "layout":{"margin_y":0.30, "margin_x":0.22},"onUpdate":"sampleControl", "source":"master_light",     "onClick":"toggleControl"},
-            {"widget":"BUTTON_CONTROL", "label":"FRM",  "configId":"control_door", "layout":{"margin_y":0.40, "margin_x":0.22},"onUpdate":"sampleControl", "source":"formation_lights", "onClick":"toggleControl"},
-            {"widget":"BUTTON_CONTROL", "label":"COL",  "configId":"control_door", "layout":{"margin_y":0.50, "margin_x":0.22},"onUpdate":"sampleControl", "source":"collision_lights", "onClick":"toggleControl"},
-            {"widget":"BUTTON_CONTROL", "label":"LND",  "configId":"control_door", "layout":{"margin_y":0.60, "margin_x":0.22},"onUpdate":"sampleControl", "source":"landing_lights",   "onClick":"toggleControl"},
-            {"widget":"BUTTON_CONTROL", "label":"NAV",  "configId":"control_door", "layout":{"margin_y":0.70, "margin_x":0.22},"onUpdate":"sampleControl", "source":"navigation_lights","onClick":"toggleControl"}
+            {"widget":"BUTTON_CONTROL", "label":"GEAR", "configId":"control_door", "layout":{"margin_y":0.08, "margin_x":0.01},"onUpdate":"sampleControl", "source":"gear",  "onClick":"toggleControl"},
+            {"widget":"BUTTON_CONTROL", "label":"CNP",  "configId":"control_door", "layout":{"margin_y":0.001, "margin_x":0.07},"onUpdate":"sampleControl", "source":"canopy","onClick":"toggleControl"},
+
+            {"widget":"BUTTON_CONTROL", "label":"HOOK", "configId":"control_door", "layout":{"margin_y":0.01, "margin_x":0.01},"onUpdate":"sampleControl", "source":"hook", "onClick":"toggleControl"},
+
+            {"widget":"BUTTON_CONTROL", "label":"NOZL", "configId":"control_door", "layout":{"margin_y":0.60, "margin_x":0.08},"onUpdate":"sampleControl", "source":"reheat", "onClick":"toggleControl"},
+
+            {"widget":"BUTTON_CONTROL", "label":"MSTR", "configId":"control_door", "layout":{"margin_y":0.02, "margin_x":0.27},"onUpdate":"sampleControl", "source":"master_light",     "onClick":"toggleControl"},
+            {"widget":"BUTTON_CONTROL", "label":"FRM",  "configId":"control_door", "layout":{"margin_y":0.02, "margin_x":0.33},"onUpdate":"sampleControl", "source":"formation_lights", "onClick":"toggleControl"},
+            {"widget":"BUTTON_CONTROL", "label":"COL",  "configId":"control_door", "layout":{"margin_y":0.02, "margin_x":0.39},"onUpdate":"sampleControl", "source":"collision_lights", "onClick":"toggleControl"},
+            {"widget":"BUTTON_CONTROL", "label":"LND",  "configId":"control_door", "layout":{"margin_y":0.02, "margin_x":0.45},"onUpdate":"sampleControl", "source":"landing_lights",   "onClick":"toggleControl"},
+            {"widget":"BUTTON_CONTROL", "label":"NAV",  "configId":"control_door", "layout":{"margin_y":0.02, "margin_x":0.51},"onUpdate":"sampleControl", "source":"navigation_lights","onClick":"toggleControl"}
           ]
         }
       }

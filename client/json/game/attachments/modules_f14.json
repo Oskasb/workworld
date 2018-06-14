@@ -837,7 +837,7 @@
       {
         "id":"nozzle_r",
         "data":{
-          "state":{"value":0, "min":0, "max":1, "speed":0.05, "factor":0.35},
+          "state":{"value":0, "min":0, "max":1, "speed":0.05, "factor":-0.41, "offset":-0.98},
           "source":"reheat",
           "target":"nozzle_r",
           "feedback":"nozzle_r",
@@ -849,7 +849,7 @@
       {
         "id":"nozzle_l",
         "data":{
-          "state":{"value":0, "min":0, "max":1, "speed":0.05, "factor":0.35},
+          "state":{"value":0, "min":0, "max":1, "speed":0.05, "factor":-0.41, "offset":-0.98},
           "source":"reheat",
           "target":"nozzle_l",
           "feedback":"nozzle_l",
