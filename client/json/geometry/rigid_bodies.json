@@ -130,8 +130,8 @@
 
             {"id":"body_core",    "lift":["wing", 0, 0], "shape":"Box", "args":[4,   0.2,  4], "offset":[ 0, 0.8, 3],     "rotation":[-0.0,       0,     0]},
 
-            {"id":"body_core_2",  "lift":["wing", "box", 0], "shape":"Box", "args":[1.5, 0.2,  5], "offset":[-2.0, 0.5, -4],     "rotation":[-0.0,       0,     -0.2]},
-            {"id":"body_core_3",  "lift":["wing", "box", 0], "shape":"Box", "args":[1.5, 0.2,  5], "offset":[ 2.0, 0.5, -4],     "rotation":[-0.0,       0,      0.2]},
+            {"id":"body_core_2",  "lift":["wing", "box", 0], "shape":"Box", "args":[1.5, 0.6,  5], "offset":[-1.7, 0.5, -4],     "rotation":[-0.0,       0,     -0.2]},
+            {"id":"body_core_3",  "lift":["wing", "box", 0], "shape":"Box", "args":[1.5, 0.6,  5], "offset":[ 1.7, 0.5, -4],     "rotation":[-0.0,       0,      0.2]},
 
             {"id":"glove_1",      "lift":["wing", "box", 0], "shape":"Box", "args":[2,   0.1,  5], "offset":[-1.7, 0.8, 2],     "rotation":[-0.0,     0.3,  -0.05]},
             {"id":"glove_2",      "lift":["wing", "box", 0], "shape":"Box", "args":[2,   0.1,  5], "offset":[ 1.7, 0.8, 2],     "rotation":[-0.0,    -0.3,   0.05]},
@@ -146,16 +146,16 @@
 
             {"id":"break_top",    "lift":["box", "box", 0],  "shape":"Box", "args":[3,  0.1, 2.15],   "offset":[-0,    0.5,  -6],    "rotation":[-0.00,       0,   0]},
             {"id":"break_bottom", "lift":["box", "box", 0],  "shape":"Box", "args":[3,  0.1, 2.5],    "offset":[-0,    0.5,  -6],    "rotation":[0.00,       0,   0]},
-            {"id":"stab_1",       "lift":[0, "box", 0],  "shape":"Box", "args":[0.05,  5.5, 1.8],    "offset":[-1.6,    1,  -5.7],   "rotation":[-0.75,  -0.005,  0.0]},
-            {"id":"stab_2",       "lift":[0, "box", 0],  "shape":"Box", "args":[0.05,  5.5, 1.8],    "offset":[ 1.6,    1,  -5.7],   "rotation":[-0.75,   0.005, -0.0]},
+            {"id":"stab_1",       "lift":[0, "wing", 0],  "shape":"Box", "args":[0.05,  5.5, 1.8],    "offset":[-1.6,    1,  -5.7],   "rotation":[-0.75,  -0.005,  0.0]},
+            {"id":"stab_2",       "lift":[0, "wing", 0],  "shape":"Box", "args":[0.05,  5.5, 1.8],    "offset":[ 1.6,    1,  -5.7],   "rotation":[-0.75,   0.005, -0.0]},
             {"id":"rudder_r",     "lift":[0, "wing", 0],  "shape":"Box", "args":[0.02,  3,  1.2],    "offset":[-1.6,   1.2, -7.3],   "rotation":[-0.35,   -0.002,  0.0]},
             {"id":"rudder_l",     "lift":[0, "wing", 0],  "shape":"Box", "args":[0.02,  3,  1.2],    "offset":[ 1.6,   1.2, -7.3],   "rotation":[-0.35,    0.002, -0.0]}
           ],
 
           "friction":1.8,
           "restitution":0.25,
-          "damping":0.001,
-          "mass":15000
+          "damping":0.0001,
+          "mass":22000
         }
       }
     ],

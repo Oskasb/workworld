@@ -223,7 +223,7 @@ define([
 
             if (lamp < amp) {
             //    diff = amp - lamp;
-                return impulseAx*0.85 + actingAx*0.15;
+                return impulseAx*0.35 + actingAx*0.85;
             }
             return impulseAx;
         };

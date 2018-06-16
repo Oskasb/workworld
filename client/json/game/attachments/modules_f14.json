@@ -451,6 +451,7 @@
           "feedback":{"id":"gear_nose", "rot":"rotateX", "factor":-1.85}
         }
       },
+
       {
         "id":"susp_nose",
         "data":{
@@ -461,7 +462,21 @@
           "sampleSource":"sampleControl",
           "applyState":"effectEmitter",
           "effectFunction":"setBoneTranslationZ"
+        }
+      },
+      {
+        "id":"nose_steer",
+        "data":{
+          "state":{"value":0, "min":-1, "max":1, "speed":0.03, "factor":1.5},
+          "source":"rudder",
 
+          "sampleSource":"sampleControl",
+
+          "applyState":"limitByTargetModuleState",
+          "target":{"id":"gear_nose", "min":-0.001, "max":0.95, "factor":0.0},
+
+          "effectFunction":"applyBoneRotation",
+          "feedback":{"id":"susp_nose", "rot":"rotateX", "factor":-1.0}
         }
       },
       {
@@ -708,7 +723,7 @@
       {
         "id":"stick_pitch",
         "data":{
-          "state":{"value":0, "min":-1, "max":1, "speed":0.05, "factor":-0.3},
+          "state":{"value":0, "min":-1, "max":1, "speed":0.02, "factor":-0.3},
           "source":"elevator",
           "target":"stick_pitch",
 
@@ -722,7 +737,7 @@
       {
         "id":"stick_roll",
         "data":{
-          "state":{"value":0, "min":-1, "max":1, "speed":0.05, "factor":0.3},
+          "state":{"value":0, "min":-1, "max":1, "speed":0.02, "factor":0.3},
           "source":"aeilron",
           "target":"stick_roll",
           "sampleSource":"sampleControl",
@@ -912,7 +927,7 @@
         "id":"force_1",
         "data":{
           "state":{"value":0, "min":-10000, "max":10000, "speed":0.5, "factor":1.0},
-          "source":{"id":"elev_1", "key":"ACTING_FORCE_Y", "factor":0.0000005},
+          "source":{"id":"elev_1", "key":"ACTING_FORCE_Y", "factor":0.00000015},
           "target":"stab_flex_l",
           "feedback":"stab_flex_l",
           "sampleSource":"sampleShape",
@@ -924,7 +939,7 @@
         "id":"force_2",
         "data":{
           "state":{"value":0, "min":-10000, "max":10000, "speed":0.5, "factor":1.0},
-          "source":{"id":"elev_2", "key":"ACTING_FORCE_Y", "factor":0.0000005},
+          "source":{"id":"elev_2", "key":"ACTING_FORCE_Y", "factor":0.00000015},
           "target":"stab_flex_r",
           "feedback":"stab_flex_r",
           "sampleSource":"sampleShape",
@@ -936,7 +951,7 @@
         "id":"force_3",
         "data":{
           "state":{"value":0, "min":-10000, "max":10000, "speed":0.5, "factor":1.0},
-          "source":{"id":"pivot_l", "key":"ACTING_FORCE_Y", "factor":-0.00000035},
+          "source":{"id":"pivot_l", "key":"ACTING_FORCE_Y", "factor":-0.00000025},
           "target":"wing_flex_l",
           "feedback":"wing_flex_l",
           "sampleSource":"sampleShape",
@@ -948,7 +963,7 @@
         "id":"force_4",
         "data":{
           "state":{"value":0, "min":-10000, "max":10000, "speed":0.5, "factor":1.0},
-          "source":{"id":"pivot_r", "key":"ACTING_FORCE_Y", "factor":-0.00000035},
+          "source":{"id":"pivot_r", "key":"ACTING_FORCE_Y", "factor":-0.00000025},
           "target":"wing_flex_r",
           "feedback":"wing_flex_r",
           "sampleSource":"sampleShape",

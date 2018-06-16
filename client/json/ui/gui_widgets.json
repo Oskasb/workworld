@@ -216,8 +216,6 @@
 
     ],
 
-
-
     "GUI_DRAG_CONTROL_WIDGET":[
       {
         "id": "control_rudder",
@@ -377,6 +375,58 @@
 
           }
         }
+      },
+      {
+      "id": "control_switch",
+      "data": {
+        "header_label":"toggle_key",
+        "value_label":"toggle_value",
+        "surface":{
+
+          "layout":{
+            "anchor":"bottom_right",
+            "fixed_aspect":true,
+            "margin_x":10,
+            "margin_y":0,
+            "width": 0.07,
+            "height":0.05
+          },
+
+          "corners":{
+            "passive_fx":"corner_passive_effects",
+            "active_fx":"corner_active_effects"
+          },
+
+          "edges":{
+            "passive_fx":"edge_passive_effects",
+            "active_fx":"edge_active_effects",
+            "thickness":0.012
+          },
+
+          "backplate":{
+            "passive_fx":"plate_passive_effects",
+            "active_fx":"plate_active_effects"
+          }
+
+        },
+        "state":{
+          "axis":[0, 1],
+          "layout":{
+            "anchor":"bottom_right",
+            "fixed_aspect":true,
+            "margin_x":0.08,
+            "margin_y":0.11,
+            "width": 0.07,
+            "height":0.05
+          },
+          "backplate":{
+            "passive_fx":"plate_passive_effects",
+            "active_fx":"plate_active_effects",
+            "color":"cyan_2"
+          }
+
+        }
+      }
       }
     ],
 
@@ -534,7 +584,6 @@
         }
       }
     ],
-
 
     "GUI_HOVER_DYNAMIC":[
       {
@@ -914,7 +963,6 @@
     ],
 
     "GUI_STATE_INDICATOR":[
-
       {
         "id": "state_indicator_y",
         "data": {
@@ -971,8 +1019,7 @@
             }
           }
         }
-      }
-      ,
+      },
       {
         "id": "rpm_indicator_y",
         "data": {
@@ -1056,8 +1103,8 @@
             },
 
             "backplate":{
-              "passive_fx":"plate_active_effects",
-              "active_fx":"plate_active_effects",
+              "passive_fx":"plate_passive_effects",
+              "active_fx":"plate_passive_effects",
               "color":"red_2"
             }
           },
@@ -1081,13 +1128,118 @@
             },
 
             "backplate":{
-              "passive_fx":"plate_passive_effects",
+              "passive_fx":"plate_active_effects",
               "active_fx":"plate_active_effects",
-              "color":"orange_2"
+              "color":"orange_3"
             }
           }
         }
       },
+
+
+      {
+        "id": "gear_indicator_y",
+        "data": {
+          "header_label":"gauge_key",
+          "value_label":"gauge_value",
+
+          "surface":{
+
+            "layout":{
+              "anchor":"bottom_right",
+              "fixed_aspect":true,
+              "margin_x":0.00,
+              "margin_y":0.11,
+              "width":0.02,
+              "height":-0.04
+            },
+
+            "edges":{
+              "passive_fx":"edge_active_effects",
+              "active_fx":"edge_active_effects",
+              "thickness":0.02,
+              "color":"blue_1"
+            },
+
+            "backplate":{
+              "passive_fx":"plate_passive_effects",
+              "active_fx":"plate_passive_effects",
+              "color":"green_1"
+            }
+          },
+          "state":{
+            "progress":{
+              "axis":[0, -1],
+              "min":0.001,
+              "max":1,
+              "factor":1,
+              "offset":-0.5,
+              "anchor":true
+            },
+
+            "layout":{
+              "anchor":"bottom_right",
+              "fixed_aspect":true,
+              "margin_x":0.00,
+              "margin_y":0.11,
+              "width":0.02,
+              "height":-0.4
+            },
+
+            "backplate":{
+              "passive_fx":"plate_active_effects",
+              "active_fx":"plate_active_effects",
+              "color":"yellow_3"
+            }
+          }
+        }
+      },
+
+      {
+        "id": "door_indicator_y",
+        "data": {
+          "header_label":"gauge_key",
+          "value_label":"gauge_value",
+
+          "surface":{
+
+            "layout":{
+              "anchor":"bottom_right",
+              "fixed_aspect":true,
+              "margin_x":0.00,
+              "margin_y":0.11,
+              "width":0.01,
+              "height":-0.04
+            }
+          },
+          "state":{
+            "progress":{
+              "axis":[1, 0],
+              "min":-1,
+              "max":0,
+              "factor":-1.2,
+              "offset":0.0,
+              "anchor":false
+            },
+
+            "layout":{
+              "anchor":"bottom_right",
+              "fixed_aspect":true,
+              "margin_x":0.00,
+              "margin_y":0.11,
+              "width":0.01,
+              "height":-0.04
+            },
+
+            "backplate":{
+              "passive_fx":"plate_active_effects",
+              "active_fx":"plate_active_effects",
+              "color":"cyan_3"
+            }
+          }
+        }
+      },
+
 
       {
         "id": "pitch_input_indicator",
@@ -1102,8 +1254,8 @@
               "fixed_aspect":true,
               "margin_x":0.315,
               "margin_y":0.185,
-              "width": 0.06,
-              "height":0.06
+              "width": -0.06,
+              "height":-0.06
             },
 
             "edges":{
@@ -1124,7 +1276,7 @@
               "axis":[0, 1],
               "min":-1,
               "max":1,
-              "factor":1,
+              "factor":-0.9,
               "offset":0,
               "anchor":false
             },
@@ -1134,14 +1286,14 @@
               "fixed_aspect":true,
               "margin_x":0.315,
               "margin_y":0.185,
-              "width": 0.06,
-              "height":0.003
+              "width": -0.06,
+              "height":-0.003
             },
 
             "backplate":{
               "passive_fx":"plate_active_effects",
               "active_fx":"plate_active_effects",
-              "color":"cyan_3"
+              "color":"orange_4"
             }
           }
         }
@@ -1160,14 +1312,14 @@
               "fixed_aspect":true,
               "margin_x":0.315,
               "margin_y":0.185,
-              "width": 0.06,
-              "height":0.03
+              "width": -0.06,
+              "height":-0.03
             },
 
             "backplate":{
               "passive_fx":"plate_active_effects",
               "active_fx":"plate_active_effects",
-              "color":"red_3"
+              "color":"blue_1"
             }
           },
           "state":{
@@ -1175,7 +1327,7 @@
               "axis":[1, 0],
               "min":-1,
               "max":1,
-              "factor":-0.8,
+              "factor":0.8,
               "offset":0.5,
               "anchor":false
             },
@@ -1186,13 +1338,13 @@
               "margin_x":0.315,
               "margin_y":0.185,
               "width": 0.003,
-              "height":0.045
+              "height":-0.045
             },
 
             "backplate":{
               "passive_fx":"plate_active_effects",
               "active_fx":"plate_active_effects",
-              "color":"blue_4"
+              "color":"orange_4"
             }
           }
         }
@@ -1331,7 +1483,7 @@
               "axis":[1, 0],
               "min":-0.45,
               "max":0.45,
-              "factor":-5,
+              "factor":-2,
               "offset":0.5,
               "anchor":true
             },
@@ -1356,7 +1508,6 @@
     ],
 
     "GUI_COMPASS":[
-
       {
         "id": "compass_indicator",
         "data": {
@@ -1404,7 +1555,6 @@
           }
         }
       }
-
     ],
 
     "MONITOR_LIST_WIDGET":[
@@ -1441,6 +1591,5 @@
         }
       }
     ]
-
   }
 }]
