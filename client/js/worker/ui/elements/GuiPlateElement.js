@@ -22,6 +22,7 @@ define([
             this.aspect = 1;
             this.lastWidth = 0;
             this.lastHeight = 0;
+            this.dirty = true;
         };
 
         GuiPlateElement.prototype.initPlateElement = function(onReadyCB) {
@@ -56,7 +57,7 @@ define([
 
         GuiPlateElement.prototype.setPlateWidthAndHeight = function(width, height) {
 
-            if (this.lastWidth !== width || this.lastHeight !== height) {
+            if (this.lastWidth !== width || this.lastHeight !== height || this.dirty === true) {
 
                 this.passiveRenderable.setRenderableAspect(width, height);
                 this.passiveRenderable.setRenderableScale(width);
@@ -72,7 +73,7 @@ define([
             if (posVec.equals(this.obj3d.position)) {
                 return;
             }
-
+            this.dirty = true;
             this.obj3d.position.copy(posVec);
             this.passiveRenderable.updateRenderablePosition();
             this.activeRenderable.updateRenderablePosition();
@@ -90,12 +91,14 @@ define([
 
         GuiPlateElement.prototype.setPlateQuaternion = function(quat) {
             this.obj3d.quaternion.copy(quat);
+            this.dirty = true;
             this.passiveRenderable.updateRenderableQuaternion();
             this.activeRenderable.updateRenderableQuaternion()
         };
 
         GuiPlateElement.prototype.setPlateRotation = function(x, y, z) {
             this.obj3d.rotation.set(x, y, z);
+            this.dirty = true;
             this.passiveRenderable.updateRenderableQuaternion();
             this.activeRenderable.updateRenderableQuaternion();
         };

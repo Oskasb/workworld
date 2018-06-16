@@ -172,7 +172,7 @@ define([
 
         //    if (this.compareSurfaceData(surfaceData.layout) && this.lastPos.equals(posVec)) return;
 
-            this.lastPos.copy(posVec);
+        //    this.lastPos.copy(posVec);
 
             this.guiSurfaceLayout.setRootPosition(posVec);
 

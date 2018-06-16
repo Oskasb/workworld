@@ -19,10 +19,10 @@ define([
             this.scale = 1;
             this.aspect = 1;
 
-            this.press;
-            this.hover;
-            this.on;
-            this.colorKey;
+            this.press = true;
+            this.hover = true;
+            this.on = true;
+            this.colorKey = true;
             this.dirty = true;
 
         };
