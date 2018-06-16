@@ -83,6 +83,13 @@ define([
             target.addForceToDynamicShape(calcVec)
         };
 
+        ModuleFunctions.applyModuleTargetState = function(renderable, moduleState, trgt) {
+            target = renderable.getGamePiece().getControlableModuleById(trgt.id);
+            value = moduleState.getStateValue();
+            target.setModuleTargetState(value);
+        };
+
+
         ModuleFunctions.rotateShape = function(renderable, moduleState, trgt) {
             target = renderable.getSpatialShapeById(trgt.id);
 
@@ -128,6 +135,10 @@ define([
             target.setDynamicShapeQuaternion(calcObj.quaternion);
         };
 
+        ModuleFunctions.slaveModule = function(renderable, moduleState, trgt) {
+
+        };
+
         ModuleFunctions.effectEmitter = function(renderable, moduleState, trgt) {
 
         };
@@ -142,6 +153,63 @@ define([
 
         ModuleFunctions.limitByTargetModuleState = function(renderable, moduleState, trgt) {
             limitByTargetModuleState(renderable, moduleState, trgt);
+        };
+
+        var links;
+
+        var average;
+        var state;
+        var piece;
+        var count;
+
+        ModuleFunctions.linkModuleTargetStates = function(renderable, moduleState, trgt) {
+
+            value = moduleState.getStateValue();
+
+            if (!value) return;
+
+            links = trgt.links;
+            count = links.length;
+
+            average = 0;
+
+            piece = renderable.getGamePiece();
+
+            for (i = 0; i < count; i++) {
+                average += piece.getModuleTargetValueById(links[i]) / count;
+            }
+
+            for (i = 0; i < count; i++) {
+                state = piece.getControlableModuleById(links[i]).moduleState;
+                target = state.getTargetValue();
+                state.setTargetState((1-value)*target + average);
+            }
+
+        };
+
+        ModuleFunctions.linkControlTargetStates = function(renderable, moduleState, trgt) {
+
+            value = moduleState.getStateValue();
+
+            if (!value) return;
+
+            links = trgt.links;
+            count = links.length;
+
+            average = 0;
+
+            piece = renderable.getGamePiece();
+
+            for (i = 0; i < count; i++) {
+                average += piece.getControlStateById(links[i]).getControlTargetValue() / count;
+            }
+
+            for (i = 0; i < count; i++) {
+                state = piece.getControlStateById(links[i]);
+                target = state.getControlTargetValue();
+                state.setPieceControlTargetState(average*value + target*(1-value));
+            }
+
         };
 
 

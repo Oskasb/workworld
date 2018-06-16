@@ -56,6 +56,13 @@ define([],
 
         };
 
+        OnUpdateFunctions.sampleModule = function(source) {
+
+            piece = WorldAPI.getControlledRenderable().getGamePiece();
+            return piece.getControlableModuleById(source).moduleState;
+
+        };
+
         OnUpdateFunctions.sampleSpeed = function(source) {
 
             piece = WorldAPI.getControlledRenderable().getGamePiece();

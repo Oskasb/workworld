@@ -43,10 +43,10 @@ define([
 
             value = MATH.clamp(WorldAPI.sampleInputBuffer(ENUMS.InputState.DRAG_DISTANCE_Y) * 5, -1, 1);
 
-            piece.getControlStateById('elevator').setPieceControlTargetState(MATH.curveSqrt(value) + value*0.1);
+            piece.getControlStateById('elevator').setPieceControlTargetState(MATH.curveQuad(value) + value*0.1);
 
             value = MATH.clamp(WorldAPI.sampleInputBuffer(ENUMS.InputState.DRAG_DISTANCE_X) * 5, -1, 1);
-            piece.getControlStateById('aeilron').setPieceControlTargetState(MATH.curveSqrt(value) + value*0.1);
+            piece.getControlStateById('aeilron').setPieceControlTargetState(MATH.curveQuad(value) + value*0.1);
         };
 
         DragFunctions.dragCamX = function() {

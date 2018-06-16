@@ -3,12 +3,59 @@
 
     "PROPULSION_F14":[
       {
+        "id":"throttles_link",
+        "data":{
+          "state":{"value":0, "min":0, "max":1, "speed":0.02, "factor":1},
+
+          "source":"throttle_link",
+          "sampleSource":"sampleControl",
+
+          "applyState":"linkControlTargetStates",
+          "target":{"links":["throttle_l", "throttle_r"]},
+
+          "effectFunction":"zeroEffect",
+          "feedback":{}
+        }
+      },
+
+      {
+        "id":"turbine_l",
+        "data":{
+          "state":{"value":0, "min":0, "max":1, "speed":0.002, "factor":1},
+
+          "source":"turbine_l",
+          "sampleSource":"sampleModule",
+
+          "applyState":"applyModuleTargetState",
+          "target":{"id":"jet_1", "min":0.25, "max":1},
+
+          "effectFunction":"zeroEffect",
+          "feedback":{}
+        }
+      },
+      {
+        "id":"turbine_r",
+        "data":{
+          "state":{"value":0, "min":0, "max":1, "speed":0.002, "factor":1},
+
+          "source":"turbine_r",
+          "sampleSource":"sampleModule",
+
+          "applyState":"applyModuleTargetState",
+          "target":{"id":"jet_2", "min":0.25, "max":1},
+
+          "effectFunction":"zeroEffect",
+          "feedback":{}
+        }
+      },
+
+      {
         "id":"jet_1",
         "data":{
-          "state":{"value":0, "min":-0.2, "max":1, "speed":0.05, "factor":4000},
-          "source":"engine",
+          "state":{"value":0, "min":-0.2, "max":1, "speed":0.0013, "factor":4000},
+          "source":"jet_1",
           "target":"nozzle_1",
-          "sampleSource":"sampleControl",
+          "sampleSource":"slaveModule",
           "applyState":"applyForce",
 
           "effectFunction":"jetExhaustEffect",
@@ -18,11 +65,11 @@
       {
         "id":"jet_2",
         "data":{
-          "state":{"value":0, "min":-0.2, "max":1, "speed":0.05, "factor":4000},
-          "source":"engine",
+          "state":{"value":0, "min":-0.2, "max":1, "speed":0.0013, "factor":4000},
+          "source":"jet_2",
           "target":"nozzle_2",
 
-          "sampleSource":"sampleControl",
+          "sampleSource":"slaveModule",
           "applyState":"applyForce",
 
           "effectFunction":"jetExhaustEffect",
@@ -737,25 +784,28 @@
       {
         "id":"throttle_l",
         "data":{
-          "state":{"value":0, "min":-1, "max":1, "speed":0.05, "factor":-0.75},
-          "source":"engine",
-          "target":"throttle_l",
-          "feedback":"throttle_l",
+          "state":{"value":0, "min":0, "max":1, "speed":0.004, "factor":1, "offset":0},
+          "source":"throttle_l",
+
           "sampleSource":"sampleControl",
-          "applyState":"effectEmitter",
-          "effectFunction":"setBoneRotationX"
+          "applyState":"applyModuleTargetState",
+          "target":{"id":"turbine_l", "min":0.25, "max":1},
+          "effectFunction":"applyBoneRotation",
+          "feedback":{"id":"throttle_l", "rot":"rotateX", "factor":-2, "offset":1}
         }
       },
       {
         "id":"throttle_r",
         "data":{
-          "state":{"value":0, "min":-1, "max":1, "speed":0.05, "factor":-0.75},
-          "source":"engine",
-          "target":"throttle_r",
-          "feedback":"throttle_r",
+          "state":{"value":0, "min":0, "max":1, "speed":0.004, "factor":1, "offset":0},
+          "source":"throttle_r",
+
           "sampleSource":"sampleControl",
-          "applyState":"effectEmitter",
-          "effectFunction":"setBoneRotationX"
+          "applyState":"applyModuleTargetState",
+          "target":{"id":"turbine_r", "min":0.25, "max":1},
+
+          "effectFunction":"applyBoneRotation",
+          "feedback":{"id":"throttle_r", "rot":"rotateX", "factor":-2, "offset":1}
         }
       },
       {
@@ -862,7 +912,7 @@
         "id":"force_1",
         "data":{
           "state":{"value":0, "min":-10000, "max":10000, "speed":0.5, "factor":1.0},
-          "source":{"id":"elev_1", "key":"ACTING_FORCE_Y", "factor":0.00000001},
+          "source":{"id":"elev_1", "key":"ACTING_FORCE_Y", "factor":0.0000005},
           "target":"stab_flex_l",
           "feedback":"stab_flex_l",
           "sampleSource":"sampleShape",
@@ -874,7 +924,7 @@
         "id":"force_2",
         "data":{
           "state":{"value":0, "min":-10000, "max":10000, "speed":0.5, "factor":1.0},
-          "source":{"id":"elev_2", "key":"ACTING_FORCE_Y", "factor":0.00000001},
+          "source":{"id":"elev_2", "key":"ACTING_FORCE_Y", "factor":0.0000005},
           "target":"stab_flex_r",
           "feedback":"stab_flex_r",
           "sampleSource":"sampleShape",
@@ -886,7 +936,7 @@
         "id":"force_3",
         "data":{
           "state":{"value":0, "min":-10000, "max":10000, "speed":0.5, "factor":1.0},
-          "source":{"id":"pivot_l", "key":"ACTING_FORCE_Y", "factor":-0.00000005},
+          "source":{"id":"pivot_l", "key":"ACTING_FORCE_Y", "factor":-0.00000035},
           "target":"wing_flex_l",
           "feedback":"wing_flex_l",
           "sampleSource":"sampleShape",
@@ -898,7 +948,7 @@
         "id":"force_4",
         "data":{
           "state":{"value":0, "min":-10000, "max":10000, "speed":0.5, "factor":1.0},
-          "source":{"id":"pivot_r", "key":"ACTING_FORCE_Y", "factor":-0.00000005},
+          "source":{"id":"pivot_r", "key":"ACTING_FORCE_Y", "factor":-0.00000035},
           "target":"wing_flex_r",
           "feedback":"wing_flex_r",
           "sampleSource":"sampleShape",

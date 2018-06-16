@@ -234,6 +234,7 @@ define([
             applyLightFeedback(renderable, moduleState, trgt);
         };
 
+        var offset;
 
         ModuleEffectFunctions.applyBoneRotation = function(renderable, moduleState, trgt) {
 
@@ -246,7 +247,9 @@ define([
                 return;
             }
 
-            rotateBone(dynBone, trgt.rot, moduleState.getAppliedFactor() * trgt.factor)
+            offset = trgt.offset || 0;
+
+            rotateBone(dynBone, trgt.rot, moduleState.getAppliedFactor() * trgt.factor + offset)
 
         };
 
@@ -416,7 +419,17 @@ define([
             fxArgs.vel.applyQuaternion(renderable.quat);
             spawnTargetEffect(renderable, target, 'bow_splash');
 
+
+
         };
+
+        ModuleEffectFunctions.zeroEffect = function(renderable, moduleState, trgt) {
+
+
+
+
+        };
+
 
         return ModuleEffectFunctions;
 

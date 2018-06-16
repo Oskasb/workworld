@@ -184,7 +184,15 @@ if(typeof(ENUMS) === "undefined"){
         COMPASS_ATTITUDE:   57,
         ROLL_ATTITUDE:      58,
         FRAME_COUNT:        59,
+
+        ACCEL_SLIP:         60,
+        ACCEL_G:            61,
+        ACCEL_VEL:          62,
+        VEL_MACH:           63,
+
         DYNAMIC_FIRST_INDEX:64,
+
+
         BONE_FIRST_INDEX:   2096,
         LIGHT_FIRST_INDEX:  3500,
         BUFFER_SIZE:        4096

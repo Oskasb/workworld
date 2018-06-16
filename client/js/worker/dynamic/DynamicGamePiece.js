@@ -85,6 +85,9 @@ define([
             return this.getControlableModuleById(moduleId).moduleState.getStateValue();
         };
 
+        DynamicGamePiece.prototype.getModuleTargetValueById = function(moduleId) {
+            return this.getControlableModuleById(moduleId).moduleState.getTargetValue();
+        };
 
         DynamicGamePiece.prototype.applyModuleRenderable = function(renderable) {
 

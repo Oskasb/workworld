@@ -160,7 +160,10 @@ define([
 
 
             } else {
-                layout = this.configRead(parentId).layout;
+                // layout = this.configRead(parentId).layout;
+
+                layout =  this.getWidgetSurfaceLayout().layout;
+
                 span = - value * layout.height;
 
                 if (anchor) {

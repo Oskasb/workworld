@@ -13,6 +13,9 @@ define([
 
         var layout;
         var state;
+        var controlState;
+        var targetState;
+        var currentState;
 
         var GuiStateIndicator = function(label, configId) {
             this.obj3d = new THREE.Object3D();
@@ -21,6 +24,11 @@ define([
 
             this.baseWidget = new BaseWidget('', configId);
             this.guiProgress = new GuiProgress(this.indicatorElement);
+
+            this.update = {
+                callback:null,
+                source:null
+            };
 
         };
 
@@ -38,8 +46,13 @@ define([
 
         };
 
-        GuiStateIndicator.prototype.addUpdateCallback = function(callback) {
-            this.guiProgress.addProgressCallback(callback);
+        GuiStateIndicator.prototype.addUpdateCallback = function(callback, source) {
+
+            this.update.callback = callback;
+            this.update.source = source;
+            state = this.update.callback(this.update.source);
+            this.setMasterBuffer(state.state, 'value', 1)
+
         };
 
         GuiStateIndicator.prototype.setMasterBuffer = function(buffer, index) {
@@ -51,6 +64,7 @@ define([
         };
 
         var height;
+
         GuiStateIndicator.prototype.updateGuiWidget = function() {
 
             if (this.guiProgress.getBufferState()) {

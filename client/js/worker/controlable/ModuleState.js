@@ -31,6 +31,10 @@ define([
             this.state.target = value;
         };
 
+        ModuleState.prototype.getTargetValue = function() {
+            return this.state.target;
+        };
+
         ModuleState.prototype.getStateValue = function() {
             return this.state.value + this.state.offset;
         };

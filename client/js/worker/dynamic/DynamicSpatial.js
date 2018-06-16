@@ -414,10 +414,30 @@ define([
 
         var q;
 
+        var s;
+
+        DynamicSpatial.prototype.updateGMeter = function(conjQuat) {
+
+            this.getVectorByFirstIndex(ENUMS.BufferSpatial.ACCELERATION_X, tempVec3);
+
+            var s = WorldAPI.getCom(ENUMS.BufferChannels.TPF);
+            tempVec3.multiplyScalar(MATH.G / s);
+
+            tempVec3.applyQuaternion(conjQuat);
+
+            //   tempVec3.y += -1;
+
+            this.setVectorByFirstIndex(ENUMS.BufferSpatial.ACCEL_SLIP, tempVec3);
+
+        };
+
         DynamicSpatial.prototype.computeState = function() {
             this.spatialBuffer[ENUMS.BufferSpatial.FRAME_COUNT]++;
             this.getSpatialVelocity(tempVec1);
             this.spatialBuffer[ENUMS.BufferSpatial.SPEED_MPS] = tempVec1.length();
+
+            this.spatialBuffer[ENUMS.BufferSpatial.VEL_MACH] = MATH.mpsAtAltToMach(this.spatialBuffer[ENUMS.BufferSpatial.SPEED_MPS], this.spatialBuffer[ENUMS.BufferSpatial.POS_Y]);
+
             this.getSpatialQuaternion(tempObj2.quaternion);
 
             this.spatialBuffer[ENUMS.BufferSpatial.HORIZON_ATTITUDE] = MATH.horizonAttitudeFromQuaternion(tempObj2.quaternion);
@@ -569,6 +589,7 @@ define([
                 tempVec1.set(angVel.x(), angVel.y(), angVel.z());
                 this.getSpatialQuaternion(tempQuat);
                 tempQuat.conjugate();
+                this.updateGMeter(tempQuat);
                 tempVec1.applyQuaternion(tempQuat);
                 this.applyAngularVelocityXYZ(tempVec1.x, tempVec1.y, tempVec1.z);
 

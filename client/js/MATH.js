@@ -27,6 +27,8 @@ if(typeof(MATH) === "undefined") {
 
 	MATH.TWO_PI = 2.0 * Math.PI;
 
+    MATH.G = -9.81;
+
 	MATH.sign = Math.sign;
 
 	function sinWave(time, speed, amplitude) {
@@ -67,11 +69,11 @@ if(typeof(MATH) === "undefined") {
     };
 
     MATH.mpsAtAltToMach = function(mps, alt) {
-        return MATH.valueFromCurve(MATH.curves.machByAlt, alt) * MATH.mpsToMachAtSeaLevel(mps)
+        return MATH.valueFromCurve(alt, MATH.curves.machByAlt) * MATH.mpsToMachAtSeaLevel(mps)
     };
 
     MATH.airDensityAtAlt = function(alt) {
-        return MATH.valueFromCurve(MATH.curves.densityByAlt, alt);
+        return MATH.valueFromCurve(alt, MATH.curves.densityByAlt);
     };
 
     MATH.curves = {
@@ -113,6 +115,11 @@ if(typeof(MATH) === "undefined") {
     MATH.curveSqrt = function(value) {
         return Math.sqrt(Math.abs(value)) * MATH.sign(value)
     };
+
+    MATH.curveQuad = function(value) {
+        return value*value * MATH.sign(value)
+    };
+
 
 
 	MATH.CurveState = function(curve, amplitude) {

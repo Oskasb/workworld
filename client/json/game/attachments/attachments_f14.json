@@ -6,6 +6,18 @@
         "id":"propulsion_system",
         "data":{
           "modules":[
+            {"config_key":"PROPULSION_F14", "config_id":"throttles_link", "group":[
+              {"offset":[-1.4, 0.3, -6], "direction":[0, 0.0, 1], "size":[1, 1, 5]}
+            ]},
+
+            {"config_key":"PROPULSION_F14", "config_id":"turbine_l", "group":[
+              {"offset":[-1.4, 0.3, -6], "direction":[0, 0.0, 1], "size":[1, 1, 5]}
+            ]},
+
+            {"config_key":"PROPULSION_F14", "config_id":"turbine_r", "group":[
+              {"offset":[1.4,  0.3, -6], "direction":[0,-0.0, 1], "size":[1, 1, 5]}
+            ]},
+
             {"config_key":"PROPULSION_F14", "config_id":"jet_1", "group":[
               {"offset":[-1.4, 0.3, -6], "direction":[0, 0.0, 1], "size":[1, 1, 5]}
             ]},

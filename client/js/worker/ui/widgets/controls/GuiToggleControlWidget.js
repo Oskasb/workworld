@@ -15,6 +15,10 @@ define([
         BaseWidget
     ) {
 
+        var controlState;
+        var targetState;
+        var currentState;
+
         var GuiToggleControlWidget = function(label, configId) {
 
             this.position = new THREE.Vector3();
@@ -63,9 +67,6 @@ define([
             this.guiClickable.setMasterBuffer(buffer, index, onAtValue);
         };
 
-        var controlState;
-        var targetState;
-        var currentState;
 
         GuiToggleControlWidget.prototype.updateGuiWidget = function() {
 

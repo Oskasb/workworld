@@ -61,10 +61,24 @@ define([
             this.size.set(x, y, z)
         };
 
+        ControlableModule.prototype.setModuleTargetState = function(val) {
+            this.moduleState.setTargetState(val)
+        };
+
         ControlableModule.prototype.renderControlableModule = function(renderable) {
 
             if (typeof(ModuleFunctions[this.configRead('sampleSource')]) !== 'function') {
-                console.log("Bad function request: ", this.configRead('sampleSource'), renderable, this);
+                console.log("Bad sampleSource request: ", this.configRead('sampleSource'), renderable, this);
+                return;
+            }
+
+            if (typeof(ModuleFunctions[this.configRead('applyState')]) !== 'function') {
+                console.log("Bad applyState request: ", this.configRead('applyState'), renderable, this);
+                return;
+            }
+
+            if (typeof(ModuleEffectFunctions[this.configRead('effectFunction')]) !== 'function') {
+                console.log("Bad effectFunction request: ", this.configRead('effectFunction'), renderable, this);
                 return;
             }
 

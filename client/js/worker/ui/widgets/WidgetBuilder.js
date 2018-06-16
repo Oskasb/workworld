@@ -257,7 +257,13 @@ define([
         WidgetBuilder.prototype.buildStateIndicator = function(config, store) {
             var conf = buildWidgetConfig(config);
             widget = new GuiStateIndicator(conf.label, conf.configId);
-            widget.setMasterBuffer(conf.buffer,  conf.channel);
+
+            if (conf.onUpdate) {
+                widget.addUpdateCallback(conf.onUpdate, conf.source);
+            } else {
+                widget.setMasterBuffer(conf.buffer,  conf.channel);
+            }
+
             widget.applyDynamicLayout(conf.layout);
             store.push(widget);
         };
