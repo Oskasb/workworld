@@ -18,6 +18,13 @@ define([
 
             this.scale = 1;
             this.aspect = 1;
+
+            this.press;
+            this.hover;
+            this.on;
+            this.colorKey;
+            this.dirty = true;
+
         };
 
         GuiEdgeElement.prototype.initEdgeElement = function(onReadyCB) {
@@ -46,9 +53,20 @@ define([
                 }
             }
 
-            this.passiveRenderable.applyRenderableDataState(this.configRead(config.passive_fx), hover, on, colorKey);
-            this.activeRenderable.applyRenderableDataState(this.configRead(config.active_fx), press, on, colorKey);
+            if (this.dirty === false && this.hover === hover && this.press === press && this.on === on && this.colorKey === colorKey) {
 
+            } else {
+
+                this.passiveRenderable.applyRenderableDataState(this.configRead(config.passive_fx), hover, on, colorKey);
+                this.activeRenderable.applyRenderableDataState(this.configRead(config.active_fx), press, on, colorKey);
+
+                this.hover = hover;
+                this.press = press;
+                this.on = on;
+                this.colorKey = colorKey;
+                this.dirty = false;
+
+            }
         };
 
         GuiEdgeElement.prototype.rotateEdgeY = function(rotY) {
@@ -58,10 +76,16 @@ define([
 
         GuiEdgeElement.prototype.setEdgeWidthAndHeight = function(width, height) {
 
+            if (this.lastWidth !== width || this.lastHeight !== height) {
+
             this.passiveRenderable.setRenderableScale(width);
             this.passiveRenderable.setRenderableAspect(width, height);
             this.activeRenderable.setRenderableScale(width);
             this.activeRenderable.setRenderableAspect(width, height);
+
+                this.lastWidth = width;
+                this.lastHeight = height
+            }
         };
 
         GuiEdgeElement.prototype.setEdgeXY = function(x, y) {
@@ -70,6 +94,7 @@ define([
                 this.obj3d.position.set(x, y, -1);
                 this.passiveRenderable.updateRenderablePosition();
                 this.activeRenderable.updateRenderablePosition();
+                this.dirty = true;
             }
         };
 
@@ -87,9 +112,15 @@ define([
         };
 
         GuiEdgeElement.prototype.setRotation = function(x, y, z) {
-            this.obj3d.rotation.set(x, y, z);
-            this.passiveRenderable.updateRenderableQuaternion();
-            this.activeRenderable.updateRenderableQuaternion();
+
+            if (x !== this.obj3d.rotation.x || y !== this.obj3d.rotation.y || z !== this.obj3d.rotation.z) {
+
+                this.obj3d.rotation.set(x, y, z);
+                this.passiveRenderable.updateRenderableQuaternion();
+                this.activeRenderable.updateRenderableQuaternion();
+                this.dirty = true;
+            }
+
         };
 
         return GuiEdgeElement;

@@ -65,26 +65,52 @@ define([
             this.moduleState.setTargetState(val)
         };
 
+        var map = {
+            sampleSource:'sampleSource',
+            source:'source',
+            target:'target',
+            feedback:'feedback',
+            applyState:'applyState',
+            effectFunction:'effectFunction',
+            func:'function'
+        };
+
+        var source;
+        var sampleSource;
+        var applyState;
+        var effectFunc;
+        var feedback;
+        var target;
+
         ControlableModule.prototype.renderControlableModule = function(renderable) {
 
-            if (typeof(ModuleFunctions[this.configRead('sampleSource')]) !== 'function') {
-                console.log("Bad sampleSource request: ", this.configRead('sampleSource'), renderable, this);
-                return;
+            if (false) {
+                if (typeof(ModuleFunctions[this.configRead(map.sampleSource)]) !== map.func) {
+                    console.log("Bad sampleSource request: ", this.configRead('sampleSource'), renderable, this);
+                    return;
+                }
+
+                if (typeof(ModuleFunctions[this.configRead('applyState')]) !== map.func) {
+                    console.log("Bad applyState request: ", this.configRead('applyState'), renderable, this);
+                    return;
+                }
+
+                if (typeof(ModuleEffectFunctions[this.configRead('effectFunction')]) !== map.func) {
+                    console.log("Bad effectFunction request: ", this.configRead('effectFunction'), renderable, this);
+                    return;
+                }
             }
 
-            if (typeof(ModuleFunctions[this.configRead('applyState')]) !== 'function') {
-                console.log("Bad applyState request: ", this.configRead('applyState'), renderable, this);
-                return;
-            }
+            sampleSource = this.configRead(map.sampleSource);
+            applyState =this.configRead(map.applyState);
+            effectFunc = this.configRead(map.effectFunction);
+            source = this.configRead(map.source);
+            target = this.configRead(map.target);
+            feedback = this.configRead(map.feedback);
 
-            if (typeof(ModuleEffectFunctions[this.configRead('effectFunction')]) !== 'function') {
-                console.log("Bad effectFunction request: ", this.configRead('effectFunction'), renderable, this);
-                return;
-            }
-
-            ModuleFunctions[this.configRead('sampleSource')](renderable, this.moduleState, this.configRead('source'));
-            ModuleFunctions[this.configRead('applyState')](renderable, this.moduleState, this.configRead('target'));
-            ModuleEffectFunctions[this.configRead('effectFunction')](renderable, this.moduleState, this.configRead('feedback'));
+            ModuleFunctions[sampleSource](renderable, this.moduleState, source);
+            ModuleFunctions[applyState](renderable, this.moduleState, target);
+            ModuleEffectFunctions[effectFunc](renderable, this.moduleState, feedback);
         };
 
         ControlableModule.prototype.updateControlableModule = function(tpf) {

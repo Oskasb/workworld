@@ -48,6 +48,12 @@ define([
             this.dynamicLayout = {};
             this.layout = {}
 
+            this.top;
+            this.left;
+            this.right;
+            this.bottom;
+            this.thickness;
+
         };
 
         GuiSurfaceLayout.prototype.setupAnchorPoint = function(layout) {
@@ -79,6 +85,10 @@ define([
             this.xMax = scax + width  * (1-anchorX);
             this.yMin = scay - height * anchorY;
             this.yMax = scay + height * (1-anchorY);
+
+
+
+
         };
 
         GuiSurfaceLayout.prototype.applyLayoutRules = function(layoutConfig) {
@@ -104,6 +114,17 @@ define([
         };
 
         GuiSurfaceLayout.prototype.applyLayoutToEdges = function(top, left, right, bottom, thickness) {
+
+            if (this.top === top && this.left === left && this.right === right && this.bottom === bottom && this.thickness === thickness) {
+                return;
+            }
+
+            this.top = top;
+            this.left = left;
+            this.right = right;
+            this.bottom = bottom;
+            this.thickness = thickness;
+
             top.setEdgeXY(    this.getCenterX(),  this.yMin);
             left.setEdgeXY(   this.xMin,  this.getCenterY());
             right.setEdgeXY(  this.xMax,  this.getCenterY());

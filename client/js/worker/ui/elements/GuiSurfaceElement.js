@@ -77,6 +77,9 @@ define([
             this.addSurfacePressCallback(registerPressSource);
             this.addSurfaceHoverCallback(registerHoverSource);
 
+            this.lastPos = new THREE.Vector3();
+            this.lastLayout = {};
+
         };
 
         GuiSurfaceElement.prototype.initSurfaceElement = function(onReadyCB) {
@@ -149,7 +152,27 @@ define([
             return this.configObject.getConfigByDataKey(dataKey)
         };
 
+        var key;
+
+
+        GuiSurfaceElement.prototype.compareSurfaceData = function(newLayout) {
+
+            for (key in newLayout) {
+                if (this.lastLayout[key] !== newLayout[key]) {
+                    this.lastLayout[key] = newLayout[key];
+                    return false;
+                }
+            }
+
+            return true;
+        };
+
+
         GuiSurfaceElement.prototype.applySurfaceData = function(posVec, surfaceData) {
+
+        //    if (this.compareSurfaceData(surfaceData.layout) && this.lastPos.equals(posVec)) return;
+
+            this.lastPos.copy(posVec);
 
             this.guiSurfaceLayout.setRootPosition(posVec);
 

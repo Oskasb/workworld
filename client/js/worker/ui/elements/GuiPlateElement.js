@@ -20,6 +20,8 @@ define([
 
             this.scale = 1;
             this.aspect = 1;
+            this.lastWidth = 0;
+            this.lastHeight = 0;
         };
 
         GuiPlateElement.prototype.initPlateElement = function(onReadyCB) {
@@ -54,11 +56,15 @@ define([
 
         GuiPlateElement.prototype.setPlateWidthAndHeight = function(width, height) {
 
-            this.passiveRenderable.setRenderableAspect(width, height);
-            this.passiveRenderable.setRenderableScale(width);
-            this.activeRenderable.setRenderableAspect(width, height);
-            this.activeRenderable.setRenderableScale(width);
+            if (this.lastWidth !== width || this.lastHeight !== height) {
 
+                this.passiveRenderable.setRenderableAspect(width, height);
+                this.passiveRenderable.setRenderableScale(width);
+                this.activeRenderable.setRenderableAspect(width, height);
+                this.activeRenderable.setRenderableScale(width);
+                this.lastWidth = width;
+                this.lastHeight = height
+            }
         };
 
         GuiPlateElement.prototype.setPlatePosition = function(posVec) {

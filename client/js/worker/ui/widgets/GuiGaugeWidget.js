@@ -22,6 +22,8 @@ define([
             this.progressElement = new GuiSurfaceElement();
             this.guiProgress = new GuiProgress();
 
+            this.lastValue;
+
         };
 
         GuiGaugeWidget.prototype.setupTextElements = function() {
@@ -66,6 +68,8 @@ define([
             this.surfaceElement.updateSurfaceElement(this.position, this.configRead('surface'));
         };
 
+        var val;
+
         GuiGaugeWidget.prototype.updateGuiWidget = function() {
 
             if (this.guiProgress.getBufferState()) {
@@ -73,12 +77,17 @@ define([
 
                 this.guiProgress.updateProgress();
 
-                this.typeLabel.setElementText(MATH.decimalify(this.guiProgress.getBufferState(), 100));
+                val = MATH.decimalify(this.guiProgress.getBufferState(), 100);
 
-                this.dynamicLayout.width = this.configRead('state').layout.width;
-                this.dynamicLayout.margin_x = this.guiProgress.getBufferState() * this.configRead('surface').layout.width * 0.5 + this.configRead('surface').layout.margin_x +  this.configRead('surface').layout.width * 0.5;
+                if (val !== this.lastValue) {
+                    this.lastValue = val;
+                    this.typeLabel.setElementText(val);
+                    this.updateSurfaceState();
+                }
 
-                this.updateSurfaceState();
+            //    this.dynamicLayout.width = this.configRead('state').layout.width;
+            //    this.dynamicLayout.margin_x = this.guiProgress.getBufferState() * this.configRead('surface').layout.width * 0.5 + this.configRead('surface').layout.margin_x +  this.configRead('surface').layout.width * 0.5;
+
 
             } else if (!this.surfaceElement.disabled) {
                 this.disableWidget();

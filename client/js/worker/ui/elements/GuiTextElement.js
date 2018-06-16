@@ -175,7 +175,7 @@ define([
             this.obj3d.position.y = this.top  + (this.bottom - this.top)*this.config.text_align_y + this.offsetY;
             this.obj3d.position.z = -1;
 
-            if (this.originX !== this.obj3d.position.x ||this.originY !== this.obj3d.position.y) {
+            if (this.originX !== this.obj3d.position.x || this.originY !== this.obj3d.position.y) {
                 this.originX = this.obj3d.position.x;
                 this.originY = this.obj3d.position.y;
                 this.dirty = true;
@@ -252,12 +252,16 @@ define([
 
             this.updateTextState(passive, active, stateOn);
 
-            this.updateStateColorMaps(this.configRead(this.config.color_map), this.configRead(this.config.alpha_map));
-
-            this.applyTextConfig(this.textString);
             this.applySurfaceLayout(surfaceLayout);
 
+
             if (this.effectList.effectCount() !== this.textString.length) {
+
+
+                this.updateStateColorMaps(this.configRead(this.config.color_map), this.configRead(this.config.alpha_map));
+
+                this.applyTextConfig(this.textString);
+
 
                 for (i = 0; i < this.textString.length; i++) {
                     this.addLetterAtIndex(this.textString[i], i);
