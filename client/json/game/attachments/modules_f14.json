@@ -338,7 +338,7 @@
           "target":{"id":"door_main_r", "min":-0.001, "max":0.99, "factor":0.1},
 
           "effectFunction":"applyBoneRotation",
-          "feedback":{"id":"gear_r", "rot":"rotateX", "factor":-1.65, "light":{"id":"wheels", "gain":1}}
+          "feedback":{"id":"gear_r", "rot":"rotateX", "factor":-1.65, "offset":1.65, "light":{"id":"wheels", "gain":1}}
 
         }
       },
@@ -392,7 +392,7 @@
           "target":{"id":"door_main_l", "min":-0.001, "max":0.99, "factor":0.1},
 
           "effectFunction":"applyBoneRotation",
-          "feedback":{"id":"gear_l", "rot":"rotateX", "factor":-1.65}
+          "feedback":{"id":"gear_l", "rot":"rotateX", "factor":-1.65, "offset":1.65}
 
         }
       },
@@ -448,7 +448,7 @@
           "target":{"id":"door_nose_l", "min":-0.001, "max":0.99, "factor":0.1},
 
           "effectFunction":"applyBoneRotation",
-          "feedback":{"id":"gear_nose", "rot":"rotateX", "factor":-1.85}
+          "feedback":{"id":"gear_nose", "rot":"rotateX", "factor":-1.85, "offset":1.8}
         }
       },
 
@@ -850,9 +850,6 @@
       }
     ],
 
-    "EXTERNA_LIGHTS_F14":[
-
-    ],
 
     "EXTERNAL_F14":[
       {
@@ -865,12 +862,7 @@
           "applyState":"effectEmitter",
 
           "effectFunction":"applyFeedbackOffsets",
-          "feedback":{"rotate_bones":[
-            {"id":"gear_nose", "rot":"rotateX", "offset":1.8},
-            {"id":"gear_r",    "rot":"rotateX", "offset":1.65},
-            {"id":"gear_l",    "rot":"rotateX", "offset":1.65}
-
-          ]}
+          "feedback":{}
 
         }
       },
@@ -973,113 +965,141 @@
       }
     ],
 
+
+    "EXTERNAL_LIGHTS_F14":[
+      {
+        "id":"light_col_tip_l",
+        "data":{
+          "state":{"value":0, "min":0, "max":1, "speed":1, "factor":1},
+
+          "source":"wing_l",
+          "sampleSource":"sampleLight",
+
+          "target":"light_col_tip_l",
+          "applyState":"effectEmitter",
+
+          "feedback":{"id":"light_col_tip_l", "threshold":0.0001, "factor":1, "scale":1, "effects":["flare_dot_light_effect"], "color":"red_3"},
+          "effectFunction":"moduleAttachedLightEffect"
+        }
+      },
+      {
+        "id":"light_col_tip_r",
+        "data":{
+          "state":{"value":0, "min":0, "max":1, "speed":1, "factor":1},
+
+          "source":"wing_r",
+          "sampleSource":"sampleLight",
+
+          "target":"light_col_tip_r",
+          "applyState":"effectEmitter",
+
+          "feedback":{"id":"light_col_tip_r", "threshold":0.0001, "factor":1, "scale":1,  "effects":["flare_dot_light_effect"], "color":"green_3"},
+          "effectFunction":"moduleAttachedLightEffect"
+        }
+      },
+
+      {
+        "id":"light_col_glove_l",
+        "data":{
+          "state":{"value":0, "min":0, "max":1, "speed":1, "factor":1},
+
+          "source":"glove_l",
+          "sampleSource":"sampleLight",
+
+          "target":"light_col_glove_l",
+          "applyState":"effectEmitter",
+
+          "feedback":{"id":"light_col_glove_l", "threshold":0.0001, "factor":1, "scale":2, "effects":["flare_dot_light_effect"], "color":"red_3"},
+          "effectFunction":"moduleAttachedLightEffect"
+        }
+      },
+      {
+        "id":"light_col_glove_r",
+        "data":{
+          "state":{"value":0, "min":0, "max":1, "speed":1, "factor":1},
+
+          "source":"glove_r",
+          "sampleSource":"sampleLight",
+
+          "target":"light_col_glove_r",
+          "applyState":"effectEmitter",
+
+          "feedback":{"id":"light_col_glove_r", "threshold":0.0001, "factor":1, "scale":2,  "effects":["flare_dot_light_effect"], "color":"green_3"},
+          "effectFunction":"moduleAttachedLightEffect"
+        }
+      },
+
+      {
+        "id":"light_col_glove_ld",
+        "data":{
+          "state":{"value":0, "min":0, "max":1, "speed":1, "factor":1},
+
+          "source":"glove_l",
+          "sampleSource":"sampleLight",
+
+          "target":"light_col_glove_ld",
+          "applyState":"effectEmitter",
+
+          "feedback":{"id":"light_col_glove_ld", "threshold":0.0001, "factor":1, "scale":2, "effects":["flare_dot_light_effect"], "color":"red_3"},
+          "effectFunction":"moduleAttachedLightEffect"
+        }
+      },
+      {
+        "id":"light_col_glove_rd",
+        "data":{
+          "state":{"value":0, "min":0, "max":1, "speed":1, "factor":1},
+
+          "source":"glove_r",
+          "sampleSource":"sampleLight",
+
+          "target":"light_col_glove_rd",
+          "applyState":"effectEmitter",
+
+          "feedback":{"id":"light_col_glove_rd", "threshold":0.0001, "factor":1, "scale":2,  "effects":["flare_dot_light_effect"], "color":"green_3"},
+          "effectFunction":"moduleAttachedLightEffect"
+        }
+      }
+
+    ],
+
+
     "WAKE_EMITTERS_F14":[
       {
-        "id":"bow_1",
+        "id":"wingtip_1",
         "data":{
           "state":{"value":0, "min":-0.5, "max":1, "speed":0.05, "factor":1},
-          "source":"engine",
-          "target":"comp_1",
-          "feedback":"comp_1",
-          "sampleSource":"effectEmitter",
-          "applyState":"effectEmitter",
-          "effectFunction":"bowEffect"
-        }
-      },
-      {
-        "id":"bow_2",
-        "data":{
-          "state":{"value":0, "min":-0.5, "max":1, "speed":0.05, "factor":1},
-          "source":"engine",
-          "target":"nose_1",
-          "feedback":"nose_1",
-          "sampleSource":"effectEmitter",
-          "applyState":"effectEmitter",
-          "effectFunction":"bowEffect"
-        }
-      },
-      {
-        "id":"bow_3",
-        "data":{
-          "state":{"value":0, "min":-1, "max":1, "speed":0.01, "factor":1},
-          "source":"engine",
-          "target":"nacell_1",
-          "feedback":"nacell_1",
-          "sampleSource":"effectEmitter",
-          "applyState":"effectEmitter",
-          "effectFunction":"bowEffect"
-        }
-      },
-      {
-        "id":"bow_4",
-        "data":{
-          "state":{"value":0, "min":-1, "max":1, "speed":0.01, "factor":1},
-          "source":"engine",
-          "target":"nacell_2",
-          "feedback":"nacell_2",
-          "sampleSource":"effectEmitter",
-          "applyState":"effectEmitter",
-          "effectFunction":"bowEffect"
-        }
-      },
-      {
-        "id":"bow_5",
-        "data":{
-          "state":{"value":0, "min":-1, "max":1, "speed":0.01, "factor":1},
-          "source":"engine",
-          "target":"body_core",
-          "feedback":"body_core",
-          "sampleSource":"effectEmitter",
-          "applyState":"effectEmitter",
-          "effectFunction":"bowEffect"
-        }
-      },
-      {
-        "id":"bow_6",
-        "data":{
-          "state":{"value":0, "min":-1, "max":1, "speed":0.01, "factor":1},
-          "source":"engine",
+          "source":"force_3",
           "target":"wing_1",
-          "feedback":"wing_1",
-          "sampleSource":"effectEmitter",
+
+          "sampleSource":"sampleModule",
           "applyState":"effectEmitter",
-          "effectFunction":"conTrailEffect"
+
+          "feedback":{"id":"wingtip_1", "threshold":1, "factor":1, "effect":"condensation"},
+          "effectFunction":"moduleFittedEffect"
         }
       },
       {
-        "id":"bow_7",
+        "id":"wingtip_2",
         "data":{
-          "state":{"value":0, "min":-1, "max":1, "speed":0.01, "factor":1},
-          "source":"engine",
+          "state":{"value":0, "min":-0.5, "max":1, "speed":0.05, "factor":1},
+          "source":"force_3",
           "target":"wing_2",
-          "feedback":"wing_2",
-          "sampleSource":"effectEmitter",
+          "feedback":{"id":"wingtip_2", "threshold":1, "factor":1, "effect":"condensation"},
+          "sampleSource":"sampleModule",
           "applyState":"effectEmitter",
-          "effectFunction":"conTrailEffect"
+          "effectFunction":"moduleFittedEffect"
         }
       },
       {
-        "id":"bow_8",
+        "id":"body_core_cond",
         "data":{
           "state":{"value":0, "min":-1, "max":1, "speed":0.01, "factor":1},
-          "source":"engine",
-          "target":"elev_1",
-          "feedback":"elev_1",
-          "sampleSource":"effectEmitter",
+          "source":"force_3",
+          "target":"nacell_1",
+          "feedback":{"id":"body_core", "threshold":4, "factor":1, "effect":"condensation_near"},
+          "sampleSource":"sampleModule",
           "applyState":"effectEmitter",
-          "effectFunction":"wakeEffect"
-        }
-      },
-      {
-        "id":"bow_9",
-        "data":{
-          "state":{"value":0, "min":-1, "max":1, "speed":0.01, "factor":1},
-          "source":"engine",
-          "target":"elev_2",
-          "feedback":"elev_2",
-          "sampleSource":"effectEmitter",
-          "applyState":"effectEmitter",
-          "effectFunction":"wakeEffect"
+          "effectFunction":"shapeFittedEffect"
         }
       }
     ]

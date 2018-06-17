@@ -19,17 +19,13 @@ define([
         };
 
 
-
         DebugElement.prototype.setElementPosition = function(posVec) {
             WorldAPI.positionToScreenCoords(posVec, this.screenPos);
             this.effectList.setEffectListPosition(this.screenPos);
         };
 
-
         DebugElement.prototype.debugRenderableModule = function(renderable, module) {
-            this.screenPos.copy(module.offset);
-            this.screenPos.applyQuaternion(renderable.quat);
-            this.screenPos.add(renderable.pos);
+            module.calculateWorldPosition(renderable.pos, renderable.quat, this.screenPos);
             this.setElementPosition(this.screenPos);
 
         };

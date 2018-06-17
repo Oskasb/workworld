@@ -59,6 +59,11 @@ define([
                 module.setOffset(group.offset[0],group.offset[1],group.offset[2]);
                 module.setDirection(group.direction[0],group.direction[1],group.direction[2]);
                 module.setSize(group.size[0],group.size[1],group.size[2])
+
+                if (group.parent_shape) {
+                    module.parentShapeId = group.parent_shape
+                }
+
             }
         };
 

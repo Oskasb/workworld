@@ -262,6 +262,17 @@
         },
 
         {
+          "id":"flare_dot_light_effect",
+          "data":{
+            "system_key":"THREE",
+            "renderer_id":"gpu_additive_atlas_renderer",
+            "particle_id":"flare_dot_light_particles",
+            "count":1,
+            "simulation_id":"gpu_predictive_simulation"
+          }
+        },
+
+        {
           "id":"flare_dot_module_effect",
           "data":{
             "system_key":"THREE",
@@ -364,8 +375,18 @@
           "data":{
             "system_key":"THREE",
             "renderer_id":"gpu_normal_atlas_renderer",
-            "particle_id":"white_smoke",
-            "count":1,
+            "particle_id":"condensation_particle",
+            "count":3,
+            "simulation_id":"gpu_predictive_simulation"
+          }
+        },
+        {
+          "id":"condensation_near_effect",
+          "data":{
+            "system_key":"THREE",
+            "renderer_id":"gpu_normal_atlas_renderer",
+            "particle_id":"condensation_near_particle",
+            "count":3,
             "simulation_id":"gpu_predictive_simulation"
           }
         },

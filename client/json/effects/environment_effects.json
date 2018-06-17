@@ -6,24 +6,28 @@
         "id":"surface_effects",
         "data":{
           "prop_effect":{
-            "pool":2000,
+            "pool":1000,
             "effects":["water_spray_particle_effect"]
           },
           "wake_effect":{
-            "pool":4000,
+            "pool":1000,
             "effects":["water_foam_particle_effect"]
           },
           "bow_splash":{
-            "pool":3000,
+            "pool":1000,
             "effects":["water_wake_particle_effect"]
           },
           "wave_splash":{
-            "pool":2000,
+            "pool":1000,
             "effects":["water_foam_particle_effect"]
           },
           "condensation":{
-            "pool":1000,
-            "effects":["engine_throttle_smoke"]
+            "pool":3000,
+            "effects":["condensation_trail"]
+          },
+          "condensation_near":{
+            "pool":500,
+            "effects":["condensation_near_effect"]
           }
         }
       }

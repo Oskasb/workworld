@@ -46,7 +46,7 @@
         },
         {
           "id":"flare_bloomy",
-          "tiles":[[2, 4]]
+          "tiles":[[2, 3]]
         },
         {
           "id":"shockwave",

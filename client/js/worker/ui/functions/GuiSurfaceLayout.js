@@ -87,24 +87,27 @@ define([
             this.yMin = scay - height * anchorY;
             this.yMax = scay + height * (1-anchorY);
 
-
-
-
         };
 
         GuiSurfaceLayout.prototype.applyLayoutRules = function(layoutConfig) {
-
             this.setupAnchorPoint(layoutConfig);
             this.setupLayout(layoutConfig)
-
         };
 
+        var val;
+        var update;
+
         GuiSurfaceLayout.prototype.parseLaoutConfig = function(layoutConfig) {
+            update = false;
             for (var key in layoutConfig) {
-                this.layout[key] = this.dynamicLayout[key] || layoutConfig[key];
+                val = this.dynamicLayout[key] || layoutConfig[key]
+                if (this.layout[key] !== val) {
+                    update = true;
+                    this.layout[key] = val;
+                }
             }
 
-            this.applyLayoutRules(this.layout);
+                this.applyLayoutRules(this.layout);
         };
 
         GuiSurfaceLayout.prototype.applyLayoutToCorners = function(topLeft, topRight, bottomLeft, bottomRight) {
@@ -150,6 +153,9 @@ define([
         };
 
         GuiSurfaceLayout.prototype.setRootPosition = function(posVec) {
+
+            if (this.position.equals(posVec)) return;
+
             this.dirty = true;
             this.position.copy(posVec);
         };

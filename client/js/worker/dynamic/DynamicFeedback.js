@@ -77,7 +77,7 @@ define([
         };
 
         DynamicFeedback.prototype.tickDynamicFeedback = function(dynaicSpatial, isVisible) {
-
+/*
             if (isVisible) {
                 this.visualiseDynamicVector(dynaicSpatial, ENUMS.BufferSpatial.FORCE_APPLIED_X,     this.forceFeedback,             this.configRead('force_feedback'));
                 this.visualiseDynamicVector(dynaicSpatial, ENUMS.BufferSpatial.TORQUE_APPLIED_X,    this.torqueFeedback,            this.configRead('torque_feedback'));
@@ -89,7 +89,7 @@ define([
                 this.velocityFeedback.disableEffectList();
                 this.angularVelocityFeedback.disableEffectList()
             }
-
+*/
             this.wasVisible = isVisible;
         };
 

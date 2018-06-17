@@ -9,6 +9,15 @@ define([
 
         var ModuleState = function() {
 
+            this.active = {
+                target:0,
+                value:0,
+                object:null,
+                light:null,
+                effect:null,
+                shape:null
+            };
+
             this.state = {
                 offset:0,
                 value :0,
@@ -18,6 +27,46 @@ define([
                 speed : 1,
                 factor : 1
             }
+        };
+
+        ModuleState.prototype.getActiveValue = function() {
+            return this.active.value;
+        };
+
+        ModuleState.prototype.setActiveValue = function(value) {
+            this.active.value = value;
+        };
+
+        ModuleState.prototype.getActiveEffect = function() {
+            return this.active.effect;
+        };
+
+        ModuleState.prototype.setActiveEffect = function(fx) {
+            this.active.effect = value;
+        };
+
+        ModuleState.prototype.getActiveShape = function() {
+            return this.active.shape;
+        };
+
+        ModuleState.prototype.setActiveShape = function(shape) {
+            this.active.shape = shape;
+        };
+
+        ModuleState.prototype.setActiveObject = function(dynamicObject) {
+            this.active.object = dynamicObject;
+        };
+
+        ModuleState.prototype.getActiveObject = function() {
+            return this.active.object;
+        };
+
+        ModuleState.prototype.setActiveLight = function(light) {
+            this.active.light = light;
+        };
+
+        ModuleState.prototype.getActiveLight = function() {
+            return this.active.light;
         };
 
         ModuleState.prototype.applyConfig = function(conf) {

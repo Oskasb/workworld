@@ -8,10 +8,12 @@
           "data":{
             "lights":[
                   {  "id":   "formation"  ,   "txcoords":  [44,    286,    39, 12]},
-                  {  "id":   "wing_r"     ,   "txcoords":  [25,    301,    9,   8]},
-                  {  "id":   "glove_l"    ,   "txcoords":  [15,    310,    9,   8]},
-                  {  "id":   "wing_l"     ,   "txcoords":  [25,    310,    9,   8]},
-                  {  "id":   "glove_r"	  ,   "txcoords":  [15,    301,    9,   8]},
+
+                  {  "id":   "glove_r"     ,   "txcoords":  [25,    301,    9,   8]},
+                  {  "id":   "glove_l"     ,   "txcoords":  [25,    310,    9,   8]},
+
+                  {  "id":   "wing_l"    ,    "txcoords":  [15,    310,    9,   8]},
+                  {  "id":   "wing_r"	  ,   "txcoords":  [15,    301,    9,   8]},
 
                   {  "id":   "rear_l"	  ,   "txcoords":  [45,    301,    9,   8]},
                   {  "id":   "rear_r",        "txcoords":  [65,    301,    9,   8]},

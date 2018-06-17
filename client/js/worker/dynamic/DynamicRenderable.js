@@ -80,7 +80,6 @@ define([
                 this.dynamicSpatial.setSpatialFromPosAndQuat(this.pos, this.quat);
                 this.renderableGeometry.setRenderableVisualSize(this.dynamicSpatial.getVisualSize());
                 this.dynamicFeedback.initDynamicFeedback(data.dynamic_feedback, feedbackReady);
-
                 if (data.instance_id) {
                     this.renderableGeometry.setupInstanceFxId(data.instance_id);
                 } else if (data.model_id) {

@@ -78,7 +78,9 @@ define([
             this.addSurfaceHoverCallback(registerHoverSource);
 
             this.lastPos = new THREE.Vector3();
-            this.lastLayout = {};
+            this.last = {};
+
+            this.dirty = true;
 
         };
 
@@ -155,18 +157,22 @@ define([
         var key;
 
 
-        GuiSurfaceElement.prototype.compareSurfaceData = function(newLayout) {
+        GuiSurfaceElement.prototype.updateSurfaceElements = function(surfaceData) {
 
-            for (key in newLayout) {
-                if (this.lastLayout[key] !== newLayout[key]) {
-                    this.lastLayout[key] = newLayout[key];
-                    return false;
-                }
+            if (surfaceData.corners) {
+                this.guiSurfaceLayout.applyLayoutToCorners(this.topLeft, this.topRight, this.bottomLeft, this.bottomRight);
             }
 
-            return true;
-        };
+            if (surfaceData.edges) {
+                this.guiSurfaceLayout.applyLayoutToEdges(this.top, this.left, this.right, this.bottom, surfaceData.edges.thickness);
+            }
 
+            if (surfaceData.backplate) {
+                this.backplate.setPlatePosition(this.centerPosition);
+                this.backplate.setPlateWidthAndHeight(this.guiSurfaceLayout.getLayoutWidth(), this.guiSurfaceLayout.getLayoutHeight())
+            }
+
+        };
 
         GuiSurfaceElement.prototype.applySurfaceData = function(posVec, surfaceData) {
 
@@ -178,24 +184,11 @@ define([
 
             this.guiSurfaceLayout.parseLaoutConfig(surfaceData.layout);
 
-            if (surfaceData.corners) {
-                this.guiSurfaceLayout.applyLayoutToCorners(this.topLeft, this.topRight, this.bottomLeft, this.bottomRight);
-            }
-
-            if (surfaceData.edges) {
-                this.guiSurfaceLayout.applyLayoutToEdges(this.top, this.left, this.right, this.bottom, surfaceData.edges.thickness);
-            }
-
-
             this.guiSurfaceLayout.getLayoutCenter(this.centerPosition);
 
-            if (surfaceData.backplate) {
-                this.backplate.setPlatePosition(this.centerPosition);
+            this.updateSurfaceElements(surfaceData);
 
-                this.backplate.setPlateWidthAndHeight(this.guiSurfaceLayout.getLayoutWidth(), this.guiSurfaceLayout.getLayoutHeight())
-            }
-
-            this.guiSurfaceLayout.getLayoutCenter(this.centerPosition);
+        //    this.guiSurfaceLayout.getLayoutCenter(this.centerPosition);
 
         };
 
@@ -245,6 +238,7 @@ define([
             if (surfacePassive !== this.hover) {
                 this.hover = surfacePassive;
                 this.callSurfaceCallbackList(this.callbacks.hover, this.hover);
+                this.dirty = true;
             }
 
             if (WorldAPI.sampleInputBuffer(ENUMS.InputState.ACTION_0)) {
@@ -253,12 +247,14 @@ define([
                 if (surfaceAvtive !== this.press) {
                     this.press = surfaceAvtive;
                     this.callSurfaceCallbackList(this.callbacks.press, this.press);
+                    this.dirty = true;
                 }
 
             } else {
 
                 if (this.press) {
                     this.callSurfaceCallbackList(this.callbacks.release, this.hover);
+                    this.dirty = true;
                 }
                 this.press = false;
             }
@@ -273,7 +269,7 @@ define([
                     cb(txtElem);
                 }
             }.bind(this);
-
+            this.dirty = true;
             elem = new GuiTextElement();
             elem.setElementLayoutKey(layoutKey);
             elem.initTextElement(txt);
@@ -305,14 +301,18 @@ define([
         };
 
         GuiSurfaceElement.prototype.setSamplePointer = function(bool) {
+            if (this.samplePointer !== bool) {
+                this.dirty = true;
+            }
+
             this.samplePointer = bool;
         };
 
-        GuiSurfaceElement.prototype.setSamplePointer = function(bool) {
-            this.samplePointer = bool;
-        };
 
         GuiSurfaceElement.prototype.setOn = function(bool) {
+            if (this.on !== bool) {
+                this.dirty = true;
+            }
             this.on = bool;
         };
 

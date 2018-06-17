@@ -71,8 +71,19 @@ define([
         };
 
         ModuleFunctions.sampleShape = function(renderable, moduleState, source) {
-            shape = renderable.getSpatialShapeById(source.id);
+            shape = moduleState.getActiveShape();
+
+            if (!shape) {
+                shape = renderable.getSpatialShapeById(source.id);
+                moduleState.setActiveShape(shape);
+            }
+
             moduleState.setTargetState(shape.getValueByIndex(ENUMS.DynamicShape[source.key]) * source.factor)
+        };
+
+        ModuleFunctions.sampleLight = function(renderable, moduleState, trgt) {
+            value = renderable.getRenderableLight(trgt).getDynamicLightIntensity();
+            moduleState.setTargetState(value)
         };
 
 
@@ -91,48 +102,70 @@ define([
 
 
         ModuleFunctions.rotateShape = function(renderable, moduleState, trgt) {
-            target = renderable.getSpatialShapeById(trgt.id);
+
+            shape = moduleState.getActiveShape();
+
+            if (!shape) {
+                shape = renderable.getSpatialShapeById(trgt.id);
+                moduleState.setActiveShape(shape);
+            }
 
 
-            frameTest(target);
-            applyLimiters(renderable, moduleState, trgt)
+            frameTest(shape);
+            applyLimiters(renderable, moduleState, trgt);
 
-            target.getDynamicShapeQuaternion(calcObj.quaternion);
-
+            shape.getDynamicShapeQuaternion(calcObj.quaternion);
             calcObj[trgt.rot](moduleState.getAppliedFactor() * trgt.factor);
 
-            target.setDynamicShapeQuaternion(calcObj.quaternion);
+            shape.setDynamicShapeQuaternion(calcObj.quaternion);
         };
 
 
         ModuleFunctions.applyRotationY = function(renderable, moduleState, trgt) {
-            target = renderable.getSpatialShapeById(trgt);
 
-            frameTest(target);
+            shape = moduleState.getActiveShape();
 
-            target.getDynamicShapeQuaternion(calcObj.quaternion);
+            if (!shape) {
+                shape = renderable.getSpatialShapeById(trgt);
+                moduleState.setActiveShape(shape);
+            }
+
+            frameTest(shape);
+
+            shape.getDynamicShapeQuaternion(calcObj.quaternion);
             calcObj.rotateY(moduleState.getAppliedFactor());
-            target.setDynamicShapeQuaternion(calcObj.quaternion);
+            shape.setDynamicShapeQuaternion(calcObj.quaternion);
         };
 
         ModuleFunctions.applyRotationX = function(renderable, moduleState, trgt) {
-            target = renderable.getSpatialShapeById(trgt);
+            shape = moduleState.getActiveShape();
 
-            frameTest(target);
+            if (!shape) {
+                shape = renderable.getSpatialShapeById(trgt);
+                moduleState.setActiveShape(shape);
+            }
 
-            target.getDynamicShapeQuaternion(calcObj.quaternion);
+            frameTest(shape);
+
+            shape.getDynamicShapeQuaternion(calcObj.quaternion);
             calcObj.rotateX(moduleState.getAppliedFactor());
-            target.setDynamicShapeQuaternion(calcObj.quaternion);
+            shape.setDynamicShapeQuaternion(calcObj.quaternion);
         };
 
         ModuleFunctions.applyRotationZ = function(renderable, moduleState, trgt) {
-            target = renderable.getSpatialShapeById(trgt);
+            shape = moduleState.getActiveShape();
 
-            frameTest(target);
+            if (!shape) {
+                shape = renderable.getSpatialShapeById(trgt);
+                moduleState.setActiveShape(shape);
+            }
 
-            target.getDynamicShapeQuaternion(calcObj.quaternion);
+
+            frameTest(shape);
+
+            shape.getDynamicShapeQuaternion(calcObj.quaternion);
             calcObj.rotateZ(moduleState.getAppliedFactor());
-            target.setDynamicShapeQuaternion(calcObj.quaternion);
+            shape.setDynamicShapeQuaternion(calcObj.quaternion);
         };
 
         ModuleFunctions.slaveModule = function(renderable, moduleState, trgt) {

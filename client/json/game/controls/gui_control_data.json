@@ -139,6 +139,7 @@
 
             {"widget":"DRAG_CONTROL",   "label":"T RL",   "configId":"control_rudder",   "layout":{ "margin_x":0.75, "height":0.06},"onUpdate":"sampleControl", "source":"trim_aeilron", "onDrag":"onDragControl", "buffer":"inputState", "channel":"DRAG_DISTANCE_X"},
             {"widget":"DRAG_CONTROL",   "label":"T PT",   "configId":"control_throttle", "layout":{ "margin_x":0.95, "width":0.06 ,"height":0.18},"onUpdate":"sampleControl", "source":"trim_elevator", "onDrag":"onDragControl", "buffer":"inputState", "channel":"DRAG_DISTANCE_Y"}
+
           ]
         }
       },
@@ -147,11 +148,7 @@
         "id":"engine_control",
         "data":{
           "widgets":[
-
             {"widget":"BUTTON_CONTROL", "label":"THR LINK",   "configId":"control_door",     "layout":{"margin_x":0.01, "margin_y":0.93, "width":0.14},"onUpdate":"sampleControl", "source":"throttle_link", "onClick":"toggleControl"},
-
-            {"widget":"STATE_INDICATOR","label":"PII",  "configId":"pitch_input_indicator", "layout":{"margin_x":0.295, "margin_y":0.23}, "onUpdate":"sampleControl", "source":"elevator"},
-            {"widget":"STATE_INDICATOR","label":"RLI",  "configId":"roll_input_indicator",  "layout":{"margin_x":0.295, "margin_y":0.23},     "onUpdate":"sampleControl", "source":"aeilron"},
 
             {"widget":"STATE_GAUGE",    "label":"ALT"   , "configId":"angle_indicator",  "layout":{"margin_x":0.38, "margin_y":0.27, "width":0.08}, "buffer":"currentDynamic", "channel":"POS_Y"},
             {"widget":"STATE_GAUGE",    "label":"CLIMB",  "configId":"angle_indicator",  "layout":{"margin_x":0.38, "margin_y":0.24, "width":0.08}, "buffer":"currentDynamic", "channel":"VELOCITY_Y"},
@@ -160,25 +157,66 @@
             {"widget":"STATE_GAUGE",    "label":"MACH",   "configId":"angle_indicator",  "layout":{"margin_x":0.465, "margin_y":0.21, "width":0.08}, "buffer":"currentDynamic", "channel":"VEL_MACH"},
             {"widget":"STATE_GAUGE",    "label":"MPS",    "configId":"angle_indicator",  "layout":{"margin_x":0.55, "margin_y":0.21, "width":0.08}, "buffer":"currentDynamic", "channel":"SPEED_MPS"},
 
-
-
             {"widget":"DRAG_CONTROL",   "label":"THL",    "configId":"control_throttle", "layout":{"margin_x":0.05, "width":0.06},"onUpdate":"sampleControl", "source":"throttle_l", "onDrag":"onDragControl",   "buffer":"inputState",     "channel":"DRAG_DISTANCE_Y"},
             {"widget":"DRAG_CONTROL",   "label":"THR",    "configId":"control_throttle", "layout":{"margin_x":0.01, "width":0.06},"onUpdate":"sampleControl", "source":"throttle_r", "onDrag":"onDragControl",   "buffer":"inputState",     "channel":"DRAG_DISTANCE_Y"},
-
 
             {"widget":"STATE_INDICATOR","label":"RPM_R",  "configId":"rpm_indicator_y", "layout":{"margin_x":0.01}, "onUpdate":"sampleModule", "source":"throttle_r"},
             {"widget":"STATE_INDICATOR","label":"RPM_L",  "configId":"rpm_indicator_y", "layout":{"margin_x":0.05}, "onUpdate":"sampleModule", "source":"throttle_l"},
 
-
             {"widget":"STATE_INDICATOR","label":"RPM_L",  "configId":"rpm_indicator_y", "layout":{"margin_x":0.051, "margin_y":0.425, "height":0.06}, "onUpdate":"sampleModule", "source":"turbine_l"},
             {"widget":"STATE_INDICATOR","label":"JET_L",  "configId":"jet_indicator_y", "layout":{"margin_x":0.060, "margin_y":0.425}, "onUpdate":"sampleModule", "source":"jet_1"},
 
-
             {"widget":"STATE_INDICATOR","label":"RPM_R",  "configId":"rpm_indicator_y", "layout":{"margin_x":0.011, "margin_y":0.425, "height":0.06}, "onUpdate":"sampleModule", "source":"turbine_r"},
             {"widget":"STATE_INDICATOR","label":"JET_R",  "configId":"jet_indicator_y", "layout":{"margin_x":0.020, "margin_y":0.425}, "onUpdate":"sampleModule", "source":"jet_2"}
+          ]
+        }
+      },
+
+      {
+        "id":"steering_Feedback",
+        "data":{
+          "widgets":[
+
+            {"widget":"STATE_INDICATOR","label":"PII",  "configId":"pitch_input_indicator", "layout":{"margin_x":0.295, "margin_y":0.23}, "onUpdate":"sampleControl", "source":"elevator"},
+            {"widget":"STATE_INDICATOR","label":"PII",  "configId":"pitch_input_wrap",      "layout":{"margin_x":0.295, "margin_y":0.23}, "onUpdate":"sampleControl", "source":"elevator"},
+            {"widget":"STATE_INDICATOR","label":"RLI",  "configId":"roll_input_indicator",  "layout":{"margin_x":0.295, "margin_y":0.23},     "onUpdate":"sampleControl", "source":"aeilron"},
+            {"widget":"STATE_INDICATOR","label":"RLI",  "configId":"roll_input_wrap",       "layout":{"margin_x":0.295, "margin_y":0.23},     "onUpdate":"sampleControl", "source":"aeilron"},
+            {"widget":"STATE_INDICATOR","label":"RDI",  "configId":"roll_input_indicator",  "layout":{"margin_x":0.295, "margin_y":0.23, "height":0.015},     "onUpdate":"sampleControl", "source":"rudder"},
+            {"widget":"STATE_INDICATOR","label":"RLI",  "configId":"roll_input_wrap",       "layout":{"margin_x":0.295, "margin_y":0.23, "height":0.015},     "onUpdate":"sampleControl", "source":"rudder"}
+
+          ]
+        }
+      },
+
+      {
+        "id":"flight_Feedback",
+        "data":{
+          "widgets":[
+
+            {"widget":"STATE_INDICATOR","label":"ALT ABS",  "configId":"altitude_indicator", "layout":{}, "buffer":"currentDynamic", "channel":"POS_Y"},
+            {"widget":"STATE_INDICATOR","label":"ALT FINE", "configId":"altitude_wrap",      "layout":{}, "buffer":"currentDynamic", "channel":"POS_Y"}
+          ]
+        }
+      },
+
+      {
+        "id":"surface_controls",
+        "data":{
+          "widgets":[
+
+            {"widget":"BUTTON_CONTROL", "label":"SWEEP","configId":"control_switch",   "layout":{"margin_y":0.22, "margin_x":0.10},"onUpdate":"sampleControl", "source":"sweep", "onClick":"toggleControl"},
+
+            {"widget":"STATE_INDICATOR","label":"BTOP", "configId":"gear_indicator_y", "layout":{"margin_y":0.26,  "margin_x":0.094, "width": 0.01, "height":  -0.06}, "onUpdate":"sampleModule", "source":"sweep_l"},
+            {"widget":"STATE_INDICATOR","label":"BBOT", "configId":"gear_indicator_y", "layout":{"margin_y":0.26,  "margin_x":0.137, "width": 0.01, "height":  -0.06}, "onUpdate":"sampleModule", "source":"sweep_r"},
 
 
+            {"widget":"BUTTON_CONTROL", "label":"FLAP", "configId":"control_switch",   "layout":{"margin_y":0.22, "margin_x":0.20, "width": 0.08},"onUpdate":"sampleControl", "source":"flaps", "onClick":"toggleControl"},
+            {"widget":"STATE_INDICATOR","label":"FL",   "configId":"gear_indicator_y", "layout":{"margin_y":0.22, "margin_x":0.222, "width": 0.04, "height": -0.02}, "onUpdate":"sampleModule", "source":"flaps_l"},
+            {"widget":"STATE_INDICATOR","label":"FR",   "configId":"gear_indicator_y", "layout":{"margin_y":0.22, "margin_x":0.22, "width":-0.04, "height": -0.02}, "onUpdate":"sampleModule", "source":"flaps_r"},
 
+            {"widget":"BUTTON_CONTROL", "label":"BRK",  "configId":"control_switch",   "layout":{"margin_y":0.22, "margin_x":0.15},"onUpdate":"sampleControl", "source":"brake", "onClick":"toggleControl"},
+            {"widget":"STATE_INDICATOR","label":"BTOP", "configId":"gear_indicator_y", "layout":{"margin_y":0.21, "margin_x":0.15, "width": 0.07, "height": -0.02}, "onUpdate":"sampleModule", "source":"brake_top"},
+            {"widget":"STATE_INDICATOR","label":"BBOT", "configId":"gear_indicator_y", "layout":{"margin_y":0.278, "margin_x":0.15, "width": 0.07, "height":  0.02}, "onUpdate":"sampleModule", "source":"brake_bottom"}
           ]
         }
       },
@@ -187,14 +225,6 @@
         "id":"external_switches",
         "data":{
           "widgets":[
-
-            {"widget":"BUTTON_CONTROL", "label":"SWEEP","configId":"control_door", "layout":{"margin_y":0.03, "margin_x":0.21},"onUpdate":"sampleControl", "source":"sweep", "onClick":"toggleControl"},
-
-            {"widget":"BUTTON_CONTROL", "label":"FLAP", "configId":"control_switch",   "layout":{"margin_y":0.22, "margin_x":0.20, "width": 0.08},"onUpdate":"sampleControl", "source":"flaps", "onClick":"toggleControl"},
-            {"widget":"STATE_INDICATOR","label":"FL",   "configId":"gear_indicator_y", "layout":{"margin_y":0.22, "margin_x":0.222, "width": 0.04, "height": -0.02}, "onUpdate":"sampleModule", "source":"flaps_l"},
-            {"widget":"STATE_INDICATOR","label":"FR",   "configId":"gear_indicator_y", "layout":{"margin_y":0.22, "margin_x":0.22, "width":-0.04, "height": -0.02}, "onUpdate":"sampleModule", "source":"flaps_r"},
-
-            {"widget":"BUTTON_CONTROL", "label":"BRK",  "configId":"control_door", "layout":{"margin_y":0.10, "margin_x":0.21},"onUpdate":"sampleControl", "source":"brake", "onClick":"toggleControl"},
 
             {"widget":"BUTTON_CONTROL", "label":"CNP",  "configId":"control_door", "layout":{"margin_y":0.001, "margin_x":0.07},"onUpdate":"sampleControl", "source":"canopy","onClick":"toggleControl"},
 

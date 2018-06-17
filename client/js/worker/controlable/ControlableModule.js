@@ -28,6 +28,10 @@ define([
 
             this.debugElements = [];
 
+            this.parentShape = null;
+
+            this.parentShapeId = null;
+
         };
 
         ControlableModule.prototype.configRead = function(dataKey) {
@@ -61,8 +65,26 @@ define([
             this.size.set(x, y, z)
         };
 
+        ControlableModule.prototype.setParentShape = function(shape) {
+            this.parentShape = shape;
+        };
+
+
         ControlableModule.prototype.setModuleTargetState = function(val) {
             this.moduleState.setTargetState(val)
+        };
+
+        ControlableModule.prototype.calculateWorldPosition = function(parentPos, parentQuat, store) {
+
+            store.copy(this.offset);
+
+            if (this.parentShape) {
+                store.applyQuaternion(this.parentShape.rotation);
+                store.add(this.parentShape.offset)
+            }
+
+            store.applyQuaternion(parentQuat);
+            store.add(parentPos);
         };
 
         var map = {

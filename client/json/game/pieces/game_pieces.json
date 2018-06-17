@@ -49,11 +49,13 @@
           "controls":[
             {"config_key":"GUI_GENERIC_UI", "config_id":"vehicle_camera"},
             {"config_key":"GUI_GENERIC_UI", "config_id":"vehicle_rotation"},
-            {"config_key":"GUI_GENERIC_UI", "config_id":"state_gauges"},
             {"config_key":"GUI_TOMCAT_CONTROL", "config_id":"main_control"},
             {"config_key":"GUI_TOMCAT_CONTROL", "config_id":"engine_control"},
             {"config_key":"GUI_TOMCAT_CONTROL", "config_id":"external_switches"},
-            {"config_key":"GUI_TOMCAT_CONTROL", "config_id":"gear_control"}
+            {"config_key":"GUI_TOMCAT_CONTROL", "config_id":"surface_controls"},
+            {"config_key":"GUI_TOMCAT_CONTROL", "config_id":"gear_control"},
+            {"config_key":"GUI_TOMCAT_CONTROL", "config_id":"steering_Feedback"},
+            {"config_key":"GUI_TOMCAT_CONTROL", "config_id":"flight_Feedback"}
           ],
           "renderable":"dynamic_f14",
           "control_states":[

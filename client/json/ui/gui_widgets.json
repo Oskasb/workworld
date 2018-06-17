@@ -1276,7 +1276,7 @@
               "axis":[0, 1],
               "min":-1,
               "max":1,
-              "factor":-0.9,
+              "factor":-0.999,
               "offset":0,
               "anchor":false
             },
@@ -1287,6 +1287,53 @@
               "margin_x":0.315,
               "margin_y":0.185,
               "width": -0.06,
+              "height":-0.005
+            },
+
+            "backplate":{
+              "passive_fx":"plate_active_effects",
+              "active_fx":"plate_active_effects",
+              "color":"orange_4"
+            }
+          }
+        }
+      },
+
+      {
+        "id": "pitch_input_wrap",
+        "data": {
+          "header_label":"gauge_key",
+          "value_label":"gauge_value",
+
+          "surface":{
+
+            "layout":{
+              "anchor":"bottom_left",
+              "fixed_aspect":true,
+              "margin_x":0.315,
+              "margin_y":0.185,
+              "width": -0.015,
+              "height":-0.06
+            }
+
+          },
+          "state":{
+            "progress":{
+              "axis":[0, 1],
+              "min":-0.25,
+              "max":0.25,
+              "factor":-0.999,
+              "offset":0,
+              "anchor":true,
+              "wrap":true
+            },
+
+            "layout":{
+              "anchor":"bottom_left",
+              "fixed_aspect":true,
+              "margin_x":0.315,
+              "margin_y":0.185,
+              "width": -0.012,
               "height":-0.003
             },
 
@@ -1327,7 +1374,7 @@
               "axis":[1, 0],
               "min":-1,
               "max":1,
-              "factor":0.8,
+              "factor":0.99,
               "offset":0.5,
               "anchor":false
             },
@@ -1337,7 +1384,7 @@
               "fixed_aspect":true,
               "margin_x":0.315,
               "margin_y":0.185,
-              "width": 0.003,
+              "width": 0.005,
               "height":-0.045
             },
 
@@ -1345,6 +1392,151 @@
               "passive_fx":"plate_active_effects",
               "active_fx":"plate_active_effects",
               "color":"orange_4"
+            }
+          }
+        }
+      },
+
+      {
+        "id": "roll_input_wrap",
+        "data": {
+          "header_label":"gauge_key",
+          "value_label":"gauge_value",
+
+          "surface":{
+
+            "layout":{
+              "anchor":"bottom_left",
+              "fixed_aspect":true,
+              "margin_x":0.315,
+              "margin_y":0.185,
+              "width": -0.06,
+              "height":-0.03
+            }
+
+          },
+          "state":{
+            "progress":{
+              "axis":[1, 0],
+              "min":-0.25,
+              "max":0.25,
+              "factor":0.999,
+              "offset":0.5,
+              "anchor":false,
+              "wrap":true
+            },
+
+            "layout":{
+              "anchor":"bottom_left",
+              "fixed_aspect":true,
+              "margin_x":0.315,
+              "margin_y":0.185,
+              "width": 0.004,
+              "height":-0.015
+            },
+
+            "backplate":{
+              "passive_fx":"plate_active_effects",
+              "active_fx":"plate_active_effects",
+              "color":"cyan_3"
+            }
+          }
+        }
+      },
+
+      {
+        "id": "altitude_indicator",
+        "data": {
+          "header_label":"gauge_key",
+          "value_label":"gauge_value",
+
+          "surface":{
+
+            "layout":{
+              "anchor":"bottom_left",
+              "fixed_aspect":true,
+              "margin_x":0.0001,
+              "margin_y":0.18,
+              "width": 0.011,
+              "height":0.80
+            },
+
+            "backplate":{
+              "passive_fx":"plate_passive_effects",
+              "active_fx":"plate_passive_effects",
+              "color":"orange_1"
+            }
+          },
+          "state":{
+            "progress":{
+              "axis":[0, 1],
+              "min":0,
+              "max":1,
+              "factor":0.00003,
+              "offset":-0.5,
+              "anchor":false,
+              "wrap":true
+            },
+
+            "layout":{
+              "anchor":"bottom_left",
+              "fixed_aspect":true,
+              "margin_x":-0.002,
+              "margin_y":0.18,
+              "width": 0.023,
+              "height":0.006
+            },
+
+            "backplate":{
+              "passive_fx":"plate_active_effects",
+              "active_fx":"plate_active_effects",
+              "color":"cyan_4"
+            }
+          }
+        }
+      },
+
+      {
+        "id": "altitude_wrap",
+        "data": {
+          "header_label":"gauge_key",
+          "value_label":"gauge_value",
+
+          "surface":{
+
+            "layout":{
+              "anchor":"bottom_left",
+              "fixed_aspect":true,
+              "margin_x":0.001,
+              "margin_y":0.18,
+              "width": 0.016,
+              "height":0.80
+            }
+          },
+          "state":{
+            "progress":{
+              "axis":[0, 1],
+              "min":0,
+              "max":1,
+              "factor":0.01,
+              "offset":-0.5,
+              "anchor":true,
+              "wrap":true
+            },
+
+            "layout":{
+              "anchor":"bottom_left",
+              "fixed_aspect":true,
+              "margin_x":0.0015,
+              "margin_y":0.18,
+              "width": 0.006,
+              "height":0.01
+            },
+
+            "backplate":{
+              "passive_fx":"plate_active_effects",
+              "active_fx":"plate_active_effects",
+              "color":"cyan_2"
             }
           }
         }
@@ -1399,8 +1591,7 @@
             }
           }
         }
-      }
-    ,
+      },
       {
         "id": "ind_angle_x",
         "data": {

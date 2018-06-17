@@ -280,7 +280,6 @@ define([
             this.dirty = false;
         };
 
-
         GuiTextElement.prototype.updateFontEffecs = function(string) {
 
 
@@ -294,7 +293,7 @@ define([
 
                 this.applyTextConfig(string);
 
-                for (var i = 0; i < string.length; i++) {
+                for (i = 0; i < string.length; i++) {
                     if (string[i] !== this.textString[i]) {
                         if (this.textString[i]) {
                             this.setLetterAtIndex(string[i] ,i);

@@ -30,6 +30,8 @@ define([
                 callback:null,
                 source:null
             };
+
+            this.lastValue = false;
         };
 
 
@@ -93,8 +95,11 @@ define([
 
         //    WorldAPI.addTextMessage("Source: "+this.update.source+" _ "+state);
 
-            this.baseWidget.setLabelText(MATH.decimalify(currentState, 100));
-            this.baseWidget.indicateToggleProgress(currentState, 'surface', 'state');
+        //    this.baseWidget.setLabelText(MATH.decimalify(currentState, 100));
+        //    if (this.lastValue !== currentState) {
+                this.lastValue = currentState;
+                this.baseWidget.indicateToggleProgress(currentState, 'surface', 'state');
+        //    }
 
         };
 

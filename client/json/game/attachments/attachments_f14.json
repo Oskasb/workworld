@@ -313,6 +313,29 @@
         "id":"external_lights",
         "data":{
           "modules":[
+            {"config_key":"EXTERNAL_LIGHTS_F14", "config_id":"light_col_tip_l", "group":[
+              {"parent_shape":"pivot_l", "offset":[ 6.11,   -0.13,  0.1], "direction":[0,  -1, 0], "size":[0, 0, 0]}
+            ]},
+
+            {"config_key":"EXTERNAL_LIGHTS_F14", "config_id":"light_col_tip_r", "group":[
+              {"parent_shape":"pivot_r", "offset":[-6.11,   -0.13,  0.1], "direction":[0,  -1, 0], "size":[0, 0, 0]}
+            ]},
+
+            {"config_key":"EXTERNAL_LIGHTS_F14", "config_id":"light_col_glove_l", "group":[
+              {"offset":[ 2.32,   1.12,  2.65], "direction":[0,  -1, 0], "size":[0, 0, 0]}
+            ]},
+
+            {"config_key":"EXTERNAL_LIGHTS_F14", "config_id":"light_col_glove_r", "group":[
+              {"offset":[-2.32,   1.12,  2.65], "direction":[0,  -1, 0], "size":[0, 0, 0]}
+            ]},
+
+            {"config_key":"EXTERNAL_LIGHTS_F14", "config_id":"light_col_glove_ld", "group":[
+              {"offset":[ 2.32,   0.82,  2.65], "direction":[0,  -1, 0], "size":[0, 0, 0]}
+            ]},
+
+            {"config_key":"EXTERNAL_LIGHTS_F14", "config_id":"light_col_glove_rd", "group":[
+              {"offset":[-2.32,   0.82,  2.65], "direction":[0,  -1, 0], "size":[0, 0, 0]}
+            ]}
 
           ]
         }
@@ -322,39 +345,18 @@
         "id":"wake_emitters",
         "data":{
           "modules":[
-            {"config_key":"WAKE_EMITTERS_F14", "config_id":"bow_1", "group":[
-              {"offset":[0,    0.3,  11], "direction":[0, 0, 1], "size":[1, 2, 3]}
+            {"config_key":"WAKE_EMITTERS_F14", "config_id":"wingtip_1", "group":[
+              {"parent_shape":"pivot_r", "offset":[-6.7,   0.0, -0.5], "direction":[1, 0, 0], "size":[0.1, 0.1, 1.0]}
             ]},
 
-            {"config_key":"WAKE_EMITTERS_F14", "config_id":"bow_2", "group":[
-              {"offset":[0,     0,     8], "direction":[0, 0, 1], "size":[2, 2, 3]}
+            {"config_key":"WAKE_EMITTERS_F14", "config_id":"wingtip_2", "group":[
+              {"parent_shape":"pivot_l", "offset":[ 6.7,   0.0, -0.5], "direction":[-1, 0, 0], "size":[0.1, 0.1, 1.0]}
             ]},
 
-            {"config_key":"WAKE_EMITTERS_F14", "config_id":"bow_3",    "group":[
-              {"offset":[0,     0,     5], "direction":[0, -1, 0], "size":[2, 2, 3]}
-            ]},
-
-            {"config_key":"WAKE_EMITTERS_F14", "config_id":"bow_4",    "group":[
-              {"offset":[-2,     0,    -1], "direction":[0, -1, 0], "size":[1, 2, 5]}
-            ]},
-
-            {"config_key":"WAKE_EMITTERS_F14", "config_id":"bow_5",    "group":[
-              {"offset":[2,      0,    -1], "direction":[0, -1, 0], "size":[1, 2, 5]}
-            ]},
-
-            {"config_key":"WAKE_EMITTERS_F14", "config_id":"bow_6",    "group":[
-              {"offset":[-4,     0,     0], "direction":[0, -1, 0], "size":[3, 1, 2]}
-            ]},
-
-            {"config_key":"WAKE_EMITTERS_F14", "config_id":"bow_7",    "group":[
-              {"offset":[ 4,     0,     0], "direction":[0, -1, 0], "size":[3, 1, 2]}
-            ]},
-            {"config_key":"WAKE_EMITTERS_F14", "config_id":"bow_8",    "group":[
-              {"offset":[-2,     0,    -6], "direction":[0, -1, 0], "size":[2, 2, 4]}
-            ]},
-            {"config_key":"WAKE_EMITTERS_F14", "config_id":"bow_9",    "group":[
-              {"offset":[ 2,     0,    -6], "direction":[0, -1, 0], "size":[2, 2, 4]}
+            {"config_key":"WAKE_EMITTERS_F14", "config_id":"body_core_cond",    "group":[
+              {"offset":[0, 0.5, 0],    "direction":[0, 1, 0], "size":[4, 1, 7]}
             ]}
+
           ]
         }
       }

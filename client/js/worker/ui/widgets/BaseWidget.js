@@ -108,6 +108,7 @@ define([
         var max;
         var offset;
         var anchor;
+        var wrap;
 
         var span;
         var factor;
@@ -136,10 +137,16 @@ define([
             offset = progressconfig.offset;
             anchor = progressconfig.anchor;
             factor = progressconfig.factor;
+            wrap = progressconfig.wrap;
 
             this.indicatorElement.setOn(1);
 
-            value = MATH.clamp( factor*state / (max-min) , min, max) ;
+            if (wrap === true) {
+                value = MATH.modulo( factor*state / (max-min) , max - min) ;
+            } else {
+                value = MATH.clamp( factor*state / (max-min) , min, max) ;
+            }
+
 
             if (axis[0]) {
 

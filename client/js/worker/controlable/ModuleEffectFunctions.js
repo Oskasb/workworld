@@ -51,7 +51,15 @@ define([
 
             if (trgt.light) {
 
-                light = renderable.getRenderableLight(trgt.light.id);
+                light = moduleState.getActiveLight();
+
+                        if (!light) {
+                            light = renderable.getRenderableLight(trgt.light.id);
+                            moduleState.setActiveLight(light);
+                        }
+
+
+
                 light.setDynamicLightIntensity(moduleState.getStateValue() * trgt.light.gain);
 
             }
@@ -154,9 +162,105 @@ define([
         ModuleEffectFunctions.conTrailEffect = function(renderable, moduleState, trgt) {
 
             target = renderable.getSpatialShapeById(trgt);
-            spawnTargetEffect(renderable, target, 'prop_effect');
+            spawnTargetEffect(renderable, target, 'condensation');
 
         };
+
+        var shape;
+
+        ModuleEffectFunctions.shapeFittedEffect = function(renderable, moduleState, trgt) {
+
+            value = moduleState.getStateValue();
+
+            if (Math.abs(value) * trgt.factor < trgt.threshold) return;
+
+            shape = moduleState.getActiveShape();
+
+            if (!shape) {
+                shape = renderable.getSpatialShapeById(trgt.id);
+                moduleState.setActiveShape(shape);
+            }
+
+            shape.calculateWorldPosition(renderable.pos, renderable.quat, fxArgs.pos);
+            randomPosInShape(renderable, shape, tempVec2);
+            fxArgs.pos.add(tempVec2);
+
+            fxArgs.vel.copy(shape.direction);
+            fxArgs.vel.applyQuaternion(renderable.quat);
+
+            spawnTargetEffect(renderable, shape, trgt.effect);
+        };
+
+
+        ModuleEffectFunctions.moduleFittedEffect = function(renderable, moduleState, trgt) {
+
+            value = moduleState.getStateValue();
+
+            if (Math.abs(value) * trgt.factor < trgt.threshold) return;
+
+            target = moduleState.getActiveObject();
+
+            if (!target) {
+                target = renderable.getGamePiece().getControlableModuleById(trgt.id);
+                moduleState.setActiveObject(target);
+                if (target.parentShapeId) {
+                    target.setParentShape(renderable.getSpatialShapeById(target.parentShapeId))
+                }
+
+            }
+
+            target.calculateWorldPosition(renderable.pos, renderable.quat, fxArgs.pos);
+
+            spawnTargetEffect(renderable, shape, trgt.effect);
+        };
+
+        ModuleEffectFunctions.moduleAttachedLightEffect = function(renderable, moduleState, trgt) {
+
+            value = moduleState.getStateValue();
+
+            target = moduleState.getActiveObject();
+
+            if (!target) {
+                target = renderable.getGamePiece().getControlableModuleById(trgt.id);
+                moduleState.setActiveObject(target);
+                if (target.parentShapeId) {
+                    target.setParentShape(renderable.getSpatialShapeById(target.parentShapeId))
+                }
+                target.effectList = new EffectList();
+            }
+
+            min = trgt.threshold;
+
+            if (value < min) {
+
+                if (target.effectList.effectCount()) {
+                    target.effectList.setEffectListScale(0);
+                    target.effectList.disableEffectList();
+                }
+                return;
+
+            } else {
+
+                target.calculateWorldPosition(renderable.pos, renderable.quat, fxArgs.pos);
+
+                if (!target.effectList.effectCount()) {
+                    target.effectList.enableEffectList(trgt.effects, fxArgs.pos);
+                    target.effectList.setEffectListColorKey(trgt.color);
+                } else {
+                    target.calculateWorldPosition(renderable.pos, renderable.quat, fxArgs.pos);
+                    target.effectList.setEffectListPosition(fxArgs.pos);
+                }
+
+            }
+
+            target.effectList.setEffectListScale((value - min) * trgt.scale);
+
+
+
+        //    target.effectList.setEffectListVelocity(fxArgs.vel)
+
+        };
+
 
         ModuleEffectFunctions.rudderEffect = function(renderable, moduleState, trgt) {
 
@@ -238,18 +342,25 @@ define([
 
         ModuleEffectFunctions.applyBoneRotation = function(renderable, moduleState, trgt) {
 
-            dynBone = renderable.getRenderableBone(trgt.id);
-
-            applyLightFeedback(renderable, moduleState, trgt);
-
+            dynBone = moduleState.getActiveObject();
             if (!dynBone) {
-                console.log("No Dynamic Bone:", trgt, renderable, moduleState);
-                return;
+                dynBone = renderable.getRenderableBone(trgt.id);
+
+                moduleState.setActiveObject(dynBone);
+                if (!dynBone) {
+                    console.log("No Dynamic Bone:", trgt, renderable, moduleState);
+                    return;
+                }
             }
 
-            offset = trgt.offset || 0;
+            value = moduleState.getAppliedFactor();
 
-            rotateBone(dynBone, trgt.rot, moduleState.getAppliedFactor() * trgt.factor + offset)
+            if (value !== moduleState.getActiveValue()) {
+                moduleState.setActiveValue(value);
+                applyLightFeedback(renderable, moduleState, trgt);
+                offset = trgt.offset || 0;
+                rotateBone(dynBone, trgt.rot, value * trgt.factor + offset)
+            }
 
         };
 
@@ -268,16 +379,29 @@ define([
 
         ModuleEffectFunctions.setBoneRotationX = function(renderable, moduleState, trgt) {
 
-            dynBone = renderable.getRenderableBone(trgt);
-
+            dynBone = moduleState.getActiveObject();
             if (!dynBone) {
-                console.log("No Dynamic Bone:", trgt, renderable, moduleState);
-                return;
+                dynBone = renderable.getRenderableBone(trgt);
+
+                moduleState.setActiveObject(dynBone);
+                if (!dynBone) {
+                    console.log("No Dynamic Bone:", trgt, renderable, moduleState);
+                    return;
+                }
             }
 
-            tempObj.quaternion.copy(dynBone.originalQuat);
-            tempObj.rotateX(moduleState.getAppliedFactor());
-            dynBone.setDynamicBoneQuaternion(tempObj.quaternion);
+            value = moduleState.getAppliedFactor();
+
+            if (value !== moduleState.getActiveValue()) {
+                moduleState.setActiveValue(value)
+                tempObj.quaternion.copy(dynBone.originalQuat);
+                tempObj.rotateX(value);
+                dynBone.setDynamicBoneQuaternion(tempObj.quaternion);
+
+            }
+
+
+
 
         };
 
