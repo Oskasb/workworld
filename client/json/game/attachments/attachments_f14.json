@@ -314,11 +314,11 @@
         "data":{
           "modules":[
             {"config_key":"EXTERNAL_LIGHTS_F14", "config_id":"light_col_tip_l", "group":[
-              {"parent_shape":"pivot_l", "offset":[ 6.11,   -0.13,  0.1], "direction":[0,  -1, 0], "size":[0, 0, 0]}
+              {"parent_shape":"pivot_l", "offset":[ 6.71,   -0.13,  0.1], "direction":[0,  -1, 0], "size":[0, 0, 0]}
             ]},
 
             {"config_key":"EXTERNAL_LIGHTS_F14", "config_id":"light_col_tip_r", "group":[
-              {"parent_shape":"pivot_r", "offset":[-6.11,   -0.13,  0.1], "direction":[0,  -1, 0], "size":[0, 0, 0]}
+              {"parent_shape":"pivot_r", "offset":[-6.71,   -0.13,  0.1], "direction":[0,  -1, 0], "size":[0, 0, 0]}
             ]},
 
             {"config_key":"EXTERNAL_LIGHTS_F14", "config_id":"light_col_glove_l", "group":[
@@ -335,7 +335,34 @@
 
             {"config_key":"EXTERNAL_LIGHTS_F14", "config_id":"light_col_glove_rd", "group":[
               {"offset":[-2.32,   0.82,  2.65], "direction":[0,  -1, 0], "size":[0, 0, 0]}
+            ]},
+
+            {"config_key":"EXTERNAL_LIGHTS_F14", "config_id":"light_col_rear_r", "group":[
+              {"offset":[-1.62,   3.72,  -8.45], "direction":[0,  -1, 0], "size":[0, 0, 0]}
+            ]},
+
+            {"config_key":"EXTERNAL_LIGHTS_F14", "config_id":"light_land_rear_l", "group":[
+              {"offset":[ 1.62,   3.41,  -8.45], "direction":[0,  -1, 0], "size":[0, 0, 0]}
+            ]},
+
+            {"config_key":"EXTERNAL_LIGHTS_F14", "config_id":"light_land_nose", "group":[
+              {"offset":[ 0.0,   -0.71,  6.25], "direction":[0,  -1, 0], "size":[0, 0, 0]}
+            ]},
+
+
+            {"config_key":"EXTERNAL_LIGHTS_F14", "config_id":"light_nav_rear", "group":[
+              {"offset":[1.7,   3.61,  -7.04], "direction":[0,  -1, 0], "size":[0, 0, 0]}
+            ]},
+
+            {"config_key":"EXTERNAL_LIGHTS_F14", "config_id":"light_nav_l", "group":[
+              {"offset":[2.02,   0.25,  2.05], "direction":[0,  -1, 0], "size":[0, 0, 0]}
+            ]},
+
+            {"config_key":"EXTERNAL_LIGHTS_F14", "config_id":"light_nav_r", "group":[
+              {"offset":[-2.02,  0.25,  2.05], "direction":[0,  -1, 0], "size":[0, 0, 0]}
             ]}
+
+
 
           ]
         }

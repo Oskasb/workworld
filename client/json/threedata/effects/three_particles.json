@@ -511,16 +511,17 @@
             "lifeTime":{"min":1.0,"max":1.0},
             "positionSpread":{"x":0.01, "y":0.01, "z":0.01},
             "spinDrag":0.05,
+            "gravity":0.01,
             "colorCurve":"nearWhite",
             "alphaCurve":"red_2",
             "diffusionCurve":"nearBlack",
-            "scaleCurve":"nearWhite",
+            "scaleCurve":"flatWhite",
             "size":{"value":1.7, "min": 0.001, "max": 0.01},
             "spin":{"value":0.001, "min": -0.001, "max": 0.001},
             "velocityDiffusion":0.0001,
             "accelerationDiffusion":0.0001,
             "colorDiffusion":0.01,
-            "velocityFactor":0.23
+            "velocityFactor":0.00
           }
         },
 

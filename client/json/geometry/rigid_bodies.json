@@ -137,8 +137,8 @@
             {"id":"glove_2",      "lift":["wing", "box", 0], "shape":"Box", "args":[2,   0.1,  5], "offset":[ 1.7, 0.8, 2],     "rotation":[-0.0,    -0.3,   0.05]},
 
 
-            {"id":"pivot_r",      "lift":["wing", "box", 0], "shape":"Box", "args":[11, 0.1, 1.5], "offset":[-3.7,   0.8,  -0.5],     "rotation":[0.0,    -0.3,   -0.02]},
-            {"id":"pivot_l",      "lift":["wing", "box", 0], "shape":"Box", "args":[11, 0.1, 1.5], "offset":[ 3.7,   0.8,  -0.5],     "rotation":[0.0,     0.3,    0.02]},
+            {"id":"pivot_r",      "lift":["wing", "box", 0], "shape":"Box", "args":[11, 0.1, 1.5], "offset":[-3.1,   0.8,  -0.3],     "rotation":[0.0,    -0.3,   -0.02]},
+            {"id":"pivot_l",      "lift":["wing", "box", 0], "shape":"Box", "args":[11, 0.1, 1.5], "offset":[ 3.1,   0.8,  -0.3],     "rotation":[0.0,     0.3,    0.02]},
 
 
             {"id":"elev_1",       "lift":["wing", "box", 0],  "shape":"Box", "args":[3.5, 0.1, 2.4],    "offset":[ 3.5,    0.3,  -7],    "rotation":[0,      0.8,    0.1]},
