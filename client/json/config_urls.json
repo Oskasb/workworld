@@ -30,11 +30,19 @@
       "game/attachments/modules.json",
 
       "game/attachments/attachments_f14.json",
-      "game/attachments/modules_f14.json",
+
+      "game/tomcat/modules_tomcat_cockpit.json",
+      "game/tomcat/modules_tomcat_emitters.json",
+      "game/tomcat/modules_tomcat_external.json",
+      "game/tomcat/modules_tomcat_gear.json",
+      "game/tomcat/modules_tomcat_lights.json",
+      "game/tomcat/modules_tomcat_propulsion.json",
+      "game/tomcat/modules_tomcat_surfaces.json",
+
+
 
       "game/controls/gui_control_data.json",
       "game/pieces/game_pieces.json",
-
 
       "threedata/models/three_materials.json",
       "threedata/models/three_models.json",

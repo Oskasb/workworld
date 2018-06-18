@@ -1,0 +1,81 @@
+[{
+  "MODULES":{
+
+    "PROPULSION_F14":[
+      {
+        "id":"throttles_link",
+        "data":{
+          "state":{"value":0, "min":0, "max":1, "speed":0.02, "factor":1},
+
+          "source":"throttle_link",
+          "sampleSource":"sampleControl",
+
+          "applyState":"linkControlTargetStates",
+          "target":{"links":["throttle_l", "throttle_r"]},
+
+          "effectFunction":"zeroEffect",
+          "feedback":{}
+        }
+      },
+
+      {
+        "id":"turbine_l",
+        "data":{
+          "state":{"value":0, "min":0, "max":1, "speed":0.02, "factor":1},
+
+          "source":"turbine_l",
+          "sampleSource":"sampleModule",
+
+          "applyState":"applyModuleTargetState",
+          "target":{"id":"jet_1", "min":0.25, "max":1},
+
+          "effectFunction":"zeroEffect",
+          "feedback":{}
+        }
+      },
+      {
+        "id":"turbine_r",
+        "data":{
+          "state":{"value":0, "min":0, "max":1, "speed":0.02, "factor":1},
+
+          "source":"turbine_r",
+          "sampleSource":"sampleModule",
+
+          "applyState":"applyModuleTargetState",
+          "target":{"id":"jet_2", "min":0.25, "max":1},
+
+          "effectFunction":"zeroEffect",
+          "feedback":{}
+        }
+      },
+
+      {
+        "id":"jet_1",
+        "data":{
+          "state":{"value":0, "min":-0.2, "max":1, "speed":0.003, "factor":4000},
+          "source":"jet_1",
+          "target":"nozzle_1",
+          "sampleSource":"slaveModule",
+          "applyState":"applyForce",
+
+          "effectFunction":"jetExhaustEffect",
+          "feedback":{"id":"nozzle_1", "effects":["thruster_flame_effect"], "scale":9, "factor":1,  "light":{"id":"engine_l", "gain":1}}
+        }
+      },
+      {
+        "id":"jet_2",
+        "data":{
+          "state":{"value":0, "min":-0.2, "max":1, "speed":0.003, "factor":4000},
+          "source":"jet_2",
+          "target":"nozzle_2",
+
+          "sampleSource":"slaveModule",
+          "applyState":"applyForce",
+
+          "effectFunction":"jetExhaustEffect",
+          "feedback":{"id":"nozzle_2", "effects":["thruster_flame_effect"], "scale":9, "factor":1, "light":{"id":"engine_r", "gain":1}}
+        }
+      }
+    ]
+  }
+}]

@@ -64,8 +64,9 @@ define([
                 effect = new EffectList();
             }
 
-            effect.enableEffectList(fxconf.effects, args.pos, args.quat);
+            effect.enableEffectList(fxconf.effects, args.pos, args.quat, args.scale);
             effect.setEffectListVelocity(args.vel);
+
 
             pool.push(effect);
 

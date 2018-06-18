@@ -22,7 +22,7 @@
             "effects":["water_foam_particle_effect"]
           },
           "condensation":{
-            "pool":3000,
+            "pool":1000,
             "effects":["condensation_trail"]
           },
           "condensation_near":{

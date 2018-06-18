@@ -29,7 +29,7 @@ define([
         var up = new THREE.Vector3(0, 1, 0);
 
         tempObj.lookAt(up);
-        var fxArgs = {effect:'', pos:fxPos, vel:fxVel, quat:fxQuat};
+        var fxArgs = {effect:'', pos:fxPos, vel:fxVel, quat:fxQuat, scale:1};
 
 
 
@@ -69,6 +69,7 @@ define([
         var spawnTargetEffect = function(renderable, target, fxId) {
             fxArgs.effect = fxId;
             evt.fire(evt.list().WATER_EFFECT, fxArgs);
+            fxArgs.scale = 1;
         };
 
 
@@ -107,6 +108,9 @@ define([
 
             fxArgs.vel.applyQuaternion(renderable.quat);
             fxArgs.vel.y +=0.1;
+
+
+
             spawnTargetEffect(renderable, target, 'prop_effect');
         };
 
@@ -172,7 +176,7 @@ define([
 
             value = moduleState.getStateValue();
 
-            if (Math.abs(value) * trgt.factor < trgt.threshold) return;
+            if (Math.abs(value) < trgt.threshold) return;
 
             shape = moduleState.getActiveShape();
 
@@ -196,7 +200,7 @@ define([
 
             value = moduleState.getStateValue();
 
-            if (Math.abs(value) * trgt.factor < trgt.threshold) return;
+            if (Math.abs(value) < trgt.threshold) return;
 
             target = moduleState.getActiveObject();
 
@@ -206,10 +210,23 @@ define([
                 if (target.parentShapeId) {
                     target.setParentShape(renderable.getSpatialShapeById(target.parentShapeId))
                 }
-
             }
 
+
             target.calculateWorldPosition(renderable.pos, renderable.quat, fxArgs.pos);
+
+            if (trgt.vel) {
+                renderable.getDynamicSpatialVelocity(fxArgs.vel);
+                if (trgt.vel !== 1) {
+                    fxArgs.vel.multiplyScalar(trgt.vel)
+                }
+            } else {
+                fxArgs.vel.set(0, 0, 0)
+            }
+
+            if (trgt.scale) {
+                fxArgs.scale = (Math.abs(value) - trgt.threshold) * trgt.scale;
+            }
 
             spawnTargetEffect(renderable, shape, trgt.effect);
         };

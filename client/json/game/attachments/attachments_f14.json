@@ -373,11 +373,11 @@
         "data":{
           "modules":[
             {"config_key":"WAKE_EMITTERS_F14", "config_id":"wingtip_1", "group":[
-              {"parent_shape":"pivot_r", "offset":[-6.7,   0.0, -0.5], "direction":[1, 0, 0], "size":[0.1, 0.1, 1.0]}
+              {"parent_shape":"pivot_r", "offset":[-7.2,   0.0, -0.5], "direction":[1, 0, 0], "size":[0.1, 0.1, 1.0]}
             ]},
 
             {"config_key":"WAKE_EMITTERS_F14", "config_id":"wingtip_2", "group":[
-              {"parent_shape":"pivot_l", "offset":[ 6.7,   0.0, -0.5], "direction":[-1, 0, 0], "size":[0.1, 0.1, 1.0]}
+              {"parent_shape":"pivot_l", "offset":[ 7.2,   0.0, -0.5], "direction":[-1, 0, 0], "size":[0.1, 0.1, 1.0]}
             ]},
 
             {"config_key":"WAKE_EMITTERS_F14", "config_id":"body_core_cond",    "group":[

@@ -392,10 +392,16 @@
 
         ],
 
+        "vertexFlatDirAmbLight":[
+
+          "vColor.r *= ambientLightColor.r * 0.35 + sunLightColor.r * 0.85;",
+          "vColor.g *= ambientLightColor.g * 0.35 + sunLightColor.g * 0.85;",
+          "vColor.b *= ambientLightColor.b * 0.35 + sunLightColor.b * 0.85;"
+
+        ],
 
 
-
-        "vertexShadeLowerVerts":[
+       "vertexShadeLowerVerts":[
 
           "float lowness = 0.95 + vPosition.y * 0.2;",
 
@@ -412,6 +418,7 @@
           "vColor.b *= ambientLightColor.b*(1.0-lowness*0.9)*0.5 + sunLightColor.b*lowness*0.5;"
 
         ],
+
 
 
         "vertexDirectionalVertexLight":[

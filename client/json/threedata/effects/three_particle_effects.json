@@ -374,9 +374,9 @@
           "id":"condensation_trail",
           "data":{
             "system_key":"THREE",
-            "renderer_id":"gpu_normal_atlas_renderer",
+            "renderer_id":"gpu_transparent_atlas_renderer",
             "particle_id":"condensation_particle",
-            "count":3,
+            "count":6,
             "simulation_id":"gpu_predictive_simulation"
           }
         },
@@ -384,7 +384,7 @@
           "id":"condensation_near_effect",
           "data":{
             "system_key":"THREE",
-            "renderer_id":"gpu_normal_atlas_renderer",
+            "renderer_id":"gpu_transparent_atlas_renderer",
             "particle_id":"condensation_near_particle",
             "count":3,
             "simulation_id":"gpu_predictive_simulation"
