@@ -37,6 +37,11 @@ define(['PipelineObject',
     var world = {};
     var currentEnvId;
 
+    var maxElevation = 10000;
+
+    var currentElevation = 0;
+    var elevationFactor = 0;
+
     var currentEnvConfig;
     var currentSkyConfig;
 
@@ -159,17 +164,17 @@ define(['PipelineObject',
             }
 
             if (config[key].density) {
-                applyFog(world[key], config[key].density);
+                applyFog(world[key], config[key].density * elevationFactor);
                 //    renderer.setClearColor(new THREE.Color(config[key].color[0],config[key].color[1], config[key].color[2]))
             }
         }
     };
-
+    var config;
     function applySkyConfig() {
 
-        var config = currentSkyConfig;
+        config = currentSkyConfig;
 
-        var uniforms = sky.uniforms;
+        uniforms = sky.uniforms;
         uniforms.turbidity.value = config.turbidity;
         uniforms.rayleigh.value = config.rayleigh;
         uniforms.luminance.value = config.luminance;
@@ -236,13 +241,15 @@ define(['PipelineObject',
                 }
 
                 if (current[key].density) {
-                    current[key].density = MATH.interpolateFromTo(current[key].density, target[key].density,  fraction);
+                    current[key].density = MATH.interpolateFromTo(current[key].density, target[key].density,  fraction) ;
                 }
             }
         }
 
         return current;
     };
+
+
 
     var interpolateSky = function(current, target, fraction) {
 
@@ -268,6 +275,45 @@ define(['PipelineObject',
 
     var t = 0;
 
+
+    var uwFogColor = [0.02, 0.11, 0.3];
+var uwSunColor = [0.1, 0.2, 0.4];
+var uwAmbColor = [0.01, 0.2, 0.6];
+
+    var uniforms;
+
+    var updateUnderwater = function() {
+
+        uniforms = sky.uniforms;
+        uniforms.turbidity.value = 13;
+        uniforms.rayleigh.value = 2.3;
+        uniforms.luminance.value = 1.1;
+        uniforms.mieCoefficient.value = 0.1;
+        uniforms.mieDirectionalG.value = 0.822;
+
+        theta = Math.PI * ( 0.94 - 0.5 );
+        phi = 2 * Math.PI * ( 0.35 - 0.5 );
+
+        sunSphere.position.x = 10000 * Math.cos( phi );
+        sunSphere.position.y = 10000 * Math.sin( phi ) * Math.sin( theta );
+        sunSphere.position.z = 10000 * Math.sin( phi ) * Math.cos( theta );
+
+        sunSphere.quaternion.set(0, 1, 0, 0);
+
+        sky.uniforms.sunPosition.value.copy( sunSphere.position );
+
+
+        world.fog.color.set(0.1, 0.2, 0.4);
+
+    //    applyColor(world.fog, uwFogColor);
+        applyColor(world.sun, uwSunColor);
+        applyColor(world.ambient, uwAmbColor);
+        world.fog.density = 0.009;
+        transitionProgress = 0;
+    //    updateDynamigAmbient(uWambientColor);
+
+    };
+
     var tickEnvironment = function(e) {
 
     //    console.log("Tick Env")
@@ -276,6 +322,16 @@ define(['PipelineObject',
 
     //    t+=evt.args(e).tpf
     //    fraction = fraction;
+        currentElevation = WorkerAPI.getCom(ENUMS.BufferChannels.CAM_POS_Y);
+
+if (currentElevation > 0) {
+    elevationFactor = MATH.curveQuad( MATH.airDensityAtAlt(currentElevation) );
+} else {
+    updateUnderwater();
+    return;
+}
+
+        //      elevationFactor =  MATH.airDensityAtAlt(currentElevation) ;
 
         comEnvIdx =  WorkerAPI.getCom(ENUMS.BufferChannels.ENV_INDEX);
         if (currentEnvIndex !== comEnvIdx) {
@@ -329,8 +385,8 @@ define(['PipelineObject',
 
         var sunInTheBack = calcVec.dot(calcVec2);
 
-        updateDynamigFog(sunInTheBack);
-        updateDynamigAmbient(sunInTheBack);
+            updateDynamigFog(sunInTheBack);
+            updateDynamigAmbient(sunInTheBack);
 
         applyFromBuffer(envBuffer);
     };

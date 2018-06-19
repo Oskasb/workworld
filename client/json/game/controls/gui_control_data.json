@@ -87,7 +87,9 @@
             {"widget":"STATE_INDICATOR","label":"RT YW",  "configId":"ind_angle_x", "layout":{"margin_y":0.24, "margin_x":0.30,   "width":0.12, "height":0.005}, "buffer":"currentDynamic", "channel":"ANGULAR_VEL_Y"},
 
             {"widget":"STATE_INDICATOR","label":"AOA",    "configId":"state_indicator_y", "layout":{"margin_y":0.24, "margin_x":0.297, "width":-0.006}, "buffer":"currentDynamic", "channel":"ANGLE_OF_ATTACK_X"},
-            {"widget":"STATE_INDICATOR","label":"RT PT",  "configId":"ind_angle_y", "layout":{"margin_y":0.24, "margin_x":0.301,   "width":-0.022}, "buffer":"currentDynamic", "channel":"ANGULAR_VEL_X"}
+            {"widget":"STATE_INDICATOR","label":"RT PT",  "configId":"ind_angle_y", "layout":{"margin_y":0.24, "margin_x":0.301,   "width":-0.022}, "buffer":"currentDynamic", "channel":"ANGULAR_VEL_X"},
+            {"widget":"STATE_INDICATOR","label":"RT CL",  "configId":"climb_indicator", "layout":{"margin_y":0.245, "margin_x":0.301}, "buffer":"currentDynamic", "channel":"VELOCITY_Y"},
+            {"widget":"STATE_INDICATOR","label":"RT CL",  "configId":"climb_indicator_fine", "layout":{"margin_y":0.25, "margin_x":0.301}, "buffer":"currentDynamic", "channel":"VELOCITY_Y"}
           ]
         }
       }

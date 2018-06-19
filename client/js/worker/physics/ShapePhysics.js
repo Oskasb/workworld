@@ -224,7 +224,7 @@ define([
             liftVec.multiplyScalar(speed * density * coefficients['base_lift'] ) // 0.016);
 
             dragVec.normalize();
-            dragVec.multiplyScalar(liftVec.length() * 0.0001);
+            dragVec.multiplyScalar(liftVec.length() * coefficients['lift_drag']);
             dynamicShape.addForceToDynamicShape(dragVec);
             dynamicShape.addForceToDynamicShape(liftVec);
 

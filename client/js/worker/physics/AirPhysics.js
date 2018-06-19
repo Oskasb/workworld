@@ -56,7 +56,7 @@ define([
         var liftVec = new THREE.Vector3();
         var dragVec = new THREE.Vector3();
 
-        AirPhysics.prototype.processAirPhysics = function(dynSpat, physTpf) {
+        AirPhysics.prototype.processAirPhysics = function(dynSpat, altitude) {
             dynSpat.getSpatialQuaternion(tempQuat);
             speed = dynSpat.spatialBuffer[ENUMS.BufferSpatial.SPEED_MPS];
             sqrtSpd = Math.sqrt(speed);
@@ -76,7 +76,7 @@ define([
             totalSubmergedVolume = 0;
             unsubmergedVolume = 0;
             totalVolForce = 0;
-            density = 1.22;
+            density = MATH.airDensityAtAlt(altitude);
 
             for (var i = 0; i < dynSpat.dynamicShapes.length; i++) {
 
@@ -109,6 +109,15 @@ define([
                 ShapePhysics.calculateShapeDynamicForce(dynSpat, shape, tempVolumeVelVec, tempQuat, tempVec2, compoundAoAVec, speed, density);
 
             }
+
+            if (tempAngVelVec.lengthSq() > 0.5 || speed > 300) {
+                if (altitude > 10) {
+                    PhysicsWorldAPI.setBodyDamping(dynSpat.body, dynSpat.baseDamping, dynSpat.baseDamping+ (0.1 * (tempAngVelVec.lengthSq()-0.01)) + MATH.clamp(0.02*(speed-300), 0, 0.5))
+                }
+            } else {
+
+            }
+
         };
 
         AirPhysics.prototype.simulateDynamicSpatialInAir = function(dynSpat, physTpf) {
@@ -119,8 +128,8 @@ define([
 
             dynSpat.getSpatialPosition(tempVec);
 
-            if (tempVec.y > 0) {
-                this.processAirPhysics(dynSpat, physTpf);
+            if (tempVec.y > 1) {
+                this.processAirPhysics(dynSpat, tempVec.y);
             }
 
         };

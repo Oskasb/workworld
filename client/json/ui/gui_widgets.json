@@ -1445,6 +1445,105 @@
       },
 
       {
+        "id": "climb_indicator",
+        "data": {
+          "header_label":"gauge_key",
+          "value_label":"gauge_value",
+
+          "surface":{
+
+            "layout":{
+              "anchor":"bottom_left",
+              "fixed_aspect":true,
+              "margin_x":0.0001,
+              "margin_y":0.18,
+              "width": 0.01,
+              "height":0.115
+            },
+
+            "backplate":{
+              "passive_fx":"plate_passive_effects",
+              "active_fx":"plate_passive_effects",
+              "color":"orange_1"
+            }
+          },
+          "state":{
+            "progress":{
+              "axis":[0, 1],
+              "min":-0.25,
+              "max":0.25,
+              "factor":0.01,
+              "offset":-0.0,
+              "anchor":true,
+              "wrap":true
+            },
+
+            "layout":{
+              "anchor":"bottom_left",
+              "fixed_aspect":true,
+              "margin_x":-0.002,
+              "margin_y":0.18,
+              "width": 0.01,
+              "height":0.005
+            },
+
+            "backplate":{
+              "passive_fx":"plate_active_effects",
+              "active_fx":"plate_active_effects",
+              "color":"cyan_2"
+            }
+          }
+        }
+      },
+
+      {
+        "id": "climb_indicator_fine",
+        "data": {
+          "header_label":"gauge_key",
+          "value_label":"gauge_value",
+
+          "surface":{
+
+            "layout":{
+              "anchor":"bottom_left",
+              "fixed_aspect":true,
+              "margin_x":0.0001,
+              "margin_y":0.18,
+              "width": 0.008,
+              "height":0.105
+            }
+
+          },
+          "state":{
+            "progress":{
+              "axis":[0, 1],
+              "min":-0.25,
+              "max":0.25,
+              "factor":0.025,
+              "offset":-0.0,
+              "anchor":false,
+              "wrap":true
+            },
+
+            "layout":{
+              "anchor":"bottom_left",
+              "fixed_aspect":true,
+              "margin_x":-0.002,
+              "margin_y":0.18,
+              "width": 0.02,
+              "height":0.003
+            },
+
+            "backplate":{
+              "passive_fx":"plate_active_effects",
+              "active_fx":"plate_active_effects",
+              "color":"cyan_2"
+          }
+          }
+        }
+      },
+
+      {
         "id": "altitude_indicator",
         "data": {
           "header_label":"gauge_key",

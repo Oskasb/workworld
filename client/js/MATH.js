@@ -73,7 +73,7 @@ if(typeof(MATH) === "undefined") {
     };
 
     MATH.airDensityAtAlt = function(alt) {
-        return MATH.valueFromCurve(alt, MATH.curves.densityByAlt);
+        return MATH.valueFromCurve(alt, MATH.curves.densityByAlt) * 1.22;
     };
 
     MATH.curves = {

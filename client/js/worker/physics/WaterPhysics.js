@@ -100,7 +100,16 @@ define([
             }
 
             submergedFraction = MATH.calcFraction(0, unsubmergedVolume+totalSubmergedVolume,  totalSubmergedVolume);
-            PhysicsWorldAPI.setBodyDamping(dynSpat.body, Math.min(dynSpat.baseDamping + Math.sqrt(submergedFraction*2)*0.1, 0.75),Math.min( dynSpat.baseDamping + Math.sqrt(submergedFraction*2) *0.1, 0.75)  )
+
+            var baseDamp = Math.min(dynSpat.baseDamping + Math.sqrt(submergedFraction*2) * 0.2, 0.49);
+            var rotDamp =  Math.min(dynSpat.baseDamping + Math.sqrt(submergedFraction*2) * 0.2, 0.85);
+
+            if (tempVelVec.y < -5) {
+                baseDamp *= (1 - tempVelVec.y*0.1);
+                rotDamp *= (1 - tempVelVec.y*0.1)
+            }
+
+            PhysicsWorldAPI.setBodyDamping(dynSpat.body, baseDamp, rotDamp)
 
         };
 
