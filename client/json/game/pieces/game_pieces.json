@@ -37,6 +37,7 @@
             {"config_key":"ENTERPRISE_ATTACHMENTS", "config_id":"elevator_system"},
             {"config_key":"ENTERPRISE_ATTACHMENTS", "config_id":"door_system"},
             {"config_key":"ENTERPRISE_ATTACHMENTS", "config_id":"radar_system"},
+            {"config_key":"ENTERPRISE_ATTACHMENTS", "config_id":"external_lights"},
             {"config_key":"ENTERPRISE_ATTACHMENTS", "config_id":"wake_emitters"}
           ]
         }
@@ -67,8 +68,8 @@
 
             {"control_id":"rudder",            "min":-1, "max":1, "speed":0.1,   "factor":4, "value":0},
 
-            {"control_id":"elevator",          "min":-1, "max":1, "speed":0.03,   "factor":8, "value":0},
-            {"control_id":"aeilron",           "min":-1, "max":1, "speed":0.03,   "factor":8, "value":0},
+            {"control_id":"elevator",          "min":-1, "max":1, "speed":0.08,  "factor":12, "value":0},
+            {"control_id":"aeilron",           "min":-1, "max":1, "speed":0.08,  "factor":12, "value":0},
 
             {"control_id":"trim_rudder",       "min":-1, "max":1, "speed":0.1,   "factor":4, "value":0},
             {"control_id":"trim_elevator",     "min":-1, "max":1, "speed":0.1,   "factor":8, "value":0},

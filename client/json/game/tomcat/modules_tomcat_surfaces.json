@@ -156,7 +156,7 @@
           "source":"flaps",
 
           "applyState":"rotateShape",
-          "target":{"id":"pivot_l", "rot":"rotateX", "factor":0.13, "limiters":[{"id":"sweep", "min":0.02, "max":2, "factor":0}]},
+          "target":{"id":"body_core_2", "rot":"rotateX", "factor":0.13, "limiters":[{"id":"sweep", "min":0.02, "max":2, "factor":0}]},
 
 
           "effectFunction":"applyBoneRotation",
@@ -173,7 +173,7 @@
           "source":"flaps",
 
           "applyState":"rotateShape",
-          "target":{"id":"pivot_r", "rot":"rotateX", "factor":0.13, "limiters":[{"id":"sweep", "min":0.02, "max":2, "factor":0}]},
+          "target":{"id":"body_core_3", "rot":"rotateX", "factor":0.13, "limiters":[{"id":"sweep", "min":0.02, "max":2, "factor":0}]},
 
           "effectFunction":"applyBoneRotation",
           "feedback":{"id":"flap_r", "rot":"rotateX", "factor":-1, "light":{"id":"flap_r", "gain":2}}

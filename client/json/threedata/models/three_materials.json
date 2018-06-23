@@ -104,6 +104,57 @@
           }]
         },
         {
+          "id":"enterprise_atlas_main",
+          "shader":"MeshStandardMaterial",
+          "blending":"NoBlending",
+          "color":{"r":1, "g":1, "b":1},
+          "settings":{
+            "roughness":1,
+            "metalness":1,
+            "envMapIntensity":1.0,
+            "aoMapIntensity":1.5
+          },
+          "textures":[{
+            "map":"./client/assets/images/textures/PlaneAtlas.png",
+            "envMap":"./client/assets/images/textures/ref_sphere.png",
+            "metalnessMap":"./client/assets/images/textures/PlaneAtlasMetalness.png",
+            "roughnessMap":"./client/assets/images/textures/PlaneAtlasRoughness.png",
+            "normalMap":"./client/assets/images/textures/PlaneAtlas_Normal.png"
+          }]
+        },
+        {
+          "id":"enterprise_lights_emit",
+          "shader":"MeshBasicMaterial",
+          "blending":"AdditiveBlending",
+          "color":{"r":1, "g":1, "b":1},
+          "settings":{
+            "transparent":true,
+            "depthTest":true,
+            "depthWrite":false,
+            "fog":false,
+            "opacity":1
+          },
+          "textures":[{
+            "map":"./client/assets/images/textures/carrier_emit.png"
+          }]
+        },
+        {
+          "id":"enterprise_lights_unlit",
+          "shader":"MeshBasicMaterial",
+          "blending":"NoBlending",
+          "color":{"r":1, "g":1, "b":1},
+          "settings":{
+            "transparent":false,
+            "depthTest":true,
+            "depthWrite":true,
+            "fog":false,
+            "opacity":1
+          },
+          "textures":[{
+            "map":"./client/assets/images/textures/carrier_lights_unlitt.png"
+          }]
+        },
+        {
           "id":"glass_canopy",
           "shader":"MeshStandardMaterial",
           "blending":"AdditiveBlending",

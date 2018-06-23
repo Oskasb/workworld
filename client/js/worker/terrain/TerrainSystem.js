@@ -14,12 +14,12 @@ define([
         var tempVec = new THREE.Vector3();
 
 
-        var scatter = 100;
+        var scatter = 3500;
 
-        var gridSpacing = 4000;
-        var gridWidth = 3;
-        var minX = -3000;
-        var minZ = -3000;
+        var gridSpacing = 18000;
+        var gridWidth = 2;
+        var minX = -9000;
+        var minZ = -9000;
 
         var spawnCount = 0;
         var row = 0;

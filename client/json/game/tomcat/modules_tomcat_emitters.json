@@ -29,12 +29,24 @@
         }
       },
       {
-        "id":"body_core_cond",
+        "id":"body_core_cond_0",
         "data":{
           "state":{"value":0, "min":-1, "max":1, "speed":0.01, "factor":1},
           "source":"force_3",
           "target":"nacell_1",
-          "feedback":{"id":"body_core", "threshold":0.1, "vel":1, "effect":"condensation_near"},
+          "feedback":{"id":"body_core_0", "threshold":0.1, "vel":1, "effect":"condensation_near"},
+          "sampleSource":"sampleModule",
+          "applyState":"effectEmitter",
+          "effectFunction":"shapeFittedEffect"
+        }
+      },
+      {
+        "id":"body_core_cond_1",
+        "data":{
+          "state":{"value":0, "min":-1, "max":1, "speed":0.01, "factor":1},
+          "source":"force_3",
+          "target":"nacell_1",
+          "feedback":{"id":"body_core_1", "threshold":0.1, "vel":1, "effect":"condensation_near"},
           "sampleSource":"sampleModule",
           "applyState":"effectEmitter",
           "effectFunction":"shapeFittedEffect"

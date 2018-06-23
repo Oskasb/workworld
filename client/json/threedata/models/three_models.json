@@ -32,7 +32,20 @@
 
         {
           "id": "model_enterprise",
-          "material": "atlas_2k",
+          "canvas_textures":{"lights":["map"]},
+          "group_materials":{
+            "lights":"enterprise_lights_emit",
+            "lights_base":"enterprise_lights_unlit",
+            "animated":"enterprise_atlas_main",
+            "details":"enterprise_atlas_main",
+            "decals":"enterprise_atlas_main",
+            "hull":"enterprise_atlas_main",
+            "deck":"enterprise_atlas_main",
+            "hangar":"enterprise_atlas_main",
+            "car":"enterprise_atlas_main",
+            "truck":"enterprise_atlas_main",
+            "crane":"enterprise_atlas_main"
+          },
           "format":"fbx",
           "url": "./client/assets/models/boats/enterprise",
           "pool": 3,
@@ -40,7 +53,8 @@
             "pos": [0,  -0, 0],
             "rot": [0,  -1, 0],
             "scale": [1, 1, 1]
-          }
+          },
+          "dynamic_texture":"lights_enterprise"
         },
 
         {

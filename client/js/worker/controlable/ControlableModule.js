@@ -87,6 +87,17 @@ define([
             store.add(parentPos);
         };
 
+        ControlableModule.prototype.applyWorldRotation = function(parentPos, parentQuat, store) {
+
+        //    store.copy(this.offset);
+            if (this.parentShape) {
+                store.applyQuaternion(this.parentShape.rotation);
+            }
+
+            store.applyQuaternion(parentQuat);
+        };
+
+
         var map = {
             sampleSource:'sampleSource',
             source:'source',

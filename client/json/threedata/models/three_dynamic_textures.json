@@ -18,6 +18,8 @@
                   {  "id":   "rear_l"	  ,   "txcoords":  [45,    301,    9,   8]},
                   {  "id":   "rear_r",        "txcoords":  [65,    301,    9,   8]},
 
+                  {  "id":   "pos_chinpod",   "txcoords":  [38,    301,    9,   8]},
+
                   {  "id":   "collision_l",   "txcoords":  [35,    310,    9,   8]},
                   {  "id":   "coll_low_r",    "txcoords":  [ 5,    301,    9,   8]},
 
@@ -120,7 +122,26 @@
                   {  "id":"engine_l",         "txcoords":  [16,    319,    19, 15]}
                 ]
 
-
+          }
+        },
+        {
+          "id": "lights_enterprise",
+          "data":{
+            "lights":[
+              {  "id":   "ball_blue"    ,   "txcoords":  [30,    0,    9, 9]},
+              {  "id":   "ball_red_1"   ,   "txcoords":  [10,    0,    9, 9]},
+              {  "id":   "ball_red_2"   ,   "txcoords":  [20,    0,    9, 9]},
+              {  "id":   "ball_elv_1"   ,   "txcoords":  [0,     0,    9, 9]},
+              {  "id":   "ball_elv_2"   ,   "txcoords":  [0,     10,   9, 9]},
+              {  "id":   "ball_elv_3"   ,   "txcoords":  [0,     20,   9, 9]},
+              {  "id":   "ball_elv_4"   ,   "txcoords":  [0,     30,   9, 9]},
+              {  "id":   "ball_elv_5"   ,   "txcoords":  [0,     40,   9, 9]},
+              {  "id":   "ball_elv_6"   ,   "txcoords":  [0,     50,   9, 9]},
+              {  "id":   "ball_elv_7"   ,   "txcoords":  [0,     60,   9, 9]},
+              {  "id":   "ball_elv_8"   ,   "txcoords":  [0,     70,   9, 9]},
+              {  "id":   "ball_elv_9"   ,   "txcoords":  [0,     80,   9, 9]},
+              {  "id":   "ball_elv_10"  ,   "txcoords":  [0,     90,   9, 9]}
+            ]
           }
         }
       ]

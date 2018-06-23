@@ -128,7 +128,7 @@ define([
 
         //    var effectList = target.effectList;
 
-            min = 0.5;
+            min = trgt.min;
             value = moduleState.getStateValue();
 
             if (value < min) {
@@ -152,10 +152,10 @@ define([
 
             }
 
-            target.effectList.setEffectListScale((value - min) * trgt.scale);
+            target.effectList.setEffectListScale((value) * trgt.scale);
 
             fxArgs.vel.copy(target.direction);
-            fxArgs.vel.multiplyScalar(-moduleState.getStateValue());
+            fxArgs.vel.multiplyScalar(-moduleState.getStateValue() -trgt.min);
             fxArgs.vel.applyQuaternion(renderable.quat);
 
             target.effectList.setEffectListVelocity(fxArgs.vel)
@@ -261,7 +261,7 @@ define([
                 target.calculateWorldPosition(renderable.pos, renderable.quat, fxArgs.pos);
 
                 if (!target.effectList.effectCount()) {
-                    target.effectList.enableEffectList(trgt.effects, fxArgs.pos);
+                    target.effectList.enableEffectList(trgt.effects, fxArgs.pos, null, (value - min) * trgt.scale);
                     target.effectList.setEffectListColorKey(trgt.color);
                 } else {
                     target.calculateWorldPosition(renderable.pos, renderable.quat, fxArgs.pos);
@@ -272,9 +272,58 @@ define([
 
             target.effectList.setEffectListScale((value - min) * trgt.scale);
 
-
-
         //    target.effectList.setEffectListVelocity(fxArgs.vel)
+
+        };
+
+        var scale;
+
+        ModuleEffectFunctions.moduleAttachedEffect = function(renderable, moduleState, trgt) {
+
+            value = moduleState.getStateValue();
+
+            target = moduleState.getActiveObject();
+
+            if (!target) {
+                target = renderable.getGamePiece().getControlableModuleById(trgt.id);
+                moduleState.setActiveObject(target);
+                if (target.parentShapeId) {
+                    target.setParentShape(renderable.getSpatialShapeById(target.parentShapeId))
+                }
+                target.effectList = new EffectList();
+            }
+
+            min = trgt.threshold;
+
+            if (value < min) {
+
+                if (target.effectList.effectCount()) {
+                    target.effectList.setEffectListScale(0);
+                    target.effectList.disableEffectList();
+                }
+                return;
+
+            } else {
+
+                target.calculateWorldPosition(renderable.pos, renderable.quat, fxArgs.pos);
+
+                fxArgs.vel.copy(target.direction);
+                fxArgs.vel.multiplyScalar(value * trgt.factor);
+                target.applyWorldRotation(renderable.pos, renderable.quat, fxArgs.vel);
+
+                if (!target.effectList.effectCount()) {
+                    target.effectList.enableEffectList(trgt.effects, fxArgs.pos, null, (value - min) * trgt.scale);
+                    target.effectList.setEffectListColorKey(trgt.color);
+                } else {
+                    target.calculateWorldPosition(renderable.pos, renderable.quat, fxArgs.pos);
+                    target.effectList.setEffectListPosition(fxArgs.pos);
+
+                    scale = (target.moduleState.getStateValue() * trgt.factor) || 0;
+                    target.effectList.setEffectListScale(trgt.scale + scale);
+                }
+            }
+
+            target.effectList.setEffectListVelocity(fxArgs.vel)
 
         };
 

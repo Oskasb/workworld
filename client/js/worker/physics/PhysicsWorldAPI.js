@@ -93,6 +93,8 @@ define([
             }
         };
 
+        var isStatic;
+
         var updateDynamicSpatials = function(physTpf) {
 
             activeBodies = 0;
@@ -100,12 +102,16 @@ define([
             staticBodies = 0;
 
             for (var i = 0; i < dynamicSpatials.length; i++) {
-                waterPhysics.simulateDynamicSpatialInWater(dynamicSpatials[i], physTpf);
-                airPhysics.simulateDynamicSpatialInAir(dynamicSpatials[i], physTpf);
-                dynamicSpatials[i].sampleBodyState();
-                activeBodies += dynamicSpatials[i].getSpatialSimulateFlag();
+                isStatic = dynamicSpatials[i].isStatic();
+                if (!isStatic) {
+                    waterPhysics.simulateDynamicSpatialInWater(dynamicSpatials[i], physTpf);
+                    airPhysics.simulateDynamicSpatialInAir(dynamicSpatials[i], physTpf);
+                    dynamicSpatials[i].sampleBodyState();
+                    activeBodies += dynamicSpatials[i].getSpatialSimulateFlag();
+                }
+
                 passiveBodies += dynamicSpatials[i].getSpatialDisabledFlag();
-                staticBodies += dynamicSpatials[i].isStatic();
+                staticBodies += isStatic;
             }
         };
 

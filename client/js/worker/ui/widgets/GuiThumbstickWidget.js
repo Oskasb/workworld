@@ -17,7 +17,7 @@ define([
 
             this.position = new THREE.Vector3();
             this.guiDraggable = new GuiDraggable();
-            this.baseWidget = new BaseWidget("STEER", "config");
+            this.baseWidget = new BaseWidget("STICK", "config");
         };
 
         GuiThumbstickWidget.prototype.setupTextElements = function() {

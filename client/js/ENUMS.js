@@ -441,6 +441,7 @@ if(typeof(ENUMS) === "undefined"){
 
     ENUMS.ColorCurve = {
 
+        whiteToGrey:   104,
         greyToWhite:   103,
         cyan_1:        102,
         cyan_2:        101,

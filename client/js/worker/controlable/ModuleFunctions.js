@@ -170,6 +170,14 @@ define([
 
         ModuleFunctions.slaveModule = function(renderable, moduleState, trgt) {
 
+            value = renderable.getGamePiece().getModuleStateValueById(trgt.id);
+
+            if (MATH.valueIsBetween(value, trgt.min, trgt.max)) {
+                moduleState.setTargetState(trgt.offset + ( value - trgt.min ) * ( trgt.factor / ( trgt.max - trgt.min) ) );
+            } else {
+                moduleState.setTargetState(0)
+            }
+
         };
 
         ModuleFunctions.effectEmitter = function(renderable, moduleState, trgt) {

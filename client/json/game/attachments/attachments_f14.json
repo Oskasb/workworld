@@ -18,6 +18,14 @@
               {"offset":[1.4,  0.3, -6], "direction":[0,-0.0, 1], "size":[1, 1, 5]}
             ]},
 
+            {"config_key":"PROPULSION_F14", "config_id":"reheat_1", "group":[
+              {"offset":[-1.4, 0.3, -6], "direction":[0, 0.0, 1], "size":[1, 1, 5]}
+            ]},
+
+            {"config_key":"PROPULSION_F14", "config_id":"reheat_2", "group":[
+              {"offset":[1.4,  0.3, -6], "direction":[0,-0.0, 1], "size":[1, 1, 5]}
+            ]},
+
             {"config_key":"PROPULSION_F14", "config_id":"jet_1", "group":[
               {"offset":[-1.4, 0.3, -6], "direction":[0, 0.0, 1], "size":[1, 1, 5]}
             ]},
@@ -215,11 +223,11 @@
             ]},
 
             {"config_key":"EXTERNAL_F14", "config_id":"nozzle_r", "group":[
-              {"offset":[-1.4, 0.2, -8.5], "direction":[0, 0,-1], "size":[1, 1, 5]}
+              {"parent_shape":"nozzle_1", "offset":[0.0, -0.0, 0.1], "direction":[0,   0,   -1], "size":[1, 1, 1]}
             ]},
 
             {"config_key":"EXTERNAL_F14", "config_id":"nozzle_l", "group":[
-              {"offset":[1.4, 0.2, -8.5], "direction":[0, 0,-1], "size":[1, 1, 5]}
+              {"parent_shape":"nozzle_2", "offset":[-0.0, -0.0, 0.1], "direction":[0,   0,   -1], "size":[1, 1, 1]}
             ]},
 
             {"config_key":"EXTERNAL_F14", "config_id":"force_1", "group":[
@@ -314,19 +322,19 @@
         "data":{
           "modules":[
             {"config_key":"EXTERNAL_LIGHTS_F14", "config_id":"light_col_tip_l", "group":[
-              {"parent_shape":"pivot_l", "offset":[ 6.71,   -0.13,  0.1], "direction":[0,  -1, 0], "size":[0, 0, 0]}
+              {"parent_shape":"pivot_l", "offset":[ 6.65,   -0.15,  0.02], "direction":[0,  -1, 0], "size":[0, 0, 0]}
             ]},
 
             {"config_key":"EXTERNAL_LIGHTS_F14", "config_id":"light_col_tip_r", "group":[
-              {"parent_shape":"pivot_r", "offset":[-6.71,   -0.13,  0.1], "direction":[0,  -1, 0], "size":[0, 0, 0]}
+              {"parent_shape":"pivot_r", "offset":[-6.65,   -0.15,  0.02], "direction":[0,  -1, 0], "size":[0, 0, 0]}
             ]},
 
             {"config_key":"EXTERNAL_LIGHTS_F14", "config_id":"light_col_glove_l", "group":[
-              {"offset":[ 2.32,   1.12,  2.65], "direction":[0,  -1, 0], "size":[0, 0, 0]}
+              {"offset":[ 2.32,   1.03,  2.65], "direction":[0,  -1, 0], "size":[0, 0, 0]}
             ]},
 
             {"config_key":"EXTERNAL_LIGHTS_F14", "config_id":"light_col_glove_r", "group":[
-              {"offset":[-2.32,   1.12,  2.65], "direction":[0,  -1, 0], "size":[0, 0, 0]}
+              {"offset":[-2.32,   1.03,  2.65], "direction":[0,  -1, 0], "size":[0, 0, 0]}
             ]},
 
             {"config_key":"EXTERNAL_LIGHTS_F14", "config_id":"light_col_glove_ld", "group":[
@@ -340,6 +348,11 @@
             {"config_key":"EXTERNAL_LIGHTS_F14", "config_id":"light_col_rear_r", "group":[
               {"offset":[-1.62,   3.72,  -8.45], "direction":[0,  -1, 0], "size":[0, 0, 0]}
             ]},
+
+            {"config_key":"EXTERNAL_LIGHTS_F14", "config_id":"light_pos_chinpod", "group":[
+              {"offset":[ 0.0,   -0.45,  8.95], "direction":[0,  -1, 1], "size":[0, 0, 0]}
+            ]},
+
 
             {"config_key":"EXTERNAL_LIGHTS_F14", "config_id":"light_land_rear_l", "group":[
               {"offset":[ 1.62,   3.41,  -8.45], "direction":[0,  -1, 0], "size":[0, 0, 0]}

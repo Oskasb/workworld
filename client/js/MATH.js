@@ -78,6 +78,7 @@ if(typeof(MATH) === "undefined") {
 
     MATH.curves = {
 		"constantOne":  [[-10, 1], [10, 1]],
+        "nearOne":  [[-10, 1], [0.25, 0.92], [0.75, 1.02], [10, 1]],
 		"zeroToOne":    [[0, 0], [1, 1]],
 		"oneToZero":    [[0, 1], [1, 0]],
 		"quickFadeOut": [[0, 1], [0.9,1], [1,   0]],

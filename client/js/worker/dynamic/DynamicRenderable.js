@@ -69,6 +69,7 @@ define([
                 this.dynamicFeedback.inheritPosVector(this.pos);
                 this.dynamicFeedback.inheritQuaternion(this.quat);
                 onReady(this);
+
             }.bind(this);
 
             var rbReady = false;
@@ -312,7 +313,7 @@ define([
         DynamicRenderable.prototype.applyRenderableVisibility = function(isVisible) {
             this.renderableGeometry.applyVisibility(isVisible);
             this.dynamicSpatial.notifyVisibility(isVisible);
-            this.dynamicFeedback.tickDynamicFeedback(this.dynamicSpatial, isVisible);
+        //    this.dynamicFeedback.tickDynamicFeedback(this.dynamicSpatial, isVisible);
 
 
             if (WorldAPI.getCom(ENUMS.BufferChannels.DRAW_DYN_SHAPES)) {

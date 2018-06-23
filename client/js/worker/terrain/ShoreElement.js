@@ -1,9 +1,11 @@
 "use strict";
 
 define([
+        'Events',
         'EffectsAPI'
     ],
     function(
+        evt,
         EffectsAPI
     ) {
 
@@ -22,7 +24,16 @@ define([
         var tempVec1 = new THREE.Vector3();
         var tempVec2 = new THREE.Vector3();
         var tempObj3D = new THREE.Object3D();
+        var tempQuat = new THREE.Quaternion();
         var fxArg = {effect:"firey_explosion_core", pos:tempVec1, vel:tempVec2};
+
+        var fxArgs = {effect:'water_foam_particle_effect', pos:tempVec1, vel:tempVec2, quat:tempQuat, scale:1};
+
+        var spawnTargetEffect = function(renderable, target, fxId) {
+            fxArgs.effect = fxId;
+            evt.fire(evt.list().WATER_EFFECT, fxArgs);
+            fxArgs.scale = 1;
+        };
 
         var ShoreElement = function(area, origin, sideSize) {
 
@@ -67,7 +78,6 @@ define([
         //    tempObj3D.rotateY(Math.PI * Math.random());
 
 
-
             if (tempVec1.y < 0) {
 
                 this.shoreDepth = tempVec1.y;
@@ -107,57 +117,7 @@ define([
 
 
         ShoreElement.prototype.triggerShoreEffect = function(fxId, tpf) {
-            this.fxId = fxId;
 
-            if (this.effects.length) {
-            //    if (Math.random() < tpf*this.effects.length * 2) {
-                    EffectsAPI.returnPassiveEffect(this.effects.pop())
-            //    }
-            }
-
-            if (true) {
-
-                fxArg.effect = fxByFeature[this.elementType];
-
-            //    this.normal.x = (Math.random()-0.5) * 5;
-            //    this.normal.z = (Math.random()-0.5) * 5;
-            //    this.normal.y = 0;
-
-            //    this.effects.unshift(EffectsAPI.requestPassiveEffect(this.fxId, this.object3d.position, this.normal, null, this.object3d.quaternion))
-            //    EffectsAPI.requestTemporaryPassiveEffect(this.fxId, this.object3d.position, this.normal, null, this.object3d.quaternion, 10)
-
-            //    fxArg.effect = this.fxId;
-            //    fxArg.vel.copy(this.normal);
-            //    fxArg.vel.normalize();
-
-                fxArg.vel.x = 0;
-                fxArg.vel.y = 0;
-                fxArg.vel.z = 1;
-
-            //    fxArg.vel.applyQuaternion(this.object3d.quaternion);
-
-                fxArg.vel.x = 0;
-                fxArg.vel.y = 1;
-                fxArg.vel.z = 0;
-
-                tempObj3D.position.x = 0;
-                tempObj3D.position.z = 0;
-                tempObj3D.position.y = 0;
-
-                tempObj3D.lookAt(fxArg.vel);
-                tempObj3D.rotateZ(Math.random()*Math.PI);
-
-            //    fxArg.vel.copy(this.normal);
-
-            //    fxArg.vel.y = 0;
-            //    fxArg.vel.normalize();
-
-                this.effects.unshift(EffectsAPI.requestPassiveEffect(fxArg.effect, this.center, fxArg.vel, null, tempObj3D.quaternion))
-
-                // EffectsAPI.requestTemporaryPassiveEffect(fxArg.effect, fxArg.pos, fxArg.vel, 10, this.object3d.quaternion, 3);
-
-                //      evt.fire(evt.list().GAME_EFFECT, fxArg);
-            }
 
         };
 

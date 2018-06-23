@@ -11,10 +11,10 @@
             "layout":{
               "anchor":"bottom_left",
               "fixed_aspect":true,
-              "margin_x":0.07,
-              "margin_y":0.07,
-              "width": 0.37,
-              "height":0.31
+              "margin_x":0.09,
+              "margin_y":0.11,
+              "width": 0.30,
+              "height":0.26
             },
 
             "corners":{

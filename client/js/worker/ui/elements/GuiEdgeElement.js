@@ -2,11 +2,13 @@
 
 define([
         'ConfigObject',
-        'ui/elements/RenderableElement'
+        'ui/elements/RenderableElement',
+        'Events'
     ],
     function(
         ConfigObject,
-        RenderableElement
+        RenderableElement,
+        evt
     ) {
         var colorKey;
         var GuiEdgeElement = function() {
@@ -24,6 +26,12 @@ define([
             this.on = true;
             this.colorKey = true;
             this.dirty = true;
+
+            var onResize = function() {
+                this.dirty = true;
+            }.bind(this);
+
+            evt.on(evt.list().NOTIFY_RESIZE, onResize)
 
         };
 

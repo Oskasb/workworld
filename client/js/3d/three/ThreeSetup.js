@@ -86,7 +86,7 @@ define(['../../ui/GameScreen',
 
             scene = new THREE.Scene();
 
-            camera = new THREE.PerspectiveCamera( 45, containerElement.innerWidth / containerElement.innerHeight, 0.3, 50000 );
+            camera = new THREE.PerspectiveCamera( 45, containerElement.innerWidth / containerElement.innerHeight, 0.3, 35000 );
             camera.position.z = 10;
 
        //     console.log("Three Camera:", camera);

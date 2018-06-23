@@ -3,9 +3,10 @@
 
 
 define([
-
+'Events',
     'GuiAPI'
 ], function(
+    evt,
     GuiAPI
 ) {
 
@@ -239,9 +240,14 @@ define([
         comBuffer[ENUMS.BufferChannels.CAM_FOV]        = camera.fov;
         comBuffer[ENUMS.BufferChannels.CAM_NEAR]       = camera.near;
         comBuffer[ENUMS.BufferChannels.CAM_FAR]        = camera.far;
-        comBuffer[ENUMS.BufferChannels.CAM_ASPECT]     = camera.aspect;
 
+        if (camera.aspect !== comBuffer[ENUMS.BufferChannels.CAM_ASPECT]) {
+            comBuffer[ENUMS.BufferChannels.CAM_ASPECT]     = camera.aspect;
+            evt.fire(evt.list().NOTIFY_RESIZE, resizeArgs)
+        }
     };
+
+    var resizeArgs = {};
 
     WorldCamera.prototype.applyCameraComBuffer = function(comBuffer) {
 
@@ -255,7 +261,11 @@ define([
         camera.fov          = comBuffer[ENUMS.BufferChannels.CAM_FOV]   ;
         camera.near         = comBuffer[ENUMS.BufferChannels.CAM_NEAR]  ;
         camera.far          = comBuffer[ENUMS.BufferChannels.CAM_FAR]   ;
-        camera.aspect       = comBuffer[ENUMS.BufferChannels.CAM_ASPECT];
+
+        if (camera.aspect !== comBuffer[ENUMS.BufferChannels.CAM_ASPECT]) {
+            camera.aspect       = comBuffer[ENUMS.BufferChannels.CAM_ASPECT];
+            evt.fire(evt.list().NOTIFY_RESIZE, resizeArgs)
+        }
 
         this.updateCameraMatrix();
     };

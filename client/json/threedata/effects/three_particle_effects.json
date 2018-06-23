@@ -245,7 +245,18 @@
             "system_key":"THREE",
             "renderer_id":"gpu_additive_atlas_renderer",
             "particle_id":"thruster_flame_particles",
-            "count":45,
+            "count":25,
+            "simulation_id":"gpu_predictive_simulation"
+          }
+        },
+
+        {
+          "id":"turbine_effect",
+          "data":{
+            "system_key":"THREE",
+            "renderer_id":"gpu_additive_atlas_renderer",
+            "particle_id":"turbine_particles",
+            "count":35,
             "simulation_id":"gpu_predictive_simulation"
           }
         },

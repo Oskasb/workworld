@@ -71,7 +71,7 @@ define([
                 if (tempVec1.y > 1 && tempVec2.y > 0.92) {
 
                     if (!this.testTerrainElementsForType(otherElements, ENUMS.TerrainFeature.WOODS)) {
-                        this.scale = Math.floor(4*(Math.random()*Math.random()))+1;
+                        this.scale = Math.floor(4*(Math.random()*Math.random()))+4;
                         tempVec1.y += 6.5 * this.scale;
                         this.elementType = ENUMS.TerrainFeature.WOODS;
 
@@ -79,12 +79,12 @@ define([
 
                         if (Math.random() < 0.5) return;
 
-                        this.scale =  1.5 + Math.floor(2*(Math.random()));
+                        this.scale =  2.5 + Math.floor(3*(Math.random()));
                         tempVec1.y += 6 * this.scale;
                         this.elementType = ENUMS.TerrainFeature.WOODS;
                     }
                 } else {
-
+                    /*
                     if (tempVec2.y > 0.70) {
                         this.scale = 0.5 * Math.floor(3*(Math.random()))+0.5;
                         tempVec1.y += 2.5 * this.scale;
@@ -94,7 +94,7 @@ define([
                         tempVec1.y += 2 * this.scale;
                         this.elementType = ENUMS.TerrainFeature.STEEP_SLOPE;
                     }
-
+                    */
                 }
 
             } else {

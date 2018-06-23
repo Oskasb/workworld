@@ -120,7 +120,61 @@
           ]
         }
       },
-
+      {
+        "id":"external_lights",
+        "data":{
+          "modules":[
+            {"config_key":"EXTERNAL_LIGHTS", "config_id":"light_master", "group":[
+              {"offset":[-22, 85, -28.6],     "direction":[0, 0, 1], "size":[1, 1, 1]}
+            ]},
+            {"config_key":"EXTERNAL_LIGHTS", "config_id":"mast_top", "group":[
+              {"offset":[-22, 85, -28.6],     "direction":[0, 0, 1], "size":[1, 1, 1]}
+            ]},
+            {"config_key":"EXTERNAL_LIGHTS",  "config_id":"ball_blue_l1", "group":[
+              {"offset":[56.5, 24.5, -6.9],  "direction":[0, 0, 1], "size":[1, 1, 1]}
+            ]},
+            {"config_key":"EXTERNAL_LIGHTS",  "config_id":"ball_blue_r1", "group":[
+              {"offset":[43.0, 24.5, -6.9],  "direction":[0, 0, 1], "size":[1, 1, 1]}
+            ]},
+            {"config_key":"EXTERNAL_LIGHTS",  "config_id":"ball_red_1_ru", "group":[
+              {"offset":[49.5, 24.5, -6.9],  "direction":[0, 0, 1], "size":[1, 1, 1]}
+            ]},
+            {"config_key":"EXTERNAL_LIGHTS",  "config_id":"ball_red_2_ru", "group":[
+              {"offset":[49.5, 24.5, -6.9],  "direction":[0, 0, 1], "size":[1, 1, 1]}
+            ]},
+            {"config_key":"EXTERNAL_LIGHTS",  "config_id":"ball_elv_1", "group":[
+              {"offset":[49.5, 27.0, -6.5],  "direction":[0, 0, 1], "size":[1, 1, 1]}
+            ]},
+            {"config_key":"EXTERNAL_LIGHTS",  "config_id":"ball_elv_2", "group":[
+              {"offset":[49.5, 26.5, -6.6],  "direction":[0, 0, 1], "size":[1, 1, 1]}
+            ]},
+            {"config_key":"EXTERNAL_LIGHTS",  "config_id":"ball_elv_3", "group":[
+              {"offset":[49.5, 26.0, -6.7],  "direction":[0, 0, 1], "size":[1, 1, 1]}
+            ]},
+            {"config_key":"EXTERNAL_LIGHTS",  "config_id":"ball_elv_4", "group":[
+              {"offset":[49.5, 25.5, -6.8],  "direction":[0, 0, 1], "size":[1, 1, 1]}
+            ]},
+            {"config_key":"EXTERNAL_LIGHTS",  "config_id":"ball_elv_5", "group":[
+              {"offset":[49.5, 25.0, -6.9],  "direction":[0, 0, 1], "size":[1, 1, 1]}
+            ]},
+            {"config_key":"EXTERNAL_LIGHTS",  "config_id":"ball_elv_6", "group":[
+              {"offset":[49.5, 24.5, -7.0],  "direction":[0, 0, 1], "size":[1, 1, 1]}
+            ]},
+            {"config_key":"EXTERNAL_LIGHTS",  "config_id":"ball_elv_7", "group":[
+              {"offset":[49.5, 24.0, -7.1],  "direction":[0, 0, 1], "size":[1, 1, 1]}
+            ]},
+            {"config_key":"EXTERNAL_LIGHTS",  "config_id":"ball_elv_8", "group":[
+              {"offset":[49.5, 23.5, -7.2],  "direction":[0, 0, 1], "size":[1, 1, 1]}
+            ]},
+            {"config_key":"EXTERNAL_LIGHTS",  "config_id":"ball_elv_9", "group":[
+              {"offset":[49.5, 23.0, -7.3],  "direction":[0, 0, 1], "size":[1, 1, 1]}
+            ]},
+            {"config_key":"EXTERNAL_LIGHTS",  "config_id":"ball_elv_10", "group":[
+              {"offset":[49.5, 22.5, -7.4],  "direction":[0, 0, 1], "size":[1, 1, 1]}
+            ]}
+          ]
+        }
+      },
       {
         "id":"wake_emitters",
         "data":{

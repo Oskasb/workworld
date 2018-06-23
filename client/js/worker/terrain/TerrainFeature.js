@@ -49,6 +49,8 @@ define([
                             var addDynRen = function(ren, elem) {
                                 var rdy = function(rnd) {
                                     elem.addRenderable(rnd);
+                                    //    this.applyRenderableVisibility(false);
+                                    rnd.tickRenderable();
                                 };
                                 ren.initRenderable(rdy)
                             };
@@ -98,6 +100,11 @@ define([
                 }
 
                 if (visible) {
+
+                    for (var i = 0; i < this.terrainElements.length; i++) {
+                //        this.terrainElements[i].updateTerrainElement(tpf, i)
+                    }
+
                     for (i = 0; i < this.shoreElements.length; i++) {
                         if (MATH.sillyRandom(this.age+tpf) < 0.5) {
                             this.shoreElements[i].updateShoreElementVisibility(tpf, this.isVisible)
@@ -114,9 +121,7 @@ define([
 
             this.age += tpf;
 
-                for (var i = 0; i < this.terrainElements.length; i++) {
-                    this.terrainElements[i].updateTerrainElement(tpf, i)
-                }
+
 
                 if (MATH.sillyRandom(this.age+tpf) > 0.05 * tpf * this.shoreElements.length) {
                     return;

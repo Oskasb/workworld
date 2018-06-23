@@ -7,6 +7,8 @@ define(function() {
         SETTING_CONTROL_EVENT:{type:'SETTING_CONTROL_EVENT', args:{}},
         SCREEN_CONFIG:{type:'SCREEN_CONFIG', args:{}},
 
+        NOTIFY_RESIZE:{type:'NOTIFY_RESIZE', args:{data:{}}},
+
         ENGINE_READY:{type:'ENGINE_READY', args:{}},
         PARTICLES_READY:{type:'PARTICLES_READY', args:{}},
         BUNDLES_READY:{type:'BUNDLES_READY', args:{}},

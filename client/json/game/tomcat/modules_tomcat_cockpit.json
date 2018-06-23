@@ -47,11 +47,11 @@
           "applyState":"lightMasterSystem",
           "target":{
             "lights":[
-              {"id":"collision_l" ,   "gain":1, "offset":0.5},
-              {"id":"coll_low_l"  ,   "gain":1, "offset":0.0},
-              {"id":"coll_low_r"  ,   "gain":1, "offset":0.0}
+              {"id":"collision_l" ,   "gain":1, "offset":0.01},
+              {"id":"coll_low_l"  ,   "gain":1, "offset":0.33},
+              {"id":"coll_low_r"  ,   "gain":1, "offset":0.66}
             ],
-            "curve":"constantOne",
+            "curve":"centerBlipp",
             "cycle_time":1.0
           },
 
@@ -86,7 +86,7 @@
       {
         "id":"navigation_lights",
         "data":{
-          "state":{"value":0, "min":0, "max":1, "speed":0.15, "factor":1.0},
+          "state":{"value":0, "min":0, "max":1, "speed":1.0, "factor":1.0},
 
           "source":"navigation_lights",
           "sampleSource":"sampleControl",
@@ -95,15 +95,16 @@
           "target":{
             "lights":[
 
-              {"id":"wing_r"  ,   "gain":1, "offset":0},
+              {"id":"wing_r"  ,   "gain":1, "offset":0.0},
               {"id":"glove_l" ,   "gain":1, "offset":0.2},
               {"id":"wing_l"  ,   "gain":1, "offset":0.4},
               {"id":"glove_r" ,   "gain":1, "offset":0.6},
-              {"id":"rear_r"  ,   "gain":1, "offset":0.8}
+              {"id":"rear_r"  ,   "gain":1, "offset":0.8},
+              {"id":"pos_chinpod",   "gain":1, "offset":0.9}
 
             ],
-            "curve":"doubleBlipp",
-            "cycle_time":1.2
+            "curve":"constantOne",
+            "cycle_time":0.08
           },
 
           "effectFunction":"applyLightState",

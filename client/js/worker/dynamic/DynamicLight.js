@@ -58,7 +58,7 @@ define([
 
         DynamicLight.prototype.setDynamicLightIntensity = function(value) {
 
-            val = Math.clamp(Math.round(value * 25) / 25, 0, 1);
+            val = Math.clamp(Math.round(value * 50) / 50, 0, 1);
             if (val !== this.lastIntensity) {
                 this.lastIntensity = val;
                 this.buffer[this.bsi + ENUMS.DynamicLight.LIGHT_INTENSITY] = this.lastIntensity;

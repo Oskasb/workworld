@@ -44,11 +44,11 @@
       {
         "id":"nozzle_r",
         "data":{
-          "state":{"value":0, "min":0, "max":1, "speed":0.05, "factor":-0.41, "offset":-0.98},
-          "source":"reheat",
+          "state":{"value":0.01, "min":0.01, "max":1, "speed":0.01, "factor":-0.41, "offset":-0.995},
+          "source":{"id":"jet_1", "min":0.55, "max":1.01, "factor":1.1, "offset":0.01},
           "target":"nozzle_r",
           "feedback":"nozzle_r",
-          "sampleSource":"sampleControl",
+          "sampleSource":"slaveModule",
           "applyState":"effectEmitter",
           "effectFunction":"setBoneScaleUniform"
         }
@@ -56,11 +56,11 @@
       {
         "id":"nozzle_l",
         "data":{
-          "state":{"value":0, "min":0, "max":1, "speed":0.05, "factor":-0.41, "offset":-0.98},
-          "source":"reheat",
+          "state":{"value":0.01, "min":0.01, "max":1, "speed":0.01, "factor":-0.41, "offset":-0.995},
+          "source":{"id":"jet_2", "min":0.55, "max":1.01, "factor":1.1, "offset":0.01},
           "target":"nozzle_l",
           "feedback":"nozzle_l",
-          "sampleSource":"sampleControl",
+          "sampleSource":"slaveModule",
           "applyState":"effectEmitter",
           "effectFunction":"setBoneScaleUniform"
         }
@@ -93,11 +93,11 @@
         "id":"force_3",
         "data":{
           "state":{"value":0, "min":-10000, "max":10000, "speed":0.5, "factor":1.0},
-          "source":{"id":"pivot_l", "key":"ACTING_FORCE_Y", "factor":-0.00000025},
-          "target":"wing_flex_l",
+          "source":{"id":"pivot_l", "key":"ACTING_FORCE_Y", "factor":-0.00000045},
+          "target":{"id":"pivot_l", "rot":"rotateZ", "factor":-0.13},
           "feedback":"wing_flex_l",
           "sampleSource":"sampleShape",
-          "applyState":"effectEmitter",
+          "applyState":"rotateShape",
           "effectFunction":"setBoneRotationY"
         }
       },
@@ -105,11 +105,11 @@
         "id":"force_4",
         "data":{
           "state":{"value":0, "min":-10000, "max":10000, "speed":0.5, "factor":1.0},
-          "source":{"id":"pivot_r", "key":"ACTING_FORCE_Y", "factor":-0.00000025},
-          "target":"wing_flex_r",
+          "source":{"id":"pivot_r", "key":"ACTING_FORCE_Y", "factor":-0.00000045},
+          "target":{"id":"pivot_r", "rot":"rotateZ", "factor":0.13},
           "feedback":"wing_flex_r",
           "sampleSource":"sampleShape",
-          "applyState":"effectEmitter",
+          "applyState":"rotateShape",
           "effectFunction":"setBoneRotationY"
         }
       }

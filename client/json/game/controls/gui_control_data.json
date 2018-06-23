@@ -166,10 +166,10 @@
             {"widget":"STATE_INDICATOR","label":"RPM_L",  "configId":"rpm_indicator_y", "layout":{"margin_x":0.05}, "onUpdate":"sampleModule", "source":"throttle_l"},
 
             {"widget":"STATE_INDICATOR","label":"RPM_L",  "configId":"rpm_indicator_y", "layout":{"margin_x":0.051, "margin_y":0.425, "height":0.06}, "onUpdate":"sampleModule", "source":"turbine_l"},
-            {"widget":"STATE_INDICATOR","label":"JET_L",  "configId":"jet_indicator_y", "layout":{"margin_x":0.060, "margin_y":0.425}, "onUpdate":"sampleModule", "source":"jet_1"},
+            {"widget":"STATE_INDICATOR","label":"JET_L",  "configId":"jet_indicator_y", "layout":{"margin_x":0.060, "margin_y":0.425}, "onUpdate":"sampleModule", "source":"reheat_1"},
 
             {"widget":"STATE_INDICATOR","label":"RPM_R",  "configId":"rpm_indicator_y", "layout":{"margin_x":0.011, "margin_y":0.425, "height":0.06}, "onUpdate":"sampleModule", "source":"turbine_r"},
-            {"widget":"STATE_INDICATOR","label":"JET_R",  "configId":"jet_indicator_y", "layout":{"margin_x":0.020, "margin_y":0.425}, "onUpdate":"sampleModule", "source":"jet_2"}
+            {"widget":"STATE_INDICATOR","label":"JET_R",  "configId":"jet_indicator_y", "layout":{"margin_x":0.020, "margin_y":0.425}, "onUpdate":"sampleModule", "source":"reheat_2"}
           ]
         }
       },
