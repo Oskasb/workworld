@@ -28,12 +28,29 @@
         "id":"catapult_system",
         "data":{
           "modules":[
-            {"config_key":"CATAPULTS", "config_id":"cat_1", "group":[
+
+            {"config_key":"CATAPULTS", "config_id":"blast_screen_1", "group":[
               {"offset":[13.5, 22,  78], "direction":[0, 0, 1], "size":[5, 2, 5]}
             ]},
 
-            {"config_key":"CATAPULTS", "config_id":"cat_2", "group":[
+            {"config_key":"CATAPULTS", "config_id":"blast_screen_2", "group":[
               {"offset":[-13.5, 22, 78], "direction":[0, 0, 1], "size":[5, 2, 5]}
+            ]},
+
+            {"config_key":"CATAPULTS", "config_id":"blast_screen_3",    "group":[
+              {"offset":[15, 22, -40], "direction":[0, -1, 0], "size":[5, 2, 5]}
+            ]},
+
+            {"config_key":"CATAPULTS", "config_id":"blast_screen_4",    "group":[
+              {"offset":[34, 22, -50], "direction":[0, -1, 0], "size":[5, 2, 5]}
+            ]},
+
+            {"config_key":"CATAPULTS", "config_id":"cat_1", "group":[
+              {"offset":[-13.5, 22,  78], "direction":[0, 0, 1], "size":[5, 2, 5]}
+            ]},
+
+            {"config_key":"CATAPULTS", "config_id":"cat_2", "group":[
+              {"offset":[13.5, 22, 78], "direction":[0, 0, 1], "size":[5, 2, 5]}
             ]},
 
             {"config_key":"CATAPULTS", "config_id":"cat_3",    "group":[
@@ -42,6 +59,21 @@
 
             {"config_key":"CATAPULTS", "config_id":"cat_4",    "group":[
               {"offset":[34, 22, -50], "direction":[0, -1, 0], "size":[5, 2, 5]}
+            ]}
+          ]
+        }
+      },
+      {
+        "id":"aircraft_stations",
+        "data":{
+          "modules":[
+
+            {"config_key":"STATIONS", "config_id":"launch_1", "group":[
+              {"offset":[-12.3, 22,  88], "direction":[0.1, 0, 1], "size":[5, 2, 5]}
+            ]},
+
+            {"config_key":"STATIONS", "config_id":"ready_parking_1", "group":[
+              {"offset":[-10.5, 22, 48], "direction":[0, 0, 1], "size":[5, 2, 5]}
             ]}
           ]
         }
@@ -130,47 +162,128 @@
             {"config_key":"EXTERNAL_LIGHTS", "config_id":"mast_top", "group":[
               {"offset":[-22, 85, -28.6],     "direction":[0, 0, 1], "size":[1, 1, 1]}
             ]},
+            {"config_key":"EXTERNAL_LIGHTS", "config_id":"fore_mast", "group":[
+              {"offset":[-29, 36.3,  69.8],     "direction":[0, 0, 1], "size":[1, 1, 1]}
+            ]},
             {"config_key":"EXTERNAL_LIGHTS",  "config_id":"ball_blue_l1", "group":[
-              {"offset":[56.5, 24.5, -6.9],  "direction":[0, 0, 1], "size":[1, 1, 1]}
+              {"offset":[56.5, 24.5, -9.1],  "direction":[0, 0, 1], "size":[1, 1, 1]}
+            ]},
+            {"config_key":"EXTERNAL_LIGHTS",  "config_id":"ball_blue_l2", "group":[
+              {"offset":[55.2, 24.5, -8.8],  "direction":[0, 0, 1], "size":[1, 1, 1]}
+            ]},
+            {"config_key":"EXTERNAL_LIGHTS",  "config_id":"ball_blue_l3", "group":[
+              {"offset":[54.1, 24.5, -8.5],  "direction":[0, 0, 1], "size":[1, 1, 1]}
+            ]},
+            {"config_key":"EXTERNAL_LIGHTS",  "config_id":"ball_blue_l4", "group":[
+              {"offset":[53.0, 24.5, -8.2],  "direction":[0, 0, 1], "size":[1, 1, 1]}
+            ]},
+            {"config_key":"EXTERNAL_LIGHTS",  "config_id":"ball_blue_l5", "group":[
+              {"offset":[52.0, 24.5, -7.8],  "direction":[0, 0, 1], "size":[1, 1, 1]}
             ]},
             {"config_key":"EXTERNAL_LIGHTS",  "config_id":"ball_blue_r1", "group":[
-              {"offset":[43.0, 24.5, -6.9],  "direction":[0, 0, 1], "size":[1, 1, 1]}
+              {"offset":[43.0, 24.5, -5.0],  "direction":[0, 0, 1], "size":[1, 1, 1]}
             ]},
-            {"config_key":"EXTERNAL_LIGHTS",  "config_id":"ball_red_1_ru", "group":[
-              {"offset":[49.5, 24.5, -6.9],  "direction":[0, 0, 1], "size":[1, 1, 1]}
+            {"config_key":"EXTERNAL_LIGHTS",  "config_id":"ball_blue_r2", "group":[
+              {"offset":[44.1, 24.5, -5.3],  "direction":[0, 0, 1], "size":[1, 1, 1]}
             ]},
-            {"config_key":"EXTERNAL_LIGHTS",  "config_id":"ball_red_2_ru", "group":[
-              {"offset":[49.5, 24.5, -6.9],  "direction":[0, 0, 1], "size":[1, 1, 1]}
+            {"config_key":"EXTERNAL_LIGHTS",  "config_id":"ball_blue_r3", "group":[
+              {"offset":[45.2, 24.5, -5.6],  "direction":[0, 0, 1], "size":[1, 1, 1]}
             ]},
+            {"config_key":"EXTERNAL_LIGHTS",  "config_id":"ball_blue_r4", "group":[
+              {"offset":[46.3, 24.5, -5.9],  "direction":[0, 0, 1], "size":[1, 1, 1]}
+            ]},
+            {"config_key":"EXTERNAL_LIGHTS",  "config_id":"ball_blue_r5", "group":[
+              {"offset":[47.4, 24.5, -6.2],  "direction":[0, 0, 1], "size":[1, 1, 1]}
+            ]},
+
+
+            {"config_key":"EXTERNAL_LIGHTS",  "config_id":"ball_red_1_ru1", "group":[
+              {"offset":[47.5, 27.0, -6.0],  "direction":[0, 0, 1], "size":[1, 1, 1]}
+            ]},
+            {"config_key":"EXTERNAL_LIGHTS",  "config_id":"ball_red_1_ru2", "group":[
+              {"offset":[47.5, 25.8, -6.1],  "direction":[0, 0, 1], "size":[1, 1, 1]}
+            ]},
+            {"config_key":"EXTERNAL_LIGHTS",  "config_id":"ball_red_1_ru3", "group":[
+              {"offset":[47.3, 23.3, -6.4],  "direction":[0, 0, 1], "size":[1, 1, 1]}
+            ]},
+            {"config_key":"EXTERNAL_LIGHTS",  "config_id":"ball_red_1_ru4", "group":[
+              {"offset":[47.2, 22.1, -6.5],  "direction":[0, 0, 1], "size":[1, 1, 1]}
+            ]},
+
+            {"config_key":"EXTERNAL_LIGHTS",  "config_id":"ball_red_1_lu1", "group":[
+              {"offset":[52.2, 27.0, -7.5],  "direction":[0, 0, 1], "size":[1, 1, 1]}
+            ]},
+            {"config_key":"EXTERNAL_LIGHTS",  "config_id":"ball_red_1_lu2", "group":[
+              {"offset":[52.2, 25.8, -7.6],  "direction":[0, 0, 1], "size":[1, 1, 1]}
+            ]},
+            {"config_key":"EXTERNAL_LIGHTS",  "config_id":"ball_red_1_lu3", "group":[
+              {"offset":[52.0, 23.3, -7.8],  "direction":[0, 0, 1], "size":[1, 1, 1]}
+            ]},
+            {"config_key":"EXTERNAL_LIGHTS",  "config_id":"ball_red_1_lu4", "group":[
+              {"offset":[52.0, 22.1, -7.9],  "direction":[0, 0, 1], "size":[1, 1, 1]}
+            ]},
+
+            {"config_key":"EXTERNAL_LIGHTS",  "config_id":"ball_red_2_ru1", "group":[
+              {"offset":[48.3, 27.0, -6.3],  "direction":[0, 0, 1], "size":[1, 1, 1]}
+            ]},
+
+            {"config_key":"EXTERNAL_LIGHTS",  "config_id":"ball_red_2_ru2", "group":[
+              {"offset":[48.3, 25.8, -6.4],  "direction":[0, 0, 1], "size":[1, 1, 1]}
+            ]},
+
+            {"config_key":"EXTERNAL_LIGHTS",  "config_id":"ball_red_2_ru3", "group":[
+              {"offset":[48.3, 23.3, -6.5],  "direction":[0, 0, 1], "size":[1, 1, 1]}
+            ]},
+
+            {"config_key":"EXTERNAL_LIGHTS",  "config_id":"ball_red_2_ru4", "group":[
+              {"offset":[48.3, 22.1, -6.6],  "direction":[0, 0, 1], "size":[1, 1, 1]}
+            ]},
+
+            {"config_key":"EXTERNAL_LIGHTS",  "config_id":"ball_red_2_lu1", "group":[
+              {"offset":[50.95, 27.0, -7.3],  "direction":[0, 0, 1], "size":[1, 1, 1]}
+            ]},
+
+            {"config_key":"EXTERNAL_LIGHTS",  "config_id":"ball_red_2_lu2", "group":[
+              {"offset":[50.9, 25.8, -7.4],  "direction":[0, 0, 1], "size":[1, 1, 1]}
+            ]},
+
+            {"config_key":"EXTERNAL_LIGHTS",  "config_id":"ball_red_2_lu3", "group":[
+              {"offset":[50.85, 23.3, -7.6],  "direction":[0, 0, 1], "size":[1, 1, 1]}
+            ]},
+
+            {"config_key":"EXTERNAL_LIGHTS",  "config_id":"ball_red_2_lu4", "group":[
+              {"offset":[50.8, 22.1, -7.7],  "direction":[0, 0, 1], "size":[1, 1, 1]}
+            ]},
+
             {"config_key":"EXTERNAL_LIGHTS",  "config_id":"ball_elv_1", "group":[
-              {"offset":[49.5, 27.0, -6.5],  "direction":[0, 0, 1], "size":[1, 1, 1]}
+              {"offset":[49.83, 27.0, -6.5],  "direction":[0, 0, 1], "size":[1, 1, 1]}
             ]},
             {"config_key":"EXTERNAL_LIGHTS",  "config_id":"ball_elv_2", "group":[
-              {"offset":[49.5, 26.5, -6.6],  "direction":[0, 0, 1], "size":[1, 1, 1]}
+              {"offset":[49.80, 26.5, -6.6],  "direction":[0, 0, 1], "size":[1, 1, 1]}
             ]},
             {"config_key":"EXTERNAL_LIGHTS",  "config_id":"ball_elv_3", "group":[
-              {"offset":[49.5, 26.0, -6.7],  "direction":[0, 0, 1], "size":[1, 1, 1]}
+              {"offset":[49.77, 26.0, -6.7],  "direction":[0, 0, 1], "size":[1, 1, 1]}
             ]},
             {"config_key":"EXTERNAL_LIGHTS",  "config_id":"ball_elv_4", "group":[
-              {"offset":[49.5, 25.5, -6.8],  "direction":[0, 0, 1], "size":[1, 1, 1]}
+              {"offset":[49.74, 25.5, -6.8],  "direction":[0, 0, 1], "size":[1, 1, 1]}
             ]},
             {"config_key":"EXTERNAL_LIGHTS",  "config_id":"ball_elv_5", "group":[
-              {"offset":[49.5, 25.0, -6.9],  "direction":[0, 0, 1], "size":[1, 1, 1]}
+              {"offset":[49.71, 25.0, -6.9],  "direction":[0, 0, 1], "size":[1, 1, 1]}
             ]},
             {"config_key":"EXTERNAL_LIGHTS",  "config_id":"ball_elv_6", "group":[
-              {"offset":[49.5, 24.5, -7.0],  "direction":[0, 0, 1], "size":[1, 1, 1]}
+              {"offset":[49.68, 24.5, -7.0],  "direction":[0, 0, 1], "size":[1, 1, 1]}
             ]},
             {"config_key":"EXTERNAL_LIGHTS",  "config_id":"ball_elv_7", "group":[
-              {"offset":[49.5, 24.0, -7.1],  "direction":[0, 0, 1], "size":[1, 1, 1]}
+              {"offset":[49.65, 24.0, -7.1],  "direction":[0, 0, 1], "size":[1, 1, 1]}
             ]},
             {"config_key":"EXTERNAL_LIGHTS",  "config_id":"ball_elv_8", "group":[
-              {"offset":[49.5, 23.5, -7.2],  "direction":[0, 0, 1], "size":[1, 1, 1]}
+              {"offset":[49.62, 23.5, -7.2],  "direction":[0, 0, 1], "size":[1, 1, 1]}
             ]},
             {"config_key":"EXTERNAL_LIGHTS",  "config_id":"ball_elv_9", "group":[
-              {"offset":[49.5, 23.0, -7.3],  "direction":[0, 0, 1], "size":[1, 1, 1]}
+              {"offset":[49.59, 23.0, -7.3],  "direction":[0, 0, 1], "size":[1, 1, 1]}
             ]},
             {"config_key":"EXTERNAL_LIGHTS",  "config_id":"ball_elv_10", "group":[
-              {"offset":[49.5, 22.5, -7.4],  "direction":[0, 0, 1], "size":[1, 1, 1]}
+              {"offset":[49.56, 22.5, -7.4],  "direction":[0, 0, 1], "size":[1, 1, 1]}
             ]}
           ]
         }

@@ -105,6 +105,15 @@
         }
       },
       {
+        "id":"launch_control",
+        "data":{
+          "widgets":[
+            {"widget":"BUTTON_CONTROL", "label":"RD 1", "configId":"control_door",  "layout":{"margin_y":0.20, "margin_x":0.29},"onUpdate":"sampleControl", "source":"ready_1", "onClick":"toggleControl"},
+            {"widget":"BUTTON_CONTROL", "label":"LN 1", "configId":"control_door",  "layout":{"margin_y":0.20, "margin_x":0.36},"onUpdate":"sampleControl", "source":"launch_1", "onClick":"toggleControl"}
+          ]
+        }
+      },
+      {
         "id":"elevator_control",
         "data":{
           "widgets":[

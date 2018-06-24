@@ -15,6 +15,7 @@ define([
     ) {
 
         var dynamics = [];
+        var dynMap = {};
         var pieces = [];
 
         var newDynRen;
@@ -36,6 +37,7 @@ define([
             WorldAPI.addTextMessage('Count: '+count+' add: '+dynRen.idKey);
 
             dynamics.push(dynRen)
+
         };
 
         var DynamicWorld = function() {
@@ -44,6 +46,11 @@ define([
         };
 
         var scale;
+
+        DynamicWorld.prototype.changeControlTarget = function(dynamicRenderable) {
+            screenSpaceProbe.clearProbeTarget();
+            dynamicControlSelector.initiateControlChange(dynamicRenderable)
+        };
 
         DynamicWorld.prototype.changeControlTarget = function(dynamicRenderable) {
             screenSpaceProbe.clearProbeTarget();
@@ -60,6 +67,10 @@ define([
 
         DynamicWorld.prototype.spliceDynamicRenderable = function(renderable) {
             dynamics.splice(dynamics.indexOf(renderable), 1)
+        };
+
+        DynamicWorld.prototype.getRenderableFromDynMap = function(pieceId) {
+            return dynMap[pieceId];
         };
 
         DynamicWorld.prototype.setupDynamicRenderable = function(renderableId, pos, quat, scale) {
@@ -156,64 +167,43 @@ define([
             }
         };
 
+        var calls = [];
 
 
-        var spawnCallBoat = function() {
-            WorldAPI.setCom(ENUMS.BufferChannels.WORLD_ACTION_2, 0)
+
+
+        var spawnCallPiece = function(pId, pos, quat) {
             scale = 1;
 
-            var pieceId = "PIECE_ENTERPRISE";
-            var confId = "command_piece";
+            if (calls.indexOf(pId) !== -1) return;
+            calls.push(pId);
 
-            WorldAPI.addTextMessage('SpawnCall: '+pieceId+' _ '+confId);
+            var buildPiece = function(pce, p, q, s) {
 
-            var piece = new DynamicGamePiece(pieceId, confId);
-
-            var onReady = function(dgp) {
-                pieces.push(dgp);
-                WorldAPI.getContoledPiecePosAndQuat(tempVec1, tempQuat);
-                newDynRen = WorldAPI.buildDynamicRenderable(dgp.configRead('renderable'), tempVec1, tempQuat, scale);
-
-                newDynRen.initRenderable(WorldAPI.attachDynamicRenderable);
-                newDynRen.setGamePiece(dgp)
-            };
-
-            piece.initGamePiece(onReady);
-        };
-
-        var spawnCallPlane = function() {
-            WorldAPI.setCom(ENUMS.BufferChannels.WORLD_ACTION_3, 0)
-            scale = 1;
-
-            var pieceId = "PIECE_F14";
-            var confId = "command_piece";
-
-            WorldAPI.addTextMessage('SpawnCall: '+pieceId+' _ '+confId);
-
-            var piece = new DynamicGamePiece(pieceId, confId);
-
-            var onReady = function(dgp) {
-                pieces.push(dgp);
-                WorldAPI.getContoledPiecePosAndQuat(tempVec1, tempQuat);
-                tempVec1.y = 40;
-                newDynRen = WorldAPI.buildDynamicRenderable(dgp.configRead('renderable'), tempVec1, tempQuat, scale);
-
-                var onRdy = function(dynRen) {
-                    WorldAPI.attachDynamicRenderable(dynRen);
-
-                    setTimeout(function() {
-                //        WorldAPI.initControlChange(dynRen)
-                    }, 500)
-
+                var onReady = function(dgp) {
+                    pieces.push(dgp);
+                    newDynRen = WorldAPI.buildDynamicRenderable(dgp.configRead('renderable'), p, q, s);
+                    newDynRen.initRenderable(WorldAPI.attachDynamicRenderable);
+                    newDynRen.setGamePiece(dgp);
+                    dynMap[dgp.configKey] = newDynRen;
                 };
 
-                newDynRen.setGamePiece(dgp)
-                newDynRen.initRenderable(onRdy);
-            //
-
+                pce.initGamePiece(onReady);
             };
 
-            piece.initGamePiece(onReady);
+
+            var pieceId = pId;
+            var confId = "command_piece";
+            WorldAPI.addTextMessage('SpawnCall: '+pieceId+' _ '+confId);
+            var piece = new DynamicGamePiece(pieceId, confId);
+
+            buildPiece(piece, pos, quat, scale)
+        };
+
+        DynamicWorld.prototype.requestPieceSpawn = function(pieceId, pos, quat) {
+
+            spawnCallPiece(pieceId, pos, quat)
+
         };
 
         var terrains = ['terrain_island_0','terrain_island_1', 'terrain_island_2', 'terrain_island_3'];
@@ -259,11 +249,16 @@ define([
             }
 
             if (WorldAPI.getCom(ENUMS.BufferChannels.WORLD_ACTION_2)) {
-                spawnCallBoat();
+                WorldAPI.setCom(ENUMS.BufferChannels.WORLD_ACTION_2, 0);
+                WorldAPI.getContoledPiecePosAndQuat(tempVec1, tempQuat);
+                spawnCallPiece("PIECE_ENTERPRISE", tempVec1, tempQuat);
             }
 
             if (WorldAPI.getCom(ENUMS.BufferChannels.WORLD_ACTION_3)) {
-                spawnCallPlane();
+                WorldAPI.setCom(ENUMS.BufferChannels.WORLD_ACTION_3, 0);
+                WorldAPI.getContoledPiecePosAndQuat(tempVec1, tempQuat);
+                tempVec1.y += 25;
+                spawnCallPiece("PIECE_F14", tempVec1, tempQuat);
             }
 
             if (WorldAPI.getCom(ENUMS.BufferChannels.PUSH_ALL_DYNAMICS)) {

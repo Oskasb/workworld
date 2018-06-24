@@ -188,8 +188,49 @@ define([
 
         };
 
-        ModuleFunctions.limitByTargetControlState = function(renderable, moduleState, trgt) {
-            limitByTargetControlState(renderable, moduleState, trgt);
+        var dynRen;
+        var module;
+        var key;
+        var controls;
+
+        ModuleFunctions.attachGamePiece = function(renderable, moduleState, trgt) {
+            if (moduleState.getAppliedFactor() < 0.99) return;
+            target = WorldAPI.getDynamicRenderableByPieceId(trgt.piece_id);
+            if (!target) {
+                module = renderable.getGamePiece().getControlableModuleById(trgt.id);
+                module.calculateWorldPosition(renderable.pos, renderable.quat, calcVec);
+                calcObj.lookAt(module.direction);
+                calcObj.quaternion.multiply(renderable.quat);
+                calcVec.y += 3;
+                WorldAPI.spawnCallPieceId(trgt.piece_id, calcVec, calcObj.quaternion);
+                return;
+            }
+
+
+        };
+
+        ModuleFunctions.applyCatapultToPiece = function(renderable, moduleState, trgt) {
+            if (moduleState.getAppliedFactor() < 1.99 ) return;
+            target = WorldAPI.getDynamicRenderableByPieceId(trgt.piece_id);
+            if (!target) {
+                return;
+
+                module.calculateWorldPosition(renderable.pos, renderable.quat, calcVec);
+                calcObj.lookAt(module.direction);
+                calcObj.quaternion.multiply(renderable.quat);
+                calcVec.y += 3;
+                WorldAPI.spawnCallPieceId(trgt.piece_id, calcVec, calcObj.quaternion);
+                return;
+            }
+
+            controls = trgt.controls;
+
+            for (key in controls) {
+                module = target.getGamePiece().getControlStateById(key);
+                module.setTargetState(controls[key])
+            }
+
+
         };
 
         ModuleFunctions.limitByTargetModuleState = function(renderable, moduleState, trgt) {

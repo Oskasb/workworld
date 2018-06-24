@@ -128,19 +128,24 @@
           "id": "lights_enterprise",
           "data":{
             "lights":[
-              {  "id":   "ball_blue"    ,   "txcoords":  [30,    0,    9, 9]},
-              {  "id":   "ball_red_1"   ,   "txcoords":  [10,    0,    9, 9]},
-              {  "id":   "ball_red_2"   ,   "txcoords":  [20,    0,    9, 9]},
-              {  "id":   "ball_elv_1"   ,   "txcoords":  [0,     0,    9, 9]},
-              {  "id":   "ball_elv_2"   ,   "txcoords":  [0,     10,   9, 9]},
-              {  "id":   "ball_elv_3"   ,   "txcoords":  [0,     20,   9, 9]},
-              {  "id":   "ball_elv_4"   ,   "txcoords":  [0,     30,   9, 9]},
-              {  "id":   "ball_elv_5"   ,   "txcoords":  [0,     40,   9, 9]},
-              {  "id":   "ball_elv_6"   ,   "txcoords":  [0,     50,   9, 9]},
-              {  "id":   "ball_elv_7"   ,   "txcoords":  [0,     60,   9, 9]},
-              {  "id":   "ball_elv_8"   ,   "txcoords":  [0,     70,   9, 9]},
-              {  "id":   "ball_elv_9"   ,   "txcoords":  [0,     80,   9, 9]},
-              {  "id":   "ball_elv_10"  ,   "txcoords":  [0,     90,   9, 9]}
+              {  "id":   "mast_top"     ,   "txcoords":  [5,    5,     4, 4]},
+              {  "id":   "fore_mast"    ,   "txcoords":  [15,   15,    4, 4]},
+              {  "id":   "tower"        ,   "txcoords":  [20,   10,    4, 4]},
+              {  "id":   "land_ylw"     ,   "txcoords":  [15,   10,    4, 4]},
+              {  "id":   "land_wht"     ,   "txcoords":  [40,    0,    4, 4]},
+              {  "id":   "ball_blue"    ,   "txcoords":  [15,    0,    4, 4]},
+              {  "id":   "ball_red_1"   ,   "txcoords":  [5,     0,    4, 4]},
+              {  "id":   "ball_red_2"   ,   "txcoords":  [10,    0,    4, 4]},
+              {  "id":   "ball_elv_1"   ,   "txcoords":  [0,     0,    4, 4]},
+              {  "id":   "ball_elv_2"   ,   "txcoords":  [0,     5,    4, 4]},
+              {  "id":   "ball_elv_3"   ,   "txcoords":  [0,     10,   4, 4]},
+              {  "id":   "ball_elv_4"   ,   "txcoords":  [0,     15,   4, 4]},
+              {  "id":   "ball_elv_5"   ,   "txcoords":  [0,     20,   4, 4]},
+              {  "id":   "ball_elv_6"   ,   "txcoords":  [0,     25,   4, 4]},
+              {  "id":   "ball_elv_7"   ,   "txcoords":  [0,     30,   4, 4]},
+              {  "id":   "ball_elv_8"   ,   "txcoords":  [0,     35,   4, 4]},
+              {  "id":   "ball_elv_9"   ,   "txcoords":  [0,     40,   4, 4]},
+              {  "id":   "ball_elv_10"  ,   "txcoords":  [0,     46,   4, 4]}
             ]
           }
         }

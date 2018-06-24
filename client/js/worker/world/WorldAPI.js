@@ -188,6 +188,16 @@ define([
             dynamicWorld.changeControlTarget(dynamicRenderable);
         };
 
+
+        WorldAPI.getDynamicRenderableByPieceId = function(pieceId) {
+            return dynamicWorld.getRenderableFromDynMap(pieceId);
+        };
+
+        WorldAPI.spawnCallPieceId = function(pieceId, pos, quat) {
+            return dynamicWorld.requestPieceSpawn(pieceId, pos, quat);
+        };
+
+
         WorldAPI.completeControlChange = function() {
             dynamicWorld.controlChangeComplete();
         };
