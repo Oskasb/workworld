@@ -177,9 +177,9 @@
           "state":{"value":0, "min":0, "max":1, "speed":0.05, "factor":1},
           "source":"launch_1",
           "sampleSource":"sampleControl",
-          "applyState":"effectEmitter",
+          "applyState":"applyCatapultToPiece",
 
-          "target":{"id":"launch_1", "piece_id":"PIECE_F14", "controls":{"throttle_l":1, "throttle_r":1}},
+          "target":{"id":"launch_1", "piece_id":"PIECE_F14", "controls":{"throttle_l":1, "throttle_r":1, "brake":0}},
 
           "feedback":{"id":"launch_1", "threshold":0.01, "factor":0.98, "scale":7, "effects":["flare_dot_light_effect"], "color":"blue_3"},
           "effectFunction":"moduleAttachedLightEffect"

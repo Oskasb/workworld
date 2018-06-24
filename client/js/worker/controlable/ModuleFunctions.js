@@ -209,8 +209,10 @@ define([
 
         };
 
+        var control;
+
         ModuleFunctions.applyCatapultToPiece = function(renderable, moduleState, trgt) {
-            if (moduleState.getAppliedFactor() < 1.99 ) return;
+            if (moduleState.getAppliedFactor() < 0.5 ) return;
             target = WorldAPI.getDynamicRenderableByPieceId(trgt.piece_id);
             if (!target) {
                 return;
@@ -226,11 +228,18 @@ define([
             controls = trgt.controls;
 
             for (key in controls) {
-                module = target.getGamePiece().getControlStateById(key);
-                module.setTargetState(controls[key])
+
+                control = target.getGamePiece().getControlStateById(key);
+                control.setPieceControlTargetState(controls[key])
+
+            //    module = target.getGamePiece().getControlableModuleById(key);
+            //    module.setModuleTargetState(controls[key])
             }
 
+        };
 
+        ModuleFunctions.limitByTargetControlState = function(renderable, moduleState, trgt) {
+            limitByTargetControlState(renderable, moduleState, trgt);
         };
 
         ModuleFunctions.limitByTargetModuleState = function(renderable, moduleState, trgt) {
