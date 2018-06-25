@@ -92,7 +92,7 @@
       {
         "id":"force_3",
         "data":{
-          "state":{"value":0, "min":-10000, "max":10000, "speed":0.5, "factor":1.0},
+          "state":{"value":0, "min":-0.97, "max":0.5, "speed":0.15, "factor":1.0},
           "source":{"id":"pivot_l", "key":"ACTING_FORCE_Y", "factor":-0.00000045},
           "target":{"id":"pivot_l", "rot":"rotateZ", "factor":-0.13},
           "feedback":"wing_flex_l",
@@ -104,7 +104,7 @@
       {
         "id":"force_4",
         "data":{
-          "state":{"value":0, "min":-10000, "max":10000, "speed":0.5, "factor":1.0},
+          "state":{"value":0, "min":-0.97, "max":0.5, "speed":0.15, "factor":1.0},
           "source":{"id":"pivot_r", "key":"ACTING_FORCE_Y", "factor":-0.00000045},
           "target":{"id":"pivot_r", "rot":"rotateZ", "factor":0.13},
           "feedback":"wing_flex_r",

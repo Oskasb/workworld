@@ -212,28 +212,19 @@ define([
         var control;
 
         ModuleFunctions.applyCatapultToPiece = function(renderable, moduleState, trgt) {
-            if (moduleState.getAppliedFactor() < 0.5 ) return;
-            target = WorldAPI.getDynamicRenderableByPieceId(trgt.piece_id);
-            if (!target) {
-                return;
+            if (!MATH.valueIsBetween(moduleState.getAppliedFactor(), 0.5, 0.9)) return;
 
-                module.calculateWorldPosition(renderable.pos, renderable.quat, calcVec);
-                calcObj.lookAt(module.direction);
-                calcObj.quaternion.multiply(renderable.quat);
-                calcVec.y += 3;
-                WorldAPI.spawnCallPieceId(trgt.piece_id, calcVec, calcObj.quaternion);
+            target = WorldAPI.getDynamicRenderableByPieceId(trgt.piece_id);
+
+            if (!target) {
                 return;
             }
 
             controls = trgt.controls;
 
             for (key in controls) {
-
                 control = target.getGamePiece().getControlStateById(key);
                 control.setPieceControlTargetState(controls[key])
-
-            //    module = target.getGamePiece().getControlableModuleById(key);
-            //    module.setModuleTargetState(controls[key])
             }
 
         };
@@ -325,6 +316,24 @@ define([
                 light.setDynamicLightIntensity( value );
             }
         };
+
+
+
+        ModuleFunctions.lightSelectorSystem = function(renderable, moduleState, trgt) {
+
+            value = 0;
+            state = moduleState.getAppliedFactor();
+
+            for (i = 0; i < trgt.lights.length; i++) {
+
+                light = renderable.getRenderableLight(trgt.lights[i].id);
+            //    if (moduleState.getStateValue() > 0) {
+                    value = MATH.valueFromCurve(state + trgt.lights[i].offset, MATH.curves[trgt.curve]) * trgt.lights[i].gain;
+            //    }
+                light.setDynamicLightIntensity( value );
+            }
+        };
+
 
         ModuleFunctions.trimControl = function(renderable, moduleState, trgt) {
             controlState = renderable.getGamePiece().getControlStateById(trgt.id);

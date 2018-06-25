@@ -78,6 +78,27 @@
           ]
         }
       },
+
+      {
+        "id":"meatball_system",
+        "data":{
+          "modules":[
+
+            {"config_key":"MEATBALL", "config_id":"meatball_on", "group":[
+              {"offset":[-55.3, 15,  -7], "direction":[0.1, 0, 1], "size":[1, 1, 1]}
+            ]},
+
+            {"config_key":"MEATBALL", "config_id":"meatball_wo", "group":[
+              {"offset":[-55.5, 17,  -7], "direction":[0, 0, 1], "size":[1, 1, 1]}
+            ]},
+
+            {"config_key":"MEATBALL", "config_id":"meatball_slope", "group":[
+              {"offset":[-55.5, 19,  -7], "direction":[0, 0, 1], "size":[1, 1, 1]}
+            ]}
+          ]
+        }
+      },
+
       {
         "id":"elevator_system",
         "data":{
@@ -195,8 +216,6 @@
             {"config_key":"EXTERNAL_LIGHTS",  "config_id":"ball_blue_r5", "group":[
               {"offset":[47.4, 24.5, -6.2],  "direction":[0, 0, 1], "size":[1, 1, 1]}
             ]},
-
-
             {"config_key":"EXTERNAL_LIGHTS",  "config_id":"ball_red_1_ru1", "group":[
               {"offset":[47.5, 27.0, -6.0],  "direction":[0, 0, 1], "size":[1, 1, 1]}
             ]},
@@ -209,7 +228,6 @@
             {"config_key":"EXTERNAL_LIGHTS",  "config_id":"ball_red_1_ru4", "group":[
               {"offset":[47.2, 22.1, -6.5],  "direction":[0, 0, 1], "size":[1, 1, 1]}
             ]},
-
             {"config_key":"EXTERNAL_LIGHTS",  "config_id":"ball_red_1_lu1", "group":[
               {"offset":[52.2, 27.0, -7.5],  "direction":[0, 0, 1], "size":[1, 1, 1]}
             ]},
@@ -256,25 +274,25 @@
             ]},
 
             {"config_key":"EXTERNAL_LIGHTS",  "config_id":"ball_elv_1", "group":[
-              {"offset":[49.83, 27.0, -6.5],  "direction":[0, 0, 1], "size":[1, 1, 1]}
+              {"offset":[49.83, 27.5, -6.5],  "direction":[0, 0, 1], "size":[1, 1, 1]}
             ]},
             {"config_key":"EXTERNAL_LIGHTS",  "config_id":"ball_elv_2", "group":[
-              {"offset":[49.80, 26.5, -6.6],  "direction":[0, 0, 1], "size":[1, 1, 1]}
+              {"offset":[49.80, 26.9, -6.6],  "direction":[0, 0, 1], "size":[1, 1, 1]}
             ]},
             {"config_key":"EXTERNAL_LIGHTS",  "config_id":"ball_elv_3", "group":[
-              {"offset":[49.77, 26.0, -6.7],  "direction":[0, 0, 1], "size":[1, 1, 1]}
+              {"offset":[49.77, 26.4, -6.7],  "direction":[0, 0, 1], "size":[1, 1, 1]}
             ]},
             {"config_key":"EXTERNAL_LIGHTS",  "config_id":"ball_elv_4", "group":[
-              {"offset":[49.74, 25.5, -6.8],  "direction":[0, 0, 1], "size":[1, 1, 1]}
+              {"offset":[49.74, 25.7, -6.8],  "direction":[0, 0, 1], "size":[1, 1, 1]}
             ]},
             {"config_key":"EXTERNAL_LIGHTS",  "config_id":"ball_elv_5", "group":[
-              {"offset":[49.71, 25.0, -6.9],  "direction":[0, 0, 1], "size":[1, 1, 1]}
+              {"offset":[49.71, 25.2, -6.9],  "direction":[0, 0, 1], "size":[1, 1, 1]}
             ]},
             {"config_key":"EXTERNAL_LIGHTS",  "config_id":"ball_elv_6", "group":[
-              {"offset":[49.68, 24.5, -7.0],  "direction":[0, 0, 1], "size":[1, 1, 1]}
+              {"offset":[49.68, 24.6, -7.0],  "direction":[0, 0, 1], "size":[1, 1, 1]}
             ]},
             {"config_key":"EXTERNAL_LIGHTS",  "config_id":"ball_elv_7", "group":[
-              {"offset":[49.65, 24.0, -7.1],  "direction":[0, 0, 1], "size":[1, 1, 1]}
+              {"offset":[49.65, 24.1, -7.1],  "direction":[0, 0, 1], "size":[1, 1, 1]}
             ]},
             {"config_key":"EXTERNAL_LIGHTS",  "config_id":"ball_elv_8", "group":[
               {"offset":[49.62, 23.5, -7.2],  "direction":[0, 0, 1], "size":[1, 1, 1]}

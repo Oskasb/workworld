@@ -2,6 +2,20 @@
   "MODULES":{
 
     "GEAR_F14":[
+
+      {
+        "id":"shuttle_strut",
+        "data":{
+          "state":{"value":0, "min":0, "max":1, "speed":1, "factor":50000},
+          "source":"hook",
+          "target":"comp_1",
+          "sampleSource":"sampleControl",
+          "applyState":"applyForce",
+          "feedback":{"id":"shuttle_strut", "threshold":0.01, "factor":1.0, "scale":0.5,  "effects":["turbine_effect"], "color":"yellow_3"},
+          "effectFunction":"moduleAttachedEffect"
+        }
+      },
+
       {
         "id":"gear_r",
         "data":{

@@ -179,13 +179,86 @@
           "sampleSource":"sampleControl",
           "applyState":"applyCatapultToPiece",
 
-          "target":{"id":"launch_1", "piece_id":"PIECE_F14", "controls":{"throttle_l":1, "throttle_r":1, "brake":0}},
+          "target":{"id":"launch_1", "piece_id":"PIECE_F14", "controls":{"throttle_l":1, "throttle_r":1, "brake":0, "elevator":-1, "hook":1}},
 
           "feedback":{"id":"launch_1", "threshold":0.01, "factor":0.98, "scale":7, "effects":["flare_dot_light_effect"], "color":"blue_3"},
           "effectFunction":"moduleAttachedLightEffect"
         }
       }
     ],
+
+    "MEATBALL":[
+      {
+        "id":"meatball_on",
+        "data":{
+          "state":{"value":0, "min":0, "max":1, "speed":0.05, "factor":1},
+          "source":"meatball_on",
+          "sampleSource":"sampleControl",
+
+          "applyState":"lightMasterSystem",
+          "target":{
+            "lights":[
+              {"id":"land_ylw"    ,   "gain":1, "offset":0.4},
+              {"id":"land_wht"    ,   "gain":1, "offset":0.6},
+              {"id":"ball_blue"   ,   "gain":1, "offset":0.0}
+            ],
+            "curve":"constantOne",
+            "cycle_time":2.00
+          },
+
+          "feedback":{},
+          "effectFunction":"zeroEffect"
+        }
+      },
+      {
+        "id":"meatball_wo",
+        "data":{
+          "state":{"value":0, "min":0, "max":1, "speed":0.05, "factor":1},
+          "source":"meatball_wo",
+          "sampleSource":"sampleControl",
+          "applyState":"lightMasterSystem",
+          "target":{
+            "lights":[
+              {"id":"ball_red_2"  ,   "gain":1, "offset":0.6},
+              {"id":"ball_red_1"  ,   "gain":1, "offset":0.1}
+            ],
+            "curve":"doubleBlipp",
+            "cycle_time":2.00
+          },
+
+          "feedback":{},
+          "effectFunction":"zeroEffect"
+        }
+      },
+      {
+        "id":"meatball_slope",
+        "data":{
+          "state":{"value":0.1, "min":-1.0, "max":1.0, "speed":0.05, "factor":0.5},
+          "source":"meatball_slope",
+          "sampleSource":"sampleControl",
+          "applyState":"lightSelectorSystem",
+          "target":{
+            "lights":[
+              {"id":"ball_elv_1"  ,   "gain":1, "offset":0.01},
+              {"id":"ball_elv_2"  ,   "gain":1, "offset":0.12},
+              {"id":"ball_elv_3"  ,   "gain":1, "offset":0.23},
+              {"id":"ball_elv_4"  ,   "gain":1, "offset":0.34},
+              {"id":"ball_elv_5"  ,   "gain":1, "offset":0.45},
+              {"id":"ball_elv_6"  ,   "gain":1, "offset":0.55},
+              {"id":"ball_elv_7"  ,   "gain":1, "offset":0.66},
+              {"id":"ball_elv_8"  ,   "gain":1, "offset":0.77},
+              {"id":"ball_elv_9"  ,   "gain":1, "offset":0.88},
+              {"id":"ball_elv_10" ,   "gain":1, "offset":0.99}
+
+            ],
+            "curve":"centerPeak"
+          },
+          "feedback":{},
+          "effectFunction":"zeroEffect"
+        }
+      }
+    ],
+
     "ELEVATORS":[
       {
         "id":"elevator_1",
@@ -380,22 +453,7 @@
           "target":{
             "lights":[
               {"id":"fore_mast"   ,   "gain":1, "offset":0.0},
-              {"id":"tower"       ,   "gain":1, "offset":0.2},
-              {"id":"land_ylw"    ,   "gain":1, "offset":0.4},
-              {"id":"land_wht"    ,   "gain":1, "offset":0.6},
-              {"id":"ball_blue"   ,   "gain":1, "offset":0.0},
-              {"id":"ball_red_1"  ,   "gain":1, "offset":0.1},
-              {"id":"ball_red_2"  ,   "gain":1, "offset":0.6},
-              {"id":"ball_elv_1"  ,   "gain":1, "offset":0.0},
-              {"id":"ball_elv_2"  ,   "gain":1, "offset":0.1},
-              {"id":"ball_elv_3"  ,   "gain":1, "offset":0.2},
-              {"id":"ball_elv_4"  ,   "gain":1, "offset":0.3},
-              {"id":"ball_elv_5"  ,   "gain":1, "offset":0.4},
-              {"id":"ball_elv_6"  ,   "gain":1, "offset":0.5},
-              {"id":"ball_elv_7"  ,   "gain":1, "offset":0.6},
-              {"id":"ball_elv_8"  ,   "gain":1, "offset":0.7},
-              {"id":"ball_elv_9"  ,   "gain":1, "offset":0.8},
-              {"id":"ball_elv_10" ,   "gain":1, "offset":0.9}
+              {"id":"tower"       ,   "gain":1, "offset":0.2}
 
             ],
             "curve":"centerPeak",
@@ -441,7 +499,7 @@
           "sampleSource":"sampleLight",
 
 
-          "feedback":{"id":"ball_blue_l1", "threshold":0.01, "factor":0.98, "scale":11, "effects":["flare_dot_light_effect"], "color":"cyan_3"},
+          "feedback":{"id":"ball_blue_l1", "threshold":0.01, "factor":0.98, "scale":11, "effects":["flare_dot_light_effect"], "color":"cyan_2"},
           "effectFunction":"moduleAttachedLightEffect"
         }
       },
@@ -456,7 +514,7 @@
           "sampleSource":"sampleLight",
 
 
-          "feedback":{"id":"ball_blue_l2", "threshold":0.01, "factor":0.98, "scale":11, "effects":["flare_dot_light_effect"], "color":"cyan_3"},
+          "feedback":{"id":"ball_blue_l2", "threshold":0.01, "factor":0.98, "scale":11, "effects":["flare_dot_light_effect"], "color":"cyan_2"},
           "effectFunction":"moduleAttachedLightEffect"
         }
       },
@@ -471,7 +529,7 @@
           "sampleSource":"sampleLight",
 
 
-          "feedback":{"id":"ball_blue_l3", "threshold":0.01, "factor":0.98, "scale":11, "effects":["flare_dot_light_effect"], "color":"cyan_3"},
+          "feedback":{"id":"ball_blue_l3", "threshold":0.01, "factor":0.98, "scale":11, "effects":["flare_dot_light_effect"], "color":"cyan_2"},
           "effectFunction":"moduleAttachedLightEffect"
         }
       },
@@ -486,7 +544,7 @@
           "sampleSource":"sampleLight",
 
 
-          "feedback":{"id":"ball_blue_l4", "threshold":0.01, "factor":0.98, "scale":11, "effects":["flare_dot_light_effect"], "color":"cyan_3"},
+          "feedback":{"id":"ball_blue_l4", "threshold":0.01, "factor":0.98, "scale":11, "effects":["flare_dot_light_effect"], "color":"cyan_2"},
           "effectFunction":"moduleAttachedLightEffect"
         }
       },
@@ -501,7 +559,7 @@
           "sampleSource":"sampleLight",
 
 
-          "feedback":{"id":"ball_blue_l5", "threshold":0.01, "factor":0.98, "scale":11, "effects":["flare_dot_light_effect"], "color":"cyan_3"},
+          "feedback":{"id":"ball_blue_l5", "threshold":0.01, "factor":0.98, "scale":11, "effects":["flare_dot_light_effect"], "color":"cyan_2"},
           "effectFunction":"moduleAttachedLightEffect"
         }
       },
@@ -516,7 +574,7 @@
           "sampleSource":"sampleLight",
 
 
-          "feedback":{"id":"ball_blue_r1", "threshold":0.01, "factor":0.98, "scale":11, "effects":["flare_dot_light_effect"], "color":"cyan_3"},
+          "feedback":{"id":"ball_blue_r1", "threshold":0.01, "factor":0.98, "scale":11, "effects":["flare_dot_light_effect"], "color":"cyan_2"},
           "effectFunction":"moduleAttachedLightEffect"
         }
       },
@@ -531,7 +589,7 @@
           "sampleSource":"sampleLight",
 
 
-          "feedback":{"id":"ball_blue_r2", "threshold":0.01, "factor":0.98, "scale":11, "effects":["flare_dot_light_effect"], "color":"cyan_3"},
+          "feedback":{"id":"ball_blue_r2", "threshold":0.01, "factor":0.98, "scale":11, "effects":["flare_dot_light_effect"], "color":"cyan_2"},
           "effectFunction":"moduleAttachedLightEffect"
         }
       },
@@ -546,7 +604,7 @@
           "sampleSource":"sampleLight",
 
 
-          "feedback":{"id":"ball_blue_r3", "threshold":0.01, "factor":0.98, "scale":11, "effects":["flare_dot_light_effect"], "color":"cyan_3"},
+          "feedback":{"id":"ball_blue_r3", "threshold":0.01, "factor":0.98, "scale":11, "effects":["flare_dot_light_effect"], "color":"cyan_2"},
           "effectFunction":"moduleAttachedLightEffect"
         }
       },
@@ -561,7 +619,7 @@
           "sampleSource":"sampleLight",
 
 
-          "feedback":{"id":"ball_blue_r4", "threshold":0.01, "factor":0.98, "scale":11, "effects":["flare_dot_light_effect"], "color":"cyan_3"},
+          "feedback":{"id":"ball_blue_r4", "threshold":0.01, "factor":0.98, "scale":11, "effects":["flare_dot_light_effect"], "color":"cyan_2"},
           "effectFunction":"moduleAttachedLightEffect"
         }
       },
@@ -576,7 +634,7 @@
           "sampleSource":"sampleLight",
 
 
-          "feedback":{"id":"ball_blue_r5", "threshold":0.01, "factor":0.98, "scale":11, "effects":["flare_dot_light_effect"], "color":"cyan_3"},
+          "feedback":{"id":"ball_blue_r5", "threshold":0.01, "factor":0.98, "scale":11, "effects":["flare_dot_light_effect"], "color":"cyan_2"},
           "effectFunction":"moduleAttachedLightEffect"
         }
       },
@@ -953,7 +1011,7 @@
           "sampleSource":"sampleLight",
 
 
-          "feedback":{"id":"ball_elv_8", "threshold":0.01, "factor":0.98, "scale":18, "effects":["flare_dot_light_effect"], "color":"yellow_3"},
+          "feedback":{"id":"ball_elv_8", "threshold":0.01, "factor":0.98, "scale":22, "effects":["flare_dot_light_effect"], "color":"orange_3"},
           "effectFunction":"moduleAttachedLightEffect"
         }
       },
@@ -968,14 +1026,14 @@
           "sampleSource":"sampleLight",
 
 
-          "feedback":{"id":"ball_elv_9", "threshold":0.01, "factor":0.98, "scale":18, "effects":["flare_dot_light_effect"], "color":"yellow_3"},
+          "feedback":{"id":"ball_elv_9", "threshold":0.01, "factor":0.98, "scale":28, "effects":["flare_dot_light_effect"], "color":"red_3"},
           "effectFunction":"moduleAttachedLightEffect"
         }
       },
       {
         "id":"ball_elv_10",
         "data":{
-          "state":{"value":0, "min":0, "max":1, "speed":1, "factor":1},
+          "state":{"value":0, "min":0, "max":1, "speed":1, "factor":2},
           "source":"ball_elv_10",
           "target":"ball_elv_10",
           "applyState":"effectEmitter",
@@ -983,7 +1041,7 @@
           "sampleSource":"sampleLight",
 
 
-          "feedback":{"id":"ball_elv_10", "threshold":0.01, "factor":0.98, "scale":18, "effects":["flare_dot_light_effect"], "color":"yellow_3"},
+          "feedback":{"id":"ball_elv_10", "threshold":0.01, "factor":0.98, "scale":32, "effects":["flare_dot_light_effect"], "color":"red_3"},
           "effectFunction":"moduleAttachedLightEffect"
         }
       }

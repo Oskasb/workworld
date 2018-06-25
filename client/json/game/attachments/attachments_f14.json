@@ -122,6 +122,10 @@
         "id":"gear_system",
         "data":{
           "modules":[
+            {"config_key":"GEAR_F14", "config_id":"shuttle_strut", "group":[
+              {"offset":[0, -1.5,  6], "direction":[0, 0, 1], "size":[1, 1, 1]}
+            ]},
+
             {"config_key":"GEAR_F14", "config_id":"gear_r", "group":[
               {"offset":[-2.3, -0, -1.4], "direction":[0, 0, 1], "size":[1, 1, 1]}
             ]},

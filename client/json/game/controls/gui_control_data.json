@@ -114,6 +114,16 @@
         }
       },
       {
+        "id":"meatball_control",
+        "data":{
+          "widgets":[
+            {"widget":"BUTTON_CONTROL", "label":"BALL", "configId":"control_door",  "layout":{"margin_y":0.80, "margin_x":0.80},"onUpdate":"sampleControl", "source":"meatball_on", "onClick":"toggleControl"},
+            {"widget":"BUTTON_CONTROL", "label":"WO",   "configId":"control_door",  "layout":{"margin_y":0.90, "margin_x":0.80},"onUpdate":"sampleControl", "source":"meatball_wo", "onClick":"toggleControl"},
+            {"widget":"DRAG_CONTROL",   "label":"SLP",  "configId":"control_throttle", "layout":{"margin_y":0.10, "margin_x":0.90, "width":0.06, "height":0.12},"onUpdate":"sampleControl", "source":"meatball_slope", "onDrag":"onDragControl",   "buffer":"inputState",     "channel":"DRAG_DISTANCE_Y"}
+          ]
+        }
+      },
+      {
         "id":"elevator_control",
         "data":{
           "widgets":[
