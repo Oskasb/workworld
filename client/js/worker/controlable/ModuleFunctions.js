@@ -318,10 +318,17 @@ define([
         };
 
 
+        var masterState;
 
         ModuleFunctions.lightSelectorSystem = function(renderable, moduleState, trgt) {
 
+
+            masterState = renderable.getGamePiece().getModuleTargetValueById(trgt.master_module);
+
+        //    if (!value) return;
+
             value = 0;
+
             state = moduleState.getAppliedFactor();
 
             for (i = 0; i < trgt.lights.length; i++) {
@@ -330,7 +337,7 @@ define([
             //    if (moduleState.getStateValue() > 0) {
                     value = MATH.valueFromCurve(state + trgt.lights[i].offset, MATH.curves[trgt.curve]) * trgt.lights[i].gain;
             //    }
-                light.setDynamicLightIntensity( value );
+                light.setDynamicLightIntensity( value * masterState);
             }
         };
 

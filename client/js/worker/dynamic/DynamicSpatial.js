@@ -463,9 +463,9 @@ define([
 
             tempObj2.quaternion.conjugate();
 
-            tempObj2.quaternion.multiply(tempObj.quaternion)
+            tempObj2.quaternion.multiply(tempObj.quaternion);
 
-            tempVec2.set(0, 0, -Math.PI);
+            tempVec2.set(0, 0, -3.145);
 
             tempVec2.applyQuaternion(tempObj2.quaternion);
 

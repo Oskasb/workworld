@@ -47,6 +47,8 @@ define([
             this.configObject = new ConfigObject('GEOMETRY', 'TERRAIN_GEOMETRY', configId);
             this.configObject.addCallback(configReady)
 
+            this.lastTestedAreaIndex = 0;
+
         };
 
         TerrainArea.prototype.configRead = function(dataKey) {
@@ -222,9 +224,15 @@ define([
                     WorldAPI.addTextMessage('Include Area: '+this.configId);
                 }
 
-                for (var i = 0; i < this.terrainSections.length; i++) {
-                    this.terrainSections[i].updateTerrainSection(tpf)
+            //    for (var i = 0; i < this.terrainSections.length; i++) {
+                    this.terrainSections[this.lastTestedAreaIndex].updateTerrainSection(tpf)
+
+                    this.lastTestedAreaIndex++;
+                if (this.lastTestedAreaIndex === this.terrainSections.length) {
+                    this.lastTestedAreaIndex = 0;
                 }
+
+            //    }
             } else if (this.wasVisible) {
                 WorldAPI.addTextMessage('Hide Area: '+this.configId);
                 for (var i = 0; i < this.terrainSections.length; i++) {

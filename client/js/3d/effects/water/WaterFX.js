@@ -25,8 +25,8 @@ define([
         var calcVec = new THREE.Vector3();
 
         var parameters = {
-            width: 100000,
-            height: 100000,
+            width: 1000000,
+            height: 1000000,
             widthSegments: 128,
             heightSegments: 128,
             depth: 1500,
@@ -67,9 +67,9 @@ define([
 
             world = ThreeAPI.getEnvironment().getEnvironmentDynamicWorld();
 
-            waterGeometry = new THREE.PlaneBufferGeometry( parameters.width, parameters.height, 16, 16 );
+            waterGeometry = new THREE.PlaneBufferGeometry( parameters.width, parameters.height, 256, 256 );
 
-            var simpleWater = true;
+            var simpleWater = 0;
 
             if (simpleWater) {
                 var material = waterMaterial.getMaterialById(oceanId);
@@ -83,13 +83,14 @@ define([
                         waterNormals: new THREE.TextureLoader().load( 'client/assets/images/textures/tiles/waternormals3.png', function ( texture ) {
                             texture.wrapS = texture.wrapT = THREE.RepeatWrapping;
                         }),
-                        alpha: 1.0,
+                        alpha: 1,
                         sunDirection: new THREE.Vector3(0.2, 0.3, 0),
-                        sunColor: 0xffffff,
-                        waterColor: 0x000e0f,
-                        distortionScale:  2.7,
+                        sunColor: new THREE.Color( 0x7F7F7F ),
+                        waterColor: new THREE.Color( 0x000000 ),
+                        distortionScale:  0.2,
                         //     fog: undefined
-                      fog: ThreeAPI.getScene().fog !== undefined
+                        clipBias:0.01,
+                        fog: false // ThreeAPI.getScene().fog !== undefined
                     }
                 );
 
@@ -112,6 +113,7 @@ define([
 
         var color;
         var rot;
+        var pos;
 
         var applyUniformEnvironmentColor = function(uniform, worldProperty) {
             color = ThreeAPI.readEnvironmentUniform(worldProperty, 'color');
@@ -127,12 +129,19 @@ define([
             uniform.value.z = -rot.z;
         };
 
+        var applyUniformEnvironmentPosition = function(uniform, worldProperty) {
+            pos = ThreeAPI.readEnvironmentUniform(worldProperty, 'position');
+            pos.normalize();
+            uniform.value.x = pos.x;
+            uniform.value.y = pos.y;
+            uniform.value.z = pos.z;
+        };
 
         WaterFX.prototype.updateWaterEffect = function(uniforms) {
 
             applyUniformEnvironmentColor(uniforms.waterColor, 'ambient');
-        //    applyUniformEnvironmentColor(uniforms.sunColor, 'sun');
-        //    applyUniformEnvironmentRotation(uniforms.sunDirection, 'sun');
+            applyUniformEnvironmentColor(uniforms.sunColor, 'sun');
+            applyUniformEnvironmentPosition(uniforms.sunDirection, 'sun');
 
 
         };

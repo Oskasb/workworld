@@ -325,7 +325,7 @@ var uwAmbColor = [0.01, 0.2, 0.6];
         currentElevation = WorkerAPI.getCom(ENUMS.BufferChannels.CAM_POS_Y);
 
 if (currentElevation > 0) {
-    elevationFactor = MATH.curveQuad( MATH.airDensityAtAlt(currentElevation) );
+    elevationFactor = MATH.curveCube( MATH.airDensityAtAlt(currentElevation) );
 } else {
     updateUnderwater();
     return;

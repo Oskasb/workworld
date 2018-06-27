@@ -251,7 +251,8 @@
               {"id":"ball_elv_10" ,   "gain":1, "offset":0.99}
 
             ],
-            "curve":"centerPeak"
+            "curve":"centerPeak",
+            "master_module":"meatball_on"
           },
           "feedback":{},
           "effectFunction":"zeroEffect"

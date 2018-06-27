@@ -20,19 +20,19 @@
             {"id":"sub_1bu",      "lift":[0,    0,   0],  "shape":"Box", "args":[3,  12,  100],   "offset":[-11,     10,    100],      "rotation":[0,   0.15,  0.3]},
             {"id":"sub_1cu",      "lift":[0,    0,   0],  "shape":"Box", "args":[3,  12,  100],   "offset":[ 11,     10,    100],      "rotation":[0,  -0.15, -0.3]},
 
-            {"id":"sub_2",        "lift":[0, "box",  0],  "shape":"Box", "args":[12,  10,  65],   "offset":[-14,     -5,     60],      "rotation":[0,   0.16,  0.1]},
-            {"id":"sub_4",        "lift":[0, "box",  0],  "shape":"Box", "args":[12,  10,  65],   "offset":[ 14,     -5,     60],      "rotation":[0,  -0.16, -0.1]},
+            {"id":"sub_2",        "lift":[0, "box",  0],  "shape":"Box", "args":[12,  16,  65],   "offset":[-10,     -5,     60],      "rotation":[0,   0.16,  0.1]},
+            {"id":"sub_4",        "lift":[0, "box",  0],  "shape":"Box", "args":[12,  16,  65],   "offset":[ 10,     -5,     60],      "rotation":[0,  -0.16, -0.1]},
 
-            {"id":"sub_7a",       "lift":[0,    0,   0],  "shape":"Box", "args":[12,   14,  40],  "offset":[-12,     -2,     60],      "rotation":[0,  0.15, 0]},
-            {"id":"sub_7b",       "lift":[0,    0,   0],  "shape":"Box", "args":[12,   14,  40],  "offset":[ 12,     -2,     60],      "rotation":[0, -0.15, 0]},
+            {"id":"sub_7a",       "lift":[0,    0,   0],  "shape":"Box", "args":[12,   14,  40],  "offset":[-10,     -4,     60],      "rotation":[0,  0.15, 0]},
+            {"id":"sub_7b",       "lift":[0,    0,   0],  "shape":"Box", "args":[12,   14,  40],  "offset":[ 10,     -4,     60],      "rotation":[0, -0.15, 0]},
 
             {"id":"hangar_floor_1a", "lift":[0, 0,   0],  "shape":"Box", "args":[19,  5, 95],     "offset":[-5,     8.2,     55],      "rotation":[0,  0.09, 0]},
             {"id":"hangar_floor_1b", "lift":[0, 0,   0],  "shape":"Box", "args":[19,  5, 95],     "offset":[ 5,     8.2,     55],      "rotation":[0, -0.09, 0]},
             {"id":"hangar_floor_2a", "lift":[0, 0,   0],  "shape":"Box", "args":[20,  5, 150],    "offset":[-9,     8.2,    -65],      "rotation":[0, 0, 0]},
             {"id":"hangar_floor_2b", "lift":[0, 0,   0],  "shape":"Box", "args":[20,  5, 150],    "offset":[ 9,     8.2,    -65],      "rotation":[0, 0, 0]},
 
-            {"id":"sub_8a",       "lift":[0, "box",   0],  "shape":"Box", "args":[13,  10, 140],  "offset":[-12,     -5,    -40],      "rotation":[0, 0, 0]},
-            {"id":"sub_8b",       "lift":[0, "box",   0],  "shape":"Box", "args":[13,  10, 140],  "offset":[ 12,     -5,    -40],      "rotation":[0, 0, 0]},
+            {"id":"sub_8a",       "lift":[0, "box",   0],  "shape":"Box", "args":[11,  16, 140],  "offset":[-12,     -5,    -40],      "rotation":[0, 0, 0]},
+            {"id":"sub_8b",       "lift":[0, "box",   0],  "shape":"Box", "args":[11,  16, 140],  "offset":[ 12,     -5,    -40],      "rotation":[0, 0, 0]},
 
             {"id":"sub_prop_1",   "lift":[0,    0,   0],  "shape":"Box", "args":[14,   10,  40],  "offset":[-7,      -3,   -130],      "rotation":[-0.0, -0.0, 0]},
             {"id":"sub_prop_2",   "lift":[0,    0,   0],  "shape":"Box", "args":[14,   10,  40],  "offset":[7,       -3,   -130],      "rotation":[-0.0,  0.0, 0]},

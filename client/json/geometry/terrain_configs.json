@@ -15,9 +15,9 @@
             "terrain_edge_size":5750,
             "edge_easing":"clampSin",
             "max_height":2585,
-            "min_height":-250,
+            "min_height":-550,
             "frequency":8,
-            "steps":1
+            "steps":7
           }
         }
       },
@@ -32,10 +32,10 @@
             "terrain_size":32000,
             "terrain_segments":255,
             "invert_hill":false,
-            "terrain_edge_size":1550,
+            "terrain_edge_size":5550,
             "edge_easing":"clampSin",
-            "max_height":245,
-            "min_height":-50,
+            "max_height":1245,
+            "min_height":-350,
             "frequency":5,
             "steps":5
           }
@@ -50,12 +50,12 @@
             "three_terrain":"plain_ground",
             "vegetation_system":"basic_grassland",
             "terrain_size":22000,
-            "terrain_segments":127,
+            "terrain_segments":255,
             "invert_hill":false,
             "terrain_edge_size":6705,
             "edge_easing":"clampSin",
             "max_height":375,
-            "min_height":-50,
+            "min_height":-350,
             "frequency":3,
             "steps":3
           }
@@ -70,12 +70,12 @@
             "three_terrain":"plain_ground",
             "vegetation_system":"basic_grassland",
             "terrain_size":32000,
-            "terrain_segments":53,
+            "terrain_segments":255,
             "invert_hill":false,
             "terrain_edge_size":7305,
             "edge_easing":"clampSin",
             "max_height":1373,
-            "min_height":-50,
+            "min_height":-350,
             "frequency":4,
             "steps":6
           }

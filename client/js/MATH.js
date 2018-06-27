@@ -122,8 +122,13 @@ if(typeof(MATH) === "undefined") {
     };
 
 
+    MATH.curveCube = function(value) {
+        return value*value*value
+    };
 
-	MATH.CurveState = function(curve, amplitude) {
+
+
+    MATH.CurveState = function(curve, amplitude) {
 		this.curve = curve || MATH.curves.oneToZero;
 		this.amplitude = amplitude || 1;
 		this.fraction = 0;

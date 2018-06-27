@@ -130,7 +130,7 @@ define([
 
 
         ShapePhysics.calculateSurfaceLiftForce = function(area, velocity, anglesOfIncidence, curveName) {
-            return area*velocity*MATH.valueFromCurve(MATH.angleInsideCircle(anglesOfIncidence), liftCurves[curveName])
+            return area*velocity*MATH.valueFromCurve(MATH.angleInsideCircle(anglesOfIncidence*0.5), liftCurves[curveName])
         };
 
         ShapePhysics.curveLift = function(angleOfAttack, curveName) {
