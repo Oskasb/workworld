@@ -103,8 +103,8 @@ define([
 
         //Used in the Dynamic World Worker
         DynamicSpatial.prototype.setupSpatialBuffer = function() {
-            var sab = new SharedArrayBuffer(Float32Array.BYTES_PER_ELEMENT * ENUMS.BufferSpatial.BUFFER_SIZE);
-            this.spatialBuffer = new Float32Array(sab);
+            var sab = new SharedArrayBuffer(Float64Array.BYTES_PER_ELEMENT * ENUMS.BufferSpatial.BUFFER_SIZE);
+            this.spatialBuffer = new Float64Array(sab);
         };
 
         DynamicSpatial.prototype.getSpatialBuffer = function() {
@@ -465,7 +465,7 @@ define([
 
             tempObj2.quaternion.multiply(tempObj.quaternion);
 
-            tempVec2.set(0, 0, -3.145);
+            tempVec2.set(0, 0, -1.73);
 
             tempVec2.applyQuaternion(tempObj2.quaternion);
 

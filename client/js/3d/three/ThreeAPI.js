@@ -32,6 +32,8 @@ define([
         var effectCallbacks;
         var renderFilter;
 
+    //    THREE.Object3D.DefaultMatrixAutoUpdate = false;
+
         var ThreeAPI = function() {
 
         };
@@ -58,6 +60,7 @@ define([
             camera = store.camera;
             renderer = store.renderer;
             ThreeSetup.addPrerenderCallback(ThreeModelLoader.updateActiveMixers);
+            ThreeSetup.addToScene(ThreeSetup.getCamera());
         };
 
         ThreeAPI.loadThreeModels = function(TAPI) {
@@ -193,7 +196,7 @@ define([
         };
 
         ThreeAPI.attachObjectToCamera = function(object) {
-            ThreeSetup.addToScene(ThreeSetup.getCamera());
+         //   ThreeSetup.addToScene(ThreeSetup.getCamera());
             ThreeSetup.addChildToParent(object, ThreeSetup.getCamera());
         };
 

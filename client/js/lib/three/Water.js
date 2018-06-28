@@ -124,8 +124,8 @@ THREE.Water = function ( geometry, options ) {
 			'vec4 getNoise( vec2 uv ) {',
 			'	vec2 uv0 = ( uv / 323.0 ) + vec2(time / 117.0, time / 119.0);',
 			'	vec2 uv1 = uv / 467.0-vec2( time / -99.0, time / 125.0 );',
-			'	vec2 uv2 = uv / vec2( 19071.0, 18031.0 ) + vec2( time / 2551.0, time / 1559.0 );',
-			'	vec2 uv3 = uv / vec2( 6591.0, 6127.0 ) - vec2( time / 1409.0, time / -413.0 );',
+			'	vec2 uv2 = uv / vec2( 4071.0, 3031.0 ) + vec2( time / 2551.0, time / 1559.0 );',
+			'	vec2 uv3 = uv / vec2( 1591.0, 1127.0 ) - vec2( time / 1409.0, time / -413.0 );',
 			'	vec4 noise = texture2D( normalSampler, uv0 ) +',
 			'		texture2D( normalSampler, uv1 ) +',
 			'		texture2D( normalSampler, uv2 ) +',
@@ -206,6 +206,7 @@ THREE.Water = function ( geometry, options ) {
 
 	scope.onBeforeRender = function ( renderer, scene, camera ) {
 
+    //    return;
 
 		mirrorWorldPosition.setFromMatrixPosition( scope.matrixWorld );
 		cameraWorldPosition.setFromMatrixPosition( camera.matrixWorld );

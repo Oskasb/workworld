@@ -130,7 +130,7 @@ define([
 
 
         ShapePhysics.calculateSurfaceLiftForce = function(area, velocity, anglesOfIncidence, curveName) {
-            return area*velocity*MATH.valueFromCurve(MATH.angleInsideCircle(anglesOfIncidence*0.5), liftCurves[curveName])
+            return area*velocity*MATH.valueFromCurve(MATH.angleInsideCircle(anglesOfIncidence), liftCurves[curveName])
         };
 
         ShapePhysics.curveLift = function(angleOfAttack, curveName) {
@@ -176,7 +176,7 @@ define([
         //    transformedVel.applyQuaternion(tempQuat);
 
         //    tempObj.rotateX(-Math.PI/2);
-            tempVec3.set(0, 0, Math.PI);
+            tempVec3.set(0, 0, 1.73);
             tempVec3.applyQuaternion(tempObj.quaternion);
 
         //    tempEuler.setFromQuaternion(tempObj.quaternion, 'YZX');

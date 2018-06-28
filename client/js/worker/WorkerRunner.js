@@ -25,8 +25,8 @@ define([
         WorkerRunner.prototype.buildMainWorldComBuffer = function(size) {
 
             if (SharedArrayBuffer) {
-                var sab = new SharedArrayBuffer(Float32Array.BYTES_PER_ELEMENT * size);
-                worldComBuffer = new Float32Array(sab);
+                var sab = new SharedArrayBuffer(Float64Array.BYTES_PER_ELEMENT * size);
+                worldComBuffer = new Float64Array(sab);
                 PipelineAPI.setCategoryKeyValue("SHARED_BUFFERS", ENUMS.Key.WORLD_COM_BUFFER, worldComBuffer);
                 WorkerAPI.setCom(worldComBuffer);
             } else {

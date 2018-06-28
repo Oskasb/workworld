@@ -55,6 +55,7 @@ define([
             this.geometry = geometry;
 
             var mesh = new THREE.Mesh(geometry);
+            mesh.matrixAutoUpdate = false;
             mesh.frustumCulled = false;
             //    mesh.scale.set(1, 1, 1);
             this.applyMesh(mesh);

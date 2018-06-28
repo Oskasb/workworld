@@ -326,14 +326,12 @@ define([
                 tickEvent.frame = frame;
                 tickEvent.tpf = tpf;
 
-
             PipelineAPI.setCategoryKeyValue('STATUS', 'TIME_GAME_TICK', performance.now() - start);
 
             this.sceneController.tickEffectsAPI(comBuffer[ENUMS.BufferChannels.FRAME_RENDER_TIME]-tpf);
 
             this.tickStatusUpdate(tpf);
 
-            sampleCamera(ThreeAPI.getCamera());
 
             ThreeAPI.updateCamera();
 
@@ -343,15 +341,15 @@ define([
 		};
 
         ClientViewer.prototype.tickPostrender = function(tpf) {
-
+            sampleCamera(ThreeAPI.getCamera());
             comBuffer[ENUMS.BufferChannels.WAKE_INDEX]++;
             PipelineAPI.setCategoryKeyValue('STATUS', 'TPF', tpf);
             WorkerAPI.wakeWorldThread();
         };
 
         ClientViewer.prototype.tickWorkerPing = function(msg) {
-            this.sceneController.tickDynamicScene();
             evt.fire(evt.list().CLIENT_TICK, tickEvent);
+            this.sceneController.tickDynamicScene();
         };
 
 		return ClientViewer;

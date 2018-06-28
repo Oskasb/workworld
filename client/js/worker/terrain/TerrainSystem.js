@@ -14,12 +14,12 @@ define([
         var tempVec = new THREE.Vector3();
 
 
-        var scatter = 3500;
+        var scatter = 2500;
 
-        var gridSpacing = 18000;
+        var gridSpacing = 22000;
         var gridWidth = 2;
-        var minX = -9000;
-        var minZ = -9000;
+        var minX = 100;
+        var minZ = 100;
 
         var spawnCount = 0;
         var row = 0;
@@ -46,10 +46,9 @@ var gridPosZ = function() {
 
             var areaConfigReady = function(tArea) {
 
-                spawnCount++;
                 tArea.createAreaOfTerrain(gridPosX(), gridPosZ());
                 this.terrainAreas.push(tArea)
-
+                spawnCount++;
             }.bind(this);
 
             new TerrainArea(this.terrainFunctions, configId, areaConfigReady);

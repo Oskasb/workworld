@@ -28,6 +28,8 @@ define([
         var SimpleSpatial = function(modelId, spatialBuffer, pieceConfKey, pieceConfId) {
             this.ready = false;
             this.obj3d = new THREE.Object3D();
+            this.pos = new THREE.Vector3();
+            this.quat = new THREE.Quaternion();
             this.modelId = modelId;
             this.dynamicSpatial = new DynamicSpatial();
             this.dynamicLights = new DynamicLights(spatialBuffer);
@@ -120,12 +122,12 @@ define([
         SimpleSpatial.prototype.updateSimpleSpatial = function() {
 
             if (!this.ready) {
-                this.initDynamicModel(this.obj3d.children[0])
+                this.initDynamicModel(this.obj3d.children[0]);
                 return;
             }
 
-            this.dynamicSpatial.getSpatialPosition(this.obj3d.position);
-            this.dynamicSpatial.getSpatialQuaternion(this.obj3d.quaternion);
+            this.dynamicSpatial.getSpatialPosition(this.pos);
+            this.dynamicSpatial.getSpatialQuaternion(this.quat);
             this.dynamicSkeleton.updateDynamicSkeleton();
             this.dynamicLights.updateDynamicLights();
         };
