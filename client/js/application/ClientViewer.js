@@ -306,6 +306,8 @@ define([
 
         ClientViewer.prototype.tick = function(tpf) {
 
+        //    WorkerAPI.callWorker(ENUMS.Worker.PHYSICS_WORLD, WorkerAPI.buildMessage(ENUMS.Protocol.PHYSICS_CALL_UPDATE, null));
+
             gameTime += tpf;
             comBuffer[ENUMS.BufferChannels.FRAME_RENDER_TIME] = gameTime;
             start = performance.now();

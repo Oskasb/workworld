@@ -214,7 +214,6 @@ define([
         camera.position.y += tempVec1.y * (0.2+distance*0.02);
         camera.position.z += tempVec1.z * (0.2+distance*0.02);
 
-        WorldAPI.getWorldCamera().updateCameraLookAt();
     };
 
     WorldCamera.prototype.followActiveSelection = function(renderable) {

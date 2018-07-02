@@ -29,6 +29,36 @@
 
         }
       },
+
+      {
+        "id":"cam_ext",
+        "data":{
+          "state":{"value":0, "min":0, "max":1, "speed":0.05, "factor":0.6},
+          "source":"cam_ext",
+          "target":{"id":"cam_ext", "zero_ctrl":["cam_pilot"], "slerp":0.93},
+          "feedback":{},
+          "sampleSource":"sampleControl",
+          "applyState":"cameraMode",
+          "effectFunction":"zeroEffect"
+
+        }
+      },
+
+      {
+        "id":"cam_plt",
+        "data":{
+          "state":{"value":0, "min":0, "max":1, "speed":0.05, "factor":0.6},
+          "source":"cam_pilot",
+
+          "feedback":{},
+          "sampleSource":"sampleControl",
+          "target":{"id":"cam_plt", "zero_ctrl":["cam_ext"], "slerp":0.91},
+          "applyState":"cameraMode",
+          "effectFunction":"zeroEffect"
+
+        }
+      },
+
       {
         "id":"hook",
         "data":{
@@ -41,23 +71,12 @@
           "effectFunction":"setBoneRotationX"
         }
       },
-      {
-        "id":"nozzle_r",
-        "data":{
-          "state":{"value":0.01, "min":0.01, "max":1, "speed":0.01, "factor":-0.41, "offset":-0.995},
-          "source":{"id":"jet_1", "min":0.55, "max":1.01, "factor":1.1, "offset":0.01},
-          "target":"nozzle_r",
-          "feedback":"nozzle_r",
-          "sampleSource":"slaveModule",
-          "applyState":"effectEmitter",
-          "effectFunction":"setBoneScaleUniform"
-        }
-      },
+
       {
         "id":"nozzle_l",
         "data":{
           "state":{"value":0.01, "min":0.01, "max":1, "speed":0.01, "factor":-0.41, "offset":-0.995},
-          "source":{"id":"jet_2", "min":0.55, "max":1.01, "factor":1.1, "offset":0.01},
+          "source":{"id":"jet_1", "min":0.55, "max":1.01, "factor":1.1, "offset":0.01},
           "target":"nozzle_l",
           "feedback":"nozzle_l",
           "sampleSource":"slaveModule",
@@ -65,6 +84,20 @@
           "effectFunction":"setBoneScaleUniform"
         }
       },
+
+      {
+        "id":"nozzle_r",
+        "data":{
+          "state":{"value":0.01, "min":0.01, "max":1, "speed":0.01, "factor":-0.41, "offset":-0.995},
+          "source":{"id":"jet_2", "min":0.55, "max":1.01, "factor":1.1, "offset":0.01},
+          "target":"nozzle_r",
+          "feedback":"nozzle_r",
+          "sampleSource":"slaveModule",
+          "applyState":"effectEmitter",
+          "effectFunction":"setBoneScaleUniform"
+        }
+      },
+
       {
         "id":"force_1",
         "data":{

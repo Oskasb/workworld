@@ -50,7 +50,7 @@ define([
 
         TerrainElement.prototype.determineTerrainElementType = function(otherElements) {
 
-            if (Math.random() < 0.5) return;
+            if (Math.random() < 0.75) return;
 
             tempVec1.x = this.center.x + (Math.random()-0.5)*this.extents.x * 0.5;
             tempVec1.z = this.center.z + (Math.random()-0.5)*this.extents.x * 0.5;
@@ -71,7 +71,7 @@ define([
                 if (tempVec1.y > 1 && tempVec2.y > 0.92) {
 
                     if (!this.testTerrainElementsForType(otherElements, ENUMS.TerrainFeature.WOODS)) {
-                        this.scale = Math.floor(4*(Math.random()*Math.random()))+4;
+                        this.scale = Math.floor(7*(Math.random()*Math.random()))+5;
                         tempVec1.y += 6.5 * this.scale;
                         this.elementType = ENUMS.TerrainFeature.WOODS;
 
@@ -79,7 +79,7 @@ define([
 
                         if (Math.random() < 0.5) return;
 
-                        this.scale =  2.5 + Math.floor(3*(Math.random()));
+                        this.scale =  3.5 + Math.floor(5*(Math.random()));
                         tempVec1.y += 6 * this.scale;
                         this.elementType = ENUMS.TerrainFeature.WOODS;
                     }

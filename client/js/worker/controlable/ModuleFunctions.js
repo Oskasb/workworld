@@ -11,7 +11,11 @@ define([
         var shape;
         var target;
         var light;
-
+        var dynRen;
+        var module;
+        var key;
+        var controls;
+        var camera;
         var worldTime;
         var currentTime;
         var timeProgress;
@@ -184,14 +188,39 @@ define([
 
         };
 
+
+        ModuleFunctions.cameraMode = function(renderable, moduleState, trgt) {
+            if (renderable !== WorldAPI.getControlledRenderable()) return;
+            if (moduleState.getTargetValue() === 0) return;
+
+            for (i = 0; i < trgt.zero_ctrl.length; i++) {
+                control = renderable.getGamePiece().getControlStateById(trgt.zero_ctrl[i]);
+                control.setPieceControlTargetState(0)
+            }
+
+            module = renderable.getGamePiece().getControlableModuleById(trgt.id);
+
+            module.calculateWorldPosition(renderable.pos, renderable.quat, calcVec);
+            renderable.cameraHome.copy(module.offset);
+            renderable.cameraHome.z += 1;
+            calcObj.lookAt(module.direction);
+        //    calcObj.quaternion.multiply(renderable.quat);
+
+        //    calcObj.quaternion.slerp(renderable.quat, trgt.slerp);
+
+            camera = WorldAPI.getWorldCamera().getCamera();
+            camera.position.copy(calcVec);
+            camera.quaternion.slerp(renderable.quat, trgt.slerp);
+            camera.rotateY(Math.PI);
+
+
+        };
+
         ModuleFunctions.flightComputerMasterSystem = function(renderable, moduleState, trgt) {
 
         };
 
-        var dynRen;
-        var module;
-        var key;
-        var controls;
+
 
         ModuleFunctions.attachGamePiece = function(renderable, moduleState, trgt) {
             if (moduleState.getAppliedFactor() < 0.99) return;

@@ -90,12 +90,12 @@ define(['PipelineObject',
     };
 
     var initSky = function() {
-
+    //    return;
     //    console.log("Init sky");
 
         // Add Sky Mesh
         sky = new THREE.Sky();
-        scene.add( sky.mesh );
+    //    scene.add( sky.mesh );
 
         // Add Sun Helper
         sunSphere = new THREE.Mesh(
@@ -123,7 +123,10 @@ define(['PipelineObject',
 
     var applyFog = function(Obj3d, density) {
         Obj3d.density = density * 0.3;
+        Obj3d.near = 1;
+        Obj3d.far = 1/density;
     };
+
 
     var applyFromBuffer = function(buffer) {
 
@@ -403,6 +406,7 @@ if (currentElevation > 0) {
         if (enabled) return;
         enabled = true;
         scene.add( sky.mesh );
+        ThreeAPI.getReflectionScene().add(sky.mesh.clone());
         evt.on(evt.list().CLIENT_TICK, tickEnvironment);
     };
 
@@ -429,6 +433,7 @@ if (currentElevation > 0) {
 
     ThreeEnvironment.initEnvironment = function(store) {
 
+
         scene = store.scene;
         renderer = store.renderer;
         camera = store.camera;
@@ -451,11 +456,14 @@ if (currentElevation > 0) {
                     scene.add(world[key]);
                     
                 } else if (key == "fog") {
-                    scene.fog = new THREE.FogExp2( 0x9999ff, 0.00025 );
-                    world[key] = scene.fog;
+                //    scene.fog = {density:0, near:1, far: 100000}; // new THREE.Fog( 100, 10000000);
+                //    world[key] = scene.fog;
+                    world[key] = {density:0, near:1, far: 100000}
+                //    ThreeAPI.getReflectionScene().add(world[key]);
                 } else {
                     world[key] = new THREE.DirectionalLight(0x000000);
                     scene.add(world[key]);
+                //    ThreeAPI.getReflectionScene().add(world[key]);
                 }
             }
         };

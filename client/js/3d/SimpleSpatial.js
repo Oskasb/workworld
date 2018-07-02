@@ -37,19 +37,41 @@ define([
             this.dynamicSpatial.setSpatialBuffer(spatialBuffer)
         };
 
-        SimpleSpatial.prototype.setupBones = function(skeleton) {
+        SimpleSpatial.prototype.getSkeletons = function(rootGroup) {
+
+            var skeletons = [];
+
+            if (rootGroup.skeleton) {
+                skeletons.push(rootGroup.skeleton)
+            }
+
+            for (var i = 0; i < rootGroup.children.length; i++) {
+                if (rootGroup.children[i].skeleton) {
+                    skeletons.push(rootGroup.children[i].skeleton)
+                }
+
+                if (rootGroup.children[i].type === 'Group') {
+            //        skeletons.push(rootGroup.children[i].children)
+                }
+
+            }
+
+            return skeletons;
+        };
+
+        SimpleSpatial.prototype.parseSkeleton = function(skeleton, bonesConfig, bones) {
 
             var group = skeleton.bones;
 
-            var boneIndex = 0;
-            var bonesConfig = [];
-
-            var bones = [];
-
             var addBone = function(bone) {
-                bonesConfig.push(buildBoneConfig(bone, boneIndex));
-                boneIndex++;
-                bones.push(bone);
+
+                if (bones.indexOf(bone) === -1) {
+
+                    bonesConfig.push(buildBoneConfig(bone, boneIndex));
+                    boneIndex++;
+                    bones.push(bone);
+
+                }
             };
 
             var parseChildGroup = function(obj) {
@@ -82,6 +104,25 @@ define([
             };
 
             parseBoneGroup(group);
+        };
+
+        var boneIndex;
+
+        SimpleSpatial.prototype.setupBones = function(rootGroup) {
+
+
+            var skeletons = this.getSkeletons(rootGroup);
+
+            if (!skeletons.length) return;
+
+            boneIndex = 0;
+
+            var bonesConfig = [];
+            var bones = [];
+
+            for (var i = 0; i < skeletons.length; i++) {
+                this.parseSkeleton(skeletons[i], bonesConfig, bones)
+            }
 
             this.dynamicSkeleton.applyBonesConfig(bonesConfig);
 
@@ -100,7 +141,7 @@ define([
             if (!group) return;
 
             if (!this.dynamicSkeleton.bones.length) {
-                var bonesConfig = this.setupBones(group.skeleton);
+                var bonesConfig = this.setupBones(group);
             }
 
             if (group.userData.canvasTextures) {

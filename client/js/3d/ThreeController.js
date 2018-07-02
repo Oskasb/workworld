@@ -29,6 +29,7 @@ define([
         pxRatio = window.devicePixelRatio;
 
         var antialias = PipelineAPI.readCachedConfigKey('SETUP', 'ANTIALIAS');
+    //    antialias = false;
         pxRatio =  PipelineAPI.readCachedConfigKey('SETUP', 'PX_SCALE');
 
         ThreeAPI.initThreeScene(GameScreen.getElement(), pxRatio, antialias);

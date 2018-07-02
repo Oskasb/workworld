@@ -170,7 +170,6 @@
           "feedback":{"light":{"id":"y_2", "gain":4}}
         }
       },
-
       {
         "id":"trim_yaw",
         "data":{
@@ -185,8 +184,6 @@
           "feedback":{"light":{"id":"z_2", "gain":4}}
         }
       },
-
-
       {
         "id":"throttle_l",
         "data":{
@@ -226,7 +223,6 @@
           "effectFunction":"setBoneRotationX"
         }
       },
-
       {
         "id":"pedal_r",
         "data":{

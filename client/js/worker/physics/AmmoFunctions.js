@@ -755,6 +755,9 @@ define([
                 return;
             }
 
+            if (shapeKey === "simple") {
+                return;
+            }
 
             if (shapeKey === "primitive") {
 

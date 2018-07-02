@@ -45,6 +45,12 @@ define([
                 WorldAPI.addWorldArea(msg[1]);
             };
 
+
+            this.messageHandlers[ENUMS.Protocol.WORKER_READY] = function(msg) {
+                WorldAPI.notifyWorkerReady(msg[1]);
+            };
+
+
             this.messageHandlers[ENUMS.Protocol.GENERATE_STATIC_AREA] = function(msg) {
                 StaticWorldAPI.generateStaticArea(msg[1]);
             };
@@ -69,6 +75,7 @@ define([
                 fetcher.addCallback(dataUpdated);
 
             };
+
             this.messageHandlers[ENUMS.Protocol.SET_CONFIG_DATA] = function(msg) {
                 PhysicsWorldAPI.setConfigData(msg[1])
             };

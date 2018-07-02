@@ -45,8 +45,8 @@ define([
             var modelReady = function(sSpat, boneConf) {
                 console.log("SimpleSpatial ready: ", boneConf, sSpat);
                 PipelineAPI.setCategoryKeyValue('DYNAMIC_BONES', sSpat.modelId, boneConf);
-                //     ThreeAPI.addToScene(sSpat.obj3d);
-                ThreeAPI.attachObjectToCamera(sSpat.obj3d);
+                ThreeAPI.addToScene(sSpat.obj3d);
+                //       ThreeAPI.attachObjectToCamera(sSpat.obj3d);
                 sSpat.dynamicSpatial.setupMechanicalShape(msg[2]);
                 WorkerAPI.registerMainDynamicSpatial(sSpat.getDynamicSpatial());
             };
@@ -67,7 +67,7 @@ define([
 
     DynamicMain.prototype.tickDynamicMain = function() {
 
-
+/*
         camPos = ThreeAPI.getCamera().position;
         camQuat = ThreeAPI.getCamera().quaternion;
         calcObj.quaternion.copy(camQuat);
@@ -84,15 +84,21 @@ define([
         calcPos.z = camPos.z;
 
         calcPos.applyQuaternion(calcQuat);
-
+*/
     //  inverseQuat.conjugate();
 
         for (i = 0; i < spatials.length; i++) {
 
             spatials[i].updateSimpleSpatial();
+
             obj3d = spatials[i].obj3d;
             pos = spatials[i].pos;
             quat = spatials[i].quat;
+
+            obj3d.position.copy(pos);
+            obj3d.quaternion.copy(quat)
+
+            /*
         //    calcPos.copy(pos);
         //    calcPos.sub(camPos);
 
@@ -114,7 +120,7 @@ define([
             //    inverseQuat.conjugate();
             //    quat.conjugate();
             obj3d.quaternion.multiply(quat);
-
+            */
         }
 
         this.canvasMain.updateCanvasMain(spatials)

@@ -251,6 +251,10 @@
 
             {"widget":"BUTTON_CONTROL", "label":"HOOK", "configId":"control_door", "layout":{"margin_y":0.01, "margin_x":0.01},"onUpdate":"sampleControl", "source":"hook", "onClick":"toggleControl"},
 
+            {"widget":"BUTTON_CONTROL", "label":"EXT",  "configId":"control_door", "layout":{"margin_y":0.21, "margin_x":0.11},"onUpdate":"sampleControl", "source":"cam_ext", "onClick":"toggleControl"},
+            {"widget":"BUTTON_CONTROL", "label":"PLT",  "configId":"control_door", "layout":{"margin_y":0.31, "margin_x":0.11},"onUpdate":"sampleControl", "source":"cam_pilot", "onClick":"toggleControl"},
+
+
             {"widget":"BUTTON_CONTROL", "label":"NOZL", "configId":"control_door", "layout":{"margin_y":0.60, "margin_x":0.08},"onUpdate":"sampleControl", "source":"reheat", "onClick":"toggleControl"},
 
             {"widget":"BUTTON_CONTROL", "label":"MSTR", "configId":"control_door", "layout":{"margin_y":0.02, "margin_x":0.27},"onUpdate":"sampleControl", "source":"master_light",     "onClick":"toggleControl"},

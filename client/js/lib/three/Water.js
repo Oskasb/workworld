@@ -98,6 +98,9 @@ THREE.Water = function ( geometry, options ) {
 			'	worldPosition = mirrorCoord.xyzw;',
 			'	mirrorCoord = textureMatrix * mirrorCoord;',
 			'	vec4 mvPosition =  modelViewMatrix * vec4( position, 1.0 );',
+
+
+
 			'	gl_Position = projectionMatrix * mvPosition;',
 
 			THREE.ShaderChunk[ 'fog_vertex' ],
@@ -122,14 +125,14 @@ THREE.Water = function ( geometry, options ) {
 			'varying vec4 worldPosition;',
 
 			'vec4 getNoise( vec2 uv ) {',
-			'	vec2 uv0 = ( uv / 323.0 ) + vec2(time / 117.0, time / 119.0);',
-			'	vec2 uv1 = uv / 467.0-vec2( time / -99.0, time / 125.0 );',
-			'	vec2 uv2 = uv / vec2( 4071.0, 3031.0 ) + vec2( time / 2551.0, time / 1559.0 );',
-			'	vec2 uv3 = uv / vec2( 1591.0, 1127.0 ) - vec2( time / 1409.0, time / -413.0 );',
+			'	vec2 uv0 = ( uv / 23.0 ) + vec2(time / 117.0, time / 119.0);',
+			'	vec2 uv1 = uv / 267.0-vec2( time / -99.0, time / 125.0 );',
+			'	vec2 uv2 = uv / vec2( 971.0, 831.0 ) + vec2( time / 2300.0, time / 259.0 );',
+			'	vec2 uv3 = uv / vec2( 1231.0, 1261.0 ) + vec2( time / 2100.0, time / 289.0 );',
 			'	vec4 noise = texture2D( normalSampler, uv0 ) +',
 			'		texture2D( normalSampler, uv1 ) +',
-			'		texture2D( normalSampler, uv2 ) +',
-			'		texture2D( normalSampler, uv3 );',
+			'		texture2D( normalSampler, uv2 ) * 1.5 +',
+			'		texture2D( normalSampler, uv3 ) * 0.75;',
 			'	return noise * 0.5 - 1.0;',
 			'}',
 
@@ -159,16 +162,17 @@ THREE.Water = function ( geometry, options ) {
 			'	vec3 eyeDirection = normalize( worldToEye );',
 			'	sunLight( surfaceNormal, eyeDirection, 100.0, 2.0, 0.5, diffuseLight, specularLight );',
 
-			'	float distance = pow(length(worldToEye), 0.35);',
+			'	float distance = pow(length(worldToEye), 0.25);',
 
 			'	vec2 distortion = surfaceNormal.xz * ( 0.001 + 1.0 / distance ) * distortionScale;',
 			'	vec3 reflectionSample = vec3( texture2D( mirrorSampler, mirrorCoord.xy / mirrorCoord.z + distortion ) );',
 
+
 			'	float theta = max( dot( eyeDirection, surfaceNormal ), 0.0 );',
 			'	float rf0 = 0.3;',
-			'	float reflectance = rf0 + ( 1.0 - rf0 ) * pow( ( 1.0 - (theta * 0.75) ), 5.0 ) / (1.0+distance*0.01);',
+			'	float reflectance = rf0 + ( 1.0 - rf0 ) * pow( ( 1.0 - (theta * 0.75) ), 5.0 ) / (1.0+distance*0.05);',
 			'	vec3 scatter = max( 0.0, dot( surfaceNormal, eyeDirection ) ) * waterColor;',
-			'	vec3 albedo = mix( ( sunColor * diffuseLight * 0.2 + scatter ) * getShadowMask(), ( vec3( -0.1 ) + reflectionSample * 0.86 + reflectionSample * specularLight ), reflectance);',
+			'	vec3 albedo = mix( (scatter * 0.05 ), ( vec3( -0.08 ) + reflectionSample * 0.95 + (reflectionSample * 0.95) * (specularLight * 1.5) ), reflectance);',
 			'	vec3 outgoingLight = albedo;',
 			'	gl_FragColor = vec4( outgoingLight, alpha );',
 
@@ -204,9 +208,12 @@ THREE.Water = function ( geometry, options ) {
 
 	scope.material = material;
 
-	scope.onBeforeRender = function ( renderer, scene, camera ) {
+	scope.onBeforeRender = function ( renderer, realScene, camera ) {
 
     //    return;
+
+        scene = ThreeAPI.getReflectionScene();
+        scene = realScene;
 
 		mirrorWorldPosition.setFromMatrixPosition( scope.matrixWorld );
 		cameraWorldPosition.setFromMatrixPosition( camera.matrixWorld );

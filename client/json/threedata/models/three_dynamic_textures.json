@@ -118,8 +118,8 @@
                   {  "id":   "yy_99",         "txcoords":  [263,   36,     45, 12]},
                   {  "id":   "zz_99",         "txcoords":  [308,   36,     45, 12]},
                   {  "id":   "yx_99",         "txcoords":  [353,   36,     45, 12]},
-                  {  "id":"engine_r",         "txcoords":  [6,     319,    19, 15]},
-                  {  "id":"engine_l",         "txcoords":  [16,    319,    19, 15]}
+                  {  "id":"engine_r",         "txcoords":  [6,     319,     9, 15]},
+                  {  "id":"engine_l",         "txcoords":  [16,    319,     9, 15]}
                 ]
 
           }

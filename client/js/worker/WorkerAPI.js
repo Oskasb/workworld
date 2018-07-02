@@ -75,18 +75,21 @@ define([
         };
 
 
-        WorkerAPI.requestSharedWorker = function(workerKey) {
+        WorkerAPI.requestSharedWorker = function(workerKey, callback) {
+            console.log("create call for workerKey", workerKey);
+            workerRunner.initServiceWorker(workerKey, callback);
+            return;
 
             if (workerKey === ENUMS.Worker.PHYSICS_WORLD) {
-                return workerRunner.initSharedPhysicsWorker();
+                return workerRunner.initSharedPhysicsWorker(workerKey, callback);
             }
 
             if (workerKey === ENUMS.Worker.STATIC_WORLD) {
-                return workerRunner.initSharedStaticWorldWorker();
+                return workerRunner.initSharedStaticWorldWorker(workerKey, callback);
             }
 
             if (workerKey === ENUMS.Worker.CANVAS_WORKER) {
-        //        return workerRunner.initSharedCanvasWorker();
+        //        return workerRunner.initSharedCanvasWorker(callback, workerKey);
             }
 
 

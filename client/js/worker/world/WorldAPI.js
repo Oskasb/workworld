@@ -40,10 +40,17 @@ define([
 
         var WorldAPI = function() {};
 
-        WorldAPI.initWorkerCom = function() {
+        var onWorkersReady;
+
+        WorldAPI.initWorkerCom = function(workersReady) {
+            onWorkersReady = workersReady;
             worldMessages = new WorldMessages(WorldAPI);
             protocolRequests = new ProtocolRequests();
             protocolRequests.setMessageHandlers(worldMessages.getMessageHandlers());
+
+            WorldAPI.sendWorldMessage(ENUMS.Protocol.REQUEST_SHARED_WORKER, ENUMS.Worker.STATIC_WORLD);
+            WorldAPI.sendWorldMessage(ENUMS.Protocol.REQUEST_SHARED_WORKER, ENUMS.Worker.PHYSICS_WORLD)
+
         };
 
         WorldAPI.initWorld = function(onWorkerReady) {
@@ -230,6 +237,7 @@ define([
             protocolRequests.sendMessage(protocolKey, data)
         };
 
+
         WorldAPI.registerSharedWorkerPort = function(workerKey, port) {
 
             if (SHARED_WORKER_PORTS[workerKey]) {
@@ -242,7 +250,20 @@ define([
                 WorldAPI.processRequest(e.data);
             };
 
-            console.log("Register Shared worker Port", SHARED_WORKER_PORTS)
+            console.log("Register Shared worker Port", SHARED_WORKER_PORTS);
+
+        };
+
+        WorldAPI.notifyWorkerReady = function(workerKey) {
+
+            if  (workerKey === ENUMS.Worker.PHYSICS_WORLD) {
+                console.log("PhysicsWorker ready response");
+                onWorkersReady()
+            }
+
+            if  (workerKey === ENUMS.Worker.STATIC_WORLD) {
+                console.log("Static World ready response");
+            }
 
         };
 
@@ -261,7 +282,10 @@ define([
 
         WorldAPI.updateWorldWorkerFrame = function(tpf, frame) {
         //    WorldAPI.callSharedWorker(ENUMS.Worker.CANVAS_WORKER, ENUMS.Protocol.CANVAS_CALL_UPDATE, null);
+
             WorldAPI.getWorldCamera().applyCameraComBuffer(WorldAPI.getWorldComBuffer());
+
+            WorldAPI.getWorldCamera().updateCameraLookAt();
 
             dynamicWorld.initDynamicFrame();
             dynamicWorld.updateDynamicWorld();
@@ -279,6 +303,7 @@ define([
 
             WorldAPI.getWorldCamera().relayCamera(WorldAPI.getWorldComBuffer());
             worldMain.updateWorldEffects();
+
             WorldAPI.callSharedWorker(ENUMS.Worker.PHYSICS_WORLD, ENUMS.Protocol.PHYSICS_CALL_UPDATE, null);
 
         };

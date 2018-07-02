@@ -52,7 +52,7 @@
         "id":"reheat_1",
         "data":{
           "state":{"value":0, "min":-0.2, "max":1, "speed":0.1, "factor":4000},
-          "source":{"id":"turbine_r", "min":0.55, "max":1.01, "factor":0.8, "offset":0.2},
+          "source":{"id":"turbine_l", "min":0.55, "max":1.01, "factor":0.8, "offset":0.2},
           "target":"nozzle_1",
           "sampleSource":"slaveModule",
           "applyState":"applyForce",
@@ -65,7 +65,7 @@
         "id":"reheat_2",
         "data":{
           "state":{"value":0, "min":-0.2, "max":1, "speed":0.1, "factor":4000},
-          "source":{"id":"turbine_l", "min":0.55, "max":1.01, "factor":0.8, "offset":0.2},
+          "source":{"id":"turbine_r", "min":0.55, "max":1.01, "factor":0.8, "offset":0.2},
           "target":"nozzle_2",
 
           "sampleSource":"slaveModule",

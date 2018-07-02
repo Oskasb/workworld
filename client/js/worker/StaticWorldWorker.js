@@ -17,8 +17,11 @@ importScripts(baseUrl+'client/js/ENUMS.js');
 importScripts(baseUrl+'client/js/MATH.js');
 importScripts(baseUrl+'client/js/lib/three.js');
 importScripts(baseUrl+'client/js/lib/three/OBJLoader.js');
+importScripts(baseUrl+'client/js/lib/three/slice.js');
 importScripts(baseUrl+'client/js/worker/terrain/ServerTerrain.js');
 importScripts(baseUrl+'client/js/lib/require.js');
+
+
 
 require.config({
     baseUrl: baseUrl,
@@ -78,6 +81,26 @@ require(
     }
 );
 
+//If used as ServiceWorker
+onmessage = function(e){
+    var port = e.ports[0];
+
+    if (!port) return;
+
+    console.log("Static Service Worker connect:", e);
+    StaticWorldWorkerPort = port;
+
+    postMessage = function(msg) {
+        StaticWorldWorkerPort.postMessage(msg);
+    };
+
+    StaticWorldWorkerPort.onmessage = function(e) {
+        console.log("Premature Physics Shared Worker message:", e);
+        premauteMessageQueue.push(e);
+    };
+};
+
+//If used as SharedWorker
 onconnect = function(e) {
 
     console.log("Shared Worker connect:", e);

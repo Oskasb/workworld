@@ -48,7 +48,40 @@
           {"source":"INSTANCING_CHUNKS", "chunk":"exitVoidMain"}
         ]
       },
+
       "TERRAIN_SHADER":{
+        "vertex":[
+          {"source":"INSTANCING_CHUNKS", "chunk":"vx_view"},
+          {"source":"INSTANCING_CHUNKS", "chunk":"vx_position"},
+          {"source":"INSTANCING_CHUNKS", "chunk":"vx_uv"},
+          {"source":"INSTANCING_CHUNKS", "chunk":"vx_simple_light"},
+          {"source":"INSTANCING_CHUNKS", "chunk":"vx_sunLightDirection"},
+          {"source":"INSTANCING_CHUNKS", "chunk":"vx_terrainTextureLayers"},
+          {"source":"INSTANCING_CHUNKS", "chunk":"fx_varying_vColor4"},
+          {"source":"THREE_CHUNKS", "chunk":"common"},
+          {"source":"INSTANCING_CHUNKS", "chunk":"enterVoidMain"},
+          {"source":"INSTANCING_PROGRAMS", "chunk":"vxTerrainUvLayersMain"},
+          {"source":"INSTANCING_PROGRAMS", "chunk":"vxShaderMaterial"},
+          {"source":"INSTANCING_PROGRAMS", "chunk":"vertexDirectionalVertexLight"},
+          {"source":"INSTANCING_CHUNKS", "chunk":"exitVoidMain"}
+        ],
+
+        "fragment":[
+          {"source":"INSTANCING_CHUNKS", "chunk":"fx_view"},
+          {"source":"INSTANCING_CHUNKS", "chunk":"fx_uv"},
+          {"source":"THREE_CHUNKS", "chunk":"common"},
+          {"source":"INSTANCING_CHUNKS", "chunk":"fx_varying_vColor4"},
+          {"source":"INSTANCING_CHUNKS", "chunk":"fx_sunLight"},
+          {"source":"INSTANCING_CHUNKS", "chunk":"fx_terrainTextureLayers"},
+          {"source":"INSTANCING_CHUNKS", "chunk":"enterVoidMain"},
+          {"source":"INSTANCING_PROGRAMS", "chunk":"fxStoreLight"},
+          {"source":"INSTANCING_PROGRAMS", "chunk":"fragmentTerrainTxLayersMain"},
+          {"source":"INSTANCING_PROGRAMS", "chunk":"fxShaderMaterial"},
+          {"source":"INSTANCING_CHUNKS", "chunk":"exitVoidMain"}
+        ]
+      },
+
+      "TERRAIN_SHADER_":{
         "vertex":[
           {"source":"INSTANCING_CHUNKS", "chunk":"vx_view"},
           {"source":"INSTANCING_CHUNKS", "chunk":"vx_position"},
@@ -321,6 +354,56 @@
 
           {"source":"INSTANCING_CHUNKS", "chunk":"vx_simple_light"},
 
+          {"source":"THREE_CHUNKS", "chunk":"common"},
+
+          {"source":"INSTANCING_CHUNKS", "chunk":"enterVoidMain"},
+
+          {"source":"INSTANCING_PROGRAMS", "chunk":"vertexGeometryTextureData"},
+          {"source":"INSTANCING_PROGRAMS", "chunk":"vertexColorFromAttribColor4"},
+          {"source":"INSTANCING_PROGRAMS", "chunk":"vertexPositionMain"},
+
+          {"source":"INSTANCING_PROGRAMS", "chunk":"vertexUvTilesMain"},
+
+          {"source":"INSTANCING_PROGRAMS", "chunk":"vertexShadeLowerVerts"},
+
+          {"source":"INSTANCING_PROGRAMS", "chunk":"vertexSimpleVertexLight"},
+
+          {"source":"INSTANCING_PROGRAMS", "chunk":"vertexSizeMain"},
+
+          {"source":"INSTANCING_PROGRAMS", "chunk":"vertexSpatialFinal"},
+
+          {"source":"INSTANCING_CHUNKS", "chunk":"exitVoidMain"}
+        ],
+        "fragment": [
+          {"source":"INSTANCING_CHUNKS", "chunk":"fx_view"},
+          {"source":"INSTANCING_CHUNKS", "chunk":"fx_uv"},
+          {"source":"INSTANCING_CHUNKS", "chunk":"fx_alphaTest"},
+          {"source":"INSTANCING_CHUNKS", "chunk":"fx_attribute_vertexColor"},
+
+          {"source":"THREE_CHUNKS", "chunk":"common"},
+
+          {"source":"INSTANCING_CHUNKS", "chunk":"enterVoidMain"},
+          {"source":"INSTANCING_PROGRAMS", "chunk":"fragmentColoredTextureMain"},
+          {"source":"INSTANCING_PROGRAMS", "chunk":"fragmentBlendTxColorVertexColor"},
+          {"source":"INSTANCING_PROGRAMS", "chunk":"fragmentAlphaTest"},
+          {"source":"INSTANCING_PROGRAMS", "chunk":"fragmentVColorFinal"},
+
+          {"source":"INSTANCING_CHUNKS", "chunk":"exitVoidMain"}
+        ]
+      },
+
+      "INSTANCING_GPU_VEGETATION_": {
+        "vertex": [
+          {"source":"INSTANCING_CHUNKS", "chunk":"vx_view"},
+          {"source":"INSTANCING_CHUNKS", "chunk":"vx_predictive_simulation"},
+          {"source":"INSTANCING_CHUNKS", "chunk":"vx_data_texture"},
+          {"source":"INSTANCING_CHUNKS", "chunk":"vx_uv_tiles"},
+          {"source":"INSTANCING_CHUNKS", "chunk":"vx_uv"},
+          {"source":"INSTANCING_CHUNKS", "chunk":"vx_billboard"},
+          {"source":"INSTANCING_CHUNKS", "chunk":"fx_varying_vColor4"},
+
+          {"source":"INSTANCING_CHUNKS", "chunk":"vx_simple_light"},
+
           {"source":"INSTANCING_CHUNKS", "chunk":"vx_fog"},
 
 
@@ -370,6 +453,64 @@
       },
 
       "INSTANCING_GPU_SPATIAL": {
+        "vertex": [
+          {"source":"INSTANCING_CHUNKS", "chunk":"vx_view"},
+          {"source":"INSTANCING_CHUNKS", "chunk":"vx_predictive_simulation"},
+          {"source":"INSTANCING_CHUNKS", "chunk":"vx_instancing_acceleration"},
+          {"source":"INSTANCING_CHUNKS", "chunk":"vx_data_texture"},
+          {"source":"INSTANCING_CHUNKS", "chunk":"vx_uv_tiles"},
+          {"source":"INSTANCING_CHUNKS", "chunk":"vx_uv"},
+
+          {"source":"INSTANCING_CHUNKS", "chunk":"fx_varying_vColor4"},
+
+          {"source":"INSTANCING_CHUNKS", "chunk":"vx_orientation_quat"},
+
+          {"source":"INSTANCING_CHUNKS", "chunk":"vx_simple_light"},
+
+          {"source":"THREE_CHUNKS", "chunk":"common"},
+
+          {"source":"INSTANCING_CHUNKS", "chunk":"enterVoidMain"},
+
+          {"source":"INSTANCING_PROGRAMS", "chunk":"vertexGeometryTextureData"},
+          {"source":"INSTANCING_PROGRAMS", "chunk":"vertexColorFromAttribColor4"},
+
+          {"source":"INSTANCING_PROGRAMS", "chunk":"vertexPositionMain"},
+
+          {"source":"INSTANCING_PROGRAMS", "chunk":"vertexSpatialMain"},
+
+          {"source":"INSTANCING_PROGRAMS", "chunk":"vertexUvTilesMain"},
+
+          {"source":"INSTANCING_PROGRAMS", "chunk":"vertexShadeLowerVerts"},
+
+          {"source":"INSTANCING_PROGRAMS", "chunk":"vertexSimpleVertexLight"},
+
+          {"source":"INSTANCING_PROGRAMS", "chunk":"vertexSizeMain"},
+
+          {"source":"INSTANCING_PROGRAMS", "chunk":"vertexSpatialFinal"},
+
+
+          {"source":"INSTANCING_CHUNKS", "chunk":"exitVoidMain"}
+        ],
+        "fragment": [
+          {"source":"INSTANCING_CHUNKS", "chunk":"fx_view"},
+          {"source":"INSTANCING_CHUNKS", "chunk":"fx_uv"},
+          {"source":"INSTANCING_CHUNKS", "chunk":"fx_alphaTest"},
+          {"source":"INSTANCING_CHUNKS", "chunk":"fx_attribute_vertexColor"},
+
+          {"source":"THREE_CHUNKS", "chunk":"common"},
+
+          {"source":"INSTANCING_CHUNKS", "chunk":"enterVoidMain"},
+          {"source":"INSTANCING_PROGRAMS", "chunk":"fragmentColoredTextureMain"},
+          {"source":"INSTANCING_PROGRAMS", "chunk":"fragmentBlendTxColorVertexColor"},
+          {"source":"INSTANCING_PROGRAMS", "chunk":"fragmentAlphaTest"},
+          {"source":"INSTANCING_PROGRAMS", "chunk":"fragmentVColorFinal"},
+
+          {"source":"INSTANCING_CHUNKS", "chunk":"exitVoidMain"}
+        ]
+
+      },
+
+      "INSTANCING_GPU_SPATIAL_": {
         "vertex": [
           {"source":"INSTANCING_CHUNKS", "chunk":"vx_view"},
           {"source":"INSTANCING_CHUNKS", "chunk":"vx_predictive_simulation"},
@@ -434,6 +575,69 @@
 
       },
       "INSTANCING_GPU_GEOMETRY": {
+        "vertex": [
+          {"source":"INSTANCING_CHUNKS", "chunk":"vx_view"},
+          {"source":"INSTANCING_CHUNKS", "chunk":"vx_predictive_simulation"},
+          {"source":"INSTANCING_CHUNKS", "chunk":"vx_instancing_normal"},
+          {"source":"INSTANCING_CHUNKS", "chunk":"vx_instancing_scale3d"},
+
+          {"source":"INSTANCING_CHUNKS", "chunk":"vx_data_texture"},
+          {"source":"INSTANCING_CHUNKS", "chunk":"vx_uv_tiles"},
+          {"source":"INSTANCING_CHUNKS", "chunk":"vx_uv"},
+          {"source":"INSTANCING_CHUNKS", "chunk":"fx_varying_vColor4"},
+
+          {"source":"INSTANCING_CHUNKS", "chunk":"vx_orientation_quat"},
+
+          {"source":"INSTANCING_CHUNKS", "chunk":"vx_simple_light"},
+          {"source":"INSTANCING_CHUNKS", "chunk":"vx_sunLightDirection"},
+
+          {"source":"INSTANCING_CHUNKS", "chunk":"vx_fog"},
+
+          {"source":"THREE_CHUNKS", "chunk":"common"},
+
+          {"source":"INSTANCING_CHUNKS", "chunk":"enterVoidMain"},
+
+          {"source":"INSTANCING_PROGRAMS", "chunk":"vertexGeometryTextureData"},
+
+
+          {"source":"INSTANCING_PROGRAMS", "chunk":"vertexPositionMain"},
+          {"source":"INSTANCING_PROGRAMS", "chunk":"vertexNormalMain"},
+          {"source":"INSTANCING_PROGRAMS", "chunk":"vertexApplyScaleAttribToPosition"},
+          {"source":"INSTANCING_PROGRAMS", "chunk":"vertexSizeMain"},
+
+          {"source":"INSTANCING_PROGRAMS", "chunk":"vertexSpatialMain"},
+
+          {"source":"INSTANCING_PROGRAMS", "chunk":"vertexUvTilesMain"},
+
+          {"source":"INSTANCING_PROGRAMS", "chunk":"vertexSpatialFinal"},
+          {"source":"INSTANCING_PROGRAMS", "chunk":"vertexGeometryDirectionalLight"},
+          {"source":"INSTANCING_PROGRAMS", "chunk":"vertexColorMultiplyFromAttribColor4"},
+
+          {"source":"INSTANCING_CHUNKS", "chunk":"exitVoidMain"}
+        ],
+        "fragment": [
+          {"source":"INSTANCING_CHUNKS", "chunk":"fx_view"},
+          {"source":"INSTANCING_CHUNKS", "chunk":"fx_uv"},
+          {"source":"INSTANCING_CHUNKS", "chunk":"fx_alphaTest"},
+          {"source":"INSTANCING_CHUNKS", "chunk":"fx_attribute_vertexColor"},
+
+          {"source":"THREE_CHUNKS", "chunk":"common"},
+
+
+          {"source":"INSTANCING_CHUNKS", "chunk":"fx_sunLight"},
+          {"source":"INSTANCING_CHUNKS", "chunk":"enterVoidMain"},
+          {"source":"INSTANCING_PROGRAMS", "chunk":"fxStoreLight"},
+          {"source":"INSTANCING_PROGRAMS", "chunk":"fragmentColoredTextureMain"},
+          {"source":"INSTANCING_PROGRAMS", "chunk":"fragmentBlendTxColorVertexColor"},
+          {"source":"INSTANCING_PROGRAMS", "chunk":"fragmentAlphaTest"},
+          {"source":"INSTANCING_PROGRAMS", "chunk":"fxShaderMaterial"},
+
+
+          {"source":"INSTANCING_CHUNKS", "chunk":"exitVoidMain"}
+        ]
+      },
+
+      "INSTANCING_GPU_GEOMETRY_": {
         "vertex": [
           {"source":"INSTANCING_CHUNKS", "chunk":"vx_view"},
           {"source":"INSTANCING_CHUNKS", "chunk":"vx_predictive_simulation"},

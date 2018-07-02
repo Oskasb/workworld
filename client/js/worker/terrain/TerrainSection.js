@@ -45,7 +45,7 @@ define([
 
                         if (tempVec1.y > 0) {
                             var feature = new TerrainFeature(this.area, tempVec1, size);
-                            feature.generateFeatureGroundElements(Math.floor(Math.random()*2 * Math.random() * 3 * Math.random()*1));
+                            feature.generateFeatureGroundElements(Math.floor(Math.random()*3 * Math.random() * 3 * Math.random()*1.5));
                             this.terrainFeatures.push(feature);
                         }
                     }
@@ -117,6 +117,8 @@ define([
         TerrainSection.prototype.updateSectionVisibility = function(tpf) {
 
             this.isVisible = WorldAPI.visibilityTest(this.center, this.extents.x);
+
+            if (!this.isVisible) return;
 
             if (this.wasVisible === this.isVisible) {
                 return;

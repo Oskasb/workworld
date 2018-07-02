@@ -47,7 +47,7 @@ define([
             worldComBuffer = this.buildMainWorldComBuffer(worldCommBufferSize);
         };
 
-        WorkerRunner.prototype.initSharedStaticWorldWorker = function() {
+        WorkerRunner.prototype.initSharedStaticWorldWorker = function(workerKey, callback) {
 
             if (staticWorldWorker) {
                 console.log("staticWorldWorker already initiated... TERMINATING");
@@ -56,19 +56,58 @@ define([
 
             staticWorldWorker = new SharedWorker('./client/js/worker/StaticWorldWorker.js');
             staticWorldWorker.port.start();
-            return staticWorldWorker;
+
+            callback(staticWorldWorker, workerKey);
+
         };
 
-        WorkerRunner.prototype.initSharedPhysicsWorker = function() {
 
-            if (physicsWorldWorker) {
-                console.log("physicsWorldWorker already initiated... TERMINATING");
-                physicsWorldWorker.terminate();
+
+        WorkerRunner.prototype.initServiceWorker = function(workerKey, callback) {
+
+            var urlMap = [];
+            urlMap[ENUMS.Worker.PHYSICS_WORLD] = './client/js/worker/PhysicsWorldWorker.js';
+            urlMap[ENUMS.Worker.STATIC_WORLD] = './client/js/worker/StaticWorldWorker.js';
+
+        //    if (workerKey === ENUMS.Worker.STATIC_WORLD) return;
+
+            if (workers[workerKey]) {
+                console.log("already initiated... BAILING");
+                return;
             }
 
-            physicsWorldWorker = new SharedWorker('./client/js/worker/PhysicsWorldWorker.js');
-            physicsWorldWorker.port.start();
-            return physicsWorldWorker;
+            if ('serviceWorker' in navigator) {
+
+                var setupWorker = function(url, key, cb) {
+
+                    console.log('Init for URL!', url);
+
+                //    navigator.serviceWorker.register(url).then(function(reg) {
+
+                        var worker = new Worker(url);
+
+                        var mc = new MessageChannel();
+                        workers[key] = {
+                            worker:worker,
+                            mc:mc,
+                            port:mc.port1
+                        };
+
+                        console.log('REG for Key URL!', key, url);
+                        worker.postMessage(url, [workers[key].mc.port2]);
+                  //      reg.active.postMessage(url, [workers[key].mc.port2]);
+                        cb(workers[key], key);
+
+                  //  }).catch(function(err) {
+                  //      console.log('Boo!', err);
+                  //  });
+                };
+
+                setupWorker(urlMap[workerKey], workerKey, callback);
+            } else {
+                alert("serviceWorker Not Supported")
+            }
+
         };
 
         WorkerRunner.prototype.initSharedCanvasWorker = function() {
@@ -78,7 +117,7 @@ define([
                 canvasWorker.terminate();
             }
 
-            canvasWorker = new SharedWorker('./client/js/worker/CanvasWorker.js');
+            canvasWorker = new ServiceWorker('./client/js/worker/CanvasWorker.js');
             canvasWorker.port.start();
             return canvasWorker;
         };

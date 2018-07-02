@@ -58,7 +58,7 @@ define([
             this.isRendering = false;
 
             this.config = rendererConfig;
-            this.poolSize = rendererConfig.particle_pool;
+            this.poolSize = rendererConfig.particle_pool * 1;
             this.particleGeometry = rendererConfig.particle_geometry;
 
             this.isScreenspace = rendererConfig.is_screenspace || false;

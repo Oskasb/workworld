@@ -25,10 +25,10 @@ define([
         var calcVec = new THREE.Vector3();
 
         var parameters = {
-            width: 1000000,
-            height: 1000000,
-            widthSegments: 128,
-            heightSegments: 128,
+            width: 120000,
+            height: 120000,
+            widthSegments: 16,
+            heightSegments: 16,
             depth: 1500,
             param: 4,
             filterparam: 1
@@ -67,7 +67,7 @@ define([
 
             world = ThreeAPI.getEnvironment().getEnvironmentDynamicWorld();
 
-            waterGeometry = new THREE.PlaneBufferGeometry( parameters.width, parameters.height, 256, 256 );
+            waterGeometry = new THREE.PlaneBufferGeometry( parameters.width, parameters.height, parameters.widthSegments, parameters.heightSegments );
 
             var simpleWater = 0;
 
@@ -87,9 +87,9 @@ define([
                         sunDirection: new THREE.Vector3(0.2, 0.3, 0),
                         sunColor: new THREE.Color( 0x7F7F7F ),
                         waterColor: new THREE.Color( 0x000000 ),
-                        distortionScale:  0.2,
+                        distortionScale:  0.3,
                         //     fog: undefined
-                        clipBias:0.01,
+                        clipBias:0.04,
                         fog: false // ThreeAPI.getScene().fog !== undefined
                     }
                 );

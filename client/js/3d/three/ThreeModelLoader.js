@@ -460,6 +460,8 @@ define([
                     var groupMaterials = modelConf.group_materials;
 
                     for (var i = 0; i < model.children.length; i++) {
+                    //    model.children[i] = model.children[i].clone();
+
                         var child = model.children[i];
 
                         if (typeof(groupMaterials[child.name]) === 'string') {
@@ -522,9 +524,12 @@ define([
                                 var child = model.children[i];
                                 if (child.type === 'SkinnedMesh') {
 
-                                //    model.children[i] = child.clone();
-                                //    child = model.children[i];
+                                    model.children[i] = child.clone();
+
                                 //    mat = child.material
+
+                                    child = model.children[i];
+
                                     child.material = mat.clone();
                                     child.material.skinning = true;
                                     child.material.needsUpdate = true;

@@ -129,12 +129,29 @@ define([],
 
             for (var i = 0; i < vertices.length; i++) {
                 vertices[i].z += elevation;
-            }
 
-        //    vertices[0].z = 1000;
+            }
 
         };
 
+
+        var sliceGeometryAtSeaLevel = function(vertices, maxDepth) {
+
+            var depth;
+
+            for (var i = 0; i < vertices.length; i++) {
+                depth = vertices[i].z  // - maxDepth;
+                if (depth < -65) {
+                    vertices[i].z = maxDepth;
+                } else if (depth < 8) {
+                    vertices[i].z -= 85;
+                } else if (depth <  25) {
+                    vertices[i].z += 14;
+                }
+
+            }
+
+        };
 
         TerrainFunctions.prototype.createTerrain = function(moduleOptions) {
 
@@ -148,6 +165,9 @@ define([],
 
             elevateTerrainVerts(terrain.children[0].geometry.vertices, 1);
              THREE.Terrain.Edges(terrain.children[0].geometry.vertices, opts, false, edges.edgeSize, null) // edges.easingFunc);
+
+            sliceGeometryAtSeaLevel(terrain.children[0].geometry.vertices, opts.minHeight);
+
         //    function(g, options, direction, distance, easing) {
             //     THREE.Terrain.RadialEdges(terrain.children[0].geometry.vertices, opts, false, 2) // edges.easingFunc);
         //    this.setEdgeVerticeHeight(terrain.children[0].geometry.vertices, -0.5);

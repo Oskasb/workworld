@@ -56,9 +56,19 @@ define([
 
             this.messageHandlers[ENUMS.Protocol.REQUEST_SHARED_WORKER] = function(msg) {
                 var workerKey = msg[1];
-                var sharedWorker = WorkerAPI.requestSharedWorker(workerKey);
 
-                WorkerAPI.callWorker(ENUMS.Worker.WORLD, WorkerAPI.buildMessage(ENUMS.Protocol.SHARED_WORKER_PORT, [workerKey, sharedWorker.port]), [sharedWorker.port])
+                var workerCb = function(sharedWorker, wKey) {
+                    WorkerAPI.callWorker(ENUMS.Worker.WORLD, WorkerAPI.buildMessage(ENUMS.Protocol.SHARED_WORKER_PORT, [wKey, sharedWorker.port]), [sharedWorker.port])
+                };
+
+                WorkerAPI.requestSharedWorker(workerKey, workerCb);
+
+            //    var channel = new MessageChannel();
+            //    sharedWorker.port = channel.port1;
+
+            //    channel.port2 = sharedWorker.port;
+
+
             };
 
             this.messageHandlers[ENUMS.Protocol.REGISTER_TERRAIN] = function(msg) {

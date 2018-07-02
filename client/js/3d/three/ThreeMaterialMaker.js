@@ -58,6 +58,8 @@ define([
                 return;
             }
 
+            //
+
             materials[matId] = new THREE[data.shader](txSettings);
             if (data.settings.side) {
                 materials[matId].side = THREE[data.settings.side]

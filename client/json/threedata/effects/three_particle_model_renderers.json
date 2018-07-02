@@ -5,7 +5,7 @@
         {
           "id":"gpu_spatial_vegetation_renderer",
           "material_id":"gpu_vegetation_spatial_material",
-          "particle_pool":4000,
+          "particle_pool":2000,
           "particle_geometry":"plant3d",
           "material_options":{
             "blending":"NoBlending",
@@ -18,7 +18,7 @@
         {
           "id":"gpu_spatial_box_renderer",
           "material_id":"gpu_geometry_spatial_material",
-          "particle_pool":3000,
+          "particle_pool":1000,
           "particle_geometry":"box3d",
           "material_options":{
             "blending":"NoBlending",
@@ -45,7 +45,7 @@
         },        {
           "id":"gpu_spatial_wall_rock_50_renderer",
           "material_id":"gpu_main_atlas_spatial_material",
-          "particle_pool":2000,
+          "particle_pool":200,
           "particle_geometry":{
             "model_id":"model_wall_section_rock_50"
           },

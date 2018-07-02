@@ -1,11 +1,13 @@
 "use strict";
 
 define([
-        '3d/effects/water/WaterFX',    
+        '3d/effects/filters/ScreenSpaceFX',
+        '3d/effects/water/WaterFX',
         '3d/effects/vegetation/Vegetation',
         '3d/effects/particles/ParticleSpawner'
     ],
     function(
+        ScreenSpaceFX,
         WaterFX,
         Vegetation,
         ParticleSpawner
@@ -15,6 +17,7 @@ define([
         var particleSpawner;
 
         var waterFx;
+        var screenFx;
 
         var debugVegetation = false;
 
@@ -28,12 +31,14 @@ define([
             vegetation = new Vegetation(this);
             particleSpawner = new ParticleSpawner();
 
+
          //   console.log("Init particleSpawner", typeof(window.outerWidth), window);
 
             if (typeof(window.outerWidth) === 'number') {
                 var waterReady = function() {
 
                     waterFx.initWaterEffect();
+                    EffectsAPI.initBloomFilter();
                     onReady()
                 };
 
@@ -132,6 +137,12 @@ define([
 
         EffectsAPI.enableTerrainVegetation = function() {
             vegetation.createVegetationSystems();
+
+        };
+
+        EffectsAPI.initBloomFilter = function() {
+            screenFx = new ScreenSpaceFX();
+            screenFx.initFilterEffects();
         };
 
         EffectsAPI.disableTerrainVegetation = function() {

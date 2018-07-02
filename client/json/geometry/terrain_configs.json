@@ -10,12 +10,12 @@
             "three_terrain":"plain_ground",
             "vegetation_system":"basic_grassland",
             "terrain_size":20000,
-            "terrain_segments":255,
+            "terrain_segments":127,
             "invert_hill":false,
             "terrain_edge_size":2750,
             "edge_easing":"clampSin",
             "max_height":485,
-            "min_height":-200,
+            "min_height":-400,
             "frequency":8,
             "steps":7
           }
@@ -30,12 +30,12 @@
             "three_terrain":"plain_ground",
             "vegetation_system":"basic_grassland",
             "terrain_size":20000,
-            "terrain_segments":255,
+            "terrain_segments":127,
             "invert_hill":false,
             "terrain_edge_size":3550,
             "edge_easing":"clampSin",
             "max_height":345,
-            "min_height":-200,
+            "min_height":-400,
             "frequency":5,
             "steps":5
           }
@@ -50,13 +50,13 @@
             "three_terrain":"plain_ground",
             "vegetation_system":"basic_grassland",
             "terrain_size":20000,
-            "terrain_segments":255,
+            "terrain_segments":127,
             "invert_hill":false,
             "terrain_edge_size":3705,
             "edge_easing":"clampSin",
-            "max_height":675,
-            "min_height":-200,
-            "frequency":3,
+            "max_height":575,
+            "min_height":-400,
+            "frequency":5,
             "steps":3
           }
         }
@@ -70,13 +70,13 @@
             "three_terrain":"plain_ground",
             "vegetation_system":"basic_grassland",
             "terrain_size":20000,
-            "terrain_segments":255,
+            "terrain_segments":127,
             "invert_hill":false,
             "terrain_edge_size":7305,
             "edge_easing":"clampSin",
-            "max_height":173,
-            "min_height":-200,
-            "frequency":4,
+            "max_height":373,
+            "min_height":-400,
+            "frequency":2,
             "steps":6
           }
         }

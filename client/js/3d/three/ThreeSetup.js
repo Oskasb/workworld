@@ -11,7 +11,7 @@ define(['../../ui/GameScreen',
     evt
 ) {
     
-    var scene, camera, renderer;
+    var scene, camera, renderer, reflectionScene;
 
     var addedObjects = 0;
 
@@ -85,14 +85,16 @@ define(['../../ui/GameScreen',
         function init() {
 
             scene = new THREE.Scene();
-
-            camera = new THREE.PerspectiveCamera( 45, containerElement.innerWidth / containerElement.innerHeight, 0.2, 95000 );
-            camera.position.z = 10;
+            reflectionScene = new THREE.Scene();
+            camera = new THREE.PerspectiveCamera( 45, containerElement.innerWidth / containerElement.innerHeight, 0.35, 35000 );
+            camera.position.z = 500;
 
        //     console.log("Three Camera:", camera);
 
-            renderer = new THREE.WebGLRenderer( { antialias:antialias, devicePixelRatio: pxRatio });
+            renderer = new THREE.WebGLRenderer( { antialias:antialias, devicePixelRatio: pxRatio, logarithmicDepthBuffer: false });
             renderer.setPixelRatio( pxRatio );
+
+            renderer.toneMapping = THREE.LinearToneMapping;
 
             containerElement.appendChild(renderer.domElement);
         }
@@ -103,6 +105,7 @@ define(['../../ui/GameScreen',
 
 
         store.scene = scene;
+        store.reflectionScene = reflectionScene;
         store.camera = camera;
         store.renderer = renderer;
 

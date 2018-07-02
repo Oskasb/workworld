@@ -152,7 +152,7 @@ define([
                 this.registerTerrainPhysics(this.msg);
             }
 
-            this.generateTerrainSectons(0.001);
+            this.generateTerrainSectons(0.0001);
         };
 
         TerrainArea.prototype.createAreaOfTerrain = function(posx, posz) {
@@ -189,7 +189,7 @@ define([
 
                     var section = new TerrainSection(this, tempVec1, featureSize);
 
-                    section.genereateSectionFeatures(3);
+                    section.genereateSectionFeatures(10);
 
                     this.terrainSections.push(section);
 
@@ -202,7 +202,7 @@ define([
         TerrainArea.prototype.updateTerrainArea = function(tpf) {
 
             //       this.isVisible = WorldAPI.getWorldCamera().testBoxVisible(this.boundingBox);
-            this.isVisible = WorldAPI.getWorldCamera().testPosRadiusVisible(this.center, this.size*0.75);
+            this.isVisible = WorldAPI.getWorldCamera().testPosRadiusVisible(this.center, this.size * 5);
 
             if (this.isVisible) {
 

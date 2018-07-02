@@ -1,5 +1,7 @@
 "use strict";
 
+var ThreeAPI;
+
 define([
         '3d/three/ThreeSetup',
         '3d/three/ThreeShaderBuilder',
@@ -28,13 +30,14 @@ define([
         var renderer;
         var camera;
         var scene;
+        var reflectionScene;
         var spatialFunctions;
         var effectCallbacks;
         var renderFilter;
 
     //    THREE.Object3D.DefaultMatrixAutoUpdate = false;
 
-        var ThreeAPI = function() {
+        ThreeAPI = function() {
 
         };
 
@@ -54,11 +57,13 @@ define([
         ThreeAPI.initThreeScene = function(containerElement, pxRatio, antialias) {
             var store = {};
             store = ThreeSetup.initThreeRenderer(pxRatio, antialias, containerElement, store);
-            ThreeAPI.initEnvironment(store);
-            glContext = store.renderer.context;
             scene = store.scene;
             camera = store.camera;
             renderer = store.renderer;
+            reflectionScene = store.reflectionScene;
+
+            ThreeAPI.initEnvironment(store);
+            glContext = store.renderer.context;
             ThreeSetup.addPrerenderCallback(ThreeModelLoader.updateActiveMixers);
             ThreeSetup.addToScene(ThreeSetup.getCamera());
         };
@@ -120,6 +125,10 @@ define([
 
         ThreeAPI.getScene = function() {
             return scene;
+        };
+
+        ThreeAPI.getReflectionScene = function() {
+            return reflectionScene;
         };
 
         ThreeAPI.getRenderer = function() {

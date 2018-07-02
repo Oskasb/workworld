@@ -226,12 +226,20 @@
               {"offset":[0, -0.1, -5.5], "direction":[0, 0,-1], "size":[1, 1, 5]}
             ]},
 
-            {"config_key":"EXTERNAL_F14", "config_id":"nozzle_r", "group":[
-              {"parent_shape":"nozzle_1", "offset":[0.0, -0.0, 0.1], "direction":[0,   0,   -1], "size":[1, 1, 1]}
+            {"config_key":"EXTERNAL_F14", "config_id":"cam_ext", "group":[
+              {"offset":[1.7,   3.71,  -7.14], "direction":[0,  0, 15], "size":[0, 0, 0]}
+            ]},
+
+            {"config_key":"EXTERNAL_F14", "config_id":"cam_plt", "group":[
+              {"offset":[0, 1.8, 6.1], "direction":[0, 0, 15], "size":[1, 1, 5]}
             ]},
 
             {"config_key":"EXTERNAL_F14", "config_id":"nozzle_l", "group":[
-              {"parent_shape":"nozzle_2", "offset":[-0.0, -0.0, 0.1], "direction":[0,   0,   -1], "size":[1, 1, 1]}
+              {"parent_shape":"nozzle_1", "offset":[-0.0, -0.0, 0.1], "direction":[0,   0,   -1], "size":[1, 1, 1]}
+            ]},
+
+            {"config_key":"EXTERNAL_F14", "config_id":"nozzle_r", "group":[
+              {"parent_shape":"nozzle_2", "offset":[0.0, -0.0, 0.1], "direction":[0,   0,   -1], "size":[1, 1, 1]}
             ]},
 
             {"config_key":"EXTERNAL_F14", "config_id":"force_1", "group":[

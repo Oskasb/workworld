@@ -257,7 +257,7 @@ define([
             if (WorldAPI.getCom(ENUMS.BufferChannels.WORLD_ACTION_3)) {
                 WorldAPI.setCom(ENUMS.BufferChannels.WORLD_ACTION_3, 0);
                 WorldAPI.getContoledPiecePosAndQuat(tempVec1, tempQuat);
-                tempVec1.y += 25;
+                tempVec1.y += 2625;
                 spawnCallPiece("PIECE_F14", tempVec1, tempQuat);
             }
 

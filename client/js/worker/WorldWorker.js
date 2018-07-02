@@ -8,6 +8,7 @@ var StaticWorldWorkerPort;
 importScripts(baseUrl+'client/js/ENUMS.js');
 importScripts(baseUrl+'client/js/MATH.js');
 importScripts(baseUrl+'client/js/lib/three.js');
+
 importScripts(baseUrl+'client/js/lib/three/OBJLoader.js');
 importScripts(baseUrl+'client/js/worker/terrain/ServerTerrain.js');
 importScripts(baseUrl+'client/js/lib/require.js');
@@ -52,15 +53,19 @@ require(
             WorldAPI.sendWorldMessage(ENUMS.Protocol.WORKER_READY, ENUMS.Worker.WORLD);
         };
 
-        WorldAPI.initWorkerCom();
 
-        WorldAPI.sendWorldMessage(ENUMS.Protocol.REQUEST_SHARED_WORKER, ENUMS.Worker.STATIC_WORLD);
-        WorldAPI.sendWorldMessage(ENUMS.Protocol.REQUEST_SHARED_WORKER, ENUMS.Worker.PHYSICS_WORLD);
+        var workersReady = function() {
+            setTimeout(function() {
+                WorldAPI.initWorld(onWorkerReady);
+            }, 0);
+        }
+
+        WorldAPI.initWorkerCom(workersReady);
+
+
     //    WorldAPI.sendWorldMessage(ENUMS.Protocol.REQUEST_SHARED_WORKER, ENUMS.Worker.CANVAS_WORKER);
 
-        setTimeout(function() {
-            WorldAPI.initWorld(onWorkerReady);
-        }, 0);
+
 
         onmessage = function(e) {
             WorldAPI.processRequest(e.data);
