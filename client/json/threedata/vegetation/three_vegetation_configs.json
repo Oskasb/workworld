@@ -5,17 +5,17 @@
 
         {
           "name":"small",
-          "vegetationSectorSize":65,
-          "rowsNColumns":7,
-          "spawnFrames":1,
-          "plantCount":6
-        },
-        {
-          "name":"big",
-          "vegetationSectorSize":56,
+          "vegetationSectorSize":125,
           "rowsNColumns":7,
           "spawnFrames":1,
           "plantCount":12
+        },
+        {
+          "name":"big",
+          "vegetationSectorSize":800,
+          "rowsNColumns":5,
+          "spawnFrames":1,
+          "plantCount":14
         }
       ],
 
@@ -25,16 +25,17 @@
           "data":[
             {
               "vegetation_effects":[
-                {"id":"red_flower_veg",     "slope":{"min":0.03,     "max":0.11} , "elevation":{"min":1,    "max":350}},
-                {"id":"white_flower_veg",   "slope":{"min":0.0,      "max":0.03} , "elevation":{"min":1,    "max":350}}
+                {"id":"red_flower_veg",     "slope":{"min":0.03,     "max":0.11} , "elevation":{"min":1,    "max":1850}},
+                {"id":"white_flower_veg",   "slope":{"min":0.0,      "max":0.03} , "elevation":{"min":1,    "max":1850}},
+                {"id":"standing_grass_veg", "slope":{"min":0,     "max":0.02},  "elevation":{"min":1,    "max":1450}},
+                {"id":"fuzzy_shrub_veg",    "slope":{"min":0,     "max":0.02},  "elevation":{"min":1,    "max":1450}},
+                {"id":"standing_fern_veg",  "slope":{"min":0.015, "max":0.09} , "elevation":{"min":1,    "max":1450}}
               ]
             },
             {
               "vegetation_effects":[
-                {"id":"standing_grass_veg", "slope":{"min":0,     "max":0.02},  "elevation":{"min":1,    "max":450}},
-                {"id":"standing_fern_veg",  "slope":{"min":0.015, "max":0.09} , "elevation":{"min":1,    "max":450}},
-                {"id":"big_shrub_veg",      "slope":{"min":0.01,      "max":0.19} , "elevation":{"min":-1,    "max":2}},
-                {"id":"big_fuzzy_shrub_veg","slope":{"min":0.01,      "max":0.19} , "elevation":{"min":-2,    "max":1}}
+                {"id":"big_shrub_veg",      "slope":{"min":-0.01,      "max":0.029} , "elevation":{"min":-1,    "max":1200}},
+                {"id":"big_fuzzy_shrub_veg","slope":{"min":-0.01,      "max":0.029} , "elevation":{"min":-2,    "max":1600}}
               ]
             }
           ]
